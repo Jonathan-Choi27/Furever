@@ -1,9 +1,16 @@
-import React, { Component } from "react";
-import { Button, TextInput, View, StyleSheet, Alert } from "react-native";
-import firebase from "firebase";
-import db from "./database/firebase";
+import React from "react";
+import { auth } from "./database/firebase";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Button,
+  TouchableOpacity,
+  ImageBackground,
+  TextInput,
+} from "react-native";
 
-export default class Login extends Component {
+export default class Login extends React.Component {
   state = {
     email: "",
     password: "",
@@ -12,8 +19,7 @@ export default class Login extends Component {
   onLogin() {
     const { email, password } = this.state;
 
-    firebase
-      .auth()
+    auth
       .signInWithEmailAndPassword(email, password)
       .then((user) => {
         this.props.navigation.navigate("Home");
@@ -39,43 +45,112 @@ export default class Login extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <TextInput
-          value={this.state.email}
-          onChangeText={(email) => this.setState({ email })}
-          placeholder={"Email"}
-          style={styles.input}
-        />
-        <TextInput
-          value={this.state.password}
-          onChangeText={(password) => this.setState({ password })}
-          placeholder={"Password"}
-          secureTextEntry={true}
-          style={styles.input}
-        />
+        <ImageBackground source={image} style={styles.image}>
+          <Text style={styles.heading}>WELCOME TO {"\n"} PET SEARCH!</Text>
 
-        <Button
-          title={"Login"}
-          style={styles.input}
-          onPress={this.onLogin.bind(this)}
-        />
+          <View style={styles.titleContainer}>
+            <View style={styles.rectangle}>
+              <Text style={styles.titles}>Email:</Text>
+              <TextInput
+                value={this.state.email}
+                onChangeText={(email) => this.setState({ email })}
+                style={styles.input}
+              />
+              <Text style={styles.titles}>Password:</Text>
+              <TextInput
+                value={this.state.password}
+                onChangeText={(password) => this.setState({ password })}
+                secureTextEntry={true}
+                style={styles.input}
+              />
+              <Text onPress={() => alert("Forgot password page here...")}>
+                Forgot Password?
+              </Text>
+              <View style={styles.buttonsContainer}>
+                <TouchableOpacity
+                  title={"Login"}
+                  style={styles.buttons}
+                  onPress={this.onLogin.bind(this)}
+                >
+                  <Text style={styles.buttonsText}>Login</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </View>
+        </ImageBackground>
       </View>
     );
   }
 }
 
+const image = {
+  uri:
+    "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fdog-2.jpg?alt=media&token=d2186c7b-ae4a-49ed-b826-bc1b3ec3450e",
+};
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  image: {
+    flex: 1,
+    justifyContent: "center",
+    left: 0,
+  },
+  titleContainer: {
+    flex: 1,
     alignItems: "center",
     justifyContent: "center",
+  },
+  heading: {
+    fontSize: 25,
+    fontWeight: "bold",
+    textShadowColor: "rgba(0, 0, 0, 0.3)",
+    textShadowOffset: { width: -1, height: 1 },
+    textShadowRadius: 10,
+    color: "#FFFFFF",
+    textAlign: "center",
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 50,
+  },
+  buttonsContainer: {
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 20,
+  },
+  buttons: {
     backgroundColor: "white",
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 10,
+    width: 100,
+    height: 40,
+  },
+  buttonsText: {
+    color: "#000000",
+    fontSize: 18,
+    fontWeight: "bold",
   },
   input: {
-    width: 200,
+    width: 250,
     height: 44,
     padding: 10,
     borderWidth: 1,
     borderColor: "black",
     marginBottom: 10,
+    backgroundColor: "white",
+  },
+  rectangle: {
+    width: 300,
+    height: 280,
+    backgroundColor: "#b8d9ff",
+    position: "absolute",
+    padding: 20,
+    zIndex: -1,
+  },
+  titles: {
+    fontSize: 18,
+    fontWeight: "bold",
   },
 });

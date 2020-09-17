@@ -4,6 +4,7 @@ import LandingPage from "./app/views/landingPage";
 import Login from "./app/views/login";
 import SignUp from "./app/views/signup";
 import Home from "./app/views/home";
+import HeaderLogo from "./app/views/HeaderLogo";
 
 import "react-native-gesture-handler";
 
@@ -16,10 +17,59 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Pet Search" component={LandingPage} />
-        <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="Sign Up" component={SignUp} />
-        <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen
+          name="Pet Search"
+          component={LandingPage}
+          options={{
+            title: "Pet Search",
+            headerStyle: {
+              backgroundColor: "#447ECB",
+            },
+            headerTitle: <HeaderLogo />,
+            headerTitleStyle: { alignSelf: "center" },
+          }}
+        />
+
+        <Stack.Screen
+          name="Login"
+          component={Login}
+          options={{
+            title: "Login",
+            headerStyle: {
+              backgroundColor: "#447ECB",
+            },
+            headerTitle: <HeaderLogo />,
+            headerTitleStyle: { alignSelf: "center" },
+            headerTitleContainerStyle: { left: 0, right: 0 },
+          }}
+        />
+        <Stack.Screen
+          name="Sign Up"
+          component={SignUp}
+          options={{
+            title: "Sign Up",
+            headerStyle: {
+              backgroundColor: "#447ECB",
+            },
+            headerTitle: <HeaderLogo />,
+            headerTitleStyle: { alignSelf: "center" },
+            headerTitleContainerStyle: { left: 0, right: 0 },
+          }}
+        />
+        <Stack.Screen
+          name="Home"
+          name="Home"
+          component={Home}
+          options={{
+            title: "Home",
+            headerStyle: {
+              backgroundColor: "#447ECB",
+            },
+            headerTitle: <HeaderLogo />,
+            headerTitleStyle: { alignSelf: "center" },
+            headerTitleContainerStyle: { left: 0, right: 0 },
+          }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
