@@ -1,5 +1,5 @@
 import * as React from "react";
-import { View, Text } from "react-native";
+import { View, Text, Image } from "react-native";
 import LandingPage from "./app/views/landingPage";
 import Login from "./app/views/login";
 import SignUp from "./app/views/signup";
@@ -27,6 +27,12 @@ export default function App() {
             },
             headerTitle: <HeaderLogo />,
             headerTitleStyle: { alignSelf: "center" },
+            // headerBackground: (
+            //   <Image source={{
+            //     uri:
+            //       "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fpet-search-logo.png?alt=media&token=7b2f7152-027f-4b71-986d-35af8aac12b3",
+          //     }} />
+          //   )
           }}
         />
 

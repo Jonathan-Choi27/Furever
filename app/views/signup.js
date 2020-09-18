@@ -9,8 +9,11 @@ import {
   Button,
   Alert,
   Platform,
+  ScrollView,
+  SafeAreaView
 } from "react-native";
 import { CheckBox } from "react-native-elements";
+import Constants from 'expo-constants';
 
 import firebase from "firebase";
 
@@ -80,8 +83,10 @@ export default class SignUp extends React.Component {
 
   render() {
     return (
-      <View style={styles.container}>
+      <SafeAreaView style={styles.container}>
         <ImageBackground source={image} style={styles.image}>
+
+      <ScrollView style={styles.scrollView}>
           <Text style={styles.heading}>WELCOME TO {"\n"} PET SEARCH!</Text>
 
           <View style={styles.titleContainer}>
@@ -137,8 +142,11 @@ export default class SignUp extends React.Component {
               </View>
             </View>
           </View>
-        </ImageBackground>
-      </View>
+      </ScrollView>
+      </ImageBackground>
+
+      </SafeAreaView>
+
     );
   }
 }
@@ -151,11 +159,22 @@ const image = {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    // marginTop: Constants.statusBarHeight,
+
+  },
+
+  scrollView: {
+    flex: 1,
   },
   image: {
+    // flex: 1,
+    // justifyContent: "center",
+    // left: 0,
     flex: 1,
+    resizeMode: "cover",
     justifyContent: "center",
-    left: 0,
+    position: "relative"
+
   },
   titleContainer: {
     flex: 1,
@@ -173,6 +192,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     marginTop: 50,
+    flex:1
   },
   buttonsContainer: {
     alignItems: "center",
@@ -203,11 +223,12 @@ const styles = StyleSheet.create({
   },
   rectangle: {
     width: 300,
-    height: 530,
+    height: 550,
     backgroundColor: "#b8d9ff",
-    position: "absolute",
+    position: "relative",
     padding: 20,
-    zIndex: -1,
+    zIndex: 1,
+    margin: 20
   },
   titles: {
     fontSize: 18,

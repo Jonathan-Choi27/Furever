@@ -147,7 +147,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#b8d9ff",
     position: "absolute",
     padding: 20,
-    zIndex: -1,
+    zIndex: 1,
   },
   titles: {
     fontSize: 18,
