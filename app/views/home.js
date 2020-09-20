@@ -64,7 +64,7 @@ function MyTabs() {
         options={{
           tabBarLabel: "Home",
           tabBarIcon: ({ black }) => (
-            <Icon name={"home"} size={25} color={black} />
+            <Icon name={"home"} size={22} color={black} />
           ),
         }}
       />
@@ -74,7 +74,7 @@ function MyTabs() {
         options={{
           tabBarLabel: "Pet",
           tabBarIcon: ({ black }) => (
-            <Icon name={"paw"} size={25} color={black} />
+            <Icon name={"paw"} size={22} color={black} />
           ),
         }}
       />
@@ -84,7 +84,7 @@ function MyTabs() {
         options={{
           tabBarLabel: "Shop",
           tabBarIcon: ({ black }) => (
-            <Icon name={"shopping-basket"} size={25} color={black} />
+            <Icon name={"shopping-basket"} size={22} color={black} />
           ),
         }}
       />
@@ -94,7 +94,7 @@ function MyTabs() {
         options={{
           tabBarLabel: "Settings",
           tabBarIcon: ({ black }) => (
-            <Icon name={"cog"} size={25} color={black} />
+            <Icon name={"cog"} size={22} color={black} />
           ),
         }}
       />
