@@ -10,10 +10,10 @@ import {
   Alert,
   Platform,
   ScrollView,
-  SafeAreaView
+  SafeAreaView,
 } from "react-native";
 import { CheckBox } from "react-native-elements";
-import Constants from 'expo-constants';
+import Constants from "expo-constants";
 
 import firebase from "firebase";
 
@@ -51,7 +51,7 @@ export default class SignUp extends React.Component {
     } else {
       firebase
         .auth()
-        .createUserWithEmailAndPassword(email, password)
+        .WithEmailAndPassword(email, password)
         .then((user) => {
           alert(`Welcome ${this.state.name}, to Pet Search!`);
           this.props.navigation.navigate("Home");
@@ -85,68 +85,65 @@ export default class SignUp extends React.Component {
     return (
       <SafeAreaView style={styles.container}>
         <ImageBackground source={image} style={styles.image}>
+          <ScrollView style={styles.scrollView}>
+            <Text style={styles.heading}>WELCOME TO {"\n"} PET SEARCH!</Text>
 
-      <ScrollView style={styles.scrollView}>
-          <Text style={styles.heading}>WELCOME TO {"\n"} PET SEARCH!</Text>
+            <View style={styles.titleContainer}>
+              <View style={styles.rectangle}>
+                <Text style={styles.titles}>Name:</Text>
 
-          <View style={styles.titleContainer}>
-            <View style={styles.rectangle}>
-              <Text style={styles.titles}>Name:</Text>
+                <TextInput
+                  onChangeText={(name) => this.setState({ name })}
+                  style={styles.input}
+                />
+                <Text style={styles.titles}>Date of Birth:</Text>
 
-              <TextInput
-                onChangeText={(name) => this.setState({ name })}
-                style={styles.input}
-              />
-              <Text style={styles.titles}>Date of Birth:</Text>
+                <TextInput
+                  onChangeText={(dob) => this.setState({ dob })}
+                  style={styles.input}
+                />
+                <Text style={styles.titles}>Email:</Text>
 
-              <TextInput
-                onChangeText={(dob) => this.setState({ dob })}
-                style={styles.input}
-              />
-              <Text style={styles.titles}>Email:</Text>
+                <TextInput
+                  onChangeText={(email) => this.setState({ email })}
+                  style={styles.input}
+                />
+                <Text style={styles.titles}>Password:</Text>
 
-              <TextInput
-                onChangeText={(email) => this.setState({ email })}
-                style={styles.input}
-              />
-              <Text style={styles.titles}>Password:</Text>
+                <TextInput
+                  onChangeText={(password) => this.setState({ password })}
+                  secureTextEntry={true}
+                  style={styles.input}
+                />
+                <Text style={styles.titles}>Confirm Password:</Text>
 
-              <TextInput
-                onChangeText={(password) => this.setState({ password })}
-                secureTextEntry={true}
-                style={styles.input}
-              />
-              <Text style={styles.titles}>Confirm Password:</Text>
+                <TextInput
+                  onChangeText={(confirmPassword) =>
+                    this.setState({ confirmPassword })
+                  }
+                  secureTextEntry={true}
+                  style={styles.input}
+                />
 
-              <TextInput
-                onChangeText={(confirmPassword) =>
-                  this.setState({ confirmPassword })
-                }
-                secureTextEntry={true}
-                style={styles.input}
-              />
+                <CheckBox
+                  title="Are you a Pet Shop?"
+                  checked={this.state.checked}
+                />
 
-              <CheckBox
-                title="Are you a Pet Shop?"
-                checked={this.state.checked}
-              />
-
-              <View style={styles.buttonsContainer}>
-                <TouchableOpacity
-                  title={"Sign Up"}
-                  style={styles.buttons}
-                  onPress={this.submit}
-                >
-                  <Text style={styles.buttonsText}>Sign Up</Text>
-                </TouchableOpacity>
+                <View style={styles.buttonsContainer}>
+                  <TouchableOpacity
+                    title={"Sign Up"}
+                    style={styles.buttons}
+                    onPress={this.submit}
+                  >
+                    <Text style={styles.buttonsText}>Sign Up</Text>
+                  </TouchableOpacity>
+                </View>
               </View>
             </View>
-          </View>
-      </ScrollView>
-      </ImageBackground>
-
+          </ScrollView>
+        </ImageBackground>
       </SafeAreaView>
-
     );
   }
 }
@@ -160,7 +157,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     // marginTop: Constants.statusBarHeight,
-
   },
 
   scrollView: {
@@ -173,8 +169,7 @@ const styles = StyleSheet.create({
     flex: 1,
     resizeMode: "cover",
     justifyContent: "center",
-    position: "relative"
-
+    position: "relative",
   },
   titleContainer: {
     flex: 1,
@@ -192,7 +187,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     marginTop: 50,
-    flex:1
+    flex: 1,
   },
   buttonsContainer: {
     alignItems: "center",
@@ -228,7 +223,7 @@ const styles = StyleSheet.create({
     position: "relative",
     padding: 20,
     zIndex: 1,
-    margin: 20
+    margin: 20,
   },
   titles: {
     fontSize: 18,

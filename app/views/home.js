@@ -1,7 +1,9 @@
 import * as React from "react";
+// import PetScreenComponent from "./app/view/PetScreenComponent.js";
 import { Text, View, StyleSheet } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Icon from "react-native-vector-icons/FontAwesome";
+import PetScreenComponent from "./PetScreenComponent";
 
 export default class LandingPage extends React.Component {
   render() {
@@ -27,7 +29,7 @@ function HomeScreen() {
 function PetScreen() {
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>Pet Screen!</Text>
+      <PetScreenComponent />
     </View>
   );
 }
