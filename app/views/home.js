@@ -2,6 +2,8 @@ import * as React from "react";
 import { Text, View, StyleSheet } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Icon from "react-native-vector-icons/FontAwesome";
+import Pet from "./pet";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 export default class LandingPage extends React.Component {
   render() {
@@ -24,13 +26,11 @@ function HomeScreen() {
   );
 }
 
-function PetScreen() {
-  return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>Pet Screen!</Text>
-    </View>
-  );
-}
+// function PetScreen() {
+//   return (
+//           {Pet}
+//   );
+// }
 
 function ShopScreen() {
   return (
@@ -70,7 +70,7 @@ function MyTabs() {
       />
       <Tab.Screen
         name="Pet"
-        component={PetScreen}
+        component={Pet}
         options={{
           tabBarLabel: "Pet",
           tabBarIcon: ({ black }) => (

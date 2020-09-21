@@ -104,6 +104,7 @@ export default function App() {
             headerTitleContainerStyle: { left: 0, right: 0 },
           }}
         />
+        
       </Stack.Navigator>
     </NavigationContainer>
   );
