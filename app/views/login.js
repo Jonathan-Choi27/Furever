@@ -26,7 +26,6 @@ export default class Login extends React.Component {
         if (user.emailVerified) {
           this.props.navigation.navigate("Home");
         } else {
-          this.props.navigation.navigate("Home"); ///////////////////////////////////////////////////////////////////////////////////////////////////
           alert("Email address is not verified.");
         }
       })
