@@ -21,7 +21,7 @@ export default class PetScreenComponent extends React.Component {
     gender: "",
     location: "",
     behaviour: "",
-    etc: "",
+    health: "",
     training: "",
     additionalInfo: "",
     photo: "",
@@ -38,23 +38,28 @@ export default class PetScreenComponent extends React.Component {
       gender,
       location,
       behaviour,
-      etc,
+      health,
       training,
       additionalInfo,
       photo,
       documents,
     } = this.state;
 
-    // gdb.ref("/name").push({
-    //   name: this.state.name,
-    // });
-    // gdb.ref("/category").push({
-    //   category: this.state.category,
-    // });
-
-    db.collection("users").add({
-        name: this.state.name
-    })
+    db.collection("pet-sell-list").add({
+      name: this.state.name,
+      category: this.state.category,
+      breed: this.state.breed,
+      colour: this.state.colour,
+      age: this.state.age,
+      gender: this.state.gender,
+      behaviour: this.state.behaviour,
+      health: this.state.health,
+      training: this.state.training
+      // to implement
+    //   location
+    //   photo
+    //   documents
+    });
   };
 
   render() {
@@ -127,44 +132,51 @@ export default class PetScreenComponent extends React.Component {
 
               <Text style={styles.titles}>Behaviour:</Text>
               <TextInput
-                onChangeText={(behaviour) => this.setState({ confirmPassword })}
+                onChangeText={(behaviour) => this.setState({ behaviour })}
+                multiline
+                numberOfLines={4}
                 secureTextEntry={true}
-                style={styles.input}
+                style={styles.biginput}
               />
 
               <Text style={styles.titles}>Care,Health and Feeding:</Text>
               <TextInput
-                onChangeText={(etc) => this.setState({ confirmPassword })}
+                onChangeText={(heatlh) => this.setState({ health })}
+                multiline
+                numberOfLines={4}
                 secureTextEntry={true}
-                style={styles.input}
+                style={styles.biginput}
               />
 
               <Text style={styles.titles}>Training:</Text>
               <TextInput
-                onChangeText={(training) => this.setState({ confirmPassword })}
+                onChangeText={(training) => this.setState({ training })}
+                multiline
+                numberOfLines={4}
                 secureTextEntry={true}
-                style={styles.input}
+                style={styles.biginput}
               />
 
               <Text style={styles.titles}>Additional Information:</Text>
               <TextInput
                 onChangeText={(additionalInfo) =>
-                  this.setState({ confirmPassword })
-                }
+                  this.setState({ additionalInfo })}
+                multiline
+                numberOfLines={4}
                 secureTextEntry={true}
-                style={styles.input}
+                style={styles.biginput}
               />
 
               <Text style={styles.titles}>Upload a photo</Text>
               <TextInput
-                onChangeText={(photo) => this.setState({ confirmPassword })}
+                onChangeText={(photo) => this.setState({ photo })}
                 secureTextEntry={true}
                 style={styles.input}
               />
 
               <Text style={styles.titles}>Upload Documents:</Text>
               <TextInput
-                onChangeText={(documents) => this.setState({ confirmPassword })}
+                onChangeText={(documents) => this.setState({ documents })}
                 secureTextEntry={true}
                 style={styles.input}
               />
@@ -207,6 +219,15 @@ const styles = StyleSheet.create({
   input: {
     width: 250,
     height: 44,
+    padding: 10,
+    borderWidth: 1,
+    borderColor: "black",
+    marginBottom: 10,
+    backgroundColor: "white",
+  },
+  biginput: {
+    width: 250,
+    // height: 44,
     padding: 10,
     borderWidth: 1,
     borderColor: "black",
