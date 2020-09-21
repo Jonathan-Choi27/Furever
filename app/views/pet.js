@@ -34,7 +34,7 @@ export default function Pet () {
                                         alignSelf: 'stretch',
                                         textAlign: 'center',
                                         flex: 1,
-                                        // width: 300,
+                                        // width: 30    0,
                                         height: 50
                                         }}>
                     <Text style={{textAlign: 'center'}}>Sell</Text>

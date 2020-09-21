@@ -1,9 +1,10 @@
-import * as React from "react";
-import { Text, View, StyleSheet } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import * as React from "react";
+import { StyleSheet, Text, View } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import Pet from "./pet";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import PetScreenComponent from "./petScreen";
 
 export default class LandingPage extends React.Component {
   render() {
