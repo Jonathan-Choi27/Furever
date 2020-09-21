@@ -13,7 +13,6 @@ const config = {
 };
 
 firebase.initializeApp(config);
-
 const auth = firebase.auth();
 const db = firebase.firestore();
 export { auth, db };

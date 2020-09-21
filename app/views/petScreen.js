@@ -69,18 +69,20 @@ export default class PetScreenComponent extends React.Component {
       <SafeAreaView style={styles.container}>
         <ScrollView style={styles.scrollView}>
           <Text style={styles.heading}>New Pet Listing Application</Text>
-          <Text>
-            <Text style={styles.titles}>General Information </Text>
-            <Text style={styles.setColorRed}>*</Text>
-          </Text>
           <View style={styles.titleContainer}>
             <View style={styles.rectangle}>
-              <Text style={styles.titles}>Name:</Text>
+              <Text>
+                <Text style={styles.titles}>Name:</Text>
+                <Text style={styles.setColorRed}> *</Text>
+              </Text>
               <TextInput
                 onChangeText={(name) => this.setState({ name })}
                 style={styles.input}
               />
-              <Text style={styles.titles}>Category:</Text>
+              <Text>
+                <Text style={styles.titles}>Category:</Text>
+                <Text style={styles.setColorRed}> *</Text>
+              </Text>
               <Picker
                 selectedValue={"Category"}
                 style={styles.picker}
@@ -93,28 +95,39 @@ export default class PetScreenComponent extends React.Component {
                 <Picker.Item label="Fish" value="fish" />
                 <Picker.Item label="Exotic" value="exotic" />
               </Picker>
-
-              <Text style={styles.titles}>Animal Breed:</Text>
+              <Text>
+                <Text style={styles.titles}>Animal Breed:</Text>
+                <Text style={styles.setColorRed}> *</Text>
+              </Text>
               <TextInput
                 onChangeText={(breed) => this.setState({ breed })}
                 style={styles.input}
               />
 
-              <Text style={styles.titles}>Colour:</Text>
+              <Text>
+                <Text style={styles.titles}>Colour:</Text>
+                <Text style={styles.setColorRed}> *</Text>
+              </Text>
               <TextInput
                 onChangeText={(colour) => this.setState({ colour })}
                 secureTextEntry={true}
                 style={styles.input}
               />
 
-              <Text style={styles.titles}>Age:</Text>
+              <Text>
+                <Text style={styles.titles}>Age:</Text>
+                <Text style={styles.setColorRed}> *</Text>
+              </Text>
               <TextInput
                 onChangeText={(age) => this.setState({ age })}
                 secureTextEntry={true}
                 style={styles.input}
               />
 
-              <Text style={styles.titles}>Gender:</Text>
+              <Text>
+                <Text style={styles.titles}>Gender:</Text>
+                <Text style={styles.setColorRed}> *</Text>
+              </Text>
               <Picker
                 style={styles.picker}
                 onValueChange={(gender) => this.setState({ gender })}
@@ -123,8 +136,10 @@ export default class PetScreenComponent extends React.Component {
                 <Picker.Item label="Female" value="female" />
                 <Picker.Item label="Other" value="other" />
               </Picker>
-
-              <Text style={styles.titles}>Location:</Text>
+              <Text>
+                <Text style={styles.titles}>Location:</Text>
+                <Text style={styles.setColorRed}> *</Text>
+              </Text>
               <TextInput
                 onChangeText={(location) => this.setState({ location })}
                 secureTextEntry={true}
@@ -140,7 +155,7 @@ export default class PetScreenComponent extends React.Component {
                 style={styles.biginput}
               />
 
-              <Text style={styles.titles}>Care,Health and Feeding:</Text>
+              <Text style={styles.titles}>Care, Health and Feeding:</Text>
               <TextInput
                 onChangeText={(heatlh) => this.setState({ health })}
                 multiline
@@ -228,7 +243,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
   },
   input: {
-    width: 350,
+    width: 330,
     height: 44,
     padding: 10,
     borderWidth: 1,
