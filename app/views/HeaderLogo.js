@@ -1,12 +1,9 @@
 import React, { Component } from "react";
-
-import { View, Image, Header } from "react-native";
-import Logo from "../../images/pet-search-logo.png";
+import { Image } from "react-native";
 
 export default class HeaderLogo extends Component {
   render() {
     return (
-      // <View>
         <Image
           source={{
             uri:
@@ -18,7 +15,6 @@ export default class HeaderLogo extends Component {
             height: 100,
           }}
         />      
-      // </View>
     );
   }
 }

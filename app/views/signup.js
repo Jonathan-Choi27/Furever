@@ -16,6 +16,7 @@ import { CheckBox } from "react-native-elements";
 import Constants from "expo-constants";
 
 import firebase from "firebase";
+import { CurrentRenderContext } from "@react-navigation/native";
 
 export default class SignUp extends React.Component {
   state = {
@@ -44,17 +45,32 @@ export default class SignUp extends React.Component {
       password == "" ||
       email == "" ||
       name == "" ||
-      confirmPassword == ""
+      confirmPassword == "" ||
+      password != confirmPassword ||
+      !/^([0-2][0-9]|(3)[0-1])(\/)(((0)[0-9])|((1)[0-2]))(\/)\d{4}$/i.test(dob)
     ) {
-      alert("All input fields required.");
+      alert("All input fields required and must be valid.");
       return false;
     } else {
       firebase
         .auth()
-        .WithEmailAndPassword(email, password)
-        .then((user) => {
-          alert(`Welcome ${this.state.name}, to Pet Search!`);
-          this.props.navigation.navigate("Home");
+        .createUserWithEmailAndPassword(email, password)
+        .then((e) => {
+          const user = firebase.auth().currentUser;
+          user
+            .updateProfile({
+              displayName: name,
+            })
+            .then((e) => {
+              user.sendEmailVerification();
+              alert(
+                `An email has been sent, please verify your account at ${email}`
+              );
+              this.props.navigation.navigate("Login");
+            })
+            .catch((error) => {
+              console.error(error);
+            });
         })
         .catch((error) => {
           switch (error.code) {
@@ -75,10 +91,6 @@ export default class SignUp extends React.Component {
           }
         });
     }
-
-    if (password != confirmPassword) {
-      alert("Confirm password is invalid.");
-    }
   };
 
   render() {
@@ -94,12 +106,14 @@ export default class SignUp extends React.Component {
 
                 <TextInput
                   onChangeText={(name) => this.setState({ name })}
+                  placeholder={"First name, last name..."}
                   style={styles.input}
                 />
                 <Text style={styles.titles}>Date of Birth:</Text>
 
                 <TextInput
                   onChangeText={(dob) => this.setState({ dob })}
+                  placeholder={"dd/mm/yyyy"}
                   style={styles.input}
                 />
                 <Text style={styles.titles}>Email:</Text>

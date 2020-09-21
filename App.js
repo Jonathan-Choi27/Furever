@@ -5,11 +5,13 @@ import Login from "./app/views/login";
 import SignUp from "./app/views/signup";
 import Home from "./app/views/home";
 import HeaderLogo from "./app/views/HeaderLogo";
+import PasswordRecoveryPage from "./app/views/passwordRecoveryPage";
 
 import "react-native-gesture-handler";
 
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
+import { Dimensions, Platform } from "react-native";
 
 const Stack = createStackNavigator();
 
@@ -26,13 +28,11 @@ export default function App() {
               backgroundColor: "#447ECB",
             },
             headerTitle: <HeaderLogo />,
-            headerTitleStyle: { alignSelf: "center" },
-            // headerBackground: (
-            //   <Image source={{
-            //     uri:
-            //       "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fpet-search-logo.png?alt=media&token=7b2f7152-027f-4b71-986d-35af8aac12b3",
-            //     }} />
-            //   )
+            headerTitleStyle: {
+              alignSelf: "center",
+              flex: 1,
+              paddingBottom: Platform.OS === "web" ? 0 : 85,
+            },
           }}
         />
 
@@ -45,7 +45,11 @@ export default function App() {
               backgroundColor: "#447ECB",
             },
             headerTitle: <HeaderLogo />,
-            headerTitleStyle: { alignSelf: "center" },
+            headerTitleStyle: {
+              alignSelf: "center",
+              flex: 1,
+              paddingBottom: Platform.OS === "web" ? 0 : 85,
+            },
             headerTitleContainerStyle: { left: 0, right: 0 },
           }}
         />
@@ -58,12 +62,15 @@ export default function App() {
               backgroundColor: "#447ECB",
             },
             headerTitle: <HeaderLogo />,
-            headerTitleStyle: { alignSelf: "center" },
+            headerTitleStyle: {
+              alignSelf: "center",
+              flex: 1,
+              paddingBottom: Platform.OS === "web" ? 0 : 85,
+            },
             headerTitleContainerStyle: { left: 0, right: 0 },
           }}
         />
         <Stack.Screen
-          name="Home"
           name="Home"
           component={Home}
           options={{
@@ -72,7 +79,28 @@ export default function App() {
               backgroundColor: "#447ECB",
             },
             headerTitle: <HeaderLogo />,
-            headerTitleStyle: { alignSelf: "center" },
+            headerTitleStyle: {
+              alignSelf: "center",
+              flex: 1,
+              paddingBottom: Platform.OS === "web" ? 0 : 85,
+            },
+            headerTitleContainerStyle: { left: 0, right: 0 },
+          }}
+        />
+        <Stack.Screen
+          name="Forgot Password"
+          component={PasswordRecoveryPage}
+          options={{
+            title: "Forgot Password",
+            headerStyle: {
+              backgroundColor: "#447ECB",
+            },
+            headerTitle: <HeaderLogo />,
+            headerTitleStyle: {
+              alignSelf: "center",
+              flex: 1,
+              paddingBottom: Platform.OS === "web" ? 0 : 85,
+            },
             headerTitleContainerStyle: { left: 0, right: 0 },
           }}
         />

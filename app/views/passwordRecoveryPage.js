@@ -10,23 +10,23 @@ import {
   TextInput,
 } from "react-native";
 
-export default class Login extends React.Component {
+export default class PasswordRecoveryPage extends React.Component {
   state = {
     email: "",
-    password: "",
   };
 
-  onLogin() {
-    const { email, password } = this.state;
-
+  onPasswordRecovery(email) {
     auth
-      .signInWithEmailAndPassword(email, password)
-      .then((e) => {
-        const user = auth.currentUser;
-        if (user.emailVerified) {
-          this.props.navigation.navigate("Home");
+      .fetchSignInMethodsForEmail(email)
+      .then((signInMethod) => {
+        if (signInMethod.length) {
+          auth.sendPasswordResetEmail(email).then((sentEmail) => {
+            alert(
+              `An email has been sent, please reset your account password at ${email}`
+            );
+          });
         } else {
-          alert("Email address is not verified.");
+          alert("Email address is invalid.");
         }
       })
       .catch((err) => {
@@ -34,27 +34,7 @@ export default class Login extends React.Component {
           case "auth/invalid-email":
             alert("Email address is invalid.");
             break;
-          case "auth/user-disabled":
-            alert("User is disabled.");
-            break;
-          case "auth/user-not-found":
-            alert("User is not found.");
-            break;
-          case "auth/wrong-password":
-            alert("Password is invalid.");
-            break;
         }
-      });
-  }
-
-  onForgotPassword(email) {
-    auth
-      .sendPasswordResetEmail(email)
-      .then((e) => {
-        alert(`A password reset email has been sent to ${email}`);
-      })
-      .catch((error) => {
-        console.error(error);
       });
   }
 
@@ -63,7 +43,6 @@ export default class Login extends React.Component {
       <View style={styles.container}>
         <ImageBackground source={image} style={styles.image}>
           <Text style={styles.heading}>WELCOME TO {"\n"} PET SEARCH!</Text>
-
           <View style={styles.titleContainer}>
             <View style={styles.rectangle}>
               <Text style={styles.titles}>Email:</Text>
@@ -72,27 +51,12 @@ export default class Login extends React.Component {
                 onChangeText={(email) => this.setState({ email })}
                 style={styles.input}
               />
-              <Text style={styles.titles}>Password:</Text>
-              <TextInput
-                value={this.state.password}
-                onChangeText={(password) => this.setState({ password })}
-                secureTextEntry={true}
-                style={styles.input}
-              />
-              <Text
-                onPress={() =>
-                  this.props.navigation.navigate("Forgot Password")
-                }
-              >
-                Forgot Password?
-              </Text>
               <View style={styles.buttonsContainer}>
                 <TouchableOpacity
-                  title={"Login"}
                   style={styles.buttons}
-                  onPress={this.onLogin.bind(this)}
+                  onPress={() => this.onPasswordRecovery(this.state.email)}
                 >
-                  <Text style={styles.buttonsText}>Login</Text>
+                  <Text style={styles.buttonsText}>Send Recovery Email</Text>
                 </TouchableOpacity>
               </View>
             </View>
@@ -105,7 +69,7 @@ export default class Login extends React.Component {
 
 const image = {
   uri:
-    "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fdog-2.jpg?alt=media&token=d2186c7b-ae4a-49ed-b826-bc1b3ec3450e",
+    "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fdog-1.jpg?alt=media&token=837ad9b6-e404-4e37-861b-707e97178072",
 };
 
 const styles = StyleSheet.create({
@@ -144,7 +108,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 10,
-    width: 100,
+    width: 200,
     height: 40,
   },
   buttonsText: {
@@ -163,7 +127,7 @@ const styles = StyleSheet.create({
   },
   rectangle: {
     width: 300,
-    height: 280,
+    height: 180,
     backgroundColor: "#b8d9ff",
     position: "absolute",
     padding: 20,

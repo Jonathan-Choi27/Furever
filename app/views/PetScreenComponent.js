@@ -148,7 +148,6 @@ export default class PetScreenComponent extends React.Component {
                 <TouchableOpacity
                   title={"submit"}
                   style={styles.buttons}
-                  color="#447ECB"
                   onPress={this.handleSubmit}
                 >
                   <Text style={styles.buttonsText}>Submit</Text>
@@ -192,5 +191,23 @@ const styles = StyleSheet.create({
   picker: {
     height: 44,
     width: 250,
+  },
+  buttonsContainer: {
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 20,
+  },
+  buttons: {
+    backgroundColor: "447ECB",
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 10,
+    width: 100,
+    height: 40,
+  },
+  buttonsText: {
+    color: "#000000",
+    fontSize: 18,
+    fontWeight: "bold",
   },
 });
