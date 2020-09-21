@@ -22,6 +22,7 @@ export default class PetScreenComponent extends React.Component {
     age: "",
     gender: "",
     location: "",
+    price: "",
     behaviour: "",
     health: "",
     training: "",
@@ -39,6 +40,7 @@ export default class PetScreenComponent extends React.Component {
       age,
       gender,
       location,
+      price,
       behaviour,
       health,
       training,
@@ -61,6 +63,7 @@ export default class PetScreenComponent extends React.Component {
       //   location
       //   photo
       //   documents
+      //   price
     });
   };
 
@@ -136,6 +139,7 @@ export default class PetScreenComponent extends React.Component {
                 <Picker.Item label="Female" value="female" />
                 <Picker.Item label="Other" value="other" />
               </Picker>
+
               <Text>
                 <Text style={styles.titles}>Location:</Text>
                 <Text style={styles.setColorRed}> *</Text>
@@ -144,6 +148,22 @@ export default class PetScreenComponent extends React.Component {
                 onChangeText={(location) => this.setState({ location })}
                 secureTextEntry={true}
                 style={styles.input}
+              />
+
+              <Text>
+                <Text style={styles.titles}>Price:</Text>
+                <Text style={styles.setColorRed}> *</Text>
+              </Text>
+              <TextInput
+                onChangeText={(price) => this.setState({ price })}
+                secureTextEntry={true}
+                width={100}
+                backgroundColor="white"
+                height={44}
+                padding={10}
+                borderWidth={1}
+                borderColor="black"
+                marginBottom={10}
               />
 
               <Text style={styles.titles}>Behaviour:</Text>
@@ -262,8 +282,7 @@ const styles = StyleSheet.create({
   },
   picker: {
     height: 44,
-    width: 250,
-    // backgroundColor: "blue",
+    width: 100,
   },
   buttonsContainer: {
     alignItems: "center",
