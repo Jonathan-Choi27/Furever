@@ -2,7 +2,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import * as React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
-import PetScreenComponent from "./petScreen";
+import PetScreenComponent from "./pet_tab/petScreen";
 
 export default class LandingPage extends React.Component {
   render() {
