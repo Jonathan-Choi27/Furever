@@ -12,6 +12,7 @@ import "react-native-gesture-handler";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { Dimensions, Platform } from "react-native";
+import SellApplicationComponent from "./app/views/pet_tab/sellApplication";
 
 const Stack = createStackNavigator();
 
@@ -103,6 +104,10 @@ export default function App() {
             },
             headerTitleContainerStyle: { left: 0, right: 0 },
           }}
+        />
+        <Stack.Screen
+          name="Sell Application"
+          component={SellApplicationComponent}
         />
       </Stack.Navigator>
     </NavigationContainer>
