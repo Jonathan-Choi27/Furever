@@ -38,7 +38,7 @@ export default class LandingPage extends React.Component {
 
 const image = {
   uri:
-    "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fdog-1.jpg?alt=media&token=837ad9b6-e404-4e37-861b-707e97178072",
+    "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fdog-2.jpg?alt=media&token=d2186c7b-ae4a-49ed-b826-bc1b3ec3450e",
 };
 
 const styles = StyleSheet.create({
