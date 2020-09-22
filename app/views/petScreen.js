@@ -9,9 +9,17 @@ import {
   TextInput,
   TouchableOpacity,
   View,
+  Button,
 } from "react-native";
 import { color } from "react-native-reanimated";
+// import DocumentUploader from "./components/DocumentUploader";
+// import PhotoUploader from "./components/PhotoUploader";
 import { db } from "./database/firebase";
+// import getImageUri from "./components/ImageUpload/OpenImagePicker";
+// import uploadPhoto from "./components/ImageUpload/UploadPhoto";
+import uuid from "react-native-uuid";
+import {openDocumentPicker, uploadDocument }from "./components/DocumentUpload";
+import {openImagePicker, uploadPhoto} from "./components/ImageUpload"
 
 export default class PetScreenComponent extends React.Component {
   state = {
@@ -29,6 +37,8 @@ export default class PetScreenComponent extends React.Component {
     additionalInfo: "",
     photo: "",
     documents: "",
+    photo_uri: "",
+    documents_uri: ""
   };
 
   handleSubmit = () => {
@@ -47,7 +57,20 @@ export default class PetScreenComponent extends React.Component {
       additionalInfo,
       photo,
       documents,
+      photo_uri,
+      documents_uri
     } = this.state;
+
+    // this.setState({
+    //   photo: uuid.v4(),
+    //   documents: uuid.v4(),
+    // });
+
+    console.log("photo uuid:" + this.state.photo);
+
+    uploadPhoto(this.state.photo_uri, this.state.photo);
+    uploadDocument(this.state.documents_uri, this.state.documents)
+    
 
     db.collection("pet-sell-list").add({
       name: this.state.name,
@@ -59,12 +82,35 @@ export default class PetScreenComponent extends React.Component {
       behaviour: this.state.behaviour,
       health: this.state.health,
       training: this.state.training,
+      photo: this.state.photo,
+      documents: this.state.documents
       // to implement
       //   location
       //   photo
       //   documents
       //   price
     });
+  };
+
+  setPhotoUri = async () => {
+    const test = await openImagePicker();
+
+    console.log(test);
+    this.setState({
+      photo: uuid.v4(),
+      photo_uri: test,
+    });
+
+    //   console.log(test);
+  };
+
+  setDocumentUri = async () => {
+      const test = await openDocumentPicker();
+
+      this.setState({
+          documents: uuid.v4(),
+          documents_uri: test
+      });
   };
 
   render() {
@@ -89,8 +135,7 @@ export default class PetScreenComponent extends React.Component {
               <Picker
                 selectedValue={"Category"}
                 style={styles.picker}
-                onValueChange={(category) => this.setState({ category })}
-              >
+                onValueChange={(category) => this.setState({ category })}>
                 <Picker.Item label="Dog" value="dog" />
                 <Picker.Item label="Cat" value="cat" />
                 <Picker.Item label="Bird" value="bird" />
@@ -133,8 +178,7 @@ export default class PetScreenComponent extends React.Component {
               </Text>
               <Picker
                 style={styles.picker}
-                onValueChange={(gender) => this.setState({ gender })}
-              >
+                onValueChange={(gender) => this.setState({ gender })}>
                 <Picker.Item label="Male" value="male" />
                 <Picker.Item label="Female" value="female" />
                 <Picker.Item label="Other" value="other" />
@@ -205,25 +249,21 @@ export default class PetScreenComponent extends React.Component {
               />
 
               <Text style={styles.titles}>Upload a photo</Text>
-              <TextInput
-                onChangeText={(photo) => this.setState({ photo })}
-                secureTextEntry={true}
-                style={styles.input}
-              />
+              <Button title="Choose Photo" onPress={this.setPhotoUri} />
 
               <Text style={styles.titles}>Upload Documents:</Text>
-              <TextInput
+              <Button title="Choose Photo" onPress={this.setDocumentUri} />
+              {/* <TextInput
                 onChangeText={(documents) => this.setState({ documents })}
                 secureTextEntry={true}
                 style={styles.input}
-              />
+              /> */}
 
               <View style={styles.buttonsContainer}>
                 <TouchableOpacity
                   title={"submit"}
                   style={styles.buttons}
-                  onPress={this.handleSubmit}
-                >
+                  onPress={this.handleSubmit}>
                   <Text style={styles.buttonsText}>Submit</Text>
                 </TouchableOpacity>
               </View>
