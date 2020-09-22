@@ -2,7 +2,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import * as React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
-import Pet from "./pet";
+import PetBuy from "./petBuy";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import PetScreenComponent from "./petScreen";
 
@@ -71,7 +71,7 @@ function MyTabs() {
       />
       <Tab.Screen
         name="Pet"
-        component={Pet}
+        component={PetBuy}
         options={{
           tabBarLabel: "Pet",
           tabBarIcon: ({ black }) => (
