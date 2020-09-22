@@ -3,15 +3,16 @@ import {
   Text,
   View,
   StyleSheet,
-  ImageBackground,
   TextInput,
   TouchableOpacity,
   ScrollView,
   SafeAreaView,
+  Image
 } from "react-native";
 import { CheckBox } from "react-native-elements";
 import firebase from "firebase";
 import { db } from "./database/firebase";
+import { Input } from 'react-native-elements';
 
 export default class SignUp extends React.Component {
   state = {
@@ -47,6 +48,12 @@ export default class SignUp extends React.Component {
       new Date().getFullYear() - dob.substr(dob.length - 4) < 18
     ) {
       alert("All input fields required and must be valid.");
+      this.setState({ name: "" });
+      this.setState({ email: "" });
+      this.setState({ password: "" });
+      this.setState({ dob: "" });
+      this.setState({ confirmPassword: "" });
+      this.setState({ isPetShop: false })
       return false;
     } else {
       firebase
@@ -93,160 +100,141 @@ export default class SignUp extends React.Component {
               break;
           }
         });
+      this.setState({ name: "" });
+      this.setState({ email: "" });
+      this.setState({ password: "" });
+      this.setState({ dob: "" });
+      this.setState({ confirmPassword: "" });
+      this.setState({ isPetShop: false })
     }
   };
 
   render() {
     return (
-      <SafeAreaView style={styles.container}>
-        <ImageBackground source={image} style={styles.image}>
-          <ScrollView style={styles.scrollView}>
-            <Text style={styles.heading}>WELCOME TO {"\n"} PET SEARCH!</Text>
+      <View style={styles.container}>
+        <View style={styles.logoContainer}>
+          <Image
+            style={styles.logo}
+            source={{ uri: "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2FlogoWithWords.png?alt=media&token=a0ce1a26-d23b-4379-985e-0bbdfd061ee7" }}
+          />
+          <View style={styles.inputContainer}>
+            <Input
+              placeholder='NAME'
+              value={this.state.name}
+              onChangeText={(name) => this.setState({ name })}
+              leftIcon={{ type: 'font-awesome', name: 'user', size: 20, color: "#2065d4" }}
+            />
+            <Input
+              placeholder='DD/MM/YYYY'
+              value={this.state.dob}
+              onChangeText={(dob) => this.setState({ dob })}
+              leftIcon={{ type: 'font-awesome', name: 'calendar', size: 16, color: "#2065d4" }}
+            />
+            <Input
+              placeholder='EMAIL'
+              value={this.state.email}
+              onChangeText={(email) => this.setState({ email })}
+              leftIcon={{ type: 'font-awesome', name: 'envelope', size: 15, color: "#2065d4" }}
+            />
+            <Input
+              placeholder='PASSWORD'
+              value={this.state.password}
+              secureTextEntry={true}
+              onChangeText={(password) => this.setState({ password })}
+              leftIcon={{ type: 'font-awesome', name: 'lock', size: 20, color: "#2065d4" }}
+            />
+            <Input
+              placeholder='CONFIRM PASSWORD'
+              secureTextEntry={true}
+              value={this.state.confirmPassword}
+              onChangeText={(confirmPassword) => this.setState({ confirmPassword })}
+              leftIcon={{ type: 'font-awesome', name: 'lock', size: 20, color: "#2065d4" }}
+            />
+          </View>
 
-            <View style={styles.titleContainer}>
-              <View style={styles.rectangle}>
-                <Text style={styles.titles}>Name:</Text>
-
-                <TextInput
-                  onChangeText={(name) => this.setState({ name })}
-                  placeholder={"First name, last name..."}
-                  style={styles.input}
-                />
-                <Text style={styles.titles}>Date of Birth:</Text>
-
-                <TextInput
-                  onChangeText={(dob) => this.setState({ dob })}
-                  placeholder={"dd/mm/yyyy (18+)"}
-                  style={styles.input}
-                />
-                <Text style={styles.titles}>Email:</Text>
-
-                <TextInput
-                  onChangeText={(email) => this.setState({ email })}
-                  style={styles.input}
-                />
-                <Text style={styles.titles}>Password:</Text>
-
-                <TextInput
-                  onChangeText={(password) => this.setState({ password })}
-                  secureTextEntry={true}
-                  style={styles.input}
-                />
-                <Text style={styles.titles}>Confirm Password:</Text>
-
-                <TextInput
-                  onChangeText={(confirmPassword) =>
-                    this.setState({ confirmPassword })
-                  }
-                  secureTextEntry={true}
-                  style={styles.input}
-                />
-
-                <CheckBox
-                  title="Are you a pet shop?"
-                  checked={this.state.isPetShop}
-                  onPress={() =>
-                    this.setState({ isPetShop: !this.state.isPetShop })
-                  }
-                />
-
-                <View style={styles.buttonsContainer}>
-                  <TouchableOpacity
-                    title={"Sign Up"}
-                    style={styles.buttons}
-                    onPress={this.submit}
-                  >
-                    <Text style={styles.buttonsText}>Sign Up</Text>
-                  </TouchableOpacity>
-                </View>
-              </View>
-            </View>
-          </ScrollView>
-        </ImageBackground>
-      </SafeAreaView>
+          <CheckBox
+            title="Are you a pet shop?"
+            checked={this.state.isPetShop}
+            onPress={() =>
+              this.setState({ isPetShop: !this.state.isPetShop })
+            }
+          />
+          <View style={styles.buttonsContainer}>
+            <TouchableOpacity
+              style={styles.buttons}
+              onPress={this.submit}
+            >
+              <Text style={styles.buttonsText}
+              >SIGN UP</Text>
+            </TouchableOpacity>
+            <Text
+              style={styles.title}
+              onPress={() =>
+                this.props.navigation.navigate("Login")
+              }
+            >
+              ALREADY HAVE AN ACCOUNT? <Text style={{ fontWeight: 'bold' }}>
+                {'LOGIN'}
+              </Text>
+            </Text>
+          </View>
+          <Image
+            style={styles.logo2}
+            source={{ uri: "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Flogo.svg?alt=media&token=21d331fe-dc33-4021-a632-aeaa3b7cf6c4" }}
+          />
+        </View>
+      </View>
     );
   }
 }
 
-const image = {
-  uri:
-    "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fdog-2.jpg?alt=media&token=d2186c7b-ae4a-49ed-b826-bc1b3ec3450e",
-};
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // marginTop: Constants.statusBarHeight,
+    backgroundColor: "white"
   },
-
-  scrollView: {
-    flex: 1,
+  logoContainer: {
+    alignItems: 'center',
+    flowGrow: 1,
+    justifyContent: 'center',
+    top: 100
   },
-  image: {
-    // flex: 1,
-    // justifyContent: "center",
-    // left: 0,
-    flex: 1,
-    resizeMode: "cover",
-    justifyContent: "center",
-    position: "relative",
+  inputContainer: {
+    width: 280,
+    color: "#2065d4"
   },
-  titleContainer: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
+  logo: {
+    width: 264,
+    height: 170
   },
-  heading: {
-    fontSize: 25,
-    fontWeight: "bold",
-    textShadowColor: "rgba(0, 0, 0, 0.3)",
-    textShadowOffset: { width: -1, height: 1 },
-    textShadowRadius: 10,
-    color: "#FFFFFF",
-    textAlign: "center",
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: 50,
-    flex: 1,
+  logo2: {
+    width: 25,
+    height: 25
+  },
+  title: {
+    marginTop: 10,
+    textAlign: 'center',
+    color: "#2065d4",
+    fontFamily: "Helvetica",
+    padding: 10
   },
   buttonsContainer: {
     alignItems: "center",
+    flexGrow: 1,
     justifyContent: "center",
-    padding: 20,
   },
   buttons: {
-    backgroundColor: "white",
+    backgroundColor: "#2065d4",
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 10,
-    width: 100,
-    height: 40,
+    width: 220,
+    marginTop: 10,
+    height: 35,
   },
   buttonsText: {
-    color: "#000000",
-    fontSize: 18,
-    fontWeight: "bold",
-  },
-  input: {
-    width: 250,
-    height: 44,
-    padding: 10,
-    borderWidth: 1,
-    borderColor: "black",
-    marginBottom: 10,
-    backgroundColor: "white",
-  },
-  rectangle: {
-    width: 300,
-    height: 550,
-    backgroundColor: "#b8d9ff",
-    position: "relative",
-    padding: 20,
-    zIndex: 1,
-    margin: 20,
-  },
-  titles: {
-    fontSize: 18,
-    fontWeight: "bold",
-  },
+    color: "white",
+    fontSize: 15,
+    fontFamily: "Helvetica"
+  }
 });

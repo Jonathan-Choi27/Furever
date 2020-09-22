@@ -23,53 +23,18 @@ export default function App() {
         <Stack.Screen
           name="Pet Search"
           component={LandingPage}
-          options={{
-            title: "Pet Search",
-            headerStyle: {
-              backgroundColor: "#447ECB",
-            },
-            headerTitle: <HeaderLogo />,
-            headerTitleStyle: {
-              alignSelf: "center",
-              flex: 1,
-              paddingBottom: Platform.OS === "web" ? 0 : 85,
-            },
-          }}
+          options={{ headerShown: false }}
         />
 
         <Stack.Screen
           name="Login"
           component={Login}
-          options={{
-            title: "Login",
-            headerStyle: {
-              backgroundColor: "#447ECB",
-            },
-            headerTitle: <HeaderLogo />,
-            headerTitleStyle: {
-              alignSelf: "center",
-              flex: 1,
-              paddingBottom: Platform.OS === "web" ? 0 : 85,
-            },
-            headerTitleContainerStyle: { left: 0, right: 0 },
-          }}
+          options={{ headerShown: false }}
         />
         <Stack.Screen
           name="Sign Up"
           component={SignUp}
-          options={{
-            title: "Sign Up",
-            headerStyle: {
-              backgroundColor: "#447ECB",
-            },
-            headerTitle: <HeaderLogo />,
-            headerTitleStyle: {
-              alignSelf: "center",
-              flex: 1,
-              paddingBottom: Platform.OS === "web" ? 0 : 85,
-            },
-            headerTitleContainerStyle: { left: 0, right: 0 },
-          }}
+          options={{ headerShown: false }}
         />
         <Stack.Screen
           name="Home"
@@ -91,19 +56,8 @@ export default function App() {
         <Stack.Screen
           name="Forgot Password"
           component={PasswordRecoveryPage}
-          options={{
-            title: "Forgot Password",
-            headerStyle: {
-              backgroundColor: "#447ECB",
-            },
-            headerTitle: <HeaderLogo />,
-            headerTitleStyle: {
-              alignSelf: "center",
-              flex: 1,
-              paddingBottom: Platform.OS === "web" ? 0 : 85,
-            },
-            headerTitleContainerStyle: { left: 0, right: 0 },
-          }}
+          options={{ headerShown: false }}
+
         />
         <Stack.Screen
           name="Sell Application"

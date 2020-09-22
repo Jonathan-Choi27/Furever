@@ -3,70 +3,60 @@ import {
   StyleSheet,
   Text,
   View,
-  Button,
   TouchableOpacity,
-  ImageBackground,
+  Image
 } from "react-native";
 
 export default class LandingPage extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <ImageBackground source={image} style={styles.image}>
-          <View style={styles.titleContainer}>
-            <Text style={styles.heading}>WELCOME TO {"\n"} PET SEARCH!</Text>
-          </View>
-          <View style={styles.buttonsContainer}>
-            <TouchableOpacity
-              style={styles.buttons}
-              onPress={() => this.props.navigation.navigate("Login")}
-            >
-              <Text style={styles.buttonsText}>Login</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.buttons}
-              onPress={() => this.props.navigation.navigate("Sign Up")}
-            >
-              <Text style={styles.buttonsText}>Sign Up</Text>
-            </TouchableOpacity>
-          </View>
-        </ImageBackground>
+        <View style={styles.logoContainer}>
+          <Image
+            style={styles.logo}
+            source={{ uri: "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2FlogoWithWords.png?alt=media&token=a0ce1a26-d23b-4379-985e-0bbdfd061ee7" }}
+          />
+        </View>
+        <View style={styles.buttonsContainer}>
+          <Text style={styles.title}>FIND YOUR PERFECT PET TODAY</Text>
+          <TouchableOpacity
+            style={styles.buttons}
+            onPress={() => this.props.navigation.navigate("Login")}
+          >
+            <Text style={styles.buttonsText}>LOGIN</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.buttons}
+            onPress={() => this.props.navigation.navigate("Sign Up")}
+          >
+            <Text style={styles.buttonsText}>SIGN UP</Text>
+          </TouchableOpacity>
+        </View>
+
       </View>
     );
   }
 }
 
-const image = {
-  uri:
-    "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fdog-2.jpg?alt=media&token=d2186c7b-ae4a-49ed-b826-bc1b3ec3450e",
-};
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: "white"
   },
-  image: {
-    flex: 1,
-    justifyContent: "center",
-    left: 0,
+  logoContainer: {
+    alignItems: 'center',
+    flowGrow: 1,
+    justifyContent: 'center',
+    top: 200
   },
-  titleContainer: {
-    alignItems: "center",
-    flexGrow: 1,
-    justifyContent: "center",
+  logo: {
+    width: 264,
+    height: 170
   },
-  heading: {
-    fontSize: 25,
-    fontWeight: "bold",
-    textShadowColor: "rgba(0, 0, 0, 0.3)",
-    textShadowOffset: { width: -1, height: 1 },
-    textShadowRadius: 10,
-    color: "#FFFFFF",
-    textAlign: "center",
-    alignItems: "center",
-    flexGrow: 1,
-    justifyContent: "center",
-    marginTop: 50,
+  title: {
+    marginTop: 10,
+    textAlign: 'center',
+    fontFamily: "Helvetica"
   },
   buttonsContainer: {
     alignItems: "center",
@@ -74,17 +64,16 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   buttons: {
-    backgroundColor: "#89CFF0",
+    backgroundColor: "#2065d4",
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 10,
-    width: 140,
-    marginTop: 30,
-    height: 40,
+    width: 200,
+    marginTop: 10,
+    height: 35,
   },
   buttonsText: {
-    color: "#000000",
-    fontSize: 18,
-    fontWeight: "bold",
-  },
+    color: "white",
+    fontSize: 15,
+  }
 });
