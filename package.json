@@ -8,10 +8,13 @@
     "@react-navigation/bottom-tabs": "5.8.0",
     "@react-navigation/native": "^5.7.3",
     "@react-navigation/stack": "^5.9.0",
+    "buffer": "^5.6.0",
     "expo": "~38.0.0",
     "expo-constants": "^9.1.1",
+    "expo-document-picker": "^8.4.0",
+    "expo-image-picker": "^9.1.0",
     "firebase": "7.9.0",
-    "react": "~16.11.0",
+    "react": "~16.13.1",
     "react-dom": "~16.11.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-38.0.2.tar.gz",
     "react-native-elements": "^2.3.2",
@@ -20,8 +23,10 @@
     "react-native-safe-area-context": "~3.0.7",
     "react-native-screens": "~2.9.0",
     "react-native-svg": "12.1.0",
+    "react-native-uuid": "^1.4.9",
     "react-native-vector-icons": "7.1.0",
-    "react-native-web": "0.11.7"
+    "react-native-web": "0.11.7",
+    "safe-buffer": "^5.2.1"
   },
   "devDependencies": {
     "@babel/core": "7.9.0"
