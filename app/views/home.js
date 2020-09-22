@@ -2,10 +2,10 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import * as React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
-import PetBuy from "./petBuy";
+import PetBuy from "./pet_tab/petBuy";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import PetScreenComponent from "./petScreen";
 import PetScreenComponent from "./pet_tab/petScreen";
+import buyDogs from "./pet_tab/buyDogs";
 
 export default class LandingPage extends React.Component {
   render() {
@@ -72,6 +72,7 @@ function MyTabs() {
       />
       <Tab.Screen
         name="Pet"
+        // component={PetScreenComponent}PetBuy
         component={PetBuy}
         options={{
           tabBarLabel: "Pet",
