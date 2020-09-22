@@ -6,17 +6,12 @@ import {
   ImageBackground,
   TextInput,
   TouchableOpacity,
-  Button,
-  Alert,
-  Platform,
   ScrollView,
   SafeAreaView,
 } from "react-native";
 import { CheckBox } from "react-native-elements";
-import Constants from "expo-constants";
-
 import firebase from "firebase";
-import { CurrentRenderContext } from "@react-navigation/native";
+import { db } from "./database/firebase";
 
 export default class SignUp extends React.Component {
   state = {
@@ -24,9 +19,8 @@ export default class SignUp extends React.Component {
     email: "",
     confirmPassword: "",
     password: "",
-    country: "",
-    username: "",
     dob: "",
+    isPetShop: false,
   };
 
   submit = () => {
@@ -47,7 +41,10 @@ export default class SignUp extends React.Component {
       name == "" ||
       confirmPassword == "" ||
       password != confirmPassword ||
-      !/^([0-2][0-9]|(3)[0-1])(\/)(((0)[0-9])|((1)[0-2]))(\/)\d{4}$/i.test(dob)
+      !/^([0-2][0-9]|(3)[0-1])(\/)(((0)[0-9])|((1)[0-2]))(\/)\d{4}$/i.test(
+        dob
+      ) ||
+      new Date().getFullYear() - dob.substr(dob.length - 4) < 18
     ) {
       alert("All input fields required and must be valid.");
       return false;
@@ -66,6 +63,12 @@ export default class SignUp extends React.Component {
               alert(
                 `An email has been sent, please verify your account at ${email}`
               );
+              db.collection("users").doc(user.uid).set({
+                name: this.state.name,
+                dob: this.state.dob,
+                email: this.state.email,
+                isPetShop: this.state.isPetShop,
+              });
               this.props.navigation.navigate("Login");
             })
             .catch((error) => {
@@ -113,7 +116,7 @@ export default class SignUp extends React.Component {
 
                 <TextInput
                   onChangeText={(dob) => this.setState({ dob })}
-                  placeholder={"dd/mm/yyyy"}
+                  placeholder={"dd/mm/yyyy (18+)"}
                   style={styles.input}
                 />
                 <Text style={styles.titles}>Email:</Text>
@@ -140,8 +143,11 @@ export default class SignUp extends React.Component {
                 />
 
                 <CheckBox
-                  title="Are you a Pet Shop?"
-                  checked={this.state.checked}
+                  title="Are you a pet shop?"
+                  checked={this.state.isPetShop}
+                  onPress={() =>
+                    this.setState({ isPetShop: !this.state.isPetShop })
+                  }
                 />
 
                 <View style={styles.buttonsContainer}>
