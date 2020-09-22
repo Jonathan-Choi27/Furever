@@ -10,18 +10,15 @@ import {
   TouchableOpacity,
   View,
   Button,
+  Image
 } from "react-native";
 import { color } from "react-native-reanimated";
-// import DocumentUploader from "./components/DocumentUploader";
-// import PhotoUploader from "./components/PhotoUploader";
-import { db } from "./database/firebase";
-// import getImageUri from "./components/ImageUpload/OpenImagePicker";
-// import uploadPhoto from "./components/ImageUpload/UploadPhoto";
+import { db } from "../database/firebase";
 import uuid from "react-native-uuid";
-import {openDocumentPicker, uploadDocument }from "./components/DocumentUpload";
-import {openImagePicker, uploadPhoto} from "./components/ImageUpload"
+import {openDocumentPicker, uploadDocument }from "../components/DocumentUpload";
+import {openImagePicker, uploadPhoto} from "../components/ImageUpload"
 
-export default class PetScreenComponent extends React.Component {
+export default class SellApplicationComponent extends React.Component {
   state = {
     name: "",
     category: "",
@@ -59,10 +56,6 @@ export default class PetScreenComponent extends React.Component {
       documents_uri
     } = this.state;
 
-    // this.setState({
-    //   photo: uuid.v4(),
-    //   documents: uuid.v4(),
-    // });
 
     console.log("photo uuid:" + this.state.photo);
 
@@ -90,23 +83,20 @@ export default class PetScreenComponent extends React.Component {
   };
 
   setPhotoUri = async () => {
-    const test = await openImagePicker();
+    const get_uri = await openImagePicker();
 
-    console.log(test);
     this.setState({
       photo: uuid.v4(),
-      photo_uri: test,
+      photo_uri: get_uri,
     });
-
-    //   console.log(test);
   };
 
   setDocumentUri = async () => {
-      const test = await openDocumentPicker();
+      const get_uri = await openDocumentPicker();
 
       this.setState({
           documents: uuid.v4(),
-          documents_uri: test
+          documents_uri: get_uri
       });
   };
 
@@ -229,7 +219,10 @@ export default class PetScreenComponent extends React.Component {
               />
 
               <Text style={styles.titles}>Upload a photo</Text>
-              <Button title="Choose Photo" onPress={this.setPhotoUri} />
+              <Button title="Choose Photo" onPress={this.setPhotoUri}/>
+              <Image source={{
+                  image_path: this.state.photo_uri
+              }}/>
 
               <Text style={styles.titles}>Upload Documents:</Text>
               <Button title="Choose Photo" onPress={this.setDocumentUri} />
