@@ -21,33 +21,27 @@ export default function Pet () {
         <View style={styles.container}>
             <View style={styles.buySellContainer}>
                 <TouchableOpacity style={{backgroundColor: '#FDD7E4',
-                                        alignSelf: 'stretch',
-                                        textAlign: 'center',
-                                        flex: 1,
-                                        // width: 300,
-                                        height: 50}}>
+                                            flexDirection: 'row',
+                                            flex: 1, 
+                                            justifyContent: "center", 
+                                            alignItems: "center",
+                                            height: 50}}>
                     <Text>Buy</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={{
-
-                                        backgroundColor: 'blue',
-                                        alignSelf: 'stretch',
-                                        textAlign: 'center',
-                                        flex: 1,
-                                        // width: 30    0,
-                                        height: 50
-                                        }}>
+                <TouchableOpacity style={{backgroundColor: 'blue',
+                                            flexDirection: 'row',
+                                            flex: 1, 
+                                            justifyContent: "center", 
+                                            alignItems: "center",
+                                            height: 50}}>
                     <Text style={{textAlign: 'center'}}>Sell</Text>
                 </TouchableOpacity>
 
-
+            </View>
             <View style={styles.categories}>
                 <Text>Dog</Text>
                 <Text>Cat</Text>
             </View>
-
-            </View>
-            
             <Text>Pet Screen!</Text>
         </View>    
     );
@@ -59,18 +53,14 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
   buySellContainer: {
-    top: 10,
-    // flex: 1, 
+    flex: 1,
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
     flexDirection: 'row',
-    // width: Dimensions.get("screen").width,
-    alignItems: "center",
-    flexGrow: 1,
-    justifyContent: "center",
   },
   categories: {
     flex: 1, 
     justifyContent: "center", 
     alignItems: "center"
   }
-
 });
