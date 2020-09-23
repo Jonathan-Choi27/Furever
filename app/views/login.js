@@ -126,7 +126,6 @@ const styles = StyleSheet.create({
   },
   logoContainer: {
     alignItems: 'center',
-    flowGrow: 1,
     justifyContent: 'center',
     top: 180
   },
@@ -146,7 +145,6 @@ const styles = StyleSheet.create({
     marginTop: 10,
     textAlign: 'center',
     color: "#2065d4",
-    fontFamily: "Helvetica",
     padding: 10,
     fontSize: 16
   },
@@ -154,7 +152,6 @@ const styles = StyleSheet.create({
     marginTop: 10,
     textAlign: 'center',
     color: "#2065d4",
-    fontFamily: "Helvetica",
     padding: 10
   },
   buttonsContainer: {
@@ -174,6 +171,5 @@ const styles = StyleSheet.create({
   buttonsText: {
     color: "white",
     fontSize: 15,
-    fontFamily: "Helvetica"
   }
 });
