@@ -23,7 +23,7 @@ export default class petSell extends React.Component {
       <View style={styles.container}>
         <View style={styles.buySellContainer}>
           <TouchableOpacity style={{
-                              backgroundColor: '#89CFF0',
+                              backgroundColor: 'white',
                               flex: 1, 
                               justifyContent: "center", 
                               alignItems: "center",
@@ -34,7 +34,7 @@ export default class petSell extends React.Component {
             <Text>Buy</Text>
           </TouchableOpacity>
           <TouchableOpacity style={{
-                              backgroundColor: 'white',
+                              backgroundColor: '#d7e5f7',
                               flex: 1, 
                               justifyContent: "center", 
                               alignItems: "center",
@@ -56,7 +56,14 @@ export default class petSell extends React.Component {
         </View>
         <View style={styles.categories}>
                 <Text>No listings available</Text>
+        </View>
 
+        <View style={{height: 50}}>
+          <TouchableOpacity style={styles.viewApplication}
+                      onPress={() => this.props.navigation.navigate("petSellProfile")}
+                      >
+            <Text style={{textAlign: 'center', padding: 10}}>View Profile</Text>
+          </TouchableOpacity>
         </View>
 
       </View>  
