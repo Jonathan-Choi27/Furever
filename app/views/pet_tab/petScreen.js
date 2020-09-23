@@ -20,7 +20,7 @@ export default class PetScreenComponent extends React.Component{
             <View>
                 <Button
                     title="Add New Listing"
-                    onPress={SellApplicationComponent}
+                    onPress={() => this.props.navigation.navigate("Sell Application")}
                     />
             </View>
         )
