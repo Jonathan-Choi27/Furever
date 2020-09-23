@@ -5,8 +5,10 @@ import { createMaterialTopTabNavigator } from "@react-navigation/material-top-ta
 import * as React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
-import PetScreenComponent from "./petScreen";
-
+import PetBuy from "./pet_tab/petBuy";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import PetScreenComponent from "./pet_tab/petScreen";
+import buyDogs from "./pet_tab/buyDogs";
 export default class LandingPage extends React.Component {
   render() {
     return <MyTabs />;
@@ -29,13 +31,11 @@ function HomeScreen() {
   );
 }
 
-function PetScreen() {
-  return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <PetScreenComponent />
-    </View>
-  );
-}
+// function PetScreen() {
+//   return (
+//           {Pet}
+//   );
+// }
 
 function ShopScreen() {
   return (
@@ -65,10 +65,7 @@ function MyTabs() {
   return (
     <Tab.Navigator
       tabBarOptions={{
-        labelStyle: {
-          fontSize: 18,
-          fontWeight: "bold",
-        },
+        showLabel: false,
       }}
     >
       <Tab.Screen
@@ -77,18 +74,18 @@ function MyTabs() {
         options={{
           tabBarLabel: "Home",
           tabBarIcon: ({ black }) => (
-            <Icon name={"home"} size={22} color={black} />
+            <Icon name={"home"} size={30} color={black} />
           ),
         }}
         component={myTopTabs}
       />
       <Tab.Screen
         name="Pet"
-        component={PetScreenComponent}
+        // component={PetScreenComponent}PetBuy
+        component={PetBuy}
         options={{
-          tabBarLabel: "Pet",
           tabBarIcon: ({ black }) => (
-            <Icon name={"paw"} size={22} color={black} />
+            <Icon name={"paw"} size={30} color={black} />
           ),
         }}
       />
@@ -96,9 +93,8 @@ function MyTabs() {
         name="Shop"
         component={ShopScreen}
         options={{
-          tabBarLabel: "Shop",
           tabBarIcon: ({ black }) => (
-            <Icon name={"shopping-basket"} size={22} color={black} />
+            <Icon name={"shopping-basket"} size={30} color={black} />
           ),
         }}
       />
@@ -106,9 +102,8 @@ function MyTabs() {
         name="Settings"
         component={SettingsScreen}
         options={{
-          tabBarLabel: "Settings",
           tabBarIcon: ({ black }) => (
-            <Icon name={"cog"} size={22} color={black} />
+            <Icon name={"user"} size={30} color={black} />
           ),
         }}
       />
