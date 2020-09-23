@@ -1,4 +1,7 @@
+import { Container } from "@material-ui/core";
+import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import * as React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
@@ -11,6 +14,7 @@ export default class LandingPage extends React.Component {
 }
 
 const Tab = createBottomTabNavigator();
+const TopTab = createMaterialTopTabNavigator();
 
 function HomeScreen() {
   return (
@@ -49,6 +53,14 @@ function SettingsScreen() {
   );
 }
 
+function BuyScreen() {
+  return (
+    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+      <Text>Buy Screen!</Text>
+    </View>
+  );
+}
+
 function MyTabs() {
   return (
     <Tab.Navigator
@@ -68,6 +80,7 @@ function MyTabs() {
             <Icon name={"home"} size={22} color={black} />
           ),
         }}
+        component={myTopTabs}
       />
       <Tab.Screen
         name="Pet"
@@ -100,6 +113,15 @@ function MyTabs() {
         }}
       />
     </Tab.Navigator>
+  );
+}
+
+function myTopTabs() {
+  return (
+    <TopTab.Navigator>
+      <Tab.Screen name="Buy" component={BuyScreen} />
+      <Tab.Screen name="Sell" component={HomeScreen} />
+    </TopTab.Navigator>
   );
 }
 
