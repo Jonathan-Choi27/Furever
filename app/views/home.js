@@ -53,10 +53,7 @@ function MyTabs() {
   return (
     <Tab.Navigator
       tabBarOptions={{
-        labelStyle: {
-          fontSize: 18,
-          fontWeight: "bold",
-        },
+        showLabel: false,
       }}
     >
       <Tab.Screen
@@ -65,7 +62,7 @@ function MyTabs() {
         options={{
           tabBarLabel: "Home",
           tabBarIcon: ({ black }) => (
-            <Icon name={"home"} size={22} color={black} />
+            <Icon name={"home"} size={30} color={black} />
           ),
         }}
       />
@@ -74,9 +71,8 @@ function MyTabs() {
         // component={PetScreenComponent}PetBuy
         component={PetBuy}
         options={{
-          tabBarLabel: "Pet",
           tabBarIcon: ({ black }) => (
-            <Icon name={"paw"} size={22} color={black} />
+            <Icon name={"paw"} size={30} color={black} />
           ),
         }}
       />
@@ -84,9 +80,8 @@ function MyTabs() {
         name="Shop"
         component={ShopScreen}
         options={{
-          tabBarLabel: "Shop",
           tabBarIcon: ({ black }) => (
-            <Icon name={"shopping-basket"} size={22} color={black} />
+            <Icon name={"shopping-basket"} size={30} color={black} />
           ),
         }}
       />
@@ -94,9 +89,8 @@ function MyTabs() {
         name="Settings"
         component={SettingsScreen}
         options={{
-          tabBarLabel: "Settings",
           tabBarIcon: ({ black }) => (
-            <Icon name={"cog"} size={22} color={black} />
+            <Icon name={"cog"} size={30} color={black} />
           ),
         }}
       />

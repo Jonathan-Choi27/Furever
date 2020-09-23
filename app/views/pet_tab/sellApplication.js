@@ -15,8 +15,8 @@ import {
 import { color } from "react-native-reanimated";
 import { db } from "../database/firebase";
 import uuid from "react-native-uuid";
-import {openDocumentPicker, uploadDocument }from "../components/DocumentUpload";
-import {openImagePicker, uploadPhoto} from "../components/ImageUpload"
+import { openDocumentPicker, uploadDocument } from "../components/DocumentUpload";
+import { openImagePicker, uploadPhoto } from "../components/ImageUpload"
 
 export default class SellApplicationComponent extends React.Component {
   state = {
@@ -61,7 +61,7 @@ export default class SellApplicationComponent extends React.Component {
 
     uploadPhoto(this.state.photo_uri, this.state.photo);
     uploadDocument(this.state.documents_uri, this.state.documents)
-    
+
 
     db.collection("pet-sell-list").add({
       name: this.state.name,
@@ -92,12 +92,12 @@ export default class SellApplicationComponent extends React.Component {
   };
 
   setDocumentUri = async () => {
-      const get_uri = await openDocumentPicker();
+    const get_uri = await openDocumentPicker();
 
-      this.setState({
-          documents: uuid.v4(),
-          documents_uri: get_uri
-      });
+    this.setState({
+      documents: uuid.v4(),
+      documents_uri: get_uri
+    });
   };
 
   render() {
@@ -191,7 +191,7 @@ export default class SellApplicationComponent extends React.Component {
 
               <Text style={styles.titles}>Care, Health and Feeding:</Text>
               <TextInput
-                onChangeText={(heatlh) => this.setState({ health })}
+                onChangeText={(health) => this.setState({ health })}
                 multiline
                 numberOfLines={4}
                 secureTextEntry={true}
@@ -219,10 +219,10 @@ export default class SellApplicationComponent extends React.Component {
               />
 
               <Text style={styles.titles}>Upload a photo</Text>
-              <Button title="Choose Photo" onPress={this.setPhotoUri}/>
+              <Button title="Choose Photo" onPress={this.setPhotoUri} />
               <Image source={{
-                  image_path: this.state.photo_uri
-              }}/>
+                image_path: this.state.photo_uri
+              }} />
 
               <Text style={styles.titles}>Upload Documents:</Text>
               <Button title="Choose Photo" onPress={this.setDocumentUri} />
