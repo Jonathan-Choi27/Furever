@@ -23,7 +23,7 @@ export default class petSellProfile extends React.Component {
       <View style={styles.container}>
         <View style={styles.buySellContainer}>
           <TouchableOpacity style={{
-                              backgroundColor: '#89CFF0',
+                              backgroundColor: 'white',
                               flex: 1, 
                               justifyContent: "center", 
                               alignItems: "center",
@@ -34,7 +34,7 @@ export default class petSellProfile extends React.Component {
             <Text>Buy</Text>
           </TouchableOpacity>
           <TouchableOpacity style={{
-                              backgroundColor: 'white',
+                              backgroundColor: '#d7e5f7',
                               flex: 1, 
                               justifyContent: "center", 
                               alignItems: "center",
@@ -53,7 +53,6 @@ export default class petSellProfile extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1, 
-    justifyContent: "center", 
     alignItems: "center",
   },
   buySellContainer: {
