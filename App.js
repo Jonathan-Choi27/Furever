@@ -13,6 +13,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { Dimensions, Platform } from "react-native";
 import SellApplicationComponent from "./app/views/pet_tab/sellApplication";
+import petSellProfile from "./app/views/pet_tab/petSellProfile";
 
 const Stack = createStackNavigator();
 
@@ -57,14 +58,23 @@ export default function App() {
           name="Forgot Password"
           component={PasswordRecoveryPage}
           options={{ headerShown: false }}
-
         />
         <Stack.Screen
           name="Sell Application"
           component={SellApplicationComponent}
         />
-        
       </Stack.Navigator>
     </NavigationContainer>
+
+    // Leave this commented for Renee and Uyen <3
+    // <NavigationContainer>
+    //   <Stack.Navigator>
+    //     <Stack.Screen
+    //       name="Pet Profile Sell"
+    //       component={petSellProfile}
+    //       options={{ headerShown: true }}
+    //     />
+    //   </Stack.Navigator>
+    // </NavigationContainer>
   );
 }
