@@ -19,6 +19,8 @@ import petBuySpecies from "./petBuySpecies"
 
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
+import SellApplicationComponent from "./sellApplication";
+import petSell from "./petSell"
 
 const Stack = createStackNavigator();
 
@@ -35,7 +37,14 @@ export default function PetBuy () {
           name="buyDogs"
           component={buyDogs}
         />
-
+        <Stack.Screen
+          name="SellApplicationComponent"
+          component={SellApplicationComponent}
+        />
+        <Stack.Screen
+          name="petSell"
+          component={petSell}
+        />
     
         
       </Stack.Navigator>

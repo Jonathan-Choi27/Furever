@@ -6,7 +6,6 @@ import PetBuy from "./pet_tab/petBuy";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import PetScreenComponent from "./pet_tab/petScreen";
 import buyDogs from "./pet_tab/buyDogs";
-
 export default class LandingPage extends React.Component {
   render() {
     return <MyTabs />;

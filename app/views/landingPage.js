@@ -51,7 +51,6 @@ const styles = StyleSheet.create({
   },
   logoContainer: {
     alignItems: 'center',
-    // flowGrow: 1,
     justifyContent: 'center',
     top: 200
   },
@@ -62,7 +61,6 @@ const styles = StyleSheet.create({
   title: {
     marginTop: 10,
     textAlign: 'center',
-    fontFamily: "Helvetica"
   },
   buttonsContainer: {
     alignItems: "center",

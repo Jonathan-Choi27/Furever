@@ -111,79 +111,82 @@ export default class SignUp extends React.Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <View style={styles.logoContainer}>
-          <Image
-            style={styles.logo}
-            source={{ uri: "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2FlogoWithWords.png?alt=media&token=a0ce1a26-d23b-4379-985e-0bbdfd061ee7" }}
-          />
-          <View style={styles.inputContainer}>
-            <Input
-              placeholder='NAME'
-              value={this.state.name}
-              onChangeText={(name) => this.setState({ name })}
-              leftIcon={{ type: 'font-awesome', name: 'user', size: 20, color: "#2065d4" }}
+      <SafeAreaView style={styles.container}>
+        <ScrollView style={styles.scrollView}>
+          <View style={styles.logoContainer}>
+            <Image
+              style={styles.logo}
+              source={{ uri: "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2FlogoWithWords.png?alt=media&token=a0ce1a26-d23b-4379-985e-0bbdfd061ee7" }}
             />
-            <Input
-              placeholder='DD/MM/YYYY'
-              value={this.state.dob}
-              onChangeText={(dob) => this.setState({ dob })}
-              leftIcon={{ type: 'font-awesome', name: 'calendar', size: 16, color: "#2065d4" }}
-            />
-            <Input
-              placeholder='EMAIL'
-              value={this.state.email}
-              onChangeText={(email) => this.setState({ email })}
-              leftIcon={{ type: 'font-awesome', name: 'envelope', size: 15, color: "#2065d4" }}
-            />
-            <Input
-              placeholder='PASSWORD'
-              value={this.state.password}
-              secureTextEntry={true}
-              onChangeText={(password) => this.setState({ password })}
-              leftIcon={{ type: 'font-awesome', name: 'lock', size: 20, color: "#2065d4" }}
-            />
-            <Input
-              placeholder='CONFIRM PASSWORD'
-              secureTextEntry={true}
-              value={this.state.confirmPassword}
-              onChangeText={(confirmPassword) => this.setState({ confirmPassword })}
-              leftIcon={{ type: 'font-awesome', name: 'lock', size: 20, color: "#2065d4" }}
-            />
-          </View>
+            <View style={styles.inputContainer}>
+              <Input
+                placeholder='NAME'
+                value={this.state.name}
+                onChangeText={(name) => this.setState({ name })}
+                leftIcon={{ type: 'font-awesome', name: 'user', size: 20, color: "#2065d4" }}
+              />
+              <Input
+                placeholder='DD/MM/YYYY'
+                value={this.state.dob}
+                onChangeText={(dob) => this.setState({ dob })}
+                leftIcon={{ type: 'font-awesome', name: 'calendar', size: 16, color: "#2065d4" }}
+              />
+              <Input
+                placeholder='EMAIL'
+                value={this.state.email}
+                onChangeText={(email) => this.setState({ email })}
+                leftIcon={{ type: 'font-awesome', name: 'envelope', size: 15, color: "#2065d4" }}
+              />
+              <Input
+                placeholder='PASSWORD'
+                value={this.state.password}
+                secureTextEntry={true}
+                onChangeText={(password) => this.setState({ password })}
+                leftIcon={{ type: 'font-awesome', name: 'lock', size: 20, color: "#2065d4" }}
+              />
+              <Input
+                placeholder='CONFIRM PASSWORD'
+                secureTextEntry={true}
+                value={this.state.confirmPassword}
+                onChangeText={(confirmPassword) => this.setState({ confirmPassword })}
+                leftIcon={{ type: 'font-awesome', name: 'lock', size: 20, color: "#2065d4" }}
+              />
+            </View>
 
-          <CheckBox
-            title="Are you a pet shop?"
-            checked={this.state.isPetShop}
-            onPress={() =>
-              this.setState({ isPetShop: !this.state.isPetShop })
-            }
-          />
-          <View style={styles.buttonsContainer}>
-            <TouchableOpacity
-              style={styles.buttons}
-              onPress={this.submit}
-            >
-              <Text style={styles.buttonsText}
-              >SIGN UP</Text>
-            </TouchableOpacity>
-            <Text
-              style={styles.title}
+            <CheckBox
+              title="Are you a pet shop?"
+              checked={this.state.isPetShop}
               onPress={() =>
-                this.props.navigation.navigate("Login")
+                this.setState({ isPetShop: !this.state.isPetShop })
               }
-            >
-              ALREADY HAVE AN ACCOUNT? <Text style={{ fontWeight: 'bold' }}>
-                {'LOGIN'}
+            />
+
+            <View style={styles.buttonsContainer}>
+              <TouchableOpacity
+                style={styles.buttons}
+                onPress={this.submit}
+              >
+                <Text style={styles.buttonsText}
+                >SIGN UP</Text>
+              </TouchableOpacity>
+              <Text
+                style={styles.title}
+                onPress={() =>
+                  this.props.navigation.navigate("Login")
+                }
+              >
+                ALREADY HAVE AN ACCOUNT? <Text style={{ fontWeight: 'bold' }}>
+                  {'LOGIN'}
+                </Text>
               </Text>
-            </Text>
+            </View>
+            <Image
+              style={styles.logo2}
+              source={{ uri: "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Flogo.svg?alt=media&token=21d331fe-dc33-4021-a632-aeaa3b7cf6c4" }}
+            />
           </View>
-          <Image
-            style={styles.logo2}
-            source={{ uri: "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Flogo.svg?alt=media&token=21d331fe-dc33-4021-a632-aeaa3b7cf6c4" }}
-          />
-        </View>
-      </View>
+        </ScrollView>
+      </SafeAreaView>
     );
   }
 }
@@ -191,13 +194,15 @@ export default class SignUp extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "white"
+    backgroundColor: "white",
+  },
+  scrollView: {
+    flex: 1
   },
   logoContainer: {
     alignItems: 'center',
-    // flowGrow: 1,
     justifyContent: 'center',
-    top: 100
+    top: 30
   },
   inputContainer: {
     width: 280,
@@ -215,7 +220,6 @@ const styles = StyleSheet.create({
     marginTop: 10,
     textAlign: 'center',
     color: "#2065d4",
-    fontFamily: "Helvetica",
     padding: 10
   },
   buttonsContainer: {
@@ -235,6 +239,5 @@ const styles = StyleSheet.create({
   buttonsText: {
     color: "white",
     fontSize: 15,
-    fontFamily: "Helvetica"
   }
 });
