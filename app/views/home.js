@@ -9,6 +9,7 @@ import PetBuy from "./pet_tab/petBuy";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import PetScreenComponent from "./pet_tab/petScreen";
 import buyDogs from "./pet_tab/buyDogs";
+
 export default class LandingPage extends React.Component {
   render() {
     return <MyTabs />;
@@ -45,10 +46,10 @@ function ShopScreen() {
   );
 }
 
-function SettingsScreen() {
+function ProfileScreen() {
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>Settings Screen!</Text>
+      <Text>Profile Page Screen!</Text>
     </View>
   );
 }
@@ -63,51 +64,52 @@ function BuyScreen() {
 
 function MyTabs() {
   return (
-    <Tab.Navigator
-      tabBarOptions={{
-        showLabel: false,
-      }}
-    >
-      <Tab.Screen
-        name="Home"
-        component={HomeScreen}
-        options={{
-          tabBarLabel: "Home",
-          tabBarIcon: ({ black }) => (
-            <Icon name={"home"} size={30} color={black} />
-          ),
+    <NavigationContainer independent={true}>
+      <Tab.Navigator
+        tabBarOptions={{
+          showLabel: false,
         }}
-        component={myTopTabs}
-      />
-      <Tab.Screen
-        name="Pet"
-        // component={PetScreenComponent}PetBuy
-        component={PetBuy}
-        options={{
-          tabBarIcon: ({ black }) => (
-            <Icon name={"paw"} size={30} color={black} />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="Shop"
-        component={ShopScreen}
-        options={{
-          tabBarIcon: ({ black }) => (
-            <Icon name={"shopping-basket"} size={30} color={black} />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="Settings"
-        component={SettingsScreen}
-        options={{
-          tabBarIcon: ({ black }) => (
-            <Icon name={"user"} size={30} color={black} />
-          ),
-        }}
-      />
-    </Tab.Navigator>
+      >
+        <Tab.Screen
+          name="Home"
+          component={HomeScreen}
+          options={{
+            tabBarLabel: "Home",
+            tabBarIcon: ({ black }) => (
+              <Icon name={"home"} size={30} color={black} />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="Pet"
+          // component={PetScreenComponent}PetBuy
+          component={PetBuy}
+          options={{
+            tabBarIcon: ({ black }) => (
+              <Icon name={"paw"} size={30} color={black} />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="Shop"
+          component={ShopScreen}
+          options={{
+            tabBarIcon: ({ black }) => (
+              <Icon name={"shopping-basket"} size={30} color={black} />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="Profile"
+          component={ProfileScreen}
+          options={{
+            tabBarIcon: ({ black }) => (
+              <Icon name={"user"} size={30} color={black} />
+            ),
+          }}
+        />
+      </Tab.Navigator>
+    </NavigationContainer>
   );
 }
 

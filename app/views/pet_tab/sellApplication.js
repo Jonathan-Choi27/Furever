@@ -20,6 +20,7 @@ import {
   uploadDocument,
 } from "../components/DocumentUpload";
 import { openImagePicker, uploadPhoto } from "../components/ImageUpload";
+import { auth } from "../database/firebase";
 
 export default class SellApplicationComponent extends React.Component {
   state = {
@@ -66,7 +67,10 @@ export default class SellApplicationComponent extends React.Component {
     uploadPhoto(this.state.photo_uri, this.state.photo);
     uploadDocument(this.state.documents_uri, this.state.documents);
 
+    const user = auth.currentUser;
+
     db.collection("pet-sell-list").add({
+      uuid: user.uid,
       name: this.state.name,
       category: this.state.category,
       breed: this.state.breed,
@@ -150,7 +154,6 @@ export default class SellApplicationComponent extends React.Component {
               </Text>
               <TextInput
                 onChangeText={(colour) => this.setState({ colour })}
-                secureTextEntry={true}
                 style={styles.input}
               />
 
@@ -160,7 +163,6 @@ export default class SellApplicationComponent extends React.Component {
               </Text>
               <TextInput
                 onChangeText={(age) => this.setState({ age })}
-                secureTextEntry={true}
                 style={styles.input}
               />
 
@@ -174,7 +176,6 @@ export default class SellApplicationComponent extends React.Component {
               >
                 <Picker.Item label="Male" value="male" />
                 <Picker.Item label="Female" value="female" />
-                <Picker.Item label="Other" value="other" />
               </Picker>
 
               <Text>
@@ -183,7 +184,6 @@ export default class SellApplicationComponent extends React.Component {
               </Text>
               <TextInput
                 onChangeText={(location) => this.setState({ location })}
-                secureTextEntry={true}
                 style={styles.input}
               />
 
