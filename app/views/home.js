@@ -90,7 +90,7 @@ function MyTabs() {
         component={SettingsScreen}
         options={{
           tabBarIcon: ({ black }) => (
-            <Icon name={"cog"} size={30} color={black} />
+            <Icon name={"user"} size={30} color={black} />
           ),
         }}
       />
