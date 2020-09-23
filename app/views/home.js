@@ -41,10 +41,10 @@ function ShopScreen() {
   );
 }
 
-function SettingsScreen() {
+function ProfileScreen() {
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>Settings Screen!</Text>
+      <Text>Profile Page Screen!</Text>
     </View>
   );
 }
@@ -86,8 +86,8 @@ function MyTabs() {
         }}
       />
       <Tab.Screen
-        name="Settings"
-        component={SettingsScreen}
+        name="Profile"
+        component={ProfileScreen}
         options={{
           tabBarIcon: ({ black }) => (
             <Icon name={"user"} size={30} color={black} />
