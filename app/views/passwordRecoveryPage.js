@@ -1,13 +1,7 @@
 import React from "react";
 import { auth } from "./database/firebase";
-import {
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-  Image
-} from "react-native";
-import { Input } from 'react-native-elements';
+import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
+import { Input } from "react-native-elements";
 
 export default class PasswordRecoveryPage extends React.Component {
   state = {
@@ -44,14 +38,22 @@ export default class PasswordRecoveryPage extends React.Component {
         <View style={styles.logoContainer}>
           <Image
             style={styles.logo}
-            source={{ uri: "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2FlogoWithWords.png?alt=media&token=a0ce1a26-d23b-4379-985e-0bbdfd061ee7" }}
+            source={{
+              uri:
+                "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2FlogoWithWords.png?alt=media&token=a0ce1a26-d23b-4379-985e-0bbdfd061ee7",
+            }}
           />
           <View style={styles.inputContainer}>
             <Input
-              placeholder='EMAIL'
+              placeholder="EMAIL"
               value={this.state.email}
               onChangeText={(email) => this.setState({ email })}
-              leftIcon={{ type: 'font-awesome', name: 'envelope', size: 15, color: "#2065d4" }}
+              leftIcon={{
+                type: "font-awesome",
+                name: "envelope",
+                size: 15,
+                color: "#447ECB",
+              }}
             />
           </View>
           <View style={styles.buttonsContainer}>
@@ -64,18 +66,18 @@ export default class PasswordRecoveryPage extends React.Component {
 
             <Text
               style={styles.title2}
-              onPress={() =>
-                this.props.navigation.navigate("Login")
-              }
+              onPress={() => this.props.navigation.navigate("Login")}
             >
-              HAVE AN ACCOUNT? <Text style={{ fontWeight: 'bold' }}>
-                {'LOGIN'}
-              </Text>
+              HAVE AN ACCOUNT?{" "}
+              <Text style={{ fontWeight: "bold" }}>{"LOGIN"}</Text>
             </Text>
           </View>
           <Image
             style={styles.logo2}
-            source={{ uri: "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Flogo.svg?alt=media&token=21d331fe-dc33-4021-a632-aeaa3b7cf6c4" }}
+            source={{
+              uri:
+                "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Flogo.svg?alt=media&token=21d331fe-dc33-4021-a632-aeaa3b7cf6c4",
+            }}
           />
         </View>
       </View>
@@ -86,37 +88,37 @@ export default class PasswordRecoveryPage extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "white"
+    backgroundColor: "white",
   },
   logoContainer: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    top: 180
+    alignItems: "center",
+    justifyContent: "center",
+    top: 180,
   },
   inputContainer: {
     width: 280,
-    color: "#2065d4"
+    color: "#447ECB",
   },
   logo: {
     width: 264,
-    height: 170
+    height: 170,
   },
   logo2: {
     width: 25,
-    height: 25
+    height: 25,
   },
   title: {
     marginTop: 10,
-    textAlign: 'center',
-    color: "#2065d4",
+    textAlign: "center",
+    color: "#447ECB",
     padding: 10,
-    fontSize: 16
+    fontSize: 16,
   },
   title2: {
     marginTop: 10,
-    textAlign: 'center',
-    color: "#2065d4",
-    padding: 10
+    textAlign: "center",
+    color: "#447ECB",
+    padding: 10,
   },
   buttonsContainer: {
     alignItems: "center",
@@ -124,7 +126,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   buttons: {
-    backgroundColor: "#2065d4",
+    backgroundColor: "#447ECB",
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 10,
@@ -135,5 +137,5 @@ const styles = StyleSheet.create({
   buttonsText: {
     color: "white",
     fontSize: 15,
-  }
+  },
 });

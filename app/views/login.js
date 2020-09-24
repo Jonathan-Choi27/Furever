@@ -73,7 +73,7 @@ export default class Login extends React.Component {
                 type: "font-awesome",
                 name: "envelope",
                 size: 15,
-                color: "#2065d4",
+                color: "#447ECB",
               }}
             />
             <Input
@@ -85,7 +85,7 @@ export default class Login extends React.Component {
                 type: "font-awesome",
                 name: "lock",
                 size: 23,
-                color: "#2065d4",
+                color: "#447ECB",
               }}
             />
           </View>
@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     width: 280,
-    color: "#2065d4",
+    color: "#447ECB",
   },
   logo: {
     width: 264,
@@ -149,14 +149,14 @@ const styles = StyleSheet.create({
   title: {
     marginTop: 10,
     textAlign: "center",
-    color: "#2065d4",
+    color: "#447ECB",
     padding: 10,
     fontSize: 16,
   },
   title2: {
     marginTop: 10,
     textAlign: "center",
-    color: "#2065d4",
+    color: "#447ECB",
     padding: 10,
   },
   buttonsContainer: {
@@ -165,7 +165,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   buttons: {
-    backgroundColor: "#2065d4",
+    backgroundColor: "#447ECB",
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 10,

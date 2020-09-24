@@ -68,6 +68,8 @@ function MyTabs() {
       <Tab.Navigator
         tabBarOptions={{
           showLabel: false,
+          activeTintColor: "#447ECB",
+          inactiveTintColor: "black",
         }}
       >
         <Tab.Screen
