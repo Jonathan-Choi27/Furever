@@ -18,52 +18,29 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import { db } from "../database/firebase";
 
-function getFromDatabase() {
-  let pet = {
-    name: "not changed yet",
-    category: "",
-    breed: "",
-    colour: "",
-    age: "",
-    gender: "",
-    // location: "",
-    behaviour: "",
-    health: "",
-    training: "",
-    // additionalInfo: "",
-    // photo: "",
-    // documents: "",
-    // photo_uri: "",
-    // documents_uri: ""
+export default class petSellProfile extends React.Component {
+  state = {
+    data: [],
   };
 
-  let uid = "R2SPLh9kB1EHREX6Coxu";
-  db.collection("pet-sell-list")
-    .doc(uid)
-    .get()
-    .then((documentSnapshot) => {
-      pet.name = documentSnapshot.get("name");
-      pet.name1 = documentSnapshot.get("name");
-      pet.category = documentSnapshot.get("category");
-      pet.breed = documentSnapshot.get("breed");
-      pet.colour = documentSnapshot.get("colour");
-      pet.age = documentSnapshot.get("age");
-      pet.gender = documentSnapshot.get("gender");
-      pet.behaviour = documentSnapshot.get("behaviour");
-      pet.health = documentSnapshot.get("health");
-      pet.training = documentSnapshot.get("training");
-    })
-    .catch((error) => {
-      console.log("Error");
-    });
+  componentDidMount() {
+    const dataArray = [];
+    db.collection("pet-sell-list")
+      .get()
+      .then((querySnapshot) => {
+        querySnapshot.forEach((listingDoc) => {
+          dataArray.push({
+            title: listingDoc.data().name,
+          });
+        });
+        this.setState({ data: [...dataArray] });
+      })
+      .catch((error) => {
+        console.log("Error getting document:", error);
+      }
+    );
+  }
 
-  console.log(pet.name);
-  console.log(pet.name1);
-  console.log(pet.age);
-  console.log(pet.behaviour);
-}
-
-export default class petSellProfile extends React.Component {
   render() {
     return (
       <ScrollView>
@@ -146,6 +123,11 @@ export default class petSellProfile extends React.Component {
 
           <View style={styles.boxContainer}>
             <Text style={styles.fontHeading}> General Information </Text>
+            <FlatList
+              data={this.state.data}
+              keyExtractor={(item, index) => index.toString()}
+              renderItem={({ item}) =>  <Text>{item.name}</Text>}
+            />
           </View>
 
           <View style={{ height: 50, paddingBottom: 20 }}>
