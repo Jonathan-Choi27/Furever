@@ -82,6 +82,7 @@ export default class SellApplicationComponent extends React.Component {
       training: this.state.training,
       photo: this.state.photo,
       documents: this.state.documents,
+      price: this.state.price,
       // to implement
       //   location
       //   photo
