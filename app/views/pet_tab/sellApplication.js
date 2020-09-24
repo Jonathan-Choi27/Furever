@@ -112,27 +112,42 @@ export default class SellApplicationComponent extends React.Component {
   render() {
     return (
       <SafeAreaView style={styles.container}>
-        <ScrollView style={styles.scrollView}>
+        <ScrollView
+          style={styles.scrollView}
+          showsVerticalScrollIndicator={false}>
           <Text style={styles.heading}>New Pet Listing Application</Text>
+          <Text>
+            <Text style={styles.sub_heading}>General Information</Text>
+            <Text style={styles.setColorRed}> *</Text>
+          </Text>
+          <View
+            style={{
+              borderBottomColor: "black",
+              borderBottomWidth: 1,
+            }}
+          />
           <View style={styles.titleContainer}>
             <View style={styles.rectangle}>
               <Text>
-                <Text style={styles.titles}>Name:</Text>
-                <Text style={styles.setColorRed}> *</Text>
+                <Text style={styles.titles}>Name</Text>
+                {/* <Text style={styles.setColorRed}> *</Text> */}
               </Text>
               <TextInput
                 onChangeText={(name) => this.setState({ name })}
                 style={styles.input}
               />
               <Text>
-                <Text style={styles.titles}>Category:</Text>
-                <Text style={styles.setColorRed}> *</Text>
+                <Text style={styles.titles}>Category</Text>
+                {/* <Text style={styles.setColorRed}> *</Text> */}
               </Text>
               <Picker
-                selectedValue={"Category"}
                 style={styles.picker}
-                onValueChange={(category) => this.setState({ category })}
-              >
+                onValueChange={(category) => {
+                  if (value != "0") {
+                    this.setState({ category });
+                  }
+                }}>
+                <Picker.Item label="Select" value="0" />
                 <Picker.Item label="Dog" value="dog" />
                 <Picker.Item label="Cat" value="cat" />
                 <Picker.Item label="Bird" value="bird" />
@@ -141,8 +156,8 @@ export default class SellApplicationComponent extends React.Component {
                 <Picker.Item label="Exotic" value="exotic" />
               </Picker>
               <Text>
-                <Text style={styles.titles}>Animal Breed:</Text>
-                <Text style={styles.setColorRed}> *</Text>
+                <Text style={styles.titles}>Animal Breed</Text>
+                {/* <Text style={styles.setColorRed}> *</Text> */}
               </Text>
               <TextInput
                 onChangeText={(breed) => this.setState({ breed })}
@@ -150,17 +165,30 @@ export default class SellApplicationComponent extends React.Component {
               />
 
               <Text>
-                <Text style={styles.titles}>Colour:</Text>
-                <Text style={styles.setColorRed}> *</Text>
+                <Text style={styles.titles}>Colour</Text>
+                {/* <Text style={styles.setColorRed}> *</Text> */}
               </Text>
-              <TextInput
+              <Picker
+                style={styles.picker}
+                onValueChange={(category) => {
+                  if (value != "0") {
+                    this.setState({ category });
+                  }
+                }}>
+                <Picker.Item label="Select" value="0" />
+                <Picker.Item label="Brown" value="dog" />
+                <Picker.Item label="White" value="cat" />
+                <Picker.Item label="Black" value="bird" />
+                <Picker.Item label="Grey" value="reptile" />
+              </Picker>
+              {/* <TextInput
                 onChangeText={(colour) => this.setState({ colour })}
                 style={styles.input}
-              />
+              /> */}
 
               <Text>
-                <Text style={styles.titles}>Age:</Text>
-                <Text style={styles.setColorRed}> *</Text>
+                <Text style={styles.titles}>Age</Text>
+                {/* <Text style={styles.setColorRed}> *</Text> */}
               </Text>
               <TextInput
                 onChangeText={(age) => this.setState({ age })}
@@ -168,20 +196,20 @@ export default class SellApplicationComponent extends React.Component {
               />
 
               <Text>
-                <Text style={styles.titles}>Gender:</Text>
-                <Text style={styles.setColorRed}> *</Text>
+                <Text style={styles.titles}>Gender</Text>
+                {/* <Text style={styles.setColorRed}> *</Text> */}
               </Text>
               <Picker
                 style={styles.picker}
-                onValueChange={(gender) => this.setState({ gender })}
-              >
+                onValueChange={(gender) => this.setState({ gender })}>
+                <Picker.Item label="Select" value="0" />
                 <Picker.Item label="Male" value="male" />
                 <Picker.Item label="Female" value="female" />
               </Picker>
 
               <Text>
-                <Text style={styles.titles}>Location:</Text>
-                <Text style={styles.setColorRed}> *</Text>
+                <Text style={styles.titles}>Location</Text>
+                {/* <Text style={styles.setColorRed}> *</Text> */}
               </Text>
               <TextInput
                 onChangeText={(location) => this.setState({ location })}
@@ -189,22 +217,23 @@ export default class SellApplicationComponent extends React.Component {
               />
 
               <Text>
-                <Text style={styles.titles}>Price:</Text>
-                <Text style={styles.setColorRed}> *</Text>
+                <Text style={styles.titles}>Price</Text>
+                {/* <Text style={styles.setColorRed}> *</Text> */}
               </Text>
               <TextInput
                 onChangeText={(price) => this.setState({ price })}
-                secureTextEntry={true}
-                width={100}
-                backgroundColor="white"
-                height={44}
-                padding={10}
-                borderWidth={1}
-                borderColor="black"
-                marginBottom={10}
+                style={styles.input}
+                // secureTextEntry={true}
+                // width={100}
+                // backgroundColor="white"
+                // height={44}
+                // padding={10}
+                // borderWidth={1}
+                // borderColor="black"
+                // marginBottom={10}
               />
 
-              <Text style={styles.titles}>Behaviour:</Text>
+              <Text style={styles.titles}>Behaviour</Text>
               <TextInput
                 onChangeText={(behaviour) => this.setState({ behaviour })}
                 multiline
@@ -213,7 +242,7 @@ export default class SellApplicationComponent extends React.Component {
                 style={styles.biginput}
               />
 
-              <Text style={styles.titles}>Care, Health and Feeding:</Text>
+              <Text style={styles.titles}>Care, Health and Feeding</Text>
               <TextInput
                 onChangeText={(health) => this.setState({ health })}
                 multiline
@@ -222,7 +251,7 @@ export default class SellApplicationComponent extends React.Component {
                 style={styles.biginput}
               />
 
-              <Text style={styles.titles}>Training:</Text>
+              <Text style={styles.titles}>Training</Text>
               <TextInput
                 onChangeText={(training) => this.setState({ training })}
                 multiline
@@ -231,7 +260,7 @@ export default class SellApplicationComponent extends React.Component {
                 style={styles.biginput}
               />
 
-              <Text style={styles.titles}>Additional Information:</Text>
+              <Text style={styles.titles}>Additional Information</Text>
               <TextInput
                 onChangeText={(additionalInfo) =>
                   this.setState({ additionalInfo })
@@ -250,7 +279,7 @@ export default class SellApplicationComponent extends React.Component {
                 }}
               />
 
-              <Text style={styles.titles}>Upload Documents:</Text>
+              <Text style={styles.titles}>Upload Documents</Text>
               <Button title="Choose Document" onPress={this.setDocumentUri} />
               {/* <TextInput
                 onChangeText={(documents) => this.setState({ documents })}
@@ -262,8 +291,7 @@ export default class SellApplicationComponent extends React.Component {
                 <TouchableOpacity
                   title={"submit"}
                   style={styles.buttons}
-                  onPress={this.handleSubmit}
-                >
+                  onPress={this.handleSubmit}>
                   <Text style={styles.buttonsText}>Submit</Text>
                 </TouchableOpacity>
               </View>
@@ -279,12 +307,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 24,
-    // justifyContent: "center",
-    // alignItems: "center",
+    justifyContent: "center",
+    alignItems: "center",
   },
   titles: {
-    fontSize: 18,
-    fontWeight: "bold",
+    fontSize: 14,
+    // fontWeight: "bold",
+    color: "#515151",
     paddingVertical: 8,
     // width: 50,
   },
@@ -298,13 +327,18 @@ const styles = StyleSheet.create({
     textAlign: "left",
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 50,
+    // marginTop: 50,
     flex: 1,
     paddingVertical: 10,
   },
+  sub_heading: {
+    fontSize: 16,
+    fontWeight: "bold",
+  },
   input: {
-    width: 330,
-    height: 44,
+    width: 314,
+    // height: 44,
+    height: 20,
     padding: 10,
     borderWidth: 1,
     borderColor: "black",
@@ -312,7 +346,8 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
   },
   biginput: {
-    width: 350,
+    width: 314,
+    height: 80,
     // height: 44,
     padding: 10,
     borderWidth: 1,
@@ -321,13 +356,17 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
   },
   picker: {
-    height: 44,
-    width: 100,
+    height: 20,
+    width: 314,
+    fontSize: 12,
+    marginBottom: 10
+
   },
   buttonsContainer: {
     alignItems: "center",
     justifyContent: "center",
     padding: 20,
+    marginBottom: 10
   },
   buttons: {
     backgroundColor: "#447ECB",
