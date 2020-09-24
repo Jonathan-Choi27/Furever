@@ -20,49 +20,26 @@ import { db } from "../../../database/firebase";
 export default class shepherdList extends React.Component {
   state = {
     data: [],
-    //loading: true,
   };
 
+  componentDidMount() {
+    const dataArray = [];
+    db.collection("pet-sell-list")
+      .get()
+      .then((querySnapshot) => {
+        querySnapshot.forEach((listingDoc) => {
+          dataArray.push({
+            title: listingDoc.data().name,
+          });
+        });
+        this.setState({ data: [...dataArray] });
+      })
+      .catch((error) => {
+        console.log("Error getting document:", error);
+      });
+  }
+
   render() {
-    // CODE IN INVESTIGATION
-    // useEffect(() => {
-    //   const listing = db
-    //     .collection("pet-sell-list")
-    //     .onSnapshot((querySnapshot) => {
-    //       const dataArray = [];
-
-    //       querySnapshot.forEach((snapshot) => {
-    //         dataArray.push({
-    //           title: snapshot.data().name,
-    //           uuid: snapshot.data().uuid,
-    //         });
-    //       });
-
-    //       this.setState({ data: [...dataArray] });
-    //       this.setState({ loading: false });
-    //     });
-
-    //   // Unsubscribe from events when no longer in use
-    //   return () => listing();
-    // }, []);
-
-    // if (loading) {
-    //   return <ActivityIndicator />;
-    // }
-
-    // ALTERNATIVE CODE
-    // const dataArray = [];
-    // db.collection("pet-sell-list")
-    //   .get()
-    //   .then((snapshot) => {
-    //     snapshot.docs.some((user) => {
-    //       dataArray.push({ title: user.data().name, uuid: user.data().uuid });
-    //     });
-    //     this.setState({
-    //       data: [...dataArray],
-    //     });
-    //   });
-
     return (
       <View style={styles.container}>
         <View style={styles.buySellContainer}>
@@ -125,7 +102,7 @@ export default class shepherdList extends React.Component {
                       "https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg",
                   }}
                 />
-                <Text></Text>
+                <Text>{item.name}</Text>
               </View>
 
               <Text style={{ marginBottom: 10 }}>
