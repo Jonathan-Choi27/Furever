@@ -23,7 +23,7 @@ export default class buyDogs extends React.Component {
         <View style={styles.buySellContainer}>
           <TouchableOpacity
             style={{
-              backgroundColor: "#89CFF0",
+              backgroundColor: "#d7e5f7",
               flex: 1,
               justifyContent: "center",
               alignItems: "center",
@@ -114,6 +114,66 @@ export default class buyDogs extends React.Component {
             </TouchableOpacity>
           </View>
         </View>
+
+        <View style={styles.categories}>
+          <TouchableOpacity>
+            <View style={styles.iconContainer}>
+              <Image
+                // style={styles.icon}
+
+                style={{ height: 100, width: 100 }}
+                source={{
+                  uri:
+                    "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fpet%20buy%20icons%2Fgolden-retriever.jpg?alt=media&token=612010ce-0525-498b-9178-37970e587a79",
+                }}
+              />
+            </View>
+          </TouchableOpacity>
+          <View style={styles.iconContainer}>
+            <TouchableOpacity>
+              <Image
+                style={{ height: 100, width: 100 }}
+                source={{
+                  uri:
+                    "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fpet%20buy%20icons%2Fpomeranian.jpg?alt=media&token=42e10aaf-7d43-4ade-a5fe-6ca69b8bc076",
+                }}
+              />
+            </TouchableOpacity>
+          </View>
+        </View>
+
+
+        <View style={styles.categories}>
+          <TouchableOpacity>
+            <View style={styles.iconContainer}>
+              <Image
+                // style={styles.icon}
+
+                style={{ height: 100, width: 100 }}
+                source={{
+                  uri:
+                    "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fpet%20buy%20icons%2Frottweiler.jpg?alt=media&token=36be150b-0632-43e9-9e20-21f066de6847",
+                }}
+              />
+            </View>
+          </TouchableOpacity>
+          <View style={styles.iconContainer}>
+            <TouchableOpacity>
+              <Image
+                style={{ height: 100, width: 100 }}
+                source={{
+                  uri:
+                    "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fpet%20buy%20icons%2Fcorgi.jpg?alt=media&token=a67c9e09-87a1-4f89-810f-800242c6e45c",
+                }}
+              />
+            </TouchableOpacity>
+          </View>
+        </View>
+
+
+
+
+
       </View>
     );
   }

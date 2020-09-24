@@ -20,11 +20,7 @@ const Stack = createStackNavigator();
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator
-        screenOptions={{
-          headerTintColor: "white",
-        }}
-      >
+      <Stack.Navigator>
         <Stack.Screen
           name="Pet Search"
           component={LandingPage}
@@ -53,7 +49,7 @@ export default function App() {
             headerTitleStyle: {
               alignSelf: "center",
               flex: 1,
-              paddingBottom: Platform.OS === "web" ? 0 : 85,
+              paddingBottom: Platform.OS === "web" ? 0 : 5,
             },
             headerTitleContainerStyle: { left: 0, right: 0 },
           }}
