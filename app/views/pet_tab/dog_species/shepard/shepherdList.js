@@ -45,7 +45,7 @@ export default class shepherdList extends React.Component {
         <View style={styles.buySellContainer}>
           <TouchableOpacity
             style={{
-              backgroundColor: "#89CFF0",
+              backgroundColor: "#d7e5f7",
               flex: 1,
               justifyContent: "center",
               alignItems: "center",
