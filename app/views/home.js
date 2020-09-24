@@ -66,50 +66,31 @@ function MyTabs() {
   return (
     <NavigationContainer independent={true}>
       <Tab.Navigator
+        screenOptions={({ route }) => ({
+          tabBarIcon: ({ focused, color }) => {
+            let iconName;
+            if (route.name === "Home") {
+              iconName = focused ? "home" : "home";
+            } else if (route.name === "Pet") {
+              iconName = focused ? "paw" : "paw";
+            } else if (route.name === "Shop") {
+              iconName = focused ? "shopping-basket" : "shopping-basket";
+            } else if (route.name === "Profile") {
+              iconName = focused ? "user" : "user";
+            }
+            return <Icon name={iconName} size={30} color={color} />;
+          },
+        })}
         tabBarOptions={{
           showLabel: false,
           activeTintColor: "#447ECB",
           inactiveTintColor: "black",
         }}
       >
-        <Tab.Screen
-          name="Home"
-          component={HomeScreen}
-          options={{
-            tabBarLabel: "Home",
-            tabBarIcon: ({ black }) => (
-              <Icon name={"home"} size={30} color={black} />
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="Pet"
-          // component={PetScreenComponent}PetBuy
-          component={PetBuy}
-          options={{
-            tabBarIcon: ({ black }) => (
-              <Icon name={"paw"} size={30} color={black} />
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="Shop"
-          component={ShopScreen}
-          options={{
-            tabBarIcon: ({ black }) => (
-              <Icon name={"shopping-basket"} size={30} color={black} />
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="Profile"
-          component={ProfileScreen}
-          options={{
-            tabBarIcon: ({ black }) => (
-              <Icon name={"user"} size={30} color={black} />
-            ),
-          }}
-        />
+        <Tab.Screen name="Home" component={HomeScreen} />
+        <Tab.Screen name="Pet" component={PetBuy} />
+        <Tab.Screen name="Shop" component={ShopScreen} />
+        <Tab.Screen name="Profile" component={ProfileScreen} />
       </Tab.Navigator>
     </NavigationContainer>
   );

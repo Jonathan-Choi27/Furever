@@ -136,7 +136,6 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     width: 280,
-    color: "#447ECB",
   },
   logo: {
     width: 264,
