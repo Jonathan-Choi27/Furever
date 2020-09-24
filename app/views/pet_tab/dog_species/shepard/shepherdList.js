@@ -37,6 +37,21 @@ export default class shepherdList extends React.Component {
       .catch((error) => {
         console.log("Error getting document:", error);
       });
+
+    db.collection("users")
+      .get()
+      .then((querySnapshot) => {
+        querySnapshot.forEach((usersDoc) => {
+          dataArray.forEach(function (itm) {
+            itm.name = usersDoc.data().name;
+          });
+        });
+        this.setState({ data: [...dataArray] });
+      })
+      .catch((error) => {
+        console.log("Error getting document:", error);
+      });
+    console.log(dataArray);
   }
 
   render() {
