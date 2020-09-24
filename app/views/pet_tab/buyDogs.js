@@ -70,7 +70,7 @@ export default class buyDogs extends React.Component {
                 style={{ height: 100, width: 100 }}
                 source={{
                   uri:
-                    "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fpet%20buy%20icons%2Fgerman-shepherd.svg?alt=media&token=0d0219e4-061a-427c-b5d2-e373b10f1a7d",
+                    "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fpet%20buy%20icons%2Fgerman-shepherd.jpg?alt=media&token=9cd50a0f-7c36-4f10-8b6a-53ea9ee133ab",
                 }}
               />
             </View>
@@ -81,7 +81,7 @@ export default class buyDogs extends React.Component {
                 style={{ height: 100, width: 100 }}
                 source={{
                   uri:
-                    "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fpet%20buy%20icons%2Fmaltese.svg?alt=media&token=c96f15f4-2ea4-4187-a289-96a1bf1fe12f",
+                    "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fpet%20buy%20icons%2Fmaltese.jpg?alt=media&token=151b14ec-f1e1-4234-95eb-603373940110",
                 }}
               />
             </TouchableOpacity>
@@ -97,7 +97,7 @@ export default class buyDogs extends React.Component {
                 style={{ height: 100, width: 100 }}
                 source={{
                   uri:
-                    "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fpet%20buy%20icons%2Fcavoodle.svg?alt=media&token=4f462a1d-18e5-448c-990d-29b4716de764",
+                    "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fpet%20buy%20icons%2Fcavoodle.jpg?alt=media&token=d657d9ab-c4b8-439f-8789-33ddb465060b",
                 }}
               />
             </View>
@@ -108,7 +108,7 @@ export default class buyDogs extends React.Component {
                 style={{ height: 100, width: 100 }}
                 source={{
                   uri:
-                    "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fpet%20buy%20icons%2Fsamoyed.svg?alt=media&token=587cd6a4-c892-4f0b-aa9c-8454f4c474ce",
+                    "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fpet%20buy%20icons%2Fsamoyed.jpg?alt=media&token=aeefae65-cd0c-40c6-a0be-86e11444629a",
                 }}
               />
             </TouchableOpacity>
