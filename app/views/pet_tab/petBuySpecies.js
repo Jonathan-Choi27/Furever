@@ -1,6 +1,6 @@
 import { green } from "@material-ui/core/colors";
 import { PhonelinkTwoTone } from "@material-ui/icons";
-import React, {useState } from "react";
+import React, { useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -12,9 +12,9 @@ import {
   ActivityIndicator,
   Platform,
   Dimensions,
-  Image, 
+  Image,
 } from "react-native";
-import { SearchBar } from 'react-native-elements';
+import { SearchBar } from "react-native-elements";
 
 export default class petBuySpecies extends React.Component {
   state = {
@@ -43,16 +43,17 @@ export default class petBuySpecies extends React.Component {
                             >
             <Text>Buy</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={{
-                              backgroundColor: 'white',
-                              flex: 1, 
-                              justifyContent: "center", 
-                              alignItems: "center",
-                              height: 50,
-                            }}
-                            onPress={() => this.props.navigation.navigate("petSell")}
+          <TouchableOpacity
+            style={{
+              backgroundColor: "white",
+              flex: 1,
+              justifyContent: "center",
+              alignItems: "center",
+              height: 50,
+            }}
+            onPress={() => this.props.navigation.navigate("petSell")}
           >
-            <Text style={{textAlign: 'center'}}> Sell </Text>
+            <Text style={{ textAlign: "center" }}> Sell </Text>
           </TouchableOpacity>
         </View>
         <View style={{
@@ -79,16 +80,18 @@ export default class petBuySpecies extends React.Component {
 
           />
         </View>
-        <View style={{height: 50, padding: 10}}>
+        <View style={{ height: 50, padding: 10 }}>
           <TouchableOpacity style={styles.viewApplication}>
             <Text style={{textAlign: 'center', color: 'white'}}>View Applications</Text>
           </TouchableOpacity>
         </View>
         <View style={styles.categories}>
-          <TouchableOpacity onPress={() => this.props.navigation.navigate("buyDogs")}>
+          <TouchableOpacity
+            onPress={() => this.props.navigation.navigate("buyDogs")}
+          >
             <View style={styles.iconContainer}>
-            <Image
-              // style={styles.icon}
+              <Image
+                // style={styles.icon}
 
             style={{height:100, width:100,}}
             source={{
@@ -109,13 +112,14 @@ export default class petBuySpecies extends React.Component {
             />  
           </TouchableOpacity> 
             </View>
+
         </View>
 
         <View style={styles.categories}>
           <TouchableOpacity>
             <View style={styles.iconContainer}>
-            <Image
-              // style={styles.icon}
+              <Image
+                // style={styles.icon}
 
             style={{height:100, width:100,}}
             source={{
@@ -206,35 +210,35 @@ export default class petBuySpecies extends React.Component {
 }
 const styles = StyleSheet.create({
   container: {
-    flex: 1, 
-    justifyContent: "center", 
+    flex: 1,
+    justifyContent: "center",
     alignItems: "center",
   },
   buySellContainer: {
-    alignSelf:'stretch',
-    justifyContent: 'flex-start',
-    alignItems: 'flex-start',
-    flexDirection: 'row',
+    alignSelf: "stretch",
+    justifyContent: "flex-start",
+    alignItems: "flex-start",
+    flexDirection: "row",
   },
   categories: {
-    alignSelf:'stretch',
-    flex: 1, 
-    justifyContent: "center", 
+    alignSelf: "stretch",
+    flex: 1,
+    justifyContent: "center",
     alignItems: "center",
     flexDirection: "row",
-    padding:20,
-    
+    padding: 20,
   },
   iconContainer: {
     padding: 20,
   },
   viewApplication: {
-    backgroundColor: '#447ECB',
-    flex: 1, 
-    justifyContent: "center", 
+    backgroundColor: "#447ECB",
+    flex: 1,
+    justifyContent: "center",
     alignItems: "center",
-    height: 50, 
+    height: 50,
     width: 200,
     borderRadius: 5,
   }
 });
+
