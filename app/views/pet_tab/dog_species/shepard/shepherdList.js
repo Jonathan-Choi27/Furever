@@ -117,12 +117,12 @@ export default class shepherdList extends React.Component {
                       "https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg",
                   }}
                 />
-                <Text>{item.name}</Text>
+                <Text style={styles.nameTitle}>{item.name}</Text>
               </View>
 
               <Text style={{ marginBottom: 10 }}>
-                The idea with React Native Elements is more about component
-                structure than actual design.
+                Description here, Description here, Description here,Description
+                here,Description here
               </Text>
               <Button
                 icon={{ name: "code" }}
@@ -200,6 +200,9 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   avatarContainer: {
+    fontWeight: "bold",
+  },
+  nameTitle: {
     fontWeight: "bold",
   },
 });
