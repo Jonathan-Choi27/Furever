@@ -108,40 +108,45 @@ export default class shepherdList extends React.Component {
             placeholder="Search..."
             lightTheme="true"
           />
+          <View style={styles.titleContainer}>
+            <Text style={styles.title}>German Shepherd</Text>
+            <TouchableOpacity style={styles.titleButton}>
+              <Text style={styles.titleButtonsText}>Information</Text>
+            </TouchableOpacity>
+          </View>
         </View>
-        <Text style={styles.outsideTitle}>German Shepherd</Text>
         <FlatList
           renderItem={({ item }) => (
-            <Card>
-              <Card.Title containerStyle={styles.card}>{item.title}</Card.Title>
-              <Card.Image source={item.photo} />
-              <Card.Divider />
-              <View style={styles.avatarContainer}>
+            <Card containerStyle={styles.cardContainer}>
+              <Card.Title style={styles.cardTitleContainer}>
+                {item.title}
+              </Card.Title>
+              <View style={styles.cardContentContainer}>
+                <Card.Image style={styles.containerImage} source={item.photo} />
+                <Text style={styles.containerText}>
+                  Age: 123 {"\n"}
+                  Gender: 123 {"\n"}
+                  Location: Sydney, United States {"\n"}
+                  Seller:{" "}
+                  <Text style={{ fontWeight: "bold" }}>
+                    {item.name.split(" ")[0]}
+                  </Text>
+                  {"\n"}
+                  {
+                    <TouchableOpacity style={styles.buttons}>
+                      <Text style={styles.buttonsText}>More info</Text>
+                    </TouchableOpacity>
+                  }
+                </Text>
                 <Avatar
+                  style={styles.avatarContainer}
                   rounded
                   source={{
-                    uri: item.photo,
+                    uri:
+                      "https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg",
                   }}
                 />
-                <Text style={styles.nameTitle}>{item.name}</Text>
               </View>
-
-              <Text style={{ marginBottom: 10 }}>
-                Description here, Description here, Description here,Description
-                here,Description here
-              </Text>
-              <Button
-                icon={{ name: "code" }}
-                backgroundColor="#03A9F4"
-                fontFamily="Lato"
-                buttonStyle={{
-                  borderRadius: 0,
-                  marginLeft: 0,
-                  marginRight: 0,
-                  marginBottom: 0,
-                }}
-                title="VIEW NOW"
-              />
             </Card>
           )}
           keyExtractor={(item, index) => index.toString()}
@@ -165,50 +170,70 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
     flexDirection: "row",
   },
-  categories: {
-    alignSelf: "stretch",
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    flexDirection: "row",
-    padding: 20,
-  },
-  iconContainer: {
-    padding: 20,
-  },
-  viewApplication: {
-    backgroundColor: "#447ECB",
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    height: 50,
-    width: 200,
-  },
-  item: {
-    backgroundColor: "#f9c2ff",
-    padding: 20,
-    marginVertical: 8,
-    marginHorizontal: 16,
-  },
   title: {
     fontSize: 32,
   },
-  outsideTitle: {
-    fontSize: 20,
-    alignSelf: "stretch",
-    justifyContent: "flex-start",
-    alignItems: "flex-start",
+  titleContainer: {
     flexDirection: "row",
-    fontWeight: "bold",
-    padding: 12,
+    justifyContent: "space-between",
+    margin: 12,
   },
-  card: {
-    borderRadius: 10,
+  title: {
+    fontWeight: "bold",
+    fontSize: 16,
+  },
+  cardContainer: {
+    borderRadius: 4,
+  },
+  cardContentContainer: {
+    flex: 1,
+    flexDirection: "row",
+    flexWrap: "wrap",
+    alignItems: "flex-start",
+    justifyContent: "flex-start",
+  },
+  containerImage: {
+    height: 100,
+    width: 100,
+    marginRight: 2,
+  },
+  containerText: {
+    fontSize: 12,
+  },
+  titleButton: {
+    backgroundColor: "#447ECB",
+    borderRadius: 6,
+    alignItems: "center",
+    width: 120,
+    height: 25,
+  },
+  buttons: {
+    backgroundColor: "#447ECB",
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 6,
+    width: 90,
+    marginTop: 5,
+    height: 30,
+  },
+  titleButtonsText: {
+    color: "white",
+    fontSize: 16,
+  },
+  buttonsText: {
+    color: "white",
+    fontSize: 15,
+  },
+  cardTitleContainer: {
+    fontSize: 15,
+    textAlign: "left",
   },
   avatarContainer: {
-    fontWeight: "bold",
-  },
-  nameTitle: {
-    fontWeight: "bold",
+    width: 40,
+    height: 40,
+    borderRadius: 40 / 2,
+    overflow: "hidden",
+    borderWidth: 2,
+    borderColor: "#447ECB",
   },
 });
