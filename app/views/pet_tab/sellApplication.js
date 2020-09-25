@@ -77,8 +77,6 @@ export default class SellApplicationComponent extends React.Component {
 
     const user = auth.currentUser;
 
-<<<<<<< HEAD
-=======
     // if (
     //     name == "" ||
     //     category == "" ||
@@ -92,7 +90,6 @@ export default class SellApplicationComponent extends React.Component {
     // )
 
 
->>>>>>> bd6b52b35ffdbd36a90b74896738b3ec8a62c46d
     db.collection("pet_listings").add({
       uuid: user.uid,
       name: this.state.name,
