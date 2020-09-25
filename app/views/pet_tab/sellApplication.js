@@ -21,6 +21,8 @@ import {
 } from "../components/DocumentUpload";
 import { openImagePicker, uploadPhoto } from "../components/ImageUpload";
 import { auth } from "../database/firebase";
+import * as firebase from "firebase/app";
+import "firebase/storage";
 
 export default class SellApplicationComponent extends React.Component {
   state = {
@@ -36,9 +38,12 @@ export default class SellApplicationComponent extends React.Component {
     health: "",
     training: "",
     additionalInfo: "",
-    photo: "",
     documents: "",
+    //photo
+    photo_link: "",
     photo_uri: "",
+    photo_uuid: "",
+    //
     documents_uri: "",
     seller_name: "",
   };
@@ -63,18 +68,37 @@ export default class SellApplicationComponent extends React.Component {
       health,
       training,
       additionalInfo,
-      photo,
-      documents,
+      photo_uuid,
       photo_uri,
+      photo_link,
+      documents,
       documents_uri,
-    //   seller_name,
+      //   seller_name,
     } = this.state;
 
-    console.log("photo uuid:" + this.state.photo);
+    console.log("photo uuid:" + this.state.photo_uuid);
 
-    uploadPhoto(this.state.photo_uri, this.state.photo);
+    const photoURL = await uploadPhoto(this.state.photo_uri, this.state.photo_uuid);
+
+    this.setState({
+        photo_link : photoURL
+    })
+    console.log("class : " + photoURL);
+
     uploadDocument(this.state.documents_uri, this.state.documents);
 
+    // var storageRef = firebase.storage().ref();
+    // storageRef
+    //   .child("user_uploads/images/" + this.state.photo_uuid)
+    //   .getDownloadURL()
+    //   .then(function (url) {
+    //     console.log("hi");
+    //     // this.state.photo_link = url;
+    //     console.log(url);
+    //   })
+    //   .catch(function (error) {
+    //     console.log(error);
+    //   });
     const user = auth.currentUser;
 
     // if (
@@ -89,7 +113,6 @@ export default class SellApplicationComponent extends React.Component {
     //     breed == "" ||
     // )
 
-
     db.collection("pet_listings").add({
       uuid: user.uid,
       name: this.state.name,
@@ -102,7 +125,7 @@ export default class SellApplicationComponent extends React.Component {
       health: this.state.health,
       location: this.state.location,
       training: this.state.training,
-      photo: this.state.photo,
+      photo_link: this.state.photo_link,
       documents: this.state.documents,
       price: this.state.price,
       // to implement
@@ -112,12 +135,12 @@ export default class SellApplicationComponent extends React.Component {
       //   price
     });
   };
-// aaaaaaaaaa
+  // aaaaaaaaaa
   setPhotoUri = async () => {
     const get_uri = await openImagePicker();
 
     this.setState({
-      photo: uuid.v4(),
+      photo_uuid: uuid.v4(),
       photo_uri: get_uri,
     });
   };
@@ -136,8 +159,7 @@ export default class SellApplicationComponent extends React.Component {
       <SafeAreaView style={styles.container}>
         <ScrollView
           style={styles.scrollView}
-          showsVerticalScrollIndicator={false}
-        >
+          showsVerticalScrollIndicator={false}>
           <Text style={styles.heading}>New Pet Listing Application</Text>
           <Text>
             <Text style={styles.sub_heading}>General Information</Text>
@@ -210,8 +232,7 @@ export default class SellApplicationComponent extends React.Component {
               </Text>
               <Picker
                 style={styles.picker}
-                onValueChange={(gender) => this.setState({ gender })}
-              >
+                onValueChange={(gender) => this.setState({ gender })}>
                 <Picker.Item label="Select" value="0" />
                 <Picker.Item label="Male" value="male" />
                 <Picker.Item label="Female" value="female" />
@@ -301,8 +322,7 @@ export default class SellApplicationComponent extends React.Component {
                 <TouchableOpacity
                   title={"submit"}
                   style={styles.buttons}
-                  onPress={this.handleSubmit}
-                >
+                  onPress={this.handleSubmit}>
                   <Text style={styles.buttonsText}>Submit</Text>
                 </TouchableOpacity>
               </View>

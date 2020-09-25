@@ -52,7 +52,8 @@ export default class shepherdList extends React.Component {
             console.log(seller_name);
             dataArray.push({
                 title: listingDoc.data().name,
-                name: seller_name
+                name: seller_name,
+                photo: listingDoc.data().photo_link
             })
 
             this.setState({data: [...dataArray]});
@@ -107,13 +108,10 @@ export default class shepherdList extends React.Component {
           renderItem={({ item }) => (
             <Card>
               <Card.Title
-                containerStyle={styles.card}
-                image={
-                  "https://randomwordgenerator.com/img/picture-generator/54e6dc454e55b10ff3d8992cc12c30771037dbf85254784a73287bd09344_640.jpg"
-                }>
+                containerStyle={styles.card}>
                 {item.title}
               </Card.Title>
-
+                <Card.Image source = {item.photo} />
               <View style={styles.avatarContainer}>
                 <Avatar
                   rounded

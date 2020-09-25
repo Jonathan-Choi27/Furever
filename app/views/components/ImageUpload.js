@@ -29,22 +29,44 @@ export const openImagePicker = async () => {
   }
 };
 
-export const uploadPhoto = (uri, uuid) => {
-    fetch(uri)
-    .then((result) => result.blob())
-    .then((blob) => {
-      var storageRef = firebase.storage().ref();
+export const uploadPhoto =  async (uri, uuid) => {
 
-      storageRef
-        .child("user_uploads/images/" + uuid)
-        .put(blob)
-        .then((snapshot) => {
-          console.log("File succesfully uploaded", snapshot);
-        })
-        .catch((error) => {
-          console.log("Error during file upload", error);
-        });
-    });
+    // var photoURL;
+    const response = await fetch(uri);
+    const blob = await response.blob();
+
+    const ref = firebase.storage().ref().child("user_uploads/images/" + uuid);
+
+    const snapshot = await ref.put(blob);
+
+    const photoURL = await snapshot.ref.getDownloadURL();
+    // ref.put(blob).then((snapshot) => {
+    //     snapshot.ref.getDownloadURL().then((url) => {
+    //         console.log("inside loop: " + url);
+    //         photoURL = url;
+    //     })
+    // })
+
+    // .then((result) => result.blob())
+    // .then((blob) => {
+    //   var storageRef = firebase.storage().ref();
+    //   storageRef
+    //     .child("user_uploads/images/" + uuid)
+    //     .put(blob)
+    //     .then(async (snapshot) => {
+    //         photoURL = await snapshot.ref.getDownloadURL().then((downloadURL) => {
+    //             return downloadURL;
+    //             // return downloadURL;
+    //         })
+    //       console.log("File succesfully uploaded", snapshot);
+    //     })
+    //     .catch((error) => {
+    //       console.log("Error during file upload", error);
+    //     });
+    // });
+    console.log("outside : " + photoURL);
+    return photoURL;
+    // return photoURL;
 }
 
 // export default function openImagePicker();
