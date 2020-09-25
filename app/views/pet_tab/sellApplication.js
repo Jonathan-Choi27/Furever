@@ -40,9 +40,16 @@ export default class SellApplicationComponent extends React.Component {
     documents: "",
     photo_uri: "",
     documents_uri: "",
+    seller_name: "",
   };
 
-  handleSubmit = () => {
+  componentDidMount() {
+    //  db.collection("users").doc(auth.currentUser.uid).get().then((doc) => {
+    //      this.state.seller_name = doc.data().name;
+    //  });
+  }
+
+  handleSubmit = async () => {
     const {
       name,
       category,
@@ -60,6 +67,7 @@ export default class SellApplicationComponent extends React.Component {
       documents,
       photo_uri,
       documents_uri,
+    //   seller_name,
     } = this.state;
 
     console.log("photo uuid:" + this.state.photo);
@@ -69,6 +77,22 @@ export default class SellApplicationComponent extends React.Component {
 
     const user = auth.currentUser;
 
+<<<<<<< HEAD
+=======
+    // if (
+    //     name == "" ||
+    //     category == "" ||
+    //     breed == "" ||
+    //     colour == "" ||
+    //     age == "" ||
+    //     gender == "" ||
+    //     breed == "" ||
+    //     breed == "" ||
+    //     breed == "" ||
+    // )
+
+
+>>>>>>> bd6b52b35ffdbd36a90b74896738b3ec8a62c46d
     db.collection("pet_listings").add({
       uuid: user.uid,
       name: this.state.name,
@@ -79,6 +103,7 @@ export default class SellApplicationComponent extends React.Component {
       gender: this.state.gender,
       behaviour: this.state.behaviour,
       health: this.state.health,
+      location: this.state.location,
       training: this.state.training,
       photo: this.state.photo,
       documents: this.state.documents,
@@ -90,7 +115,7 @@ export default class SellApplicationComponent extends React.Component {
       //   price
     });
   };
-
+// aaaaaaaaaa
   setPhotoUri = async () => {
     const get_uri = await openImagePicker();
 
@@ -131,7 +156,6 @@ export default class SellApplicationComponent extends React.Component {
             <View style={styles.rectangle}>
               <Text>
                 <Text style={styles.titles}>Name</Text>
-                {/* <Text style={styles.setColorRed}> *</Text> */}
               </Text>
               <TextInput
                 onChangeText={(name) => this.setState({ name })}
@@ -139,16 +163,10 @@ export default class SellApplicationComponent extends React.Component {
               />
               <Text>
                 <Text style={styles.titles}>Category</Text>
-                {/* <Text style={styles.setColorRed}> *</Text> */}
               </Text>
               <Picker
                 style={styles.picker}
-                onValueChange={(category) => {
-                  if (value != "0") {
-                    this.setState({ category });
-                  }
-                }}
-              >
+                onValueChange={(category) => this.setState({ category })}>
                 <Picker.Item label="Select" value="0" />
                 <Picker.Item label="Dog" value="dog" />
                 <Picker.Item label="Cat" value="cat" />
@@ -159,7 +177,6 @@ export default class SellApplicationComponent extends React.Component {
               </Picker>
               <Text>
                 <Text style={styles.titles}>Animal Breed</Text>
-                {/* <Text style={styles.setColorRed}> *</Text> */}
               </Text>
               <TextInput
                 onChangeText={(breed) => this.setState({ breed })}
@@ -168,16 +185,8 @@ export default class SellApplicationComponent extends React.Component {
 
               <Text>
                 <Text style={styles.titles}>Colour</Text>
-                {/* <Text style={styles.setColorRed}> *</Text> */}
               </Text>
-              <Picker
-                style={styles.picker}
-                onValueChange={(category) => {
-                  if (value != "0") {
-                    this.setState({ category });
-                  }
-                }}
-              >
+              <Picker style={styles.picker} onValueChange={(category) => {}}>
                 <Picker.Item label="Select" value="0" />
                 <Picker.Item label="Brown" value="dog" />
                 <Picker.Item label="White" value="cat" />
