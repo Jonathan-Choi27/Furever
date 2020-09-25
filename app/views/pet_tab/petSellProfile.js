@@ -1,5 +1,3 @@
-import { green, pink } from "@material-ui/core/colors";
-import { PhonelinkTwoTone } from "@material-ui/icons";
 import React, { useState } from "react";
 import {
   StyleSheet,
@@ -37,8 +35,7 @@ export default class petSellProfile extends React.Component {
       })
       .catch((error) => {
         console.log("Error getting document:", error);
-      }
-    );
+      });
   }
 
   render() {
@@ -126,7 +123,7 @@ export default class petSellProfile extends React.Component {
             <FlatList
               data={this.state.data}
               keyExtractor={(item, index) => index.toString()}
-              renderItem={({ item}) =>  <Text>{item.title}</Text>}
+              renderItem={({ item }) => <Text>{item.title}</Text>}
             />
           </View>
 

@@ -1,4 +1,3 @@
-import { blue } from "@material-ui/core/colors";
 import * as React from "react";
 import {
   Picker,
@@ -78,11 +77,14 @@ export default class SellApplicationComponent extends React.Component {
 
     console.log("photo uuid:" + this.state.photo_uuid);
 
-    const photoURL = await uploadPhoto(this.state.photo_uri, this.state.photo_uuid);
+    const photoURL = await uploadPhoto(
+      this.state.photo_uri,
+      this.state.photo_uuid
+    );
 
     this.setState({
-        photo_link : photoURL
-    })
+      photo_link: photoURL,
+    });
     console.log("class : " + photoURL);
 
     uploadDocument(this.state.documents_uri, this.state.documents);
@@ -159,7 +161,8 @@ export default class SellApplicationComponent extends React.Component {
       <SafeAreaView style={styles.container}>
         <ScrollView
           style={styles.scrollView}
-          showsVerticalScrollIndicator={false}>
+          showsVerticalScrollIndicator={false}
+        >
           <Text style={styles.heading}>New Pet Listing Application</Text>
           <Text>
             <Text style={styles.sub_heading}>General Information</Text>
@@ -185,7 +188,8 @@ export default class SellApplicationComponent extends React.Component {
               </Text>
               <Picker
                 style={styles.picker}
-                onValueChange={(category) => this.setState({ category })}>
+                onValueChange={(category) => this.setState({ category })}
+              >
                 <Picker.Item label="Select" value="0" />
                 <Picker.Item label="Dog" value="dog" />
                 <Picker.Item label="Cat" value="cat" />
@@ -232,7 +236,8 @@ export default class SellApplicationComponent extends React.Component {
               </Text>
               <Picker
                 style={styles.picker}
-                onValueChange={(gender) => this.setState({ gender })}>
+                onValueChange={(gender) => this.setState({ gender })}
+              >
                 <Picker.Item label="Select" value="0" />
                 <Picker.Item label="Male" value="male" />
                 <Picker.Item label="Female" value="female" />
@@ -322,7 +327,8 @@ export default class SellApplicationComponent extends React.Component {
                 <TouchableOpacity
                   title={"submit"}
                   style={styles.buttons}
-                  onPress={this.handleSubmit}>
+                  onPress={this.handleSubmit}
+                >
                   <Text style={styles.buttonsText}>Submit</Text>
                 </TouchableOpacity>
               </View>
