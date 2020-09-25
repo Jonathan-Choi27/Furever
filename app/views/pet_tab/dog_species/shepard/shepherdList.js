@@ -24,13 +24,23 @@ export default class shepherdList extends React.Component {
 
   componentDidMount() {
     const dataArray = [];
-    db.collection("pet-sell-list")
+    db.collection("pet_listings")
       .get()
       .then((querySnapshot) => {
         querySnapshot.forEach((listingDoc) => {
           dataArray.push({
             title: listingDoc.data().name,
           });
+
+          db.collection("users")
+            .doc(listingDoc.data().uuid)
+            .get()
+            .then(function (doc) {
+              dataArray.forEach(function (itm) {
+                itm.name = doc.data().name;
+              });
+              this.setState({ data: [...dataArray] });
+            });
         });
         this.setState({ data: [...dataArray] });
       })
@@ -38,19 +48,19 @@ export default class shepherdList extends React.Component {
         console.log("Error getting document:", error);
       });
 
-    db.collection("users")
-      .get()
-      .then((querySnapshot) => {
-        querySnapshot.forEach((usersDoc) => {
-          dataArray.forEach(function (itm) {
-            itm.name = usersDoc.data().name;
-          });
-        });
-        this.setState({ data: [...dataArray] });
-      })
-      .catch((error) => {
-        console.log("Error getting document:", error);
-      });
+    // db.collection("users")
+    //   .get()
+    //   .then((querySnapshot) => {
+    //     querySnapshot.forEach((usersDoc) => {
+    //       dataArray.forEach(function (itm) {
+    //         itm.name = usersDoc.data().name;
+    //       });
+    //     });
+    //     this.setState({ data: [...dataArray] });
+    //   })
+    //   .catch((error) => {
+    //     console.log("Error getting document:", error);
+    //   });
     console.log(dataArray);
   }
 

@@ -69,7 +69,7 @@ export default class SellApplicationComponent extends React.Component {
 
     const user = auth.currentUser;
 
-    db.collection("pet-sell-list").add({
+    db.collection("pet_listings").add({
       uuid: user.uid,
       name: this.state.name,
       category: this.state.category,
