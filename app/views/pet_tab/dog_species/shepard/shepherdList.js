@@ -22,21 +22,44 @@ export default class shepherdList extends React.Component {
     data: [],
   };
 
-  componentDidMount() {
+  async componentDidMount() {
+    // const dataArray = [];
+    // db.collection("pet_listings")
+    //   .get()
+    //   .then((querySnapshot) => {
+    //     querySnapshot.forEach((listingDoc) => {
+    //       dataArray.push({
+    //         title: listingDoc.data().name,
+    //         name: listingDoc.data().seller_name
+    //       });
+    //     });
+    //     this.setState({ data: [...dataArray] });
+    //   })
+    //   .catch((error) => {
+    //     console.log("Error getting document:", error);
+    //   });
+
     const dataArray = [];
-    db.collection("pet-sell-list")
+    db.collection("pet_listings")
       .get()
-      .then((querySnapshot) => {
-        querySnapshot.forEach((listingDoc) => {
-          dataArray.push({
-            title: listingDoc.data().name,
-          });
-        });
-        this.setState({ data: [...dataArray] });
-      })
-      .catch((error) => {
-        console.log("Error getting document:", error);
+      .then((doc) => {
+          doc.forEach(async (listingDoc) => {
+            var uuid = listingDoc.data().uuid;
+            var seller_name;
+            await db.collection("users").doc(uuid).get().then((user_doc) => {
+                 seller_name =  user_doc.data().name;
+            })
+            console.log(seller_name);
+            dataArray.push({
+                title: listingDoc.data().name,
+                name: seller_name
+            })
+
+            this.setState({data: [...dataArray]});
+          })
       });
+      console.log(dataArray);
+    // console. log(user_id);
   }
 
   render() {
@@ -51,8 +74,7 @@ export default class shepherdList extends React.Component {
               alignItems: "center",
               height: 50,
             }}
-            onPress={() => this.props.navigation.navigate("petBuySpecies")}
-          >
+            onPress={() => this.props.navigation.navigate("petBuySpecies")}>
             <Text>Buy</Text>
           </TouchableOpacity>
           <TouchableOpacity
@@ -63,8 +85,7 @@ export default class shepherdList extends React.Component {
               alignItems: "center",
               height: 50,
             }}
-            onPress={() => this.props.navigation.navigate("petSell")}
-          >
+            onPress={() => this.props.navigation.navigate("petSell")}>
             <Text style={{ textAlign: "center" }}> Sell </Text>
           </TouchableOpacity>
         </View>
@@ -89,8 +110,7 @@ export default class shepherdList extends React.Component {
                 containerStyle={styles.card}
                 image={
                   "https://randomwordgenerator.com/img/picture-generator/54e6dc454e55b10ff3d8992cc12c30771037dbf85254784a73287bd09344_640.jpg"
-                }
-              >
+                }>
                 {item.title}
               </Card.Title>
 
