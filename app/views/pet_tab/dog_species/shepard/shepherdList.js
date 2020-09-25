@@ -42,44 +42,6 @@ export default class shepherdList extends React.Component {
     const dataArray = [];
     db.collection("pet_listings")
       .get()
-<<<<<<< HEAD
-      .then((querySnapshot) => {
-        querySnapshot.forEach((listingDoc) => {
-          dataArray.push({
-            title: listingDoc.data().name,
-          });
-
-          db.collection("users")
-            .doc(listingDoc.data().uuid)
-            .get()
-            .then(function (doc) {
-              dataArray.forEach(function (itm) {
-                itm.name = doc.data().name;
-              });
-              this.setState({ data: [...dataArray] });
-            });
-        });
-        this.setState({ data: [...dataArray] });
-      })
-      .catch((error) => {
-        console.log("Error getting document:", error);
-      });
-
-    // db.collection("users")
-    //   .get()
-    //   .then((querySnapshot) => {
-    //     querySnapshot.forEach((usersDoc) => {
-    //       dataArray.forEach(function (itm) {
-    //         itm.name = usersDoc.data().name;
-    //       });
-    //     });
-    //     this.setState({ data: [...dataArray] });
-    //   })
-    //   .catch((error) => {
-    //     console.log("Error getting document:", error);
-    //   });
-    console.log(dataArray);
-=======
       .then((doc) => {
           doc.forEach(async (listingDoc) => {
             var uuid = listingDoc.data().uuid;
@@ -98,7 +60,6 @@ export default class shepherdList extends React.Component {
       });
       console.log(dataArray);
     // console. log(user_id);
->>>>>>> bd6b52b35ffdbd36a90b74896738b3ec8a62c46d
   }
 
   render() {
