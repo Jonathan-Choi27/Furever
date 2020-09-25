@@ -104,8 +104,7 @@ export default class SellApplicationComponent extends React.Component {
       training: this.state.training,
       photo: this.state.photo,
       documents: this.state.documents,
-    //   seller_name: this.state.seller_name,
-
+      price: this.state.price,
       // to implement
       //   location
       //   photo
@@ -137,7 +136,8 @@ export default class SellApplicationComponent extends React.Component {
       <SafeAreaView style={styles.container}>
         <ScrollView
           style={styles.scrollView}
-          showsVerticalScrollIndicator={false}>
+          showsVerticalScrollIndicator={false}
+        >
           <Text style={styles.heading}>New Pet Listing Application</Text>
           <Text>
             <Text style={styles.sub_heading}>General Information</Text>
@@ -210,7 +210,8 @@ export default class SellApplicationComponent extends React.Component {
               </Text>
               <Picker
                 style={styles.picker}
-                onValueChange={(gender) => this.setState({ gender })}>
+                onValueChange={(gender) => this.setState({ gender })}
+              >
                 <Picker.Item label="Select" value="0" />
                 <Picker.Item label="Male" value="male" />
                 <Picker.Item label="Female" value="female" />
@@ -300,7 +301,8 @@ export default class SellApplicationComponent extends React.Component {
                 <TouchableOpacity
                   title={"submit"}
                   style={styles.buttons}
-                  onPress={this.handleSubmit}>
+                  onPress={this.handleSubmit}
+                >
                   <Text style={styles.buttonsText}>Submit</Text>
                 </TouchableOpacity>
               </View>
@@ -347,7 +349,7 @@ const styles = StyleSheet.create({
   input: {
     width: 314,
     // height: 44,
-    height: 20,
+    height: 34,
     padding: 10,
     borderWidth: 1,
     borderColor: "black",

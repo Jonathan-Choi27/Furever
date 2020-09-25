@@ -66,18 +66,35 @@ export default class petSell extends React.Component {
             <Text style={{ textAlign: "center" }}> Sell </Text>
           </TouchableOpacity>
         </View>
-        <View style={{ height: 50, padding: 10, flexDirection: "row" }}>
-          <Text style={{ textAlign: "center", padding: 10 }}>
+        <View style={{ height: 60, padding: 10, flexDirection: "row" }}>
+          <Text
+            style={{ textAlign: "center", padding: 10, fontWeight: "bold" }}
+          >
             Current Listings
           </Text>
 
           <TouchableOpacity
-            style={styles.viewApplication}
+            // style={styles.viewApplication}
+            style={{
+              backgroundColor: "#447ECB",
+              flex: 1,
+              justifyContent: "center",
+              alignItems: "center",
+              height: 34,
+              width: 200,
+            }}
             onPress={() =>
               this.props.navigation.navigate("SellApplicationComponent")
             }
           >
-            <Text style={{ textAlign: "center", padding: 10 }}>
+            <Text
+              style={{
+                textAlign: "center",
+                padding: 10,
+                color: "#FFFFFF",
+                fontWeight: "bold",
+              }}
+            >
               Add New Listing
             </Text>
           </TouchableOpacity>
