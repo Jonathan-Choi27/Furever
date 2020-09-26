@@ -38,7 +38,7 @@ export default class petBuySpecies extends React.Component {
               alignItems: "center",
               height: 50,
             }}
-            onPress={() => this.props.navigation.navigate("petBuySpecies")}
+            onPress={() => this.props.navigation.replace("petBuySpecies")}
           >
             <Text>Buy</Text>
           </TouchableOpacity>
@@ -50,7 +50,7 @@ export default class petBuySpecies extends React.Component {
               alignItems: "center",
               height: 50,
             }}
-            onPress={() => this.props.navigation.navigate("petSell")}
+            onPress={() => this.props.navigation.replace("petSell")}
           >
             <Text style={{ textAlign: "center" }}> Sell </Text>
           </TouchableOpacity>
@@ -89,7 +89,7 @@ export default class petBuySpecies extends React.Component {
         </View>
         <View style={styles.categories}>
           <TouchableOpacity
-            onPress={() => this.props.navigation.navigate("buyDogs")}
+            onPress={() => this.props.navigation.replace("buyDogs")}
           >
             <View style={styles.iconContainer}>
               <Image

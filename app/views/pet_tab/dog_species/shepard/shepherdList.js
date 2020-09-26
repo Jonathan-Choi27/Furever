@@ -54,7 +54,7 @@ export default class shepherdList extends React.Component {
               alignItems: "center",
               height: 50,
             }}
-            onPress={() => this.props.navigation.navigate("petBuySpecies")}
+            onPress={() => this.props.navigation.replace("petBuySpecies")}
           >
             <Text>Buy</Text>
           </TouchableOpacity>
@@ -66,7 +66,7 @@ export default class shepherdList extends React.Component {
               alignItems: "center",
               height: 50,
             }}
-            onPress={() => this.props.navigation.navigate("petSell")}
+            onPress={() => this.props.navigation.replace("petSell")}
           >
             <Text style={{ textAlign: "center" }}> Sell </Text>
           </TouchableOpacity>

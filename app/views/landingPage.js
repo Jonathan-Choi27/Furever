@@ -18,13 +18,13 @@ export default class LandingPage extends React.Component {
           <Text style={styles.title}>FIND YOUR PERFECT PET TODAY</Text>
           <TouchableOpacity
             style={styles.buttons}
-            onPress={() => this.props.navigation.navigate("Login")}
+            onPress={() => this.props.navigation.replace("Login")}
           >
             <Text style={styles.buttonsText}>LOGIN</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.buttons}
-            onPress={() => this.props.navigation.navigate("Sign Up")}
+            onPress={() => this.props.navigation.replace("Sign Up")}
           >
             <Text style={styles.buttonsText}>SIGN UP</Text>
           </TouchableOpacity>
