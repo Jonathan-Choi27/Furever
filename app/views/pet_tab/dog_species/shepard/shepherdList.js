@@ -1,21 +1,12 @@
-import React, { useEffect } from "react";
+import React from "react";
 import {
   StyleSheet,
   Text,
   View,
   TouchableOpacity,
   FlatList,
-  ActivityIndicator,
 } from "react-native";
-import {
-  Card,
-  ListItem,
-  Button,
-  Icon,
-  SearchBar,
-  Image,
-  Avatar,
-} from "react-native-elements";
+import { Avatar, Card, Button, Searchbar } from "react-native-paper";
 import { db } from "../../../database/firebase";
 export default class shepherdList extends React.Component {
   state = {
@@ -23,22 +14,6 @@ export default class shepherdList extends React.Component {
   };
 
   async componentDidMount() {
-    // const dataArray = [];
-    // db.collection("pet_listings")
-    //   .get()
-    //   .then((querySnapshot) => {
-    //     querySnapshot.forEach((listingDoc) => {
-    //       dataArray.push({
-    //         title: listingDoc.data().name,
-    //         name: listingDoc.data().seller_name
-    //       });
-    //     });
-    //     this.setState({ data: [...dataArray] });
-    //   })
-    //   .catch((error) => {
-    //     console.log("Error getting document:", error);
-    //   });
-
     const dataArray = [];
     db.collection("pet_listings")
       .get()
@@ -58,13 +33,13 @@ export default class shepherdList extends React.Component {
             title: listingDoc.data().name,
             name: seller_name,
             photo: listingDoc.data().photo_link,
+            age: listingDoc.data().age,
+            location: listingDoc.data().location,
+            gender: listingDoc.data().gender,
           });
-
           this.setState({ data: [...dataArray] });
         });
       });
-    console.log(dataArray);
-    // console. log(user_id);
   }
 
   render() {
@@ -97,56 +72,50 @@ export default class shepherdList extends React.Component {
           </TouchableOpacity>
         </View>
         <View>
-          <SearchBar
+          <Searchbar
             style={{
               flex: 1,
               justifyContent: "center",
               alignItems: "center",
-              height: 50,
-              width: 300,
+              height: 30,
+              width: 350,
+              margin: 10,
             }}
             placeholder="Search..."
-            lightTheme="true"
           />
           <View style={styles.titleContainer}>
             <Text style={styles.title}>German Shepherd</Text>
-            <TouchableOpacity style={styles.titleButton}>
-              <Text style={styles.titleButtonsText}>Information</Text>
-            </TouchableOpacity>
+            <Button color="#447ECB" onPress={() => {}} mode="contained">
+              Information
+            </Button>
           </View>
         </View>
         <FlatList
+          showsVerticalScrollIndicator={false}
           renderItem={({ item }) => (
-            <Card containerStyle={styles.cardContainer}>
-              <Card.Title style={styles.cardTitleContainer}>
-                {item.title}
-              </Card.Title>
-              <View style={styles.cardContentContainer}>
-                <Card.Image style={styles.containerImage} source={item.photo} />
-                <Text style={styles.containerText}>
-                  Age: 123 {"\n"}
-                  Gender: 123 {"\n"}
-                  Location: Sydney, United States {"\n"}
-                  Seller:{" "}
-                  <Text style={{ fontWeight: "bold" }}>
-                    {item.name.split(" ")[0]}
-                  </Text>
-                  {"\n"}
-                  {
-                    <TouchableOpacity style={styles.buttons}>
-                      <Text style={styles.buttonsText}>More info</Text>
-                    </TouchableOpacity>
-                  }
+            <Card style={styles.card}>
+              <Card.Cover source={item.photo} />
+              <Card.Title
+                title={item.title}
+                subtitle={item.name}
+                left={(props) => (
+                  <Avatar.Image {...props} size={40} source={item.photo} />
+                )}
+              />
+              <Card.Content>
+                <Text style={styles.cardContentText}>Age: {item.age}</Text>
+                <Text style={styles.cardContentText}>
+                  Gender: {item.gender}
                 </Text>
-                <Avatar
-                  style={styles.avatarContainer}
-                  rounded
-                  source={{
-                    uri:
-                      "https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg",
-                  }}
-                />
-              </View>
+                <Text style={styles.cardContentText}>
+                  Location: {item.location}
+                </Text>
+              </Card.Content>
+              <Card.Actions>
+                <Button color="#447ECB" onPress={() => {}}>
+                  More info
+                </Button>
+              </Card.Actions>
             </Card>
           )}
           keyExtractor={(item, index) => index.toString()}
@@ -170,9 +139,6 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
     flexDirection: "row",
   },
-  title: {
-    fontSize: 32,
-  },
   titleContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -180,60 +146,13 @@ const styles = StyleSheet.create({
   },
   title: {
     fontWeight: "bold",
-    fontSize: 16,
+    fontSize: 20,
   },
-  cardContainer: {
-    borderRadius: 4,
+  card: {
+    margin: 5,
+    width: 340,
   },
-  cardContentContainer: {
-    flex: 1,
-    flexDirection: "row",
-    flexWrap: "wrap",
-    alignItems: "flex-start",
-    justifyContent: "flex-start",
-  },
-  containerImage: {
-    height: 100,
-    width: 100,
-    marginRight: 2,
-  },
-  containerText: {
-    fontSize: 12,
-  },
-  titleButton: {
-    backgroundColor: "#447ECB",
-    borderRadius: 6,
-    alignItems: "center",
-    width: 120,
-    height: 25,
-  },
-  buttons: {
-    backgroundColor: "#447ECB",
-    alignItems: "center",
-    justifyContent: "center",
-    borderRadius: 6,
-    width: 90,
-    marginTop: 5,
-    height: 30,
-  },
-  titleButtonsText: {
-    color: "white",
-    fontSize: 16,
-  },
-  buttonsText: {
-    color: "white",
-    fontSize: 15,
-  },
-  cardTitleContainer: {
-    fontSize: 15,
-    textAlign: "left",
-  },
-  avatarContainer: {
-    width: 40,
-    height: 40,
-    borderRadius: 40 / 2,
-    overflow: "hidden",
-    borderWidth: 2,
-    borderColor: "#447ECB",
+  cardContentText: {
+    fontWeight: "bold",
   },
 });
