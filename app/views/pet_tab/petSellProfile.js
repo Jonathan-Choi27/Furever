@@ -1,5 +1,3 @@
-import { green, pink } from "@material-ui/core/colors";
-import { PhonelinkTwoTone } from "@material-ui/icons";
 import React, { useState } from "react";
 import {
   StyleSheet,
@@ -37,8 +35,7 @@ export default class petSellProfile extends React.Component {
       })
       .catch((error) => {
         console.log("Error getting document:", error);
-      }
-    );
+      });
   }
 
   render() {
@@ -48,7 +45,7 @@ export default class petSellProfile extends React.Component {
           <View style={styles.buySellContainer}>
             <TouchableOpacity
               style={{
-                backgroundColor: "#d7e5f7",
+                backgroundColor: "white",
                 flex: 1,
                 justifyContent: "center",
                 alignItems: "center",
@@ -60,7 +57,7 @@ export default class petSellProfile extends React.Component {
             </TouchableOpacity>
             <TouchableOpacity
               style={{
-                backgroundColor: "white",
+                backgroundColor: "#d7e5f7",
                 flex: 1,
                 justifyContent: "center",
                 alignItems: "center",
@@ -126,7 +123,7 @@ export default class petSellProfile extends React.Component {
             <FlatList
               data={this.state.data}
               keyExtractor={(item, index) => index.toString()}
-              renderItem={({ item}) =>  <Text>{item.name}</Text>}
+              renderItem={({ item }) => <Text>{item.title}</Text>}
             />
           </View>
 

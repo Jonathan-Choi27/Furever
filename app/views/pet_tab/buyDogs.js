@@ -1,5 +1,3 @@
-import { green } from "@material-ui/core/colors";
-import { PhonelinkTwoTone } from "@material-ui/icons";
 import React, { useState } from "react";
 import {
   StyleSheet,
@@ -142,7 +140,6 @@ export default class buyDogs extends React.Component {
           </View>
         </View>
 
-
         <View style={styles.categories}>
           <TouchableOpacity>
             <View style={styles.iconContainer}>
@@ -169,11 +166,6 @@ export default class buyDogs extends React.Component {
             </TouchableOpacity>
           </View>
         </View>
-
-
-
-
-
       </View>
     );
   }

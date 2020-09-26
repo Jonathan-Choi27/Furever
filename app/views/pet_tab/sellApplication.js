@@ -1,4 +1,3 @@
-import { blue } from "@material-ui/core/colors";
 import * as React from "react";
 import {
   Picker,
@@ -21,6 +20,8 @@ import {
 } from "../components/DocumentUpload";
 import { openImagePicker, uploadPhoto } from "../components/ImageUpload";
 import { auth } from "../database/firebase";
+import * as firebase from "firebase/app";
+import "firebase/storage";
 
 export default class SellApplicationComponent extends React.Component {
   state = {
@@ -36,13 +37,23 @@ export default class SellApplicationComponent extends React.Component {
     health: "",
     training: "",
     additionalInfo: "",
-    photo: "",
     documents: "",
+    //photo
+    photo_link: "",
     photo_uri: "",
+    photo_uuid: "",
+    //
     documents_uri: "",
+    seller_name: "",
   };
 
-  handleSubmit = () => {
+  componentDidMount() {
+    //  db.collection("users").doc(auth.currentUser.uid).get().then((doc) => {
+    //      this.state.seller_name = doc.data().name;
+    //  });
+  }
+
+  handleSubmit = async () => {
     const {
       name,
       category,
@@ -56,20 +67,55 @@ export default class SellApplicationComponent extends React.Component {
       health,
       training,
       additionalInfo,
-      photo,
-      documents,
+      photo_uuid,
       photo_uri,
+      photo_link,
+      documents,
       documents_uri,
+      //   seller_name,
     } = this.state;
 
-    console.log("photo uuid:" + this.state.photo);
+    console.log("photo uuid:" + this.state.photo_uuid);
 
-    uploadPhoto(this.state.photo_uri, this.state.photo);
+    const photoURL = await uploadPhoto(
+      this.state.photo_uri,
+      this.state.photo_uuid
+    );
+
+    this.setState({
+      photo_link: photoURL,
+    });
+    console.log("class : " + photoURL);
+
     uploadDocument(this.state.documents_uri, this.state.documents);
 
+    // var storageRef = firebase.storage().ref();
+    // storageRef
+    //   .child("user_uploads/images/" + this.state.photo_uuid)
+    //   .getDownloadURL()
+    //   .then(function (url) {
+    //     console.log("hi");
+    //     // this.state.photo_link = url;
+    //     console.log(url);
+    //   })
+    //   .catch(function (error) {
+    //     console.log(error);
+    //   });
     const user = auth.currentUser;
 
-    db.collection("pet-sell-list").add({
+    // if (
+    //     name == "" ||
+    //     category == "" ||
+    //     breed == "" ||
+    //     colour == "" ||
+    //     age == "" ||
+    //     gender == "" ||
+    //     breed == "" ||
+    //     breed == "" ||
+    //     breed == "" ||
+    // )
+
+    db.collection("pet_listings").add({
       uuid: user.uid,
       name: this.state.name,
       category: this.state.category,
@@ -79,8 +125,9 @@ export default class SellApplicationComponent extends React.Component {
       gender: this.state.gender,
       behaviour: this.state.behaviour,
       health: this.state.health,
+      location: this.state.location,
       training: this.state.training,
-      photo: this.state.photo,
+      photo_link: this.state.photo_link,
       documents: this.state.documents,
       price: this.state.price,
       // to implement
@@ -90,12 +137,12 @@ export default class SellApplicationComponent extends React.Component {
       //   price
     });
   };
-
+  // aaaaaaaaaa
   setPhotoUri = async () => {
     const get_uri = await openImagePicker();
 
     this.setState({
-      photo: uuid.v4(),
+      photo_uuid: uuid.v4(),
       photo_uri: get_uri,
     });
   };
@@ -131,7 +178,6 @@ export default class SellApplicationComponent extends React.Component {
             <View style={styles.rectangle}>
               <Text>
                 <Text style={styles.titles}>Name</Text>
-                {/* <Text style={styles.setColorRed}> *</Text> */}
               </Text>
               <TextInput
                 onChangeText={(name) => this.setState({ name })}
@@ -139,15 +185,10 @@ export default class SellApplicationComponent extends React.Component {
               />
               <Text>
                 <Text style={styles.titles}>Category</Text>
-                {/* <Text style={styles.setColorRed}> *</Text> */}
               </Text>
               <Picker
                 style={styles.picker}
-                onValueChange={(category) => {
-                  if (value != "0") {
-                    this.setState({ category });
-                  }
-                }}
+                onValueChange={(category) => this.setState({ category })}
               >
                 <Picker.Item label="Select" value="0" />
                 <Picker.Item label="Dog" value="dog" />
@@ -159,7 +200,6 @@ export default class SellApplicationComponent extends React.Component {
               </Picker>
               <Text>
                 <Text style={styles.titles}>Animal Breed</Text>
-                {/* <Text style={styles.setColorRed}> *</Text> */}
               </Text>
               <TextInput
                 onChangeText={(breed) => this.setState({ breed })}
@@ -168,16 +208,8 @@ export default class SellApplicationComponent extends React.Component {
 
               <Text>
                 <Text style={styles.titles}>Colour</Text>
-                {/* <Text style={styles.setColorRed}> *</Text> */}
               </Text>
-              <Picker
-                style={styles.picker}
-                onValueChange={(category) => {
-                  if (value != "0") {
-                    this.setState({ category });
-                  }
-                }}
-              >
+              <Picker style={styles.picker} onValueChange={(category) => {}}>
                 <Picker.Item label="Select" value="0" />
                 <Picker.Item label="Brown" value="dog" />
                 <Picker.Item label="White" value="cat" />
@@ -296,8 +328,6 @@ export default class SellApplicationComponent extends React.Component {
                   title={"submit"}
                   style={styles.buttons}
                   onPress={this.handleSubmit}
-                  onPress={() => this.props.navigation.navigate("petSell")}
-
                 >
                   <Text style={styles.buttonsText}>Submit</Text>
                 </TouchableOpacity>

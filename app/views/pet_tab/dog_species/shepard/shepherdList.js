@@ -22,36 +22,49 @@ export default class shepherdList extends React.Component {
     data: [],
   };
 
-  componentDidMount() {
+  async componentDidMount() {
+    // const dataArray = [];
+    // db.collection("pet_listings")
+    //   .get()
+    //   .then((querySnapshot) => {
+    //     querySnapshot.forEach((listingDoc) => {
+    //       dataArray.push({
+    //         title: listingDoc.data().name,
+    //         name: listingDoc.data().seller_name
+    //       });
+    //     });
+    //     this.setState({ data: [...dataArray] });
+    //   })
+    //   .catch((error) => {
+    //     console.log("Error getting document:", error);
+    //   });
+
     const dataArray = [];
-    db.collection("pet-sell-list")
+    db.collection("pet_listings")
       .get()
-      .then((querySnapshot) => {
-        querySnapshot.forEach((listingDoc) => {
+      .then((doc) => {
+        doc.forEach(async (listingDoc) => {
+          var uuid = listingDoc.data().uuid;
+          var seller_name;
+          await db
+            .collection("users")
+            .doc(uuid)
+            .get()
+            .then((user_doc) => {
+              seller_name = user_doc.data().name;
+            });
+          console.log(seller_name);
           dataArray.push({
             title: listingDoc.data().name,
+            name: seller_name,
+            photo: listingDoc.data().photo_link,
           });
-        });
-        this.setState({ data: [...dataArray] });
-      })
-      .catch((error) => {
-        console.log("Error getting document:", error);
-      });
 
-    db.collection("users")
-      .get()
-      .then((querySnapshot) => {
-        querySnapshot.forEach((usersDoc) => {
-          dataArray.forEach(function (itm) {
-            itm.name = usersDoc.data().name;
-          });
+          this.setState({ data: [...dataArray] });
         });
-        this.setState({ data: [...dataArray] });
-      })
-      .catch((error) => {
-        console.log("Error getting document:", error);
       });
     console.log(dataArray);
+    // console. log(user_id);
   }
 
   render() {
@@ -100,21 +113,14 @@ export default class shepherdList extends React.Component {
         <FlatList
           renderItem={({ item }) => (
             <Card>
-              <Card.Title
-                containerStyle={styles.card}
-                image={
-                  "https://randomwordgenerator.com/img/picture-generator/54e6dc454e55b10ff3d8992cc12c30771037dbf85254784a73287bd09344_640.jpg"
-                }
-              >
-                {item.title}
-              </Card.Title>
-
+              <Card.Title containerStyle={styles.card}>{item.title}</Card.Title>
+              <Card.Image source={item.photo} />
+              <Card.Divider />
               <View style={styles.avatarContainer}>
                 <Avatar
                   rounded
                   source={{
-                    uri:
-                      "https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg",
+                    uri: item.photo,
                   }}
                 />
                 <Text style={styles.nameTitle}>{item.name}</Text>
