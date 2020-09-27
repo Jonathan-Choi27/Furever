@@ -19,6 +19,7 @@ import {
   uploadDocument,
 } from "../components/DocumentUpload";
 import { openImagePicker, uploadPhoto } from "../components/ImageUpload";
+import CategorySelection from "./pet_sell_1_categorySelection";
 import { auth } from "../database/firebase";
 import * as firebase from "firebase/app";
 import "firebase/storage";
@@ -103,17 +104,29 @@ export default class SellApplicationComponent extends React.Component {
     //   });
     const user = auth.currentUser;
 
-    // if (
-    //     name == "" ||
-    //     category == "" ||
-    //     breed == "" ||
-    //     colour == "" ||
-    //     age == "" ||
-    //     gender == "" ||
-    //     breed == "" ||
-    //     breed == "" ||
-    //     breed == "" ||
-    // )
+    var submit;
+    if (
+      name == "" ||
+      category == "0" ||
+      breed == "0" ||
+      colour == "0" ||
+      age == "" ||
+      gender == "0" ||
+      location == "" ||
+      price == "" ||
+      behaviour == "" ||
+      health == "" ||
+      training == "" ||
+      additionalInfo == ""
+      // documents == "" ||
+      // behaviour == "" ||
+      // behaviour == "" ||
+    ) {
+      alert("All input fields required and must be valid.");
+      submit = false;
+    } else {
+      submit = true;
+    }
 
     db.collection("pet_listings").add({
       uuid: user.uid,
@@ -136,6 +149,10 @@ export default class SellApplicationComponent extends React.Component {
       //   documents
       //   price
     });
+
+    if (submit == true) {
+      this.props.navigation.replace("petSell");
+    }
   };
   // aaaaaaaaaa
   setPhotoUri = async () => {
@@ -156,13 +173,30 @@ export default class SellApplicationComponent extends React.Component {
     });
   };
 
+  setCategory = (val) => {
+    this.setState({
+      category: val,
+    });
+  };
+
+  setBreed = (val) => {
+    this.setState({
+      breed: val,
+    });
+  };
+
+  setColour = (val) => {
+    this.setState({
+      colour: val,
+    });
+  };
+
   render() {
     return (
       <SafeAreaView style={styles.container}>
         <ScrollView
           style={styles.scrollView}
-          showsVerticalScrollIndicator={false}
-        >
+          showsVerticalScrollIndicator={false}>
           <Text style={styles.heading}>New Pet Listing Application</Text>
           <Text>
             <Text style={styles.sub_heading}>General Information</Text>
@@ -183,10 +217,8 @@ export default class SellApplicationComponent extends React.Component {
                 onChangeText={(name) => this.setState({ name })}
                 style={styles.input}
               />
-              <Text>
-                <Text style={styles.titles}>Category</Text>
-              </Text>
-              <Picker
+
+              {/* <Picker
                 style={styles.picker}
                 onValueChange={(category) => this.setState({ category })}
               >
@@ -204,9 +236,9 @@ export default class SellApplicationComponent extends React.Component {
               <TextInput
                 onChangeText={(breed) => this.setState({ breed })}
                 style={styles.input}
-              />
+              /> */}
 
-              <Text>
+              {/* <Text>
                 <Text style={styles.titles}>Colour</Text>
               </Text>
               <Picker style={styles.picker} onValueChange={(category) => {}}>
@@ -215,12 +247,16 @@ export default class SellApplicationComponent extends React.Component {
                 <Picker.Item label="White" value="cat" />
                 <Picker.Item label="Black" value="bird" />
                 <Picker.Item label="Grey" value="reptile" />
-              </Picker>
+              </Picker> */}
               {/* <TextInput
                 onChangeText={(colour) => this.setState({ colour })}
                 style={styles.input}
               /> */}
-
+              <CategorySelection
+                category={this.setCategory}
+                breed={this.setBreed}
+                colour={this.setColour}
+              />
               <Text>
                 <Text style={styles.titles}>Age</Text>
                 {/* <Text style={styles.setColorRed}> *</Text> */}
@@ -234,15 +270,15 @@ export default class SellApplicationComponent extends React.Component {
                 <Text style={styles.titles}>Gender</Text>
                 {/* <Text style={styles.setColorRed}> *</Text> */}
               </Text>
+        <View style={styles.picker_container}>
               <Picker
                 style={styles.picker}
-                onValueChange={(gender) => this.setState({ gender })}
-              >
-                <Picker.Item label="Select" value="0" />
+                onValueChange={(gender) => this.setState({ gender })}>
+                <Picker.Item label="Select gender" value="0" color="#B4B4B4"/>
                 <Picker.Item label="Male" value="male" />
                 <Picker.Item label="Female" value="female" />
               </Picker>
-
+              </View>
               <Text>
                 <Text style={styles.titles}>Location</Text>
                 {/* <Text style={styles.setColorRed}> *</Text> */}
@@ -328,6 +364,7 @@ export default class SellApplicationComponent extends React.Component {
                   title={"submit"}
                   style={styles.buttons}
                   onPress={this.handleSubmit}
+                  //   onPress={() => this.props.navigation.replace("petSell")}
                 >
                   <Text style={styles.buttonsText}>Submit</Text>
                 </TouchableOpacity>
@@ -381,6 +418,7 @@ const styles = StyleSheet.create({
     borderColor: "black",
     marginBottom: 10,
     backgroundColor: "white",
+    fontSize: 12
   },
   biginput: {
     width: 314,
@@ -393,7 +431,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
   },
   picker: {
-    height: 20,
+    height: 34,
     width: 314,
     fontSize: 12,
     marginBottom: 10,
@@ -422,5 +460,12 @@ const styles = StyleSheet.create({
   },
   setColorRed: {
     color: "#f44336",
+  },
+  picker_container: {
+    backgroundColor: "white",
+    borderColor: "black",
+    borderWidth: 1,
+    height: 34,
+    marginBottom: 10,
   },
 });

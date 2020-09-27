@@ -17,7 +17,7 @@ export default class Login extends React.Component {
       .then((e) => {
         const user = auth.currentUser;
         if (user.emailVerified) {
-          this.props.navigation.navigate("Home");
+          this.props.navigation.replace("Home");
         } else {
           alert("Email address is not verified.");
         }
@@ -98,14 +98,14 @@ export default class Login extends React.Component {
             </TouchableOpacity>
             <Text
               style={styles.title}
-              onPress={() => this.props.navigation.navigate("Forgot Password")}
+              onPress={() => this.props.navigation.replace("Forgot Password")}
             >
               FORGOT PASSWORD?
             </Text>
 
             <Text
               style={styles.title2}
-              onPress={() => this.props.navigation.navigate("Sign Up")}
+              onPress={() => this.props.navigation.replace("Sign Up")}
             >
               NO ACCOUNT?{" "}
               <Text style={{ fontWeight: "bold" }}>{"SIGN UP"}</Text>

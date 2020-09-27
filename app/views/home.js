@@ -37,22 +37,14 @@ const TopTab = createMaterialTopTabNavigator();
 
 function HomeScreen() {
   return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <View style={styles.container}>
-        <Text>Your Recent Application</Text>
-        <Text>You haven't made any</Text>
-        <Text>Your Recent Listing</Text>
-        <Text>You haven't made any</Text>
+    <View style={styles.container}>
+      <Text style={styles.title}>Your Recent Listing</Text>
+      <View style={styles.insideContainer}>
+        <Text style={styles.middleText}>You haven't made any listings yet</Text>
       </View>
     </View>
   );
 }
-
-// function PetScreen() {
-//   return (
-//           {Pet}
-//   );
-// }
 
 function ShopScreen() {
   return (
@@ -112,19 +104,23 @@ function MyTabs() {
   );
 }
 
-function myTopTabs() {
-  return (
-    <TopTab.Navigator>
-      <Tab.Screen name="Buy" component={BuyScreen} />
-      <Tab.Screen name="Sell" component={HomeScreen} />
-    </TopTab.Navigator>
-  );
-}
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
+    margin: 25,
+  },
+  insideContainer: {
+    flex: 2,
     alignItems: "center",
+    justifyContent: "center",
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: "bold",
+  },
+  middleText: {
+    fontSize: 20,
+    color: "#787878",
   },
 });
