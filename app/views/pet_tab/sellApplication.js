@@ -136,6 +136,8 @@ export default class SellApplicationComponent extends React.Component {
       //   documents
       //   price
     });
+
+    this.props.navigation.replace("petSell");
   };
   // aaaaaaaaaa
   setPhotoUri = async () => {
@@ -328,7 +330,7 @@ export default class SellApplicationComponent extends React.Component {
                   title={"submit"}
                   style={styles.buttons}
                   onPress={this.handleSubmit}
-                  onPress={() => this.props.navigation.replace("petSell")}
+                //   onPress={() => this.props.navigation.replace("petSell")}
                 >
                   <Text style={styles.buttonsText}>Submit</Text>
                 </TouchableOpacity>
