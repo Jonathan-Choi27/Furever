@@ -11,9 +11,12 @@ import "react-native-gesture-handler";
 
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Dimensions, Platform } from "react-native";
 import SellApplicationComponent from "./app/views/pet_tab/sellApplication";
 import petSellProfile from "./app/views/pet_tab/petSellProfile";
+import test from "./app/views/pet_tab/test";
+import shepherdList from "./app/views/pet_tab/dog_species/shepard/shepherdList";
 
 const Stack = createStackNavigator();
 
@@ -26,7 +29,6 @@ export default function App() {
           component={LandingPage}
           options={{ headerShown: false }}
         />
-
         <Stack.Screen
           name="Login"
           component={Login}
@@ -72,6 +74,11 @@ export default function App() {
     //     <Stack.Screen
     //       name="Pet Profile Sell"
     //       component={petSellProfile}
+    //       options={{ headerShown: true }}
+    //     />
+    //     <Stack.Screen
+    //       name="Test"
+    //       component={testTabs}
     //       options={{ headerShown: true }}
     //     />
     //   </Stack.Navigator>

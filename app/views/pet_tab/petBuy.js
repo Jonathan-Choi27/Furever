@@ -23,6 +23,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import SellApplicationComponent from "./sellApplication";
 import petSellProfile from "./petSellProfile";
 import petSell from "./petSell";
+import test from "./test";
 
 const Stack = createStackNavigator();
 
@@ -38,6 +39,7 @@ export default function PetBuy() {
         />
         <Stack.Screen name="petSell" component={petSell} />
         <Stack.Screen name="petSellProfile" component={petSellProfile} />
+        <Stack.Screen name="test" component={test} />
         <Stack.Screen name="shepherdList" component={shepherdList} />
       </Stack.Navigator>
     </NavigationContainer>

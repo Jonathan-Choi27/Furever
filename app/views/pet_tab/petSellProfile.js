@@ -12,6 +12,7 @@ import {
   Platform,
   Dimensions,
   Image,
+  Link,
 } from "react-native";
 import {
   Card,
@@ -21,13 +22,33 @@ import {
   SearchBar,
   Avatar,
 } from "react-native-elements";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { createStackNavigator } from "@react-navigation/stack";
+import { createAppNavigator } from "react-navigation"
 import { db } from "../database/firebase";
+import test from "./test";
 
 export default class petSellProfile extends React.Component {
+
+  constructor(props) {
+    super(props);
+  }
+
   state = {
     data: [],
   };
+
+  // constructor(props) {
+  //   super(props)
+  //   this.state = {
+  //       text: '',
+  //   }
+  // }
+
+  // static navigationOptions = {
+  //   titleID: 'Movies',
+  // };
 
   componentDidMount() {
     const dataArray = [];
@@ -45,6 +66,18 @@ export default class petSellProfile extends React.Component {
         console.log("Error getting document:", error);
       });
   }
+
+  _onPressItem(item) {
+    this.props.navigation.navigate('Test', {
+      titleID: "hello!"
+    });
+  }
+
+  //   _onPressItem = (title) => { 
+  //     this.props.navigation.navigate('Test', {
+  //         titleID: item.title,
+  //     })
+  //  };
 
   render() {
     return (
@@ -134,26 +167,38 @@ export default class petSellProfile extends React.Component {
               <FlatList
                 data={this.state.data}
                 keyExtractor={(item, index) => index.toString()}
-                renderItem={({ item }) => <Text>{item.title}</Text>}
+                renderItem={({ item }) => (
+                  <TouchableOpacity
+                    style={styles.viewApplication} onPress={() => this.props.navigation.navigate("test", {titleID: 'Hello!'})}> 
+                    {/* style={styles.viewApplication} onPress={() => this._onPressItem(item)}> */}
+                    <Text>{item.title}</Text>
+                  </TouchableOpacity>
+                )}
               />
             </View>
           </Card>
 
-          <View style={{ height: 50, paddingBottom: 20 }}>
-            <TouchableOpacity
-              style={styles.viewApplication}
-              onPress={() => getFromDatabase()}
-            >
+          {/* <View style={{ height: 50, paddingBottom: 20 }}>
+            <TouchableOpacity style={styles.viewApplication}>
               <Text style={{ textAlign: "center", padding: 10 }}>
                 View Profile
-              </Text>
+              </Text> */}
+          {/* onPress={() => this.props.navigation.navigate("petSellProfile")}
             </TouchableOpacity>
-          </View>
+          </View> */}
         </View>
       </ScrollView>
     );
   }
 }
+
+const DetailsScreen = ({ route, navigation }) => {
+  const { itemId } = route.params;
+  const { otherParam } = route.params;
+  return (
+    <View></View>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {

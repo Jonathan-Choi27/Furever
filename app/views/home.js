@@ -8,8 +8,25 @@ import PetBuy from "./pet_tab/petBuy";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import PetScreenComponent from "./pet_tab/petScreen";
 import buyDogs from "./pet_tab/buyDogs";
+import { db } from "./database/firebase";
 
 export default class LandingPage extends React.Component {
+  componentDidMount() {
+    const dataArray = [];
+    db.collection("pet_listings")
+      .get()
+      .then((querySnapshot) => {
+        querySnapshot.forEach((listingDoc) => {
+          dataArray.push({
+            title: listingDoc.data().name,
+          });
+        });
+        this.setState({ data: [...dataArray] });
+      })
+      .catch((error) => {
+        console.log("Error getting document:", error);
+      });
+  }
   render() {
     return <MyTabs />;
   }
