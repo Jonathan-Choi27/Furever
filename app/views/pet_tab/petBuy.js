@@ -13,37 +13,195 @@ import {
   Image,
 } from "react-native";
 import { SearchBar } from "react-native-elements";
-import { max } from "react-native-reanimated";
-import buyDogs from "./buyDogs";
-import petBuySpecies from "./petBuySpecies";
-import shepherdList from "./dog_species/shepard/shepherdList";
 
-import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
-import SellApplicationComponent from "./sellApplication";
-import petSellProfile from "./petSellProfile";
-import petSell from "./petSell";
-import test from "./test";
+export default class petBuy extends React.Component {
+  state = {
+    search: "",
+  };
 
-const Stack = createStackNavigator();
+  updateSearch = (search) => {
+    this.setState({ search });
+  };
 
-export default function PetBuy() {
-  return (
-    <NavigationContainer independent={true}>
-      <Stack.Navigator>
-        <Stack.Screen name="petBuySpecies" component={petBuySpecies} />
-        <Stack.Screen name="buyDogs" component={buyDogs} />
-        <Stack.Screen
-          name="SellApplicationComponent"
-          component={SellApplicationComponent}
-        />
-        <Stack.Screen name="petSell" component={petSell} />
-        <Stack.Screen name="petSellProfile" component={petSellProfile} />
-        <Stack.Screen name="test" component={test} />
-        <Stack.Screen name="shepherdList" component={shepherdList} />
-      </Stack.Navigator>
-    </NavigationContainer>
-  );
+  render() {
+    const { search } = this.state;
+
+    return (
+      <View style={styles.container}>
+        <View style={styles.buySellContainer}>
+          <TouchableOpacity
+            style={{
+              backgroundColor: "#d7e5f7",
+              // backgroundColor: Platform.OS === "web" ? 'grey' :'white',
+              flex: 1,
+              justifyContent: "center",
+              alignItems: "center",
+              height: 50,
+            }}
+            onPress={() => this.props.navigation.replace("petBuy")}
+          >
+            <Text>Buy</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={{
+              backgroundColor: "white",
+              flex: 1,
+              justifyContent: "center",
+              alignItems: "center",
+              height: 50,
+            }}
+            onPress={() => this.props.navigation.replace("petSell")}
+          >
+            <Text style={{ textAlign: "center" }}> Sell </Text>
+          </TouchableOpacity>
+        </View>
+        <View
+          style={{
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "center",
+            alignSelf: "stretch",
+            // height: 50,
+            // width: 300,
+          }}
+        >
+          <SearchBar
+            style={{
+              flex: 1,
+              justifyContent: "center",
+              alignItems: "center",
+              alignSelf: "stretch",
+              height: 50,
+              width: 300,
+            }}
+            placeholder="Search..."
+            lightTheme={true}
+            onChangeText={this.updateSearch}
+            value={search}
+          />
+        </View>
+        <View style={{ height: 50, padding: 10 }}>
+          <TouchableOpacity style={styles.viewApplication}>
+            <Text style={{ textAlign: "center", color: "white" }}>
+              View Applications
+            </Text>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.categories}>
+          <TouchableOpacity
+            onPress={() => this.props.navigation.replace("buyDogs")}
+          >
+            <View style={styles.iconContainer}>
+              <Image
+                // style={styles.icon}
+
+                style={{ height: 100, width: 100 }}
+                source={{
+                  uri:
+                    "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fpet%20buy%20icons%2Fdog.jpg?alt=media&token=f9aedb1d-d038-4ca9-992d-3bf774693930",
+                }}
+              />
+            </View>
+          </TouchableOpacity>
+          <View style={styles.iconContainer}>
+            <TouchableOpacity>
+              <Image
+                style={{ height: 100, width: 100 }}
+                source={{
+                  uri:
+                    "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fpet%20buy%20icons%2Fcat.jpg?alt=media&token=a0ba6ff4-7f46-47fa-8fd7-740b987abba5",
+                }}
+              />
+            </TouchableOpacity>
+          </View>
+        </View>
+
+        <View style={styles.categories}>
+          <TouchableOpacity>
+            <View style={styles.iconContainer}>
+              <Image
+                // style={styles.icon}
+
+
+                style={{ height: 100, width: 100 }}
+                source={{
+                  uri:
+                    "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fpet%20buy%20icons%2Frabbit.jpg?alt=media&token=477edb78-9f2b-4be9-b415-e88bf2b4b0c6",
+                }}
+              />
+            </View>
+          </TouchableOpacity>
+          <View style={styles.iconContainer}>
+            <TouchableOpacity>
+              <Image
+                style={{ height: 100, width: 100 }}
+                source={{
+                  uri:
+                    "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fpet%20buy%20icons%2Ffish.jpg?alt=media&token=292f9723-b5a1-4665-8a9c-7ceb7bce12ce",
+                }}
+              />
+            </TouchableOpacity>
+          </View>
+        </View>
+
+        <View style={styles.categories}>
+          <TouchableOpacity>
+            <View style={styles.iconContainer}>
+              <Image
+                // style={styles.icon}
+
+
+                style={{ height: 100, width: 100 }}
+                source={{
+                  uri:
+                    "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fpet%20buy%20icons%2Fbird.jpg?alt=media&token=a67b1114-553d-40e7-846f-30ea6800efeb",
+                }}
+              />
+            </View>
+          </TouchableOpacity>
+          <View style={styles.iconContainer}>
+            <TouchableOpacity>
+              <Image
+                style={{ height: 100, width: 100 }}
+                source={{
+                  uri:
+                    "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fpet%20buy%20icons%2Fhorse.jpg?alt=media&token=d6a30c93-24b0-4b89-9e83-05c278dee129",
+                }}
+              />
+            </TouchableOpacity>
+          </View>
+        </View>
+
+        <View style={styles.categories}>
+          <TouchableOpacity>
+            <View style={styles.iconContainer}>
+              <Image
+                // style={styles.icon}
+
+
+                style={{ height: 100, width: 100 }}
+                source={{
+                  uri:
+                    "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fpet%20buy%20icons%2Flizard.jpg?alt=media&token=40a4ae86-978d-413f-9aa0-054c5e8d041f",
+                }}
+              />
+            </View>
+          </TouchableOpacity>
+          <View style={styles.iconContainer}>
+            <TouchableOpacity>
+              <Image
+                style={{ height: 100, width: 100 }}
+                source={{
+                  uri:
+                    "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fpet%20buy%20icons%2Fturtle.jpg?alt=media&token=8008ab6e-1696-4733-b471-e3b5d86ae3d6",
+                }}
+              />
+            </TouchableOpacity>
+          </View>
+        </View>
+      </View>
+    );
+  }
 }
 const styles = StyleSheet.create({
   container: {
@@ -52,21 +210,29 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   buySellContainer: {
-    flex: 1,
+    alignSelf: "stretch",
     justifyContent: "flex-start",
     alignItems: "flex-start",
     flexDirection: "row",
   },
   categories: {
+    alignSelf: "stretch",
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
     flexDirection: "row",
     padding: 20,
   },
-  icon: {
-    width: 100,
-    height: 100,
+  iconContainer: {
     padding: 20,
+  },
+  viewApplication: {
+    backgroundColor: "#447ECB",
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    height: 50,
+    width: 200,
+    borderRadius: 5,
   },
 });

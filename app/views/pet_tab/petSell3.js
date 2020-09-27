@@ -29,7 +29,7 @@ import { createAppNavigator } from "react-navigation"
 import { db } from "../database/firebase";
 import test from "./test";
 
-export default class petSellProfile extends React.Component {
+export default class petSell3 extends React.Component {
 
   constructor(props) {
     super(props);
@@ -92,7 +92,7 @@ export default class petSellProfile extends React.Component {
                 alignItems: "center",
                 height: 50,
               }}
-              onPress={() => this.props.navigation.replace("petBuySpecies")}
+              onPress={() => this.props.navigation.replace("petBuy")}
             >
               <Text>Buy</Text>
             </TouchableOpacity>
@@ -183,7 +183,7 @@ export default class petSellProfile extends React.Component {
               <Text style={{ textAlign: "center", padding: 10 }}>
                 View Profile
               </Text> */}
-          {/* onPress={() => this.props.navigation.navigate("petSellProfile")}
+          {/* onPress={() => this.props.navigation.navigate("petSell3")}
             </TouchableOpacity>
           </View> */}
         </View>

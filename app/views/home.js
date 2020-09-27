@@ -4,7 +4,7 @@ import { createMaterialTopTabNavigator } from "@react-navigation/material-top-ta
 import * as React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
-import PetBuy from "./pet_tab/petBuy";
+import PetBuyNav from "./pet_tab/petBuyNav";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import PetScreenComponent from "./pet_tab/petScreen";
 import buyDogs from "./pet_tab/buyDogs";
@@ -79,7 +79,7 @@ function MyTabs() {
         }}
       >
         <Tab.Screen name="Home" component={HomeScreen} />
-        <Tab.Screen name="Pet" component={PetBuy} />
+        <Tab.Screen name="Pet" component={PetBuyNav} />
         <Tab.Screen name="Shop" component={ShopScreen} />
         <Tab.Screen name="Profile" component={ProfileScreen} />
       </Tab.Navigator>

@@ -60,7 +60,7 @@ export default class test extends React.Component {
                                 alignItems: "center",
                                 height: 50,
                             }}
-                            onPress={() => this.props.navigation.navigate("petBuySpecies")}
+                            onPress={() => this.props.navigation.navigate("petBuy")}
                         >
                             <Text>Buy</Text>
                         </TouchableOpacity>

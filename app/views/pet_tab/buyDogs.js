@@ -27,7 +27,7 @@ export default class buyDogs extends React.Component {
               alignItems: "center",
               height: 50,
             }}
-            onPress={() => this.props.navigation.replace("petBuySpecies")}
+            onPress={() => this.props.navigation.replace("petBuy")}
           >
             <Text>Buy</Text>
           </TouchableOpacity>

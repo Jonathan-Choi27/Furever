@@ -11,7 +11,7 @@ import {
     Button,
     Image
   } from "react-native";
-import SellApplicationComponent from "./sellApplication";
+import SellApplicationComponent from "./petSell1";
 
 export default class PetScreenComponent extends React.Component{
 
@@ -20,7 +20,7 @@ export default class PetScreenComponent extends React.Component{
             <View>
                 <Button
                     title="Add New Listing"
-                    onPress={() => this.props.navigation.navigate("Sell Application")}
+                    onPress={() => this.props.navigation.navigate("petSell1")}
                     />
             </View>
         )
