@@ -39,17 +39,6 @@ export default class petSell3 extends React.Component {
     data: [],
   };
 
-  // constructor(props) {
-  //   super(props)
-  //   this.state = {
-  //       text: '',
-  //   }
-  // }
-
-  // static navigationOptions = {
-  //   titleID: 'Movies',
-  // };
-
   componentDidMount() {
     const dataArray = [];
     db.collection("pet_listings")
@@ -57,7 +46,21 @@ export default class petSell3 extends React.Component {
       .then((querySnapshot) => {
         querySnapshot.forEach((listingDoc) => {
           dataArray.push({
-            title: listingDoc.data().name,
+            name: listingDoc.data().name,
+            category: listingDoc.data().category,
+            breed: listingDoc.data().breed,
+            colour: listingDoc.data().colour,
+            age: listingDoc.data().age,
+            gender: listingDoc.data().gender,
+            // size: listingDoc.data().size,
+            location: listingDoc.data().location,
+            price: listingDoc.data().price,
+            behaviour: listingDoc.data().behaviour,
+            health: listingDoc.data().health,
+            training: listingDoc.data().training,
+            // additional: listingDoc.data().additional,
+            // photo: listingDoc.data().photo_link,
+            // documents: listingDoc.data().documents,
           });
         });
         this.setState({ data: [...dataArray] });
@@ -66,18 +69,6 @@ export default class petSell3 extends React.Component {
         console.log("Error getting document:", error);
       });
   }
-
-  _onPressItem(item) {
-    this.props.navigation.navigate('Test', {
-      titleID: "hello!"
-    });
-  }
-
-  //   _onPressItem = (title) => { 
-  //     this.props.navigation.navigate('Test', {
-  //         titleID: item.title,
-  //     })
-  //  };
 
   render() {
     return (
@@ -169,9 +160,9 @@ export default class petSell3 extends React.Component {
                 keyExtractor={(item, index) => index.toString()}
                 renderItem={({ item }) => (
                   <TouchableOpacity
-                    style={styles.viewApplication} onPress={() => this.props.navigation.navigate("test", {titleID: 'Hello!'})}> 
+                    style={styles.viewApplication} onPress={() => this.props.navigation.navigate("test", {item})}> 
                     {/* style={styles.viewApplication} onPress={() => this._onPressItem(item)}> */}
-                    <Text>{item.title}</Text>
+                    <Text>{item.name}</Text>
                   </TouchableOpacity>
                 )}
               />
@@ -245,6 +236,7 @@ const styles = StyleSheet.create({
     textAlign: "left",
     fontSize: 20,
     fontWeight: "bold",
+    paddingBottom: 10,
   },
   fontHeading: {
     textAlign: "left",

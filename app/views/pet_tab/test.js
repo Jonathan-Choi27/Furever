@@ -35,19 +35,10 @@ export default class test extends React.Component {
     constructor(props) {
         super(props);
         console.log(this.props)
-    }    
+    }
 
     render() {
-        // const { navigation } = this.props
-        // const titleID = this.props.navigation.route.params.titleID;
-        const titleID = this.props.route.params.titleID;
-        // const titleID = this.props.match.params.titleID;
-        // const titleID = this.props.navigation.state.params.titleID;
-        // const titleID = this.props.navigation.getParam('titleID', 'default');
-        // const titleID = this.props.params;
-        // console.log(this.props);
-        console.log(titleID);
-        // const name = useNavigationParam('titleID');
+        const item = this.props.route.params.item;
         return (
             <ScrollView>
                 <View style={styles.container}>
@@ -79,10 +70,69 @@ export default class test extends React.Component {
                     </View>
 
                     <View style={styles.titleContainer}>
-                        <Text style={styles.fontTitle}> Marshmallow's Profile </Text>
+                        <Text style={styles.fontTitle}> {item.name}'s Profile </Text>
                         <Text style={styles.fontHeading}> General Information </Text>
-                        <Text>Title: {JSON.stringify(titleID)}</Text>
                     </View>
+
+                    <Card containerStyle={styles.cardContainer}>
+                        <View style={styles.cardContentContainer}>
+                            <View>
+                                <View style={styles.imageContainer}></View>
+                                <Text style={{ textAlign: "center", paddingTop: 5 }}>
+                                    <Text style={{ fontWeight: "bold" }}>Price:</Text>{" "}
+                                    <Text>{item.price}</Text>
+                                </Text>
+                            </View>
+                            <View style={{ paddingLeft: 15 }}>
+                                <Text>
+                                    <Text style={{ fontWeight: "bold" }}>Name:</Text>{" "}
+                                    <Text>{item.name}</Text>
+                                </Text>
+                                <Text>
+                                    <Text style={{ fontWeight: "bold" }}>Category:</Text>{" "}
+                                    <Text>{item.category}</Text>
+                                </Text>
+                                <Text>
+                                    <Text style={{ fontWeight: "bold" }}>Breed:</Text>{" "}
+                                    <Text>{item.breed}</Text>
+                                </Text>
+                                <Text>
+                                    <Text style={{ fontWeight: "bold" }}>Colour:</Text>{" "}
+                                    <Text>{item.colour}</Text>
+                                </Text>
+                                <Text>
+                                    <Text style={{ fontWeight: "bold" }}>Age:</Text>{" "}
+                                    <Text>{item.age}</Text>
+                                </Text>
+                                <Text>
+                                    <Text style={{ fontWeight: "bold" }}>Gender:</Text>{" "}
+                                    <Text>{item.gender}</Text>
+                                </Text>
+                                <Text>
+                                    <Text style={{ fontWeight: "bold" }}>Size:</Text>{" "}
+                                    <Text>Small - item.size</Text>
+                                </Text>
+                                <Text>
+                                    <Text style={{ fontWeight: "bold" }}>Location:</Text>{" "}
+                                    <Text>{item.location}</Text>
+                                </Text>
+                            </View>
+                        </View>
+                    </Card>
+
+                    <Card containerStyle={styles.cardContainer}>
+                        <View style={styles.boxContainer}>
+                            <Text style={styles.fontHeading}>Behaviour </Text>
+                            <Text>{item.behaviour}</Text>
+                            <Text style={styles.fontHeading}>Care, Health and Feeding </Text>
+                            <Text>{item.health}</Text>
+                            <Text style={styles.fontHeading}>Training </Text>
+                            <Text>{item.training}</Text>
+                            <Text style={styles.fontHeading}>Additional information </Text>
+                            {/* <Text>{item.additional}</Text> */}
+                            <Text style={styles.fontHeading}>Documents </Text>
+                        </View>
+                    </Card>
 
                 </View>
             </ScrollView>
@@ -135,6 +185,7 @@ const styles = StyleSheet.create({
         textAlign: "left",
         fontSize: 20,
         fontWeight: "bold",
+        paddingBottom: 10,
     },
     fontHeading: {
         textAlign: "left",
