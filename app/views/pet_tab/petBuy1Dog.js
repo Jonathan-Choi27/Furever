@@ -14,7 +14,7 @@ import {
 } from "react-native";
 import { SearchBar } from "react-native-elements";
 
-export default class buyDogs extends React.Component {
+export default class petBuy1Dog extends React.Component {
   render() {
     return (
       <View style={styles.container}>

@@ -7,7 +7,7 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import PetBuyNav from "./pet_tab/petBuyNav";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import PetScreenComponent from "./pet_tab/petScreen";
-import buyDogs from "./pet_tab/buyDogs";
+import petBuy1Dog from "./pet_tab/petBuy1Dog";
 
 export default class LandingPage extends React.Component {
   render() {

@@ -14,7 +14,7 @@ import {
 } from "react-native";
 import { SearchBar } from "react-native-elements";
 import { max } from "react-native-reanimated";
-import buyDogs from "./buyDogs";
+import petBuy1Dog from "./petBuy1Dog";
 import petBuy from "./petBuy";
 import shepherdList from "./dog_species/shepard/shepherdList";
 
@@ -32,7 +32,7 @@ export default function PetBuyNav() {
     <NavigationContainer independent={true}>
       <Stack.Navigator>
         <Stack.Screen name="petBuy" component={petBuy} />
-        <Stack.Screen name="buyDogs" component={buyDogs} />
+        <Stack.Screen name="petBuy1Dog" component={petBuy1Dog} />
         <Stack.Screen name="petSell1" component={petSell1}/>
         <Stack.Screen name="petSell" component={petSell} />
         <Stack.Screen name="petSell3" component={petSell3} />

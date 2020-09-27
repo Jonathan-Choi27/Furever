@@ -89,7 +89,7 @@ export default class petBuy extends React.Component {
         </View>
         <View style={styles.categories}>
           <TouchableOpacity
-            onPress={() => this.props.navigation.replace("buyDogs")}
+            onPress={() => this.props.navigation.replace("petBuy1Dog")}
           >
             <View style={styles.iconContainer}>
               <Image
