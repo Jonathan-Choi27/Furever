@@ -11,13 +11,16 @@ import {
   Platform,
   Dimensions,
   Image,
+  ScrollView
 } from "react-native";
 import { SearchBar } from "react-native-elements";
+// import { ScrollView } from "react-native-gesture-handler";
 
 export default class buyDogs extends React.Component {
   render() {
     return (
-      <View style={styles.container}>
+      <ScrollView>
+<View style={styles.container}>
         <View style={styles.buySellContainer}>
           <TouchableOpacity
             style={{
@@ -167,6 +170,8 @@ export default class buyDogs extends React.Component {
           </View>
         </View>
       </View>
+      </ScrollView>
+      
     );
   }
 }
