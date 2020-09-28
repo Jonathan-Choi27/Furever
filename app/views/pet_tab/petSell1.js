@@ -282,8 +282,8 @@ export default class petSell1 extends React.Component {
                     value="0"
                     color="#B4B4B4"
                   />
-                  <Picker.Item label="Male" value="male" />
-                  <Picker.Item label="Female" value="female" />
+                  <Picker.Item label="Male" value="Male" />
+                  <Picker.Item label="Female" value="Female" />
                 </Picker>
               </View>
               <Text>
