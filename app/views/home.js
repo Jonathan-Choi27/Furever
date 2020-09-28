@@ -11,7 +11,11 @@ import petBuy1Dog from "./pet_tab/petBuy1Dog";
 import { AppLoading } from "expo";
 import * as Font from "expo-font";
 
-import { useFonts, Rosario_400Regular } from "@expo-google-fonts/rosario";
+import {
+  useFonts,
+  Rosario_400Regular,
+  Rosario_700Bold,
+} from "@expo-google-fonts/rosario";
 
 export default class LandingPage extends React.Component {
   render() {
@@ -25,6 +29,7 @@ const TopTab = createMaterialTopTabNavigator();
 function HomeScreen() {
   let [fontsLoaded] = useFonts({
     Rosario_400Regular,
+    Rosario_700Bold,
   });
 
   if (!fontsLoaded) {
