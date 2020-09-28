@@ -196,7 +196,8 @@ export default class petSell1 extends React.Component {
       <SafeAreaView style={styles.container}>
         <ScrollView
           style={styles.scrollView}
-          showsVerticalScrollIndicator={false}>
+          showsVerticalScrollIndicator={false}
+        >
           <Text style={styles.heading}>New Pet Listing Application</Text>
           <Text>
             <Text style={styles.sub_heading}>General Information</Text>
@@ -270,14 +271,19 @@ export default class petSell1 extends React.Component {
                 <Text style={styles.titles}>Gender</Text>
                 {/* <Text style={styles.setColorRed}> *</Text> */}
               </Text>
-        <View style={styles.picker_container}>
-              <Picker
-                style={styles.picker}
-                onValueChange={(gender) => this.setState({ gender })}>
-                <Picker.Item label="Select gender" value="0" color="#B4B4B4"/>
-                <Picker.Item label="Male" value="male" />
-                <Picker.Item label="Female" value="female" />
-              </Picker>
+              <View style={styles.picker_container}>
+                <Picker
+                  style={styles.picker}
+                  onValueChange={(gender) => this.setState({ gender })}
+                >
+                  <Picker.Item
+                    label="Select gender"
+                    value="0"
+                    color="#B4B4B4"
+                  />
+                  <Picker.Item label="Male" value="Male" />
+                  <Picker.Item label="Female" value="Female" />
+                </Picker>
               </View>
               <Text>
                 <Text style={styles.titles}>Location</Text>
@@ -418,7 +424,7 @@ const styles = StyleSheet.create({
     borderColor: "black",
     marginBottom: 10,
     backgroundColor: "white",
-    fontSize: 12
+    fontSize: 12,
   },
   biginput: {
     width: 314,

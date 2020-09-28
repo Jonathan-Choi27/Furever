@@ -54,7 +54,6 @@ export default class petBuy1Dog extends React.Component {
               width: 300,
             }}
             placeholder="Search..."
-            lightTheme="true"
           />
         </View>
         <View style={styles.categories}>
