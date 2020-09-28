@@ -9,10 +9,9 @@ export const SellListing = (props) => {
       <Text>Animal Breed : {props.breed}</Text>
       <Text>Animal Colour : {props.colour}</Text>
 
-      <Button title="View"/>
-      <Button title="Update"/>
-      <Button title="Delete"/>
-
+      <Button title="View" />
+      <Button title="Update" />
+      <Button title="Delete" />
     </View>
   );
 };

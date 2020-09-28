@@ -12,6 +12,7 @@ import {
   Dimensions,
   Image,
 } from "react-native";
+import { useFonts, Rosario_400Regular } from "@expo-google-fonts/rosario";
 import { SearchBar } from "react-native-elements";
 import firebase from "firebase";
 
@@ -49,7 +50,7 @@ export default class petSell extends React.Component {
             }}
             onPress={() => this.props.navigation.replace("petBuy")}
           >
-            <Text>Buy</Text>
+            <Text style={{ fontFamily: "Rosario_400Regular" }}>Buy</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={{
@@ -61,7 +62,12 @@ export default class petSell extends React.Component {
             }}
             onPress={() => this.props.navigation.replace("petSell")}
           >
-            <Text style={{ textAlign: "center" }}> Sell </Text>
+            <Text
+              style={{ textAlign: "center", fontFamily: "Rosario_400Regular" }}
+            >
+              {" "}
+              Sell{" "}
+            </Text>
           </TouchableOpacity>
         </View>
         <View style={{ height: 60, padding: 10, flexDirection: "row" }}>
@@ -81,9 +87,7 @@ export default class petSell extends React.Component {
               height: 34,
               width: 200,
             }}
-            onPress={() =>
-              this.props.navigation.navigate("petSell1")
-            }
+            onPress={() => this.props.navigation.navigate("petSell1")}
           >
             <Text
               style={{

@@ -18,6 +18,7 @@ import {
   openDocumentPicker,
   uploadDocument,
 } from "../components/DocumentUpload";
+import { useFonts, Rosario_400Regular } from "@expo-google-fonts/rosario";
 import { openImagePicker, uploadPhoto } from "../components/ImageUpload";
 import CategorySelection from "./pet_sell_1_categorySelection";
 import { auth } from "../database/firebase";
@@ -196,7 +197,8 @@ export default class petSell1 extends React.Component {
       <SafeAreaView style={styles.container}>
         <ScrollView
           style={styles.scrollView}
-          showsVerticalScrollIndicator={false}>
+          showsVerticalScrollIndicator={false}
+        >
           <Text style={styles.heading}>New Pet Listing Application</Text>
           <Text>
             <Text style={styles.sub_heading}>General Information</Text>
@@ -270,14 +272,19 @@ export default class petSell1 extends React.Component {
                 <Text style={styles.titles}>Gender</Text>
                 {/* <Text style={styles.setColorRed}> *</Text> */}
               </Text>
-        <View style={styles.picker_container}>
-              <Picker
-                style={styles.picker}
-                onValueChange={(gender) => this.setState({ gender })}>
-                <Picker.Item label="Select gender" value="0" color="#B4B4B4"/>
-                <Picker.Item label="Male" value="male" />
-                <Picker.Item label="Female" value="female" />
-              </Picker>
+              <View style={styles.picker_container}>
+                <Picker
+                  style={styles.picker}
+                  onValueChange={(gender) => this.setState({ gender })}
+                >
+                  <Picker.Item
+                    label="Select gender"
+                    value="0"
+                    color="#B4B4B4"
+                  />
+                  <Picker.Item label="Male" value="male" />
+                  <Picker.Item label="Female" value="female" />
+                </Picker>
               </View>
               <Text>
                 <Text style={styles.titles}>Location</Text>
@@ -387,6 +394,7 @@ const styles = StyleSheet.create({
   titles: {
     fontSize: 14,
     // fontWeight: "bold",
+    fontFamily: "Rosario_400Regular",
     color: "#515151",
     paddingVertical: 8,
     // width: 50,
@@ -394,6 +402,7 @@ const styles = StyleSheet.create({
   heading: {
     fontSize: 20,
     fontWeight: "bold",
+    // fontFamily: "Rosario_400Regular",
     // textShadowColor: "rgba(0, 0, 0, 0.3)",
     // textShadowOffset: { width: -1, height: 1 },
     // textShadowRadius: 10,
@@ -418,7 +427,7 @@ const styles = StyleSheet.create({
     borderColor: "black",
     marginBottom: 10,
     backgroundColor: "white",
-    fontSize: 12
+    fontSize: 12,
   },
   biginput: {
     width: 314,
