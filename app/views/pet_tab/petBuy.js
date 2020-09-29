@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   StyleSheet,
   Text,
@@ -7,11 +7,9 @@ import {
   Image,
   ScrollView,
   FlatList,
-  Modal,
 } from "react-native";
 import {
   Avatar,
-  ActivityIndicator,
   Card,
   Button,
   Searchbar,
@@ -68,34 +66,9 @@ export default class petBuy extends React.Component {
 
   render() {
     const { search } = this.state;
-    const [modalVisible, setModalVisible] = useState(false);
-
       return (
         <ScrollView>
         <View style={styles.container}>
-        <Modal
-            animationType="slide"
-            transparent={true}
-            visible={modalVisible}
-            onRequestClose={() => {
-              Alert.alert("Modal has been closed.");
-            }}
-          >
-            <View style={styles.centeredView}>
-              <View style={styles.modalView}>
-                <Text style={styles.modalText}>Hello World!</Text>
-
-                <TouchableHighlight
-                  style={{ ...styles.openButton, backgroundColor: "#2196F3" }}
-                  onPress={() => {
-                    setModalVisible(!modalVisible);
-                  }}
-                >
-                  <Text style={styles.textStyle}>Hide Modal</Text>
-                </TouchableHighlight>
-              </View>
-            </View>
-          </Modal>
           <View style={styles.buySellContainer}>
             <TouchableOpacity
               style={{
@@ -129,15 +102,10 @@ export default class petBuy extends React.Component {
               justifyContent: "center",
               alignItems: "center",
               alignSelf: "stretch",
-              // height: 50,
-              // width: 300,
             }}
           >
             <Searchbar
           style={{
-            // justifyContent: "center",
-            // alignItems: "center",
-            // alignSelf: "stretch",
             margin: 10,
             height: 50,
             width: 300,
@@ -146,14 +114,6 @@ export default class petBuy extends React.Component {
           onChangeText={this.searchFunction}
           value={this.state.searchText}
         />
-         <TouchableHighlight
-            style={styles.openButton}
-            onPress={() => {
-              setModalVisible(true);
-            }}
-          >
-            <Text style={styles.textStyle}>Show Modal</Text>
-          </TouchableHighlight>
           </View>
           <View style={{ height: 50, padding: 10 }}>
             <TouchableOpacity style={styles.viewApplication}>
@@ -319,7 +279,6 @@ export default class petBuy extends React.Component {
               ? this.state.filteredData
               : this.state.data
           }
-          //extraData={this.state}
         />
       }
         </View> 

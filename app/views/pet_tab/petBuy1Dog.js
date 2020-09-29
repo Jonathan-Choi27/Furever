@@ -1,26 +1,20 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   StyleSheet,
   Text,
   View,
   TouchableOpacity,
-  Modal,
-  TouchableHighlight,
   FlatList,
-  Platform,
-  Dimensions,
   Image,
   ScrollView,
 } from "react-native";
 import {
   Avatar,
-  ActivityIndicator,
   Card,
   Button,
   Searchbar,
 } from "react-native-paper";
 import { db } from "../database/firebase";
-// import { ScrollView } from "react-native-gesture-handler";
 
 export default class petBuy1Dog extends React.Component {
   state = {
@@ -103,9 +97,6 @@ export default class petBuy1Dog extends React.Component {
             <View>
             <Searchbar
           style={{
-            // justifyContent: "center",
-            // alignItems: "center",
-            // alignSelf: "stretch",
             margin: 10,
             height: 50,
             width: 300,
@@ -276,7 +267,6 @@ export default class petBuy1Dog extends React.Component {
             ? this.state.filteredData
             : this.state.data
         }
-        //extraData={this.state}
       />
     }
       </View>
