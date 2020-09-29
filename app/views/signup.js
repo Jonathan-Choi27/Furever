@@ -13,6 +13,14 @@ import { CheckBox } from "react-native-elements";
 import firebase from "firebase";
 import { db } from "./database/firebase";
 import { Input } from "react-native-elements";
+import { Roboto_400Regular, Roboto_700Bold } from "@expo-google-fonts/roboto";
+import { AppLoading } from "expo";
+import * as Font from "expo-font";
+
+let customFonts = {
+  Roboto_400Regular,
+  Roboto_700Bold,
+};
 
 export default class SignUp extends React.Component {
   state = {
@@ -22,7 +30,17 @@ export default class SignUp extends React.Component {
     password: "",
     dob: "",
     isPetShop: false,
+    fontsLoaded: false,
   };
+
+  async _loadFontsAsync() {
+    await Font.loadAsync(customFonts);
+    this.setState({ fontsLoaded: true });
+  }
+
+  componentDidMount() {
+    this._loadFontsAsync();
+  }
 
   submit = () => {
     const {
@@ -110,110 +128,120 @@ export default class SignUp extends React.Component {
   };
 
   render() {
-    return (
-      <SafeAreaView style={styles.container}>
-        <ScrollView style={styles.scrollView}>
-          <View style={styles.logoContainer}>
-            <Image
-              style={styles.logo}
-              source={{
-                uri:
-                  "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2FlogoWithWords.png?alt=media&token=a0ce1a26-d23b-4379-985e-0bbdfd061ee7",
-              }}
-            />
-            <View style={styles.inputContainer}>
-              <Input
-                placeholder="NAME"
-                value={this.state.name}
-                onChangeText={(name) => this.setState({ name })}
-                leftIcon={{
-                  type: "font-awesome",
-                  name: "user",
-                  size: 20,
-                  color: "#447ECB",
+    if (this.state.fontsLoaded) {
+      return (
+        <SafeAreaView style={styles.container}>
+          <ScrollView style={styles.scrollView}>
+            <View style={styles.logoContainer}>
+              <Image
+                style={styles.logo}
+                source={{
+                  uri:
+                    "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2FlogoWithWords.png?alt=media&token=a0ce1a26-d23b-4379-985e-0bbdfd061ee7",
                 }}
               />
-              <Input
-                placeholder="DD/MM/YYYY"
-                value={this.state.dob}
-                onChangeText={(dob) => this.setState({ dob })}
-                leftIcon={{
-                  type: "font-awesome",
-                  name: "calendar",
-                  size: 16,
-                  color: "#447ECB",
-                }}
-              />
-              <Input
-                placeholder="EMAIL"
-                value={this.state.email}
-                onChangeText={(email) => this.setState({ email })}
-                leftIcon={{
-                  type: "font-awesome",
-                  name: "envelope",
-                  size: 15,
-                  color: "#447ECB",
-                }}
-              />
-              <Input
-                placeholder="PASSWORD"
-                value={this.state.password}
-                secureTextEntry={true}
-                onChangeText={(password) => this.setState({ password })}
-                leftIcon={{
-                  type: "font-awesome",
-                  name: "lock",
-                  size: 23,
-                  color: "#447ECB",
-                }}
-              />
-              <Input
-                placeholder="CONFIRM PASSWORD"
-                secureTextEntry={true}
-                value={this.state.confirmPassword}
-                onChangeText={(confirmPassword) =>
-                  this.setState({ confirmPassword })
+              <View style={styles.inputContainer}>
+                <Input
+                  style={{ fontFamily: "Roboto_400Regular" }}
+                  placeholder="NAME"
+                  value={this.state.name}
+                  onChangeText={(name) => this.setState({ name })}
+                  leftIcon={{
+                    type: "font-awesome",
+                    name: "user",
+                    size: 20,
+                    color: "#447ECB",
+                  }}
+                />
+                <Input
+                  style={{ fontFamily: "Roboto_400Regular" }}
+                  placeholder="DD/MM/YYYY"
+                  value={this.state.dob}
+                  onChangeText={(dob) => this.setState({ dob })}
+                  leftIcon={{
+                    type: "font-awesome",
+                    name: "calendar",
+                    size: 16,
+                    color: "#447ECB",
+                  }}
+                />
+                <Input
+                  style={{ fontFamily: "Roboto_400Regular" }}
+                  placeholder="EMAIL"
+                  value={this.state.email}
+                  onChangeText={(email) => this.setState({ email })}
+                  leftIcon={{
+                    type: "font-awesome",
+                    name: "envelope",
+                    size: 15,
+                    color: "#447ECB",
+                  }}
+                />
+                <Input
+                  style={{ fontFamily: "Roboto_400Regular" }}
+                  placeholder="PASSWORD"
+                  value={this.state.password}
+                  secureTextEntry={true}
+                  onChangeText={(password) => this.setState({ password })}
+                  leftIcon={{
+                    type: "font-awesome",
+                    name: "lock",
+                    size: 23,
+                    color: "#447ECB",
+                  }}
+                />
+                <Input
+                  style={{ fontFamily: "Roboto_400Regular" }}
+                  placeholder="CONFIRM PASSWORD"
+                  secureTextEntry={true}
+                  value={this.state.confirmPassword}
+                  onChangeText={(confirmPassword) =>
+                    this.setState({ confirmPassword })
+                  }
+                  leftIcon={{
+                    type: "font-awesome",
+                    name: "lock",
+                    size: 23,
+                    color: "#447ECB",
+                  }}
+                />
+              </View>
+
+              <CheckBox
+                style={{ fontFamily: "Roboto_400Regular" }}
+                title="Are you a pet shop?"
+                checked={this.state.isPetShop}
+                onPress={() =>
+                  this.setState({ isPetShop: !this.state.isPetShop })
                 }
-                leftIcon={{
-                  type: "font-awesome",
-                  name: "lock",
-                  size: 23,
-                  color: "#447ECB",
+              />
+
+              <View style={styles.buttonsContainer}>
+                <TouchableOpacity style={styles.buttons} onPress={this.submit}>
+                  <Text style={styles.buttonsText}>SIGN UP</Text>
+                </TouchableOpacity>
+                <Text
+                  style={styles.title}
+                  onPress={() => this.props.navigation.navigate("Login")}
+                >
+                  ALREADY HAVE AN ACCOUNT?{" "}
+                  <Text style={{ fontWeight: "bold" }}>{"LOGIN"}</Text>
+                </Text>
+              </View>
+              <Image
+                style={styles.logo2}
+                source={{
+                  uri:
+                    "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Flogo.svg?alt=media&token=21d331fe-dc33-4021-a632-aeaa3b7cf6c4",
                 }}
               />
             </View>
-
-            <CheckBox
-              title="Are you a pet shop?"
-              checked={this.state.isPetShop}
-              onPress={() =>
-                this.setState({ isPetShop: !this.state.isPetShop })
-              }
-            />
-
-            <View style={styles.buttonsContainer}>
-              <TouchableOpacity style={styles.buttons} onPress={this.submit}>
-                <Text style={styles.buttonsText}>SIGN UP</Text>
-              </TouchableOpacity>
-              <Text
-                style={styles.title}
-                onPress={() => this.props.navigation.navigate("Login")}
-              >
-                ALREADY HAVE AN ACCOUNT?{" "}
-                <Text style={{ fontWeight: "bold" }}>{"LOGIN"}</Text>
-              </Text>
-            </View>
-            <Image
-              style={styles.logo2}
-              source={{
-                uri:
-                  "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Flogo.svg?alt=media&token=21d331fe-dc33-4021-a632-aeaa3b7cf6c4",
-              }}
-            />
-          </View>
-        </ScrollView>
-      </SafeAreaView>
-    );
+          </ScrollView>
+        </SafeAreaView>
+      );
+    } else {
+      return <AppLoading />;
+    }
   }
 }
 
@@ -247,6 +275,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: "#447ECB",
     padding: 10,
+    fontFamily: "Roboto_400Regular",
   },
   buttonsContainer: {
     alignItems: "center",
@@ -265,5 +294,6 @@ const styles = StyleSheet.create({
   buttonsText: {
     color: "white",
     fontSize: 15,
+    fontFamily: "Roboto_400Regular",
   },
 });

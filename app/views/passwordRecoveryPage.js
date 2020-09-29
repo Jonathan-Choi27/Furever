@@ -2,11 +2,29 @@ import React from "react";
 import { auth } from "./database/firebase";
 import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
 import { Input } from "react-native-elements";
+import { Roboto_400Regular, Roboto_700Bold } from "@expo-google-fonts/roboto";
+import { AppLoading } from "expo";
+import * as Font from "expo-font";
+
+let customFonts = {
+  Roboto_400Regular,
+  Roboto_700Bold,
+};
 
 export default class PasswordRecoveryPage extends React.Component {
   state = {
     email: "",
+    fontsLoaded: false,
   };
+
+  async _loadFontsAsync() {
+    await Font.loadAsync(customFonts);
+    this.setState({ fontsLoaded: true });
+  }
+
+  componentDidMount() {
+    this._loadFontsAsync();
+  }
 
   onPasswordRecovery(email) {
     auth
@@ -33,55 +51,62 @@ export default class PasswordRecoveryPage extends React.Component {
   }
 
   render() {
-    return (
-      <View style={styles.container}>
-        <View style={styles.logoContainer}>
-          <Image
-            style={styles.logo}
-            source={{
-              uri:
-                "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2FlogoWithWords.png?alt=media&token=a0ce1a26-d23b-4379-985e-0bbdfd061ee7",
-            }}
-          />
-          <View style={styles.inputContainer}>
-            <Input
-              placeholder="EMAIL"
-              value={this.state.email}
-              onChangeText={(email) => this.setState({ email })}
-              leftIcon={{
-                type: "font-awesome",
-                name: "envelope",
-                size: 15,
-                color: "#447ECB",
+    if (this.state.fontsLoaded) {
+      return (
+        <View style={styles.container}>
+          <View style={styles.logoContainer}>
+            <Image
+              style={styles.logo}
+              source={{
+                uri:
+                  "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2FlogoWithWords.png?alt=media&token=a0ce1a26-d23b-4379-985e-0bbdfd061ee7",
+              }}
+            />
+            <View style={styles.inputContainer}>
+              <Input
+                style={{ fontFamily: "Roboto_400Regular" }}
+                placeholder="EMAIL"
+                value={this.state.email}
+                onChangeText={(email) => this.setState({ email })}
+                leftIcon={{
+                  type: "font-awesome",
+                  name: "envelope",
+                  size: 15,
+                  color: "#447ECB",
+                }}
+              />
+            </View>
+            <View style={styles.buttonsContainer}>
+              <TouchableOpacity
+                style={styles.buttons}
+                onPress={() => this.onPasswordRecovery(this.state.email)}
+              >
+                <Text style={styles.buttonsText}>
+                  SEND PASSWORD RESET EMAIL
+                </Text>
+              </TouchableOpacity>
+
+              <Text
+                style={styles.title2}
+                onPress={() => this.props.navigation.navigate("Login")}
+              >
+                HAVE AN ACCOUNT?{" "}
+                <Text style={{ fontWeight: "bold" }}>{"LOGIN"}</Text>
+              </Text>
+            </View>
+            <Image
+              style={styles.logo2}
+              source={{
+                uri:
+                  "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Flogo.svg?alt=media&token=21d331fe-dc33-4021-a632-aeaa3b7cf6c4",
               }}
             />
           </View>
-          <View style={styles.buttonsContainer}>
-            <TouchableOpacity
-              style={styles.buttons}
-              onPress={() => this.onPasswordRecovery(this.state.email)}
-            >
-              <Text style={styles.buttonsText}>SEND PASSWORD RESET EMAIL</Text>
-            </TouchableOpacity>
-
-            <Text
-              style={styles.title2}
-              onPress={() => this.props.navigation.navigate("Login")}
-            >
-              HAVE AN ACCOUNT?{" "}
-              <Text style={{ fontWeight: "bold" }}>{"LOGIN"}</Text>
-            </Text>
-          </View>
-          <Image
-            style={styles.logo2}
-            source={{
-              uri:
-                "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Flogo.svg?alt=media&token=21d331fe-dc33-4021-a632-aeaa3b7cf6c4",
-            }}
-          />
         </View>
-      </View>
-    );
+      );
+    } else {
+      return <AppLoading />;
+    }
   }
 }
 
@@ -113,12 +138,14 @@ const styles = StyleSheet.create({
     color: "#447ECB",
     padding: 10,
     fontSize: 16,
+    fontFamily: "Roboto_400Regular",
   },
   title2: {
     marginTop: 10,
     textAlign: "center",
     color: "#447ECB",
     padding: 10,
+    fontFamily: "Roboto_400Regular",
   },
   buttonsContainer: {
     alignItems: "center",
@@ -137,5 +164,6 @@ const styles = StyleSheet.create({
   buttonsText: {
     color: "white",
     fontSize: 15,
+    fontFamily: "Roboto_400Regular",
   },
 });
