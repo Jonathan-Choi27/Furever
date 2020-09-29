@@ -35,7 +35,7 @@ export default class petBuy extends React.Component {
             .then((user_doc) => {
               seller_name = user_doc.data().name;
             });
-          console.log(seller_name);
+        //   console.log(seller_name);
           dataArray.push({
             title: listingDoc.data().name,
             name: seller_name,
