@@ -11,6 +11,9 @@ import "react-native-gesture-handler";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { Platform } from "react-native";
+import { setCustomText } from "react-native-global-props";
+import { AppLoading } from "expo";
+// import { useFonts, Inter_900Black } from "@expo-google-fonts/inter"; ////////////////
 
 const Stack = createStackNavigator();
 

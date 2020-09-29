@@ -1,5 +1,9 @@
 {
   "dependencies": {
+    "@expo-google-fonts/courier-prime": "^0.1.0",
+    "@expo-google-fonts/inter": "^0.1.0",
+    "@expo-google-fonts/lato": "^0.1.0",
+    "@expo-google-fonts/rosario": "^0.1.0",
     "@fortawesome/fontawesome-svg-core": "1.2.30",
     "@fortawesome/react-native-fontawesome": "0.2.5",
     "@react-native-community/masked-view": "0.1.10",
@@ -12,6 +16,7 @@
     "expo": "~38.0.0",
     "expo-constants": "9.1.1",
     "expo-document-picker": "8.2.1",
+    "expo-font": "~8.2.1",
     "expo-image-picker": "8.3.0",
     "firebase": "7.9.0",
     "react": "^16.13.1",
@@ -19,6 +24,8 @@
     "react-native": "https://github.com/expo/react-native/archive/sdk-38.0.2.tar.gz",
     "react-native-elements": "^2.3.2",
     "react-native-gesture-handler": "~1.6.0",
+    "react-native-global-font": "^1.0.2",
+    "react-native-global-props": "^1.1.5",
     "react-native-paper": "^4.2.0",
     "react-native-reanimated": "~1.9.0",
     "react-native-safe-area-context": "~3.0.7",
@@ -44,6 +51,11 @@
     "ios": "expo start --ios",
     "web": "expo web",
     "eject": "expo eject"
+  },
+  "rnpm": {
+    "assets": [
+      "./assets/fonts/"
+    ]
   },
   "private": true
 }

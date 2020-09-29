@@ -8,6 +8,14 @@ import PetBuyNav from "./pet_tab/petBuyNav";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import PetScreenComponent from "./pet_tab/petScreen";
 import petBuy1Dog from "./pet_tab/petBuy1Dog";
+import { AppLoading } from "expo";
+import * as Font from "expo-font";
+
+import {
+  useFonts,
+  Rosario_400Regular,
+  Rosario_700Bold,
+} from "@expo-google-fonts/rosario";
 
 export default class LandingPage extends React.Component {
   render() {
@@ -19,6 +27,15 @@ const Tab = createBottomTabNavigator();
 const TopTab = createMaterialTopTabNavigator();
 
 function HomeScreen() {
+  let [fontsLoaded] = useFonts({
+    Rosario_400Regular,
+    Rosario_700Bold,
+  });
+
+  if (!fontsLoaded) {
+    return <AppLoading />;
+  }
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Your Recent Listing</Text>
@@ -30,6 +47,14 @@ function HomeScreen() {
 }
 
 function ShopScreen() {
+  let [fontsLoaded] = useFonts({
+    Rosario_400Regular,
+  });
+
+  if (!fontsLoaded) {
+    return <AppLoading />;
+  }
+
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       <Text>Shop Screen!</Text>
@@ -38,6 +63,14 @@ function ShopScreen() {
 }
 
 function ProfileScreen() {
+  let [fontsLoaded] = useFonts({
+    Rosario_400Regular,
+  });
+
+  if (!fontsLoaded) {
+    return <AppLoading />;
+  }
+
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       <Text>Profile Page Screen!</Text>
@@ -46,6 +79,14 @@ function ProfileScreen() {
 }
 
 function BuyScreen() {
+  let [fontsLoaded] = useFonts({
+    Rosario_400Regular,
+  });
+
+  if (!fontsLoaded) {
+    return <AppLoading />;
+  }
+
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       <Text>Buy Screen!</Text>
@@ -54,6 +95,14 @@ function BuyScreen() {
 }
 
 function MyTabs() {
+  let [fontsLoaded] = useFonts({
+    Rosario_400Regular,
+  });
+
+  if (!fontsLoaded) {
+    return <AppLoading />;
+  }
+
   return (
     <NavigationContainer independent={true}>
       <Tab.Navigator
@@ -100,10 +149,12 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 20,
-    fontWeight: "bold",
+    // fontWeight: "bold",
+    fontFamily: "Rosario_400Regular",
   },
   middleText: {
     fontSize: 20,
     color: "#787878",
+    fontFamily: "Rosario_400Regular",
   },
 });

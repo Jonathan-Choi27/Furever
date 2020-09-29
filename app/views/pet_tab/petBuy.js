@@ -15,6 +15,7 @@ import {
   Searchbar,
 } from "react-native-paper";
 import { db } from "../database/firebase";
+import { useFonts, Rosario_400Regular } from "@expo-google-fonts/rosario";
 
 export default class petBuy extends React.Component {
   state = {
@@ -81,7 +82,7 @@ export default class petBuy extends React.Component {
               }}
               onPress={() => this.props.navigation.replace("petBuy")}
             >
-              <Text>Buy</Text>
+              <Text style={{ fontFamily: "Rosario_400Regular" }}>Buy</Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={{
@@ -93,7 +94,12 @@ export default class petBuy extends React.Component {
               }}
               onPress={() => this.props.navigation.replace("petSell")}
             >
-              <Text style={{ textAlign: "center" }}> Sell </Text>
+              <Text
+                style={{ textAlign: "center", fontFamily: "Rosario_400Regular" }}
+              >
+                {" "}
+                Sell{" "}
+              </Text>            
             </TouchableOpacity>
           </View>
           <View
