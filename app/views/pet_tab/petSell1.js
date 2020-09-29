@@ -20,9 +20,9 @@ import {
 } from "../components/DocumentUpload";
 import {
   useFonts,
-  Rosario_400Regular,
-  Rosario_700Bold,
-} from "@expo-google-fonts/rosario";
+  Roboto_400Regular,
+  Roboto_700Bold,
+} from "@expo-google-fonts/roboto";
 import * as Font from "expo-font";
 import { openImagePicker, uploadPhoto } from "../components/ImageUpload";
 import CategorySelection from "./pet_sell_1_categorySelection";
@@ -50,9 +50,9 @@ export default class petSell1 extends React.Component {
     photo_link: "",
     photo_uri: "",
     photo_uuid: "",
-    //
     documents_uri: "",
     seller_name: "",
+    size: "",
     fontLoaded: false,
   };
 
@@ -76,6 +76,7 @@ export default class petSell1 extends React.Component {
       health,
       training,
       additionalInfo,
+      size,
       photo_uuid,
       photo_uri,
       photo_link,
@@ -120,15 +121,15 @@ export default class petSell1 extends React.Component {
       colour == "0" ||
       age == "" ||
       gender == "0" ||
+      size == "0" ||
       location == "" ||
       price == "" ||
       behaviour == "" ||
       health == "" ||
       training == "" ||
       additionalInfo == ""
+
       // documents == "" ||
-      // behaviour == "" ||
-      // behaviour == "" ||
     ) {
       alert("All input fields required and must be valid.");
       submit = false;
@@ -151,6 +152,8 @@ export default class petSell1 extends React.Component {
       photo_link: this.state.photo_link,
       documents: this.state.documents,
       price: this.state.price,
+      additionalInfo: this.state.additionalInfo,
+      size: this.state.size,
       // to implement
       //   location
       //   photo
@@ -196,6 +199,12 @@ export default class petSell1 extends React.Component {
   setColour = (val) => {
     this.setState({
       colour: val,
+    });
+  };
+
+  setSize = (val) => {
+    this.setState({
+      size: val,
     });
   };
 
@@ -257,14 +266,12 @@ export default class petSell1 extends React.Component {
                 <Picker.Item label="Black" value="bird" />
                 <Picker.Item label="Grey" value="reptile" />
               </Picker> */}
-              {/* <TextInput
-                onChangeText={(colour) => this.setState({ colour })}
-                style={styles.input}
-              /> */}
+
               <CategorySelection
                 category={this.setCategory}
                 breed={this.setBreed}
                 colour={this.setColour}
+                size={this.setSize}
               />
               <Text>
                 <Text style={styles.titles}>Age</Text>
@@ -401,7 +408,7 @@ const styles = StyleSheet.create({
   titles: {
     fontSize: 14,
     // fontWeight: "bold",
-    fontFamily: "Rosario_400Regular",
+    fontFamily: "Roboto_400Regular",
     color: "#515151",
     paddingVertical: 8,
     // width: 50,
@@ -424,7 +431,7 @@ const styles = StyleSheet.create({
   sub_heading: {
     fontSize: 16,
     // fontWeight: "bold",
-    fontFamily: "Rosario_700Bold",
+    fontFamily: "Roboto_700Bold",
   },
   input: {
     width: 314,

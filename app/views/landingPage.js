@@ -15,7 +15,8 @@ export default class LandingPage extends React.Component {
           />
         </View>
         <View style={styles.buttonsContainer}>
-          <Text style={styles.title}>FIND YOUR PERFECT PET TODAY</Text>
+          <Text style={styles.title}>Almost before we knew it, we had left the ground.
+</Text>
           <TouchableOpacity
             style={styles.buttons}
             onPress={() => this.props.navigation.replace("Login")}
@@ -56,6 +57,8 @@ const styles = StyleSheet.create({
   title: {
     marginTop: 10,
     textAlign: "center",
+    fontFamily: "Roboto",
+    fontWeight: "700",
   },
   buttonsContainer: {
     alignItems: "center",
