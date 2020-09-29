@@ -130,8 +130,6 @@ export default class petSell1 extends React.Component {
       additionalInfo == ""
 
       // documents == "" ||
-      // behaviour == "" ||
-      // behaviour == "" ||
     ) {
       alert("All input fields required and must be valid.");
       submit = false;
