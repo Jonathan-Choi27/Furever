@@ -5,10 +5,8 @@ import {
     ScrollView,
     View,
     TouchableOpacity,
-    Modal,
     TouchableHighlight,
     FlatList,
-    ActivityIndicator,
     Platform,
     Dimensions,
     Image,
@@ -21,6 +19,7 @@ import {
     SearchBar,
     Avatar,
 } from "react-native-elements";
+import { Paragraph } from 'react-native-paper';
 import { SafeAreaView } from "react-native-safe-area-context";
 import { NavigationContainer } from '@react-navigation/native';
 import { db } from "../database/firebase";
@@ -34,11 +33,12 @@ export default class test extends React.Component {
 
     constructor(props) {
         super(props);
-        console.log(this.props)
     }
 
     render() {
         const item = this.props.route.params.item;
+        const screenWidth = Math.round(Dimensions.get('window').width);
+        const textWidth = screenWidth - 40 - 150 - 10;
         return (
             <ScrollView>
                 <View style={styles.container}>
@@ -83,7 +83,7 @@ export default class test extends React.Component {
                                     <Text>{item.price}</Text>
                                 </Text>
                             </View>
-                            <View style={{ paddingLeft: 15 }}>
+                            <View style={{ paddingLeft: 15, paddingRight: 10, width: textWidth }}>
                                 <Text>
                                     <Text style={{ fontWeight: "bold" }}>Name:</Text>{" "}
                                     <Text>{item.name}</Text>
@@ -200,6 +200,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         marginLeft: 20,
         marginRight: 20,
+        elevation: 5,
     },
     cardContentContainer: {
         borderRadius: 4,
