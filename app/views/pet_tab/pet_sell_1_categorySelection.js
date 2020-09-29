@@ -82,8 +82,12 @@ const fish_colour = [
   "fish colour 3",
   "fish colour 4",
 ];
+
+const size = ["Select size", "Small", "Medium", "Large"];
+
 var empty_breed = ["Select category first"];
 var empty_colour = ["Select category first"];
+var empty_size = ["Select category first"];
 
 export default class CategorySelection extends React.Component {
   constructor(props) {
@@ -124,6 +128,21 @@ export default class CategorySelection extends React.Component {
       return empty_colour;
     }
   }
+
+  getSize(val) {
+    if (
+      val === "dog" ||
+      val === "cat" ||
+      val === "bird" ||
+      val === "fish" ||
+      val === "reptile"
+    ) {
+      return size;
+    } else {
+      return empty_size;
+    }
+  }
+
   onCategoryChange(value) {
     this.setState({
       category: value,
@@ -145,6 +164,13 @@ export default class CategorySelection extends React.Component {
     this.props.colour(value);
   }
 
+  onSizeChange(value) {
+    this.setState({
+      size: value,
+    });
+    this.props.size(value);
+  }
+
   render() {
     return (
       <View>
@@ -155,13 +181,26 @@ export default class CategorySelection extends React.Component {
           <Picker
             style={styles.picker}
             selectedValue={this.state.category}
-            onValueChange={this.onCategoryChange.bind(this)}>
+            onValueChange={this.onCategoryChange.bind(this)}
+          >
             <Picker.Item label="Select category" value="0" color="#B4B4B4" />
-            <Picker.Item label="Dog" value="dog" style={styles.picker_entry}/>
-            <Picker.Item label="Cat" value="cat" style={styles.picker_entry}/>
-            <Picker.Item label="Bird" value="bird" style={styles.picker_entry}/>
-            <Picker.Item label="Reptile" value="reptile" style={styles.picker_entry}/>
-            <Picker.Item label="Fish" value="fish" style={styles.picker_entry}/>
+            <Picker.Item label="Dog" value="dog" style={styles.picker_entry} />
+            <Picker.Item label="Cat" value="cat" style={styles.picker_entry} />
+            <Picker.Item
+              label="Bird"
+              value="bird"
+              style={styles.picker_entry}
+            />
+            <Picker.Item
+              label="Reptile"
+              value="reptile"
+              style={styles.picker_entry}
+            />
+            <Picker.Item
+              label="Fish"
+              value="fish"
+              style={styles.picker_entry}
+            />
           </Picker>
         </View>
         <Text>
@@ -171,7 +210,8 @@ export default class CategorySelection extends React.Component {
           <Picker
             style={styles.picker}
             selectedValue={this.state.breed}
-            onValueChange={this.onBreedChange.bind(this)}>
+            onValueChange={this.onBreedChange.bind(this)}
+          >
             {this.getBreed(this.state.category).map((item, i) => {
               // console.log("item", item);
               // return <Picker.Item label={item} key={`${i}+1`} value={item} />;
@@ -193,8 +233,29 @@ export default class CategorySelection extends React.Component {
           <Picker
             style={styles.picker}
             selectedValue={this.state.colour}
-            onValueChange={this.onColourChange.bind(this)}>
+            onValueChange={this.onColourChange.bind(this)}
+          >
             {this.getColour(this.state.category).map((item, i) => {
+              if (i == 0) {
+                return (
+                  <Picker.Item label={item} key={i} value={0} color="#B4B4B4" />
+                );
+              } else {
+                return <Picker.Item label={item} key={i} value={item} />;
+              }
+            })}
+          </Picker>
+        </View>
+        <Text>
+          <Text style={styles.titles}>Size</Text>
+        </Text>
+        <View style={styles.picker_container}>
+          <Picker
+            style={styles.picker}
+            selectedValue={this.state.size}
+            onValueChange={this.onSizeChange.bind(this)}
+          >
+            {this.getSize(this.state.category).map((item, i) => {
               if (i == 0) {
                 return (
                   <Picker.Item label={item} key={i} value={0} color="#B4B4B4" />
@@ -238,7 +299,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   picker_entry: {
-      fontSize : 12,
-      color: "#0000FF",
-  }
+    fontSize: 12,
+    color: "#0000FF",
+  },
 });

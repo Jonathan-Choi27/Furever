@@ -50,9 +50,9 @@ export default class petSell1 extends React.Component {
     photo_link: "",
     photo_uri: "",
     photo_uuid: "",
-    //
     documents_uri: "",
     seller_name: "",
+    size: "",
     fontLoaded: false,
   };
 
@@ -76,6 +76,7 @@ export default class petSell1 extends React.Component {
       health,
       training,
       additionalInfo,
+      size,
       photo_uuid,
       photo_uri,
       photo_link,
@@ -120,12 +121,14 @@ export default class petSell1 extends React.Component {
       colour == "0" ||
       age == "" ||
       gender == "0" ||
+      size == "0" ||
       location == "" ||
       price == "" ||
       behaviour == "" ||
       health == "" ||
       training == "" ||
       additionalInfo == ""
+
       // documents == "" ||
       // behaviour == "" ||
       // behaviour == "" ||
@@ -151,6 +154,8 @@ export default class petSell1 extends React.Component {
       photo_link: this.state.photo_link,
       documents: this.state.documents,
       price: this.state.price,
+      additionalInfo: this.state.additionalInfo,
+      size: this.state.size,
       // to implement
       //   location
       //   photo
@@ -196,6 +201,12 @@ export default class petSell1 extends React.Component {
   setColour = (val) => {
     this.setState({
       colour: val,
+    });
+  };
+
+  setSize = (val) => {
+    this.setState({
+      size: val,
     });
   };
 
@@ -257,14 +268,12 @@ export default class petSell1 extends React.Component {
                 <Picker.Item label="Black" value="bird" />
                 <Picker.Item label="Grey" value="reptile" />
               </Picker> */}
-              {/* <TextInput
-                onChangeText={(colour) => this.setState({ colour })}
-                style={styles.input}
-              /> */}
+
               <CategorySelection
                 category={this.setCategory}
                 breed={this.setBreed}
                 colour={this.setColour}
+                size={this.setSize}
               />
               <Text>
                 <Text style={styles.titles}>Age</Text>
