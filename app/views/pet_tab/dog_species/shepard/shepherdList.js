@@ -27,24 +27,24 @@ export default class shepherdList extends React.Component {
     filteredData: [],
     searchText: "",
     visible: false,
-    loader: false,
   };
 
   async componentDidMount() {
     const dataArray = [];
-    this.setState(this.setState({ loader: true }));
     db.collection("pet_listings")
       .get()
       .then((doc) => {
         doc.forEach(async (listingDoc) => {
           var uuid = listingDoc.data().uuid;
           var seller_name;
+          var seller_photo;
           await db
             .collection("users")
             .doc(uuid)
             .get()
             .then((user_doc) => {
               seller_name = user_doc.data().name;
+              seller_photo = user_doc.data().photo;
             });
           console.log(seller_name);
           dataArray.push({
@@ -54,21 +54,15 @@ export default class shepherdList extends React.Component {
             age: listingDoc.data().age,
             location: listingDoc.data().location,
             gender: listingDoc.data().gender,
+            avatarPhoto: seller_photo,
           });
           this.setState({
             isLoading: false,
             data: [...dataArray],
-            loader: false,
           });
         });
       });
   }
-
-  onEndReached = (page) => {
-    if (next && !this.state.loader) {
-      setPage(page + 1);
-    }
-  };
 
   searchFunction = (searchText) => {
     this.setState({ searchText: searchText });
@@ -184,7 +178,7 @@ export default class shepherdList extends React.Component {
                         {...props}
                         size={40}
                         source={{
-                          uri: item.photo,
+                          uri: item.avatarPhoto,
                         }}
                       />
                     )}
@@ -211,7 +205,6 @@ export default class shepherdList extends React.Component {
                   ? this.state.filteredData
                   : this.state.data
               }
-              onEndReached={this.onEndReached}
               //extraData={this.state}
             />
           </View>

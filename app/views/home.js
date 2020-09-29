@@ -13,9 +13,9 @@ import * as Font from "expo-font";
 
 import {
   useFonts,
-  Rosario_400Regular,
-  Rosario_700Bold,
-} from "@expo-google-fonts/rosario";
+  Roboto_400Regular,
+  Roboto_700Bold,
+} from "@expo-google-fonts/roboto";
 
 export default class LandingPage extends React.Component {
   render() {
@@ -28,8 +28,8 @@ const TopTab = createMaterialTopTabNavigator();
 
 function HomeScreen() {
   let [fontsLoaded] = useFonts({
-    Rosario_400Regular,
-    Rosario_700Bold,
+    Roboto_400Regular,
+    Roboto_700Bold,
   });
 
   if (!fontsLoaded) {
@@ -48,7 +48,7 @@ function HomeScreen() {
 
 function ShopScreen() {
   let [fontsLoaded] = useFonts({
-    Rosario_400Regular,
+    Roboto_400Regular,
   });
 
   if (!fontsLoaded) {
@@ -64,7 +64,7 @@ function ShopScreen() {
 
 function ProfileScreen() {
   let [fontsLoaded] = useFonts({
-    Rosario_400Regular,
+    Roboto_400Regular,
   });
 
   if (!fontsLoaded) {
@@ -80,7 +80,7 @@ function ProfileScreen() {
 
 function BuyScreen() {
   let [fontsLoaded] = useFonts({
-    Rosario_400Regular,
+    Roboto_400Regular,
   });
 
   if (!fontsLoaded) {
@@ -96,7 +96,7 @@ function BuyScreen() {
 
 function MyTabs() {
   let [fontsLoaded] = useFonts({
-    Rosario_400Regular,
+    Roboto_400Regular,
   });
 
   if (!fontsLoaded) {
@@ -123,8 +123,9 @@ function MyTabs() {
         })}
         tabBarOptions={{
           showLabel: false,
-          activeTintColor: "#447ECB",
-          inactiveTintColor: "black",
+          activeTintColor: "white",
+          inactiveTintColor: "#9e9e9e",
+          style: { backgroundColor: "#447ECB" },
         }}
       >
         <Tab.Screen name="Home" component={HomeScreen} />
@@ -149,12 +150,11 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 20,
-    // fontWeight: "bold",
-    fontFamily: "Rosario_400Regular",
+    fontFamily: "Roboto_400Regular",
   },
   middleText: {
     fontSize: 20,
     color: "#787878",
-    fontFamily: "Rosario_400Regular",
+    fontFamily: "Roboto_400Regular",
   },
 });

@@ -20,9 +20,9 @@ import {
 } from "../components/DocumentUpload";
 import {
   useFonts,
-  Rosario_400Regular,
-  Rosario_700Bold,
-} from "@expo-google-fonts/rosario";
+  Roboto_400Regular,
+  Roboto_700Bold,
+} from "@expo-google-fonts/roboto";
 import * as Font from "expo-font";
 import { openImagePicker, uploadPhoto } from "../components/ImageUpload";
 import CategorySelection from "./pet_sell_1_categorySelection";
@@ -408,7 +408,7 @@ const styles = StyleSheet.create({
   titles: {
     fontSize: 14,
     // fontWeight: "bold",
-    fontFamily: "Rosario_400Regular",
+    fontFamily: "Roboto_400Regular",
     color: "#515151",
     paddingVertical: 8,
     // width: 50,
@@ -431,7 +431,7 @@ const styles = StyleSheet.create({
   sub_heading: {
     fontSize: 16,
     // fontWeight: "bold",
-    fontFamily: "Rosario_700Bold",
+    fontFamily: "Roboto_700Bold",
   },
   input: {
     width: 314,
