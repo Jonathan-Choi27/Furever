@@ -151,6 +151,7 @@ export default class petSell1 extends React.Component {
       photo_link: this.state.photo_link,
       documents: this.state.documents,
       price: this.state.price,
+      additionalInfo: this.state.additionalInfo,
       // to implement
       //   location
       //   photo
@@ -204,8 +205,7 @@ export default class petSell1 extends React.Component {
       <SafeAreaView style={styles.container}>
         <ScrollView
           style={styles.scrollView}
-          showsVerticalScrollIndicator={false}
-        >
+          showsVerticalScrollIndicator={false}>
           <Text style={styles.heading}>New Pet Listing Application</Text>
           <Text>
             <Text style={styles.sub_heading}>General Information</Text>
@@ -282,8 +282,7 @@ export default class petSell1 extends React.Component {
               <View style={styles.picker_container}>
                 <Picker
                   style={styles.picker}
-                  onValueChange={(gender) => this.setState({ gender })}
-                >
+                  onValueChange={(gender) => this.setState({ gender })}>
                   <Picker.Item
                     label="Select gender"
                     value="0"
