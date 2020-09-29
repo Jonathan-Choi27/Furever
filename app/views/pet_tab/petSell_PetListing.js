@@ -40,19 +40,19 @@ const SelfPetListing = (props) => (
             paddingRight: 10,
           }}>
           <Card.Content>
-            <Text numberOfLines={1} stlye={{flex : 1}}>
+            <Text numberOfLines={1} style={{flex : 1}}>
               <Text style={{ fontWeight: "bold" }}>Name: </Text>
               <Text>{props.name}</Text>
             </Text>
-            <Text numberOfLines={1} stlye={{flex : 1}}>
+            <Text numberOfLines={1} style={{flex : 1}}>
               <Text style={{ fontWeight: "bold" }}>Category: </Text>
               <Text>{props.category}</Text>
             </Text>
-            <Text numberOfLines={1} stlye={{flex : 1}}>
+            <Text numberOfLines={1} style={{flex : 1}}>
               <Text style={{ fontWeight: "bold" }}>Breed: </Text>
               <Text>{props.breed}</Text>
             </Text>
-            <Text numberOfLines={1} stlye={{flex : 1}}>
+            <Text numberOfLines={1} style={{flex : 1}}>
               <Text style={{ fontWeight: "bold" }}>Colour: </Text>
               <Text>{props.colour}</Text>
             </Text>

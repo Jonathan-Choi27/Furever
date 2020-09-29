@@ -2,7 +2,7 @@ import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import * as React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, FlatList } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import PetBuyNav from "./pet_tab/petBuyNav";
 import { TouchableOpacity } from "react-native-gesture-handler";
@@ -10,6 +10,8 @@ import PetScreenComponent from "./pet_tab/petScreen";
 import petBuy1Dog from "./pet_tab/petBuy1Dog";
 import { AppLoading } from "expo";
 import * as Font from "expo-font";
+import firebase from "firebase";
+import HomeListing from "./home_petListing.js"
 
 import {
   useFonts,
@@ -17,16 +19,18 @@ import {
   Roboto_700Bold,
 } from "@expo-google-fonts/roboto";
 
+const db = firebase.firestore();
+let retrieve_data;
 export default class LandingPage extends React.Component {
   render() {
-    return <MyTabs />;
+    return <MyTabs/>;
   }
 }
 
 const Tab = createBottomTabNavigator();
 const TopTab = createMaterialTopTabNavigator();
 
-function HomeScreen() {
+function HomeScreen(props) {
   let [fontsLoaded] = useFonts({
     Roboto_400Regular,
     Roboto_700Bold,
@@ -36,14 +40,7 @@ function HomeScreen() {
     return <AppLoading />;
   }
 
-  return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Your Recent Listing</Text>
-      <View style={styles.insideContainer}>
-        <Text style={styles.middleText}>You haven't made any listings yet</Text>
-      </View>
-    </View>
-  );
+  return <HomeListing/>;
 }
 
 function ShopScreen() {
@@ -94,7 +91,7 @@ function BuyScreen() {
   );
 }
 
-function MyTabs() {
+function MyTabs(props) {
   let [fontsLoaded] = useFonts({
     Roboto_400Regular,
   });
@@ -126,9 +123,9 @@ function MyTabs() {
           activeTintColor: "white",
           inactiveTintColor: "#9e9e9e",
           style: { backgroundColor: "#447ECB" },
-        }}
-      >
-        <Tab.Screen name="Home" component={HomeScreen} />
+        }}>
+        {/* <Tab.Screen name="Home" component={HomeScreen} /> */}
+        <Tab.Screen name="Home" children={() => <HomeScreen data={props.data}/>}/>
         <Tab.Screen name="Pet" component={PetBuyNav} />
         <Tab.Screen name="Shop" component={ShopScreen} />
         <Tab.Screen name="Profile" component={ProfileScreen} />
