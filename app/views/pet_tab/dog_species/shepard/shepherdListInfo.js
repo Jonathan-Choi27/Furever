@@ -10,13 +10,15 @@ import {
 } from "react-native";
 import {
     Card,
+    Button,
 } from "react-native-elements";
 import "react-navigation"
 import "react-navigation-props-mapper"
 import "@react-navigation/native"
 import 'react-navigation-hooks'
 
-export default class test extends React.Component {
+export default class shepherdListInfo extends React.Component {
+
     render() {
         const item = this.props.route.params.item;
         const screenWidth = Math.round(Dimensions.get('window').width);
@@ -52,8 +54,13 @@ export default class test extends React.Component {
                     </View>
 
                     <View style={styles.titleContainer}>
-                        <Text style={styles.fontTitle}> {item.name}'s Profile </Text>
-                        <Text style={styles.fontHeading}> General Information </Text>
+                        <View style={{width: screenWidth/2}}>
+                            <Text style={styles.fontTitle}> {item.title}'s Profile </Text>
+                            <Text style={styles.fontHeading}> General Information </Text>
+                        </View>
+                        <View style={{width: screenWidth/2}}>
+                            <Text>hello</Text>
+                        </View>
                     </View>
 
                     <Card containerStyle={styles.cardContainer}>
@@ -73,7 +80,7 @@ export default class test extends React.Component {
                             <View style={{ paddingLeft: 15, paddingRight: 10, width: textWidth }}>
                                 <Text>
                                     <Text style={{ fontWeight: "bold" }}>Name:</Text>{" "}
-                                    <Text>{item.name}</Text>
+                                    <Text>{item.title}</Text>
                                 </Text>
                                 <Text>
                                     <Text style={{ fontWeight: "bold" }}>Category:</Text>{" "}
@@ -121,6 +128,14 @@ export default class test extends React.Component {
                         </View>
                     </Card>
 
+                    <Card containerStyle={styles.cardContainer}>
+                        <View style={styles.boxContainer}>
+                            <Text style={styles.fontHeading}>Seller Information </Text>
+                            <Text></Text>
+                        </View>
+                    </Card>
+
+
                 </View>
             </ScrollView>
         );
@@ -141,6 +156,9 @@ const styles = StyleSheet.create({
     },
     titleContainer: {
         alignSelf: "stretch",
+        justifyContent: "flex-start",
+        alignItems: "flex-start",
+        flexDirection: "row",
         paddingTop: 20,
         paddingLeft: 20,
         paddingRight: 20,
@@ -148,7 +166,6 @@ const styles = StyleSheet.create({
     imageContainer: {
         width: 150,
         height: 150,
-        // backgroundColor: "pink",
     },
     categories: {
         alignSelf: "stretch",

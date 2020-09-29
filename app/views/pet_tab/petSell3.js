@@ -30,11 +30,7 @@ import { db } from "../database/firebase";
 import test from "./test";
 
 export default class petSell3 extends React.Component {
-
-  constructor(props) {
-    super(props);
-  }
-
+  
   state = {
     data: [],
   };

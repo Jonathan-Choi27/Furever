@@ -11,6 +11,7 @@ import {
 
 // const LeftContent = (props) => <Avatar.Icon {...props} icon="folder" />;
 // https://picsum.photos/700
+
 const SelfPetListing = () => (
   <View style={styles.cardContainer}>
     <Card elevation={5} styles={styles.card}>

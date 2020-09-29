@@ -16,7 +16,6 @@ import {
   Portal,
   Modal,
   Provider,
-  Title,
   Paragraph,
 } from "react-native-paper";
 import { db } from "../../../database/firebase";
@@ -48,13 +47,22 @@ export default class shepherdList extends React.Component {
             });
           console.log(seller_name);
           dataArray.push({
-            title: listingDoc.data().name,
             name: seller_name,
-            photo: listingDoc.data().photo_link,
-            age: listingDoc.data().age,
-            location: listingDoc.data().location,
-            gender: listingDoc.data().gender,
             avatarPhoto: seller_photo,
+            title: listingDoc.data().name,
+            category: listingDoc.data().category,
+            breed: listingDoc.data().breed,
+            colour: listingDoc.data().colour,
+            age: listingDoc.data().age,
+            gender: listingDoc.data().gender,
+            size: listingDoc.data().size,
+            location: listingDoc.data().location,
+            price: listingDoc.data().price,
+            behaviour: listingDoc.data().behaviour,
+            health: listingDoc.data().health,
+            training: listingDoc.data().training,
+            additional: listingDoc.data().additionalInfo,
+            photo: listingDoc.data().photo_link,
           });
           this.setState({
             isLoading: false,
@@ -193,7 +201,7 @@ export default class shepherdList extends React.Component {
                     </Text>
                   </Card.Content>
                   <Card.Actions>
-                    <Button color="#447ECB" onPress={() => {}}>
+                    <Button color="#447ECB" onPress={() => this.props.navigation.navigate("shepherdListInfo", {item})}>
                       More info
                     </Button>
                   </Card.Actions>

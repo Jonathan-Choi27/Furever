@@ -18,6 +18,7 @@ import petBuy1Dog from "./petBuy1Dog";
 import petBuy from "./petBuy";
 import shepherdList from "./dog_species/shepard/shepherdList";
 import shepherdInfo from "./dog_species/shepard/shepherdInfo";
+import shepherdListInfo from "./dog_species/shepard/shepherdListInfo";
 
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -40,6 +41,7 @@ export default function PetBuyNav() {
         <Stack.Screen name="test" component={test} />
         <Stack.Screen name="shepherdList" component={shepherdList} />
         <Stack.Screen name="shepherdInfo" component={shepherdInfo} />
+        <Stack.Screen name="shepherdListInfo" component={shepherdListInfo} />
       </Stack.Navigator>
     </NavigationContainer>
   );
