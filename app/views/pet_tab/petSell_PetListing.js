@@ -1,17 +1,16 @@
 import * as React from "react";
-import { StyleSheet, View, Image } from "react-native";
+import { StyleSheet, View, Image, Text } from "react-native";
 import {
   Avatar,
   Button,
   Card,
   Title,
   Paragraph,
-  Text,
 } from "react-native-paper";
 
 // const LeftContent = (props) => <Avatar.Icon {...props} icon="folder" />;
 // https://picsum.photos/700
-const SelfPetListing = () => (
+const SelfPetListing = (props) => (
   <View style={styles.cardContainer}>
     <Card elevation={5} styles={styles.card}>
       <View style={{ flexDirection: "row" }}>
@@ -29,7 +28,7 @@ const SelfPetListing = () => (
             // borderColor: "red"
           }}>
           <Image
-            source={{ uri: "https://picsum.photos/700" }}
+            source={{ uri: props.photo_uri }}
             style={{ aspectRatio: 1, borderRadius: 5 }}
           />
         </View>
@@ -41,21 +40,21 @@ const SelfPetListing = () => (
             paddingRight: 10,
           }}>
           <Card.Content>
-            <Text>
+            <Text numberOfLines={1} stlye={{flex : 1}}>
               <Text style={{ fontWeight: "bold" }}>Name: </Text>
-              <Text>Placeholder</Text>
+              <Text>{props.name}</Text>
             </Text>
-            <Text>
-              <Text style={{ fontWeight: "bold" }}>Catagory: </Text>
-              <Text>Placeholder</Text>
+            <Text numberOfLines={1} stlye={{flex : 1}}>
+              <Text style={{ fontWeight: "bold" }}>Category: </Text>
+              <Text>{props.category}</Text>
             </Text>
-            <Text>
+            <Text numberOfLines={1} stlye={{flex : 1}}>
               <Text style={{ fontWeight: "bold" }}>Breed: </Text>
-              <Text>Placeholder</Text>
+              <Text>{props.breed}</Text>
             </Text>
-            <Text>
+            <Text numberOfLines={1} stlye={{flex : 1}}>
               <Text style={{ fontWeight: "bold" }}>Colour: </Text>
-              <Text>Placeholder</Text>
+              <Text>{props.colour}</Text>
             </Text>
           </Card.Content>
 
