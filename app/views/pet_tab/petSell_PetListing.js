@@ -10,7 +10,12 @@ import {
 
 // const LeftContent = (props) => <Avatar.Icon {...props} icon="folder" />;
 // https://picsum.photos/700
+<<<<<<< HEAD
 const SelfPetListing = (props) => (
+=======
+
+const SelfPetListing = () => (
+>>>>>>> 5dac0cb77f8bd782674bc119f743363e1e13057f
   <View style={styles.cardContainer}>
     <Card elevation={5} styles={styles.card}>
       <View style={{ flexDirection: "row" }}>

@@ -316,14 +316,14 @@ export default class petSell1 extends React.Component {
               <TextInput
                 onChangeText={(price) => this.setState({ price })}
                 style={styles.input}
-                // secureTextEntry={true}
-                // width={100}
-                // backgroundColor="white"
-                // height={44}
-                // padding={10}
-                // borderWidth={1}
-                // borderColor="black"
-                // marginBottom={10}
+              // secureTextEntry={true}
+              // width={100}
+              // backgroundColor="white"
+              // height={44}
+              // padding={10}
+              // borderWidth={1}
+              // borderColor="black"
+              // marginBottom={10}
               />
 
               <Text style={styles.titles}>Behaviour</Text>
@@ -385,7 +385,7 @@ export default class petSell1 extends React.Component {
                   title={"submit"}
                   style={styles.buttons}
                   onPress={this.handleSubmit}
-                  //   onPress={() => this.props.navigation.replace("petSell")}
+                //   onPress={() => this.props.navigation.replace("petSell")}
                 >
                   <Text style={styles.buttonsText}>Submit</Text>
                 </TouchableOpacity>

@@ -5,36 +5,18 @@ import {
     ScrollView,
     View,
     TouchableOpacity,
-    TouchableHighlight,
-    FlatList,
-    Platform,
     Dimensions,
     Image,
 } from "react-native";
 import {
     Card,
-    ListItem,
-    Button,
-    Icon,
-    SearchBar,
-    Avatar,
 } from "react-native-elements";
-import { Paragraph } from 'react-native-paper';
-import { SafeAreaView } from "react-native-safe-area-context";
-import { NavigationContainer } from '@react-navigation/native';
-import { db } from "../database/firebase";
-import { Route } from "react-router"
 import "react-navigation"
 import "react-navigation-props-mapper"
 import "@react-navigation/native"
 import 'react-navigation-hooks'
 
 export default class test extends React.Component {
-
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         const item = this.props.route.params.item;
         const screenWidth = Math.round(Dimensions.get('window').width);
@@ -77,7 +59,12 @@ export default class test extends React.Component {
                     <Card containerStyle={styles.cardContainer}>
                         <View style={styles.cardContentContainer}>
                             <View>
-                                <View style={styles.imageContainer}></View>
+                                <Image
+                                    style={styles.imageContainer}
+                                    source={{
+                                        uri: item.photo,
+                                    }}
+                                />
                                 <Text style={{ textAlign: "center", paddingTop: 5 }}>
                                     <Text style={{ fontWeight: "bold" }}>Price:</Text>{" "}
                                     <Text>{item.price}</Text>
@@ -110,7 +97,7 @@ export default class test extends React.Component {
                                 </Text>
                                 <Text>
                                     <Text style={{ fontWeight: "bold" }}>Size:</Text>{" "}
-                                    <Text>Small - item.size</Text>
+                                    <Text>{item.size}</Text>
                                 </Text>
                                 <Text>
                                     <Text style={{ fontWeight: "bold" }}>Location:</Text>{" "}
@@ -129,7 +116,7 @@ export default class test extends React.Component {
                             <Text style={styles.fontHeading}>Training </Text>
                             <Text>{item.training}</Text>
                             <Text style={styles.fontHeading}>Additional information </Text>
-                            {/* <Text>{item.additional}</Text> */}
+                            <Text>{item.additional}</Text>
                             <Text style={styles.fontHeading}>Documents </Text>
                         </View>
                     </Card>
@@ -144,6 +131,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: "center",
+        paddingBottom: 25,
     },
     buySellContainer: {
         alignSelf: "stretch",
@@ -160,7 +148,7 @@ const styles = StyleSheet.create({
     imageContainer: {
         width: 150,
         height: 150,
-        backgroundColor: "pink",
+        // backgroundColor: "pink",
     },
     categories: {
         alignSelf: "stretch",

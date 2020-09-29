@@ -30,11 +30,7 @@ import { db } from "../database/firebase";
 import test from "./test";
 
 export default class petSell3 extends React.Component {
-
-  constructor(props) {
-    super(props);
-  }
-
+  
   state = {
     data: [],
   };
@@ -53,13 +49,13 @@ export default class petSell3 extends React.Component {
             colour: listingDoc.data().colour,
             age: listingDoc.data().age,
             gender: listingDoc.data().gender,
-            // size: listingDoc.data().size,
+            size: listingDoc.data().size,
             location: listingDoc.data().location,
             price: listingDoc.data().price,
             behaviour: listingDoc.data().behaviour,
             health: listingDoc.data().health,
             training: listingDoc.data().training,
-            // additional: listingDoc.data().additional,
+            additional: listingDoc.data().additionalInfo,
             photo: listingDoc.data().photo_link,
             // documents: listingDoc.data().documents,
           });
