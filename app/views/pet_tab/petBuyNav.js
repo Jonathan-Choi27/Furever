@@ -17,6 +17,7 @@ import { max } from "react-native-reanimated";
 import petBuy1Dog from "./petBuy1Dog";
 import petBuy from "./petBuy";
 import shepherdList from "./dog_species/shepard/shepherdList";
+import shepherdInfo from "./dog_species/shepard/shepherdInfo";
 
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -38,6 +39,7 @@ export default function PetBuyNav() {
         <Stack.Screen name="petSell3" component={petSell3} />
         <Stack.Screen name="test" component={test} />
         <Stack.Screen name="shepherdList" component={shepherdList} />
+        <Stack.Screen name="shepherdInfo" component={shepherdInfo} />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -77,7 +77,12 @@ export default class test extends React.Component {
                     <Card containerStyle={styles.cardContainer}>
                         <View style={styles.cardContentContainer}>
                             <View>
-                                <View style={styles.imageContainer}></View>
+                                <Image
+                                    style={styles.imageContainer}
+                                    source={{
+                                        uri: item.photo,
+                                    }}
+                                />
                                 <Text style={{ textAlign: "center", paddingTop: 5 }}>
                                     <Text style={{ fontWeight: "bold" }}>Price:</Text>{" "}
                                     <Text>{item.price}</Text>
@@ -110,7 +115,7 @@ export default class test extends React.Component {
                                 </Text>
                                 <Text>
                                     <Text style={{ fontWeight: "bold" }}>Size:</Text>{" "}
-                                    <Text>Small - item.size</Text>
+                                    <Text>{item.size}</Text>
                                 </Text>
                                 <Text>
                                     <Text style={{ fontWeight: "bold" }}>Location:</Text>{" "}
@@ -129,7 +134,7 @@ export default class test extends React.Component {
                             <Text style={styles.fontHeading}>Training </Text>
                             <Text>{item.training}</Text>
                             <Text style={styles.fontHeading}>Additional information </Text>
-                            {/* <Text>{item.additional}</Text> */}
+                            <Text>{item.additional}</Text>
                             <Text style={styles.fontHeading}>Documents </Text>
                         </View>
                     </Card>
@@ -160,7 +165,7 @@ const styles = StyleSheet.create({
     imageContainer: {
         width: 150,
         height: 150,
-        backgroundColor: "pink",
+        // backgroundColor: "pink",
     },
     categories: {
         alignSelf: "stretch",

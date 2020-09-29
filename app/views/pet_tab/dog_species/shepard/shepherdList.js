@@ -143,7 +143,7 @@ export default class shepherdList extends React.Component {
                   </Paragraph>
                 </Card.Content>
                 <Card.Actions style={{ justifyContent: "flex-end" }}>
-                  <Button color="#447ECB">More info</Button>
+                  <Button color="#447ECB" onPress={() => this.props.navigation.navigate("shepherdInfo")}>More info</Button>
                 </Card.Actions>
               </Card>
             </Modal>

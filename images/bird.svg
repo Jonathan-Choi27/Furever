@@ -1,7 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="125" height="125" viewBox="0 0 125 125">
-  <g id="Group_70" data-name="Group 70" transform="translate(-35 -502)">
-    <rect id="Rectangle_24" data-name="Rectangle 24" width="125" height="125" rx="10" transform="translate(35 502)" fill="#fb6f4b"/>
-    <path id="FontAwsome_crow_" data-name="FontAwsome (crow)" d="M76.5,4.5H74.2A11.216,11.216,0,0,0,54,11.25V14.2L1.7,55.346a4.249,4.249,0,0,0,4.449,7.2L23.241,54H36.81l6.245,16.889A1.687,1.687,0,0,0,45.218,71.9l3.171-1.155A1.687,1.687,0,0,0,49.4,68.58L44.007,54H49.5c.269,0,.529-.032.8-.041l6.259,16.928A1.687,1.687,0,0,0,58.718,71.9l3.171-1.155A1.687,1.687,0,0,0,62.9,68.579L57.1,52.895A26.993,26.993,0,0,0,76.5,27V15.75L90,13.5C90,8.529,83.956,4.5,76.5,4.5ZM65.25,14.625a3.375,3.375,0,1,1,3.375-3.375A3.376,3.376,0,0,1,65.25,14.625Z" transform="translate(51 516)" fill="#fff"/>
-    <text id="Bird" transform="translate(80 613)" fill="#fff" font-size="18" font-family="ArialMT, Arial"><tspan x="0" y="0">Bird</tspan></text>
-  </g>
-</svg>
