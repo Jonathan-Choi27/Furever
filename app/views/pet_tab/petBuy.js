@@ -9,7 +9,7 @@ import {
   FlatList,
 
 } from "react-native";
-import { Avatar, Card, Button, Searchbar,   ActivityIndicator,  Modal, Chip,  Provider, Portal, } from "react-native-paper";
+import { Avatar, Card, Button, Searchbar,   ActivityIndicator,  Modal, Chip,  Provider, Portal, Checkbox} from "react-native-paper";
 import { db } from "../database/firebase";
 import { Roboto_400Regular, Roboto_700Bold } from "@expo-google-fonts/roboto";
 import { AppLoading } from "expo";
@@ -27,7 +27,16 @@ export default class petBuy extends React.Component {
     searchText: "",
     visible: false,
     fontsLoaded: false,
-    filterCheck: [],
+    dogCheck: false,
+    catCheck: false,
+    rabbitCheck: false,
+    fishCheck: false,
+    birdCheck: false,
+    horseCheck: false,
+    lizardCheck: false,
+    turtleCheck: false,
+    pigCheck: false,
+    filterDisplay: false,
   };
 
   async _loadFontsAsync() {
@@ -78,14 +87,64 @@ export default class petBuy extends React.Component {
     this.setState({ filteredData: filteredData });
   };
 
-  filterFunction = (input) => {
-    this.state.filterCheck;
-    if (this.state.filterCheck.includes(input)) {
-      //delete it from filterCheck
-    } else {
-      this.state.filterCheck.push({input});
+  checkFunction = (input) => {
+    switch(input) {
+      case 'dogCheck':
+          this.setState({dogCheck: !this.state.dogCheck});
+        break;
+      case 'catCheck':
+        this.setState({catCheck: !this.state.catCheck});
+        break;
+
+      case 'rabbitCheck':
+        this.setState({rabbitCheck: !this.state.rabbitCheck});
+        break;
+      case 'fishCheck':
+        this.setState({fishCheck: !this.state.fishCheck});
+        break;
+        case 'birdCheck':
+          this.setState({birdCheck: !this.state.birdCheck});
+        break;
+      case 'horseCheck':
+        this.setState({horseCheck: !this.state.horseCheck});
+        break;
+
+      case 'lizardCheck':
+        this.setState({lizardCheck: !this.state.lizardCheck});
+        break;
+      case 'turtleCheck':
+        this.setState({catCturtleCheckheck: !this.state.turtleCheck});
+        break;
+        case 'pigCheck':
+          this.setState({pigCheck: !this.state.pigCheck});
+        break;
+      default:
     }
-    console.log(this.state.filterCheck.toString());
+    console.log(this.state.dogCheck);
+  }
+
+  displayFunction = () => {
+    if (this.state.dogCheck) {
+      this.setState({filterDisplay: true});
+      let filteredData = this.state.data.filter(function (item) {
+        return item.category.includes("dog");
+      });
+      this.setState({ filteredData: filteredData });
+    } else if (this.state.catCheck) {
+      this.setState({filterDisplay: true});
+      let filteredData = this.state.data.filter(function (item) {
+        return item.category.includes("cat");
+      });
+      this.setState({ filteredData: filteredData });
+    } else if (this.state.birdCheck) {
+      this.setState({filterDisplay: true});
+      let filteredData = this.state.data.filter(function (item) {
+        return item.category.includes("bird");
+      });
+      this.setState({ filteredData: filteredData });
+    } else {
+      this.setState({filterDisplay: false});
+    }
   }
 
     render() {
@@ -175,66 +234,139 @@ export default class petBuy extends React.Component {
             <Portal>
 
             <Modal
-                style={{ backgroundColor: "transparent",}}
-                visible={this.state.visible}
-                onDismiss={() => {
-                  this.setState({ visible: false });
-                }}
-              >
-                <Card elevation={5} style={{ margin: 10 }}>
-                  <Card.Content>
-                    <Text>Animal:</Text>
-                    <View style={{flexDirection: 'row' }}>
-                      <Chip icon="information" onPress={() => this.filterFunction('Dog')}>Dog</Chip>
-                      <Chip icon="information" onPress={() => this.filterFunction('Fish')}>Fish</Chip>
-                      <Chip icon="information" onPress={() => this.filterFunction('Lizard')}>Lizard</Chip>
-                    </View>
-                    <View style={{flexDirection: 'row' }}>
-                      <Chip icon="information" onPress={() => this.filterFunction('Cat')}>Cat</Chip>
-                      <Chip icon="information" onPress={() => this.filterFunction('Bird')}>Bird</Chip>
-                      <Chip icon="information" onPress={() => this.filterFunction('Turtle')}>Turtle</Chip>
-                    </View>
-                    <View style={{flexDirection: 'row' }}>
-                      <Chip icon="information" onPress={() => this.filterFunction('Rabbit')}>Rabbit</Chip>
-                      <Chip icon="information" onPress={() => this.filterFunction('Horse')}>Horse</Chip>
-                      <Chip icon="information" onPress={() => this.filterFunction('Pig')}>Pig</Chip>
-                    </View>
-                    <Text>Colour:</Text>
-                    <View style={{flexDirection: 'row' }}>
-                      <Chip icon="information" onPress={() => this.filterFunction('Dog')}>Dog</Chip>
-                      <Chip icon="information" onPress={() => this.filterFunction('Dog')}>Fish</Chip>
-                      <Chip icon="information" onPress={() => this.filterFunction('Dog')}>Lizard</Chip>
-                    </View>
-                    <View style={{flexDirection: 'row' }}>
-                      <Chip icon="information" onPress={() => this.filterFunction('Dog')}>Cat</Chip>
-                      <Chip icon="information" onPress={() => this.filterFunction('Dog')}>Bird</Chip>
-                      <Chip icon="information" onPress={() => this.filterFunction('Dog')}>Turtle</Chip>
-                    </View>
-                    <View style={{flexDirection: 'row' }}>
-                      <Chip icon="information" onPress={() => this.filterFunction('Dog')}>Rabbit</Chip>
-                      <Chip icon="information" onPress={() => this.filterFunction('Dog')}>Horse</Chip>
-                      <Chip icon="information" onPress={() => this.filterFunction('Dog')}>Pig</Chip>
-                    </View>
-                    <Text>Location:</Text>
-                    <View style={{flexDirection: 'row' }}>
-                      <Chip icon="information" onPress={() => this.filterFunction('Dog')}>Dog</Chip>
-                      <Chip icon="information" onPress={() => this.filterFunction('Dog')}>Fish</Chip>
-                      <Chip icon="information" onPress={() => this.filterFunction('Dog')}>Lizard</Chip>
-                    </View>
-                    <View style={{flexDirection: 'row' }}>
-                      <Chip icon="information" onPress={() => this.filterFunction('Dog')}>Cat</Chip>
-                      <Chip icon="information" onPress={() => this.filterFunction('Dog')}>Bird</Chip>
-                      <Chip icon="information" onPress={() => this.filterFunction('Dog')}>Turtle</Chip>
-                    </View>
-                    <View style={{flexDirection: 'row' }}>
-                      <Chip icon="information" onPress={() => this.filterFunction('Dog')}>Rabbit</Chip>
-                      <Chip icon="information" onPress={() => this.filterFunction('Dog')}>Horse</Chip>
-                      <Chip icon="information" onPress={() => this.filterFunction('Dog')}>Pig</Chip>
-                    </View>
-                  </Card.Content>
-                </Card>
-              </Modal>
-              </Portal>
+            style={{ backgroundColor: "transparent",}}
+            visible={this.state.visible}
+            onDismiss={() => {
+            this.setState({ visible: false });
+            }}
+        >
+            <Card elevation={5} style={{ margin: 10 }}>
+              <Card.Content>
+                <Text>Animal:</Text>
+                <View style={{flexDirection: 'row' }}>
+                  <Checkbox.Item
+                    label="Dog"
+                    status={this.state.dogCheck ? 'checked' : 'unchecked'}
+                    onPress={() => {
+                    this.checkFunction('dogCheck');
+                    }}
+                  />      
+                  <Checkbox.Item
+                    label="Fish"
+                    status={this.state.fishCheck ? 'checked' : 'unchecked'}
+                    onPress={() => {
+                    this.checkFunction('fishCheck');
+                    }}
+                  /> 
+                  <Checkbox.Item
+                    label="Lizard"
+                    status={this.state.lizardCheck ? 'checked' : 'unchecked'}
+                    onPress={() => {
+                    this.checkFunction('lizardCheck');
+                    }}
+                  />     
+                </View>
+                <View style={{flexDirection: 'row' }}>
+                  <Checkbox.Item
+                    label="Cat"
+                    status={this.state.catCheck ? 'checked' : 'unchecked'}
+                    onPress={() => {
+                    this.checkFunction('catCheck');
+                    }}
+                  />      
+                  <Checkbox.Item
+                    label="Bird"
+                    status={this.state.birdCheck ? 'checked' : 'unchecked'}
+                    onPress={() => {
+                    this.checkFunction('birdCheck');
+                    }}
+                  /> 
+                  <Checkbox.Item
+                    label="Turtle"
+                    status={this.state.turtleCheck ? 'checked' : 'unchecked'}
+                    onPress={() => {
+                    this.checkFunction('turtleCheck');
+                    }}
+                  />   
+                </View>
+                <View style={{flexDirection: 'row' }}>
+                  <Checkbox.Item
+                    label="Rabbit"
+                    status={this.state.rabbitCheck ? 'checked' : 'unchecked'}
+                    onPress={() => {
+                    this.checkFunction('rabbitCheck');
+                    }}
+                  />      
+                  <Checkbox.Item
+                    label="Horse"
+                    status={this.state.horseCheck ? 'checked' : 'unchecked'}
+                    onPress={() => {
+                    this.checkFunction('horseCheck');
+                    }}
+                  /> 
+                  <Checkbox.Item
+                    label="Pig"
+                    status={this.state.pigCheck ? 'checked' : 'unchecked'}
+                    onPress={() => {
+                    this.checkFunction('pigCheck');
+                    }}
+                  />   
+                </View>                   
+              </Card.Content>
+              <Card.Actions style={{justifyContent: "flex-end"}}>
+                <Button onPress={() => {
+                    this.displayFunction();
+                    this.setState({ visible: false });
+                    }}>
+                  Done
+                </Button>
+              </Card.Actions>
+            </Card>
+          </Modal>
+        </Portal>   
+        {this.state.filterDisplay ? <FlatList
+          showsVerticalScrollIndicator={false}
+          renderItem={({ item }) => (
+            <Card elevation={5} style={styles.card}>
+              <Card.Cover source={item.photo} />
+              <Card.Title
+                title={item.title}
+                subtitle={item.name}
+                left={(props) => (
+                  <Avatar.Image
+                    {...props}
+                    size={40}
+                    source={item.photo}
+                  />
+                )}
+              />
+              <Card.Content>
+                <Text style={styles.cardContentText}>
+                  Age: {item.age}
+                </Text>
+                <Text style={styles.cardContentText}>
+                  Gender: {item.gender}
+                </Text>
+                <Text style={styles.cardContentText}>
+                  Location: {item.location}
+                </Text>
+              </Card.Content>
+              <Card.Actions>
+                <Button color="#447ECB" onPress={() => {}}>
+                  More info
+                </Button>
+              </Card.Actions>
+            </Card>
+          )}
+          keyExtractor={(item, index) => index.toString()}
+          data={
+            this.state.filteredData &&
+            this.state.filteredData.length > 0
+              ? this.state.filteredData
+              : this.state.data
+          }
+        /> : 
+        <View style={styles.container}>
 
             {this.state.searchText == "" ? (
               <View style={styles.container}>
@@ -392,6 +524,9 @@ export default class petBuy extends React.Component {
                 )}
               </View>
             )}
+           </View>
+
+          }
           </View>
         </ScrollView>
         </Provider>

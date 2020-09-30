@@ -4,17 +4,20 @@ import {
   Text,
   View,
   TouchableOpacity,
-  FlatList,
   Image,
   ScrollView,
+  FlatList,
+
 } from "react-native";
-import {
-  Avatar,
-  Card,
-  Button,
-  Searchbar,
-} from "react-native-paper";
+import { Avatar, Card, Button, Searchbar,   ActivityIndicator,  Modal, Chip,  Provider, Portal, } from "react-native-paper";
 import { db } from "../database/firebase";
+import { Roboto_400Regular, Roboto_700Bold } from "@expo-google-fonts/roboto";
+import { AppLoading } from "expo";
+
+let customFonts = {
+  Roboto_400Regular,
+  Roboto_700Bold,
+};
 
 export default class petBuy1Dog extends React.Component {
   state = {
@@ -22,7 +25,15 @@ export default class petBuy1Dog extends React.Component {
     isLoading: true,
     filteredData: [],
     searchText: "",
+    visible: false,
+    fontsLoaded: false,
+    filterCheck: [],
   };
+
+  async _loadFontsAsync() {
+    await Font.loadAsync(customFonts);
+    this.setState({ fontsLoaded: true });
+  }
 
   async componentDidMount() {
     const dataArray = [];
@@ -39,15 +50,20 @@ export default class petBuy1Dog extends React.Component {
             .then((user_doc) => {
               seller_name = user_doc.data().name;
             });
+        //   console.log(seller_name);
           dataArray.push({
             title: listingDoc.data().name,
             name: seller_name,
+            category: listingDoc.data().category,
             photo: listingDoc.data().photo_link,
             age: listingDoc.data().age,
             location: listingDoc.data().location,
             gender: listingDoc.data().gender,
           });
-          this.setState({ isLoading: false, data: [...dataArray] });
+          this.setState({
+            isLoading: false,
+            data: [...dataArray],
+          });
         });
       });
   }
@@ -63,8 +79,29 @@ export default class petBuy1Dog extends React.Component {
     console.log(filteredData[0]);
   };
 
+  filterFunction = (input) => {
+    this.state.filterCheck;
+    if (this.state.filterCheck.includes(input)) {
+      //delete it from filterCheck
+    } else {
+      this.state.filterCheck.push({input});
+    }
+    console.log(this.state.filterCheck.toString());
+  }
+
   render() {
+    if (this.state.isLoading) {
       return (
+        <View style={styles.activityContainer}>
+          <ActivityIndicator size="large" color="#447ECB" />
+        </View>
+      );
+    }
+    // if (this.state.fontsLoaded) {
+
+      return (
+        <Provider>
+
         <ScrollView>
           <View style={styles.container}>
             <View style={styles.buySellContainer}>
@@ -114,7 +151,69 @@ export default class petBuy1Dog extends React.Component {
               </Text>
             </TouchableOpacity>
           </View>
+          <Portal>
 
+            <Modal
+                style={{ backgroundColor: "transparent",}}
+                visible={this.state.visible}
+                onDismiss={() => {
+                  this.setState({ visible: false });
+                }}
+              >
+                <Card elevation={5} style={{ margin: 10 }}>
+                  <Card.Content>
+                    <Text>Animal:</Text>
+                    <View style={{flexDirection: 'row' }}>
+                      <Chip icon="information" onPress={() => this.filterFunction('Dog')}>Dog</Chip>
+                      <Chip icon="information" onPress={() => this.filterFunction('Fish')}>Fish</Chip>
+                      <Chip icon="information" onPress={() => this.filterFunction('Lizard')}>Lizard</Chip>
+                    </View>
+                    <View style={{flexDirection: 'row' }}>
+                      <Chip icon="information" onPress={() => this.filterFunction('Cat')}>Cat</Chip>
+                      <Chip icon="information" onPress={() => this.filterFunction('Bird')}>Bird</Chip>
+                      <Chip icon="information" onPress={() => this.filterFunction('Turtle')}>Turtle</Chip>
+                    </View>
+                    <View style={{flexDirection: 'row' }}>
+                      <Chip icon="information" onPress={() => this.filterFunction('Rabbit')}>Rabbit</Chip>
+                      <Chip icon="information" onPress={() => this.filterFunction('Horse')}>Horse</Chip>
+                      <Chip icon="information" onPress={() => this.filterFunction('Pig')}>Pig</Chip>
+                    </View>
+                    <Text>Colour:</Text>
+                    <View style={{flexDirection: 'row' }}>
+                      <Chip icon="information" onPress={() => this.filterFunction('Dog')}>Dog</Chip>
+                      <Chip icon="information" onPress={() => this.filterFunction('Dog')}>Fish</Chip>
+                      <Chip icon="information" onPress={() => this.filterFunction('Dog')}>Lizard</Chip>
+                    </View>
+                    <View style={{flexDirection: 'row' }}>
+                      <Chip icon="information" onPress={() => this.filterFunction('Dog')}>Cat</Chip>
+                      <Chip icon="information" onPress={() => this.filterFunction('Dog')}>Bird</Chip>
+                      <Chip icon="information" onPress={() => this.filterFunction('Dog')}>Turtle</Chip>
+                    </View>
+                    <View style={{flexDirection: 'row' }}>
+                      <Chip icon="information" onPress={() => this.filterFunction('Dog')}>Rabbit</Chip>
+                      <Chip icon="information" onPress={() => this.filterFunction('Dog')}>Horse</Chip>
+                      <Chip icon="information" onPress={() => this.filterFunction('Dog')}>Pig</Chip>
+                    </View>
+                    <Text>Location:</Text>
+                    <View style={{flexDirection: 'row' }}>
+                      <Chip icon="information" onPress={() => this.filterFunction('Dog')}>Dog</Chip>
+                      <Chip icon="information" onPress={() => this.filterFunction('Dog')}>Fish</Chip>
+                      <Chip icon="information" onPress={() => this.filterFunction('Dog')}>Lizard</Chip>
+                    </View>
+                    <View style={{flexDirection: 'row' }}>
+                      <Chip icon="information" onPress={() => this.filterFunction('Dog')}>Cat</Chip>
+                      <Chip icon="information" onPress={() => this.filterFunction('Dog')}>Bird</Chip>
+                      <Chip icon="information" onPress={() => this.filterFunction('Dog')}>Turtle</Chip>
+                    </View>
+                    <View style={{flexDirection: 'row' }}>
+                      <Chip icon="information" onPress={() => this.filterFunction('Dog')}>Rabbit</Chip>
+                      <Chip icon="information" onPress={() => this.filterFunction('Dog')}>Horse</Chip>
+                      <Chip icon="information" onPress={() => this.filterFunction('Dog')}>Pig</Chip>
+                    </View>
+                  </Card.Content>
+                </Card>
+              </Modal>
+              </Portal>
           {this.state.searchText == ''? 
           <View style={styles.container}>
           <View style={styles.categories}>
@@ -293,10 +392,15 @@ export default class petBuy1Dog extends React.Component {
     }
           </View>
         </ScrollView>
-        
+        </Provider>
+
       );
+      // } else {
+    //   return <AppLoading />;
+    // }
   }
 }
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
