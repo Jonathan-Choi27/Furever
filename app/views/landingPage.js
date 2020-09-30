@@ -57,7 +57,6 @@ const styles = StyleSheet.create({
   title: {
     marginTop: 10,
     textAlign: "center",
-    fontFamily: "Roboto",
     fontWeight: "700",
   },
   buttonsContainer: {
