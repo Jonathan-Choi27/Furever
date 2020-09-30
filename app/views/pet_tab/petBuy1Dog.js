@@ -39,7 +39,6 @@ export default class petBuy1Dog extends React.Component {
             .then((user_doc) => {
               seller_name = user_doc.data().name;
             });
-          console.log(seller_name);
           dataArray.push({
             title: listingDoc.data().name,
             name: seller_name,
@@ -107,7 +106,9 @@ export default class petBuy1Dog extends React.Component {
         />
           </View>
           <View style={{ height: 50, padding: 10 }}>
-            <TouchableOpacity style={styles.viewApplication}>
+            <TouchableOpacity style={styles.viewApplication}                     
+                              onPress={() => this.props.navigation.replace("petBuy7")}
+            >
               <Text style={{ textAlign: "center", color: "white" }}>
                 View Applications
               </Text>
@@ -117,111 +118,129 @@ export default class petBuy1Dog extends React.Component {
           {this.state.searchText == ''? 
           <View style={styles.container}>
           <View style={styles.categories}>
-            <TouchableOpacity
+            <TouchableOpacity style={styles.iconShadow}
               onPress={() => this.props.navigation.replace("shepherdList")}
             >
               <View style={styles.iconContainer}>
                 <Image
-                  // style={styles.icon}
-
-                  style={{ height: 100, width: 100 }}
+                  style={styles.icon}
                   source={{
                     uri:
-                      "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fpet%20buy%20icons%2Fgerman-shepherd.jpg?alt=media&token=9cd50a0f-7c36-4f10-8b6a-53ea9ee133ab",
+                      "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fpet%20buy%20icons%2FGermanShepherd.jpg?alt=media&token=83976d43-8ecb-44d9-83cf-280d3eba290d",
                   }}
                 />
+                <Text style= {styles.iconText}>German Shepherd</Text>
+
               </View>
             </TouchableOpacity>
             <View style={styles.iconContainer}>
-              <TouchableOpacity>
+            <TouchableOpacity style={styles.iconShadow}>
+            <View style={styles.iconContainer}>
+
                 <Image
-                  style={{ height: 100, width: 100 }}
+                  style={styles.icon}
                   source={{
                     uri:
-                      "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fpet%20buy%20icons%2Fmaltese.jpg?alt=media&token=151b14ec-f1e1-4234-95eb-603373940110",
+                      "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fpet%20buy%20icons%2FMaltese.jpg?alt=media&token=80dd5f30-f73b-4faf-8361-8f744bd7c97d",
                   }}
                 />
+                <Text style= {styles.iconText}>Maltese</Text>
+                </View>
+
               </TouchableOpacity>
             </View>
           </View>
 
           <View style={styles.categories}>
-            <TouchableOpacity>
+          <TouchableOpacity style={styles.iconShadow}>
               <View style={styles.iconContainer}>
                 <Image
-                  // style={styles.icon}
-
-                  style={{ height: 100, width: 100 }}
+                  style={styles.icon}
                   source={{
                     uri:
-                      "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fpet%20buy%20icons%2Fcavoodle.jpg?alt=media&token=d657d9ab-c4b8-439f-8789-33ddb465060b",
+                      "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fpet%20buy%20icons%2FCavoodle.jpg?alt=media&token=b5e332b5-796b-4397-978a-746892b36645",
                   }}
                 />
+                <Text style= {styles.iconText}>Cavoodle</Text>
               </View>
             </TouchableOpacity>
             <View style={styles.iconContainer}>
-              <TouchableOpacity>
+            <TouchableOpacity style={styles.iconShadow}>
+            <View style={styles.iconContainer}>
+
                 <Image
-                  style={{ height: 100, width: 100 }}
+                  style={styles.icon}
                   source={{
                     uri:
-                      "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fpet%20buy%20icons%2Fsamoyed.jpg?alt=media&token=aeefae65-cd0c-40c6-a0be-86e11444629a",
+                      "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fpet%20buy%20icons%2FSamoyed.jpg?alt=media&token=361103d9-2478-4577-a114-a4c5841eccd2",
                   }}
                 />
+                <Text style= {styles.iconText}>Samoyed</Text>
+                </View>
+
               </TouchableOpacity>
             </View>
           </View>
 
           <View style={styles.categories}>
-            <TouchableOpacity>
+          <TouchableOpacity style={styles.iconShadow}>
               <View style={styles.iconContainer}>
                 <Image
-                  // style={styles.icon}
-
-                  style={{ height: 100, width: 100 }}
+                  style={styles.icon}
                   source={{
                     uri:
-                      "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fpet%20buy%20icons%2Fgolden-retriever.jpg?alt=media&token=612010ce-0525-498b-9178-37970e587a79",
+                      "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fpet%20buy%20icons%2FGoldenRetriever.jpg?alt=media&token=520b3637-9b17-4d8b-93e3-747e0a46ee49",
                   }}
                 />
+                <Text style= {styles.iconText}>Golden Retriever</Text>
               </View>
             </TouchableOpacity>
             <View style={styles.iconContainer}>
-              <TouchableOpacity>
+            <TouchableOpacity style={styles.iconShadow}>
+            <View style={styles.iconContainer}>
+
                 <Image
-                  style={{ height: 100, width: 100 }}
+                  style={styles.icon}
                   source={{
                     uri:
-                      "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fpet%20buy%20icons%2Fpomeranian.jpg?alt=media&token=42e10aaf-7d43-4ade-a5fe-6ca69b8bc076",
+                      "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fpet%20buy%20icons%2FPomeranian.jpg?alt=media&token=7ff9a11a-11f8-49f1-aa56-5da7ed2b0082",
                   }}
                 />
+                <Text style= {styles.iconText}>Pomeranian</Text>
+                </View>
+
               </TouchableOpacity>
             </View>
           </View>
 
           <View style={styles.categories}>
-            <TouchableOpacity>
+          <TouchableOpacity style={styles.iconShadow}>
               <View style={styles.iconContainer}>
                 <Image
-                  // style={styles.icon}
-
-                  style={{ height: 100, width: 100 }}
+                  style={styles.icon}
                   source={{
                     uri:
-                      "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fpet%20buy%20icons%2Frottweiler.jpg?alt=media&token=36be150b-0632-43e9-9e20-21f066de6847",
+                      "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fpet%20buy%20icons%2FRottweiler.jpg?alt=media&token=d3d468ff-08d2-40e3-b13d-6e6a1e0a85e1",
                   }}
                 />
+                <Text style= {styles.iconText}>Rottweiler</Text>
               </View>
             </TouchableOpacity>
             <View style={styles.iconContainer}>
-              <TouchableOpacity>
+            <TouchableOpacity style={styles.iconShadow}>
+            <View style={styles.iconContainer}>
+
                 <Image
-                  style={{ height: 100, width: 100 }}
+                  style={styles.icon}
                   source={{
                     uri:
-                      "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fpet%20buy%20icons%2Fcorgi.jpg?alt=media&token=a67c9e09-87a1-4f89-810f-800242c6e45c",
+                      "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fpet%20buy%20icons%2FCorgi.jpg?alt=media&token=e189582b-f588-4067-8a75-ce2daf84eae1",
                   }}
                 />
+                <Text style= {styles.iconText}>Corgi</Text>
+
+              </View>
+
               </TouchableOpacity>
             </View>
           </View>
@@ -296,10 +315,28 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     flexDirection: "row",
-    padding: 20,
   },
   iconContainer: {
-    padding: 20,
+    padding: 10,
+  },
+  icon: {
+    height: 150,
+    width: 150,
+    borderRadius: 10,
+  },
+  iconShadow: {
+    // borderRadius: 10,
+    // backgroundColor: '#FFFFFF',
+    // shadowColor: 'rgba(0, 0, 0, 0.1)',
+    // shadowOpacity: 0.6,
+    // elevation: 5,
+    // shadowRadius: 10 ,
+    // shadowOffset : { width: 1, height: 13},
+  },
+  iconText: {
+    paddingTop: 5,
+    textAlign: 'center',
+    color: '#447ECB'
   },
   viewApplication: {
     backgroundColor: "#447ECB",
@@ -308,6 +345,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     height: 50,
     width: 200,
+    borderRadius: 5,
+
   },
   titleContainer: {
     flexDirection: "row",

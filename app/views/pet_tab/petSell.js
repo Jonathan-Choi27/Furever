@@ -12,33 +12,57 @@ import {
   Dimensions,
   Image,
 } from "react-native";
-import { useFonts, Rosario_400Regular } from "@expo-google-fonts/rosario";
+import { useFonts, Roboto_400Regular } from "@expo-google-fonts/roboto";
 import { SearchBar } from "react-native-elements";
 import firebase from "firebase";
+import { AppLoading } from "expo";
+import SelfPetListing from "./petSell_PetListing";
+import { auth } from "../database/firebase";
 
 const db = firebase.firestore();
 
 export default class petSell extends React.Component {
   state = {
+    data: [],
     lists: null,
+    isLoading: true,
   };
 
-  componentDidMount() {
-    db.collection("pet-sell-list")
+  async componentDidMount() {
+    const dataArray = [];
+    const user = auth.currentUser;
+
+    db.collection("pet_listings")
+      .where("uuid", "==", user.uid)
       .get()
-      .then((snapshot) => {
-        const lists = [];
-        snapshot.docs.forEach((doc) => {
-          const data = doc.data();
-          lists.push(data);
+      .then((doc) => {
+        doc.forEach((listingDoc) => {
+          // console.log(listingDoc.data());
+          dataArray.push({
+            pet_name: listingDoc.data().name,
+            category: listingDoc.data().category,
+            breed: listingDoc.data().breed,
+            colour: listingDoc.data().colour,
+            photo_uri: listingDoc.data().photo_link,
+          });
+          this.setState({
+            isLoading: false,
+            data: [...dataArray],
+          });
         });
-        this.setState({ lists: lists });
       });
   }
 
   render() {
+    if (this.state.isLoading) {
+      return (
+        <View style={styles.activityContainer}>
+          <ActivityIndicator size="large" color="#447ECB" />
+        </View>
+      );
+    }
     return (
-      <View style={styles.container}>
+      <View>
         <View style={styles.buySellContainer}>
           <TouchableOpacity
             style={{
@@ -48,9 +72,8 @@ export default class petSell extends React.Component {
               alignItems: "center",
               height: 50,
             }}
-            onPress={() => this.props.navigation.replace("petBuy")}
-          >
-            <Text style={{ fontFamily: "Rosario_400Regular" }}>Buy</Text>
+            onPress={() => this.props.navigation.replace("petBuy")}>
+            <Text style={{ fontFamily: "Roboto_400Regular" }}>Buy</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={{
@@ -60,11 +83,12 @@ export default class petSell extends React.Component {
               alignItems: "center",
               height: 50,
             }}
-            onPress={() => this.props.navigation.replace("petSell")}
-          >
+            onPress={() => this.props.navigation.replace("petSell")}>
             <Text
-              style={{ textAlign: "center", fontFamily: "Rosario_400Regular" }}
-            >
+              style={{
+                textAlign: "center",
+                fontFamily: "Roboto_400Regular",
+              }}>
               {" "}
               Sell{" "}
             </Text>
@@ -72,8 +96,7 @@ export default class petSell extends React.Component {
         </View>
         <View style={{ height: 60, padding: 10, flexDirection: "row" }}>
           <Text
-            style={{ textAlign: "center", padding: 10, fontWeight: "bold" }}
-          >
+            style={{ textAlign: "center", padding: 10, fontWeight: "bold" }}>
             Current Listings
           </Text>
 
@@ -87,42 +110,33 @@ export default class petSell extends React.Component {
               height: 34,
               width: 200,
             }}
-            onPress={() => this.props.navigation.navigate("petSell1")}
-          >
+            onPress={() => this.props.navigation.navigate("petSell1")}>
             <Text
               style={{
                 textAlign: "center",
                 padding: 10,
                 color: "#FFFFFF",
                 fontWeight: "bold",
-              }}
-            >
+              }}>
               Add New Listing
             </Text>
           </TouchableOpacity>
         </View>
-
-        <View style={styles.categories}>
-          {this.state.lists &&
-            this.state.lists.map((doc) => {
-              console.log(doc.uuid);
-              return (
-                <Text>
-                  {doc.name} - {doc.age} //
-                </Text>
-              );
-            })}
-        </View>
-
-        <View style={{ height: 50 }}>
-          <TouchableOpacity
-            style={styles.viewApplication}
-            onPress={() => this.props.navigation.navigate("petSell3")}
-          >
-            <Text style={{ textAlign: "center", padding: 10 }}>
-              View Profile
-            </Text>
-          </TouchableOpacity>
+        <View style={styles.cardContainer}>
+          <FlatList
+            showsVerticalScrollIndicator={false}
+            data={this.state.data}
+            renderItem={({ item }) => (
+              <SelfPetListing
+                name={item.pet_name}
+                category={item.category}
+                breed={item.breed}
+                colour={item.colour}
+                photo_uri={item.photo_uri}
+              />
+            )}
+            keyExtractor={(item) => item.id}
+          />
         </View>
       </View>
     );
@@ -174,5 +188,16 @@ const styles = StyleSheet.create({
     borderColor: "#000",
     padding: 10,
     margin: 20,
+  },
+  activityContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  cardContainer: {
+      paddingBottom: 220
+    // flex: 2,
+    // justifyContent: "flex-start",
+    // alignItems: "flex-start",
   },
 });

@@ -1,7 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="125" height="125" viewBox="0 0 125 125">
-  <g id="Group_71" data-name="Group 71" transform="translate(-185 -360)">
-    <rect id="Rectangle_23" data-name="Rectangle 23" width="125" height="125" rx="10" transform="translate(185 360)" fill="#55c6e9"/>
-    <path id="fish" d="M51,79.5l3.648-14.4C39,64.092,25.032,57.42,21,48.684a18.369,18.369,0,0,1-2.016,6C15.816,60.3,9.384,60.3,3,60.3c5.28,0,7.2-7.536,7.2-16.8S8.28,26.7,3,26.7c6.384,0,12.816,0,15.984,5.616a18.368,18.368,0,0,1,2.016,6C24.12,31.5,33.336,25.98,44.568,23.436L36.6,7.5c9.6,0,19.2,0,25.584,3.216,5.424,2.688,8.544,7.68,11.328,13.008C87.528,27.084,99,34.668,99,43.5c0,9.024-12,16.8-26.4,19.968-3.984,5.28-7.872,10.176-11.184,12.816C57.384,79.5,54.216,79.5,51,79.5M75,36.3a4.8,4.8,0,1,0,4.8,4.8A4.8,4.8,0,0,0,75,36.3Z" transform="translate(196 366.5)" fill="#fff"/>
-    <text id="Fish-2" data-name="Fish" transform="translate(230 471)" fill="#fff" font-size="18" font-family="ArialMT, Arial"><tspan x="0" y="0">Fish</tspan></text>
-  </g>
-</svg>

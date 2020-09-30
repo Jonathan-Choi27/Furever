@@ -20,9 +20,9 @@ import {
 } from "../components/DocumentUpload";
 import {
   useFonts,
-  Rosario_400Regular,
-  Rosario_700Bold,
-} from "@expo-google-fonts/rosario";
+  Roboto_400Regular,
+  Roboto_700Bold,
+} from "@expo-google-fonts/roboto";
 import * as Font from "expo-font";
 import { openImagePicker, uploadPhoto } from "../components/ImageUpload";
 import CategorySelection from "./pet_sell_1_categorySelection";
@@ -316,14 +316,14 @@ export default class petSell1 extends React.Component {
               <TextInput
                 onChangeText={(price) => this.setState({ price })}
                 style={styles.input}
-                // secureTextEntry={true}
-                // width={100}
-                // backgroundColor="white"
-                // height={44}
-                // padding={10}
-                // borderWidth={1}
-                // borderColor="black"
-                // marginBottom={10}
+              // secureTextEntry={true}
+              // width={100}
+              // backgroundColor="white"
+              // height={44}
+              // padding={10}
+              // borderWidth={1}
+              // borderColor="black"
+              // marginBottom={10}
               />
 
               <Text style={styles.titles}>Behaviour</Text>
@@ -385,7 +385,7 @@ export default class petSell1 extends React.Component {
                   title={"submit"}
                   style={styles.buttons}
                   onPress={this.handleSubmit}
-                  //   onPress={() => this.props.navigation.replace("petSell")}
+                //   onPress={() => this.props.navigation.replace("petSell")}
                 >
                   <Text style={styles.buttonsText}>Submit</Text>
                 </TouchableOpacity>
@@ -408,7 +408,7 @@ const styles = StyleSheet.create({
   titles: {
     fontSize: 14,
     // fontWeight: "bold",
-    fontFamily: "Rosario_400Regular",
+    fontFamily: "Roboto_400Regular",
     color: "#515151",
     paddingVertical: 8,
     // width: 50,
@@ -431,7 +431,7 @@ const styles = StyleSheet.create({
   sub_heading: {
     fontSize: 16,
     // fontWeight: "bold",
-    fontFamily: "Rosario_700Bold",
+    fontFamily: "Roboto_700Bold",
   },
   input: {
     width: 314,

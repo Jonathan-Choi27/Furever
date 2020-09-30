@@ -5,7 +5,6 @@ import {
   View,
   TouchableOpacity,
   FlatList,
-  ScrollView,
 } from "react-native";
 import {
   Avatar,
@@ -16,10 +15,17 @@ import {
   Portal,
   Modal,
   Provider,
-  Title,
   Paragraph,
 } from "react-native-paper";
 import { db } from "../../../database/firebase";
+import { Roboto_400Regular, Roboto_700Bold } from "@expo-google-fonts/roboto";
+import { AppLoading } from "expo";
+import * as Font from "expo-font";
+
+let customFonts = {
+  Roboto_400Regular,
+  Roboto_700Bold,
+};
 export default class shepherdList extends React.Component {
   state = {
     data: [],
@@ -27,54 +33,65 @@ export default class shepherdList extends React.Component {
     filteredData: [],
     searchText: "",
     visible: false,
-    loader: false,
+    fontsLoaded: false,
   };
 
+  async _loadFontsAsync() {
+    await Font.loadAsync(customFonts);
+    this.setState({ fontsLoaded: true });
+  }
+
   async componentDidMount() {
+    this._loadFontsAsync();
     const dataArray = [];
-    this.setState(this.setState({ loader: true }));
     db.collection("pet_listings")
+      .where("breed", "==", "German Shepherd")
       .get()
       .then((doc) => {
         doc.forEach(async (listingDoc) => {
           var uuid = listingDoc.data().uuid;
           var seller_name;
+          var seller_photo;
           await db
             .collection("users")
             .doc(uuid)
             .get()
             .then((user_doc) => {
               seller_name = user_doc.data().name;
+              seller_photo = user_doc.data().photo;
             });
           console.log(seller_name);
           dataArray.push({
-            title: listingDoc.data().name,
             name: seller_name,
-            photo: listingDoc.data().photo_link,
+            avatarPhoto: seller_photo,
+            title: listingDoc.data().name,
+            category: listingDoc.data().category,
+            breed: listingDoc.data().breed,
+            colour: listingDoc.data().colour,
             age: listingDoc.data().age,
-            location: listingDoc.data().location,
             gender: listingDoc.data().gender,
+            size: listingDoc.data().size,
+            location: listingDoc.data().location,
+            price: listingDoc.data().price,
+            behaviour: listingDoc.data().behaviour,
+            health: listingDoc.data().health,
+            training: listingDoc.data().training,
+            additional: listingDoc.data().additionalInfo,
+            photo: listingDoc.data().photo_link,
           });
           this.setState({
             isLoading: false,
             data: [...dataArray],
-            loader: false,
           });
         });
       });
   }
 
-  onEndReached = (page) => {
-    if (next && !this.state.loader) {
-      setPage(page + 1);
-    }
-  };
-
   searchFunction = (searchText) => {
     this.setState({ searchText: searchText });
 
     let filteredData = this.state.data.filter(function (item) {
-      return item.title.includes(searchText);
+      return item.title.toLowerCase().includes(searchText.toLowerCase());
     });
 
     this.setState({ filteredData: filteredData });
@@ -88,136 +105,171 @@ export default class shepherdList extends React.Component {
         </View>
       );
     }
-    return (
-      <Provider>
-        <View style={styles.container}>
-          <View style={styles.buySellContainer}>
-            <TouchableOpacity
-              style={{
-                backgroundColor: "#d7e5f7",
-                flex: 1,
-                justifyContent: "center",
-                alignItems: "center",
-                height: 50,
-              }}
-              onPress={() => this.props.navigation.replace("petBuy")}
-            >
-              <Text>Buy</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={{
-                backgroundColor: "white",
-                flex: 1,
-                justifyContent: "center",
-                alignItems: "center",
-                height: 50,
-              }}
-              onPress={() => this.props.navigation.replace("petSell")}
-            >
-              <Text style={{ textAlign: "center" }}> Sell </Text>
-            </TouchableOpacity>
-          </View>
-          <Searchbar
-            style={styles.searchBar}
-            placeholder="Search"
-            onChangeText={this.searchFunction}
-            value={this.state.searchText}
-          />
-          <Portal>
-            <Modal
-              style={{ backgroundColor: "transparent" }}
-              visible={this.state.visible}
-              onDismiss={() => {
-                this.setState({ visible: false });
-              }}
-            >
-              <Card elevation={5} style={{ margin: 10 }}>
-                <Card.Cover
-                  source={{
-                    uri:
-                      "https://www.blackmores.com.au/-/media/paw/articles/talking-breeds-german-shepherds-main.jpg?db=web",
+    if (this.state.fontsLoaded) {
+      return (
+        <Provider>
+          <View style={styles.container}>
+            <View style={styles.buySellContainer}>
+              <TouchableOpacity
+                style={{
+                  backgroundColor: "#d7e5f7",
+                  flex: 1,
+                  justifyContent: "center",
+                  alignItems: "center",
+                  height: 50,
+                }}
+                onPress={() => this.props.navigation.replace("petBuy")}
+              >
+                <Text style={{ fontFamily: "Roboto_400Regular" }}>Buy</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={{
+                  backgroundColor: "white",
+                  flex: 1,
+                  justifyContent: "center",
+                  alignItems: "center",
+                  height: 50,
+                }}
+                onPress={() => this.props.navigation.replace("petSell")}
+              >
+                <Text
+                  style={{
+                    textAlign: "center",
+                    fontFamily: "Roboto_400Regular",
                   }}
-                />
-                <Card.Title title="German Shepherd" />
-                <Card.Content>
-                  <Paragraph>
-                    The German shepherd dog is a herding breed known for its
-                    courage, loyalty and guarding instincts. This breed makes an
-                    excellent guard dog, police dog, military dog, guide dog for
-                    the blind and search and rescue dog. For many families, the
-                    German shepherd is also a treasured family pet.
-                  </Paragraph>
-                </Card.Content>
-                <Card.Actions style={{ justifyContent: "flex-end" }}>
-                  <Button color="#447ECB">More info</Button>
-                </Card.Actions>
-              </Card>
-            </Modal>
-          </Portal>
-          <View style={styles.titleContainer}>
-            <Text style={styles.title}>German Shepherd</Text>
-            <Button
-              color="#447ECB"
-              onPress={() => {
-                this.setState({ visible: true });
-              }}
-              mode="contained"
-            >
-              Information
-            </Button>
-          </View>
-          <View style={styles.cardContainer}>
-            <FlatList
-              showsVerticalScrollIndicator={false}
-              renderItem={({ item }) => (
-                <Card elevation={5} style={styles.card}>
+                >
+                  {" "}
+                  Sell{" "}
+                </Text>
+              </TouchableOpacity>
+            </View>
+            <Searchbar
+              style={styles.searchBar}
+              placeholder="Search"
+              onChangeText={this.searchFunction}
+              value={this.state.searchText}
+            />
+            <Portal>
+              <Modal
+                style={{ backgroundColor: "transparent" }}
+                visible={this.state.visible}
+                onDismiss={() => {
+                  this.setState({ visible: false });
+                }}
+              >
+                <Card elevation={5} style={{ margin: 10 }}>
                   <Card.Cover
+                    resizeMode={`cover`}
                     source={{
-                      uri: item.photo,
+                      uri:
+                        "https://www.blackmores.com.au/-/media/paw/articles/talking-breeds-german-shepherds-main.jpg?db=web",
                     }}
                   />
                   <Card.Title
-                    title={item.title}
-                    subtitle={item.name}
-                    left={(props) => (
-                      <Avatar.Image
-                        {...props}
-                        size={40}
-                        source={{
-                          uri: item.photo,
-                        }}
-                      />
-                    )}
+                    style={{ fontFamily: "Roboto_400Regular" }}
+                    title="German Shepherd"
                   />
                   <Card.Content>
-                    <Text style={styles.cardContentText}>Age: {item.age}</Text>
-                    <Text style={styles.cardContentText}>
-                      Gender: {item.gender}
-                    </Text>
-                    <Text style={styles.cardContentText}>
-                      Location: {item.location}
-                    </Text>
+                    <Paragraph style={{ fontFamily: "Roboto_400Regular" }}>
+                      The German shepherd dog is a herding breed known for its
+                      courage, loyalty and guarding instincts. This breed makes
+                      an excellent guard dog, police dog, military dog, guide
+                      dog for the blind and search and rescue dog. For many
+                      families, the German shepherd is also a treasured family
+                      pet.
+                    </Paragraph>
                   </Card.Content>
-                  <Card.Actions>
-                    <Button color="#447ECB" onPress={() => {}}>
+                  <Card.Actions style={{ justifyContent: "flex-end" }}>
+                    <Button
+                      color="#447ECB"
+                      onPress={() =>
+                        this.props.navigation.navigate("shepherdInfo")
+                      }
+                    >
                       More info
                     </Button>
                   </Card.Actions>
                 </Card>
-              )}
-              keyExtractor={(item, index) => index.toString()}
-              data={
-                this.state.filteredData && this.state.filteredData.length > 0
-                  ? this.state.filteredData
-                  : this.state.data
-              }
-              onEndReached={this.onEndReached}
-              //extraData={this.state}
-            />
+              </Modal>
+            </Portal>
+            <View style={styles.titleContainer}>
+              <Text style={styles.title}>German Shepherd</Text>
+              <Button
+                labelStyle={{ fontFamily: "Roboto_400Regular" }}
+                color="#447ECB"
+                onPress={() => {
+                  this.setState({ visible: true });
+                }}
+                mode="contained"
+              >
+                Information
+              </Button>
+            </View>
+            <View style={styles.cardContainer}>
+              <FlatList
+                showsVerticalScrollIndicator={false}
+                renderItem={({ item }) => (
+                  <Card elevation={5} style={styles.card}>
+                    <Card.Cover
+                      source={{
+                        uri: item.photo,
+                      }}
+                    />
+                    <Card.Title
+                      titleStyle={{ fontFamily: "Roboto_400Regular" }}
+                      title={item.title}
+                      subtitle={item.name}
+                      subtitleStyle={{ fontFamily: "Roboto_400Regular" }}
+                      left={(props) => (
+                        <Avatar.Image
+                          {...props}
+                          size={40}
+                          source={{
+                            uri: item.avatarPhoto,
+                          }}
+                        />
+                      )}
+                    />
+                    <Card.Content>
+                      <Text style={styles.cardContentText}>
+                        Age: {item.age}
+                      </Text>
+                      <Text style={styles.cardContentText}>
+                        Gender: {item.gender}
+                      </Text>
+                      <Text style={styles.cardContentText}>
+                        Location: {item.location}
+                      </Text>
+                    </Card.Content>
+                    <Card.Actions>
+                      <Button
+                        color="#447ECB"
+                        onPress={() =>
+                          this.props.navigation.navigate("shepherdListInfo", {
+                            item,
+                          })
+                        }
+                      >
+                        More info
+                      </Button>
+                    </Card.Actions>
+                  </Card>
+                )}
+                keyExtractor={(item, index) => index.toString()}
+                data={
+                  this.state.filteredData && this.state.filteredData.length > 0
+                    ? this.state.filteredData
+                    : this.state.data
+                }
+                //extraData={this.state}
+              />
+            </View>
           </View>
-        </View>
-      </Provider>
-    );
+        </Provider>
+      );
+    } else {
+      return <AppLoading />;
+    }
   }
 }
 
@@ -252,6 +304,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 20,
     marginRight: 25,
+    fontFamily: "Roboto_400Regular",
   },
   cardContainer: {
     flex: 2,
@@ -263,6 +316,6 @@ const styles = StyleSheet.create({
     width: 340,
   },
   cardContentText: {
-    fontWeight: "bold",
+    fontFamily: "Roboto_700Bold",
   },
 });

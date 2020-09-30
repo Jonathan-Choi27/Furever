@@ -8,14 +8,9 @@ import {
   ScrollView,
   FlatList,
 } from "react-native";
-import {
-  Avatar,
-  Card,
-  Button,
-  Searchbar,
-} from "react-native-paper";
+import { Avatar, Card, Button, Searchbar } from "react-native-paper";
 import { db } from "../database/firebase";
-import { useFonts, Rosario_400Regular } from "@expo-google-fonts/rosario";
+import { useFonts, Roboto_400Regular } from "@expo-google-fonts/roboto";
 
 export default class petBuy extends React.Component {
   state = {
@@ -40,7 +35,7 @@ export default class petBuy extends React.Component {
             .then((user_doc) => {
               seller_name = user_doc.data().name;
             });
-          console.log(seller_name);
+        //   console.log(seller_name);
           dataArray.push({
             title: listingDoc.data().name,
             name: seller_name,
@@ -67,8 +62,8 @@ export default class petBuy extends React.Component {
 
   render() {
     const { search } = this.state;
-      return (
-        <ScrollView>
+    return (
+      <ScrollView>
         <View style={styles.container}>
           <View style={styles.buySellContainer}>
             <TouchableOpacity
@@ -82,7 +77,7 @@ export default class petBuy extends React.Component {
               }}
               onPress={() => this.props.navigation.replace("petBuy")}
             >
-              <Text style={{ fontFamily: "Rosario_400Regular" }}>Buy</Text>
+              <Text style={{ fontFamily: " Roboto_400Regular" }}>Buy</Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={{
@@ -95,11 +90,11 @@ export default class petBuy extends React.Component {
               onPress={() => this.props.navigation.replace("petSell")}
             >
               <Text
-                style={{ textAlign: "center", fontFamily: "Rosario_400Regular" }}
+                style={{ textAlign: "center", fontFamily: "Roboto_400Regular" }}
               >
                 {" "}
                 Sell{" "}
-              </Text>            
+              </Text>
             </TouchableOpacity>
           </View>
           <View
@@ -111,187 +106,184 @@ export default class petBuy extends React.Component {
             }}
           >
             <Searchbar
-          style={{
-            margin: 10,
-            height: 50,
-            width: 300,
-          }}
-          placeholder="Search"
-          onChangeText={this.searchFunction}
-          value={this.state.searchText}
-        />
+              style={{
+                margin: 10,
+                height: 50,
+                width: 300,
+              }}
+              placeholder="Search"
+              onChangeText={this.searchFunction}
+              value={this.state.searchText}
+            />
           </View>
           <View style={{ height: 50, padding: 10 }}>
-            <TouchableOpacity style={styles.viewApplication}>
+            <TouchableOpacity style={styles.viewApplication}
+                              onPress={() => this.props.navigation.replace("petBuy7")}
+                              >
               <Text style={{ textAlign: "center", color: "white" }}>
                 View Applications
               </Text>
             </TouchableOpacity>
           </View>
-          {this.state.searchText == ''? 
-          <View style={styles.container}>
-          <View style={styles.categories}>
-              <TouchableOpacity
-                onPress={() => this.props.navigation.replace("petBuy1Dog")}
-              >
-                <View style={styles.iconContainer}>
-                  <Image
-                    // style={styles.icon}
-  
-                    style={{ height: 100, width: 100 }}
-                    source={{
-                      uri:
-                        "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fpet%20buy%20icons%2Fdog.jpg?alt=media&token=f9aedb1d-d038-4ca9-992d-3bf774693930",
-                    }}
-                  />
-                </View>
-              </TouchableOpacity>
-              <View style={styles.iconContainer}>
-                <TouchableOpacity>
-                  <Image
-                    style={{ height: 100, width: 100 }}
-                    source={{
-                      uri:
-                        "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fpet%20buy%20icons%2Fcat.jpg?alt=media&token=a0ba6ff4-7f46-47fa-8fd7-740b987abba5",
-                    }}
-                  />
+          {this.state.searchText == "" ? (
+            <View style={styles.container}>
+              <View style={styles.categories}>
+                <TouchableOpacity
+                  onPress={() => this.props.navigation.replace("petBuy1Dog")}
+                >
+                  <View style={styles.iconContainer}>
+                    <Image
+                      style={styles.icon}
+                      source={{
+                        uri:
+                          "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fpet%20buy%20icons%2FdogIcon.jpg?alt=media&token=93b3d467-e37f-4c41-b0a2-e6540755a2e4",
+                      }}
+                    />
+                  </View>
                 </TouchableOpacity>
-              </View>
-            </View>
-  
-            <View style={styles.categories}>
-              <TouchableOpacity>
                 <View style={styles.iconContainer}>
-                  <Image
-                    // style={styles.icon}
-  
-  
-                    style={{ height: 100, width: 100 }}
-                    source={{
-                      uri:
-                        "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fpet%20buy%20icons%2Frabbit.jpg?alt=media&token=477edb78-9f2b-4be9-b415-e88bf2b4b0c6",
-                    }}
-                  />
+                  <TouchableOpacity>
+                    <Image
+                      style={styles.icon}
+                      source={{
+                        uri:
+                          "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fpet%20buy%20icons%2FCatIcon.jpg?alt=media&token=d3988923-a7a4-465b-b0f3-68cf5aba56aa",
+                      }}
+                    />
+                  </TouchableOpacity>
                 </View>
-              </TouchableOpacity>
-              <View style={styles.iconContainer}>
-                <TouchableOpacity>
-                  <Image
-                    style={{ height: 100, width: 100 }}
-                    source={{
-                      uri:
-                        "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fpet%20buy%20icons%2Ffish.jpg?alt=media&token=292f9723-b5a1-4665-8a9c-7ceb7bce12ce",
-                    }}
-                  />
-                </TouchableOpacity>
               </View>
-            </View>
-  
-            <View style={styles.categories}>
-              <TouchableOpacity>
-                <View style={styles.iconContainer}>
-                  <Image
-                    // style={styles.icon}
-  
-  
-                    style={{ height: 100, width: 100 }}
-                    source={{
-                      uri:
-                        "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fpet%20buy%20icons%2Fbird.jpg?alt=media&token=a67b1114-553d-40e7-846f-30ea6800efeb",
-                    }}
-                  />
-                </View>
-              </TouchableOpacity>
-              <View style={styles.iconContainer}>
-                <TouchableOpacity>
-                  <Image
-                    style={{ height: 100, width: 100 }}
-                    source={{
-                      uri:
-                        "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fpet%20buy%20icons%2Fhorse.jpg?alt=media&token=d6a30c93-24b0-4b89-9e83-05c278dee129",
-                    }}
-                  />
-                </TouchableOpacity>
-              </View>
-            </View>
-  
-            <View style={styles.categories}>
-              <TouchableOpacity>
-                <View style={styles.iconContainer}>
-                  <Image
-                    // style={styles.icon}
-  
-  
-                    style={{ height: 100, width: 100 }}
-                    source={{
-                      uri:
-                        "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fpet%20buy%20icons%2Flizard.jpg?alt=media&token=40a4ae86-978d-413f-9aa0-054c5e8d041f",
-                    }}
-                  />
-                </View>
-              </TouchableOpacity>
-              <View style={styles.iconContainer}>
-                <TouchableOpacity>
-                  <Image
-                    style={{ height: 100, width: 100 }}
-                    source={{
-                      uri:
-                        "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fpet%20buy%20icons%2Fturtle.jpg?alt=media&token=8008ab6e-1696-4733-b471-e3b5d86ae3d6",
-                    }}
-                  />
-                </TouchableOpacity>
-              </View>
-            </View>
-            </View>
-          : 
-          <View style={styles.container}>
-            {this.state.filteredData.length == 0 ? 
-                      <View style={styles.container}>
-                        <Text style={{margin: 100}}>No results found.</Text>
-                      </View>
-                      :
-            <FlatList
 
-          showsVerticalScrollIndicator={false}
-          renderItem={({ item }) => (
-            <Card elevation={5} style={styles.card}>
-              <Card.Cover source={item.photo} />
-              <Card.Title
-                title={item.title}
-                subtitle={item.name}
-                left={(props) => (
-                  <Avatar.Image {...props} size={40} source={item.photo} />
-                )}
-              />
-              <Card.Content>
-                <Text style={styles.cardContentText}>Age: {item.age}</Text>
-                <Text style={styles.cardContentText}>
-                  Gender: {item.gender}
-                </Text>
-                <Text style={styles.cardContentText}>
-                  Location: {item.location}
-                </Text>
-              </Card.Content>
-              <Card.Actions>
-                <Button color="#447ECB" onPress={() => {}}>
-                  More info
-                </Button>
-              </Card.Actions>
-            </Card>
+              <View style={styles.categories}>
+                <TouchableOpacity>
+                  <View style={styles.iconContainer}>
+                    <Image
+                      style={styles.icon}
+                      source={{
+                        uri:
+                          "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fpet%20buy%20icons%2FRabbitIcon.jpg?alt=media&token=4bf665e6-64de-46c3-8f32-35bf335f0ee7",
+                      }}
+                    />
+                  </View>
+                </TouchableOpacity>
+                <View style={styles.iconContainer}>
+                  <TouchableOpacity>
+                    <Image
+                      style={styles.icon}
+                      source={{
+                        uri:
+                          "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fpet%20buy%20icons%2FFishIcon.jpg?alt=media&token=bddda5c1-6e1f-41e2-9f74-b9deed452fff",
+                      }}
+                    />
+                  </TouchableOpacity>
+                </View>
+              </View>
+
+              <View style={styles.categories}>
+                <TouchableOpacity>
+                  <View style={styles.iconContainer}>
+                    <Image
+                      style={styles.icon}
+                      source={{
+                        uri:
+                          "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fpet%20buy%20icons%2FBirdIcon.jpg?alt=media&token=f1dce94e-9ad6-40ee-947b-6013ec62c23a",
+                      }}
+                    />
+                  </View>
+                </TouchableOpacity>
+                <View style={styles.iconContainer}>
+                  <TouchableOpacity>
+                    <Image
+                      style={styles.icon}
+                      source={{
+                        uri:
+                          "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fpet%20buy%20icons%2FHorseIcon.jpg?alt=media&token=387260b4-09ba-42f7-abdd-d9481454ec06",
+                      }}
+                    />
+                  </TouchableOpacity>
+                </View>
+              </View>
+
+              <View style={styles.categories}>
+                <TouchableOpacity>
+                  <View style={styles.iconContainer}>
+                    <Image
+                      style={styles.icon}
+                      source={{
+                        uri:
+                          "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fpet%20buy%20icons%2FLizardIcon.jpg?alt=media&token=6da22d0c-a534-4c41-b99f-4d507481b41c",
+                      }}
+                    />
+                  </View>
+                </TouchableOpacity>
+                <View style={styles.iconContainer}>
+                  <TouchableOpacity>
+                    <Image
+                      style={styles.icon}
+                      source={{
+                        uri:
+                          "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fpet%20buy%20icons%2FTurtleIcon.jpg?alt=media&token=2e0b1354-5f26-47e1-bf50-b6b5956f402c",
+                      }}
+                    />
+                  </TouchableOpacity>
+                </View>
+              </View>
+            </View>
+          ) : (
+            <View style={styles.container}>
+              {this.state.filteredData.length == 0 ? (
+                <View style={styles.container}>
+                  <Text style={{ margin: 100 }}>No results found.</Text>
+                </View>
+              ) : (
+                <FlatList
+                  showsVerticalScrollIndicator={false}
+                  renderItem={({ item }) => (
+                    <Card elevation={5} style={styles.card}>
+                      <Card.Cover source={item.photo} />
+                      <Card.Title
+                        title={item.title}
+                        subtitle={item.name}
+                        left={(props) => (
+                          <Avatar.Image
+                            {...props}
+                            size={40}
+                            source={item.photo}
+                          />
+                        )}
+                      />
+                      <Card.Content>
+                        <Text style={styles.cardContentText}>
+                          Age: {item.age}
+                        </Text>
+                        <Text style={styles.cardContentText}>
+                          Gender: {item.gender}
+                        </Text>
+                        <Text style={styles.cardContentText}>
+                          Location: {item.location}
+                        </Text>
+                      </Card.Content>
+                      <Card.Actions>
+                        <Button color="#447ECB" onPress={() => {}}>
+                          More info
+                        </Button>
+                      </Card.Actions>
+                    </Card>
+                  )}
+                  keyExtractor={(item, index) => index.toString()}
+                  data={
+                    this.state.filteredData &&
+                    this.state.filteredData.length > 0
+                      ? this.state.filteredData
+                      : this.state.data
+                  }
+                />
+              )}
+            </View>
           )}
-          keyExtractor={(item, index) => index.toString()}
-          data={
-            this.state.filteredData && this.state.filteredData.length > 0
-              ? this.state.filteredData
-              : this.state.data
-          }
-        />
-      }
-        </View> 
-        }
         </View>
       </ScrollView>
-      );    
+    );
   }
 }
 const styles = StyleSheet.create({
@@ -312,10 +304,14 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     flexDirection: "row",
-    padding: 20,
   },
   iconContainer: {
     padding: 20,
+  },
+  icon: {
+    height: 150,
+    width: 150,
+    borderRadius: 10,
   },
   viewApplication: {
     backgroundColor: "#447ECB",

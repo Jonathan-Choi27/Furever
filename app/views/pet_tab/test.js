@@ -5,40 +5,22 @@ import {
     ScrollView,
     View,
     TouchableOpacity,
-    Modal,
-    TouchableHighlight,
-    FlatList,
-    ActivityIndicator,
-    Platform,
     Dimensions,
     Image,
 } from "react-native";
 import {
     Card,
-    ListItem,
-    Button,
-    Icon,
-    SearchBar,
-    Avatar,
 } from "react-native-elements";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { NavigationContainer } from '@react-navigation/native';
-import { db } from "../database/firebase";
-import { Route } from "react-router"
 import "react-navigation"
 import "react-navigation-props-mapper"
 import "@react-navigation/native"
 import 'react-navigation-hooks'
 
 export default class test extends React.Component {
-
-    constructor(props) {
-        super(props);
-        console.log(this.props)
-    }
-
     render() {
         const item = this.props.route.params.item;
+        const screenWidth = Math.round(Dimensions.get('window').width);
+        const textWidth = screenWidth - 40 - 150 - 10;
         return (
             <ScrollView>
                 <View style={styles.container}>
@@ -77,13 +59,18 @@ export default class test extends React.Component {
                     <Card containerStyle={styles.cardContainer}>
                         <View style={styles.cardContentContainer}>
                             <View>
-                                <View style={styles.imageContainer}></View>
+                                <Image
+                                    style={styles.imageContainer}
+                                    source={{
+                                        uri: item.photo,
+                                    }}
+                                />
                                 <Text style={{ textAlign: "center", paddingTop: 5 }}>
                                     <Text style={{ fontWeight: "bold" }}>Price:</Text>{" "}
                                     <Text>{item.price}</Text>
                                 </Text>
                             </View>
-                            <View style={{ paddingLeft: 15 }}>
+                            <View style={{ paddingLeft: 15, paddingRight: 10, width: textWidth }}>
                                 <Text>
                                     <Text style={{ fontWeight: "bold" }}>Name:</Text>{" "}
                                     <Text>{item.name}</Text>
@@ -110,7 +97,7 @@ export default class test extends React.Component {
                                 </Text>
                                 <Text>
                                     <Text style={{ fontWeight: "bold" }}>Size:</Text>{" "}
-                                    <Text>Small - item.size</Text>
+                                    <Text>{item.size}</Text>
                                 </Text>
                                 <Text>
                                     <Text style={{ fontWeight: "bold" }}>Location:</Text>{" "}
@@ -129,7 +116,7 @@ export default class test extends React.Component {
                             <Text style={styles.fontHeading}>Training </Text>
                             <Text>{item.training}</Text>
                             <Text style={styles.fontHeading}>Additional information </Text>
-                            {/* <Text>{item.additional}</Text> */}
+                            <Text>{item.additional}</Text>
                             <Text style={styles.fontHeading}>Documents </Text>
                         </View>
                     </Card>
@@ -144,6 +131,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: "center",
+        paddingBottom: 25,
     },
     buySellContainer: {
         alignSelf: "stretch",
@@ -160,7 +148,7 @@ const styles = StyleSheet.create({
     imageContainer: {
         width: 150,
         height: 150,
-        backgroundColor: "pink",
+        // backgroundColor: "pink",
     },
     categories: {
         alignSelf: "stretch",
@@ -200,6 +188,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         marginLeft: 20,
         marginRight: 20,
+        elevation: 5,
     },
     cardContentContainer: {
         borderRadius: 4,

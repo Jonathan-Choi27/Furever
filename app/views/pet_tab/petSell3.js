@@ -30,21 +30,18 @@ import { db } from "../database/firebase";
 import test from "./test";
 
 export default class petSell3 extends React.Component {
-
-  constructor(props) {
-    super(props);
-  }
-
+  
   state = {
     data: [],
   };
 
-  componentDidMount() {
+  async componentDidMount() {
     const dataArray = [];
+    this.setState(this.setState({ loader: true }));
     db.collection("pet_listings")
       .get()
-      .then((querySnapshot) => {
-        querySnapshot.forEach((listingDoc) => {
+      .then((doc) => {
+        doc.forEach(async (listingDoc) => {
           dataArray.push({
             name: listingDoc.data().name,
             category: listingDoc.data().category,
@@ -52,21 +49,22 @@ export default class petSell3 extends React.Component {
             colour: listingDoc.data().colour,
             age: listingDoc.data().age,
             gender: listingDoc.data().gender,
-            // size: listingDoc.data().size,
+            size: listingDoc.data().size,
             location: listingDoc.data().location,
             price: listingDoc.data().price,
             behaviour: listingDoc.data().behaviour,
             health: listingDoc.data().health,
             training: listingDoc.data().training,
-            // additional: listingDoc.data().additional,
-            // photo: listingDoc.data().photo_link,
+            additional: listingDoc.data().additionalInfo,
+            photo: listingDoc.data().photo_link,
             // documents: listingDoc.data().documents,
           });
         });
-        this.setState({ data: [...dataArray] });
-      })
-      .catch((error) => {
-        console.log("Error getting document:", error);
+        this.setState({ 
+          isLoading: false,
+          data: [...dataArray],
+          loader: false,
+        });
       });
   }
 
@@ -74,122 +72,25 @@ export default class petSell3 extends React.Component {
     return (
       <ScrollView>
         <View style={styles.container}>
-          <View style={styles.buySellContainer}>
-            <TouchableOpacity
-              style={{
-                backgroundColor: "white",
-                flex: 1,
-                justifyContent: "center",
-                alignItems: "center",
-                height: 50,
-              }}
-              onPress={() => this.props.navigation.replace("petBuy")}
-            >
-              <Text>Buy</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={{
-                backgroundColor: "#d7e5f7",
-                flex: 1,
-                justifyContent: "center",
-                alignItems: "center",
-                height: 50,
-              }}
-              onPress={() => this.props.navigation.replace("petSell")}
-            >
-              <Text style={{ textAlign: "center" }}> Sell </Text>
-            </TouchableOpacity>
-          </View>
-
-          <View style={styles.titleContainer}>
-            <Text style={styles.fontTitle}> Marshmallow's Profile </Text>
-            <Text style={styles.fontHeading}> General Information </Text>
-          </View>
-
-          <Card containerStyle={styles.cardContainer}>
-            <View style={styles.cardContentContainer}>
-              <View>
-                <View style={styles.imageContainer}></View>
-                <Text style={{ textAlign: "center", paddingTop: 5 }}>
-                  <Text style={{ fontWeight: "bold" }}>Price:</Text>{" "}
-                  <Text>$7,000</Text>
-                </Text>
-              </View>
-              <View style={{ paddingLeft: 15 }}>
-                <Text>
-                  <Text style={{ fontWeight: "bold" }}>Name:</Text>{" "}
-                  <Text>Marshmallow</Text>
-                </Text>
-                <Text>
-                  <Text style={{ fontWeight: "bold" }}>Category:</Text>{" "}
-                  <Text>Dog</Text>
-                </Text>
-                <Text>
-                  <Text style={{ fontWeight: "bold" }}>Breed:</Text>{" "}
-                  <Text>Samoyed</Text>
-                </Text>
-                <Text>
-                  <Text style={{ fontWeight: "bold" }}>Colour:</Text>{" "}
-                  <Text>White</Text>
-                </Text>
-                <Text>
-                  <Text style={{ fontWeight: "bold" }}>Age:</Text>{" "}
-                  <Text>3 months</Text>
-                </Text>
-                <Text>
-                  <Text style={{ fontWeight: "bold" }}>Gender:</Text>{" "}
-                  <Text>Female</Text>
-                </Text>
-                <Text>
-                  <Text style={{ fontWeight: "bold" }}>Size:</Text>{" "}
-                  <Text>Small</Text>
-                </Text>
-                <Text>
-                  <Text style={{ fontWeight: "bold" }}>Location:</Text>{" "}
-                  <Text>Sydney, NSW</Text>
-                </Text>
-              </View>
-            </View>
-          </Card>
-
           <Card containerStyle={styles.cardContainer}>
             <View style={styles.boxContainer}>
-              <Text style={styles.fontHeading}>General Information </Text>
               <FlatList
                 data={this.state.data}
                 keyExtractor={(item, index) => index.toString()}
                 renderItem={({ item }) => (
                   <TouchableOpacity
                     style={styles.viewApplication} onPress={() => this.props.navigation.navigate("test", {item})}> 
-                    {/* style={styles.viewApplication} onPress={() => this._onPressItem(item)}> */}
                     <Text>{item.name}</Text>
                   </TouchableOpacity>
                 )}
               />
             </View>
           </Card>
-
-          {/* <View style={{ height: 50, paddingBottom: 20 }}>
-            <TouchableOpacity style={styles.viewApplication}>
-              <Text style={{ textAlign: "center", padding: 10 }}>
-                View Profile
-              </Text> */}
-          {/* onPress={() => this.props.navigation.navigate("petSell3")}
-            </TouchableOpacity>
-          </View> */}
         </View>
       </ScrollView>
     );
   }
 }
-
-const DetailsScreen = ({ route, navigation }) => {
-  const { itemId } = route.params;
-  const { otherParam } = route.params;
-  return (
-    <View></View>
-  );
-};
 
 const styles = StyleSheet.create({
   container: {

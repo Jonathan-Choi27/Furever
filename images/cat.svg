@@ -1,7 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="125" height="125" viewBox="0 0 125 125">
-  <g id="Group_74" data-name="Group 74" transform="translate(-185 -218)">
-    <rect id="Rectangle_21" data-name="Rectangle 21" width="125" height="125" rx="10" transform="translate(185 218)" fill="#fbd86e"/>
-    <path id="Icon_awesome-cat" data-name="Icon awesome-cat" d="M43.589,26.25A28.814,28.814,0,0,0,19.2,39.143V26.25A14.415,14.415,0,0,0,4.8,11.85a4.8,4.8,0,0,0,0,9.6,4.806,4.806,0,0,1,4.8,4.8v38.4a9.609,9.609,0,0,0,9.6,9.6H45.6a2.4,2.4,0,0,0,2.4-2.4v-2.4a4.8,4.8,0,0,0-4.8-4.8H38.4l19.2-14.4v21.6a2.4,2.4,0,0,0,2.4,2.4h4.8a2.4,2.4,0,0,0,2.4-2.4V40.929a19.009,19.009,0,0,1-4.8.681A19.231,19.231,0,0,1,43.589,26.25ZM67.2,11.85H57.6L48,2.25V22.41a14.4,14.4,0,1,0,28.8,0V2.25Zm-10.8,12a2.4,2.4,0,1,1,2.4-2.4A2.4,2.4,0,0,1,56.4,23.85Zm12,0a2.4,2.4,0,1,1,2.4-2.4A2.4,2.4,0,0,1,68.4,23.85Z" transform="translate(209 229.75)" fill="#fff"/>
-    <text id="Cat" transform="translate(232 329)" fill="#fff" font-size="18" font-family="ArialMT, Arial"><tspan x="0" y="0">Cat</tspan></text>
-  </g>
-</svg>
