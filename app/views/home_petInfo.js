@@ -10,13 +10,16 @@ import {
 } from "react-native";
 import {
     Card,
-} from "react-native-elements";
+} from "react-native-elements"
+import {
+    Searchbar,
+} from "react-native-paper";
 import "react-navigation"
 import "react-navigation-props-mapper"
 import "@react-navigation/native"
 import 'react-navigation-hooks'
 
-export default class test extends React.Component {
+export default class HomePetInfo extends React.Component {
     render() {
         const item = this.props.route.params.item;
         const screenWidth = Math.round(Dimensions.get('window').width);
@@ -24,33 +27,6 @@ export default class test extends React.Component {
         return (
             <ScrollView>
                 <View style={styles.container}>
-                    <View style={styles.buySellContainer}>
-                        <TouchableOpacity
-                            style={{
-                                backgroundColor: "white",
-                                flex: 1,
-                                justifyContent: "center",
-                                alignItems: "center",
-                                height: 50,
-                            }}
-                            onPress={() => this.props.navigation.navigate("petBuy")}
-                        >
-                            <Text>Buy</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            style={{
-                                backgroundColor: "#d7e5f7",
-                                flex: 1,
-                                justifyContent: "center",
-                                alignItems: "center",
-                                height: 50,
-                            }}
-                            onPress={() => this.props.navigation.navigate("petSell")}
-                        >
-                            <Text style={{ textAlign: "center" }}> Sell </Text>
-                        </TouchableOpacity>
-                    </View>
-
                     <View style={styles.titleContainer}>
                         <Text style={styles.fontTitle}> {item.name}'s Profile </Text>
                         <Text style={styles.fontHeading}> General Information </Text>
@@ -67,7 +43,7 @@ export default class test extends React.Component {
                                 />
                                 <Text style={{ textAlign: "center", paddingTop: 5 }}>
                                     <Text style={{ fontWeight: "bold" }}>Price:</Text>{" "}
-                                    <Text>{item.price}</Text>
+                                    <Text>${item.price}</Text>
                                 </Text>
                             </View>
                             <View style={{ paddingLeft: 15, paddingRight: 10, width: textWidth }}>
@@ -110,13 +86,13 @@ export default class test extends React.Component {
                     <Card containerStyle={styles.cardContainer}>
                         <View style={styles.boxContainer}>
                             <Text style={styles.fontHeading}>Behaviour </Text>
-                            <Text>{item.behaviour}</Text>
+                            <Text style={{paddingBottom: 10}}>{item.behaviour}</Text>
                             <Text style={styles.fontHeading}>Care, Health and Feeding </Text>
-                            <Text>{item.health}</Text>
+                            <Text style={{paddingBottom: 10}}>{item.health}</Text>
                             <Text style={styles.fontHeading}>Training </Text>
-                            <Text>{item.training}</Text>
+                            <Text style={{paddingBottom: 10}}>{item.training}</Text>
                             <Text style={styles.fontHeading}>Additional information </Text>
-                            <Text>{item.additional}</Text>
+                            <Text style={{paddingBottom: 10}}>{item.additional}</Text>
                             <Text style={styles.fontHeading}>Documents </Text>
                         </View>
                     </Card>

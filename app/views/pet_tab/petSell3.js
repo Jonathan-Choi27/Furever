@@ -1,163 +1,215 @@
-import React, { useState } from "react";
+import React from "react";
 import {
-  StyleSheet,
-  Text,
-  ScrollView,
-  View,
-  TouchableOpacity,
-  Modal,
-  TouchableHighlight,
-  FlatList,
-  ActivityIndicator,
-  Platform,
-  Dimensions,
-  Image,
-  Link,
+    StyleSheet,
+    Text,
+    ScrollView,
+    View,
+    TouchableOpacity,
+    Dimensions,
+    Image,
 } from "react-native";
 import {
-  Card,
-  ListItem,
-  Button,
-  Icon,
-  SearchBar,
-  Avatar,
+    Card,
 } from "react-native-elements";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { createStackNavigator } from "@react-navigation/stack";
-import { createAppNavigator } from "react-navigation"
-import { db } from "../database/firebase";
-import test from "./test";
+import "react-navigation"
+import "react-navigation-props-mapper"
+import "@react-navigation/native"
+import 'react-navigation-hooks'
+
+// title: listingDoc.data().name,
+// category: listingDoc.data().category,
+// breed: listingDoc.data().breed,
+// colour: listingDoc.data().colour,
+// age: listingDoc.data().age,
+// gender: listingDoc.data().gender,
+// size: listingDoc.data().size,
+// location: listingDoc.data().location,
+// price: listingDoc.data().price,
+// behaviour: listingDoc.data().behaviour,
+// health: listingDoc.data().health,
+// training: listingDoc.data().training,
+// additional: listingDoc.data().additionalInfo,
+// photo: listingDoc.data().photo_link,
 
 export default class petSell3 extends React.Component {
-  
-  state = {
-    data: [],
-  };
+    render() {
+        const item = this.props.route.params.props;
+        const screenWidth = Math.round(Dimensions.get('window').width);
+        const textWidth = screenWidth - 40 - 150 - 10;
+        return (
+            <ScrollView>
+                <View style={styles.container}>
+                    <View style={styles.buySellContainer}>
+                        <TouchableOpacity
+                            style={{
+                                backgroundColor: "white",
+                                flex: 1,
+                                justifyContent: "center",
+                                alignItems: "center",
+                                height: 50,
+                            }}
+                            onPress={() => this.props.navigation.navigate("petBuy")}
+                        >
+                            <Text>Buy</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={{
+                                backgroundColor: "#d7e5f7",
+                                flex: 1,
+                                justifyContent: "center",
+                                alignItems: "center",
+                                height: 50,
+                            }}
+                            onPress={() => this.props.navigation.navigate("petSell")}
+                        >
+                            <Text style={{ textAlign: "center" }}> Sell </Text>
+                        </TouchableOpacity>
+                    </View>
 
-  async componentDidMount() {
-    const dataArray = [];
-    this.setState(this.setState({ loader: true }));
-    db.collection("pet_listings")
-      .get()
-      .then((doc) => {
-        doc.forEach(async (listingDoc) => {
-          dataArray.push({
-            name: listingDoc.data().name,
-            category: listingDoc.data().category,
-            breed: listingDoc.data().breed,
-            colour: listingDoc.data().colour,
-            age: listingDoc.data().age,
-            gender: listingDoc.data().gender,
-            size: listingDoc.data().size,
-            location: listingDoc.data().location,
-            price: listingDoc.data().price,
-            behaviour: listingDoc.data().behaviour,
-            health: listingDoc.data().health,
-            training: listingDoc.data().training,
-            additional: listingDoc.data().additionalInfo,
-            photo: listingDoc.data().photo_link,
-            // documents: listingDoc.data().documents,
-          });
-        });
-        this.setState({ 
-          isLoading: false,
-          data: [...dataArray],
-          loader: false,
-        });
-      });
-  }
+                    <View style={styles.titleContainer}>
+                        <Text style={styles.fontTitle}> {item.name}'s Profile </Text>
+                        <Text style={styles.fontHeading}> General Information </Text>
+                    </View>
 
-  render() {
-    return (
-      <ScrollView>
-        <View style={styles.container}>
-          <Card containerStyle={styles.cardContainer}>
-            <View style={styles.boxContainer}>
-              <FlatList
-                data={this.state.data}
-                keyExtractor={(item, index) => index.toString()}
-                renderItem={({ item }) => (
-                  <TouchableOpacity
-                    style={styles.viewApplication} onPress={() => this.props.navigation.navigate("test", {item})}> 
-                    <Text>{item.name}</Text>
-                  </TouchableOpacity>
-                )}
-              />
-            </View>
-          </Card>
-        </View>
-      </ScrollView>
-    );
-  }
+                    <Card containerStyle={styles.cardContainer}>
+                        <View style={styles.cardContentContainer}>
+                            <View>
+                                <Image
+                                    style={styles.imageContainer}
+                                    source={{
+                                        uri: item.photo_uri,
+                                    }}
+                                />
+                                <Text style={{ textAlign: "center", paddingTop: 5 }}>
+                                    <Text style={{ fontWeight: "bold" }}>Price:</Text>{" "}
+                                    <Text>${item.price}</Text>
+                                </Text>
+                            </View>
+                            <View style={{ paddingLeft: 15, paddingRight: 10, width: textWidth }}>
+                                <Text>
+                                    <Text style={{ fontWeight: "bold" }}>Name:</Text>{" "}
+                                    <Text>{item.title}</Text>
+                                </Text>
+                                <Text>
+                                    <Text style={{ fontWeight: "bold" }}>Category:</Text>{" "}
+                                    <Text>{item.category}</Text>
+                                </Text>
+                                <Text>
+                                    <Text style={{ fontWeight: "bold" }}>Breed:</Text>{" "}
+                                    <Text>{item.breed}</Text>
+                                </Text>
+                                <Text>
+                                    <Text style={{ fontWeight: "bold" }}>Colour:</Text>{" "}
+                                    <Text>{item.colour}</Text>
+                                </Text>
+                                <Text>
+                                    <Text style={{ fontWeight: "bold" }}>Age:</Text>{" "}
+                                    <Text>{item.age}</Text>
+                                </Text>
+                                <Text>
+                                    <Text style={{ fontWeight: "bold" }}>Gender:</Text>{" "}
+                                    <Text>{item.gender}</Text>
+                                </Text>
+                                <Text>
+                                    <Text style={{ fontWeight: "bold" }}>Size:</Text>{" "}
+                                    <Text>{item.size}</Text>
+                                </Text>
+                                <Text>
+                                    <Text style={{ fontWeight: "bold" }}>Location:</Text>{" "}
+                                    <Text>{item.location}</Text>
+                                </Text>
+                            </View>
+                        </View>
+                    </Card>
+
+                    <Card containerStyle={styles.cardContainer}>
+                        <View style={styles.boxContainer}>
+                            <Text style={styles.fontHeading}>Behaviour </Text>
+                            <Text style={{paddingBottom: 10}}>{item.behaviour}</Text>
+                            <Text style={styles.fontHeading}>Care, Health and Feeding </Text>
+                            <Text style={{paddingBottom: 10}}>{item.health}</Text>
+                            <Text style={styles.fontHeading}>Training </Text>
+                            <Text style={{paddingBottom: 10}}>{item.training}</Text>
+                            <Text style={styles.fontHeading}>Additional information </Text>
+                            <Text style={{paddingBottom: 10}}>{item.additionalInfo}</Text>
+                            <Text style={styles.fontHeading}>Documents </Text>
+                        </View>
+                    </Card>
+
+                </View>
+            </ScrollView>
+        );
+    }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-  },
-  buySellContainer: {
-    alignSelf: "stretch",
-    justifyContent: "flex-start",
-    alignItems: "flex-start",
-    flexDirection: "row",
-  },
-  titleContainer: {
-    alignSelf: "stretch",
-    paddingTop: 20,
-    paddingLeft: 20,
-    paddingRight: 20,
-  },
-  imageContainer: {
-    width: 150,
-    height: 150,
-    backgroundColor: "pink",
-  },
-  categories: {
-    alignSelf: "stretch",
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    flexDirection: "row",
-    padding: 20,
-  },
-  iconContainer: {
-    padding: 20,
-  },
-  viewApplication: {
-    backgroundColor: "#447ECB",
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    height: 50,
-    width: 200,
-  },
-  fontTitle: {
-    textAlign: "left",
-    fontSize: 20,
-    fontWeight: "bold",
-    paddingBottom: 10,
-  },
-  fontHeading: {
-    textAlign: "left",
-    fontSize: 16,
-    fontWeight: "bold",
-  },
-  cardContainer: {
-    borderRadius: 4,
-    alignSelf: "stretch",
-    justifyContent: "flex-start",
-    alignItems: "flex-start",
-    flexDirection: "row",
-    marginLeft: 20,
-    marginRight: 20,
-  },
-  cardContentContainer: {
-    borderRadius: 4,
-    alignSelf: "stretch",
-    justifyContent: "flex-start",
-    alignItems: "flex-start",
-    flexDirection: "row",
-  },
+    container: {
+        flex: 1,
+        alignItems: "center",
+        paddingBottom: 25,
+    },
+    buySellContainer: {
+        alignSelf: "stretch",
+        justifyContent: "flex-start",
+        alignItems: "flex-start",
+        flexDirection: "row",
+    },
+    titleContainer: {
+        alignSelf: "stretch",
+        paddingTop: 20,
+        paddingLeft: 20,
+        paddingRight: 20,
+    },
+    imageContainer: {
+        width: 150,
+        height: 150,
+        // backgroundColor: "pink",
+    },
+    categories: {
+        alignSelf: "stretch",
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        flexDirection: "row",
+        padding: 20,
+    },
+    iconContainer: {
+        padding: 20,
+    },
+    viewApplication: {
+        backgroundColor: "#447ECB",
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        height: 50,
+        width: 200,
+    },
+    fontTitle: {
+        textAlign: "left",
+        fontSize: 20,
+        fontWeight: "bold",
+        paddingBottom: 10,
+    },
+    fontHeading: {
+        textAlign: "left",
+        fontSize: 16,
+        fontWeight: "bold",
+    },
+    cardContainer: {
+        borderRadius: 4,
+        alignSelf: "stretch",
+        justifyContent: "flex-start",
+        alignItems: "flex-start",
+        flexDirection: "row",
+        marginLeft: 20,
+        marginRight: 20,
+        elevation: 5,
+    },
+    cardContentContainer: {
+        borderRadius: 4,
+        alignSelf: "stretch",
+        justifyContent: "flex-start",
+        alignItems: "flex-start",
+        flexDirection: "row",
+    },
 });

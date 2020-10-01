@@ -59,7 +59,7 @@ export default class shepherdListInfo extends React.Component {
                             <Text style={styles.fontHeading}> General Information </Text>
                         </View>
                         <View style={{width: screenWidth/2}}>
-                            <Text>hello</Text>
+                            {/* <Text>hello</Text> */}
                         </View>
                     </View>
 
@@ -74,7 +74,7 @@ export default class shepherdListInfo extends React.Component {
                                 />
                                 <Text style={{ textAlign: "center", paddingTop: 5 }}>
                                     <Text style={{ fontWeight: "bold" }}>Price:</Text>{" "}
-                                    <Text>{item.price}</Text>
+                                    <Text>${item.price}</Text>
                                 </Text>
                             </View>
                             <View style={{ paddingLeft: 15, paddingRight: 10, width: textWidth }}>
@@ -117,13 +117,13 @@ export default class shepherdListInfo extends React.Component {
                     <Card containerStyle={styles.cardContainer}>
                         <View style={styles.boxContainer}>
                             <Text style={styles.fontHeading}>Behaviour </Text>
-                            <Text>{item.behaviour}</Text>
+                            <Text style={{paddingBottom: 10}}>{item.behaviour}</Text>
                             <Text style={styles.fontHeading}>Care, Health and Feeding </Text>
-                            <Text>{item.health}</Text>
+                            <Text style={{paddingBottom: 10}}>{item.health}</Text>
                             <Text style={styles.fontHeading}>Training </Text>
-                            <Text>{item.training}</Text>
+                            <Text style={{paddingBottom: 10}}>{item.training}</Text>
                             <Text style={styles.fontHeading}>Additional information </Text>
-                            <Text>{item.additional}</Text>
+                            <Text style={{paddingBottom: 10}}>{item.additional}</Text>
                             <Text style={styles.fontHeading}>Documents </Text>
                         </View>
                     </Card>
@@ -134,8 +134,15 @@ export default class shepherdListInfo extends React.Component {
                             <Text></Text>
                         </View>
                     </Card>
-
-
+                    
+                    <View style={styles.buttonsContainer}>
+                        <TouchableOpacity
+                            style={styles.buttons}
+                            onPress={() => this.props.navigation.navigate("petBuy5", {item})}>
+                        
+                            <Text style={styles.buttonsText}>EXPRESS INTEREST</Text>
+                        </TouchableOpacity>
+                    </View>
                 </View>
             </ScrollView>
         );
@@ -146,7 +153,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: "center",
-        paddingBottom: 25,
     },
     buySellContainer: {
         alignSelf: "stretch",
@@ -213,5 +219,22 @@ const styles = StyleSheet.create({
         justifyContent: "flex-start",
         alignItems: "flex-start",
         flexDirection: "row",
+    },
+    buttonsContainer: {
+        alignItems: "center",
+        justifyContent: "center",
+        padding: 20,
+    },
+    buttons: {
+        backgroundColor: "#447ECB",
+        alignItems: "center",
+        justifyContent: "center",
+        borderRadius: 5,
+        height: 40,
+    },
+    buttonsText: {
+        color: "#ffffff",
+        fontSize: 18,
+        padding: 15,
     },
 });

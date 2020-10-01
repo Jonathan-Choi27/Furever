@@ -56,7 +56,8 @@ const SelfPetListing = (props) => {
 
             <View style={{ marginLeft: 10 }}>
               <Card.Actions style={styles.actionCard}>
-                <Button style={styles.smallButtons}>
+                <Button style={styles.smallButtons}
+                  onPress={() => props.navigation.navigate("petSell3", {props})}>
                   <Text style={styles.smallButtonText}>View</Text>
                 </Button>
                 <Button style={styles.smallButtons}
