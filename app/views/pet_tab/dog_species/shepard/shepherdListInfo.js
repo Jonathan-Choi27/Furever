@@ -134,8 +134,15 @@ export default class shepherdListInfo extends React.Component {
                             <Text></Text>
                         </View>
                     </Card>
-
-
+                    
+                    <View style={styles.buttonsContainer}>
+                        <TouchableOpacity
+                            style={styles.buttons}
+                            onPress={() => {}}
+                        >
+                            <Text style={styles.buttonsText}>EXPRESS INTEREST</Text>
+                        </TouchableOpacity>
+                    </View>
                 </View>
             </ScrollView>
         );
@@ -146,7 +153,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: "center",
-        paddingBottom: 25,
     },
     buySellContainer: {
         alignSelf: "stretch",
@@ -213,5 +219,22 @@ const styles = StyleSheet.create({
         justifyContent: "flex-start",
         alignItems: "flex-start",
         flexDirection: "row",
+    },
+    buttonsContainer: {
+        alignItems: "center",
+        justifyContent: "center",
+        padding: 20,
+    },
+    buttons: {
+        backgroundColor: "#447ECB",
+        alignItems: "center",
+        justifyContent: "center",
+        borderRadius: 5,
+        height: 40,
+    },
+    buttonsText: {
+        color: "#ffffff",
+        fontSize: 18,
+        padding: 15,
     },
 });
