@@ -27,6 +27,7 @@ import petSell1 from "./petSell1";
 import petSell3 from "./petSell3";
 import petSell from "./petSell";
 import petSell4 from "./petSell4";
+import petBuy5 from "./petBuy5";
 import test from "./test";
 
 const Stack = createStackNavigator();
@@ -46,6 +47,7 @@ export default function PetBuyNav() {
         <Stack.Screen name="shepherdList" component={shepherdList} />
         <Stack.Screen name="shepherdInfo" component={shepherdInfo} />
         <Stack.Screen name="shepherdListInfo" component={shepherdListInfo} />
+        <Stack.Screen name="petBuy5" component={petBuy5} />
       </Stack.Navigator>
     </NavigationContainer>
   );

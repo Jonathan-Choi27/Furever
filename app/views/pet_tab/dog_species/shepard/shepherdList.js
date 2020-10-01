@@ -78,6 +78,7 @@ export default class shepherdList extends React.Component {
             training: listingDoc.data().training,
             additional: listingDoc.data().additionalInfo,
             photo: listingDoc.data().photo_link,
+            doc_id: listingDoc.id
           });
           this.setState({
             isLoading: false,
