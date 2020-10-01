@@ -74,7 +74,7 @@ export default class shepherdListInfo extends React.Component {
                                 />
                                 <Text style={{ textAlign: "center", paddingTop: 5 }}>
                                     <Text style={{ fontWeight: "bold" }}>Price:</Text>{" "}
-                                    <Text>{item.price}</Text>
+                                    <Text>${item.price}</Text>
                                 </Text>
                             </View>
                             <View style={{ paddingLeft: 15, paddingRight: 10, width: textWidth }}>

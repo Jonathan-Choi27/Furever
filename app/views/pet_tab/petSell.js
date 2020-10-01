@@ -43,6 +43,15 @@ export default class petSell extends React.Component {
             category: listingDoc.data().category,
             breed: listingDoc.data().breed,
             colour: listingDoc.data().colour,
+            age: listingDoc.data().age,
+            gender: listingDoc.data().gender,
+            size: listingDoc.data().size,
+            location: listingDoc.data().location,
+            price: listingDoc.data().price,
+            behaviour: listingDoc.data().behaviour,
+            health: listingDoc.data().health,
+            training: listingDoc.data().training,
+            additionalInfo: listingDoc.data().additionalInfo,
             photo_uri: listingDoc.data().photo_link,
             doc_id: listingDoc.id
           });
@@ -56,13 +65,13 @@ export default class petSell extends React.Component {
   }
 
   render() {
-    if (this.state.isLoading) {
-      return (
-        <View style={styles.activityContainer}>
-          <ActivityIndicator size="large" color="#447ECB" />
-        </View>
-      );
-    }
+    // if (this.state.isLoading) {
+    //   return (
+    //     <View style={styles.activityContainer}>
+    //       <ActivityIndicator size="large" color="#447ECB" />
+    //     </View>
+    //   );
+    // }
     return (
       <View>
         <View style={styles.buySellContainer}>
@@ -134,6 +143,15 @@ export default class petSell extends React.Component {
                 category={item.category}
                 breed={item.breed}
                 colour={item.colour}
+                age={item.age}
+                gender={item.gender}
+                size={item.size}
+                location={item.location}
+                price={item.price}
+                behaviour={item.behaviour}
+                health={item.health}
+                training={item.training}
+                additionalInfo={item.additionalInfo}
                 photo_uri={item.photo_uri}
                 doc_id={item.doc_id}
                 navigation={this.props.navigation}
