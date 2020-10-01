@@ -203,6 +203,7 @@ export default class CategorySelection extends React.Component {
             style={styles.picker}
             selectedValue={this.state.category}
             onValueChange={this.onCategoryChange.bind(this)}
+
           >
             <Picker.Item label="Select category" value="0" color="#B4B4B4" />
             <Picker.Item label="Dog" value="dog" style={styles.picker_entry} />
