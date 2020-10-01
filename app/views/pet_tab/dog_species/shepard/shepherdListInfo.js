@@ -138,8 +138,8 @@ export default class shepherdListInfo extends React.Component {
                     <View style={styles.buttonsContainer}>
                         <TouchableOpacity
                             style={styles.buttons}
-                            onPress={() => {}}
-                        >
+                            onPress={() => this.props.navigation.navigate("petBuy5", {item})}>
+                        
                             <Text style={styles.buttonsText}>EXPRESS INTEREST</Text>
                         </TouchableOpacity>
                     </View>
