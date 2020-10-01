@@ -184,7 +184,7 @@ export default class shepherdList extends React.Component {
                     <Button
                       color="#447ECB"
                       onPress={() =>
-                        this.props.navigation.navigate("shepherdInfo")
+                        this.props.navigation.replace("shepherdInfo")
                       }
                     >
                       More info
