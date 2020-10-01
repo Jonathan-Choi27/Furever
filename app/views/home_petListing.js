@@ -20,7 +20,7 @@ const db = firebase.firestore();
 
 const HomeCard = (props) => (
   <View style={styles.card}>
-    <Card elevation={5} styles={styles.card}>
+    <Card elevation={5} styles={styles.card} onPress={() => this.prop.navigation.replace("HomePetInfo")}>
       <Image source={{ uri: props.photo_uri }} style={styles.image} />
       <Text numberOfLines={1} style={styles.title}>{props.name}</Text>
       <Text numberOfLines={1} style={styles.subtext}>

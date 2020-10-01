@@ -19,23 +19,23 @@ import "react-navigation-props-mapper"
 import "@react-navigation/native"
 import 'react-navigation-hooks'
 
-export default class shepherdInfo extends React.Component {
+export default class HomePetInfo extends React.Component {
 
-    state = {
-        filteredData: [],
-        searchText: "",
-        visible: false,
-    };
+    // state = {
+    //     filteredData: [],
+    //     searchText: "",
+    //     visible: false,
+    // };
 
-    searchFunction = (searchText) => {
-        this.setState({ searchText: searchText });
+    // searchFunction = (searchText) => {
+    //     this.setState({ searchText: searchText });
     
-        let filteredData = this.state.data.filter(function (item) {
-          return item.title.includes(searchText);
-        });
+    //     let filteredData = this.state.data.filter(function (item) {
+    //       return item.title.includes(searchText);
+    //     });
     
-        this.setState({ filteredData: filteredData });
-    };
+    //     this.setState({ filteredData: filteredData });
+    // };
 
     render() {
         return (
@@ -67,12 +67,12 @@ export default class shepherdInfo extends React.Component {
                             <Text style={{ textAlign: "center" }}> Sell </Text>
                         </TouchableOpacity>
                     </View>
-                    <Searchbar
+                    {/* <Searchbar
                         style={styles.searchBar}
                         placeholder="Search"
                         onChangeText={this.searchFunction}
                         value={this.state.searchText}
-                    />
+                    /> */}
 
                     <View style={styles.titleContainer}>
                         <Text style={styles.fontTitle}>German Shepard</Text>

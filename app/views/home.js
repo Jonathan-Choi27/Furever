@@ -1,6 +1,7 @@
 import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
+import { createStackNavigator } from "@react-navigation/stack";
 import * as React from "react";
 import { StyleSheet, Text, View, FlatList } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
@@ -12,6 +13,7 @@ import { AppLoading } from "expo";
 import * as Font from "expo-font";
 import firebase from "firebase";
 import HomeListing from "./home_petListing.js"
+import HomeNav from "./homeNav.js"
 
 import {
   useFonts,
@@ -28,20 +30,19 @@ export default class LandingPage extends React.Component {
 }
 
 const Tab = createBottomTabNavigator();
-const TopTab = createMaterialTopTabNavigator();
 
-function HomeScreen(props) {
-  let [fontsLoaded] = useFonts({
-    Roboto_400Regular,
-    Roboto_700Bold,
-  });
+// function HomeScreen(props) {
+//   let [fontsLoaded] = useFonts({
+//     Roboto_400Regular,
+//     Roboto_700Bold,
+//   });
 
-  if (!fontsLoaded) {
-    return <AppLoading />;
-  }
+//   if (!fontsLoaded) {
+//     return <AppLoading />;
+//   }
 
-  return <HomeListing/>;
-}
+//   return <HomeListing />;
+// }
 
 function ShopScreen() {
   let [fontsLoaded] = useFonts({
@@ -71,22 +72,6 @@ function ProfileScreen() {
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       <Text>Profile Page Screen!</Text>
-    </View>
-  );
-}
-
-function BuyScreen() {
-  let [fontsLoaded] = useFonts({
-    Roboto_400Regular,
-  });
-
-  if (!fontsLoaded) {
-    return <AppLoading />;
-  }
-
-  return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>Buy Screen!</Text>
     </View>
   );
 }
@@ -124,8 +109,8 @@ function MyTabs(props) {
           inactiveTintColor: "#9e9e9e",
           style: { backgroundColor: "#447ECB" },
         }}>
-        {/* <Tab.Screen name="Home" component={HomeScreen} /> */}
-        <Tab.Screen name="Home" children={() => <HomeScreen data={props.data}/>}/>
+        <Tab.Screen name="Home" component={HomeNav} />
+        {/* <Tab.Screen name="Home" children={() => <HomeScreen data={props.data}/>}/> */}
         <Tab.Screen name="Pet" component={PetBuyNav} />
         <Tab.Screen name="Shop" component={ShopScreen} />
         <Tab.Screen name="Profile" component={ProfileScreen} />
