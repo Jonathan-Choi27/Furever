@@ -67,7 +67,7 @@ export default class test extends React.Component {
                                 />
                                 <Text style={{ textAlign: "center", paddingTop: 5 }}>
                                     <Text style={{ fontWeight: "bold" }}>Price:</Text>{" "}
-                                    <Text>{item.price}</Text>
+                                    <Text>${item.price}</Text>
                                 </Text>
                             </View>
                             <View style={{ paddingLeft: 15, paddingRight: 10, width: textWidth }}>
@@ -110,13 +110,13 @@ export default class test extends React.Component {
                     <Card containerStyle={styles.cardContainer}>
                         <View style={styles.boxContainer}>
                             <Text style={styles.fontHeading}>Behaviour </Text>
-                            <Text>{item.behaviour}</Text>
+                            <Text style={{paddingBottom: 10}}>{item.behaviour}</Text>
                             <Text style={styles.fontHeading}>Care, Health and Feeding </Text>
-                            <Text>{item.health}</Text>
+                            <Text style={{paddingBottom: 10}}>{item.health}</Text>
                             <Text style={styles.fontHeading}>Training </Text>
-                            <Text>{item.training}</Text>
+                            <Text style={{paddingBottom: 10}}>{item.training}</Text>
                             <Text style={styles.fontHeading}>Additional information </Text>
-                            <Text>{item.additional}</Text>
+                            <Text style={{paddingBottom: 10}}>{item.additional}</Text>
                             <Text style={styles.fontHeading}>Documents </Text>
                         </View>
                     </Card>

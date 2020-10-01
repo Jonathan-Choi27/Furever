@@ -20,7 +20,7 @@ const db = firebase.firestore();
 
 const HomeCard = (props) => (
   <View style={styles.card}>
-    <Card elevation={5} styles={styles.card} onPress={() => this.prop.navigation.replace("HomePetInfo")}>
+    <Card elevation={5} styles={styles.card} onPress={() => this.props.navigation.replace("HomePetInfo")}>
       <Image source={{ uri: props.photo_uri }} style={styles.image} />
       <Text numberOfLines={1} style={styles.title}>{props.name}</Text>
       <Text numberOfLines={1} style={styles.subtext}>
@@ -46,10 +46,20 @@ export default class HomeListing extends React.Component {
       .then((doc) => {
         doc.forEach((listingDoc) => {
           dataArray.push({
-            pet_name: listingDoc.data().name,
-            location: listingDoc.data().location,
+            name: listingDoc.data().name,
+            category: listingDoc.data().category,
             breed: listingDoc.data().breed,
-            photo_uri: listingDoc.data().photo_link,
+            colour: listingDoc.data().colour,
+            age: listingDoc.data().age,
+            gender: listingDoc.data().gender,
+            size: listingDoc.data().size,
+            location: listingDoc.data().location,
+            price: listingDoc.data().price,
+            behaviour: listingDoc.data().behaviour,
+            health: listingDoc.data().health,
+            training: listingDoc.data().training,
+            additional: listingDoc.data().additionalInfo,
+            photo: listingDoc.data().photo_link,
           });
           this.setState({
             isLoading: false,
@@ -72,12 +82,17 @@ export default class HomeListing extends React.Component {
         columnWrapperStyle={{justifyContent: 'space-between'}}
         numColumns={2}
         renderItem={({ item }) => (
-          <HomeCard
-            name={item.pet_name}
-            breed={item.breed}
-            location={item.location}
-            photo_uri={item.photo_uri}
-          />
+          <View style={styles.card}>
+            <Card elevation={5} styles={styles.card} onPress={() => this.props.navigation.navigate("HomePetInfo", {item})}>
+              <Image source={{ uri: item.photo }} style={styles.image} />
+              <Text numberOfLines={1} style={styles.title}>{item.name}</Text>
+              <Text numberOfLines={1} style={styles.subtext}>
+                <Text>{item.breed}</Text>
+                <Text> | </Text>
+                <Text>{item.location}</Text>
+              </Text>
+            </Card>
+          </View>
         )}
       />
     );

@@ -59,7 +59,7 @@ export default class shepherdListInfo extends React.Component {
                             <Text style={styles.fontHeading}> General Information </Text>
                         </View>
                         <View style={{width: screenWidth/2}}>
-                            <Text>hello</Text>
+                            {/* <Text>hello</Text> */}
                         </View>
                     </View>
 
@@ -117,13 +117,13 @@ export default class shepherdListInfo extends React.Component {
                     <Card containerStyle={styles.cardContainer}>
                         <View style={styles.boxContainer}>
                             <Text style={styles.fontHeading}>Behaviour </Text>
-                            <Text>{item.behaviour}</Text>
+                            <Text style={{paddingBottom: 10}}>{item.behaviour}</Text>
                             <Text style={styles.fontHeading}>Care, Health and Feeding </Text>
-                            <Text>{item.health}</Text>
+                            <Text style={{paddingBottom: 10}}>{item.health}</Text>
                             <Text style={styles.fontHeading}>Training </Text>
-                            <Text>{item.training}</Text>
+                            <Text style={{paddingBottom: 10}}>{item.training}</Text>
                             <Text style={styles.fontHeading}>Additional information </Text>
-                            <Text>{item.additional}</Text>
+                            <Text style={{paddingBottom: 10}}>{item.additional}</Text>
                             <Text style={styles.fontHeading}>Documents </Text>
                         </View>
                     </Card>

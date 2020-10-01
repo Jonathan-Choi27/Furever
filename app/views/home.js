@@ -1,19 +1,13 @@
 import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
-import { createStackNavigator } from "@react-navigation/stack";
 import * as React from "react";
 import { StyleSheet, Text, View, FlatList } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import PetBuyNav from "./pet_tab/petBuyNav";
-import { TouchableOpacity } from "react-native-gesture-handler";
-import PetScreenComponent from "./pet_tab/petScreen";
-import petBuy1Dog from "./pet_tab/petBuy1Dog";
 import { AppLoading } from "expo";
 import * as Font from "expo-font";
 import firebase from "firebase";
-import HomeListing from "./home_petListing.js"
-import HomeNav from "./homeNav.js"
+import HomeNav from "./homeNav"
 
 import {
   useFonts,
