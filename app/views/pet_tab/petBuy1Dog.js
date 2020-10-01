@@ -54,6 +54,7 @@ export default class petBuy1Dog extends React.Component {
         doc.forEach(async (listingDoc) => {
           var uuid = listingDoc.data().uuid;
           var seller_name;
+          var seller_photo;
           await db
             .collection("users")
             .doc(uuid)
