@@ -44,7 +44,9 @@ export default class petSell extends React.Component {
             breed: listingDoc.data().breed,
             colour: listingDoc.data().colour,
             photo_uri: listingDoc.data().photo_link,
+            doc_id: listingDoc.id
           });
+
           this.setState({
             isLoading: false,
             data: [...dataArray],
@@ -133,6 +135,8 @@ export default class petSell extends React.Component {
                 breed={item.breed}
                 colour={item.colour}
                 photo_uri={item.photo_uri}
+                doc_id={item.doc_id}
+                navigation={this.props.navigation}
               />
             )}
             keyExtractor={(item) => item.id}
