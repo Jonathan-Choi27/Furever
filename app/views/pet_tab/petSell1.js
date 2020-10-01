@@ -31,7 +31,36 @@ import * as firebase from "firebase/app";
 import "firebase/storage";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 
+// import { validationService } from "./service";
+
 export default class petSell1 extends React.Component {
+  // constructor(props) {
+  //   super(props);
+  //   this.state = {
+  //     inputs: {
+  //       name: {
+  //         type: "name",
+  //         value: "",
+  //       },
+  //       age: {
+  //         type: "age",
+  //         value: "",
+  //       },
+  //     },
+  //   };
+  //   let isMounted = true;
+
+  //   this.onInputChange = validationService.onInputChange.bind(this);
+  // }
+
+  // renderError(id) {
+  //   const { inputs } = this.state;
+  //   if (inputs[id].errorLabel) {
+  //     return <Text style={styles.error}>{inputs[id].errorLabel}</Text>;
+  //   }
+  //   return null;
+  // }
+
   state = {
     name: "",
     category: "",
@@ -53,7 +82,6 @@ export default class petSell1 extends React.Component {
     documents_uri: "",
     seller_name: "",
     size: "",
-    fontLoaded: false,
   };
 
   componentDidMount() {
@@ -208,6 +236,67 @@ export default class petSell1 extends React.Component {
     });
   };
 
+  checkInput = (val) => {
+    // let re = /[!@#$%^&*(),.?":{}|<>]/;
+    if (!/\d+/g.test(val)) {
+      return false;
+    }
+    return true;
+  };
+
+  renderError(val) {
+    if (val === "name") {
+      if (this.state["name"] === "") {
+        return <Text style={styles.error}>Name cannot be blank</Text>;
+      }
+      if (/\d+/g.test(this.state["name"])) {
+        return <Text style={styles.error}>Name must not contain numbers</Text>;
+      }
+    } else if (val === "age") {
+      if (this.state["age"] === "") {
+        return <Text style={styles.error}>Age cannot be blank</Text>;
+      } else if (!/^[0-9\b]+$/.test(this.state["age"])) {
+        return <Text style={styles.error}>Age must not contain letters</Text>;
+      }
+    } else if (val === "location") {
+      if (this.state["location"] === "") {
+        return <Text style={styles.error}>Location cannot be blank</Text>;
+      }
+    } else if (val === "price") {
+      if (this.state["price"] === "") {
+        return <Text style={styles.error}>Price cannot be blank</Text>;
+      } else if (!/^[0-9\b]+$/.test(this.state["price"])) {
+        return <Text style={styles.error}>Price must not contain letters</Text>;
+      }
+    } else if (val === "behaviour") {
+      if (this.state["behaviour"] === "") {
+        return <Text style={styles.error}>Behaviour cannot be blank</Text>;
+      }
+    } else if (val === "health") {
+      if (this.state["health"] === "") {
+        return (
+          <Text style={styles.error}>
+            Care, Health and Feeding cannot be blank
+          </Text>
+        );
+      }
+    } else if (val === "training") {
+      if (this.state["training"] === "") {
+        return <Text style={styles.error}>Training cannot be blank</Text>;
+      }
+    } else if (val === "additionalInfo") {
+      if (this.state["additionalInfo"] === "") {
+        return (
+          <Text style={styles.error}>
+            Additional information cannot be blank
+          </Text>
+        );
+      }
+    }
+
+    return null;
+  }
+
   render() {
     return (
       <SafeAreaView style={styles.container}>
@@ -235,37 +324,7 @@ export default class petSell1 extends React.Component {
                 onChangeText={(name) => this.setState({ name })}
                 style={styles.input}
               />
-
-              {/* <Picker
-                style={styles.picker}
-                onValueChange={(category) => this.setState({ category })}
-              >
-                <Picker.Item label="Select" value="0" />
-                <Picker.Item label="Dog" value="dog" />
-                <Picker.Item label="Cat" value="cat" />
-                <Picker.Item label="Bird" value="bird" />
-                <Picker.Item label="Reptile" value="reptile" />
-                <Picker.Item label="Fish" value="fish" />
-                <Picker.Item label="Exotic" value="exotic" />
-              </Picker>
-              <Text>
-                <Text style={styles.titles}>Animal Breed</Text>
-              </Text>
-              <TextInput
-                onChangeText={(breed) => this.setState({ breed })}
-                style={styles.input}
-              /> */}
-
-              {/* <Text>
-                <Text style={styles.titles}>Colour</Text>
-              </Text>
-              <Picker style={styles.picker} onValueChange={(category) => {}}>
-                <Picker.Item label="Select" value="0" />
-                <Picker.Item label="Brown" value="dog" />
-                <Picker.Item label="White" value="cat" />
-                <Picker.Item label="Black" value="bird" />
-                <Picker.Item label="Grey" value="reptile" />
-              </Picker> */}
+              {this.renderError("name")}
 
               <CategorySelection
                 category={this.setCategory}
@@ -281,7 +340,7 @@ export default class petSell1 extends React.Component {
                 onChangeText={(age) => this.setState({ age })}
                 style={styles.input}
               />
-
+              {this.renderError("age")}
               <Text>
                 <Text style={styles.titles}>Gender</Text>
                 {/* <Text style={styles.setColorRed}> *</Text> */}
@@ -308,7 +367,7 @@ export default class petSell1 extends React.Component {
                 onChangeText={(location) => this.setState({ location })}
                 style={styles.input}
               />
-
+              {this.renderError("location")}
               <Text>
                 <Text style={styles.titles}>Price</Text>
                 {/* <Text style={styles.setColorRed}> *</Text> */}
@@ -316,16 +375,16 @@ export default class petSell1 extends React.Component {
               <TextInput
                 onChangeText={(price) => this.setState({ price })}
                 style={styles.input}
-              // secureTextEntry={true}
-              // width={100}
-              // backgroundColor="white"
-              // height={44}
-              // padding={10}
-              // borderWidth={1}
-              // borderColor="black"
-              // marginBottom={10}
+                // secureTextEntry={true}
+                // width={100}
+                // backgroundColor="white"
+                // height={44}
+                // padding={10}
+                // borderWidth={1}
+                // borderColor="black"
+                // marginBottom={10}
               />
-
+              {this.renderError("price")}
               <Text style={styles.titles}>Behaviour</Text>
               <TextInput
                 onChangeText={(behaviour) => this.setState({ behaviour })}
@@ -334,7 +393,7 @@ export default class petSell1 extends React.Component {
                 secureTextEntry={true}
                 style={styles.biginput}
               />
-
+              {this.renderError("behaviour")}
               <Text style={styles.titles}>Care, Health and Feeding</Text>
               <TextInput
                 onChangeText={(health) => this.setState({ health })}
@@ -343,7 +402,7 @@ export default class petSell1 extends React.Component {
                 secureTextEntry={true}
                 style={styles.biginput}
               />
-
+              {this.renderError("health")}
               <Text style={styles.titles}>Training</Text>
               <TextInput
                 onChangeText={(training) => this.setState({ training })}
@@ -352,7 +411,7 @@ export default class petSell1 extends React.Component {
                 secureTextEntry={true}
                 style={styles.biginput}
               />
-
+              {this.renderError("training")}
               <Text style={styles.titles}>Additional Information</Text>
               <TextInput
                 onChangeText={(additionalInfo) =>
@@ -363,7 +422,7 @@ export default class petSell1 extends React.Component {
                 secureTextEntry={true}
                 style={styles.biginput}
               />
-
+              {this.renderError("additionalInfo")}
               <Text style={styles.titles}>Upload a photo</Text>
               <Button title="Choose Photo" onPress={this.setPhotoUri} />
               <Image
@@ -371,7 +430,6 @@ export default class petSell1 extends React.Component {
                   image_path: this.state.photo_uri,
                 }}
               />
-
               <Text style={styles.titles}>Upload Documents</Text>
               <Button title="Choose Document" onPress={this.setDocumentUri} />
               {/* <TextInput
@@ -380,12 +438,42 @@ export default class petSell1 extends React.Component {
                 style={styles.input}
               /> */}
 
+              {/* <Picker
+                style={styles.picker}
+                onValueChange={(category) => this.setState({ category })}
+              >
+                <Picker.Item label="Select" value="0" />
+                <Picker.Item label="Dog" value="dog" />
+                <Picker.Item label="Cat" value="cat" />
+                <Picker.Item label="Bird" value="bird" />
+                <Picker.Item label="Reptile" value="reptile" />
+                <Picker.Item label="Fish" value="fish" />
+                <Picker.Item label="Exotic" value="exotic" />
+              </Picker>
+              <Text>
+                <Text style={styles.titles}>Animal Breed</Text>
+              </Text>
+              <TextInput
+                onChangeText={(breed) => this.setState({ breed })}
+                style={styles.input}
+              /> */}
+              {/* <Text>
+                <Text style={styles.titles}>Colour</Text>
+              </Text>
+              <Picker style={styles.picker} onValueChange={(category) => {}}>
+                <Picker.Item label="Select" value="0" />
+                <Picker.Item label="Brown" value="dog" />
+                <Picker.Item label="White" value="cat" />
+                <Picker.Item label="Black" value="bird" />
+                <Picker.Item label="Grey" value="reptile" />
+              </Picker> */}
+
               <View style={styles.buttonsContainer}>
                 <TouchableOpacity
                   title={"submit"}
                   style={styles.buttons}
                   onPress={this.handleSubmit}
-                //   onPress={() => this.props.navigation.replace("petSell")}
+                  //   onPress={() => this.props.navigation.replace("petSell")}
                 >
                   <Text style={styles.buttonsText}>Submit</Text>
                 </TouchableOpacity>
@@ -440,18 +528,16 @@ const styles = StyleSheet.create({
     padding: 10,
     borderWidth: 1,
     borderColor: "black",
-    marginBottom: 10,
+    // marginBottom: 15,
     backgroundColor: "white",
     fontSize: 12,
   },
   biginput: {
     width: 314,
     height: 80,
-    // height: 44,
     padding: 10,
     borderWidth: 1,
     borderColor: "black",
-    marginBottom: 10,
     backgroundColor: "white",
   },
   picker: {
@@ -491,5 +577,10 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     height: 34,
     marginBottom: 10,
+  },
+  error: {
+    marginBottom: 10,
+    color: "red",
+    fontSize: 12,
   },
 });
