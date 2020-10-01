@@ -9,10 +9,11 @@ import {
   FlatList,
 
 } from "react-native";
-import { Avatar, Card, Button, Searchbar,   ActivityIndicator,  Modal, Chip,  Provider, Portal, } from "react-native-paper";
+import { Avatar, Card, Button, Searchbar,   ActivityIndicator,  Modal, Chip,  Provider, Portal, Checkbox} from "react-native-paper";
 import { db } from "../database/firebase";
 import { Roboto_400Regular, Roboto_700Bold } from "@expo-google-fonts/roboto";
 import { AppLoading } from "expo";
+import * as Font from "expo-font";
 
 let customFonts = {
   Roboto_400Regular,
@@ -27,7 +28,16 @@ export default class petBuy1Dog extends React.Component {
     searchText: "",
     visible: false,
     fontsLoaded: false,
-    filterCheck: [],
+    dogCheck: false,
+    catCheck: false,
+    rabbitCheck: false,
+    fishCheck: false,
+    birdCheck: false,
+    horseCheck: false,
+    lizardCheck: false,
+    turtleCheck: false,
+    pigCheck: false,
+    filterDisplay: false,
   };
 
   async _loadFontsAsync() {
@@ -36,6 +46,7 @@ export default class petBuy1Dog extends React.Component {
   }
 
   async componentDidMount() {
+    this._loadFontsAsync();
     const dataArray = [];
     db.collection("pet_listings")
       .get()
@@ -49,16 +60,25 @@ export default class petBuy1Dog extends React.Component {
             .get()
             .then((user_doc) => {
               seller_name = user_doc.data().name;
+              seller_photo = user_doc.data().photo;
             });
-        //   console.log(seller_name);
           dataArray.push({
-            title: listingDoc.data().name,
             name: seller_name,
+            avatarPhoto: seller_photo,
+            title: listingDoc.data().name,
             category: listingDoc.data().category,
-            photo: listingDoc.data().photo_link,
+            breed: listingDoc.data().breed,
+            colour: listingDoc.data().colour,
             age: listingDoc.data().age,
-            location: listingDoc.data().location,
             gender: listingDoc.data().gender,
+            size: listingDoc.data().size,
+            location: listingDoc.data().location,
+            price: listingDoc.data().price,
+            behaviour: listingDoc.data().behaviour,
+            health: listingDoc.data().health,
+            training: listingDoc.data().training,
+            additional: listingDoc.data().additionalInfo,
+            photo: listingDoc.data().photo_link,
           });
           this.setState({
             isLoading: false,
@@ -76,20 +96,117 @@ export default class petBuy1Dog extends React.Component {
     });
 
     this.setState({ filteredData: filteredData });
-    console.log(filteredData[0]);
   };
 
-  filterFunction = (input) => {
-    this.state.filterCheck;
-    if (this.state.filterCheck.includes(input)) {
-      //delete it from filterCheck
-    } else {
-      this.state.filterCheck.push({input});
+  checkFunction = (input) => {
+    switch(input) {
+      case 'dogCheck':
+          this.setState({dogCheck: !this.state.dogCheck});
+        break;
+      case 'catCheck':
+        this.setState({catCheck: !this.state.catCheck});
+        break;
+      case 'rabbitCheck':
+        this.setState({rabbitCheck: !this.state.rabbitCheck});
+        break;
+      case 'fishCheck':
+        this.setState({fishCheck: !this.state.fishCheck});
+        break;
+        case 'birdCheck':
+          this.setState({birdCheck: !this.state.birdCheck});
+        break;
+      case 'horseCheck':
+        this.setState({horseCheck: !this.state.horseCheck});
+        break;
+      case 'lizardCheck':
+        this.setState({lizardCheck: !this.state.lizardCheck});
+        break;
+      case 'turtleCheck':
+        this.setState({catCturtleCheckheck: !this.state.turtleCheck});
+        break;
+        case 'pigCheck':
+          this.setState({pigCheck: !this.state.pigCheck});
+        break;
+      default:
     }
-    console.log(this.state.filterCheck.toString());
+    console.log(this.state.dogCheck);
+  }
+
+  displayFunction = () => {
+    let listData = [];
+    if (this.state.dogCheck) {
+      this.setState({filterDisplay: true});
+      let filteredData = this.state.data.filter(function (item) {
+        return item.category.includes("dog");
+      });
+      listData = listData.concat(filteredData);
+    } 
+    if (this.state.catCheck) {
+      this.setState({filterDisplay: true});
+      let filteredData = this.state.data.filter(function (item) {
+        return item.category.includes("cat");
+      });
+      listData = listData.concat(filteredData);
+    } 
+    if (this.state.rabbitCheck) {
+      this.setState({filterDisplay: true});
+      let filteredData = this.state.data.filter(function (item) {
+        return item.category.includes("rabbit");
+      });
+      listData = listData.concat(filteredData);
+    } 
+    if (this.state.fishCheck) {
+      this.setState({filterDisplay: true});
+      let filteredData = this.state.data.filter(function (item) {
+        return item.category.includes("fish");
+      });
+      listData = listData.concat(filteredData);
+    } 
+    if (this.state.birdCheck) {
+      this.setState({filterDisplay: true});
+      let filteredData = this.state.data.filter(function (item) {
+        return item.category.includes("bird");
+      });
+      listData = listData.concat(filteredData);
+    } 
+    if (this.state.horseCheck) {
+      this.setState({filterDisplay: true});
+      let filteredData = this.state.data.filter(function (item) {
+        return item.category.includes("horse");
+      });
+      listData = listData.concat(filteredData);
+    } 
+    if (this.state.lizardCheck) {
+      this.setState({filterDisplay: true});
+      let filteredData = this.state.data.filter(function (item) {
+        return item.category.includes("lizard");
+      });
+      listData = listData.concat(filteredData);
+    } 
+    if (this.state.turtleCheck) {
+      this.setState({filterDisplay: true});
+      let filteredData = this.state.data.filter(function (item) {
+        return item.category.includes("turtle");
+      });
+      listData = listData.concat(filteredData);
+    } 
+    if (this.state.pigCheck) {
+      this.setState({filterDisplay: true});
+      let filteredData = this.state.data.filter(function (item) {
+        return item.category.includes("pig");
+      });
+      listData = listData.concat(filteredData);
+    } 
+
+    if (!this.state.dogCheck && !this.state.catCheck && !this.state.birdCheck) {
+      this.setState({filterDisplay: false});
+    }
+    console.log(listData);
+    this.setState({ filteredData: listData });
   }
 
   render() {
+    const { search } = this.state;
     if (this.state.isLoading) {
       return (
         <View style={styles.activityContainer}>
@@ -98,10 +215,8 @@ export default class petBuy1Dog extends React.Component {
       );
     }
     // if (this.state.fontsLoaded) {
-
       return (
         <Provider>
-
         <ScrollView>
           <View style={styles.container}>
             <View style={styles.buySellContainer}>
@@ -130,17 +245,33 @@ export default class petBuy1Dog extends React.Component {
                 <Text style={{ textAlign: "center" }}> Sell </Text>
               </TouchableOpacity>
             </View>
-            <View>
-            <Searchbar
-          style={{
-            margin: 10,
-            height: 50,
-            width: 300,
-          }}
-          placeholder="Search"
-          onChangeText={this.searchFunction}
-          value={this.state.searchText}
-        />
+            <View
+              style={{
+                flex: 1,
+                justifyContent: "center",
+                alignItems: "center",
+                alignSelf: "stretch",
+                flexDirection: "row",
+              }}
+            >
+              <Searchbar
+                style={{
+                  margin: 10,
+                  height: 50,
+                  width: 250,
+                }}
+                placeholder="Search"
+                onChangeText={this.searchFunction}
+                value={this.state.searchText}
+              />
+              <Button
+                labelStyle={{ fontFamily: "Roboto_400Regular" }}
+                color="#447ECB"
+                onPress={() => {
+                  this.setState({ visible: true });
+                }}
+                mode="contained"
+              >Filter</Button>
           </View>
           <View style={{ height: 50, padding: 10 }}>
             <TouchableOpacity style={styles.viewApplication}                     
@@ -153,67 +284,142 @@ export default class petBuy1Dog extends React.Component {
           </View>
           <Portal>
 
-            <Modal
-                style={{ backgroundColor: "transparent",}}
-                visible={this.state.visible}
-                onDismiss={() => {
-                  this.setState({ visible: false });
-                }}
-              >
-                <Card elevation={5} style={{ margin: 10 }}>
-                  <Card.Content>
-                    <Text>Animal:</Text>
-                    <View style={{flexDirection: 'row' }}>
-                      <Chip icon="information" onPress={() => this.filterFunction('Dog')}>Dog</Chip>
-                      <Chip icon="information" onPress={() => this.filterFunction('Fish')}>Fish</Chip>
-                      <Chip icon="information" onPress={() => this.filterFunction('Lizard')}>Lizard</Chip>
-                    </View>
-                    <View style={{flexDirection: 'row' }}>
-                      <Chip icon="information" onPress={() => this.filterFunction('Cat')}>Cat</Chip>
-                      <Chip icon="information" onPress={() => this.filterFunction('Bird')}>Bird</Chip>
-                      <Chip icon="information" onPress={() => this.filterFunction('Turtle')}>Turtle</Chip>
-                    </View>
-                    <View style={{flexDirection: 'row' }}>
-                      <Chip icon="information" onPress={() => this.filterFunction('Rabbit')}>Rabbit</Chip>
-                      <Chip icon="information" onPress={() => this.filterFunction('Horse')}>Horse</Chip>
-                      <Chip icon="information" onPress={() => this.filterFunction('Pig')}>Pig</Chip>
-                    </View>
-                    <Text>Colour:</Text>
-                    <View style={{flexDirection: 'row' }}>
-                      <Chip icon="information" onPress={() => this.filterFunction('Dog')}>Dog</Chip>
-                      <Chip icon="information" onPress={() => this.filterFunction('Dog')}>Fish</Chip>
-                      <Chip icon="information" onPress={() => this.filterFunction('Dog')}>Lizard</Chip>
-                    </View>
-                    <View style={{flexDirection: 'row' }}>
-                      <Chip icon="information" onPress={() => this.filterFunction('Dog')}>Cat</Chip>
-                      <Chip icon="information" onPress={() => this.filterFunction('Dog')}>Bird</Chip>
-                      <Chip icon="information" onPress={() => this.filterFunction('Dog')}>Turtle</Chip>
-                    </View>
-                    <View style={{flexDirection: 'row' }}>
-                      <Chip icon="information" onPress={() => this.filterFunction('Dog')}>Rabbit</Chip>
-                      <Chip icon="information" onPress={() => this.filterFunction('Dog')}>Horse</Chip>
-                      <Chip icon="information" onPress={() => this.filterFunction('Dog')}>Pig</Chip>
-                    </View>
-                    <Text>Location:</Text>
-                    <View style={{flexDirection: 'row' }}>
-                      <Chip icon="information" onPress={() => this.filterFunction('Dog')}>Dog</Chip>
-                      <Chip icon="information" onPress={() => this.filterFunction('Dog')}>Fish</Chip>
-                      <Chip icon="information" onPress={() => this.filterFunction('Dog')}>Lizard</Chip>
-                    </View>
-                    <View style={{flexDirection: 'row' }}>
-                      <Chip icon="information" onPress={() => this.filterFunction('Dog')}>Cat</Chip>
-                      <Chip icon="information" onPress={() => this.filterFunction('Dog')}>Bird</Chip>
-                      <Chip icon="information" onPress={() => this.filterFunction('Dog')}>Turtle</Chip>
-                    </View>
-                    <View style={{flexDirection: 'row' }}>
-                      <Chip icon="information" onPress={() => this.filterFunction('Dog')}>Rabbit</Chip>
-                      <Chip icon="information" onPress={() => this.filterFunction('Dog')}>Horse</Chip>
-                      <Chip icon="information" onPress={() => this.filterFunction('Dog')}>Pig</Chip>
-                    </View>
-                  </Card.Content>
-                </Card>
-              </Modal>
+          <Modal
+              style={{ backgroundColor: "transparent",}}
+              visible={this.state.visible}
+              onDismiss={() => {
+              this.setState({ visible: false });
+              }}
+            >
+            <Card elevation={5} style={{ margin: 10 }}>
+              <Card.Content>
+                <Text>Animal:</Text>
+                <View style={{flexDirection: 'row' }}>
+                  <Checkbox.Item
+                    label="Dog"
+                    status={this.state.dogCheck ? 'checked' : 'unchecked'}
+                    onPress={() => {
+                    this.checkFunction('dogCheck');
+                    }}
+                  />      
+                  <Checkbox.Item
+                    label="Fish"
+                    status={this.state.fishCheck ? 'checked' : 'unchecked'}
+                    onPress={() => {
+                    this.checkFunction('fishCheck');
+                    }}
+                  /> 
+                  <Checkbox.Item
+                    label="Lizard"
+                    status={this.state.lizardCheck ? 'checked' : 'unchecked'}
+                    onPress={() => {
+                    this.checkFunction('lizardCheck');
+                    }}
+                  />     
+                </View>
+                <View style={{flexDirection: 'row' }}>
+                  <Checkbox.Item
+                    label="Cat"
+                    status={this.state.catCheck ? 'checked' : 'unchecked'}
+                    onPress={() => {
+                    this.checkFunction('catCheck');
+                    }}
+                  />      
+                  <Checkbox.Item
+                    label="Bird"
+                    status={this.state.birdCheck ? 'checked' : 'unchecked'}
+                    onPress={() => {
+                    this.checkFunction('birdCheck');
+                    }}
+                  /> 
+                  <Checkbox.Item
+                    label="Turtle"
+                    status={this.state.turtleCheck ? 'checked' : 'unchecked'}
+                    onPress={() => {
+                    this.checkFunction('turtleCheck');
+                    }}
+                  />   
+                </View>
+                <View style={{flexDirection: 'row' }}>
+                  <Checkbox.Item
+                    label="Rabbit"
+                    status={this.state.rabbitCheck ? 'checked' : 'unchecked'}
+                    onPress={() => {
+                    this.checkFunction('rabbitCheck');
+                    }}
+                  />      
+                  <Checkbox.Item
+                    label="Horse"
+                    status={this.state.horseCheck ? 'checked' : 'unchecked'}
+                    onPress={() => {
+                    this.checkFunction('horseCheck');
+                    }}
+                  /> 
+                  <Checkbox.Item
+                    label="Pig"
+                    status={this.state.pigCheck ? 'checked' : 'unchecked'}
+                    onPress={() => {
+                    this.checkFunction('pigCheck');
+                    }}
+                  />   
+                </View>                   
+              </Card.Content>
+              <Card.Actions style={{justifyContent: "flex-end"}}>
+                <Button onPress={() => {
+                    this.displayFunction();
+                    this.setState({ visible: false });
+                    }}>
+                  Done
+                </Button>
+              </Card.Actions>
+            </Card>
+          </Modal>
               </Portal>
+              {this.state.filterDisplay ?
+
+               <FlatList
+                showsVerticalScrollIndicator={false}
+                renderItem={({ item }) => (
+                  <Card elevation={5} style={styles.card}>
+                    <Card.Cover source={item.photo} />
+                    <Card.Title
+                      title={item.title}
+                      subtitle={item.name}
+                      left={(props) => (
+                        <Avatar.Image
+                          {...props}
+                          size={40}
+                          source={item.photo}
+                        />
+                      )}
+                    />
+                    <Card.Content>
+                      <Text style={styles.cardContentText}>
+                        Age: {item.age}
+                      </Text>
+                      <Text style={styles.cardContentText}>
+                        Gender: {item.gender}
+                      </Text>
+                      <Text style={styles.cardContentText}>
+                        Location: {item.location}
+                      </Text>
+                    </Card.Content>
+                    <Card.Actions>
+                      <Button color="#447ECB" onPress={() => {}}>
+                        More info
+                      </Button>
+                    </Card.Actions>
+                  </Card>
+                )}
+                keyExtractor={(item, index) => index.toString()}
+                data={
+                  this.state.filteredData &&
+                  this.state.filteredData.length > 0
+                    ? this.state.filteredData
+                    : this.state.data
+                }
+                /> :
+          <View style={styles.container}>
           {this.state.searchText == ''? 
           <View style={styles.container}>
           <View style={styles.categories}>
@@ -385,11 +591,13 @@ export default class petBuy1Dog extends React.Component {
             ? this.state.filteredData
             : this.state.data
         }
-      />
+      />      
     }
-      </View>
-          
-    }
+    </View>
+  }
+  </View>
+}
+
           </View>
         </ScrollView>
         </Provider>
@@ -473,5 +681,10 @@ const styles = StyleSheet.create({
   },
   cardContentText: {
     fontWeight: "bold",
+  },
+  activityContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });

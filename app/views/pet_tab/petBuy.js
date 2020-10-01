@@ -13,6 +13,7 @@ import { Avatar, Card, Button, Searchbar,   ActivityIndicator,  Modal, Chip,  Pr
 import { db } from "../database/firebase";
 import { Roboto_400Regular, Roboto_700Bold } from "@expo-google-fonts/roboto";
 import { AppLoading } from "expo";
+import * as Font from "expo-font";
 
 let customFonts = {
   Roboto_400Regular,
@@ -45,6 +46,7 @@ export default class petBuy extends React.Component {
   }
 
   async componentDidMount() {
+    this._loadFontsAsync();
     const dataArray = [];
     db.collection("pet_listings")
       .get()
@@ -58,16 +60,25 @@ export default class petBuy extends React.Component {
             .get()
             .then((user_doc) => {
               seller_name = user_doc.data().name;
+              seller_photo = user_doc.data().photo;
             });
-        //   console.log(seller_name);
           dataArray.push({
-            title: listingDoc.data().name,
             name: seller_name,
+            avatarPhoto: seller_photo,
+            title: listingDoc.data().name,
             category: listingDoc.data().category,
-            photo: listingDoc.data().photo_link,
+            breed: listingDoc.data().breed,
+            colour: listingDoc.data().colour,
             age: listingDoc.data().age,
-            location: listingDoc.data().location,
             gender: listingDoc.data().gender,
+            size: listingDoc.data().size,
+            location: listingDoc.data().location,
+            price: listingDoc.data().price,
+            behaviour: listingDoc.data().behaviour,
+            health: listingDoc.data().health,
+            training: listingDoc.data().training,
+            additional: listingDoc.data().additionalInfo,
+            photo: listingDoc.data().photo_link,
           });
           this.setState({
             isLoading: false,
@@ -95,7 +106,6 @@ export default class petBuy extends React.Component {
       case 'catCheck':
         this.setState({catCheck: !this.state.catCheck});
         break;
-
       case 'rabbitCheck':
         this.setState({rabbitCheck: !this.state.rabbitCheck});
         break;
@@ -108,7 +118,6 @@ export default class petBuy extends React.Component {
       case 'horseCheck':
         this.setState({horseCheck: !this.state.horseCheck});
         break;
-
       case 'lizardCheck':
         this.setState({lizardCheck: !this.state.lizardCheck});
         break;
@@ -124,27 +133,76 @@ export default class petBuy extends React.Component {
   }
 
   displayFunction = () => {
+    let listData = [];
     if (this.state.dogCheck) {
       this.setState({filterDisplay: true});
       let filteredData = this.state.data.filter(function (item) {
         return item.category.includes("dog");
       });
-      this.setState({ filteredData: filteredData });
-    } else if (this.state.catCheck) {
+      listData = listData.concat(filteredData);
+    } 
+    if (this.state.catCheck) {
       this.setState({filterDisplay: true});
       let filteredData = this.state.data.filter(function (item) {
         return item.category.includes("cat");
       });
-      this.setState({ filteredData: filteredData });
-    } else if (this.state.birdCheck) {
+      listData = listData.concat(filteredData);
+    } 
+    if (this.state.rabbitCheck) {
+      this.setState({filterDisplay: true});
+      let filteredData = this.state.data.filter(function (item) {
+        return item.category.includes("rabbit");
+      });
+      listData = listData.concat(filteredData);
+    } 
+    if (this.state.fishCheck) {
+      this.setState({filterDisplay: true});
+      let filteredData = this.state.data.filter(function (item) {
+        return item.category.includes("fish");
+      });
+      listData = listData.concat(filteredData);
+    } 
+    if (this.state.birdCheck) {
       this.setState({filterDisplay: true});
       let filteredData = this.state.data.filter(function (item) {
         return item.category.includes("bird");
       });
-      this.setState({ filteredData: filteredData });
-    } else {
+      listData = listData.concat(filteredData);
+    } 
+    if (this.state.horseCheck) {
+      this.setState({filterDisplay: true});
+      let filteredData = this.state.data.filter(function (item) {
+        return item.category.includes("horse");
+      });
+      listData = listData.concat(filteredData);
+    } 
+    if (this.state.lizardCheck) {
+      this.setState({filterDisplay: true});
+      let filteredData = this.state.data.filter(function (item) {
+        return item.category.includes("lizard");
+      });
+      listData = listData.concat(filteredData);
+    } 
+    if (this.state.turtleCheck) {
+      this.setState({filterDisplay: true});
+      let filteredData = this.state.data.filter(function (item) {
+        return item.category.includes("turtle");
+      });
+      listData = listData.concat(filteredData);
+    } 
+    if (this.state.pigCheck) {
+      this.setState({filterDisplay: true});
+      let filteredData = this.state.data.filter(function (item) {
+        return item.category.includes("pig");
+      });
+      listData = listData.concat(filteredData);
+    } 
+
+    if (!this.state.dogCheck && !this.state.catCheck && !this.state.birdCheck) {
       this.setState({filterDisplay: false});
     }
+    console.log(listData);
+    this.setState({ filteredData: listData });
   }
 
     render() {
@@ -165,7 +223,6 @@ export default class petBuy extends React.Component {
               <TouchableOpacity
                 style={{
                   backgroundColor: "#d7e5f7",
-                  // backgroundColor: Platform.OS === "web" ? 'grey' :'white',
                   flex: 1,
                   justifyContent: "center",
                   alignItems: "center",
@@ -234,12 +291,12 @@ export default class petBuy extends React.Component {
             <Portal>
 
             <Modal
-            style={{ backgroundColor: "transparent",}}
-            visible={this.state.visible}
-            onDismiss={() => {
-            this.setState({ visible: false });
-            }}
-        >
+              style={{ backgroundColor: "transparent",}}
+              visible={this.state.visible}
+              onDismiss={() => {
+              this.setState({ visible: false });
+              }}
+            >
             <Card elevation={5} style={{ margin: 10 }}>
               <Card.Content>
                 <Text>Animal:</Text>
