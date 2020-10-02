@@ -31,36 +31,7 @@ import * as firebase from "firebase/app";
 import "firebase/storage";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 
-// import { validationService } from "./service";
-
 export default class petSell1 extends React.Component {
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     inputs: {
-  //       name: {
-  //         type: "name",
-  //         value: "",
-  //       },
-  //       age: {
-  //         type: "age",
-  //         value: "",
-  //       },
-  //     },
-  //   };
-  //   let isMounted = true;
-
-  //   this.onInputChange = validationService.onInputChange.bind(this);
-  // }
-
-  // renderError(id) {
-  //   const { inputs } = this.state;
-  //   if (inputs[id].errorLabel) {
-  //     return <Text style={styles.error}>{inputs[id].errorLabel}</Text>;
-  //   }
-  //   return null;
-  // }
-
   state = {
     name: "",
     category: "",
