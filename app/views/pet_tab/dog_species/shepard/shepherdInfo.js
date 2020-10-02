@@ -67,12 +67,6 @@ export default class shepherdInfo extends React.Component {
                             <Text style={{ textAlign: "center" }}> Sell </Text>
                         </TouchableOpacity>
                     </View>
-                    <Searchbar
-                        style={styles.searchBar}
-                        placeholder="Search"
-                        onChangeText={this.searchFunction}
-                        value={this.state.searchText}
-                    />
 
                     <View style={styles.titleContainer}>
                         <Text style={styles.fontTitle}>German Shepard</Text>

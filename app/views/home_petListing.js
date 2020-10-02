@@ -10,11 +10,6 @@ import {
 // import HomeCard from "./home_petListing.js";
 import firebase from "firebase";
 import { Avatar, Button, Card, Title, Paragraph } from "react-native-paper";
-import {
-  useFonts,
-  Roboto_400Regular,
-  Roboto_700Bold,
-} from "@expo-google-fonts/roboto";
 
 const db = firebase.firestore();
 

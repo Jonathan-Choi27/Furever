@@ -9,12 +9,6 @@ import * as Font from "expo-font";
 import firebase from "firebase";
 import HomeNav from "./homeNav"
 
-import {
-  useFonts,
-  Roboto_400Regular,
-  Roboto_700Bold,
-} from "@expo-google-fonts/roboto";
-
 const db = firebase.firestore();
 let retrieve_data;
 export default class LandingPage extends React.Component {
@@ -25,28 +19,7 @@ export default class LandingPage extends React.Component {
 
 const Tab = createBottomTabNavigator();
 
-// function HomeScreen(props) {
-//   let [fontsLoaded] = useFonts({
-//     Roboto_400Regular,
-//     Roboto_700Bold,
-//   });
-
-//   if (!fontsLoaded) {
-//     return <AppLoading />;
-//   }
-
-//   return <HomeListing />;
-// }
-
 function ShopScreen() {
-  let [fontsLoaded] = useFonts({
-    Roboto_400Regular,
-  });
-
-  if (!fontsLoaded) {
-    return <AppLoading />;
-  }
-
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       <Text>Shop Screen!</Text>
@@ -55,14 +28,6 @@ function ShopScreen() {
 }
 
 function ProfileScreen() {
-  let [fontsLoaded] = useFonts({
-    Roboto_400Regular,
-  });
-
-  if (!fontsLoaded) {
-    return <AppLoading />;
-  }
-
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       <Text>Profile Page Screen!</Text>
@@ -71,14 +36,6 @@ function ProfileScreen() {
 }
 
 function MyTabs(props) {
-  let [fontsLoaded] = useFonts({
-    Roboto_400Regular,
-  });
-
-  if (!fontsLoaded) {
-    return <AppLoading />;
-  }
-
   return (
     <NavigationContainer independent={true}>
       <Tab.Navigator
@@ -126,11 +83,9 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 20,
-    fontFamily: "Roboto_400Regular",
   },
   middleText: {
     fontSize: 20,
     color: "#787878",
-    fontFamily: "Roboto_400Regular",
   },
 });

@@ -18,14 +18,9 @@ import {
   Paragraph,
 } from "react-native-paper";
 import { db } from "../../../database/firebase";
-import { Roboto_400Regular, Roboto_700Bold } from "@expo-google-fonts/roboto";
 import { AppLoading } from "expo";
 import * as Font from "expo-font";
 
-let customFonts = {
-  Roboto_400Regular,
-  Roboto_700Bold,
-};
 export default class shepherdList extends React.Component {
   state = {
     data: [],
@@ -33,16 +28,9 @@ export default class shepherdList extends React.Component {
     filteredData: [],
     searchText: "",
     visible: false,
-    fontsLoaded: false,
   };
 
-  async _loadFontsAsync() {
-    await Font.loadAsync(customFonts);
-    this.setState({ fontsLoaded: true });
-  }
-
   async componentDidMount() {
-    this._loadFontsAsync();
     const dataArray = [];
     db.collection("pet_listings")
       .where("breed", "==", "German Shepherd")
@@ -60,7 +48,6 @@ export default class shepherdList extends React.Component {
               seller_name = user_doc.data().name;
               seller_photo = user_doc.data().photo;
             });
-          console.log(seller_name);
           dataArray.push({
             name: seller_name,
             avatarPhoto: seller_photo,
@@ -99,14 +86,6 @@ export default class shepherdList extends React.Component {
   };
 
   render() {
-    if (this.state.isLoading) {
-      return (
-        <View style={styles.activityContainer}>
-          <ActivityIndicator size="large" color="#447ECB" />
-        </View>
-      );
-    }
-    if (this.state.fontsLoaded) {
       return (
         <Provider>
           <View style={styles.container}>
@@ -121,7 +100,7 @@ export default class shepherdList extends React.Component {
                 }}
                 onPress={() => this.props.navigation.replace("petBuy")}
               >
-                <Text style={{ fontFamily: "Roboto_400Regular" }}>Buy</Text>
+                <Text>Buy</Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={{
@@ -136,7 +115,6 @@ export default class shepherdList extends React.Component {
                 <Text
                   style={{
                     textAlign: "center",
-                    fontFamily: "Roboto_400Regular",
                   }}
                 >
                   {" "}
@@ -167,11 +145,10 @@ export default class shepherdList extends React.Component {
                     }}
                   />
                   <Card.Title
-                    style={{ fontFamily: "Roboto_400Regular" }}
                     title="German Shepherd"
                   />
                   <Card.Content>
-                    <Paragraph style={{ fontFamily: "Roboto_400Regular" }}>
+                    <Paragraph >
                       The German shepherd dog is a herding breed known for its
                       courage, loyalty and guarding instincts. This breed makes
                       an excellent guard dog, police dog, military dog, guide
@@ -196,7 +173,6 @@ export default class shepherdList extends React.Component {
             <View style={styles.titleContainer}>
               <Text style={styles.title}>German Shepherd</Text>
               <Button
-                labelStyle={{ fontFamily: "Roboto_400Regular" }}
                 color="#447ECB"
                 onPress={() => {
                   this.setState({ visible: true });
@@ -217,10 +193,8 @@ export default class shepherdList extends React.Component {
                       }}
                     />
                     <Card.Title
-                      titleStyle={{ fontFamily: "Roboto_400Regular" }}
                       title={item.title}
                       subtitle={item.name}
-                      subtitleStyle={{ fontFamily: "Roboto_400Regular" }}
                       left={(props) => (
                         <Avatar.Image
                           {...props}
@@ -268,9 +242,6 @@ export default class shepherdList extends React.Component {
           </View>
         </Provider>
       );
-    } else {
-      return <AppLoading />;
-    }
   }
 }
 
@@ -305,7 +276,6 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 20,
     marginRight: 25,
-    fontFamily: "Roboto_400Regular",
   },
   cardContainer: {
     flex: 2,
@@ -317,6 +287,5 @@ const styles = StyleSheet.create({
     width: 340,
   },
   cardContentText: {
-    fontFamily: "Roboto_700Bold",
   },
 });
