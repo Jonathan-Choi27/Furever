@@ -16,8 +16,8 @@
     "expo-font": "^8.3.0",
     "expo-image-picker": "8.3.0",
     "firebase": "7.9.0",
-    "react": "^16.4.2",
-    "react-dom": "^16.4.2",
+    "react": "^16.13.1",
+    "react-dom": "~16.11.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-38.0.2.tar.gz",
     "react-native-elements": "^2.3.2",
     "react-native-gesture-handler": "~1.6.0",
@@ -41,16 +41,14 @@
     "validate.js": "^0.13.1"
   },
   "devDependencies": {
-    "@babel/core": "7.9.0",
-    "jest": "^26.4.2"
+    "@babel/core": "7.9.0"
   },
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo web",
-    "eject": "expo eject",
-    "test": "jest"
+    "eject": "expo eject"
   },
   "rnpm": {
     "assets": [
