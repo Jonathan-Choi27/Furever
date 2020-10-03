@@ -229,7 +229,9 @@ export default class petBuy extends React.Component {
                 }}
                 onPress={() =>
                   this.props.navigation.replace("petBuy")
-                }></TouchableOpacity>
+                }>
+                    <Text>Buy</Text>
+                </TouchableOpacity>
               <TouchableOpacity
                 style={{
                   backgroundColor: "white",
