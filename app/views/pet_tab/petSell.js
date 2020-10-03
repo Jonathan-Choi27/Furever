@@ -25,9 +25,10 @@ export default class petSell extends React.Component {
     data: [],
     lists: null,
     isLoading: true,
+    pullToRefresh: false,
   };
 
-  async componentDidMount() {
+async fetchData() {
     const dataArray = [];
     const user = auth.currentUser;
 
@@ -61,6 +62,9 @@ export default class petSell extends React.Component {
           });
         });
       });
+}
+  async componentDidMount() {
+    this.fetchData();
   }
 
   render() {
@@ -134,6 +138,16 @@ export default class petSell extends React.Component {
         <View style={styles.cardContainer}>
           <FlatList
             showsVerticalScrollIndicator={false}
+            onRefresh={async () => {
+                this.setState({
+                  pullToRefresh: true,
+                });
+                await this.fetchData();
+                this.setState({
+                  pullToRefresh: false,
+                });
+              }}
+              refreshing={this.state.pullToRefresh}
             data={this.state.data}
             renderItem={({ item }) => (
               <SelfPetListing
@@ -155,7 +169,7 @@ export default class petSell extends React.Component {
                 navigation={this.props.navigation}
               />
             )}
-            keyExtractor={(item) => item.id}
+            keyExtractor={(item, index) => index.toString()}
           />
         </View>
       </View>

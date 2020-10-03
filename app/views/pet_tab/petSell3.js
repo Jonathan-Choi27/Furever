@@ -15,7 +15,7 @@ import "react-navigation"
 import "react-navigation-props-mapper"
 import "@react-navigation/native"
 import 'react-navigation-hooks'
-
+console.disableYellowBox = true;
 // title: listingDoc.data().name,
 // category: listingDoc.data().category,
 // breed: listingDoc.data().breed,

@@ -96,6 +96,7 @@ export default class HomeListing extends React.Component {
             pullToRefresh: false,
           });
         }}
+        keyExtractor={(item, index) => index.toString()}
         refreshing={this.state.pullToRefresh}
         renderItem={({ item }) => (
           <View style={styles.card}>
