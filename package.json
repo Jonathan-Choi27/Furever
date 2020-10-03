@@ -31,14 +31,13 @@
     "react-native-svg": "12.1.0",
     "react-native-tab-view": "^2.15.1",
     "react-native-uuid": "^1.4.9",
-    "react-native-vector-icons": "7.1.0",
+    "react-native-vector-icons": "^7.1.0",
     "react-native-web": "0.11.7",
     "react-navigation": "^4.4.1",
     "react-navigation-hooks": "^1.1.0",
     "react-navigation-props-mapper": "^1.0.4",
     "react-router": "^5.2.0",
-    "safe-buffer": "^5.2.1",
-    "validate.js": "^0.13.1"
+    "safe-buffer": "^5.2.1"
   },
   "devDependencies": {
     "@babel/core": "7.9.0"
