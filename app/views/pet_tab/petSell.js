@@ -12,7 +12,6 @@ import {
   Dimensions,
   Image,
 } from "react-native";
-import { useFonts, Roboto_400Regular } from "@expo-google-fonts/roboto";
 import { SearchBar } from "react-native-elements";
 import firebase from "firebase";
 import { AppLoading } from "expo";
@@ -84,7 +83,7 @@ export default class petSell extends React.Component {
               height: 50,
             }}
             onPress={() => this.props.navigation.replace("petBuy")}>
-            <Text style={{ fontFamily: "Roboto_400Regular" }}>Buy</Text>
+            <Text>Buy</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={{
@@ -98,7 +97,6 @@ export default class petSell extends React.Component {
             <Text
               style={{
                 textAlign: "center",
-                fontFamily: "Roboto_400Regular",
               }}>
               {" "}
               Sell{" "}

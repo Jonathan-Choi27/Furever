@@ -10,7 +10,6 @@ import {
 } from "react-native";
 import { Avatar, Card, Button, Searchbar } from "react-native-paper";
 import { db } from "../database/firebase";
-import { useFonts, Roboto_400Regular } from "@expo-google-fonts/roboto";
 import { auth } from "../database/firebase";
 
 export default class petBuy7 extends React.Component {
@@ -81,7 +80,7 @@ export default class petBuy7 extends React.Component {
               }}
               onPress={() => this.props.navigation.replace("petBuy")}
             >
-              <Text style={{ fontFamily: " Roboto_400Regular" }}>Buy</Text>
+              <Text>Buy</Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={{
@@ -94,7 +93,7 @@ export default class petBuy7 extends React.Component {
               onPress={() => this.props.navigation.replace("petSell")}
             >
               <Text
-                style={{ textAlign: "center", fontFamily: "Roboto_400Regular" }}
+                style={{ textAlign: "center"}}
               >
                 {" "}
                 Sell{" "}
