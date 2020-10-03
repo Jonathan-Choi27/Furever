@@ -15,9 +15,14 @@ const db = firebase.firestore();
 
 const HomeCard = (props) => (
   <View style={styles.card}>
-    <Card elevation={5} styles={styles.card} onPress={() => this.props.navigation.replace("HomePetInfo")}>
+    <Card
+      elevation={5}
+      styles={styles.card}
+      onPress={() => this.props.navigation.replace("HomePetInfo")}>
       <Image source={{ uri: props.photo_uri }} style={styles.image} />
-      <Text numberOfLines={1} style={styles.title}>{props.name}</Text>
+      <Text numberOfLines={1} style={styles.title}>
+        {props.name}
+      </Text>
       <Text numberOfLines={1} style={styles.subtext}>
         <Text>{props.breed}</Text>
         <Text> | </Text>
@@ -31,9 +36,10 @@ export default class HomeListing extends React.Component {
   state = {
     data: [],
     isLoading: true,
+    pullToRefresh: false,
   };
 
-  async componentDidMount() {
+  async fetchData() {
     const dataArray = [];
 
     db.collection("pet_listings")
@@ -63,6 +69,11 @@ export default class HomeListing extends React.Component {
         });
       });
   }
+
+  async componentDidMount() {
+    this.fetchData();
+  }
+
   render() {
     if (this.state.isLoading) {
       return (
@@ -74,13 +85,30 @@ export default class HomeListing extends React.Component {
     return (
       <FlatList
         data={this.state.data}
-        columnWrapperStyle={{justifyContent: 'space-between'}}
+        columnWrapperStyle={{ justifyContent: "space-between" }}
         numColumns={2}
+        onRefresh={async () => {
+          this.setState({
+            pullToRefresh: true,
+          });
+          await this.fetchData();
+          this.setState({
+            pullToRefresh: false,
+          });
+        }}
+        refreshing={this.state.pullToRefresh}
         renderItem={({ item }) => (
           <View style={styles.card}>
-            <Card elevation={5} styles={styles.card} onPress={() => this.props.navigation.navigate("HomePetInfo", {item})}>
+            <Card
+              elevation={5}
+              styles={styles.card}
+              onPress={() =>
+                this.props.navigation.navigate("HomePetInfo", { item })
+              }>
               <Image source={{ uri: item.photo }} style={styles.image} />
-              <Text numberOfLines={1} style={styles.title}>{item.name}</Text>
+              <Text numberOfLines={1} style={styles.title}>
+                {item.name}
+              </Text>
               <Text numberOfLines={1} style={styles.subtext}>
                 <Text>{item.breed}</Text>
                 <Text> | </Text>
