@@ -1,6 +1,7 @@
 import * as React from "react";
 import { StyleSheet, View, Image, Text } from "react-native";
 import { Avatar, Button, Card, Title, Paragraph } from "react-native-paper";
+console.disableYellowBox = true;
 
 // const LeftContent = (props) => <Avatar.Icon {...props} icon="folder" />;
 // https://picsum.photos/700

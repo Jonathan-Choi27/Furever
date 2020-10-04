@@ -69,7 +69,7 @@ export default class shepherdInfo extends React.Component {
                     </View>
 
                     <View style={styles.titleContainer}>
-                        <Text style={styles.fontTitle}>German Shepard</Text>
+                        <Text style={styles.fontTitle}>German Shepherd</Text>
                     </View>
                     
                     <Card containerStyle={styles.cardContainer}>

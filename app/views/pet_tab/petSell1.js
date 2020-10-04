@@ -156,7 +156,8 @@ export default class petSell1 extends React.Component {
     });
 
     if (submit == true) {
-      this.props.navigation.replace("petSell");
+      alert("Application Successful!");
+      this.props.navigation.goBack();
     }
   };
   // aaaaaaaaaa
@@ -268,8 +269,7 @@ export default class petSell1 extends React.Component {
       <SafeAreaView style={styles.container}>
         <ScrollView
           style={styles.scrollView}
-          showsVerticalScrollIndicator={false}
-        >
+          showsVerticalScrollIndicator={false}>
           <Text style={styles.heading}>New Pet Listing Application</Text>
           <Text>
             <Text style={styles.sub_heading}>General Information</Text>
@@ -314,8 +314,8 @@ export default class petSell1 extends React.Component {
               <View style={styles.picker_container}>
                 <Picker
                   style={styles.picker}
-                  onValueChange={(gender) => this.setState({ gender })}
-                >
+                  selectedValue={this.state.gender}
+                  onValueChange={(gender) => this.setState({ gender })}>
                   <Picker.Item
                     label="Select gender"
                     value="0"
