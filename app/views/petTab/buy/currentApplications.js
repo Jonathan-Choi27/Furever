@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   StyleSheet,
   Text,
@@ -12,42 +12,57 @@ import { Avatar, Card, Button, Searchbar } from "react-native-paper";
 import { db } from "../../database/firebase";
 import { auth } from "../../database/firebase";
 
-export default class petBuy7 extends React.Component {
+export default class currentApplications extends React.Component {
   state = {
     data: [],
     isLoading: true,
     filteredData: [],
     searchText: "",
+    listedData: [],
+    uuid: "",
   };
 
   async componentDidMount() {
     const dataArray = [];
-    const user = auth.currentUser;
     db.collection("pet_listings")
       .get()
       .then((doc) => {
         doc.forEach(async (listingDoc) => {
           var uuid = listingDoc.data().uuid;
-          if (uuid != user.uid) {
-            var seller_name;
-            await db
-              .collection("users")
-              .doc(uuid)
-              .get()
-              .then((user_doc) => {
-                seller_name = user_doc.data().name;
-              });
-            dataArray.push({
-              title: listingDoc.data().name,
-              name: seller_name,
-              photo: listingDoc.data().photo_link,
-              age: listingDoc.data().age,
-              location: listingDoc.data().location,
-              gender: listingDoc.data().gender,
-            });
-            this.setState({ isLoading: false, data: [...dataArray] });
-          }
-          
+          var seller_name;
+          var seller_photo;
+          await db
+            .collection("users")
+            .doc(uuid)
+            .get()
+            .then((user_doc) => {
+              seller_name = user_doc.data().name;
+              seller_photo = user_doc.data().photo;
+            })
+            .catch((erro) => {});
+          dataArray.push({
+            uuid: uuid,
+            name: seller_name,
+            avatarPhoto: seller_photo,
+            title: listingDoc.data().name,
+            category: listingDoc.data().category,
+            breed: listingDoc.data().breed,
+            colour: listingDoc.data().colour,
+            age: listingDoc.data().age,
+            gender: listingDoc.data().gender,
+            size: listingDoc.data().size,
+            location: listingDoc.data().location,
+            price: listingDoc.data().price,
+            behaviour: listingDoc.data().behaviour,
+            health: listingDoc.data().health,
+            training: listingDoc.data().training,
+            additional: listingDoc.data().additionalInfo,
+            photo: listingDoc.data().photo_link,
+          });
+          this.setState({
+            isLoading: false,
+            data: [...dataArray],
+          });
         });
       });
   }
@@ -60,11 +75,22 @@ export default class petBuy7 extends React.Component {
     });
 
     this.setState({ filteredData: filteredData });
-    console.log(filteredData[0]);
   };
+
+
+  // listedDataSearch = (uuid) => {
+  //   this.setState({ uuid: uuid });
+
+  //   let filteredData = this.state.data.filter(function (item) {
+  //     return item.uuid.includes(uuid);
+  //   });
+
+  //   this.setState({ filteredData: filteredData });
+  // };
 
   render() {
     const { search } = this.state;
+    // this.listedDataSearch(auth.getuuid);
     return (
       <ScrollView>
         <View style={styles.container}>
@@ -127,20 +153,21 @@ export default class petBuy7 extends React.Component {
                     // flex: 1,
                     justifyContent: "center",
                     alignItems: "center",
-                    height: 100,
+                    height: 50,
                     width: 300,
                     borderRadius: 5,
+                    marginBottom: 10,
                 }}>
                     <Text style={{textAlign: 'center', padding: 5,}}>No applications have been made yet.</Text>
-                    <Text style={{textAlign: 'center', padding: 5,}}>Try considering:</Text>
-
                 </View>
+                <Text style={{textAlign: 'center', padding: 5,}}>Try considering:</Text>
+
               <View style={styles.container}>
                 <FlatList
                   showsVerticalScrollIndicator={false}
                   renderItem={({ item }) => (
                     <Card elevation={5} style={styles.card}>
-                      <Card.Cover source={item.photo} />
+                      <Card.Cover source={ {uri: item.photo}} />
                       <Card.Title
                         title={item.title}
                         subtitle={item.name}
@@ -148,7 +175,7 @@ export default class petBuy7 extends React.Component {
                           <Avatar.Image
                             {...props}
                             size={40}
-                            source={item.photo}
+                            source={{uri: item.photo}}
                           />
                         )}
                       />
@@ -172,9 +199,9 @@ export default class petBuy7 extends React.Component {
                   )}
                   keyExtractor={(item, index) => index.toString()}
                   data={
-                    this.state.filteredData &&
-                    this.state.filteredData.length > 0
-                      ? this.state.filteredData
+                    this.state.listedData &&
+                    this.state.listedData.length > 0
+                      ? this.state.listedData
                       : this.state.data
                   }
                 />
@@ -191,7 +218,7 @@ export default class petBuy7 extends React.Component {
                   showsVerticalScrollIndicator={false}
                   renderItem={({ item }) => (
                     <Card elevation={5} style={styles.card}>
-                      <Card.Cover source={item.photo} />
+                      <Card.Cover source={{uri: item.photo}} />
                       <Card.Title
                         title={item.title}
                         subtitle={item.name}
@@ -199,7 +226,7 @@ export default class petBuy7 extends React.Component {
                           <Avatar.Image
                             {...props}
                             size={40}
-                            source={item.photo}
+                            source={{uri: item.photo}}
                           />
                         )}
                       />

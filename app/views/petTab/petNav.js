@@ -1,19 +1,5 @@
-import React, { useState } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-  Modal,
-  TouchableHighlight,
-  FlatList,
-  ActivityIndicator,
-  Platform,
-  Dimensions,
-  Image,
-} from "react-native";
-import { SearchBar } from "react-native-elements";
-import { max } from "react-native-reanimated";
+import React, { useState, useEffect} from "react";
+import {StyleSheet,  BackHandler, Alert} from "react-native";
 import petBreeds from "./buy/petBreeds";
 import petCategories from "./buy/petCategories";
 import currentApplications from "./buy/currentApplications";
@@ -31,8 +17,26 @@ import petProfile from "./sell/petProfile";
 
 const Stack = createStackNavigator();
 
+
 export default function PetNav() {
+  
+  useEffect(() => {
+    const backAction = () => {
+      onPress: () => null;      
+      // onPress: () => BackHandler.exitApp();
+      return true;
+    };
+
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      backAction
+    );
+
+    return () => backHandler.remove();
+  }, []);
+  
   return (
+    
     <NavigationContainer independent={true}>
       <Stack.Navigator>
         <Stack.Screen name="petCategories" component={petCategories} />
