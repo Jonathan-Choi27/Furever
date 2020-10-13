@@ -128,7 +128,8 @@ export default class shepherdListInfo extends React.Component {
                   alignItems: "center",
                   height: 50,
                 }}
-                onPress={() => this.props.navigation.navigate("petBuy")}>
+                onPress={() => this.props.navigation.navigate("petBuy")}
+              >
                 <Text>Buy</Text>
               </TouchableOpacity>
               <TouchableOpacity
@@ -139,7 +140,8 @@ export default class shepherdListInfo extends React.Component {
                   alignItems: "center",
                   height: 50,
                 }}
-                onPress={() => this.props.navigation.navigate("petSell")}>
+                onPress={() => this.props.navigation.navigate("petSell")}
+              >
                 <Text style={{ textAlign: "center" }}> Sell </Text>
               </TouchableOpacity>
             </View>
@@ -175,7 +177,8 @@ export default class shepherdListInfo extends React.Component {
                     paddingLeft: 15,
                     paddingRight: 10,
                     width: textWidth,
-                  }}>
+                  }}
+                >
                   <Text>
                     <Text style={{ fontWeight: "bold" }}>Name:</Text>{" "}
                     <Text>{item.title}</Text>
@@ -216,35 +219,6 @@ export default class shepherdListInfo extends React.Component {
 
         <View style={styles.formContainer}>
           <Text style={styles.sub_heading}>Personal Information</Text>
-
-          <View style={styles.inputContainer}>
-            <View style={{ flexDirection: "row" }}>
-              <View style={{ flex: 1 }}>
-                <Text style={styles.inputName}>Name</Text>
-              </View>
-              {!this.state.valid_name && (
-                <View style={{ flex: 1 }}>
-                  <Text style={styles.errorText}>Invalid name</Text>
-                </View>
-              )}
-            </View>
-            <TextInput
-              mode="outlined"
-              theme={{ colors: { primary: "#447ECB" } }}
-              style={styles.smallInputBox}
-              onChangeText={(name) =>
-                this.setState({
-                  name: name,
-                })
-              }
-              onBlur={() => {
-                var bool = this.name_regex(this.state.name);
-                this.setState({
-                  valid_name: bool,
-                });
-              }}
-            />
-          </View>
 
           <View style={styles.inputContainer}>
             <Text style={styles.inputName}>Age</Text>
@@ -422,7 +396,8 @@ export default class shepherdListInfo extends React.Component {
               flexDirection: "row",
               alignItems: "center",
               justifyContent: "center",
-            }}>
+            }}
+          >
             <Button
               style={{
                 //   paddingVertical : 25,
@@ -430,11 +405,13 @@ export default class shepherdListInfo extends React.Component {
                 marginBottom: 25,
                 backgroundColor: "#447ECB",
               }}
-              onPress={this.handleSubmit}>
+              onPress={this.handleSubmit}
+            >
               <Text
                 style={{
                   color: "white",
-                }}>
+                }}
+              >
                 Submit
               </Text>
             </Button>
@@ -532,7 +509,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
   },
   sub_heading: {
-    fontSize:16,
+    fontSize: 16,
     fontWeight: "bold",
     borderBottomWidth: 1,
     borderBottomColor: "#707070",

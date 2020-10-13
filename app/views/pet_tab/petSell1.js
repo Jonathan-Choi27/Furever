@@ -18,11 +18,11 @@ import {
   openDocumentPicker,
   uploadDocument,
 } from "../components/DocumentUpload";
-import {
-  useFonts,
-  Roboto_400Regular,
-  Roboto_700Bold,
-} from "@expo-google-fonts/roboto";
+// import {
+//   useFonts,
+//   Roboto_400Regular,
+//   Roboto_700Bold,
+// } from "@expo-google-fonts/roboto";
 import * as Font from "expo-font";
 import { openImagePicker, uploadPhoto } from "../components/ImageUpload";
 import CategorySelection from "./pet_sell_1_categorySelection";
@@ -37,7 +37,7 @@ export default class petSell1 extends React.Component {
     category: "",
     breed: "",
     colour: "",
-    age: "",
+    age: 0,
     gender: "",
     location: "",
     price: "",
@@ -53,6 +53,14 @@ export default class petSell1 extends React.Component {
     documents_uri: "",
     seller_name: "",
     size: "",
+    valid_name: true,
+    valid_age: true,
+    valid_location: true,
+    valid_price: true,
+    valid_behaviour: true,
+    valid_health: true,
+    valid_training: true,
+    valid_additionalInfo: true,
   };
 
   componentDidMount() {
@@ -207,66 +215,37 @@ export default class petSell1 extends React.Component {
     });
   };
 
-  checkInput = (val) => {
-    // let re = /[!@#$%^&*(),.?":{}|<>]/;
-    if (!/\d+/g.test(val)) {
+  name_regex = (name) => {
+    if (name === "" || /\d+/g.test(name)) {
       return false;
+    } else {
+      return true;
     }
-    return true;
   };
 
-  renderError(val) {
-    if (val === "name") {
-      if (this.state["name"] === "") {
-        return <Text style={styles.error}>Name cannot be blank</Text>;
-      }
-      if (/\d+/g.test(this.state["name"])) {
-        return <Text style={styles.error}>Name must not contain numbers</Text>;
-      }
-    } else if (val === "age") {
-      if (this.state["age"] === "") {
-        return <Text style={styles.error}>Age cannot be blank</Text>;
-      } else if (!/^[0-9\b]+$/.test(this.state["age"])) {
-        return <Text style={styles.error}>Age must not contain letters</Text>;
-      }
-    } else if (val === "location") {
-      if (this.state["location"] === "") {
-        return <Text style={styles.error}>Location cannot be blank</Text>;
-      }
-    } else if (val === "price") {
-      if (this.state["price"] === "") {
-        return <Text style={styles.error}>Price cannot be blank</Text>;
-      } else if (!/^[0-9\b]+$/.test(this.state["price"])) {
-        return <Text style={styles.error}>Price must not contain letters</Text>;
-      }
-    } else if (val === "behaviour") {
-      if (this.state["behaviour"] === "") {
-        return <Text style={styles.error}>Behaviour cannot be blank</Text>;
-      }
-    } else if (val === "health") {
-      if (this.state["health"] === "") {
-        return (
-          <Text style={styles.error}>
-            Care, Health and Feeding cannot be blank
-          </Text>
-        );
-      }
-    } else if (val === "training") {
-      if (this.state["training"] === "") {
-        return <Text style={styles.error}>Training cannot be blank</Text>;
-      }
-    } else if (val === "additionalInfo") {
-      if (this.state["additionalInfo"] === "") {
-        return (
-          <Text style={styles.error}>
-            Additional information cannot be blank
-          </Text>
-        );
-      }
+  age_regex = (age) => {
+    if (!/^\d+$/.test(age) || age === "") {
+      return false;
+    } else {
+      return true;
     }
+  };
 
-    return null;
-  }
+  location_regex = (location) => {
+    if (location === "") {
+      return false;
+    } else {
+      return true;
+    }
+  };
+
+  price_regex = (price) => {
+    if (!/^\d+$/.test(price) || price === "") {
+      return false;
+    } else {
+      return true;
+    }
+  };
 
   render() {
     return (
@@ -288,33 +267,58 @@ export default class petSell1 extends React.Component {
           />
           <View style={styles.titleContainer}>
             <View style={styles.rectangle}>
-              <Text>
-                <Text style={styles.titles}>Name</Text>
-              </Text>
-              <TextInput
-                onChangeText={(name) => this.setState({ name })}
-                style={styles.input}
-              />
-              {this.renderError("name")}
-
+              <View style={styles.inputContainer}>
+                <View style={{ flexDirection: "row" }}>
+                  <View style={{ flex: 1 }}>
+                    <Text style={styles.inputName}>Name</Text>
+                  </View>
+                  {!this.state.valid_name && (
+                    <View style={{ flex: 1 }}>
+                      <Text style={styles.errorText}>Invalid name</Text>
+                    </View>
+                  )}
+                </View>
+                <TextInput
+                  style={styles.input}
+                  onChangeText={(name) => this.setState({ name })}
+                  onBlur={() => {
+                    var bool = this.name_regex(this.state.name);
+                    this.setState({
+                      valid_name: bool,
+                    });
+                  }}
+                />
+              </View>
               <CategorySelection
                 category={this.setCategory}
                 breed={this.setBreed}
                 colour={this.setColour}
                 size={this.setSize}
               />
-              <Text>
-                <Text style={styles.titles}>Age</Text>
-                {/* <Text style={styles.setColorRed}> *</Text> */}
-              </Text>
-              <TextInput
-                onChangeText={(age) => this.setState({ age })}
-                style={styles.input}
-              />
-              {this.renderError("age")}
+              <View style={styles.inputContainer}>
+                <View style={{ flexDirection: "row" }}>
+                  <View style={{ flex: 1 }}>
+                    <Text style={styles.inputName}>Age</Text>
+                  </View>
+                  {!this.state.valid_age && (
+                    <View style={{ flex: 1 }}>
+                      <Text style={styles.errorText}>Invalid age</Text>
+                    </View>
+                  )}
+                </View>
+                <TextInput
+                  style={styles.input}
+                  onChangeText={(age) => this.setState({ age })}
+                  onBlur={() => {
+                    var bool = this.age_regex(this.state.age);
+                    this.setState({
+                      valid_age: bool,
+                    });
+                  }}
+                />
+              </View>
               <Text>
                 <Text style={styles.titles}>Gender</Text>
-                {/* <Text style={styles.setColorRed}> *</Text> */}
               </Text>
               <View style={styles.picker_container}>
                 <Picker
@@ -330,70 +334,155 @@ export default class petSell1 extends React.Component {
                   <Picker.Item label="Female" value="Female" />
                 </Picker>
               </View>
-              <Text>
-                <Text style={styles.titles}>Location</Text>
-                {/* <Text style={styles.setColorRed}> *</Text> */}
-              </Text>
-              <TextInput
-                onChangeText={(location) => this.setState({ location })}
-                style={styles.input}
-              />
-              {this.renderError("location")}
-              <Text>
-                <Text style={styles.titles}>Price</Text>
-                {/* <Text style={styles.setColorRed}> *</Text> */}
-              </Text>
-              <TextInput
-                onChangeText={(price) => this.setState({ price })}
-                style={styles.input}
-                // secureTextEntry={true}
-                // width={100}
-                // backgroundColor="white"
-                // height={44}
-                // padding={10}
-                // borderWidth={1}
-                // borderColor="black"
-                // marginBottom={10}
-              />
-              {this.renderError("price")}
-              <Text style={styles.titles}>Behaviour</Text>
-              <TextInput
-                onChangeText={(behaviour) => this.setState({ behaviour })}
-                multiline
-                numberOfLines={4}
-                secureTextEntry={true}
-                style={styles.biginput}
-              />
-              {this.renderError("behaviour")}
-              <Text style={styles.titles}>Care, Health and Feeding</Text>
-              <TextInput
-                onChangeText={(health) => this.setState({ health })}
-                multiline
-                numberOfLines={4}
-                secureTextEntry={true}
-                style={styles.biginput}
-              />
-              {this.renderError("health")}
-              <Text style={styles.titles}>Training</Text>
-              <TextInput
-                onChangeText={(training) => this.setState({ training })}
-                multiline
-                numberOfLines={4}
-                secureTextEntry={true}
-                style={styles.biginput}
-              />
-              {this.renderError("training")}
-              <Text style={styles.titles}>Additional Information</Text>
-              <TextInput
-                onChangeText={(additionalInfo) =>
-                  this.setState({ additionalInfo })
-                }
-                multiline
-                numberOfLines={4}
-                secureTextEntry={true}
-                style={styles.biginput}
-              />
-              {this.renderError("additionalInfo")}
+              <View style={styles.inputContainer}>
+                <View style={{ flexDirection: "row" }}>
+                  <View style={{ flex: 1 }}>
+                    <Text style={styles.inputName}>Location</Text>
+                  </View>
+                  {!this.state.valid_location && (
+                    <View style={{ flex: 1 }}>
+                      <Text style={styles.errorText}>Invalid location</Text>
+                    </View>
+                  )}
+                </View>
+                <TextInput
+                  style={styles.input}
+                  onChangeText={(location) => this.setState({ location })}
+                  onBlur={() => {
+                    var bool = this.location_regex(this.state.location);
+                    this.setState({
+                      valid_location: bool,
+                    });
+                  }}
+                />
+              </View>
+              <View style={styles.inputContainer}>
+                <View style={{ flexDirection: "row" }}>
+                  <View style={{ flex: 1 }}>
+                    <Text style={styles.inputName}>Price</Text>
+                  </View>
+                  {!this.state.valid_price && (
+                    <View style={{ flex: 1 }}>
+                      <Text style={styles.errorText}>Invalid price</Text>
+                    </View>
+                  )}
+                </View>
+                <TextInput
+                  style={styles.input}
+                  onChangeText={(price) => this.setState({ price })}
+                  onBlur={() => {
+                    var bool = this.price_regex(this.state.price);
+                    this.setState({
+                      valid_price: bool,
+                    });
+                  }}
+                />
+              </View>
+              <View style={styles.inputContainer}>
+                <View style={{ flexDirection: "row" }}>
+                  <View style={{ flex: 1 }}>
+                    <Text style={styles.inputName}>Behaviour</Text>
+                  </View>
+                  {!this.state.valid_behaviour && (
+                    <View style={{ flex: 1 }}>
+                      <Text style={styles.errorText}>Invalid behaviour</Text>
+                    </View>
+                  )}
+                </View>
+                <TextInput
+                  multiline
+                  numberOfLines={4}
+                  secureTextEntry={true}
+                  style={styles.biginput}
+                  onChangeText={(behaviour) => this.setState({ behaviour })}
+                  onBlur={() => {
+                    var bool = this.location_regex(this.state.behaviour);
+                    this.setState({
+                      valid_behaviour: bool,
+                    });
+                  }}
+                />
+              </View>
+
+              <View style={styles.inputContainer}>
+                <View style={{ flexDirection: "row" }}>
+                  <View style={{ flex: 1 }}>
+                    <Text style={styles.inputName}>
+                      Care, Health and Feeding
+                    </Text>
+                  </View>
+                  {!this.state.valid_health && (
+                    <View style={{ flex: 1 }}>
+                      <Text style={styles.errorText}>Invalid input</Text>
+                    </View>
+                  )}
+                </View>
+                <TextInput
+                  multiline
+                  numberOfLines={4}
+                  secureTextEntry={true}
+                  style={styles.biginput}
+                  onChangeText={(health) => this.setState({ health })}
+                  onBlur={() => {
+                    var bool = this.location_regex(this.state.health);
+                    this.setState({
+                      valid_health: bool,
+                    });
+                  }}
+                />
+              </View>
+              <View style={styles.inputContainer}>
+                <View style={{ flexDirection: "row" }}>
+                  <View style={{ flex: 1 }}>
+                    <Text style={styles.inputName}>Training</Text>
+                  </View>
+                  {!this.state.valid_training && (
+                    <View style={{ flex: 1 }}>
+                      <Text style={styles.errorText}>Invalid training</Text>
+                    </View>
+                  )}
+                </View>
+                <TextInput
+                  multiline
+                  numberOfLines={4}
+                  secureTextEntry={true}
+                  style={styles.biginput}
+                  onChangeText={(training) => this.setState({ training })}
+                  onBlur={() => {
+                    var bool = this.location_regex(this.state.training);
+                    this.setState({
+                      valid_training: bool,
+                    });
+                  }}
+                />
+              </View>
+              <View style={styles.inputContainer}>
+                <View style={{ flexDirection: "row" }}>
+                  <View style={{ flex: 1 }}>
+                    <Text style={styles.inputName}>Additional Information</Text>
+                  </View>
+                  {!this.state.valid_additionalInfo && (
+                    <View style={{ flex: 1 }}>
+                      <Text style={styles.errorText}>Invalid input</Text>
+                    </View>
+                  )}
+                </View>
+                <TextInput
+                  multiline
+                  numberOfLines={4}
+                  secureTextEntry={true}
+                  style={styles.biginput}
+                  onChangeText={(additionalInfo) =>
+                    this.setState({ additionalInfo })
+                  }
+                  onBlur={() => {
+                    var bool = this.location_regex(this.state.additionalInfo);
+                    this.setState({
+                      valid_additionalInfo: bool,
+                    });
+                  }}
+                />
+              </View>
               <Text style={styles.titles}>Upload a photo</Text>
               <Button title="Choose Photo" onPress={this.setPhotoUri} />
               <Image
@@ -403,42 +492,6 @@ export default class petSell1 extends React.Component {
               />
               <Text style={styles.titles}>Upload Documents</Text>
               <Button title="Choose Document" onPress={this.setDocumentUri} />
-              {/* <TextInput
-                onChangeText={(documents) => this.setState({ documents })}
-                secureTextEntry={true}
-                style={styles.input}
-              /> */}
-
-              {/* <Picker
-                style={styles.picker}
-                onValueChange={(category) => this.setState({ category })}
-              >
-                <Picker.Item label="Select" value="0" />
-                <Picker.Item label="Dog" value="dog" />
-                <Picker.Item label="Cat" value="cat" />
-                <Picker.Item label="Bird" value="bird" />
-                <Picker.Item label="Reptile" value="reptile" />
-                <Picker.Item label="Fish" value="fish" />
-                <Picker.Item label="Exotic" value="exotic" />
-              </Picker>
-              <Text>
-                <Text style={styles.titles}>Animal Breed</Text>
-              </Text>
-              <TextInput
-                onChangeText={(breed) => this.setState({ breed })}
-                style={styles.input}
-              /> */}
-              {/* <Text>
-                <Text style={styles.titles}>Colour</Text>
-              </Text>
-              <Picker style={styles.picker} onValueChange={(category) => {}}>
-                <Picker.Item label="Select" value="0" />
-                <Picker.Item label="Brown" value="dog" />
-                <Picker.Item label="White" value="cat" />
-                <Picker.Item label="Black" value="bird" />
-                <Picker.Item label="Grey" value="reptile" />
-              </Picker> */}
-
               <View style={styles.buttonsContainer}>
                 <TouchableOpacity
                   title={"submit"}
@@ -467,7 +520,7 @@ const styles = StyleSheet.create({
   titles: {
     fontSize: 14,
     // fontWeight: "bold",
-    fontFamily: "Roboto_400Regular",
+    // fontFamily: "Roboto_400Regular",
     color: "#515151",
     paddingVertical: 8,
     // width: 50,
@@ -549,9 +602,13 @@ const styles = StyleSheet.create({
     height: 34,
     marginBottom: 10,
   },
-  error: {
-    marginBottom: 10,
+  errorText: {
     color: "red",
-    fontSize: 12,
+    textAlign: "right",
+    fontSize: 14,
+    fontWeight: "bold",
+  },
+  inputContainer: {
+    marginTop: 10,
   },
 });
