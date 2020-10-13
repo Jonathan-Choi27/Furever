@@ -20,11 +20,11 @@ import {
   Portal,
   Checkbox,
 } from "react-native-paper";
-import { db } from "../database/firebase";
+import { db } from "../../database/firebase";
 import { AppLoading } from "expo";
 import * as Font from "expo-font";
 
-export default class petBuy extends React.Component {
+export default class petCategories extends React.Component {
   state = {
     data: [],
     isLoading: true,
@@ -228,7 +228,7 @@ export default class petBuy extends React.Component {
                   height: 50,
                 }}
                 onPress={() =>
-                  this.props.navigation.replace("petBuy")
+                  this.props.navigation.replace("petCategories")
                 }>
                     <Text>Buy</Text>
                 </TouchableOpacity>
@@ -240,7 +240,7 @@ export default class petBuy extends React.Component {
                   alignItems: "center",
                   height: 50,
                 }}
-                onPress={() => this.props.navigation.replace("petSell")}>
+                onPress={() => this.props.navigation.replace("currentListings")}>
                 <Text> Sell </Text>
               </TouchableOpacity>
             </View>
@@ -427,7 +427,7 @@ export default class petBuy extends React.Component {
                     <View style={styles.categories}>
                       <TouchableOpacity
                         onPress={() =>
-                          this.props.navigation.replace("petBuy1Dog")
+                          this.props.navigation.replace("petBreeds")
                         }>
                         <View style={styles.iconContainer}>
                           <Image

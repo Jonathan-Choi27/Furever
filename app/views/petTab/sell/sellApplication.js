@@ -12,21 +12,21 @@ import {
   Image,
 } from "react-native";
 import { color } from "react-native-reanimated";
-import { db } from "../database/firebase";
+import { db } from "../../database/firebase";
 import uuid from "react-native-uuid";
 import {
   openDocumentPicker,
   uploadDocument,
-} from "../components/DocumentUpload";
+} from "../../components/DocumentUpload";
 import * as Font from "expo-font";
-import { openImagePicker, uploadPhoto } from "../components/ImageUpload";
-import CategorySelection from "./pet_sell_1_categorySelection";
-import { auth } from "../database/firebase";
+import { openImagePicker, uploadPhoto } from "../../components/ImageUpload";
+import CategorySelection from "./sellAppCategories";
+import { auth } from "../../database/firebase";
 import * as firebase from "firebase/app";
 import "firebase/storage";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 
-export default class petSell1 extends React.Component {
+export default class application extends React.Component {
   state = {
     name: "",
     category: "",
@@ -439,7 +439,7 @@ export default class petSell1 extends React.Component {
                   title={"submit"}
                   style={styles.buttons}
                   onPress={this.handleSubmit}
-                  //   onPress={() => this.props.navigation.replace("petSell")}
+                  //   onPress={() => this.props.navigation.replace("currentListings")}
                 >
                   <Text style={styles.buttonsText}>Submit</Text>
                 </TouchableOpacity>

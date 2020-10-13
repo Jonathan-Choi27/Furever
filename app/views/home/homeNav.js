@@ -4,8 +4,8 @@ import {
 } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import HomeListing from "./home_petListing";
-import HomePetInfo from "./home_petInfo";
+import HomeListing from "./homePetListing";
+import HomePetInfo from "./homePetInfo";
 
 const Stack = createStackNavigator();
 

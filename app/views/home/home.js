@@ -3,7 +3,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import * as React from "react";
 import { StyleSheet, Text, View, FlatList } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
-import PetBuyNav from "./pet_tab/petBuyNav";
+import PetNav from "../petTab/petNav";
 import { AppLoading } from "expo";
 import * as Font from "expo-font";
 import firebase from "firebase";
@@ -62,7 +62,7 @@ function MyTabs(props) {
         }}>
         <Tab.Screen name="Home" component={HomeNav} />
         {/* <Tab.Screen name="Home" children={() => <HomeScreen data={props.data}/>}/> */}
-        <Tab.Screen name="Pet" component={PetBuyNav} />
+        <Tab.Screen name="Pet" component={PetNav} />
         <Tab.Screen name="Shop" component={ShopScreen} />
         <Tab.Screen name="Profile" component={ProfileScreen} />
       </Tab.Navigator>
