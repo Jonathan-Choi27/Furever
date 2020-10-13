@@ -17,7 +17,7 @@ import {
   Provider,
   Paragraph,
 } from "react-native-paper";
-import { db } from "../../../database/firebase";
+import { db } from "../../../../database/firebase";
 import { AppLoading } from "expo";
 import * as Font from "expo-font";
 
@@ -103,7 +103,7 @@ export default class shepherdList extends React.Component {
                 alignItems: "center",
                 height: 50,
               }}
-              onPress={() => this.props.navigation.replace("petBuy")}>
+              onPress={() => this.props.navigation.replace("petCategories")}>
               <Text>Buy</Text>
             </TouchableOpacity>
             <TouchableOpacity
@@ -114,7 +114,7 @@ export default class shepherdList extends React.Component {
                 alignItems: "center",
                 height: 50,
               }}
-              onPress={() => this.props.navigation.replace("petSell")}>
+              onPress={() => this.props.navigation.replace("currentListings")}>
               <Text
                 style={{
                   textAlign: "center",

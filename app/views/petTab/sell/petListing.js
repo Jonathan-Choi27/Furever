@@ -58,11 +58,11 @@ const SelfPetListing = (props) => {
             <View style={{ marginLeft: 10 }}>
               <Card.Actions style={styles.actionCard}>
                 <Button style={styles.smallButtons}
-                  onPress={() => props.navigation.navigate("petSell3", {props})}>
+                  onPress={() => props.navigation.navigate("petProfile", {props})}>
                   <Text style={styles.smallButtonText}>View</Text>
                 </Button>
                 <Button style={styles.smallButtons}
-                  onPress={() => props.navigation.navigate("petSell4", {doc_id: props.doc_id})}>
+                  onPress={() => props.navigation.navigate("updateSellApplication", {doc_id: props.doc_id})}>
                   <Text style={styles.smallButtonText}>Update</Text>
                 </Button>
                 <Button

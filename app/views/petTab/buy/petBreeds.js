@@ -20,11 +20,11 @@ import {
   Portal,
   Checkbox,
 } from "react-native-paper";
-import { db } from "../database/firebase";
+import { db } from "../../database/firebase";
 import { AppLoading } from "expo";
 import * as Font from "expo-font";
 
-export default class petBuy1Dog extends React.Component {
+export default class petBreeds extends React.Component {
   state = {
     data: [],
     isLoading: true,
@@ -272,7 +272,7 @@ export default class petBuy1Dog extends React.Component {
             <View style={{ height: 50, padding: 10 }}>
               <TouchableOpacity
                 style={styles.viewApplication}
-                onPress={() => this.props.navigation.replace("petBuy7")}>
+                onPress={() => this.props.navigation.replace("currentApplications")}>
                 <Text style={{ textAlign: "center", color: "white" }}>
                   View Applications
                 </Text>

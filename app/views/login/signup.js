@@ -11,7 +11,7 @@ import {
 } from "react-native";
 import { CheckBox } from "react-native-elements";
 import firebase from "firebase";
-import { db } from "./database/firebase";
+import { db } from "../database/firebase";
 import { Input } from "react-native-elements";
 import { AppLoading } from "expo";
 import * as Font from "expo-font";

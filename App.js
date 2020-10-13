@@ -1,10 +1,10 @@
 import * as React from "react";
-import LandingPage from "./app/views/landingPage";
-import Login from "./app/views/login";
-import SignUp from "./app/views/signup";
-import Home from "./app/views/home";
-import HeaderLogo from "./app/views/HeaderLogo";
-import PasswordRecoveryPage from "./app/views/passwordRecoveryPage";
+import LandingPage from "./app/views/login/landingPage";
+import Login from "./app/views/login/login";
+import SignUp from "./app/views/login/signup";
+import Home from "./app/views/home/home";
+import HeaderLogo from "./app/views/login/headerLogo";
+import PasswordRecoveryPage from "./app/views/login/passwordRecoveryPage";
 
 import "react-native-gesture-handler";
 

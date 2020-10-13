@@ -15,12 +15,12 @@ import {
 import { SearchBar } from "react-native-elements";
 import firebase from "firebase";
 import { AppLoading } from "expo";
-import SelfPetListing from "./petSell_PetListing";
-import { auth } from "../database/firebase";
+import SelfPetListing from "./petListing";
+import { auth } from "../../database/firebase";
 
 const db = firebase.firestore();
 
-export default class petSell extends React.Component {
+export default class currentListings extends React.Component {
   state = {
     data: [],
     lists: null,
@@ -86,7 +86,7 @@ async fetchData() {
               alignItems: "center",
               height: 50,
             }}
-            onPress={() => this.props.navigation.replace("petBuy")}>
+            onPress={() => this.props.navigation.replace("petCategories")}>
             <Text>Buy</Text>
           </TouchableOpacity>
           <TouchableOpacity
@@ -97,7 +97,7 @@ async fetchData() {
               alignItems: "center",
               height: 50,
             }}
-            onPress={() => this.props.navigation.replace("petSell")}>
+            onPress={() => this.props.navigation.replace("currentListings")}>
             <Text
               style={{
                 textAlign: "center",
@@ -123,7 +123,7 @@ async fetchData() {
               height: 34,
               width: 200,
             }}
-            onPress={() => this.props.navigation.navigate("petSell1")}>
+            onPress={() => this.props.navigation.navigate("sellApplication")}>
             <Text
               style={{
                 textAlign: "center",

@@ -10,17 +10,30 @@ import {
 } from "react-native";
 import {
     Card,
-    Button,
 } from "react-native-elements";
 import "react-navigation"
 import "react-navigation-props-mapper"
 import "@react-navigation/native"
 import 'react-navigation-hooks'
+console.disableYellowBox = true;
+// title: listingDoc.data().name,
+// category: listingDoc.data().category,
+// breed: listingDoc.data().breed,
+// colour: listingDoc.data().colour,
+// age: listingDoc.data().age,
+// gender: listingDoc.data().gender,
+// size: listingDoc.data().size,
+// location: listingDoc.data().location,
+// price: listingDoc.data().price,
+// behaviour: listingDoc.data().behaviour,
+// health: listingDoc.data().health,
+// training: listingDoc.data().training,
+// additional: listingDoc.data().additionalInfo,
+// photo: listingDoc.data().photo_link,
 
-export default class shepherdListInfo extends React.Component {
-
+export default class petProfile extends React.Component {
     render() {
-        const item = this.props.route.params.item;
+        const item = this.props.route.params.props;
         const screenWidth = Math.round(Dimensions.get('window').width);
         const textWidth = screenWidth - 40 - 150 - 10;
         return (
@@ -35,7 +48,7 @@ export default class shepherdListInfo extends React.Component {
                                 alignItems: "center",
                                 height: 50,
                             }}
-                            onPress={() => this.props.navigation.navigate("petBuy")}
+                            onPress={() => this.props.navigation.navigate("petCategories")}
                         >
                             <Text>Buy</Text>
                         </TouchableOpacity>
@@ -47,20 +60,15 @@ export default class shepherdListInfo extends React.Component {
                                 alignItems: "center",
                                 height: 50,
                             }}
-                            onPress={() => this.props.navigation.navigate("petSell")}
+                            onPress={() => this.props.navigation.navigate("currentListings")}
                         >
                             <Text style={{ textAlign: "center" }}> Sell </Text>
                         </TouchableOpacity>
                     </View>
 
                     <View style={styles.titleContainer}>
-                        <View style={{width: screenWidth/2}}>
-                            <Text style={styles.fontTitle}> {item.title}'s Profile </Text>
-                            <Text style={styles.fontHeading}> General Information </Text>
-                        </View>
-                        <View style={{width: screenWidth/2}}>
-                            {/* <Text>hello</Text> */}
-                        </View>
+                        <Text style={styles.fontTitle}> {item.name}'s Profile </Text>
+                        <Text style={styles.fontHeading}> General Information </Text>
                     </View>
 
                     <Card containerStyle={styles.cardContainer}>
@@ -69,7 +77,7 @@ export default class shepherdListInfo extends React.Component {
                                 <Image
                                     style={styles.imageContainer}
                                     source={{
-                                        uri: item.photo,
+                                        uri: item.photo_uri,
                                     }}
                                 />
                                 <Text style={{ textAlign: "center", paddingTop: 5 }}>
@@ -123,26 +131,11 @@ export default class shepherdListInfo extends React.Component {
                             <Text style={styles.fontHeading}>Training </Text>
                             <Text style={{paddingBottom: 10}}>{item.training}</Text>
                             <Text style={styles.fontHeading}>Additional information </Text>
-                            <Text style={{paddingBottom: 10}}>{item.additional}</Text>
+                            <Text style={{paddingBottom: 10}}>{item.additionalInfo}</Text>
                             <Text style={styles.fontHeading}>Documents </Text>
                         </View>
                     </Card>
 
-                    <Card containerStyle={styles.cardContainer}>
-                        <View style={styles.boxContainer}>
-                            <Text style={styles.fontHeading}>Seller Information </Text>
-                            <Text></Text>
-                        </View>
-                    </Card>
-                    
-                    <View style={styles.buttonsContainer}>
-                        <TouchableOpacity
-                            style={styles.buttons}
-                            onPress={() => this.props.navigation.navigate("petBuy5", {item})}>
-                        
-                            <Text style={styles.buttonsText}>EXPRESS INTEREST</Text>
-                        </TouchableOpacity>
-                    </View>
                 </View>
             </ScrollView>
         );
@@ -153,6 +146,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: "center",
+        paddingBottom: 25,
     },
     buySellContainer: {
         alignSelf: "stretch",
@@ -162,9 +156,6 @@ const styles = StyleSheet.create({
     },
     titleContainer: {
         alignSelf: "stretch",
-        justifyContent: "flex-start",
-        alignItems: "flex-start",
-        flexDirection: "row",
         paddingTop: 20,
         paddingLeft: 20,
         paddingRight: 20,
@@ -172,6 +163,7 @@ const styles = StyleSheet.create({
     imageContainer: {
         width: 150,
         height: 150,
+        // backgroundColor: "pink",
     },
     categories: {
         alignSelf: "stretch",
@@ -219,22 +211,5 @@ const styles = StyleSheet.create({
         justifyContent: "flex-start",
         alignItems: "flex-start",
         flexDirection: "row",
-    },
-    buttonsContainer: {
-        alignItems: "center",
-        justifyContent: "center",
-        padding: 20,
-    },
-    buttons: {
-        backgroundColor: "#447ECB",
-        alignItems: "center",
-        justifyContent: "center",
-        borderRadius: 5,
-        height: 40,
-    },
-    buttonsText: {
-        color: "#ffffff",
-        fontSize: 18,
-        padding: 15,
     },
 });
