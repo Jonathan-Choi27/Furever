@@ -6,9 +6,6 @@ import {
   FlatList,
   Image,
   ActivityIndicator,
-  ScrollView,
-  Platform
-
 } from "react-native";
 // import HomeCard from "./home_petListing.js";
 import firebase from "firebase";
@@ -132,7 +129,6 @@ export default class HomeListing extends React.Component {
         break;
       default:
     }
-    console.log(this.state.dogCheck);
   };
 
   displayFunction = () => {
@@ -204,7 +200,6 @@ export default class HomeListing extends React.Component {
     if (!this.state.dogCheck && !this.state.catCheck && !this.state.birdCheck) {
       this.setState({ filterDisplay: false });
     }
-    console.log(listData);
     this.setState({ filteredData: listData });
   };
 
@@ -220,12 +215,11 @@ export default class HomeListing extends React.Component {
 
 
       <Provider>
-                <ScrollView>
-
         <View style={styles.container}>
           <View
                 style={{
-                  flex: 1,
+                  height: 20,
+                  margin:20,
                   justifyContent: "center",
                   alignItems: "center",
                   alignSelf: "stretch",
@@ -234,7 +228,7 @@ export default class HomeListing extends React.Component {
                 <Searchbar
                   style={{
                     margin: 10,
-                    height: 50,
+                    height: 40,
                     width: 250,
                   }}
                   placeholder="Search"
@@ -493,8 +487,6 @@ export default class HomeListing extends React.Component {
               </View>
           )}
         </View>
-        </ScrollView>
-
       </Provider>
     );
   }
@@ -558,7 +550,7 @@ const styles = StyleSheet.create({
   },
   card: {
     margin: 5,
-    width: 170,
+    width: 160,
   },
   cardContentText: {
     fontWeight: "bold",
