@@ -5,29 +5,33 @@ import {
   ScrollView,
   StyleSheet,
   Text,
-  TextInput,
   TouchableOpacity,
   View,
-  Button,
   Image,
 } from "react-native";
-import { color } from "react-native-reanimated";
+import { TextInput, Button } from "react-native-paper";
 import { db } from "../../database/firebase";
 import uuid from "react-native-uuid";
 import {
   openDocumentPicker,
   uploadDocument,
 } from "../../components/DocumentUpload";
-import * as Font from "expo-font";
 import { openImagePicker, uploadPhoto } from "../../components/ImageUpload";
 import CategorySelection from "./sellAppCategories";
 import { auth } from "../../database/firebase";
 import * as firebase from "firebase/app";
 import "firebase/storage";
-import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 
 export default class application extends React.Component {
   state = {
+    valid_price: true,
+    valid_name: true,
+    valid_age: true,
+    valid_location: true,
+    valid_health: true,
+    valid_behaviour: true,
+    valid_training: true,
+    valid_additionalInfo: true,
     name: "",
     category: "",
     breed: "",
@@ -50,11 +54,71 @@ export default class application extends React.Component {
     size: "",
   };
 
-  componentDidMount() {
-    //  db.collection("users").doc(auth.currentUser.uid).get().then((doc) => {
-    //      this.state.seller_name = doc.data().name;
-    //  });
-  }
+  name_regex = (name) => {
+    if (name === "" || /\d+/g.test(name)) {
+      return false;
+    } else {
+      return true;
+    }
+  };
+
+  age_regex = (age) => {
+    if (!/^\d+$/.test(age) || age === "") {
+      return false;
+    } else {
+      return true;
+    }
+  };
+
+  location_regex = (location) => {
+    if (location === "") {
+      return false;
+    } else {
+      return true;
+    }
+  };
+
+  behaviour_regex = (behaviour) => {
+    if (behaviour === "") {
+      return false;
+    } else {
+      return true;
+    }
+  };
+
+  training_regex = (training) => {
+    if (training === "") {
+      return false;
+    } else {
+      return true;
+    }
+  };
+
+  additionalInfo_regex = (additionalInfo) => {
+    if (additionalInfo === "") {
+      return false;
+    } else {
+      return true;
+    }
+  };
+
+  health_regex = (health) => {
+    if (health === "") {
+      return false;
+    } else {
+      return true;
+    }
+  };
+
+  price_regex = (price) => {
+    if (!/^\d+$/.test(price) || price === "") {
+      return false;
+    } else {
+      return true;
+    }
+  };
+
+  componentDidMount() {}
 
   handleSubmit = async () => {
     const {
@@ -283,14 +347,34 @@ export default class application extends React.Component {
           />
           <View style={styles.titleContainer}>
             <View style={styles.rectangle}>
-              <Text>
-                <Text style={styles.titles}>Name</Text>
-              </Text>
-              <TextInput
-                onChangeText={(name) => this.setState({ name })}
-                style={styles.input}
-              />
-              {this.renderError("name")}
+              <View style={styles.inputContainer}>
+                <View style={{ flexDirection: "row" }}>
+                  <View style={{ flex: 1 }}>
+                    <Text style={styles.inputName}>Name</Text>
+                  </View>
+                  {!this.state.valid_name && (
+                    <View style={{ flex: 1 }}>
+                      <Text style={styles.errorText}>Invalid name</Text>
+                    </View>
+                  )}
+                </View>
+                <TextInput
+                  mode="outlined"
+                  theme={{ colors: { primary: "#447ECB" } }}
+                  style={styles.smallInputBox}
+                  onChangeText={(name) =>
+                    this.setState({
+                      name: name,
+                    })
+                  }
+                  onBlur={() => {
+                    var bool = this.name_regex(this.state.name);
+                    this.setState({
+                      valid_name: bool,
+                    });
+                  }}
+                />
+              </View>
 
               <CategorySelection
                 category={this.setCategory}
@@ -298,19 +382,42 @@ export default class application extends React.Component {
                 colour={this.setColour}
                 size={this.setSize}
               />
-              <Text>
-                <Text style={styles.titles}>Age</Text>
-                {/* <Text style={styles.setColorRed}> *</Text> */}
-              </Text>
-              <TextInput
-                onChangeText={(age) => this.setState({ age })}
-                style={styles.input}
-              />
-              {this.renderError("age")}
+
+              <View style={styles.inputContainer}>
+                <View style={{ flexDirection: "row" }}>
+                  <View style={{ flex: 1 }}>
+                    <Text style={styles.inputName}>Age</Text>
+                  </View>
+                  {!this.state.valid_age && (
+                    <View style={{ flex: 1 }}>
+                      <Text style={styles.errorText}>Invalid age</Text>
+                    </View>
+                  )}
+                </View>
+                <TextInput
+                  mode="outlined"
+                  theme={{ colors: { primary: "#447ECB" } }}
+                  style={styles.smallInputBox}
+                  onChangeText={(age) =>
+                    this.setState({
+                      age: age,
+                    })
+                  }
+                  onBlur={() => {
+                    var bool = this.name_regex(this.state.age);
+                    this.setState({
+                      valid_age: bool,
+                    });
+                  }}
+                />
+              </View>
+
+              <View style={{ marginTop: 10 }} />
               <Text>
                 <Text style={styles.titles}>Gender</Text>
                 {/* <Text style={styles.setColorRed}> *</Text> */}
               </Text>
+
               <View style={styles.picker_container}>
                 <Picker
                   style={styles.picker}
@@ -325,79 +432,248 @@ export default class application extends React.Component {
                   <Picker.Item label="Female" value="Female" />
                 </Picker>
               </View>
-              <Text>
-                <Text style={styles.titles}>Location</Text>
-                {/* <Text style={styles.setColorRed}> *</Text> */}
-              </Text>
-              <TextInput
-                onChangeText={(location) => this.setState({ location })}
-                style={styles.input}
-              />
-              {this.renderError("location")}
-              <Text>
-                <Text style={styles.titles}>Price</Text>
-                {/* <Text style={styles.setColorRed}> *</Text> */}
-              </Text>
-              <TextInput
-                onChangeText={(price) => this.setState({ price })}
-                style={styles.input}
-                // secureTextEntry={true}
-                // width={100}
-                // backgroundColor="white"
-                // height={44}
-                // padding={10}
-                // borderWidth={1}
-                // borderColor="black"
-                // marginBottom={10}
-              />
-              {this.renderError("price")}
-              <Text style={styles.titles}>Behaviour</Text>
-              <TextInput
-                onChangeText={(behaviour) => this.setState({ behaviour })}
-                multiline
-                numberOfLines={4}
-                secureTextEntry={true}
-                style={styles.biginput}
-              />
-              {this.renderError("behaviour")}
-              <Text style={styles.titles}>Care, Health and Feeding</Text>
-              <TextInput
-                onChangeText={(health) => this.setState({ health })}
-                multiline
-                numberOfLines={4}
-                secureTextEntry={true}
-                style={styles.biginput}
-              />
-              {this.renderError("health")}
-              <Text style={styles.titles}>Training</Text>
-              <TextInput
-                onChangeText={(training) => this.setState({ training })}
-                multiline
-                numberOfLines={4}
-                secureTextEntry={true}
-                style={styles.biginput}
-              />
-              {this.renderError("training")}
-              <Text style={styles.titles}>Additional Information</Text>
-              <TextInput
-                onChangeText={(additionalInfo) =>
-                  this.setState({ additionalInfo })
-                }
-                multiline
-                numberOfLines={4}
-                secureTextEntry={true}
-                style={styles.biginput}
-              />
-              {this.renderError("additionalInfo")}
+              <View style={{ marginTop: 10 }} />
+
+              {/* <TextInput
+                // label="Gender"
+                mode="outlined"
+                theme={{ colors: { primary: "#447ECB" } }}
+                style={styles.smallInputBox}            
+                render={(props) => (
+                    <Picker
+                    selectedValue={this.state.gender}
+                    onValueChange={(gender) => this.setState({ gender })}>
+                    <Picker.Item
+                    //   label="Select gender"
+                    //   value="0"
+                    //   color="#B4B4B4"
+                    />
+                    <Picker.Item label="Male" value="Male" />
+                    <Picker.Item label="Female" value="Female" />
+                  </Picker>
+                )}
+              /> */}
+
+              <View style={styles.inputContainer}>
+                <View style={{ flexDirection: "row" }}>
+                  <View style={{ flex: 1 }}>
+                    <Text style={styles.inputName}>Location</Text>
+                  </View>
+                  {!this.state.valid_location && (
+                    <View style={{ flex: 1 }}>
+                      <Text style={styles.errorText}>Invalid location</Text>
+                    </View>
+                  )}
+                </View>
+                <TextInput
+                  mode="outlined"
+                  theme={{ colors: { primary: "#447ECB" } }}
+                  style={styles.smallInputBox}
+                  onChangeText={(location) =>
+                    this.setState({
+                      location: location,
+                    })
+                  }
+                  onBlur={() => {
+                    var bool = this.location_regex(this.state.location);
+                    this.setState({
+                      valid_location: bool,
+                    });
+                  }}
+                />
+              </View>
+                  <View style={{marginBottom: 10}}/>
+
+              <View style={styles.inputContainer}>
+                <View style={{ flexDirection: "row" }}>
+                  <View style={{ flex: 1 }}>
+                    <Text style={styles.inputName}>Price</Text>
+                  </View>
+                  {!this.state.valid_price && (
+                    <View style={{ flex: 1 }}>
+                      <Text style={styles.errorText}>Invalid price</Text>
+                    </View>
+                  )}
+                </View>
+                <TextInput
+                  mode="outlined"
+                  theme={{ colors: { primary: "#447ECB" } }}
+                  style={styles.smallInputBox}
+                  onChangeText={(price) =>
+                    this.setState({
+                      price: price,
+                    })
+                  }
+                  onBlur={() => {
+                    var bool = this.price_regex(this.state.price);
+                    this.setState({
+                      valid_price: bool,
+                    });
+                  }}
+                />
+              </View>
+
+              <View style={styles.inputContainer}>
+                <View style={{ flexDirection: "row" }}>
+                  <View style={{ flex: 1 }}>
+                    <Text style={styles.inputName}>Behaviour</Text>
+                  </View>
+                  {!this.state.valid_behaviour && (
+                    <View style={{ flex: 1 }}>
+                      <Text style={styles.errorText}>Invalid input</Text>
+                    </View>
+                  )}
+                </View>
+                <TextInput
+                  mode="outlined"
+                  multiline={true}
+                  theme={{ colors: { primary: "#447ECB" } }}
+                //   style={styles.smallInputBox}
+                  onChangeText={(behaviour) =>
+                    this.setState({
+                      behaviour: behaviour,
+                    })
+                  }
+                  onBlur={() => {
+                    var bool = this.price_regex(this.state.behaviour);
+                    this.setState({
+                      valid_behaviour: bool,
+                    });
+                  }}
+                />
+              </View>
+
+
+              <View style={styles.inputContainer}>
+                <View style={{ flexDirection: "row" }}>
+                  <View style={{ flex: 1 }}>
+                    <Text style={styles.inputName}>Care, Health and Feeding</Text>
+                  </View>
+                  {!this.state.valid_health && (
+                    <View style={{ flex: 1 }}>
+                      <Text style={styles.errorText}>Invalid input</Text>
+                    </View>
+                  )}
+                </View>
+                <TextInput
+                  mode="outlined"
+                  multiline={true}
+                  theme={{ colors: { primary: "#447ECB" } }}
+                  onChangeText={(health) =>
+                    this.setState({
+                      health: health,
+                    })
+                  }
+                  onBlur={() => {
+                    var bool = this.price_regex(this.state.health);
+                    this.setState({
+                      valid_health: bool,
+                    });
+                  }}
+                />
+              </View>
+
+
+
+              <View style={styles.inputContainer}>
+                <View style={{ flexDirection: "row" }}>
+                  <View style={{ flex: 1 }}>
+                    <Text style={styles.inputName}>Training</Text>
+                  </View>
+                  {!this.state.valid_training && (
+                    <View style={{ flex: 1 }}>
+                      <Text style={styles.errorText}>Invalid input</Text>
+                    </View>
+                  )}
+                </View>
+                <TextInput
+                  mode="outlined"
+                  multiline={true}
+                  theme={{ colors: { primary: "#447ECB" } }}
+                  onChangeText={(training) =>
+                    this.setState({
+                      training: training,
+                    })
+                  }
+                  onBlur={() => {
+                    var bool = this.price_regex(this.state.training);
+                    this.setState({
+                      valid_training: bool,
+                    });
+                  }}
+                />
+              </View>
+
+              <View style={styles.inputContainer}>
+                <View style={{ flexDirection: "row" }}>
+                  <View style={{ flex: 1 }}>
+                    <Text style={styles.inputName}>Additional Information</Text>
+                  </View>
+                  {!this.state.valid_additionalInfo && (
+                    <View style={{ flex: 1 }}>
+                      <Text style={styles.errorText}>Invalid input</Text>
+                    </View>
+                  )}
+                </View>
+                <TextInput
+                  mode="outlined"
+                  multiline={true}
+                  theme={{ colors: { primary: "#447ECB" } }}
+                  onChangeText={(additionalInfo) =>
+                    this.setState({
+                      additionalInfo: additionalInfo,
+                    })
+                  }
+                  onBlur={() => {
+                    var bool = this.price_regex(this.state.additionalInfo);
+                    this.setState({
+                      valid_additionalInfo: bool,
+                    });
+                  }}
+                />
+              </View>
+
+
               <Text style={styles.titles}>Upload a photo</Text>
-              <Button title="Choose Photo" onPress={this.setPhotoUri} />
+              <Button
+                style={{
+                  //   paddingVertical : 25,
+                  // marginBottom: 25,
+                  backgroundColor: "#447ECB",
+                }}
+                onPress={this.setPhotoUri}>
+                <Text
+                  style={{
+                    color: "white",
+                  }}>
+                  Choose Photo
+                </Text>
+              </Button>
+              {/* <Button title="Choose Photo" onPress={this.setPhotoUri} /> */}
               <Image
                 source={{
                   image_path: this.state.photo_uri,
                 }}
               />
               <Text style={styles.titles}>Upload Documents</Text>
-              <Button title="Choose Document" onPress={this.setDocumentUri} />
+
+              <Button
+                style={{
+                  //   paddingVertical : 25,
+                  // marginTop: 25,
+                  // marginBottom: 25,
+                  backgroundColor: "#447ECB",
+                }}
+                onPress={this.setDocumentUri}>
+                <Text
+                  style={{
+                    color: "white",
+                  }}>
+                  Choose Document
+                </Text>
+              </Button>
+              {/* <Button title="Choose Document" onPress={this.setDocumentUri} /> */}
+
               {/* <TextInput
                 onChangeText={(documents) => this.setState({ documents })}
                 secureTextEntry={true}
@@ -466,6 +742,12 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     // width: 50,
   },
+  inputName: {
+    marginBottom: 0,
+    paddingBottom: 0,
+    color: "#515151",
+    fontSize: 14,
+  },
   heading: {
     fontSize: 20,
     fontWeight: "bold",
@@ -484,6 +766,14 @@ const styles = StyleSheet.create({
   sub_heading: {
     fontSize: 16,
     // fontWeight: "bold",
+  },
+  smallInputBox: {
+    margin: 0,
+    height: 25,
+    backgroundColor: "#F6F6F6",
+    // borderWidth: 1,
+    // borderWidth: 3,
+    padding: 0,
   },
   input: {
     width: 314,
@@ -505,11 +795,14 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
   },
   picker: {
-    height: 34,
-    width: 314,
+    height: 27,
+    borderRadius: 4,
     fontSize: 12,
-    marginBottom: 10,
+    // backgroundColor: "#F6F6F6",
   },
+  //   pickerContainer: {
+  //       borderColor: "black",
+  //   },
   buttonsContainer: {
     alignItems: "center",
     justifyContent: "center",
@@ -536,15 +829,25 @@ const styles = StyleSheet.create({
     color: "#f44336",
   },
   picker_container: {
-    backgroundColor: "white",
-    borderColor: "black",
+    backgroundColor: "#F6F6F6",
+    borderColor: "#5D5D5D",
     borderWidth: 1,
-    height: 34,
-    marginBottom: 10,
+    borderRadius: 4,
+    // height: 34,
+    // marginBottom: 10,
   },
   error: {
     marginBottom: 10,
     color: "red",
     fontSize: 12,
+  },
+  pickerItem: {
+    fontSize: 12,
+  },
+  errorText: {
+    color: "red",
+    textAlign: "right",
+    fontSize: 14,
+    fontWeight: "bold",
   },
 });
