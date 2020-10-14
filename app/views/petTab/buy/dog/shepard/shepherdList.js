@@ -52,7 +52,7 @@ export default class shepherdList extends React.Component {
           dataArray.push({
             name: seller_name,
             avatarPhoto: seller_photo,
-            title: listingDoc.data().name,
+            petName: listingDoc.data().name,
             category: listingDoc.data().category,
             breed: listingDoc.data().breed,
             colour: listingDoc.data().colour,
@@ -84,7 +84,7 @@ export default class shepherdList extends React.Component {
     this.setState({ searchText: searchText });
 
     let filteredData = this.state.data.filter(function (item) {
-      return item.title.toLowerCase().includes(searchText.toLowerCase());
+      return item.petName.toLowerCase().includes(searchText.toLowerCase());
     });
 
     this.setState({ filteredData: filteredData });
@@ -199,7 +199,7 @@ export default class shepherdList extends React.Component {
                     }}
                   />
                   <Card.Title
-                    title={item.title}
+                    title={item.petName}
                     subtitle={item.name}
                     left={(props) => (
                       <Avatar.Image
@@ -224,7 +224,7 @@ export default class shepherdList extends React.Component {
                     <Button
                       color="#447ECB"
                       onPress={() =>
-                        this.props.navigation.navigate("shepherdListInfo", {
+                        this.props.navigation.navigate("buyPetProfile", {
                           item,
                         })
                       }>

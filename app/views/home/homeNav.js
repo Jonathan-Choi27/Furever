@@ -4,8 +4,8 @@ import {
 } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import HomeListing from "./homePetListing";
-import HomePetInfo from "./homePetInfo";
+import homeListing from "./homePetListing";
+import homePetProfile from "./homePetProfile";
 
 const Stack = createStackNavigator();
 
@@ -13,8 +13,8 @@ export default function HomeNav() {
   return (
     <NavigationContainer independent={true}>
       <Stack.Navigator>
-        <Stack.Screen name="HomeListing" component={HomeListing} /> 
-        <Stack.Screen name="HomePetInfo" component={HomePetInfo} /> 
+        <Stack.Screen name="homeListing" component={homeListing} />
+        <Stack.Screen name="homePetProfile" component={homePetProfile} />
       </Stack.Navigator>
     </NavigationContainer>
   );

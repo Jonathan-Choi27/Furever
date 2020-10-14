@@ -13,27 +13,8 @@ import { Avatar, Button, Card, Title, Paragraph, Searchbar, Modal, Chip, Provide
 
 const db = firebase.firestore();
 
-const HomeCard = (props) => (
-  <View style={styles.card}>
-    <Card
-      elevation={5}
-      styles={styles.card}
-      onPress={() => this.props.navigation.replace("HomePetInfo")}>
-      <Image source={{ uri: props.photo_uri }} style={styles.image} />
-      <Text numberOfLines={1} style={styles.title}>
-        {props.name}
-      </Text>
-      <Text numberOfLines={1} style={styles.subtext}>
-        <Text>{props.breed}</Text>
-        <Text> | </Text>
-        <Text>{props.location}</Text>
-      </Text>
-    </Card>
-  </View>
-);
-
 export default class HomeListing extends React.Component {
-  
+
   state = {
     data: [],
     isLoading: true,
@@ -61,7 +42,7 @@ export default class HomeListing extends React.Component {
       .then((doc) => {
         doc.forEach((listingDoc) => {
           dataArray.push({
-            name: listingDoc.data().name,
+            petName: listingDoc.data().name,
             category: listingDoc.data().category,
             breed: listingDoc.data().breed,
             colour: listingDoc.data().colour,
@@ -92,7 +73,7 @@ export default class HomeListing extends React.Component {
     this.setState({ searchText: searchText });
 
     let filteredData = this.state.data.filter(function (item) {
-      return item.name.includes(searchText);
+      return item.petName.includes(searchText);
     });
 
     this.setState({ filteredData: filteredData });
@@ -203,6 +184,27 @@ export default class HomeListing extends React.Component {
     this.setState({ filteredData: listData });
   };
 
+  homeCard = (item) => (
+    <View style={styles.card}>
+      <Card
+        elevation={5}
+        styles={styles.card}
+        onPress={() =>
+          this.props.navigation.navigate("homePetProfile", { item })
+        }>
+        <Image source={{ uri: item.photo }} style={styles.image} />
+        <Text numberOfLines={1} style={styles.title}>
+          {item.petName}
+        </Text>
+        <Text numberOfLines={1} style={styles.subtext}>
+          <Text>{item.breed}</Text>
+          <Text> | </Text>
+          <Text>{item.location}</Text>
+        </Text>
+      </Card>
+    </View>
+  );
+
   render() {
     if (this.state.isLoading) {
       return (
@@ -217,275 +219,224 @@ export default class HomeListing extends React.Component {
       <Provider>
         <View style={styles.container}>
           <View
-                style={{
-                  height: 20,
-                  margin:20,
-                  justifyContent: "center",
-                  alignItems: "center",
-                  alignSelf: "stretch",
-                  flexDirection: "row",
-                }}>
-                <Searchbar
-                  style={{
-                    margin: 10,
-                    height: 40,
-                    width: 250,
-                  }}
-                  placeholder="Search"
-                  onChangeText={this.searchFunction}
-                  value={this.state.searchText}
-                />
-                <Button
-                  color="#447ECB"
-                  onPress={() => {
-                    this.setState({ visible: true });
-                  }}
-                  mode="contained">
-                  Filter
+            style={{
+              height: 20,
+              margin: 20,
+              justifyContent: "center",
+              alignItems: "center",
+              alignSelf: "stretch",
+              flexDirection: "row",
+            }}>
+            <Searchbar
+              style={{
+                margin: 10,
+                height: 40,
+                width: 250,
+              }}
+              placeholder="Search"
+              onChangeText={this.searchFunction}
+              value={this.state.searchText}
+            />
+            <Button
+              color="#447ECB"
+              onPress={() => {
+                this.setState({ visible: true });
+              }}
+              mode="contained">
+              Filter
                 </Button>
-              </View>
-              <Portal>
-              <Modal
-                style={{ backgroundColor: "transparent" }}
-                visible={this.state.visible}
-                onDismiss={() => {
-                  this.setState({ visible: false });
-                }}>
-                <Card elevation={5} style={{ margin: 10 }}>
-                  <Card.Content>
-                    <Text>Animal:</Text>
-                    <View style={{ flexDirection: "row" }}>
-                      <Checkbox.Item
-                        label="Dog"
-                        status={this.state.dogCheck ? "checked" : "unchecked"}
-                        onPress={() => {
-                          this.checkFunction("dogCheck");
-                        }}
-                      />
-                      <Checkbox.Item
-                        label="Fish"
-                        status={this.state.fishCheck ? "checked" : "unchecked"}
-                        onPress={() => {
-                          this.checkFunction("fishCheck");
-                        }}
-                      />
-                      <Checkbox.Item
-                        label="Lizard"
-                        status={
-                          this.state.lizardCheck ? "checked" : "unchecked"
-                        }
-                        onPress={() => {
-                          this.checkFunction("lizardCheck");
-                        }}
-                      />
-                    </View>
-                    <View style={{ flexDirection: "row" }}>
-                      <Checkbox.Item
-                        label="Cat"
-                        status={this.state.catCheck ? "checked" : "unchecked"}
-                        onPress={() => {
-                          this.checkFunction("catCheck");
-                        }}
-                      />
-                      <Checkbox.Item
-                        label="Bird"
-                        status={this.state.birdCheck ? "checked" : "unchecked"}
-                        onPress={() => {
-                          this.checkFunction("birdCheck");
-                        }}
-                      />
-                      <Checkbox.Item
-                        label="Turtle"
-                        status={
-                          this.state.turtleCheck ? "checked" : "unchecked"
-                        }
-                        onPress={() => {
-                          this.checkFunction("turtleCheck");
-                        }}
-                      />
-                    </View>
-                    <View style={{ flexDirection: "row" }}>
-                      <Checkbox.Item
-                        label="Rabbit"
-                        status={
-                          this.state.rabbitCheck ? "checked" : "unchecked"
-                        }
-                        onPress={() => {
-                          this.checkFunction("rabbitCheck");
-                        }}
-                      />
-                      <Checkbox.Item
-                        label="Horse"
-                        status={this.state.horseCheck ? "checked" : "unchecked"}
-                        onPress={() => {
-                          this.checkFunction("horseCheck");
-                        }}
-                      />
-                      <Checkbox.Item
-                        label="Pig"
-                        status={this.state.pigCheck ? "checked" : "unchecked"}
-                        onPress={() => {
-                          this.checkFunction("pigCheck");
-                        }}
-                      />
-                    </View>
-                  </Card.Content>
-                  <Card.Actions style={{ justifyContent: "flex-end" }}>
-                    <Button
+          </View>
+          <Portal>
+            <Modal
+              style={{ backgroundColor: "transparent" }}
+              visible={this.state.visible}
+              onDismiss={() => {
+                this.setState({ visible: false });
+              }}>
+              <Card elevation={5} style={{ margin: 10 }}>
+                <Card.Content>
+                  <Text>Animal:</Text>
+                  <View style={{ flexDirection: "row" }}>
+                    <Checkbox.Item
+                      label="Dog"
+                      status={this.state.dogCheck ? "checked" : "unchecked"}
                       onPress={() => {
-                        this.displayFunction();
-                        this.setState({ visible: false });
-                      }}>
-                      Done
+                        this.checkFunction("dogCheck");
+                      }}
+                    />
+                    <Checkbox.Item
+                      label="Fish"
+                      status={this.state.fishCheck ? "checked" : "unchecked"}
+                      onPress={() => {
+                        this.checkFunction("fishCheck");
+                      }}
+                    />
+                    <Checkbox.Item
+                      label="Lizard"
+                      status={
+                        this.state.lizardCheck ? "checked" : "unchecked"
+                      }
+                      onPress={() => {
+                        this.checkFunction("lizardCheck");
+                      }}
+                    />
+                  </View>
+                  <View style={{ flexDirection: "row" }}>
+                    <Checkbox.Item
+                      label="Cat"
+                      status={this.state.catCheck ? "checked" : "unchecked"}
+                      onPress={() => {
+                        this.checkFunction("catCheck");
+                      }}
+                    />
+                    <Checkbox.Item
+                      label="Bird"
+                      status={this.state.birdCheck ? "checked" : "unchecked"}
+                      onPress={() => {
+                        this.checkFunction("birdCheck");
+                      }}
+                    />
+                    <Checkbox.Item
+                      label="Turtle"
+                      status={
+                        this.state.turtleCheck ? "checked" : "unchecked"
+                      }
+                      onPress={() => {
+                        this.checkFunction("turtleCheck");
+                      }}
+                    />
+                  </View>
+                  <View style={{ flexDirection: "row" }}>
+                    <Checkbox.Item
+                      label="Rabbit"
+                      status={
+                        this.state.rabbitCheck ? "checked" : "unchecked"
+                      }
+                      onPress={() => {
+                        this.checkFunction("rabbitCheck");
+                      }}
+                    />
+                    <Checkbox.Item
+                      label="Horse"
+                      status={this.state.horseCheck ? "checked" : "unchecked"}
+                      onPress={() => {
+                        this.checkFunction("horseCheck");
+                      }}
+                    />
+                    <Checkbox.Item
+                      label="Pig"
+                      status={this.state.pigCheck ? "checked" : "unchecked"}
+                      onPress={() => {
+                        this.checkFunction("pigCheck");
+                      }}
+                    />
+                  </View>
+                </Card.Content>
+                <Card.Actions style={{ justifyContent: "flex-end" }}>
+                  <Button
+                    onPress={() => {
+                      this.displayFunction();
+                      this.setState({ visible: false });
+                    }}>
+                    Done
                     </Button>
-                  </Card.Actions>
-                </Card>
-              </Modal>
-            </Portal>
-            {this.state.filterDisplay ? (
-          <View style={styles.container}>
-
-          <FlatList
-          data={this.state.data}
-          columnWrapperStyle={{ justifyContent: "space-between" }}
-          numColumns={2}
-          onRefresh={async () => {
-            this.setState({
-              pullToRefresh: true,
-            });
-            await this.fetchData();
-            this.setState({
-              pullToRefresh: false,
-            });
-          }}
-          keyExtractor={(item, index) => index.toString()}
-          refreshing={this.state.pullToRefresh}
-          renderItem={({ item }) => (
-            <View style={styles.card}>
-              <Card
-                elevation={5}
-                styles={styles.card}
-                onPress={() =>
-                  this.props.navigation.navigate("HomePetInfo", { item })
-                }>
-                <Image source={{ uri: item.photo }} style={styles.image} />
-                <Text numberOfLines={1} style={styles.title}>
-                  {item.name}
-                </Text>
-                <Text numberOfLines={1} style={styles.subtext}>
-                  <Text>{item.breed}</Text>
-                  <Text> | </Text>
-                  <Text>{item.location}</Text>
-                </Text>
+                </Card.Actions>
               </Card>
-            </View>
-          )}
-                  keyExtractor={(item, index) => index.toString()}
-                  data={
-                    this.state.filteredData &&
-                    this.state.filteredData.length > 0
-                      ? this.state.filteredData
-                      : this.state.data
-                  }
-                />
-              </View>
-        ) : (
-          <View style={styles.container}>
-                {this.state.searchText == "" ? (
-         <View style={styles.container}>
-                    <FlatList
-          data={this.state.data}
-          columnWrapperStyle={{ justifyContent: "space-between" }}
-          numColumns={2}
-          onRefresh={async () => {
-            this.setState({
-              pullToRefresh: true,
-            });
-            await this.fetchData();
-            this.setState({
-              pullToRefresh: false,
-            });
-          }}
-          keyExtractor={(item, index) => index.toString()}
-          refreshing={this.state.pullToRefresh}
-          renderItem={({ item }) => (
-            <View style={styles.card}>
-              <Card
-                elevation={5}
-                styles={styles.card}
-                onPress={() =>
-                  this.props.navigation.navigate("HomePetInfo", { item })
-                }>
-                <Image source={{ uri: item.photo }} style={styles.image} />
-                <Text numberOfLines={1} style={styles.title}>
-                  {item.name}
-                </Text>
-                <Text numberOfLines={1} style={styles.subtext}>
-                  <Text>{item.breed}</Text>
-                  <Text> | </Text>
-                  <Text>{item.location}</Text>
-                </Text>
-              </Card>
-            </View>
-          )}
-        />
-        </View>
-        
-          ) : (
+            </Modal>
+          </Portal>
+          {this.state.filterDisplay ? (
             <View style={styles.container}>
-              {this.state.filteredData.length == 0 ? (
-                <View style={styles.container}>
-                  <Text style={{ margin: 100 }}>No results found.</Text>
-                </View>
-              ) : (
-                <FlatList
-          data={this.state.data}
-          columnWrapperStyle={{ justifyContent: "space-between" }}
-          numColumns={2}
-          onRefresh={async () => {
-            this.setState({
-              pullToRefresh: true,
-            });
-            await this.fetchData();
-            this.setState({
-              pullToRefresh: false,
-            });
-          }}
-          keyExtractor={(item, index) => index.toString()}
-          refreshing={this.state.pullToRefresh}
-          renderItem={({ item }) => (
-            <View style={styles.card}>
-              <Card
-                elevation={5}
-                styles={styles.card}
-                onPress={() =>
-                  this.props.navigation.navigate("HomePetInfo", { item })
-                }>
-                <Image source={{ uri: item.photo }} style={styles.image} />
-                <Text numberOfLines={1} style={styles.title}>
-                  {item.name}
-                </Text>
-                <Text numberOfLines={1} style={styles.subtext}>
-                  <Text>{item.breed}</Text>
-                  <Text> | </Text>
-                  <Text>{item.location}</Text>
-                </Text>
-              </Card>
-            </View>
-          )}
-                  keyExtractor={(item, index) => index.toString()}
-                  data={
-                    this.state.filteredData &&
-                    this.state.filteredData.length > 0
-                      ? this.state.filteredData
-                      : this.state.data
-                  }
-                />
-              )}
-            </View>
+
+              <FlatList
+                data={this.state.data}
+                columnWrapperStyle={{ justifyContent: "space-between" }}
+                numColumns={2}
+                onRefresh={async () => {
+                  this.setState({
+                    pullToRefresh: true,
+                  });
+                  await this.fetchData();
+                  this.setState({
+                    pullToRefresh: false,
+                  });
+                }}
+                keyExtractor={(item, index) => index.toString()}
+                refreshing={this.state.pullToRefresh}
+                renderItem={({ item }) => (
+                  this.homeCard(item)
                 )}
+                keyExtractor={(item, index) => index.toString()}
+                data={
+                  this.state.filteredData &&
+                    this.state.filteredData.length > 0
+                    ? this.state.filteredData
+                    : this.state.data
+                }
+              />
+            </View>
+          ) : (
+              <View style={styles.container}>
+                {this.state.searchText == "" ? (
+                  <View style={styles.container}>
+                    <FlatList
+                      data={this.state.data}
+                      columnWrapperStyle={{ justifyContent: "space-between" }}
+                      numColumns={2}
+                      onRefresh={async () => {
+                        this.setState({
+                          pullToRefresh: true,
+                        });
+                        await this.fetchData();
+                        this.setState({
+                          pullToRefresh: false,
+                        });
+                      }}
+                      keyExtractor={(item, index) => index.toString()}
+                      refreshing={this.state.pullToRefresh}
+                      renderItem={({ item }) => (
+                        this.homeCard(item)
+                      )}
+                    />
+                  </View>
+
+                ) : (
+                    <View style={styles.container}>
+                      {this.state.filteredData.length == 0 ? (
+                        <View style={styles.container}>
+                          <Text style={{ margin: 100 }}>No results found.</Text>
+                        </View>
+                      ) : (
+                          <FlatList
+                            data={this.state.data}
+                            columnWrapperStyle={{ justifyContent: "space-between" }}
+                            numColumns={2}
+                            onRefresh={async () => {
+                              this.setState({
+                                pullToRefresh: true,
+                              });
+                              await this.fetchData();
+                              this.setState({
+                                pullToRefresh: false,
+                              });
+                            }}
+                            keyExtractor={(item, index) => index.toString()}
+                            refreshing={this.state.pullToRefresh}
+                            renderItem={({ item }) => (
+                              this.homeCard(item)
+                            )}
+                            keyExtractor={(item, index) => index.toString()}
+                            data={
+                              this.state.filteredData &&
+                                this.state.filteredData.length > 0
+                                ? this.state.filteredData
+                                : this.state.data
+                            }
+                          />
+                        )}
+                    </View>
+                  )}
               </View>
-          )}
+            )}
         </View>
       </Provider>
     );
@@ -498,25 +449,13 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  cardContainer: {
-    marginLeft: 10,
-    marginRight: 10,
-    marginBottom: 10,
-    marginTop: 10,
-  },
-  card: {
-    margin: 10,
-    flex: 0.5,
-    marginLeft: 9,
-    marginRight: 9,
-  },
   image: {
     aspectRatio: 1,
   },
   title: {
     marginLeft: 8,
-    marginTop: 8,
-    marginBottom: 8,
+    marginTop: 5,
+    marginBottom: 5,
     fontWeight: "bold",
     fontSize: 14.5,
     color: "#447ECB",
@@ -536,12 +475,6 @@ const styles = StyleSheet.create({
   titleContainer: {
     flexDirection: "row",
     justifyContent: "flex-start",
-    padding: 20,
-  },
-  title: {
-    fontWeight: "bold",
-    fontSize: 20,
-    marginRight: 25,
   },
   cardContainer: {
     flex: 2,
@@ -549,8 +482,8 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
   },
   card: {
-    margin: 5,
-    width: 160,
+    margin: 7,
+    width: 180,
   },
   cardContentText: {
     fontWeight: "bold",

@@ -5,7 +5,7 @@ import petCategories from "./buy/petCategories";
 import currentApplications from "./buy/currentApplications";
 import shepherdList from "./buy/dog/shepard/shepherdList";
 import shepherdInfo from "./buy/dog/shepard/shepherdInfo";
-import shepherdListInfo from "./buy/dog/shepard/shepherdListInfo";
+import buyPetProfile from "./buy/buyPetProfile";
 
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -13,7 +13,7 @@ import sellApplication from "./sell/sellApplication";
 import currentListings from "./sell/currentListings";
 import updateSellApplication from "./sell/updateSellApplication";
 import buyApplication from "./buy/buyApplication";
-import petProfile from "./sell/petProfile";
+import sellPetProfile from "./sell/sellPetProfile";
 
 const Stack = createStackNavigator();
 
@@ -44,11 +44,11 @@ export default function PetNav() {
         <Stack.Screen name="currentApplications" component={currentApplications} />
         <Stack.Screen name="currentListings" component={currentListings} />
         <Stack.Screen name="sellApplication" component={sellApplication}/>
-        <Stack.Screen name="petProfile" component={petProfile}/>
+        <Stack.Screen name="sellPetProfile" component={sellPetProfile}/>
         <Stack.Screen name="updateSellApplication" component={updateSellApplication} />
         <Stack.Screen name="shepherdList" component={shepherdList} />
         <Stack.Screen name="shepherdInfo" component={shepherdInfo} />
-        <Stack.Screen name="shepherdListInfo" component={shepherdListInfo} />
+        <Stack.Screen name="buyPetProfile" component={buyPetProfile} />
         <Stack.Screen name="buyApplication" component={buyApplication} />
       </Stack.Navigator>
     </NavigationContainer>
