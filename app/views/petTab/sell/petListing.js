@@ -25,7 +25,7 @@ const SelfPetListing = (props) => {
               // borderColor: "red"
             }}>
             <Image
-              source={{ uri: props.photo_uri }}
+              source={{ uri: props.photo }}
               style={{ aspectRatio: 1, borderRadius: 5 }}
             />
           </View>
@@ -39,7 +39,7 @@ const SelfPetListing = (props) => {
             <Card.Content>
               <Text numberOfLines={1} style={{ flex: 1 }}>
                 <Text style={{ fontWeight: "bold" }}>Name: </Text>
-                <Text>{props.name}</Text>
+                <Text>{props.petName}</Text>
               </Text>
               <Text numberOfLines={1} style={{ flex: 1 }}>
                 <Text style={{ fontWeight: "bold" }}>Category: </Text>
@@ -58,7 +58,7 @@ const SelfPetListing = (props) => {
             <View style={{ marginLeft: 10 }}>
               <Card.Actions style={styles.actionCard}>
                 <Button style={styles.smallButtons}
-                  onPress={() => props.navigation.navigate("petProfile", {props})}>
+                  onPress={() => props.navigation.navigate("sellPetProfile", {props})}>
                   <Text style={styles.smallButtonText}>View</Text>
                 </Button>
                 <Button style={styles.smallButtons}

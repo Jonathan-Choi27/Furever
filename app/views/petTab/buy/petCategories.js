@@ -57,7 +57,6 @@ export default class petCategories extends React.Component {
             .doc(uuid)
             .get()
             .then((user_doc) => {
-              console.log(user_doc.data().name);
               seller_name = user_doc.data().name;
               seller_photo = user_doc.data().photo;
             })
@@ -129,7 +128,6 @@ export default class petCategories extends React.Component {
         break;
       default:
     }
-    console.log(this.state.dogCheck);
   };
 
   displayFunction = () => {
@@ -201,7 +199,6 @@ export default class petCategories extends React.Component {
     if (!this.state.dogCheck && !this.state.catCheck && !this.state.birdCheck) {
       this.setState({ filterDisplay: false });
     }
-    console.log(listData);
     this.setState({ filteredData: listData });
   };
 
@@ -216,7 +213,6 @@ export default class petCategories extends React.Component {
     }
     return (
       <Provider>
-        <ScrollView>
           <View style={styles.container}>
             <View style={styles.buySellContainer}>
               <TouchableOpacity
@@ -227,8 +223,9 @@ export default class petCategories extends React.Component {
                   alignItems: "center",
                   height: 50,
                 }}
-                onPress={() =>
-                  this.props.navigation.replace("petCategories")
+                onPress={() => 
+                  null
+                  // this.props.navigation.replace("petCategories")
                 }>
                     <Text>Buy</Text>
                 </TouchableOpacity>
@@ -246,16 +243,17 @@ export default class petCategories extends React.Component {
             </View>
             <View
               style={{
-                flex: 1,
-                justifyContent: "center",
-                alignItems: "center",
-                alignSelf: "stretch",
-                flexDirection: "row",
+                  height: 20,
+                  margin:30,
+                  justifyContent: "center",
+                  alignItems: "center",
+                  alignSelf: "stretch",
+                  flexDirection: "row",
               }}>
               <Searchbar
                 style={{
                   margin: 10,
-                  height: 50,
+                  height: 40,
                   width: 250,
                 }}
                 placeholder="Search"
@@ -271,15 +269,17 @@ export default class petCategories extends React.Component {
                 Filter
               </Button>
             </View>
-            <View style={{ height: 50, padding: 10 }}>
+            <View style={{ height: 30, marginBottom: 15, }}>
               <TouchableOpacity
                 style={styles.viewApplication}
-                onPress={() => this.props.navigation.replace("petBuy7")}>
+                onPress={() => this.props.navigation.replace("currentApplications")}>
                 <Text style={{ textAlign: "center", color: "white" }}>
                   View Applications
                 </Text>
               </TouchableOpacity>
             </View>
+            <ScrollView>
+
             <Portal>
               <Modal
                 style={{ backgroundColor: "transparent" }}
@@ -380,10 +380,10 @@ export default class petCategories extends React.Component {
             </Portal>
             {this.state.filterDisplay ? (
               <FlatList
-                showsVerticalScrollIndicator={false}
+                keyExtractor={(item, index) => index.toString()}
                 renderItem={({ item }) => (
                   <Card elevation={5} style={styles.card}>
-                    <Card.Cover source={item.photo} />
+                    <Card.Cover source={{ uri: item.photo }} />
                     <Card.Title
                       title={item.title}
                       subtitle={item.name}
@@ -391,7 +391,7 @@ export default class petCategories extends React.Component {
                         <Avatar.Image
                           {...props}
                           size={40}
-                          source={item.photo}
+                          source={{ uri:item.avatarPhoto}}
                         />
                       )}
                     />
@@ -538,7 +538,7 @@ export default class petCategories extends React.Component {
                         showsVerticalScrollIndicator={false}
                         renderItem={({ item }) => (
                           <Card elevation={5} style={styles.card}>
-                            <Card.Cover source={item.photo} />
+                            <Card.Cover source={{ uri: item.photo }} />
                             <Card.Title
                               title={item.title}
                               subtitle={item.name}
@@ -546,7 +546,7 @@ export default class petCategories extends React.Component {
                                 <Avatar.Image
                                   {...props}
                                   size={40}
-                                  source={item.photo}
+                                  source={{uri: item.photo}}
                                 />
                               )}
                             />
@@ -581,8 +581,9 @@ export default class petCategories extends React.Component {
                 )}
               </View>
             )}
+            </ScrollView>
+
           </View>
-        </ScrollView>
       </Provider>
     );
     // } else {
@@ -609,6 +610,37 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flexDirection: "row",
   },
+  cardContainer: {
+    marginLeft: 10,
+    marginRight: 10,
+    marginBottom: 10,
+    marginTop: 10,
+  },
+  card: {
+    margin: 10,
+    flex: 0.5,
+    marginLeft: 9,
+    marginRight: 9,
+  },
+  image: {
+    aspectRatio: 1,
+  },
+  title: {
+    marginLeft: 8,
+    marginTop: 8,
+    marginBottom: 8,
+    fontWeight: "bold",
+    fontSize: 14.5,
+    color: "#447ECB",
+  },
+  subtext: {
+    paddingLeft: 8,
+    paddingTop: 8,
+    marginBottom: 8,
+    fontSize: 12,
+    borderTopWidth: 0.5,
+  },
+
   iconContainer: {
     padding: 20,
   },
