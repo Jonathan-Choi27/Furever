@@ -229,13 +229,18 @@ export default class shepherdList extends React.Component {
               justifyContent: "center",
             }}>
             <Card.Content>
-                      <Text numberOfLines={1} style={styles.cardContentText}>Age: {item.age}</Text>
-                      <Text numberOfLines={1} style={styles.cardContentText}>
-                       Gender: {item.gender}
-                     </Text>
-                     <Text numberOfLines={1} style={styles.cardContentText}>
-                       Location: {item.location}
-                     </Text>
+            <Text numberOfLines={1} style={{ flex: 1 }}>
+                <Text style={{ fontWeight: "bold" }}>Age: </Text>
+                <Text>{item.age}</Text>
+              </Text>
+              <Text numberOfLines={1} style={{ flex: 1 }}>
+                <Text style={{ fontWeight: "bold" }}>Gender: </Text>
+                <Text>{item.gender}</Text>
+              </Text>
+              <Text numberOfLines={1} style={{ flex: 1 }}>
+                <Text style={{ fontWeight: "bold" }}>Location: </Text>
+                <Text>{item.location}</Text>
+              </Text>
                    </Card.Content>
 
                    <Card.Actions style={styles.actionCard}>
