@@ -120,7 +120,7 @@ export default class application extends React.Component {
       this.check_valid_health();
       this.check_valid_training();
       this.check_valid_additionalInfo();
-      console.log("photo_uri:" + this.state.photo_uri);
+    //   console.log("photo_uri:" + this.state.photo_uri);
       if (this.state.photo_uri == "" || this.state.photo_uri == null) {
         this.setState({
           valid_uri: false,
@@ -141,7 +141,7 @@ export default class application extends React.Component {
         photo_link: photoURL,
       });
 
-      console.log("class : " + photoURL);
+    //   console.log("class : " + photoURL);
 
       uploadDocument(this.state.documents_uri, this.state.documents);
 
