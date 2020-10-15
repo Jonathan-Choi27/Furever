@@ -23,7 +23,6 @@ import { auth } from "../../database/firebase";
 import * as firebase from "firebase/app";
 import "firebase/storage";
 
-<<<<<<< HEAD
 export default class application extends React.Component {
   constructor(props) {
     super(props);
@@ -167,38 +166,6 @@ export default class application extends React.Component {
       alert("Application Successful!");
       this.props.navigation.goBack();
     }
-=======
-export default class sellApplication extends React.Component {
-  state = {
-    valid_price: true,
-    valid_name: true,
-    valid_age: true,
-    valid_location: true,
-    valid_health: true,
-    valid_behaviour: true,
-    valid_training: true,
-    valid_additionalInfo: true,
-    name: "",
-    category: "",
-    breed: "",
-    colour: "",
-    age: "",
-    gender: "",
-    location: "",
-    price: "",
-    behaviour: "",
-    health: "",
-    training: "",
-    additionalInfo: "",
-    documents: "",
-    //photo
-    photo_link: "",
-    photo_uri: "",
-    photo_uuid: "",
-    documents_uri: "",
-    seller_name: "",
-    size: "",
->>>>>>> 5d8f850e1b0b5eaf6452ea549061117dc62c294b
   };
 
   name_regex = (name) => {
