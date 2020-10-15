@@ -195,6 +195,7 @@ export default class CategorySelection extends React.Component {
   render() {
     return (
       <View>
+          <View style={{marginTop: 10}}/>
         <Text>
           <Text style={styles.titles}>Category</Text>
         </Text>
@@ -302,9 +303,15 @@ const styles = StyleSheet.create({
     // width: 50,
   },
   picker: {
-    height: 34,
-    width: 314,
-    fontSize: 12,
+    // height: 34,
+    // width: 314,
+    // fontSize: 12,
+
+    height: 27,
+    borderRadius: 4,
+    fontSize: 5,
+    // backgroundColor: "#F6F6F6"
+
     // marginBottom: 100,
     //   backgroundColor: "white",
     //   borderColor: "black",
@@ -314,10 +321,13 @@ const styles = StyleSheet.create({
     color: "#B4B4B4",
   },
   picker_container: {
-    backgroundColor: "white",
+    // backgroundColor: "white",
     borderColor: "black",
+    backgroundColor: "#F6F6F6",
+    borderColor: "#5D5D5D",
     borderWidth: 1,
-    height: 34,
+    borderRadius: 4,
+    // height: 34,
     marginBottom: 10,
   },
   picker_entry: {

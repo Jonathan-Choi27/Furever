@@ -7,6 +7,7 @@ import {
   Image,
   ScrollView,
   FlatList,
+  BackHandler
 } from "react-native";
 import {
   Avatar,
@@ -43,7 +44,7 @@ export default class petBreeds extends React.Component {
     pigCheck: false,
     filterDisplay: false,
   };
-
+  
   async componentDidMount() {
     const dataArray = [];
     db.collection("pet_listings")
@@ -201,7 +202,6 @@ export default class petBreeds extends React.Component {
     if (!this.state.dogCheck && !this.state.catCheck && !this.state.birdCheck) {
       this.setState({ filterDisplay: false });
     }
-    console.log(listData);
     this.setState({ filteredData: listData });
   };
 
@@ -216,7 +216,6 @@ export default class petBreeds extends React.Component {
     }
     return (
       <Provider>
-        <ScrollView>
           <View style={styles.container}>
             <View style={styles.buySellContainer}>
               <TouchableOpacity
@@ -227,7 +226,7 @@ export default class petBreeds extends React.Component {
                   alignItems: "center",
                   height: 50,
                 }}
-                onPress={() => this.props.navigation.replace("petBuy")}>
+                onPress={() => this.props.navigation.replace("petCategories")}>
                 <Text>Buy</Text>
               </TouchableOpacity>
               <TouchableOpacity
@@ -238,22 +237,23 @@ export default class petBreeds extends React.Component {
                   alignItems: "center",
                   height: 50,
                 }}
-                onPress={() => this.props.navigation.replace("petSell")}>
+                onPress={() => this.props.navigation.replace("currentListings")}>
                 <Text style={{ textAlign: "center" }}> Sell </Text>
               </TouchableOpacity>
             </View>
             <View
               style={{
-                flex: 1,
-                justifyContent: "center",
-                alignItems: "center",
-                alignSelf: "stretch",
-                flexDirection: "row",
+                  height: 20,
+                  margin:30,
+                  justifyContent: "center",
+                  alignItems: "center",
+                  alignSelf: "stretch",
+                  flexDirection: "row",
               }}>
               <Searchbar
                 style={{
                   margin: 10,
-                  height: 50,
+                  height: 40,
                   width: 250,
                 }}
                 placeholder="Search"
@@ -269,7 +269,7 @@ export default class petBreeds extends React.Component {
                 Filter
               </Button>
             </View>
-            <View style={{ height: 50, padding: 10 }}>
+            <View style={{ height: 30, marginBottom: 15, }}>
               <TouchableOpacity
                 style={styles.viewApplication}
                 onPress={() => this.props.navigation.replace("currentApplications")}>
@@ -278,6 +278,8 @@ export default class petBreeds extends React.Component {
                 </Text>
               </TouchableOpacity>
             </View>
+            <ScrollView>
+
             <Portal>
               <Modal
                 style={{ backgroundColor: "transparent" }}
@@ -381,7 +383,7 @@ export default class petBreeds extends React.Component {
                 showsVerticalScrollIndicator={false}
                 renderItem={({ item }) => (
                   <Card elevation={5} style={styles.card}>
-                    <Card.Cover source={item.photo} />
+                    <Card.Cover source={ {uri: item.photo}}/>
                     <Card.Title
                       title={item.title}
                       subtitle={item.name}
@@ -389,7 +391,7 @@ export default class petBreeds extends React.Component {
                         <Avatar.Image
                           {...props}
                           size={40}
-                          source={item.photo}
+                          source={{uri: item.photo}}
                         />
                       )}
                     />
@@ -553,7 +555,7 @@ export default class petBreeds extends React.Component {
                         showsVerticalScrollIndicator={false}
                         renderItem={({ item }) => (
                           <Card elevation={5} style={styles.card}>
-                            <Card.Cover source={item.photo} />
+                            <Card.Cover source={{uri: item.photo}} />
                             <Card.Title
                               title={item.title}
                               subtitle={item.name}
@@ -561,7 +563,7 @@ export default class petBreeds extends React.Component {
                                 <Avatar.Image
                                   {...props}
                                   size={40}
-                                  source={item.photo}
+                                  source={{uri: item.photo}}
                                 />
                               )}
                             />
@@ -596,8 +598,9 @@ export default class petBreeds extends React.Component {
                 )}
               </View>
             )}
+                    </ScrollView>
+
           </View>
-        </ScrollView>
       </Provider>
     );
     // } else {

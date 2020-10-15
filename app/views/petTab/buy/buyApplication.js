@@ -18,7 +18,7 @@ import { TextInput as NativeTextInput } from "react-native";
 // import "firebase/storage";
 import { db } from "../../database/firebase";
 
-export default class shepherdListInfo extends React.Component {
+export default class buyApplication extends React.Component {
   constructor(props) {
     super(props);
 

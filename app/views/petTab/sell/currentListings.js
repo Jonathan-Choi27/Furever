@@ -39,7 +39,7 @@ async fetchData() {
         doc.forEach((listingDoc) => {
           // console.log(listingDoc.data());
           dataArray.push({
-            pet_name: listingDoc.data().name,
+            petName: listingDoc.data().name,
             category: listingDoc.data().category,
             breed: listingDoc.data().breed,
             colour: listingDoc.data().colour,
@@ -52,7 +52,7 @@ async fetchData() {
             health: listingDoc.data().health,
             training: listingDoc.data().training,
             additionalInfo: listingDoc.data().additionalInfo,
-            photo_uri: listingDoc.data().photo_link,
+            photo: listingDoc.data().photo_link,
             doc_id: listingDoc.id
           });
 
@@ -151,7 +151,7 @@ async fetchData() {
             data={this.state.data}
             renderItem={({ item }) => (
               <SelfPetListing
-                name={item.pet_name}
+                petName={item.petName}
                 category={item.category}
                 breed={item.breed}
                 colour={item.colour}
@@ -164,7 +164,7 @@ async fetchData() {
                 health={item.health}
                 training={item.training}
                 additionalInfo={item.additionalInfo}
-                photo_uri={item.photo_uri}
+                photo={item.photo}
                 doc_id={item.doc_id}
                 navigation={this.props.navigation}
               />
