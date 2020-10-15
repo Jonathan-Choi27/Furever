@@ -5,7 +5,7 @@ import {
   View,
   TouchableOpacity,
   FlatList,
-  Image
+  Image,
 } from "react-native";
 import {
   Avatar,
@@ -104,7 +104,8 @@ export default class shepherdList extends React.Component {
                 alignItems: "center",
                 height: 50,
               }}
-              onPress={() => this.props.navigation.replace("petCategories")}>
+              onPress={() => this.props.navigation.replace("petCategories")}
+            >
               <Text>Buy</Text>
             </TouchableOpacity>
             <TouchableOpacity
@@ -115,11 +116,13 @@ export default class shepherdList extends React.Component {
                 alignItems: "center",
                 height: 50,
               }}
-              onPress={() => this.props.navigation.replace("currentListings")}>
+              onPress={() => this.props.navigation.replace("currentListings")}
+            >
               <Text
                 style={{
                   textAlign: "center",
-                }}>
+                }}
+              >
                 {" "}
                 Sell{" "}
               </Text>
@@ -137,7 +140,8 @@ export default class shepherdList extends React.Component {
               visible={this.state.visible}
               onDismiss={() => {
                 this.setState({ visible: false });
-              }}>
+              }}
+            >
               <Card elevation={5} style={{ margin: 10 }}>
                 <Card.Cover
                   resizeMode={`cover`}
@@ -161,7 +165,8 @@ export default class shepherdList extends React.Component {
                     color="#447ECB"
                     onPress={() =>
                       this.props.navigation.navigate("shepherdInfo")
-                    }>
+                    }
+                  >
                     More info
                   </Button>
                 </Card.Actions>
@@ -175,13 +180,14 @@ export default class shepherdList extends React.Component {
               onPress={() => {
                 this.setState({ visible: true });
               }}
-              mode="contained">
+              mode="contained"
+            >
               Information
             </Button>
           </View>
           <View style={styles.cardContainer}>
             <FlatList
-            style={{ paddingBottom: 10}}
+              style={{ paddingBottom: 10 }}
               onRefresh={async () => {
                 this.setState({
                   pullToRefresh: true,
@@ -209,49 +215,57 @@ export default class shepherdList extends React.Component {
                     )}
                   />
                   <View style={{ flexDirection: "row" }}>
-                  <View
-             style={{
-              paddingLeft: 10,
-              paddingBottom: 10,
-              paddingTop: 10,
-              paddingRight: 10,
-              width: 170,
-              height: 170
-            }}>
-              <Image
-              source={{ uri: item.photo }}
-              style={{ aspectRatio: 1, borderRadius: 5 }}
-            />
-          </View>
-          <View
-            style={{
-              flex: 3,
-              justifyContent: "center",
-            }}>
-            <Card.Content>
-                      <Text numberOfLines={1} style={styles.cardContentText}>Age: {item.age}</Text>
-                      <Text numberOfLines={1} style={styles.cardContentText}>
-                       Gender: {item.gender}
-                     </Text>
-                     <Text numberOfLines={1} style={styles.cardContentText}>
-                       Location: {item.location}
-                     </Text>
-                   </Card.Content>
+                    <View
+                      style={{
+                        paddingLeft: 10,
+                        paddingBottom: 10,
+                        paddingTop: 10,
+                        paddingRight: 10,
+                        width: 170,
+                        height: 170,
+                      }}
+                    >
+                      <Image
+                        source={{ uri: item.photo }}
+                        style={{ aspectRatio: 1, borderRadius: 5 }}
+                      />
+                    </View>
+                    <View
+                      style={{
+                        flex: 3,
+                        justifyContent: "center",
+                      }}
+                    >
+                      <Card.Content>
+                        <Text numberOfLines={1} style={{ flex: 1 }}>
+                          <Text style={{ fontWeight: "bold" }}>Age: </Text>
+                          <Text>{item.age}</Text>
+                        </Text>
+                        <Text numberOfLines={1} style={{ flex: 1 }}>
+                          <Text style={{ fontWeight: "bold" }}>Gender: </Text>
+                          <Text>{item.gender}</Text>
+                        </Text>
+                        <Text numberOfLines={1} style={{ flex: 1 }}>
+                          <Text style={{ fontWeight: "bold" }}>Location: </Text>
+                          <Text>{item.location}</Text>
+                        </Text>
+                      </Card.Content>
 
-                   <Card.Actions style={styles.actionCard}>
-                <Button style={styles.bigButton}
-                              mode="contained"
-
-                   onPress={() =>
-                    this.props.navigation.navigate("buyPetProfile", {
-                      item,
-                    })
-                  }>
-                  <Text style={styles.bigButtonText}>More Info</Text>
-                </Button>
-              </Card.Actions>
-                   </View>
-                 </View>
+                      <Card.Actions style={styles.actionCard}>
+                        <Button
+                          style={styles.bigButton}
+                          mode="contained"
+                          onPress={() =>
+                            this.props.navigation.navigate("buyPetProfile", {
+                              item,
+                            })
+                          }
+                        >
+                          <Text style={styles.bigButtonText}>More Info</Text>
+                        </Button>
+                      </Card.Actions>
+                    </View>
+                  </View>
                 </Card>
               )}
               keyExtractor={(item, index) => index.toString()}
