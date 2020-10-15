@@ -16,7 +16,7 @@ import "@react-navigation/native";
 import "react-navigation-hooks";
 import { TextInput as NativeTextInput } from "react-native";
 // import "firebase/storage";
-import { db } from "../database/firebase";
+import { db } from "../../database/firebase";
 
 export default class shepherdListInfo extends React.Component {
   constructor(props) {
@@ -128,8 +128,7 @@ export default class shepherdListInfo extends React.Component {
                   alignItems: "center",
                   height: 50,
                 }}
-                onPress={() => this.props.navigation.navigate("petBuy")}
-              >
+                onPress={() => this.props.navigation.navigate("petCategories")}>
                 <Text>Buy</Text>
               </TouchableOpacity>
               <TouchableOpacity
@@ -140,8 +139,7 @@ export default class shepherdListInfo extends React.Component {
                   alignItems: "center",
                   height: 50,
                 }}
-                onPress={() => this.props.navigation.navigate("petSell")}
-              >
+                onPress={() => this.props.navigation.navigate("currentListings")}>
                 <Text style={{ textAlign: "center" }}> Sell </Text>
               </TouchableOpacity>
             </View>

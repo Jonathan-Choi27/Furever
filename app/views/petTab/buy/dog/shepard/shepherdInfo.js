@@ -50,7 +50,7 @@ export default class shepherdInfo extends React.Component {
                                 alignItems: "center",
                                 height: 50,
                             }}
-                            onPress={() => this.props.navigation.replace("petBuy")}
+                            onPress={() => this.props.navigation.replace("petCategories")}
                         >
                             <Text>Buy</Text>
                         </TouchableOpacity>
@@ -62,20 +62,14 @@ export default class shepherdInfo extends React.Component {
                                 alignItems: "center",
                                 height: 50,
                             }}
-                            onPress={() => this.props.navigation.replace("petSell")}
+                            onPress={() => this.props.navigation.replace("currentListings")}
                         >
                             <Text style={{ textAlign: "center" }}> Sell </Text>
                         </TouchableOpacity>
                     </View>
-                    <Searchbar
-                        style={styles.searchBar}
-                        placeholder="Search"
-                        onChangeText={this.searchFunction}
-                        value={this.state.searchText}
-                    />
 
                     <View style={styles.titleContainer}>
-                        <Text style={styles.fontTitle}>German Shepard</Text>
+                        <Text style={styles.fontTitle}>German Shepherd</Text>
                     </View>
                     
                     <Card containerStyle={styles.cardContainer}>

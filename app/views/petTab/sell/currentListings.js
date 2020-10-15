@@ -12,23 +12,23 @@ import {
   Dimensions,
   Image,
 } from "react-native";
-import { useFonts, Roboto_400Regular } from "@expo-google-fonts/roboto";
 import { SearchBar } from "react-native-elements";
 import firebase from "firebase";
 import { AppLoading } from "expo";
-import SelfPetListing from "./petSell_PetListing";
-import { auth } from "../database/firebase";
+import SelfPetListing from "./petListing";
+import { auth } from "../../database/firebase";
 
 const db = firebase.firestore();
 
-export default class petSell extends React.Component {
+export default class currentListings extends React.Component {
   state = {
     data: [],
     lists: null,
     isLoading: true,
+    pullToRefresh: false,
   };
 
-  async componentDidMount() {
+async fetchData() {
     const dataArray = [];
     const user = auth.currentUser;
 
@@ -62,6 +62,9 @@ export default class petSell extends React.Component {
           });
         });
       });
+}
+  async componentDidMount() {
+    this.fetchData();
   }
 
   render() {
@@ -83,8 +86,8 @@ export default class petSell extends React.Component {
               alignItems: "center",
               height: 50,
             }}
-            onPress={() => this.props.navigation.replace("petBuy")}>
-            <Text style={{ fontFamily: "Roboto_400Regular" }}>Buy</Text>
+            onPress={() => this.props.navigation.replace("petCategories")}>
+            <Text>Buy</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={{
@@ -94,11 +97,10 @@ export default class petSell extends React.Component {
               alignItems: "center",
               height: 50,
             }}
-            onPress={() => this.props.navigation.replace("petSell")}>
+            onPress={() => this.props.navigation.replace("currentListings")}>
             <Text
               style={{
                 textAlign: "center",
-                fontFamily: "Roboto_400Regular",
               }}>
               {" "}
               Sell{" "}
@@ -121,7 +123,7 @@ export default class petSell extends React.Component {
               height: 34,
               width: 200,
             }}
-            onPress={() => this.props.navigation.navigate("petSell1")}>
+            onPress={() => this.props.navigation.navigate("sellApplication")}>
             <Text
               style={{
                 textAlign: "center",
@@ -136,6 +138,16 @@ export default class petSell extends React.Component {
         <View style={styles.cardContainer}>
           <FlatList
             showsVerticalScrollIndicator={false}
+            onRefresh={async () => {
+                this.setState({
+                  pullToRefresh: true,
+                });
+                await this.fetchData();
+                this.setState({
+                  pullToRefresh: false,
+                });
+              }}
+              refreshing={this.state.pullToRefresh}
             data={this.state.data}
             renderItem={({ item }) => (
               <SelfPetListing
@@ -157,7 +169,7 @@ export default class petSell extends React.Component {
                 navigation={this.props.navigation}
               />
             )}
-            keyExtractor={(item) => item.id}
+            keyExtractor={(item, index) => index.toString()}
           />
         </View>
       </View>

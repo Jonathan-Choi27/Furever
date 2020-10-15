@@ -12,26 +12,21 @@ import {
   Image,
 } from "react-native";
 import { color } from "react-native-reanimated";
-import { db } from "../database/firebase";
+import { db } from "../../database/firebase";
 import uuid from "react-native-uuid";
 import {
   openDocumentPicker,
   uploadDocument,
-} from "../components/DocumentUpload";
-// import {
-//   useFonts,
-//   Roboto_400Regular,
-//   Roboto_700Bold,
-// } from "@expo-google-fonts/roboto";
+} from "../../components/DocumentUpload";
 import * as Font from "expo-font";
-import { openImagePicker, uploadPhoto } from "../components/ImageUpload";
-import CategorySelection from "./pet_sell_1_categorySelection";
-import { auth } from "../database/firebase";
+import { openImagePicker, uploadPhoto } from "../../components/ImageUpload";
+import CategorySelection from "./sellAppCategories";
+import { auth } from "../../database/firebase";
 import * as firebase from "firebase/app";
 import "firebase/storage";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 
-export default class petSell1 extends React.Component {
+export default class application extends React.Component {
   state = {
     name: "",
     category: "",
@@ -169,7 +164,8 @@ export default class petSell1 extends React.Component {
     });
 
     if (submit == true) {
-      this.props.navigation.replace("petSell");
+      alert("Application Successful!");
+      this.props.navigation.goBack();
     }
   };
   // aaaaaaaaaa
@@ -252,8 +248,7 @@ export default class petSell1 extends React.Component {
       <SafeAreaView style={styles.container}>
         <ScrollView
           style={styles.scrollView}
-          showsVerticalScrollIndicator={false}
-        >
+          showsVerticalScrollIndicator={false}>
           <Text style={styles.heading}>New Pet Listing Application</Text>
           <Text>
             <Text style={styles.sub_heading}>General Information</Text>
@@ -323,8 +318,8 @@ export default class petSell1 extends React.Component {
               <View style={styles.picker_container}>
                 <Picker
                   style={styles.picker}
-                  onValueChange={(gender) => this.setState({ gender })}
-                >
+                  selectedValue={this.state.gender}
+                  onValueChange={(gender) => this.setState({ gender })}>
                   <Picker.Item
                     label="Select gender"
                     value="0"
@@ -497,7 +492,7 @@ export default class petSell1 extends React.Component {
                   title={"submit"}
                   style={styles.buttons}
                   onPress={this.handleSubmit}
-                  //   onPress={() => this.props.navigation.replace("petSell")}
+                  //   onPress={() => this.props.navigation.replace("currentListings")}
                 >
                   <Text style={styles.buttonsText}>Submit</Text>
                 </TouchableOpacity>
@@ -520,7 +515,6 @@ const styles = StyleSheet.create({
   titles: {
     fontSize: 14,
     // fontWeight: "bold",
-    // fontFamily: "Roboto_400Regular",
     color: "#515151",
     paddingVertical: 8,
     // width: 50,
@@ -543,7 +537,6 @@ const styles = StyleSheet.create({
   sub_heading: {
     fontSize: 16,
     // fontWeight: "bold",
-    fontFamily: "Roboto_700Bold",
   },
   input: {
     width: 314,

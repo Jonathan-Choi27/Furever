@@ -9,9 +9,8 @@ import {
   FlatList,
 } from "react-native";
 import { Avatar, Card, Button, Searchbar } from "react-native-paper";
-import { db } from "../database/firebase";
-import { useFonts, Roboto_400Regular } from "@expo-google-fonts/roboto";
-import { auth } from "../database/firebase";
+import { db } from "../../database/firebase";
+import { auth } from "../../database/firebase";
 
 export default class petBuy7 extends React.Component {
   state = {
@@ -79,9 +78,9 @@ export default class petBuy7 extends React.Component {
                 alignItems: "center",
                 height: 50,
               }}
-              onPress={() => this.props.navigation.replace("petBuy")}
+              onPress={() => this.props.navigation.replace("petCategories")}
             >
-              <Text style={{ fontFamily: " Roboto_400Regular" }}>Buy</Text>
+              <Text>Buy</Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={{
@@ -91,10 +90,10 @@ export default class petBuy7 extends React.Component {
                 alignItems: "center",
                 height: 50,
               }}
-              onPress={() => this.props.navigation.replace("petSell")}
+              onPress={() => this.props.navigation.replace("currentListings")}
             >
               <Text
-                style={{ textAlign: "center", fontFamily: "Roboto_400Regular" }}
+                style={{ textAlign: "center"}}
               >
                 {" "}
                 Sell{" "}

@@ -12,27 +12,22 @@ import {
   Image,
 } from "react-native";
 import { color } from "react-native-reanimated";
-import { db } from "../database/firebase";
+import { db } from "../../database/firebase";
 import uuid from "react-native-uuid";
 import {
   openDocumentPicker,
   uploadDocument,
-} from "../components/DocumentUpload";
-import {
-  useFonts,
-  Roboto_400Regular,
-  Roboto_700Bold,
-} from "@expo-google-fonts/roboto";
+} from "../../components/DocumentUpload";
 import * as Font from "expo-font";
-import { openImagePicker, uploadPhoto } from "../components/ImageUpload";
-import CategorySelection from "./pet_sell_1_categorySelection";
-import { auth } from "../database/firebase";
+import { openImagePicker, uploadPhoto } from "../../components/ImageUpload";
+import CategorySelection from "./sellAppCategories";
+import { auth } from "../../database/firebase";
 import * as firebase from "firebase/app";
 import "firebase/storage";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { Route } from "react-router";
 
-export default class petSell4 extends React.Component {
+export default class updateSellApplication extends React.Component {
   state = {
     name: "",
     category: "",
@@ -160,7 +155,7 @@ export default class petSell4 extends React.Component {
     });
 
     if (submit == true) {
-      this.props.navigation.replace("petSell");
+      this.props.navigation.replace("currentListings");
     }
   };
 
@@ -361,7 +356,6 @@ const styles = StyleSheet.create({
   titles: {
     fontSize: 14,
     // fontWeight: "bold",
-    fontFamily: "Roboto_400Regular",
     color: "#515151",
     paddingVertical: 8,
     // width: 50,
@@ -384,7 +378,6 @@ const styles = StyleSheet.create({
   sub_heading: {
     fontSize: 16,
     // fontWeight: "bold",
-    fontFamily: "Roboto_700Bold",
   },
   input: {
     width: 314,

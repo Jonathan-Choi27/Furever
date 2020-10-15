@@ -1,44 +1,28 @@
 import React from "react";
-import { auth } from "./database/firebase";
+import { auth } from "../database/firebase";
 import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
 import { Input } from "react-native-elements";
-import { Roboto_400Regular, Roboto_700Bold } from "@expo-google-fonts/roboto";
 import { AppLoading } from "expo";
 import * as Font from "expo-font";
 
-let customFonts = {
-  Roboto_400Regular,
-  Roboto_700Bold,
-};
-
-export default class Login extends React.Component {
+export default class PasswordRecoveryPage extends React.Component {
   state = {
     email: "",
-    password: "",
-    fontsLoaded: false,
   };
 
-  async _loadFontsAsync() {
-    await Font.loadAsync(customFonts);
-    this.setState({ fontsLoaded: true });
-  }
-
-  componentDidMount() {
-    this._loadFontsAsync();
-  }
-
-  onLogin() {
-    const { email, password } = this.state;
-
+  onPasswordRecovery(email) {
     auth
-      .signInWithEmailAndPassword(email, password)
-      .then((e) => {
-        const user = auth.currentUser;
-        if (user.emailVerified) {
-          this.props.navigation.replace("Home");
+      .fetchSignInMethodsForEmail(email)
+      .then((signInMethod) => {
+        if (signInMethod.length) {
+          auth.sendPasswordResetEmail(email).then((sentEmail) => {
+            alert(
+              `An email has been sent, please reset your account password at ${email}`
+            );
+          });
+          this.props.navigation.navigate("Login");
         } else {
-          this.props.navigation.replace("Home");
-          alert("Email address is not verified.");
+          alert("Email address is invalid.");
         }
       })
       .catch((err) => {
@@ -46,34 +30,11 @@ export default class Login extends React.Component {
           case "auth/invalid-email":
             alert("Email address is invalid.");
             break;
-          case "auth/user-disabled":
-            alert("User is disabled.");
-            break;
-          case "auth/user-not-found":
-            alert("User is not found.");
-            break;
-          case "auth/wrong-password":
-            alert("Password is invalid.");
-            break;
         }
-      });
-    this.setState({ email: "" });
-    this.setState({ password: "" });
-  }
-
-  onForgotPassword(email) {
-    auth
-      .sendPasswordResetEmail(email)
-      .then((e) => {
-        alert(`A password reset email has been sent to ${email}`);
-      })
-      .catch((error) => {
-        console.error(error);
       });
   }
 
   render() {
-    if (this.state.fontsLoaded) {
       return (
         <View style={styles.container}>
           <View style={styles.logoContainer}>
@@ -86,7 +47,6 @@ export default class Login extends React.Component {
             />
             <View style={styles.inputContainer}>
               <Input
-                style={{ fontFamily: "Roboto_400Regular" }}
                 placeholder="EMAIL"
                 value={this.state.email}
                 onChangeText={(email) => this.setState({ email })}
@@ -97,40 +57,23 @@ export default class Login extends React.Component {
                   color: "#447ECB",
                 }}
               />
-              <Input
-                style={{ fontFamily: "Roboto_400Regular" }}
-                placeholder="PASSWORD"
-                value={this.state.password}
-                onChangeText={(password) => this.setState({ password })}
-                secureTextEntry={true}
-                leftIcon={{
-                  type: "font-awesome",
-                  name: "lock",
-                  size: 23,
-                  color: "#447ECB",
-                }}
-              />
             </View>
             <View style={styles.buttonsContainer}>
               <TouchableOpacity
                 style={styles.buttons}
-                onPress={this.onLogin.bind(this)}
+                onPress={() => this.onPasswordRecovery(this.state.email)}
               >
-                <Text style={styles.buttonsText}>LOGIN</Text>
+                <Text style={styles.buttonsText}>
+                  SEND PASSWORD RESET EMAIL
+                </Text>
               </TouchableOpacity>
-              <Text
-                style={styles.title}
-                onPress={() => this.props.navigation.replace("Forgot Password")}
-              >
-                FORGOT PASSWORD?
-              </Text>
 
               <Text
                 style={styles.title2}
-                onPress={() => this.props.navigation.replace("Sign Up")}
+                onPress={() => this.props.navigation.navigate("Login")}
               >
-                NO ACCOUNT?{" "}
-                <Text style={{ fontWeight: "bold" }}>{"SIGN UP"}</Text>
+                HAVE AN ACCOUNT?{" "}
+                <Text style={{ fontWeight: "bold" }}>{"LOGIN"}</Text>
               </Text>
             </View>
             <Image
@@ -143,9 +86,6 @@ export default class Login extends React.Component {
           </View>
         </View>
       );
-    } else {
-      return <AppLoading />;
-    }
   }
 }
 
@@ -161,6 +101,7 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     width: 280,
+    color: "#447ECB",
   },
   logo: {
     width: 264,
@@ -175,15 +116,13 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: "#447ECB",
     padding: 10,
-    fontSize: 15,
-    fontFamily: "Roboto_400Regular",
+    fontSize: 16,
   },
   title2: {
     marginTop: 10,
     textAlign: "center",
     color: "#447ECB",
     padding: 10,
-    fontFamily: "Roboto_400Regular",
   },
   buttonsContainer: {
     alignItems: "center",
@@ -195,13 +134,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 10,
-    width: 220,
+    width: 260,
     marginTop: 10,
     height: 35,
   },
   buttonsText: {
     color: "white",
     fontSize: 15,
-    fontFamily: "Roboto_400Regular",
   },
 });

@@ -1,30 +1,11 @@
 import React from "react";
 import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
-import { Roboto_400Regular, Roboto_700Bold } from "@expo-google-fonts/roboto";
 import { AppLoading } from "expo";
 import * as Font from "expo-font";
 
-let customFonts = {
-  Roboto_400Regular,
-  Roboto_700Bold,
-};
-
 export default class LandingPage extends React.Component {
-  state = {
-    fontsLoaded: false,
-  };
-
-  async _loadFontsAsync() {
-    await Font.loadAsync(customFonts);
-    this.setState({ fontsLoaded: true });
-  }
-
-  componentDidMount() {
-    this._loadFontsAsync();
-  }
 
   render() {
-    if (this.state.fontsLoaded) {
       return (
         <View style={styles.container}>
           <View style={styles.logoContainer}>
@@ -53,9 +34,6 @@ export default class LandingPage extends React.Component {
           </View>
         </View>
       );
-    } else {
-      return <AppLoading />;
-    }
   }
 }
 
@@ -76,7 +54,6 @@ const styles = StyleSheet.create({
   title: {
     marginTop: 10,
     textAlign: "center",
-    fontFamily: "Roboto_400Regular",
   },
   buttonsContainer: {
     alignItems: "center",
@@ -95,6 +72,5 @@ const styles = StyleSheet.create({
   buttonsText: {
     color: "white",
     fontSize: 15,
-    fontFamily: "Roboto_400Regular",
   },
 });

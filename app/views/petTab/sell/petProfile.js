@@ -15,7 +15,7 @@ import "react-navigation"
 import "react-navigation-props-mapper"
 import "@react-navigation/native"
 import 'react-navigation-hooks'
-
+console.disableYellowBox = true;
 // title: listingDoc.data().name,
 // category: listingDoc.data().category,
 // breed: listingDoc.data().breed,
@@ -31,7 +31,7 @@ import 'react-navigation-hooks'
 // additional: listingDoc.data().additionalInfo,
 // photo: listingDoc.data().photo_link,
 
-export default class petSell3 extends React.Component {
+export default class petProfile extends React.Component {
     render() {
         const item = this.props.route.params.props;
         const screenWidth = Math.round(Dimensions.get('window').width);
@@ -48,7 +48,7 @@ export default class petSell3 extends React.Component {
                                 alignItems: "center",
                                 height: 50,
                             }}
-                            onPress={() => this.props.navigation.navigate("petBuy")}
+                            onPress={() => this.props.navigation.navigate("petCategories")}
                         >
                             <Text>Buy</Text>
                         </TouchableOpacity>
@@ -60,7 +60,7 @@ export default class petSell3 extends React.Component {
                                 alignItems: "center",
                                 height: 50,
                             }}
-                            onPress={() => this.props.navigation.navigate("petSell")}
+                            onPress={() => this.props.navigation.navigate("currentListings")}
                         >
                             <Text style={{ textAlign: "center" }}> Sell </Text>
                         </TouchableOpacity>

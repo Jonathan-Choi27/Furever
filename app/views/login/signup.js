@@ -11,16 +11,10 @@ import {
 } from "react-native";
 import { CheckBox } from "react-native-elements";
 import firebase from "firebase";
-import { db } from "./database/firebase";
+import { db } from "../database/firebase";
 import { Input } from "react-native-elements";
-import { Roboto_400Regular, Roboto_700Bold } from "@expo-google-fonts/roboto";
 import { AppLoading } from "expo";
 import * as Font from "expo-font";
-
-let customFonts = {
-  Roboto_400Regular,
-  Roboto_700Bold,
-};
 
 export default class SignUp extends React.Component {
   state = {
@@ -30,17 +24,7 @@ export default class SignUp extends React.Component {
     password: "",
     dob: "",
     isPetShop: false,
-    fontsLoaded: false,
   };
-
-  async _loadFontsAsync() {
-    await Font.loadAsync(customFonts);
-    this.setState({ fontsLoaded: true });
-  }
-
-  componentDidMount() {
-    this._loadFontsAsync();
-  }
 
   submit = () => {
     const {
@@ -128,7 +112,6 @@ export default class SignUp extends React.Component {
   };
 
   render() {
-    if (this.state.fontsLoaded) {
       return (
         <SafeAreaView style={styles.container}>
           <ScrollView style={styles.scrollView}>
@@ -142,7 +125,6 @@ export default class SignUp extends React.Component {
               />
               <View style={styles.inputContainer}>
                 <Input
-                  style={{ fontFamily: "Roboto_400Regular" }}
                   placeholder="NAME"
                   value={this.state.name}
                   onChangeText={(name) => this.setState({ name })}
@@ -154,7 +136,6 @@ export default class SignUp extends React.Component {
                   }}
                 />
                 <Input
-                  style={{ fontFamily: "Roboto_400Regular" }}
                   placeholder="DD/MM/YYYY"
                   value={this.state.dob}
                   onChangeText={(dob) => this.setState({ dob })}
@@ -166,7 +147,6 @@ export default class SignUp extends React.Component {
                   }}
                 />
                 <Input
-                  style={{ fontFamily: "Roboto_400Regular" }}
                   placeholder="EMAIL"
                   value={this.state.email}
                   onChangeText={(email) => this.setState({ email })}
@@ -178,7 +158,6 @@ export default class SignUp extends React.Component {
                   }}
                 />
                 <Input
-                  style={{ fontFamily: "Roboto_400Regular" }}
                   placeholder="PASSWORD"
                   value={this.state.password}
                   secureTextEntry={true}
@@ -191,7 +170,6 @@ export default class SignUp extends React.Component {
                   }}
                 />
                 <Input
-                  style={{ fontFamily: "Roboto_400Regular" }}
                   placeholder="CONFIRM PASSWORD"
                   secureTextEntry={true}
                   value={this.state.confirmPassword}
@@ -208,7 +186,6 @@ export default class SignUp extends React.Component {
               </View>
 
               <CheckBox
-                style={{ fontFamily: "Roboto_400Regular" }}
                 title="Are you a pet shop?"
                 checked={this.state.isPetShop}
                 onPress={() =>
@@ -239,9 +216,6 @@ export default class SignUp extends React.Component {
           </ScrollView>
         </SafeAreaView>
       );
-    } else {
-      return <AppLoading />;
-    }
   }
 }
 
@@ -275,7 +249,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: "#447ECB",
     padding: 10,
-    fontFamily: "Roboto_400Regular",
   },
   buttonsContainer: {
     alignItems: "center",
@@ -294,6 +267,5 @@ const styles = StyleSheet.create({
   buttonsText: {
     color: "white",
     fontSize: 15,
-    fontFamily: "Roboto_400Regular",
   },
 });

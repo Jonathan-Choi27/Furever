@@ -14,38 +14,38 @@ import {
 } from "react-native";
 import { SearchBar } from "react-native-elements";
 import { max } from "react-native-reanimated";
-import petBuy1Dog from "./petBuy1Dog";
-import petBuy from "./petBuy";
-import petBuy7 from "./petBuy7";
-import shepherdList from "./dog_species/shepard/shepherdList";
-import shepherdInfo from "./dog_species/shepard/shepherdInfo";
-import shepherdListInfo from "./dog_species/shepard/shepherdListInfo";
+import petBreeds from "./buy/petBreeds";
+import petCategories from "./buy/petCategories";
+import currentApplications from "./buy/currentApplications";
+import shepherdList from "./buy/dog/shepard/shepherdList";
+import shepherdInfo from "./buy/dog/shepard/shepherdInfo";
+import shepherdListInfo from "./buy/dog/shepard/shepherdListInfo";
 
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import petSell1 from "./petSell1";
-import petSell from "./petSell";
-import petSell4 from "./petSell4";
-import petBuy5 from "./petBuy5";
-import petSell3 from "./petSell3";
+import sellApplication from "./sell/sellApplication";
+import currentListings from "./sell/currentListings";
+import updateSellApplication from "./sell/updateSellApplication";
+import buyApplication from "./buy/buyApplication";
+import petProfile from "./sell/petProfile";
 
 const Stack = createStackNavigator();
 
-export default function PetBuyNav() {
+export default function PetNav() {
   return (
     <NavigationContainer independent={true}>
       <Stack.Navigator>
-        <Stack.Screen name="petBuy" component={petBuy} />
-        <Stack.Screen name="petBuy1Dog" component={petBuy1Dog} />
-        <Stack.Screen name="petBuy7" component={petBuy7} />
-        <Stack.Screen name="petSell" component={petSell} />
-        <Stack.Screen name="petSell1" component={petSell1}/>
-        <Stack.Screen name="petSell3" component={petSell3}/>
-        <Stack.Screen name="petSell4" component={petSell4} />
+        <Stack.Screen name="petCategories" component={petCategories} />
+        <Stack.Screen name="petBreeds" component={petBreeds} />
+        <Stack.Screen name="currentApplications" component={currentApplications} />
+        <Stack.Screen name="currentListings" component={currentListings} />
+        <Stack.Screen name="sellApplication" component={sellApplication}/>
+        <Stack.Screen name="petProfile" component={petProfile}/>
+        <Stack.Screen name="updateSellApplication" component={updateSellApplication} />
         <Stack.Screen name="shepherdList" component={shepherdList} />
         <Stack.Screen name="shepherdInfo" component={shepherdInfo} />
         <Stack.Screen name="shepherdListInfo" component={shepherdListInfo} />
-        <Stack.Screen name="petBuy5" component={petBuy5} />
+        <Stack.Screen name="buyApplication" component={buyApplication} />
       </Stack.Navigator>
     </NavigationContainer>
   );
