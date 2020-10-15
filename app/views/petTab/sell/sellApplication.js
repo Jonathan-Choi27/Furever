@@ -22,7 +22,7 @@ import { auth } from "../../database/firebase";
 import * as firebase from "firebase/app";
 import "firebase/storage";
 
-export default class application extends React.Component {
+export default class sellApplication extends React.Component {
   state = {
     valid_price: true,
     valid_name: true,

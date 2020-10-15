@@ -117,12 +117,12 @@ export const sellerInfo = () => {
     );
 }
 
-export const expressInterest = (item) => {
+export const expressInterest = (item, navigation) => {
     return (
         <View style={styles.buttonsContainer}>
             <TouchableOpacity
                 style={styles.buttons}
-                onPress={() => this.props.navigation.navigate("sellApplication", { item })}>
+                onPress={() => navigation.navigate("buyApplication", { item })}>
 
                 <Text style={styles.buttonsText}>EXPRESS INTEREST</Text>
             </TouchableOpacity>
