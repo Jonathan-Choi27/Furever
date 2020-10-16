@@ -40,14 +40,47 @@
     "safe-buffer": "^5.2.1"
   },
   "devDependencies": {
-    "@babel/core": "7.9.0"
+    "@babel/core": "7.9.0",
+    "@testing-library/jest-native": "^3.4.3",
+    "@testing-library/react-native": "^7.0.2",
+    "babel-jest": "^26.5.2",
+    "babel-preset-react-native": "^4.0.1",
+    "jest": "^26.5.3",
+    "jest-react-native": "^18.0.0",
+    "react-test-renderer": "^16.14.0"
   },
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo web",
-    "eject": "expo eject"
+    "eject": "expo eject",
+    "test": "jest"
+  },
+  "jest": {
+    "preset": "react-native",
+    "verbose": true,
+    "moduleDirectories": [
+      "node_modules",
+      "src"
+    ],
+    "testEnvironment": "node",
+    "transform": {
+      "^.+\\.js$": "./node_modules/react-native/jest/preprocessor.js"
+    },
+    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)?$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ],
+    "moduleNameMapper": {
+      "^.+\\.(css|less|scss)$": "identity-obj-proxy"
+    },
+    "transformIgnorePatterns": []
   },
   "rnpm": {
     "assets": [

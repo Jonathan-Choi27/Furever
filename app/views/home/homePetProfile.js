@@ -16,7 +16,7 @@ export default class homePetProfile extends React.Component {
             <ScrollView>
                 {profileInfo(item)}
                 {sellerInfo()}
-                {expressInterest(item)}
+                {expressInterest(item, this.props.navigation)}
             </ScrollView>
         );
     }
