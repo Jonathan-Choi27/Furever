@@ -26,7 +26,7 @@ export default class SignUp extends React.Component {
     isPetShop: false,
   };
 
-  submit = () => {
+  submit = async () => {
     const {
       dob,
       password,
@@ -64,7 +64,8 @@ export default class SignUp extends React.Component {
       this.setState({ isPetShop: false });
       return false;
     } else {
-      firebase
+
+     firebase
         .auth()
         .createUserWithEmailAndPassword(email, password)
         .then((e) => {
@@ -74,16 +75,16 @@ export default class SignUp extends React.Component {
               displayName: name,
             })
             .then((e) => {
-              user.sendEmailVerification();
-              alert(
-                `An email has been sent, please verify your account at ${email}`
-              );
               db.collection("users").doc(user.uid).set({
                 name: this.state.name,
                 dob: this.state.dob,
                 email: this.state.email,
                 isPetShop: this.state.isPetShop,
               });
+              user.sendEmailVerification();
+              alert(
+                `An email has been sent, please verify your account at ${email}`
+              );
               this.props.navigation.navigate("Login");
             })
             .catch((error) => {
@@ -108,12 +109,6 @@ export default class SignUp extends React.Component {
               break;
           }
         });
-      this.setState({ name: "" });
-      this.setState({ email: "" });
-      this.setState({ password: "" });
-      this.setState({ dob: "" });
-      this.setState({ confirmPassword: "" });
-      this.setState({ isPetShop: false });
     }
   };
 
@@ -205,8 +200,7 @@ export default class SignUp extends React.Component {
               </TouchableOpacity>
               <Text
                 style={styles.title}
-                onPress={() => this.props.navigation.navigate("Login")}
-              >
+                onPress={() => this.props.navigation.navigate("Login")}>
                 ALREADY HAVE AN ACCOUNT?{" "}
                 <Text style={{ fontWeight: "bold" }}>{"LOGIN"}</Text>
               </Text>

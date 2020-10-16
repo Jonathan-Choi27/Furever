@@ -25,10 +25,10 @@ export function uploadDocument(uri, uuid){
           .child("user_uploads/documents/" + uuid)
           .put(blob)
           .then((snapshot) => {
-            console.log("File succesfully uploaded", snapshot);
+            // console.log("File succesfully uploaded", snapshot);
           })
           .catch((error) => {
-            console.log("Error during file upload", error);
+            // console.log("Error during file upload", error);
           });
       });
   };

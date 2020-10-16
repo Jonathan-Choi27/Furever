@@ -28,6 +28,7 @@ export default class currentListings extends React.Component {
     pullToRefresh: false,
   };
 
+
 async fetchData() {
     const dataArray = [];
     const user = auth.currentUser;
