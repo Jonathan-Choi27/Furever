@@ -1,10 +1,22 @@
 import * as React from "react";
 import { StyleSheet, View, Image, Text } from "react-native";
 import { Avatar, Button, Card, Title, Paragraph } from "react-native-paper";
+import firebase from "firebase";
 console.disableYellowBox = true;
 
 // const LeftContent = (props) => <Avatar.Icon {...props} icon="folder" />;
 // https://picsum.photos/700
+const db = firebase.firestore();
+
+const deletePost = (doc_id) => {
+  const deleteItemId = doc_id;
+  db.collection("pet_listings").doc(deleteItemId).delete().then(function() {
+       alert("deleted")
+   }).catch(function(error) {
+       alert("Error removing document: ", error);
+   });
+
+}
 
 const SelfPetListing = (props) => {
   return (
@@ -66,7 +78,8 @@ const SelfPetListing = (props) => {
                   <Text style={styles.smallButtonText}>Update</Text>
                 </Button>
                 <Button
-                  style={styles.smallButtons}>
+                  style={styles.smallButtons}
+                  onPress={() => deletePost(props.doc_id)}>
                   <Text style={styles.smallButtonText}>Delete</Text>
                 </Button>
               </Card.Actions>
