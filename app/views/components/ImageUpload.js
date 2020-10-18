@@ -64,7 +64,7 @@ export const uploadPhoto =  async (uri, uuid) => {
     //       console.log("Error during file upload", error);
     //     });
     // });
-    console.log("outside : " + photoURL);
+    // console.log("outside : " + photoURL);
     return photoURL;
     // return photoURL;
 }

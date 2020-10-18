@@ -139,7 +139,7 @@ export default class updateSellApplication extends React.Component {
       uuid: user.uid,
       name: this.state.name,
       category: this.state.category,
-      breed: this.state.breed,
+      breed: this.state.breed   ,
       colour: this.state.colour,
       age: this.state.age,
       gender: this.state.gender,
