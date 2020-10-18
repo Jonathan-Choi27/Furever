@@ -7,7 +7,9 @@ import PetNav from "../petTab/petNav";
 import { AppLoading } from "expo";
 import * as Font from "expo-font";
 import firebase from "firebase";
-import HomeNav from "./homeNav"
+import HomeNav from "./homeNav";
+import ProfileNav from "../profile/profileNav"
+import  ProfileScreen  from "../profile/profileHome";
 
 const db = firebase.firestore();
 let retrieve_data;
@@ -27,13 +29,13 @@ function ShopScreen() {
   );
 }
 
-function ProfileScreen() {
-  return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>Profile Page Screen!</Text>
-    </View>
-  );
-}
+// function ProfileScreen() {
+//   return (
+//     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+//       <Text>Profile Page Screen!</Text>
+//     </View>
+//   );
+// }
 
 function MyTabs(props) {
   return (
@@ -64,7 +66,7 @@ function MyTabs(props) {
         {/* <Tab.Screen name="Home" children={() => <HomeScreen data={props.data}/>}/> */}
         <Tab.Screen name="Pet" component={PetNav} />
         <Tab.Screen name="Shop" component={ShopScreen} />
-        <Tab.Screen name="Profile" component={ProfileScreen} />
+        <Tab.Screen name="Profile" component={ProfileNav} />
       </Tab.Navigator>
     </NavigationContainer>
   );
