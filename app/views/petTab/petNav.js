@@ -14,6 +14,7 @@ import currentListings from "./sell/currentListings";
 import updateSellApplication from "./sell/updateSellApplication";
 import buyApplication from "./buy/buyApplication";
 import sellPetProfile from "./sell/sellPetProfile";
+import offerApplications from "./sell/offerApplications";
 
 const Stack = createStackNavigator();
 
@@ -50,6 +51,7 @@ export default function PetNav() {
         <Stack.Screen name="shepherdInfo" component={shepherdInfo} />
         <Stack.Screen name="buyPetProfile" component={buyPetProfile} />
         <Stack.Screen name="buyApplication" component={buyApplication} />
+        <Stack.Screen name="offerApplications" component={offerApplications} />
       </Stack.Navigator>
     </NavigationContainer>
   );
