@@ -79,19 +79,17 @@ const SelfPetListing = (props) => {
                 </Button>
                 <Button
                   style={styles.smallButtons}
-                  onPress={() => deletePost(props.doc_id)}>
+                  // refresh page after deleted
+                  onPress={() => deletePost(props.doc_id)}> 
                   <Text style={styles.smallButtonText}>Delete</Text>
                 </Button>
               </Card.Actions>
-
-              {/* <Card.Actions style={styles.actionCard}> */}
-              {/* <View style={{color: "blue"}}> */}
               <Card.Actions style={styles.actionCard}>
-                <Button style={styles.bigButton}>
+                <Button style={styles.bigButton}
+                onPress={() => props.navigation.navigate("offerApplications", {doc_id: props.doc_id})}>
                   <Text style={styles.bigButtonText}>View Offers</Text>
                 </Button>
               </Card.Actions>
-              {/* </View> */}
             </View>
           </View>
         </View>
