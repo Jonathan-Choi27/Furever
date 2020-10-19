@@ -10,7 +10,6 @@ import {
 console.disableYellowBox = true;
 import {profileInfo} from "../../components/petProfileComponents";
 import {onSellTab} from "../../components/petTabComponents";
-import styles from "../../styleSheet/styleSheet";
 
 export default class sellPetProfile extends React.Component {
     render() {

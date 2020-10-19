@@ -17,6 +17,7 @@ import firebase from "firebase";
 import { AppLoading } from "expo";
 import SelfPetListing from "./petListing";
 import { auth } from "../../database/firebase";
+import {onSellTab} from "../../components/petTabComponents";
 
 const db = firebase.firestore();
 
@@ -78,36 +79,8 @@ async fetchData() {
     // }
     return (
       <View>
-        <View style={styles.buySellContainer}>
-          <TouchableOpacity
-            style={{
-              backgroundColor: "white",
-              flex: 1,
-              justifyContent: "center",
-              alignItems: "center",
-              height: 50,
-            }}
-            onPress={() => this.props.navigation.replace("petCategories")}>
-            <Text>Buy</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={{
-              backgroundColor: "#d7e5f7",
-              flex: 1,
-              justifyContent: "center",
-              alignItems: "center",
-              height: 50,
-            }}
-            onPress={() => this.props.navigation.replace("currentListings")}>
-            <Text
-              style={{
-                textAlign: "center",
-              }}>
-              {" "}
-              Sell{" "}
-            </Text>
-          </TouchableOpacity>
-        </View>
+        {onSellTab(this.props.navigation)}
+
         <View style={{ height: 60, padding: 10, flexDirection: "row" }}>
           <Text
             style={{ textAlign: "center", padding: 10, fontWeight: "bold" }}>
@@ -136,6 +109,7 @@ async fetchData() {
             </Text>
           </TouchableOpacity>
         </View>
+        
         <View style={styles.cardContainer}>
           <FlatList
             showsVerticalScrollIndicator={false}
@@ -164,7 +138,7 @@ async fetchData() {
                 behaviour={item.behaviour}
                 health={item.health}
                 training={item.training}
-                additionalInfo={item.additionalInfo}
+                additional={item.additionalInfo}
                 photo={item.photo}
                 doc_id={item.doc_id}
                 navigation={this.props.navigation}

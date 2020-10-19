@@ -17,6 +17,7 @@ import "react-navigation-hooks";
 import { TextInput as NativeTextInput } from "react-native";
 // import "firebase/storage";
 import { db } from "../../database/firebase";
+import {onBuyTab} from "../../components/petTabComponents";
 
 export default class buyApplication extends React.Component {
   constructor(props) {
@@ -119,30 +120,7 @@ export default class buyApplication extends React.Component {
       <ScrollView>
         <View>
           <View style={styles.container}>
-            <View style={styles.buySellContainer}>
-              <TouchableOpacity
-                style={{
-                  backgroundColor: "white",
-                  flex: 1,
-                  justifyContent: "center",
-                  alignItems: "center",
-                  height: 50,
-                }}
-                onPress={() => this.props.navigation.navigate("petCategories")}>
-                <Text>Buy</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={{
-                  backgroundColor: "#d7e5f7",
-                  flex: 1,
-                  justifyContent: "center",
-                  alignItems: "center",
-                  height: 50,
-                }}
-                onPress={() => this.props.navigation.navigate("currentListings")}>
-                <Text style={{ textAlign: "center" }}> Sell </Text>
-              </TouchableOpacity>
-            </View>
+          {onBuyTab(this.props.navigation)}
 
             <View style={styles.titleContainer}>
               <View>
@@ -179,7 +157,7 @@ export default class buyApplication extends React.Component {
                 >
                   <Text>
                     <Text style={{ fontWeight: "bold" }}>Name:</Text>{" "}
-                    <Text>{item.title}</Text>
+                    <Text>{item.petName}</Text>
                   </Text>
                   <Text>
                     <Text style={{ fontWeight: "bold" }}>Category:</Text>{" "}
