@@ -108,7 +108,7 @@ export default class application extends React.Component {
       this.behaviour_regex(this.state.behaviour) == false ||
       this.health_regex(this.state.health) == false ||
       this.training_regex(this.state.training) == false ||
-      this.additionalInfo_regex(this.state.additionalInfo) == false ||
+      // this.additionalInfo_regex(this.state.additionalInfo) == false ||
       this.state.photo_uri == ""
     ) {
       alert("All input fields required and must be valid.");
@@ -119,7 +119,7 @@ export default class application extends React.Component {
       this.check_valid_behaviour();
       this.check_valid_health();
       this.check_valid_training();
-      this.check_valid_additionalInfo();
+      // this.check_valid_additionalInfo();
     //   console.log("photo_uri:" + this.state.photo_uri);
       if (this.state.photo_uri == "" || this.state.photo_uri == null) {
         this.setState({
@@ -258,20 +258,20 @@ export default class application extends React.Component {
     });
   };
 
-  additionalInfo_regex = (additionalInfo) => {
-    if (additionalInfo == "") {
-      return false;
-    } else {
-      return true;
-    }
-  };
+  // additionalInfo_regex = (additionalInfo) => {
+  //   if (additionalInfo == "") {
+  //     return false;
+  //   } else {
+  //     return true;
+  //   }
+  // };
 
-  check_valid_additionalInfo = () => {
-    var bool = this.additionalInfo_regex(this.state.additionalInfo);
-    this.setState({
-      valid_additionalInfo: bool,
-    });
-  };
+  // check_valid_additionalInfo = () => {
+  //   var bool = this.additionalInfo_regex(this.state.additionalInfo);
+  //   this.setState({
+  //     valid_additionalInfo: bool,
+  //   });
+  // };
 
   health_regex = (health) => {
     if (health == "") {
@@ -341,10 +341,11 @@ export default class application extends React.Component {
 
   render() {
     return (
-      <SafeAreaView style={styles.container}>
+      // <SafeAreaView style={styles.container}>
         <ScrollView
           style={styles.scrollView}
           showsVerticalScrollIndicator={false}>
+            <View style={styles.container}>
           <Text style={styles.heading}>New Pet Listing Application</Text>
           <Text>
             <Text style={styles.sub_heading}>General Information</Text>
@@ -384,12 +385,14 @@ export default class application extends React.Component {
                   }}
                 />
               </View>
+              
               <CategorySelection
                 category={this.setCategory}
                 breed={this.setBreed}
                 colour={this.setColour}
                 size={this.setSize}
               />
+
               <View style={styles.inputContainer}>
                 <View style={{ flexDirection: "row" }}>
                   <View style={{ flex: 1 }}>
@@ -572,11 +575,11 @@ export default class application extends React.Component {
                   <View style={{ flex: 1 }}>
                     <Text style={styles.inputName}>Additional Information</Text>
                   </View>
-                  {!this.state.valid_additionalInfo && (
+                  {/* {!this.state.valid_additionalInfo && (
                     <View style={{ flex: 1 }}>
                       <Text style={styles.errorText}>Invalid input</Text>
                     </View>
-                  )}
+                  )} */}
                 </View>
                 <TextInput
                   mode="outlined"
@@ -587,9 +590,9 @@ export default class application extends React.Component {
                       additionalInfo: additionalInfo,
                     })
                   }
-                  onBlur={() => {
-                    this.check_valid_additionalInfo();
-                  }}
+                  // onBlur={() => {
+                  //   this.check_valid_additionalInfo();
+                  // }}
                 />
               </View>
 
@@ -617,7 +620,7 @@ export default class application extends React.Component {
                   Choose Photo
                 </Text>
               </Button>
-              <Text style={styles.titles}>Upload Documents</Text>
+              <Text style={styles.inputName}>Upload Documents</Text>
 
               <Button
                 style={{
@@ -642,8 +645,9 @@ export default class application extends React.Component {
               </View>
             </View>
           </View>
+          </View>
         </ScrollView>
-      </SafeAreaView>
+      // </SafeAreaView>
     );
   }
 }
@@ -653,7 +657,9 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 24,
     justifyContent: "center",
-    alignItems: "center",
+    // alignItems: "center",
+    // marginLeft: 20,
+    // marginRight: 20,
   },
   titles: {
     fontSize: 14,

@@ -11,6 +11,7 @@ import {
 import { Avatar, Card, Button, Searchbar } from "react-native-paper";
 import { db } from "../../database/firebase";
 import { auth } from "../../database/firebase";
+import {onBuyTab} from "../../components/petTabComponents";
 
 export default class currentApplications extends React.Component {
   state = {
@@ -94,38 +95,8 @@ export default class currentApplications extends React.Component {
     return (
       <ScrollView>
         <View style={styles.container}>
-          <View style={styles.buySellContainer}>
-            <TouchableOpacity
-              style={{
-                backgroundColor: "#d7e5f7",
-                // backgroundColor: Platform.OS === "web" ? 'grey' :'white',
-                flex: 1,
-                justifyContent: "center",
-                alignItems: "center",
-                height: 50,
-              }}
-              onPress={() => this.props.navigation.replace("petCategories")}
-            >
-              <Text>Buy</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={{
-                backgroundColor: "white",
-                flex: 1,
-                justifyContent: "center",
-                alignItems: "center",
-                height: 50,
-              }}
-              onPress={() => this.props.navigation.replace("currentListings")}
-            >
-              <Text
-                style={{ textAlign: "center"}}
-              >
-                {" "}
-                Sell{" "}
-              </Text>
-            </TouchableOpacity>
-          </View>
+          {onBuyTab(this.props.navigation)}
+          
           <View
             style={{
               flex: 1,
