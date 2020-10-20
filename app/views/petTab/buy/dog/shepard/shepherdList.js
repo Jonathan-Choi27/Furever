@@ -21,6 +21,7 @@ import {
 import { db } from "../../../../database/firebase";
 import { AppLoading } from "expo";
 import * as Font from "expo-font";
+import {onBuyTab} from "../../../../components/petTabComponents" 
 
 export default class shepherdList extends React.Component {
   state = {
@@ -94,40 +95,8 @@ export default class shepherdList extends React.Component {
   render() {
     return (
       <Provider>
-        <View style={styles.container}>
-          <View style={styles.buySellContainer}>
-            <TouchableOpacity
-              style={{
-                backgroundColor: "#d7e5f7",
-                flex: 1,
-                justifyContent: "center",
-                alignItems: "center",
-                height: 50,
-              }}
-              onPress={() => this.props.navigation.replace("petCategories")}
-            >
-              <Text>Buy</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={{
-                backgroundColor: "white",
-                flex: 1,
-                justifyContent: "center",
-                alignItems: "center",
-                height: 50,
-              }}
-              onPress={() => this.props.navigation.replace("currentListings")}
-            >
-              <Text
-                style={{
-                  textAlign: "center",
-                }}
-              >
-                {" "}
-                Sell{" "}
-              </Text>
-            </TouchableOpacity>
-          </View>
+          {onBuyTab(this.props.navigation)}
+          <View style={styles.container}>
           <Searchbar
             style={styles.searchBar}
             placeholder="Search"
@@ -276,7 +245,7 @@ export default class shepherdList extends React.Component {
               }
             />
           </View>
-        </View>
+          </View>
       </Provider>
     );
   }

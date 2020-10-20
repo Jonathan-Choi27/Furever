@@ -32,6 +32,7 @@ export default class ProfileScreen extends React.Component {
         dict["name"] = doc.data().name;
         dict["photo"] = doc.data().photo;
         dict["profileText"] = doc.data().profileText;
+        dict["email"] = doc.data().email;
 
         this.setState({
           profileData: dict,

@@ -1,5 +1,5 @@
-import React, { useState, useEffect} from "react";
-import {StyleSheet,  BackHandler, Alert} from "react-native";
+import React, { useState, useEffect } from "react";
+import { StyleSheet, BackHandler, Alert } from "react-native";
 import petBreeds from "./buy/petBreeds";
 import petCategories from "./buy/petCategories";
 import currentApplications from "./buy/currentApplications";
@@ -15,15 +15,14 @@ import updateSellApplication from "./sell/updateSellApplication";
 import buyApplication from "./buy/buyApplication";
 import sellPetProfile from "./sell/sellPetProfile";
 import offerApplications from "./sell/offerApplications";
+import buyerProfile from "./sell/buyerProfile";
 
 const Stack = createStackNavigator();
 
-
 export default function PetNav() {
-  
   useEffect(() => {
     const backAction = () => {
-      onPress: () => null;      
+      onPress: () => null;
       // onPress: () => BackHandler.exitApp();
       return true;
     };
@@ -35,23 +34,32 @@ export default function PetNav() {
 
     return () => backHandler.remove();
   }, []);
-  
+
   return (
-    
     <NavigationContainer independent={true}>
-      <Stack.Navigator>
+      <Stack.Navigator
+        screenOptions={{
+          headerShown: false,
+        }}>
         <Stack.Screen name="petCategories" component={petCategories} />
         <Stack.Screen name="petBreeds" component={petBreeds} />
-        <Stack.Screen name="currentApplications" component={currentApplications} />
+        <Stack.Screen
+          name="currentApplications"
+          component={currentApplications}
+        />
         <Stack.Screen name="currentListings" component={currentListings} />
-        <Stack.Screen name="sellApplication" component={sellApplication}/>
-        <Stack.Screen name="sellPetProfile" component={sellPetProfile}/>
-        <Stack.Screen name="updateSellApplication" component={updateSellApplication} />
+        <Stack.Screen name="sellApplication" component={sellApplication} />
+        <Stack.Screen name="sellPetProfile" component={sellPetProfile} />
+        <Stack.Screen
+          name="updateSellApplication"
+          component={updateSellApplication}
+        />
         <Stack.Screen name="shepherdList" component={shepherdList} />
         <Stack.Screen name="shepherdInfo" component={shepherdInfo} />
         <Stack.Screen name="buyPetProfile" component={buyPetProfile} />
         <Stack.Screen name="buyApplication" component={buyApplication} />
         <Stack.Screen name="offerApplications" component={offerApplications} />
+        <Stack.Screen name="buyerProfile" component={buyerProfile} />
       </Stack.Navigator>
     </NavigationContainer>
   );

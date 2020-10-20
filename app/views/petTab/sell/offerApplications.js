@@ -41,6 +41,7 @@ export default class offerApplications extends React.Component {
             //     console.log("abcde");
             var uuid;
             var buyer_photo;
+            var petCategory;
             
             await db
               .collection("pet_listings")
@@ -48,6 +49,7 @@ export default class offerApplications extends React.Component {
               .get()
               .then((doc) => {
                 uuid = doc.data().uuid;
+                petCategory = doc.data().category;
               });
 
             await db
@@ -65,11 +67,12 @@ export default class offerApplications extends React.Component {
                 age: buyer.data().age,
                 contact_number: buyer.data().contact_number,
                 email: buyer.data().email,
-                house_environment: buyer.data().house_environment,
+                house_enviroment: buyer.data().house_enviroment,
                 least_desirable_traits: buyer.data().least_desirable_traits,
                 most_desirable_traits: buyer.data().most_desirable_traits,
                 previous_pets: buyer.data().previous_pets,
                 why_want_pet: buyer.data().why_want_pet,
+                category: petCategory,
                 doc_id: buyer.id
               };
               
@@ -158,11 +161,11 @@ export default class offerApplications extends React.Component {
                                                 <Button
                                                   style={styles.bigButton}
                                                   mode="contained"
-                                                  // onPress={() =>
-                                                  //     this.props.navigation.navigate("buyPetProfile", {
-                                                  //     item,
-                                                  //     })
-                                                  // }
+                                                  onPress={() =>
+                                                      this.props.navigation.navigate("buyerProfile", {
+                                                      item,
+                                                      })
+                                                  }
                                                 >
                                                 <Text style={styles.bigButtonText}>View Application</Text>
                                                 </Button>

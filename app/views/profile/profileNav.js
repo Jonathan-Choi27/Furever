@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, BackHandler, Alert } from "react-native";
-import profileHome from "./profileHome"
+import profileHome from "./profileHome";
 
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -26,9 +26,11 @@ export default function ProfileNav() {
 
   return (
     <NavigationContainer independent={true}>
-      <Stack.Navigator>
-        <Stack.Screen 
-        name="profileHome" component={profileHome} />
+      <Stack.Navigator
+        screenOptions={{
+          headerShown: false,
+        }}>
+        <Stack.Screen name="profileHome" component={profileHome} />
         <Stack.Screen name="updateProfile" component={updateProfile} />
       </Stack.Navigator>
     </NavigationContainer>

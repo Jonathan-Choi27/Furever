@@ -92,7 +92,7 @@ export default class petCategories extends React.Component {
     this.setState({ searchText: searchText });
 
     let filteredData = this.state.data.filter(function (item) {
-      return item.title.includes(searchText);
+      return item.title.toLowerCase().includes(searchText.toLowerCase());
     });
 
     this.setState({ filteredData: filteredData });
@@ -263,11 +263,13 @@ export default class petCategories extends React.Component {
                 onDismiss={() => {
                   this.setState({ visible: false });
                 }}>
-                <Card elevation={5} style={{ margin: 10 }}>
+                <Card elevation={5} style={{ margin: 10}}>
                   <Card.Content>
                     <Text>Animal:</Text>
                     <View style={{ flexDirection: "row" }}>
                       <Checkbox.Item
+                        theme={{colors: {primary: '#447ECB'}}}
+                        color= "#447ECB"
                         label="Dog"
                         status={this.state.dogCheck ? "checked" : "unchecked"}
                         onPress={() => {
@@ -660,5 +662,8 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+  },
+  checkBox: {
+    color: "red",
   },
 });
