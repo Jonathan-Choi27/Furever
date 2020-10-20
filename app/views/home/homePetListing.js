@@ -23,6 +23,7 @@ import {
 } from "react-native-paper";
 import { darkGreen, green, lightGreen, lightGrey, orange, lightBlue } from "../styleSheet/styleSheet";
 import { searchBar } from "../components/petTabComponents";
+import globalStyles from "../styleSheet/styleSheet";
 
 const db = firebase.firestore();
 
@@ -231,22 +232,10 @@ export default class HomeListing extends React.Component {
 				<View style={styles.container}>
 					{/* {searchBar()} */}
 					<View
-						style={{
-							height: 20,
-              margin: 20,
-              paddingTop: 5,
-							justifyContent: "center",
-							alignItems: "center",
-							alignSelf: "stretch",
-							flexDirection: "row",
-						}}
+						style={globalStyles.searchFilterContainer}
 					>
 						<Searchbar
-							style={{
-								marginRight: 10,
-								height: 35,
-								width: 284,
-							}}
+							style={globalStyles.searchBar}
 							placeholder="Search"
 							onChangeText={this.searchFunction}
 							value={this.state.searchText}

@@ -22,6 +22,7 @@ import { db } from "../../../../database/firebase";
 import { AppLoading } from "expo";
 import * as Font from "expo-font";
 import {onBuyTab} from "../../../../components/petTabComponents" 
+import globalStyles, { darkGreen } from "../../../../styleSheet/styleSheet";
 
 export default class shepherdList extends React.Component {
   state = {
@@ -98,7 +99,7 @@ export default class shepherdList extends React.Component {
           {onBuyTab(this.props.navigation)}
           <View style={styles.container}>
           <Searchbar
-            style={styles.searchBar}
+            style={globalStyles.searchBarSingle}
             placeholder="Search"
             onChangeText={this.searchFunction}
             value={this.state.searchText}
@@ -131,7 +132,7 @@ export default class shepherdList extends React.Component {
                 </Card.Content>
                 <Card.Actions style={{ justifyContent: "flex-end" }}>
                   <Button
-                    color="#447ECB"
+                    color={darkGreen}
                     onPress={() =>
                       this.props.navigation.navigate("shepherdInfo")
                     }
@@ -145,7 +146,7 @@ export default class shepherdList extends React.Component {
           <View style={styles.titleContainer}>
             <Text style={styles.title}>German Shepherd</Text>
             <Button
-              color="#447ECB"
+              color={darkGreen}
               onPress={() => {
                 this.setState({ visible: true });
               }}
@@ -294,7 +295,7 @@ const styles = StyleSheet.create({
   },
   bigButton: {
     flex: 1,
-    backgroundColor: "#447ECB",
+    backgroundColor: darkGreen,
     marginLeft: 25,
     marginRight: 25,
     marginTop: 20,

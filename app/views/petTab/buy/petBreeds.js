@@ -25,6 +25,8 @@ import { db } from "../../database/firebase";
 import { AppLoading } from "expo";
 import * as Font from "expo-font";
 import {onBuyTab} from "../../components/petTabComponents";
+import globalStyles from "../../styleSheet/styleSheet";
+import { darkGreen, green, lightGreen, lightGrey, orange, lightBlue } from "../../styleSheet/styleSheet";
 
 export default class petBreeds extends React.Component {
   state = {
@@ -221,33 +223,28 @@ export default class petBreeds extends React.Component {
             {onBuyTab(this.props.navigation)}
 
             <View
-              style={{
-                  height: 20,
-                  margin:30,
-                  justifyContent: "center",
-                  alignItems: "center",
-                  alignSelf: "stretch",
-                  flexDirection: "row",
-              }}>
+              style={globalStyles.searchFilterContainer}
+            >
               <Searchbar
-                style={{
-                  margin: 10,
-                  height: 40,
-                  width: 250,
-                }}
+                style={globalStyles.searchBar}
                 placeholder="Search"
                 onChangeText={this.searchFunction}
                 value={this.state.searchText}
               />
               <Button
-                color="#447ECB"
+                color={lightGreen}
                 onPress={() => {
                   this.setState({ visible: true });
                 }}
-                mode="contained">
+                mode="contained"
+                contentStyle={{
+                  height: 35,
+                }}
+              >
                 Filter
               </Button>
             </View>
+            
             <View style={{ height: 30, marginBottom: 15, }}>
               <TouchableOpacity
                 style={styles.viewApplication}

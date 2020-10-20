@@ -109,7 +109,7 @@ export default StyleSheet.create({
 
 	// Buy and Sell Tabs
 	buySellContainer: {
-			backgroundColor: "#447ECB",
+		backgroundColor: darkGreen,
 		alignSelf: "stretch",
 		justifyContent: "flex-start",
 		alignItems: "flex-start",
@@ -117,7 +117,7 @@ export default StyleSheet.create({
 	},
 	blueTab: {
 		marginTop: 25,
-		backgroundColor: "#d7e5f7",
+		backgroundColor: green,
 		flex: 1,
 		justifyContent: "center",
 		alignItems: "center",
@@ -223,4 +223,25 @@ export default StyleSheet.create({
 		fontSize: 18,
 		padding: 15,
 	},
+
+	//Search bar
+	searchFilterContainer: {
+		height: 20,
+		margin: 20,
+		paddingTop: 5,
+		justifyContent: "center",
+		alignItems: "center",
+		alignSelf: "stretch",
+		flexDirection: "row",
+	},
+	searchBar: {
+		marginRight: 10,
+		height: 35,
+		width: 284,
+	},
+	searchBarSingle: {
+		margin: 10,
+		height: 35,
+		width: 390,
+	}
 });

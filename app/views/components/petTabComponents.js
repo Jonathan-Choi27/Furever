@@ -49,34 +49,26 @@ export const onSellTab = (navigation) => {
 export const searchBar = () => {
     return (
         <View
-            style={{
-                height: 20,
-                margin: 20,
-                justifyContent: "center",
-                alignItems: "center",
-                alignSelf: "stretch",
-                flexDirection: "row",
-            }}
+            style={StyleSheet.searchFilterContainer}
         >
             <Searchbar
-                style={{
-                    margin: 10,
-                    height: 40,
-                    width: 250,
-                }}
+                style={styles.searchBar}
                 placeholder="Search"
                 onChangeText={this.searchFunction}
                 value={this.state.searchText}
             />
             <Button
-                color="#447ECB"
+                color={lightGreen}
                 onPress={() => {
                     this.setState({ visible: true });
                 }}
                 mode="contained"
+                contentStyle={{
+                    height: 35,
+                }}
             >
                 Filter
-					</Button>
+            </Button>
         </View>
     )
 }

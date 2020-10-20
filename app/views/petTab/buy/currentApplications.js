@@ -12,6 +12,7 @@ import { Avatar, Card, Button, Searchbar } from "react-native-paper";
 import { db } from "../../database/firebase";
 import { auth } from "../../database/firebase";
 import {onBuyTab} from "../../components/petTabComponents";
+import globalStyles from "../../styleSheet/styleSheet";
 
 export default class currentApplications extends React.Component {
   state = {
@@ -118,11 +119,7 @@ export default class currentApplications extends React.Component {
             }}
           >
             <Searchbar
-              style={{
-                margin: 10,
-                height: 50,
-                width: 300,
-              }}
+              style={globalStyles.searchBarSingle}
               placeholder="Search"
               onChangeText={this.searchFunction}
               value={this.state.searchText}

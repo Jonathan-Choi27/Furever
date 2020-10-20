@@ -13,7 +13,7 @@ const db = firebase.firestore();
 let retrieve_data;
 export default class LandingPage extends React.Component {
 	render() {
-		return <MyTabs/>;
+		return <MyTabs />;
 	}
 }
 
@@ -43,15 +43,15 @@ function MyTabs(props) {
 					tabBarIcon: ({ focused, color }) => {
 						let iconName;
 						if (route.name === "Home") {
-							iconName = focused ? "md-home-outline" : "md-home-outline";
+							iconName = focused ? "md-home" : "md-home";
 						} else if (route.name === "Pet") {
-							iconName = focused ? "paw-outline" : "paw-outline";
+							iconName = focused ? "md-paw" : "md-paw";
 						} else if (route.name === "Shop") {
-							iconName = focused ? "basket-outline" : "basket-outline";
+							iconName = focused ? "md-basket" : "md-basket";
 						} else if (route.name === "Profile") {
-							iconName = focused ? "person-outline" : "person-outline";
+							iconName = focused ? "md-person" : "md-person";
 						}
-						return <Icon name={iconName} type="ionicons" size={30} color={color} />;
+						return <Icon name={iconName} size={30} color={color} />;
 					},
 				})}
 				tabBarOptions={{
@@ -61,7 +61,6 @@ function MyTabs(props) {
 					style: { backgroundColor: "#fff" },
 				}}>
 				<Tab.Screen name="Home" component={HomeNav} />
-				{/* <Tab.Screen name="Home" children={() => <HomeScreen data={props.data}/>}/> */}
 				<Tab.Screen name="Pet" component={PetNav} />
 				<Tab.Screen name="Shop" component={ShopScreen} />
 				<Tab.Screen name="Profile" component={ProfileNav} />
