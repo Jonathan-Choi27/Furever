@@ -82,7 +82,6 @@ export default class application extends React.Component {
   }
 
   handleSubmit = async () => {
-    // alert("hi");
     // console.log("photo uuid:" + this.state.photo_uuid);
 
     // const photoURL = await uploadPhoto(

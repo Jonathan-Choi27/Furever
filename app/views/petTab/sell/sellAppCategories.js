@@ -101,15 +101,15 @@ export default class CategorySelection extends React.Component {
   }
 
   getBreed(val) {
-    if (val === "dog") {
+    if (val === "Dog") {
       return dog_breed;
-    } else if (val == "cat") {
+    } else if (val == "Cat") {
       return cat_breed;
-    } else if (val == "bird") {
+    } else if (val == "Bird") {
       return bird_breed;
-    } else if (val == "fish") {
+    } else if (val == "Fish") {
       return fish_breed;
-    } else if (val == "reptile") {
+    } else if (val == "Reptile") {
       return reptile_breed;
     } else {
       return empty_breed;
@@ -117,15 +117,15 @@ export default class CategorySelection extends React.Component {
   }
 
   getColour(val) {
-    if (val === "dog") {
+    if (val === "Dog") {
       return dog_colour;
-    } else if (val == "cat") {
+    } else if (val == "Cat") {
       return cat_colour;
-    } else if (val == "bird") {
+    } else if (val == "Bird") {
       return bird_colour;
-    } else if (val == "fish") {
+    } else if (val == "Fish") {
       return fish_colour;
-    } else if (val == "reptile") {
+    } else if (val == "Reptile") {
       return reptile_colour;
     } else {
       return empty_colour;
@@ -134,11 +134,11 @@ export default class CategorySelection extends React.Component {
 
   getSize(val) {
     if (
-      val === "dog" ||
-      val === "cat" ||
-      val === "bird" ||
-      val === "fish" ||
-      val === "reptile"
+      val === "Dog" ||
+      val === "Cat" ||
+      val === "Bird" ||
+      val === "Fish" ||
+      val === "Reptile"
     ) {
       return size;
     } else {
@@ -189,27 +189,27 @@ export default class CategorySelection extends React.Component {
               <Picker.Item label="Select category" value="0" color="#B4B4B4" />
               <Picker.Item
                 label="Dog"
-                value="dog"
+                value="Dog"
                 style={styles.picker_entry}
               />
               <Picker.Item
                 label="Cat"
-                value="cat"
+                value="Cat"
                 style={styles.picker_entry}
               />
               <Picker.Item
                 label="Bird"
-                value="bird"
+                value="Bird"
                 style={styles.picker_entry}
               />
               <Picker.Item
                 label="Reptile"
-                value="reptile"
+                value="Reptile"
                 style={styles.picker_entry}
               />
               <Picker.Item
                 label="Fish"
-                value="fish"
+                value="Fish"
                 style={styles.picker_entry}
               />
             </Picker>
