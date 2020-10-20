@@ -134,8 +134,7 @@ export default class updateSellApplication extends React.Component {
       submit = true;
     }
 
-    db.collection("pet_listings").doc(this.props.route.params.doc_id).get().a
-    db.collection("pet_listings").add({
+    db.collection("pet_listings").doc(this.props.route.params.doc_id).update({
       uuid: user.uid,
       name: this.state.name,
       category: this.state.category,
@@ -235,12 +234,14 @@ export default class updateSellApplication extends React.Component {
                 colour={this.setColour}
                 size={this.setSize}
               />
+
               <Text>
                 <Text style={styles.titles}>Age</Text>
               </Text>
               <TextInput
                 onChangeText={(age) => this.setState({ age })}
                 style={styles.input}
+                defaultValue={this.state.age}
               />
 
               <Text>
@@ -248,6 +249,7 @@ export default class updateSellApplication extends React.Component {
               </Text>
               <View style={styles.picker_container}>
                 <Picker
+                  selectedValue={this.state.gender}
                   style={styles.picker}
                   onValueChange={(gender) => this.setState({ gender })}>
                   <Picker.Item

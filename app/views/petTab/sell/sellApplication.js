@@ -20,7 +20,6 @@ import {
 import { openImagePicker, uploadPhoto } from "../../components/ImageUpload";
 import CategorySelection from "./sellAppCategories";
 import { auth } from "../../database/firebase";
-import * as firebase from "firebase/app";
 import "firebase/storage";
 
 export default class application extends React.Component {
@@ -107,7 +106,7 @@ export default class application extends React.Component {
       this.behaviour_regex(this.state.behaviour) == false ||
       this.health_regex(this.state.health) == false ||
       this.training_regex(this.state.training) == false ||
-      this.additionalInfo_regex(this.state.additionalInfo) == false ||
+      // this.additionalInfo_regex(this.state.additionalInfo) == false ||
       this.state.photo_uri == ""
     ) {
       alert("All input fields required and must be valid.");
@@ -118,7 +117,7 @@ export default class application extends React.Component {
       this.check_valid_behaviour();
       this.check_valid_health();
       this.check_valid_training();
-      this.check_valid_additionalInfo();
+      // this.check_valid_additionalInfo();
     //   console.log("photo_uri:" + this.state.photo_uri);
       if (this.state.photo_uri == "" || this.state.photo_uri == null) {
         this.setState({
@@ -257,20 +256,20 @@ export default class application extends React.Component {
     });
   };
 
-  additionalInfo_regex = (additionalInfo) => {
-    if (additionalInfo == "") {
-      return false;
-    } else {
-      return true;
-    }
-  };
+  // additionalInfo_regex = (additionalInfo) => {
+  //   if (additionalInfo == "") {
+  //     return false;
+  //   } else {
+  //     return true;
+  //   }
+  // };
 
-  check_valid_additionalInfo = () => {
-    var bool = this.additionalInfo_regex(this.state.additionalInfo);
-    this.setState({
-      valid_additionalInfo: bool,
-    });
-  };
+  // check_valid_additionalInfo = () => {
+  //   var bool = this.additionalInfo_regex(this.state.additionalInfo);
+  //   this.setState({
+  //     valid_additionalInfo: bool,
+  //   });
+  // };
 
   health_regex = (health) => {
     if (health == "") {
@@ -340,14 +339,14 @@ export default class application extends React.Component {
 
   render() {
     return (
-      <SafeAreaView style={styles.container}>
+      // <SafeAreaView style={styles.container}>
         <ScrollView
           style={styles.scrollView}
           showsVerticalScrollIndicator={false}>
+            <View style={styles.container}>
           <Text style={styles.heading}>New Pet Listing Application</Text>
           <Text>
             <Text style={styles.sub_heading}>General Information</Text>
-            <Text style={styles.setColorRed}> *</Text>
           </Text>
           <View
             style={{
@@ -361,7 +360,10 @@ export default class application extends React.Component {
               <View style={styles.inputContainer}>
                 <View style={{ flexDirection: "row" }}>
                   <View style={{ flex: 1 }}>
-                    <Text style={styles.inputName}>Name</Text>
+                    <Text>
+                      <Text style={styles.inputName}>Name</Text>
+                      <Text style={styles.setColorRed}> *</Text>
+                    </Text>
                   </View>
                   {!this.state.valid_name && (
                     <View style={{ flex: 1 }}>
@@ -383,16 +385,21 @@ export default class application extends React.Component {
                   }}
                 />
               </View>
+              
               <CategorySelection
                 category={this.setCategory}
                 breed={this.setBreed}
                 colour={this.setColour}
                 size={this.setSize}
               />
+
               <View style={styles.inputContainer}>
                 <View style={{ flexDirection: "row" }}>
                   <View style={{ flex: 1 }}>
-                    <Text style={styles.inputName}>Age</Text>
+                  <Text>
+                      <Text style={styles.inputName}>Age</Text>
+                      <Text style={styles.setColorRed}> *</Text>
+                    </Text>
                   </View>
                   {!this.state.valid_age && (
                     <View style={{ flex: 1 }}>
@@ -417,7 +424,8 @@ export default class application extends React.Component {
 
               <View style={{ marginTop: 10 }} />
               <Text>
-                <Text style={styles.titles}>Gender</Text>
+                <Text style={styles.inputName}>Gender</Text>
+                <Text style={styles.setColorRed}> *</Text>
               </Text>
 
               <View style={styles.picker_container}>
@@ -439,7 +447,10 @@ export default class application extends React.Component {
               <View style={styles.inputContainer}>
                 <View style={{ flexDirection: "row" }}>
                   <View style={{ flex: 1 }}>
-                    <Text style={styles.inputName}>Location</Text>
+                    <Text>
+                      <Text style={styles.inputName}>Location</Text>
+                      <Text style={styles.setColorRed}> *</Text>
+                    </Text>
                   </View>
                   {!this.state.valid_location && (
                     <View style={{ flex: 1 }}>
@@ -465,7 +476,10 @@ export default class application extends React.Component {
               <View style={styles.inputContainer}>
                 <View style={{ flexDirection: "row" }}>
                   <View style={{ flex: 1 }}>
-                    <Text style={styles.inputName}>Price</Text>
+                    <Text>
+                      <Text style={styles.inputName}>Price</Text>
+                      <Text style={styles.setColorRed}> *</Text>
+                    </Text>
                   </View>
                   {!this.state.valid_price && (
                     <View style={{ flex: 1 }}>
@@ -490,7 +504,10 @@ export default class application extends React.Component {
               <View style={styles.inputContainer}>
                 <View style={{ flexDirection: "row" }}>
                   <View style={{ flex: 1 }}>
-                    <Text style={styles.inputName}>Behaviour</Text>
+                    <Text>
+                      <Text style={styles.inputName}>Behaviour</Text>
+                      <Text style={styles.setColorRed}> *</Text>
+                    </Text>
                   </View>
                   {!this.state.valid_behaviour && (
                     <View style={{ flex: 1 }}>
@@ -516,8 +533,9 @@ export default class application extends React.Component {
               <View style={styles.inputContainer}>
                 <View style={{ flexDirection: "row" }}>
                   <View style={{ flex: 1 }}>
-                    <Text style={styles.inputName}>
-                      Care, Health and Feeding
+                    <Text>
+                      <Text style={styles.inputName}>Care, Health, and Feeding</Text>
+                      <Text style={styles.setColorRed}> *</Text>
                     </Text>
                   </View>
                   {!this.state.valid_health && (
@@ -544,7 +562,10 @@ export default class application extends React.Component {
               <View style={styles.inputContainer}>
                 <View style={{ flexDirection: "row" }}>
                   <View style={{ flex: 1 }}>
-                    <Text style={styles.inputName}>Training</Text>
+                    <Text>
+                      <Text style={styles.inputName}>Training</Text>
+                      <Text style={styles.setColorRed}> *</Text>
+                    </Text>
                   </View>
                   {!this.state.valid_training && (
                     <View style={{ flex: 1 }}>
@@ -571,11 +592,11 @@ export default class application extends React.Component {
                   <View style={{ flex: 1 }}>
                     <Text style={styles.inputName}>Additional Information</Text>
                   </View>
-                  {!this.state.valid_additionalInfo && (
+                  {/* {!this.state.valid_additionalInfo && (
                     <View style={{ flex: 1 }}>
                       <Text style={styles.errorText}>Invalid input</Text>
                     </View>
-                  )}
+                  )} */}
                 </View>
                 <TextInput
                   mode="outlined"
@@ -586,17 +607,20 @@ export default class application extends React.Component {
                       additionalInfo: additionalInfo,
                     })
                   }
-                  onBlur={() => {
-                    this.check_valid_additionalInfo();
-                  }}
+                  // onBlur={() => {
+                  //   this.check_valid_additionalInfo();
+                  // }}
                 />
               </View>
 
               {/* <Text style={styles.titles}>Upload a photo</Text> */}
 
-              <View style={{ flexDirection: "row" }}>
-                <View style={{ flex: 1 }}>
-                  <Text style={styles.inputName}>Upload a photo</Text>
+              <View style={{ flexDirection: "row", paddingTop: 5 }}>
+                <View style={{ flex: 1}}>
+                  <Text style={styles.titles}>
+                    <Text>Upload a Photo</Text>
+                    <Text style={styles.setColorRed}> *</Text>
+                  </Text>
                 </View>
                 {!this.state.valid_uri && (
                   <View style={{ flex: 1 }}>
@@ -604,6 +628,7 @@ export default class application extends React.Component {
                   </View>
                 )}
               </View>
+
               <Button
                 style={{
                   backgroundColor: "#447ECB",
@@ -616,20 +641,22 @@ export default class application extends React.Component {
                   Choose Photo
                 </Text>
               </Button>
-              <Text style={styles.titles}>Upload Documents</Text>
 
-              <Button
-                style={{
-                  backgroundColor: "#447ECB",
-                }}
-                onPress={this.setDocumentUri}>
-                <Text
+              <View style={{ paddingTop: 5 }}>
+                <Text style={styles.titles}>Upload Documents</Text>
+                <Button
                   style={{
-                    color: "white",
-                  }}>
-                  Choose Document
-                </Text>
-              </Button>
+                    backgroundColor: "#447ECB",
+                  }}
+                  onPress={this.setDocumentUri}>
+                  <Text
+                    style={{
+                      color: "white",
+                    }}>
+                    Choose Document
+                  </Text>
+                </Button>
+              </View>
 
               <View style={styles.buttonsContainer}>
                 <TouchableOpacity
@@ -641,8 +668,9 @@ export default class application extends React.Component {
               </View>
             </View>
           </View>
+          </View>
         </ScrollView>
-      </SafeAreaView>
+      // </SafeAreaView>
     );
   }
 }
@@ -650,16 +678,15 @@ export default class application extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 24,
+    paddingTop: 10,
+    marginLeft: 30,
+    marginRight: 30,
     justifyContent: "center",
-    alignItems: "center",
   },
   titles: {
     fontSize: 14,
-    // fontWeight: "bold",
     color: "#515151",
     paddingVertical: 8,
-    // width: 50,
   },
   inputName: {
     marginBottom: 0,
@@ -670,38 +697,28 @@ const styles = StyleSheet.create({
   heading: {
     fontSize: 20,
     fontWeight: "bold",
-    // fontFamily: "Rosario_400Regular",
-    // textShadowColor: "rgba(0, 0, 0, 0.3)",
-    // textShadowOffset: { width: -1, height: 1 },
-    // textShadowRadius: 10,
     color: "#000000",
     textAlign: "left",
     alignItems: "center",
     justifyContent: "center",
-    // marginTop: 50,
     flex: 1,
     paddingVertical: 10,
   },
   sub_heading: {
     fontSize: 16,
-    // fontWeight: "bold",
   },
   smallInputBox: {
     margin: 0,
     height: 25,
     backgroundColor: "#F6F6F6",
-    // borderWidth: 1,
-    // borderWidth: 3,
     padding: 0,
   },
   input: {
     width: 314,
-    // height: 44,
     height: 34,
     padding: 10,
     borderWidth: 1,
     borderColor: "black",
-    // marginBottom: 15,
     backgroundColor: "white",
     fontSize: 12,
   },
@@ -717,11 +734,7 @@ const styles = StyleSheet.create({
     height: 27,
     borderRadius: 4,
     fontSize: 12,
-    // backgroundColor: "#F6F6F6",
   },
-  //   pickerContainer: {
-  //       borderColor: "black",
-  //   },
   buttonsContainer: {
     alignItems: "center",
     justifyContent: "center",
@@ -753,15 +766,13 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 4,
     marginTop: 5,
-    // height: 34,
-    // marginBottom: 10,
   },
-  errorText: {
-    color: "red",
-    textAlign: "right",
-    fontSize: 14,
-    fontWeight: "bold",
-  },
+  // errorText: {
+  //   color: "red",
+  //   textAlign: "right",
+  //   fontSize: 14,
+  //   fontWeight: "bold",
+  // },
   inputContainer: {
     marginTop: 10,
   },
@@ -772,10 +783,6 @@ const styles = StyleSheet.create({
     color: "red",
     fontSize: 12,
     textAlign: "right",
-    // color: "red",
-    // textAlign: "right",
-    // fontSize: 14,
-    // fontWeight: "bold",
   },
   inputContainer: {
     marginTop: 10,

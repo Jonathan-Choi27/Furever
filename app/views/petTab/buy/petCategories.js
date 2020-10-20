@@ -23,6 +23,7 @@ import {
 import { db } from "../../database/firebase";
 import { AppLoading } from "expo";
 import * as Font from "expo-font";
+import {onBuyTab} from "../../components/petTabComponents";
 
 export default class petCategories extends React.Component {
   state = {
@@ -91,7 +92,7 @@ export default class petCategories extends React.Component {
     this.setState({ searchText: searchText });
 
     let filteredData = this.state.data.filter(function (item) {
-      return item.title.includes(searchText);
+      return item.title.toLowerCase().includes(searchText.toLowerCase());
     });
 
     this.setState({ filteredData: filteredData });
@@ -214,33 +215,8 @@ export default class petCategories extends React.Component {
     return (
       <Provider>
           <View style={styles.container}>
-            <View style={styles.buySellContainer}>
-              <TouchableOpacity
-                style={{
-                  backgroundColor: "#d7e5f7",
-                  flex: 1,
-                  justifyContent: "center",
-                  alignItems: "center",
-                  height: 50,
-                }}
-                onPress={() => 
-                  null
-                  // this.props.navigation.replace("petCategories")
-                }>
-                    <Text>Buy</Text>
-                </TouchableOpacity>
-              <TouchableOpacity
-                style={{
-                  backgroundColor: "white",
-                  flex: 1,
-                  justifyContent: "center",
-                  alignItems: "center",
-                  height: 50,
-                }}
-                onPress={() => this.props.navigation.replace("currentListings")}>
-                <Text> Sell </Text>
-              </TouchableOpacity>
-            </View>
+            {onBuyTab(this.props.navigation)}
+
             <View
               style={{
                   height: 20,
@@ -287,11 +263,13 @@ export default class petCategories extends React.Component {
                 onDismiss={() => {
                   this.setState({ visible: false });
                 }}>
-                <Card elevation={5} style={{ margin: 10 }}>
+                <Card elevation={5} style={{ margin: 10}}>
                   <Card.Content>
                     <Text>Animal:</Text>
                     <View style={{ flexDirection: "row" }}>
                       <Checkbox.Item
+                        theme={{colors: {primary: '#447ECB'}}}
+                        color= "#447ECB"
                         label="Dog"
                         status={this.state.dogCheck ? "checked" : "unchecked"}
                         onPress={() => {
@@ -684,5 +662,8 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+  },
+  checkBox: {
+    color: "red",
   },
 });

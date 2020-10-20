@@ -1,9 +1,7 @@
-import { StyleSheet } from 'react-native';
-import {
-  Dimensions,
-} from "react-native";
+import { StyleSheet } from "react-native";
+import { Dimensions } from "react-native";
 
-const screenWidth = Math.round(Dimensions.get('window').width);
+const screenWidth = Math.round(Dimensions.get("window").width);
 const textWidth = (screenWidth - 20) / 2;
 
 export default StyleSheet.create({
@@ -26,7 +24,7 @@ export default StyleSheet.create({
       height: 1,
     },
     shadowOpacity: 0.18,
-    shadowRadius: 1.00,
+    shadowRadius: 1.0,
     elevation: 7,
   },
   whiteTab: {
@@ -41,7 +39,7 @@ export default StyleSheet.create({
       height: 1,
     },
     shadowOpacity: 0.18,
-    shadowRadius: 1.00,
+    shadowRadius: 1.0,
     elevation: 7,
   },
 
@@ -89,12 +87,13 @@ export default StyleSheet.create({
   imageContainer: {
     width: 150,
     height: 150,
+    borderRadius: 6,
   },
   line: {
-    backgroundColor: '#A2A2A2',
+    backgroundColor: "#A2A2A2",
     height: 1.5,
     width: screenWidth - 75,
-    alignSelf:'stretch',
+    alignSelf: "stretch",
     marginTop: 7,
     marginBottom: 15,
     marginRight: 10,

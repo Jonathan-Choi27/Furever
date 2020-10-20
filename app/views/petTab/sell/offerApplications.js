@@ -15,9 +15,9 @@ import {
     Paragraph,
   } from "react-native-paper";
 import firebase from "firebase";
+import {onSellTab} from "../../components/petTabComponents";
 
 const db = firebase.firestore();
-
 
 export default class offerApplications extends React.Component {
     state = {
@@ -94,40 +94,8 @@ export default class offerApplications extends React.Component {
       render(){
         return (
           <Provider>
-            <View style={styles.container}>
-              <View style={styles.buySellContainer}>
-                <TouchableOpacity
-                  style={{
-                  backgroundColor: "#d7e5f7",
-                  flex: 1,
-                  justifyContent: "center",
-                  alignItems: "center",
-                  height: 50,
-                  }}
-                  onPress={() => this.props.navigation.replace("petCategories")}
-                >
-                  <Text>Buy</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={{
-                  backgroundColor: "white",
-                  flex: 1,
-                  justifyContent: "center",
-                  alignItems: "center",
-                  height: 50,
-                  }}
-                  onPress={() => this.props.navigation.replace("currentListings")}
-                >
-                  <Text
-                    style={{
-                    textAlign: "center",
-                    }}
-                  >
-                    Sell
-                  </Text>
-                </TouchableOpacity>
-              </View>
-            </View>     
+            {onSellTab(this.props.navigation)}
+
             <View style={styles.titleContainer}>
               <Text style={styles.title}>Offer Applications</Text>
             </View>

@@ -58,8 +58,8 @@ function MyTabs(props) {
         })}
         tabBarOptions={{
           showLabel: false,
-          activeTintColor: "white",
-          inactiveTintColor: "#9e9e9e",
+          activeTintColor: "#fff",
+          inactiveTintColor: "#c5dcfa",
           style: { backgroundColor: "#447ECB" },
         }}>
         <Tab.Screen name="Home" component={HomeNav} />

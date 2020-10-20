@@ -9,12 +9,23 @@ import {
 } from "react-native";
 // import HomeCard from "./home_petListing.js";
 import firebase from "firebase";
-import { Avatar, Button, Card, Title, Paragraph, Searchbar, Modal, Chip, Provider, Portal, Checkbox, } from "react-native-paper";
+import {
+  Avatar,
+  Button,
+  Card,
+  Title,
+  Paragraph,
+  Searchbar,
+  Modal,
+  Chip,
+  Provider,
+  Portal,
+  Checkbox,
+} from "react-native-paper";
 
 const db = firebase.firestore();
 
 export default class HomeListing extends React.Component {
-
   state = {
     data: [],
     isLoading: true,
@@ -73,7 +84,7 @@ export default class HomeListing extends React.Component {
     this.setState({ searchText: searchText });
 
     let filteredData = this.state.data.filter(function (item) {
-      return item.petName.includes(searchText);
+      return item.petName.toLowerCase().includes(searchText.toLowerCase());
     });
 
     this.setState({ filteredData: filteredData });
@@ -191,16 +202,17 @@ export default class HomeListing extends React.Component {
         styles={styles.card}
         onPress={() =>
           this.props.navigation.navigate("homePetProfile", { item })
-        }>
+        }
+      >
         <Image source={{ uri: item.photo }} style={styles.image} />
         <Text numberOfLines={1} style={styles.title}>
           {item.petName}
         </Text>
-        <Text numberOfLines={1} style={styles.subtext}>
+        {/* <Text numberOfLines={1} style={styles.subtext}>
           <Text>{item.breed}</Text>
           <Text> | </Text>
           <Text>{item.location}</Text>
-        </Text>
+        </Text> */}
       </Card>
     </View>
   );
@@ -214,8 +226,6 @@ export default class HomeListing extends React.Component {
       );
     }
     return (
-
-
       <Provider>
         <View style={styles.container}>
           <View
@@ -226,7 +236,8 @@ export default class HomeListing extends React.Component {
               alignItems: "center",
               alignSelf: "stretch",
               flexDirection: "row",
-            }}>
+            }}
+          >
             <Searchbar
               style={{
                 margin: 10,
@@ -242,9 +253,10 @@ export default class HomeListing extends React.Component {
               onPress={() => {
                 this.setState({ visible: true });
               }}
-              mode="contained">
+              mode="contained"
+            >
               Filter
-                </Button>
+            </Button>
           </View>
           <Portal>
             <Modal
@@ -252,7 +264,8 @@ export default class HomeListing extends React.Component {
               visible={this.state.visible}
               onDismiss={() => {
                 this.setState({ visible: false });
-              }}>
+              }}
+            >
               <Card elevation={5} style={{ margin: 10 }}>
                 <Card.Content>
                   <Text>Animal:</Text>
@@ -273,9 +286,7 @@ export default class HomeListing extends React.Component {
                     />
                     <Checkbox.Item
                       label="Lizard"
-                      status={
-                        this.state.lizardCheck ? "checked" : "unchecked"
-                      }
+                      status={this.state.lizardCheck ? "checked" : "unchecked"}
                       onPress={() => {
                         this.checkFunction("lizardCheck");
                       }}
@@ -298,9 +309,7 @@ export default class HomeListing extends React.Component {
                     />
                     <Checkbox.Item
                       label="Turtle"
-                      status={
-                        this.state.turtleCheck ? "checked" : "unchecked"
-                      }
+                      status={this.state.turtleCheck ? "checked" : "unchecked"}
                       onPress={() => {
                         this.checkFunction("turtleCheck");
                       }}
@@ -309,9 +318,7 @@ export default class HomeListing extends React.Component {
                   <View style={{ flexDirection: "row" }}>
                     <Checkbox.Item
                       label="Rabbit"
-                      status={
-                        this.state.rabbitCheck ? "checked" : "unchecked"
-                      }
+                      status={this.state.rabbitCheck ? "checked" : "unchecked"}
                       onPress={() => {
                         this.checkFunction("rabbitCheck");
                       }}
@@ -337,20 +344,20 @@ export default class HomeListing extends React.Component {
                     onPress={() => {
                       this.displayFunction();
                       this.setState({ visible: false });
-                    }}>
+                    }}
+                  >
                     Done
-                    </Button>
+                  </Button>
                 </Card.Actions>
               </Card>
             </Modal>
           </Portal>
           {this.state.filterDisplay ? (
             <View style={styles.container}>
-
               <FlatList
                 data={this.state.data}
                 columnWrapperStyle={{ justifyContent: "space-between" }}
-                numColumns={2}
+                numColumns={3}
                 onRefresh={async () => {
                   this.setState({
                     pullToRefresh: true,
@@ -362,26 +369,48 @@ export default class HomeListing extends React.Component {
                 }}
                 keyExtractor={(item, index) => index.toString()}
                 refreshing={this.state.pullToRefresh}
-                renderItem={({ item }) => (
-                  this.homeCard(item)
-                )}
+                renderItem={({ item }) => this.homeCard(item)}
                 keyExtractor={(item, index) => index.toString()}
                 data={
-                  this.state.filteredData &&
-                    this.state.filteredData.length > 0
+                  this.state.filteredData && this.state.filteredData.length > 0
                     ? this.state.filteredData
                     : this.state.data
                 }
               />
             </View>
           ) : (
-              <View style={styles.container}>
-                {this.state.searchText == "" ? (
-                  <View style={styles.container}>
+            <View style={styles.container}>
+              {this.state.searchText == "" ? (
+                <View style={styles.container}>
+                  <FlatList
+                    data={this.state.data}
+                    columnWrapperStyle={{ justifyContent: "flex-start" }}
+                    numColumns={3}
+                    onRefresh={async () => {
+                      this.setState({
+                        pullToRefresh: true,
+                      });
+                      await this.fetchData();
+                      this.setState({
+                        pullToRefresh: false,
+                      });
+                    }}
+                    keyExtractor={(item, index) => index.toString()}
+                    refreshing={this.state.pullToRefresh}
+                    renderItem={({ item }) => this.homeCard(item)}
+                  />
+                </View>
+              ) : (
+                <View style={styles.container}>
+                  {this.state.filteredData.length == 0 ? (
+                    <View style={styles.container}>
+                      <Text style={{ margin: 100 }}>No results found.</Text>
+                    </View>
+                  ) : (
                     <FlatList
                       data={this.state.data}
-                      columnWrapperStyle={{ justifyContent: "space-between" }}
-                      numColumns={2}
+                      columnWrapperStyle={{ justifyContent: "flex-start" }}
+                      numColumns={3}
                       onRefresh={async () => {
                         this.setState({
                           pullToRefresh: true,
@@ -393,50 +422,20 @@ export default class HomeListing extends React.Component {
                       }}
                       keyExtractor={(item, index) => index.toString()}
                       refreshing={this.state.pullToRefresh}
-                      renderItem={({ item }) => (
-                        this.homeCard(item)
-                      )}
+                      renderItem={({ item }) => this.homeCard(item)}
+                      keyExtractor={(item, index) => index.toString()}
+                      data={
+                        this.state.filteredData &&
+                        this.state.filteredData.length > 0
+                          ? this.state.filteredData
+                          : this.state.data
+                      }
                     />
-                  </View>
-
-                ) : (
-                    <View style={styles.container}>
-                      {this.state.filteredData.length == 0 ? (
-                        <View style={styles.container}>
-                          <Text style={{ margin: 100 }}>No results found.</Text>
-                        </View>
-                      ) : (
-                          <FlatList
-                            data={this.state.data}
-                            columnWrapperStyle={{ justifyContent: "space-between" }}
-                            numColumns={2}
-                            onRefresh={async () => {
-                              this.setState({
-                                pullToRefresh: true,
-                              });
-                              await this.fetchData();
-                              this.setState({
-                                pullToRefresh: false,
-                              });
-                            }}
-                            keyExtractor={(item, index) => index.toString()}
-                            refreshing={this.state.pullToRefresh}
-                            renderItem={({ item }) => (
-                              this.homeCard(item)
-                            )}
-                            keyExtractor={(item, index) => index.toString()}
-                            data={
-                              this.state.filteredData &&
-                                this.state.filteredData.length > 0
-                                ? this.state.filteredData
-                                : this.state.data
-                            }
-                          />
-                        )}
-                    </View>
                   )}
-              </View>
-            )}
+                </View>
+              )}
+            </View>
+          )}
         </View>
       </Provider>
     );
@@ -483,7 +482,7 @@ const styles = StyleSheet.create({
   },
   card: {
     margin: 7,
-    width: 180,
+    width: 115,
   },
   cardContentText: {
     fontWeight: "bold",
