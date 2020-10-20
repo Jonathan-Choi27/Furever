@@ -16,7 +16,6 @@ export const profileInfo = (item) => {
 
       <Card containerStyle={styles.cardContainer}>
         <Text style={styles.fontHeading}> General Information </Text>
-        {/* <Text style={styles.fontHeading}> ------------------- </Text> */}
         <View style={styles.line} />
         <View style={styles.cardContentContainer}>
           <View>
