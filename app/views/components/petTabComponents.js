@@ -1,12 +1,8 @@
 import React from "react";
 import {
-    StyleSheet,
     Text,
-    ScrollView,
     View,
     TouchableOpacity,
-    Dimensions,
-    Image,
 } from "react-native";
 import "react-navigation"
 import "react-navigation-props-mapper"

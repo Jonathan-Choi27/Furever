@@ -7,7 +7,7 @@ export default class HeaderLogo extends Component {
       <Image
         source={{
           uri:
-            "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2FLogo-White.png?alt=media&token=3711a4e5-8dd0-4c91-a886-e590f97f17ae",
+            "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2FLogoWhite.png?alt=media&token=de9a54cb-6060-4c35-b501-fb41a0ef83af",
         }}
         style={{
           flex: 1,

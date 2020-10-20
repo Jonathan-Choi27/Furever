@@ -1,76 +1,38 @@
 import React from "react";
-import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
-import { AppLoading } from "expo";
-import * as Font from "expo-font";
+import {Text, View, TouchableOpacity, Image } from "react-native";
+import styles from "../styleSheet/styleSheet";
+
 
 export default class LandingPage extends React.Component {
 
   render() {
       return (
-        <View style={styles.container}>
+        <View style={styles.landingContainer}>
           <View style={styles.logoContainer}>
             <Image
               style={styles.logo}
               source={{
                 uri:
-                  "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2FlogoWithWords.png?alt=media&token=a0ce1a26-d23b-4379-985e-0bbdfd061ee7",
+                  "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2FlogoWithWords.png?alt=media&token=ac29597a-9268-419f-8769-fa44ac76a5df",
               }}
             />
           </View>
-          <View style={styles.buttonsContainer}>
-            <Text style={styles.title}>FIND YOUR PERFECT PET TODAY</Text>
+          <View style={styles.landingButtonsContainer}>
+            <Text style={styles.landingTitle}>FIND YOUR PERFECT PET TODAY</Text>
             <TouchableOpacity
-              style={styles.buttons}
+              style={styles.landingButtons}
               onPress={() => this.props.navigation.replace("Login")}
             >
-              <Text style={styles.buttonsText}>LOGIN</Text>
+              <Text style={styles.landingButtonsText}>LOGIN</Text>
             </TouchableOpacity>
             <TouchableOpacity
-              style={styles.buttons}
+              style={styles.landingButtons}
               onPress={() => this.props.navigation.replace("Sign Up")}
             >
-              <Text style={styles.buttonsText}>SIGN UP</Text>
+              <Text style={styles.landingButtonsText}>SIGN UP</Text>
             </TouchableOpacity>
           </View>
         </View>
       );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "white",
-  },
-  logoContainer: {
-    alignItems: "center",
-    justifyContent: "center",
-    top: 200,
-  },
-  logo: {
-    width: 264,
-    height: 170,
-  },
-  title: {
-    marginTop: 10,
-    textAlign: "center",
-  },
-  buttonsContainer: {
-    alignItems: "center",
-    flexGrow: 1,
-    justifyContent: "center",
-  },
-  buttons: {
-    backgroundColor: "#447ECB",
-    alignItems: "center",
-    justifyContent: "center",
-    borderRadius: 10,
-    width: 200,
-    marginTop: 10,
-    height: 35,
-  },
-  buttonsText: {
-    color: "white",
-    fontSize: 15,
-  },
-});

@@ -4,7 +4,108 @@ import { Dimensions } from "react-native";
 const screenWidth = Math.round(Dimensions.get("window").width);
 const textWidth = (screenWidth - 20) / 2;
 
+export const darkGreen = "#53A687";
+export const green = "#C1D96C";
+export const lightGreen = "#DEF294";
+export const orange = "#F2B885";
+export const lightBlue = "#E8FAF4";
+
 export default StyleSheet.create({
+  // Landing Page
+  landingContainer: {
+    flex: 1,
+    backgroundColor: "white",
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  logoContainer: {
+    top: 200,
+  },
+  logo: {
+    width: 300,
+    height: 150,
+    marginBottom: 50,
+  },
+  landingTitle: {
+    marginTop: 10,
+    textAlign: "center",
+  },
+  landingButtonsContainer: {
+    alignItems: "center",
+    justifyContent: "center",
+    flexGrow: 1,
+  },
+  landingButtons: {
+    backgroundColor: green,
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 10,
+    width: 200,
+    marginTop: 10,
+    height: 35,
+  },
+  landingButtonsText: {
+    color: "white",
+    fontSize: 15,
+    fontWeight: "bold"
+  },
+
+  // Login Page
+  loginLogoContainer: {
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "white",
+    paddingTop: 130,
+    flex: 1,
+  },
+  loginLogo: {
+    width: 300,
+    height: 150,
+    marginBottom: 30,
+  },
+  loginInputContainer: {
+    width: 325,
+  },
+  loginButtonsContainer: {
+    alignItems: "center",
+    flexGrow: 1,
+  },
+  loginTitle: {
+    marginTop: 12,
+    textAlign: "center",
+    color: darkGreen,
+    padding: 10,
+    fontSize: 15,
+  },
+  loginTitle2: {
+    marginTop: 10,
+    textAlign: "center",
+    color: darkGreen,
+  },
+
+  //Signup
+  signupLogoContainer: {
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "white",
+    paddingTop: 30,
+    flex: 1,
+    backgroundColor: "white",
+  },
+  signupInputContainer: {
+    width: 325,
+  },
+  signupInput: {
+    marginBottom: 0,
+    marginTop: 0,
+    padding: 0,
+  },
+  logo2: {
+    width: 300,
+    height: 150,
+    marginBottom: 20,
+  },
+
   // Buy and Sell Tabs
   buySellContainer: {
     alignSelf: "stretch",
