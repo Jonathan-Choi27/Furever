@@ -46,8 +46,7 @@ export default class updateProfile extends React.Component {
   }
 
   async handleUpdate() {
-    //   console.log("hi");
-    console.log("photo uri" + this.state.photo_uri);
+    // dont set new photo uri if no pic selected or no update 
     if (this.state.photo != "" && this.state.photo_uri != null) {
       const photoURL = await uploadPhoto(
         this.state.photo,
@@ -59,10 +58,8 @@ export default class updateProfile extends React.Component {
       });
     }
 
-    // console.log(this.state.photo);
 
     const user = auth.currentUser;
-    // console.log(user.uid);
 
     db.collection("users").doc(user.uid).update({
       photo: this.state.photo,
@@ -141,7 +138,6 @@ export default class updateProfile extends React.Component {
               labelStyle={{ color: "#447ECB" }}
               onChangeText={(name) => this.setState({ name })}
               placeholder={this.state.prevName}
-              // defaultValue={this.state.name}
             />
 
             <Input
@@ -161,7 +157,6 @@ export default class updateProfile extends React.Component {
                 <Text style={styles.buttonsText}> Update </Text>
               </Button>
             </View>
-            {/* <Text>{this.state.profileData.name}</Text> */}
           </View>
         </View>
       </View>
@@ -185,10 +180,6 @@ const styles = StyleSheet.create({
     alignContent: "center",
     justifyContent: "center",
     transform: [{ scaleX: 0.5 }],
-  },
-  borderBottom: {
-    //   borderBottomColor: "grey",
-    //   borderBottomWidth: 1
   },
   buttons: {
     borderWidth: 1,
