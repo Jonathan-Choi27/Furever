@@ -7,12 +7,14 @@ const textWidth = (screenWidth - 20) / 2;
 export default StyleSheet.create({
   // Buy and Sell Tabs
   buySellContainer: {
+      backgroundColor: "#447ECB",
     alignSelf: "stretch",
     justifyContent: "flex-start",
     alignItems: "flex-start",
     flexDirection: "row",
   },
   blueTab: {
+    marginTop: 25,
     backgroundColor: "#d7e5f7",
     flex: 1,
     justifyContent: "center",
@@ -28,6 +30,7 @@ export default StyleSheet.create({
     elevation: 7,
   },
   whiteTab: {
+    marginTop: 25,
     backgroundColor: "white",
     flex: 1,
     justifyContent: "center",
