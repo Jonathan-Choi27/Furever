@@ -4,6 +4,7 @@ import {
     View,
     TouchableOpacity,
 } from "react-native";
+import { Searchbar } from "react-native-paper";
 import "react-navigation"
 import "react-navigation-props-mapper"
 import "@react-navigation/native"
@@ -42,4 +43,40 @@ export const onSellTab = (navigation) => {
             </TouchableOpacity>
         </View>
     );
+}
+
+
+export const searchBar = () => {
+    return (
+        <View
+            style={{
+                height: 20,
+                margin: 20,
+                justifyContent: "center",
+                alignItems: "center",
+                alignSelf: "stretch",
+                flexDirection: "row",
+            }}
+        >
+            <Searchbar
+                style={{
+                    margin: 10,
+                    height: 40,
+                    width: 250,
+                }}
+                placeholder="Search"
+                onChangeText={this.searchFunction}
+                value={this.state.searchText}
+            />
+            <Button
+                color="#447ECB"
+                onPress={() => {
+                    this.setState({ visible: true });
+                }}
+                mode="contained"
+            >
+                Filter
+					</Button>
+        </View>
+    )
 }
