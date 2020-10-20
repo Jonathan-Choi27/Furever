@@ -17,12 +17,14 @@ import "react-navigation-hooks";
 import { TextInput as NativeTextInput } from "react-native";
 // import "firebase/storage";
 import { db } from "../../database/firebase";
+import { auth } from "../../database/firebase";
 
 export default class buyApplication extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      profileData: {},
       name: "",
       age: "",
       contact_number: "",
@@ -39,6 +41,30 @@ export default class buyApplication extends React.Component {
       valid_address: true,
     };
   }
+
+  async componentDidMount() {
+    this.fetchData();
+  }
+
+  async fetchData() {
+    const userData = {}
+    const user = auth.currentUser;
+
+    await db
+      .collection("users")
+      .doc(user.uid)
+      .get()
+      .then((doc) => {
+        userData["email"] = doc.data().email;
+        userData["name"] = doc.data().name;
+        userData["uuid"] = doc.data().uuid;
+
+        this.setState({
+          profileData: userData,
+        });
+      });
+  }
+
   contact_number_regex = (number) => {
     if (number == "" || !/\d/.test(number)) {
       return false;
@@ -88,10 +114,11 @@ export default class buyApplication extends React.Component {
         .doc(doc_id)
         .collection("buyer_applications")
         .add({
-          name: this.state.name,
+          uuid: this.state.profileData.uuid,
+          name: this.state.profileData.name,
           age: this.state.age,
           contact_number: this.state.contact_number,
-          email: this.state.email,
+          email: this.state.profileData.email,
           address: this.state.address,
           why_want_pet: this.state.why_want_pet,
           most_desirable_traits: this.state.most_desirable_traits,
