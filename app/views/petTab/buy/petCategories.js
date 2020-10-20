@@ -91,7 +91,7 @@ export default class petCategories extends React.Component {
     this.setState({ searchText: searchText });
 
     let filteredData = this.state.data.filter(function (item) {
-      return item.title.includes(searchText);
+      return item.title.toLowerCase().includes(searchText.toLowerCase());
     });
 
     this.setState({ filteredData: filteredData });
