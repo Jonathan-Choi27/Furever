@@ -56,11 +56,23 @@ export default class HomeListing extends React.Component {
 
   async fetchData() {
     const dataArray = [];
-
-    db.collection("pet_listings")
+    const seller = {};
+    
+    await db.collection("pet_listings")
       .get()
       .then((doc) => {
-        doc.forEach((listingDoc) => {
+        doc.forEach(async (listingDoc) => {
+          await db.collection("users")
+            .get()
+            .then((doc) => {
+              doc.forEach(async (user) => {
+                if (listingDoc.data().uuid == user.data().uuid) {  
+                  seller["name"] = user.data().name;
+                  seller["photo"] = user.data().photo;      
+                  seller["info"] = user.data().profileText;                      
+                }
+              })
+          });
           dataArray.push({
             petName: listingDoc.data().name,
             category: listingDoc.data().category,
@@ -76,11 +88,18 @@ export default class HomeListing extends React.Component {
             training: listingDoc.data().training,
             additional: listingDoc.data().additionalInfo,
             photo: listingDoc.data().photo_link,
+            uuid: listingDoc.data().uuid,
+            sellerInfo: seller.info,
+            sellerName: seller.name,
+            sellerPhoto: seller.photo,
           });
           this.setState({
             isLoading: false,
             data: [...dataArray],
           });
+          delete seller.name;
+          delete seller.photo;
+          delete seller.info;
         });
       });
 
@@ -216,6 +235,8 @@ export default class HomeListing extends React.Component {
 
   homeCard = (item) => (
     <View style={styles.card}>
+      {/* {console.log(item)} */}
+
       <Card
         elevation={5}
         styles={styles.card}
