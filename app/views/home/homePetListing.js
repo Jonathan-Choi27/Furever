@@ -8,18 +8,16 @@ import {
   ActivityIndicator,
 } from "react-native";
 import firebase from "firebase";
+import { auth } from "../database/firebase";
 import {
-  Avatar,
   Button,
   Card,
-  Title,
-  Paragraph,
   Searchbar,
   Modal,
-  Chip,
   Provider,
   Portal,
   Checkbox,
+  Banner,
 } from "react-native-paper";
 import {
   darkGreen,
@@ -52,6 +50,8 @@ export default class HomeListing extends React.Component {
     turtleCheck: false,
     pigCheck: false,
     filterDisplay: false,
+    bannerVisible: true,
+    checkNewUser: false,
   };
 
   async fetchData() {
@@ -81,6 +81,16 @@ export default class HomeListing extends React.Component {
             isLoading: false,
             data: [...dataArray],
           });
+        });
+      });
+
+    const user = auth.currentUser;
+    db.collection("users")
+      .doc(user.uid)
+      .get()
+      .then((user_doc) => {
+        this.setState({
+          checkNewUser: user_doc.data().isNewUser,
         });
       });
   }
@@ -234,8 +244,33 @@ export default class HomeListing extends React.Component {
         </View>
       );
     }
+
+    let newNotice;
+    if (this.state.checkNewUser) {
+      const user = auth.currentUser;
+      newNotice = (
+        <Banner
+          visible={this.state.bannerVisible}
+          actions={[
+            {
+              label: "Close",
+              onPress: () => this.setState({ bannerVisible: false }),
+            },
+          ]}
+        >
+          <Text style={{ fontSize: 16, fontWeight: "bold" }}>
+            Welcome to Furever, we hope you have a wonderful experience! - The
+            Furever Team
+          </Text>
+        </Banner>
+      );
+      db.collection("users").doc(user.uid).update({
+        isNewUser: false,
+      });
+    }
     return (
       <Provider>
+        {newNotice}
         <View style={styles.container}>
           {/* {searchBar()} */}
           <View style={globalStyles.searchFilterContainer}>
