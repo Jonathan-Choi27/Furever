@@ -5,7 +5,6 @@ import SignUp from "./app/views/login/signup";
 import Home from "./app/views/home/home";
 import HeaderLogo from "./app/views/home/headerLogo";
 import SetupPageOne from "./app/views/login/setupPageOne";
-import SetupPageTwo from "./app/views/login/setupPageTwo";
 import PasswordRecoveryPage from "./app/views/login/passwordRecoveryPage";
 import "react-native-gesture-handler";
 import { NavigationContainer } from "@react-navigation/native";
@@ -62,11 +61,6 @@ export default function App() {
         <Stack.Screen
           name="Setup One"
           component={SetupPageOne}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="Setup Two"
-          component={SetupPageTwo}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>
