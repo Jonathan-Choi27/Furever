@@ -3,17 +3,14 @@ import LandingPage from "./app/views/login/landingPage";
 import Login from "./app/views/login/login";
 import SignUp from "./app/views/login/signup";
 import Home from "./app/views/home/home";
-import HeaderLogo from "./app/views/login/headerLogo";
+import HeaderLogo from "./app/views/home/headerLogo";
+import SetupPageOne from "./app/views/login/setupPageOne";
+import SetupPageTwo from "./app/views/login/setupPageTwo";
 import PasswordRecoveryPage from "./app/views/login/passwordRecoveryPage";
-
 import "react-native-gesture-handler";
-
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { Platform } from "react-native";
-import { setCustomText } from "react-native-global-props";
-import { AppLoading } from "expo";
-// import { useFonts, Inter_900Black } from "@expo-google-fonts/inter"; ////////////////
 
 const Stack = createStackNavigator();
 
@@ -23,7 +20,8 @@ export default function App() {
       <Stack.Navigator
         screenOptions={{
           headerShown: false,
-        }}>
+        }}
+      >
         <Stack.Screen
           name="Pet Search"
           component={LandingPage}
@@ -59,6 +57,16 @@ export default function App() {
         <Stack.Screen
           name="Forgot Password"
           component={PasswordRecoveryPage}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Setup One"
+          component={SetupPageOne}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Setup Two"
+          component={SetupPageTwo}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>

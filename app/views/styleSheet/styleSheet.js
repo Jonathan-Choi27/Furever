@@ -9,14 +9,15 @@ export const green = "#C1D96C";
 export const lightGreen = "#DEF294";
 export const orange = "#F2B885";
 export const lightBlue = "#E8FAF4";
+export const lightGrey = "#F6F6F6";
 
 export default StyleSheet.create({
   // Landing Page
   landingContainer: {
     flex: 1,
     backgroundColor: "white",
-    justifyContent: 'center',
-    alignItems: 'center'
+    justifyContent: "center",
+    alignItems: "center",
   },
   logoContainer: {
     top: 200,
@@ -47,7 +48,7 @@ export default StyleSheet.create({
   landingButtonsText: {
     color: "white",
     fontSize: 15,
-    fontWeight: "bold"
+    fontWeight: "bold",
   },
 
   // Login Page
@@ -108,7 +109,7 @@ export default StyleSheet.create({
 
   // Buy and Sell Tabs
   buySellContainer: {
-      backgroundColor: "#447ECB",
+    backgroundColor: darkGreen,
     alignSelf: "stretch",
     justifyContent: "flex-start",
     alignItems: "flex-start",
@@ -116,7 +117,7 @@ export default StyleSheet.create({
   },
   blueTab: {
     marginTop: 25,
-    backgroundColor: "#d7e5f7",
+    backgroundColor: green,
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
@@ -224,6 +225,26 @@ export default StyleSheet.create({
   },
   // Form container
   formContainer: {
-    marginHorizontal: screenWidth * 0.08
-  }
+    marginHorizontal: screenWidth * 0.08,
+  },
+  //Search bar
+  searchFilterContainer: {
+    height: 20,
+    margin: 20,
+    paddingTop: 5,
+    justifyContent: "center",
+    alignItems: "center",
+    alignSelf: "stretch",
+    flexDirection: "row",
+  },
+  searchBar: {
+    marginRight: 10,
+    height: 35,
+    width: 284,
+  },
+  searchBarSingle: {
+    margin: 10,
+    height: 35,
+    width: 390,
+  },
 });

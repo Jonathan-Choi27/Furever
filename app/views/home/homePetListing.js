@@ -7,7 +7,6 @@ import {
   Image,
   ActivityIndicator,
 } from "react-native";
-// import HomeCard from "./home_petListing.js";
 import firebase from "firebase";
 import {
   Avatar,
@@ -22,6 +21,16 @@ import {
   Portal,
   Checkbox,
 } from "react-native-paper";
+import {
+  darkGreen,
+  green,
+  lightGreen,
+  lightGrey,
+  orange,
+  lightBlue,
+} from "../styleSheet/styleSheet";
+import { searchBar } from "../components/petTabComponents";
+import globalStyles from "../styleSheet/styleSheet";
 
 const db = firebase.firestore();
 
@@ -84,7 +93,7 @@ export default class HomeListing extends React.Component {
     this.setState({ searchText: searchText });
 
     let filteredData = this.state.data.filter(function (item) {
-      return item.petName.toLowerCase().includes(searchText.toLowerCase());
+      return item.petName.includes(searchText);
     });
 
     this.setState({ filteredData: filteredData });
@@ -209,10 +218,10 @@ export default class HomeListing extends React.Component {
           {item.petName}
         </Text>
         {/* <Text numberOfLines={1} style={styles.subtext}>
-          <Text>{item.breed}</Text>
-          <Text> | </Text>
-          <Text>{item.location}</Text>
-        </Text> */}
+					<Text>{item.breed}</Text>
+					<Text> | </Text>
+					<Text>{item.location}</Text>
+				</Text> */}
       </Card>
     </View>
   );
@@ -228,36 +237,28 @@ export default class HomeListing extends React.Component {
     return (
       <Provider>
         <View style={styles.container}>
-          <View
-            style={{
-              height: 20,
-              margin: 20,
-              justifyContent: "center",
-              alignItems: "center",
-              alignSelf: "stretch",
-              flexDirection: "row",
-            }}
-          >
+          {/* {searchBar()} */}
+          <View style={globalStyles.searchFilterContainer}>
             <Searchbar
-              style={{
-                margin: 10,
-                height: 40,
-                width: 250,
-              }}
+              style={globalStyles.searchBar}
               placeholder="Search"
               onChangeText={this.searchFunction}
               value={this.state.searchText}
             />
             <Button
-              color="#447ECB"
+              color={lightGreen}
               onPress={() => {
                 this.setState({ visible: true });
               }}
               mode="contained"
+              contentStyle={{
+                height: 35,
+              }}
             >
               Filter
             </Button>
           </View>
+
           <Portal>
             <Modal
               style={{ backgroundColor: "transparent" }}
@@ -447,6 +448,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+    backgroundColor: lightGrey,
   },
   image: {
     aspectRatio: 1,
@@ -457,7 +459,7 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     fontWeight: "bold",
     fontSize: 14.5,
-    color: "#447ECB",
+    color: darkGreen,
   },
   subtext: {
     paddingLeft: 8,
@@ -481,8 +483,8 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
   },
   card: {
-    margin: 7,
-    width: 115,
+    margin: 5,
+    width: 120,
   },
   cardContentText: {
     fontWeight: "bold",
