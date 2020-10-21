@@ -7,6 +7,7 @@ import { db } from "../database/firebase";
 import { auth } from "../database/firebase";
 import uuid from "react-native-uuid";
 import { Avatar, Accessory, Input } from "react-native-elements";
+import { darkGreen, green } from "../styleSheet/styleSheet";
 
 export default class updateProfile extends React.Component {
   constructor(props) {
@@ -46,7 +47,7 @@ export default class updateProfile extends React.Component {
   }
 
   async handleUpdate() {
-    // dont set new photo uri if no pic selected or no update 
+    // dont set new photo uri if no pic selected or no update
     if (this.state.photo != "" && this.state.photo_uri != null) {
       const photoURL = await uploadPhoto(
         this.state.photo,
@@ -57,7 +58,6 @@ export default class updateProfile extends React.Component {
         photo: photoURL,
       });
     }
-
 
     const user = auth.currentUser;
 
@@ -88,12 +88,13 @@ export default class updateProfile extends React.Component {
       <View>
         <View
           style={{
-            backgroundColor: "#447ECB",
+            backgroundColor: darkGreen,
             borderBottomRightRadius: 1000,
             borderBottomLeftRadius: 1000,
             transform: [{ scaleX: 2 }],
             overflow: "hidden",
-          }}>
+          }}
+        >
           <View style={{ alignItems: "center" }}>
             <Text
               style={{
@@ -101,7 +102,8 @@ export default class updateProfile extends React.Component {
                 marginTop: 60,
                 color: "#F5F5DC",
                 transform: [{ scaleX: 0.5 }],
-              }}>
+              }}
+            >
               Edit Profile
             </Text>
           </View>
@@ -125,7 +127,8 @@ export default class updateProfile extends React.Component {
               renderPlaceholderContent={<ActivityIndicator />}
               source={{
                 uri: this.state.photo,
-              }}>
+              }}
+            >
               <Accessory size={45} onPress={this.setPhotoUri} />
             </Avatar>
           </View>
@@ -135,14 +138,14 @@ export default class updateProfile extends React.Component {
           <View>
             <Input
               label="Display Name"
-              labelStyle={{ color: "#447ECB" }}
+              labelStyle={{ color: darkGreen }}
               onChangeText={(name) => this.setState({ name })}
               placeholder={this.state.prevName}
             />
 
             <Input
               label="Profile Text"
-              labelStyle={{ color: "#447ECB" }}
+              labelStyle={{ color: darkGreen }}
               onChangeText={(profileText) => this.setState({ profileText })}
               multiline
               placeholder={this.state.prevProfileText}
@@ -153,7 +156,8 @@ export default class updateProfile extends React.Component {
               <Button
                 mode="outlined"
                 style={styles.buttons}
-                onPress={() => this.handleUpdate()}>
+                onPress={() => this.handleUpdate()}
+              >
                 <Text style={styles.buttonsText}> Update </Text>
               </Button>
             </View>
@@ -183,7 +187,7 @@ const styles = StyleSheet.create({
   },
   buttons: {
     borderWidth: 1,
-    borderColor: "#447ECB",
+    borderColor: green,
     alignItems: "center",
     justifyContent: "center",
     width: 250,
@@ -191,7 +195,7 @@ const styles = StyleSheet.create({
     height: 40,
   },
   buttonsText: {
-    color: "#447ECB",
+    color: darkGreen,
     fontSize: 18,
     padding: 15,
   },
