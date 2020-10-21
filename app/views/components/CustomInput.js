@@ -1,18 +1,21 @@
 import { Input, Text } from "react-native-elements";
 import React from "react";
 import { StyleSheet } from "react-native";
+import { darkGreen, lightGreen } from "../styleSheet/styleSheet";
 
 export function CustomInput(props) {
   if (props.multiline) {
     return (
       <Input
         style={styles.input}
-        placeholderTextColor={'#D3D3D3'}
+        placeholderTextColor={"#D3D3D3"}
         labelStyle={styles.label}
         inputContainerStyle={styles.inputContainer}
         {...props}
         onBlur={() => {
-          props.validator();
+          if (props.validator != undefined) {
+            props.validator();
+          }
         }}
         multiline={true}
         numberOfLines={3}
@@ -23,14 +26,16 @@ export function CustomInput(props) {
     return (
       <Input
         style={styles.input}
-        placeholderTextColor={'#D3D3D3'}
+        placeholderTextColor={"#D3D3D3"}
         inputContainerStyle={styles.inputContainer}
         labelStyle={styles.label}
         maxLength={50}
         multiline={true}
         {...props}
         onBlur={() => {
-          props.validator();
+          if (props.validator != undefined) {
+            props.validator();
+          }
         }}
       />
     );
@@ -46,7 +51,7 @@ export function InputHeader(props) {
         fontWeight: "bold",
         borderBottomWidth: 2,
         borderBottomColor: "#484848",
-        marginBottom: 20
+        marginBottom: 20,
       }}>
       {props.text}
     </Text>
@@ -54,9 +59,10 @@ export function InputHeader(props) {
 }
 const styles = StyleSheet.create({
   inputContainer: {
-      borderBottomColor : "#D3D3D3",
-      borderBottomWidth: 2
-  }, label : {
-      color : "#447ECB"
-  }
+    borderBottomColor: "#D3D3D3",
+    borderBottomWidth: 2,
+  },
+  label: {
+    color: darkGreen,
+  },
 });

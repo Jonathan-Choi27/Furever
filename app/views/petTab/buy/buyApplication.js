@@ -21,7 +21,7 @@ import { auth } from "../../database/firebase";
 import { onBuyTab } from "../../components/petTabComponents";
 import { Input } from "react-native-elements";
 import { CustomInput, InputHeader } from "../../components/CustomInput";
-import istyles from "../../styleSheet/styleSheet";
+import istyles, { green } from "../../styleSheet/styleSheet";
 import { Icon } from "react-native-elements";
 
 export default class buyApplication extends React.Component {
@@ -115,6 +115,7 @@ export default class buyApplication extends React.Component {
   };
 
   handleSubmit = async () => {
+
     const doc_id = this.props.route.params.item.doc_id;
 
     if (
@@ -295,13 +296,13 @@ export default class buyApplication extends React.Component {
             }
             multiline={true}
             leftIcon={
-                <Icon
-                  name="ios-paper"
-                  type="ionicon"
-                  color="#D3D3D3"
-                  containerStyle={{ paddingRight: 10 }}
-                />
-              }
+              <Icon
+                name="ios-paper"
+                type="ionicon"
+                color="#D3D3D3"
+                containerStyle={{ paddingRight: 10 }}
+              />
+            }
           />
 
           <CustomInput
@@ -312,13 +313,13 @@ export default class buyApplication extends React.Component {
             }
             multiline={true}
             leftIcon={
-                <Icon
-                  name="ios-paper"
-                  type="ionicon"
-                  color="#D3D3D3"
-                  containerStyle={{ paddingRight: 10 }}
-                />
-              }
+              <Icon
+                name="ios-paper"
+                type="ionicon"
+                color="#D3D3D3"
+                containerStyle={{ paddingRight: 10 }}
+              />
+            }
           />
 
           <CustomInput
@@ -328,13 +329,13 @@ export default class buyApplication extends React.Component {
             onChangeText={(previous_pets) => this.setState({ previous_pets })}
             multiline={true}
             leftIcon={
-                <Icon
-                  name="ios-paper"
-                  type="ionicon"
-                  color="#D3D3D3"
-                  containerStyle={{ paddingRight: 10 }}
-                />
-              }
+              <Icon
+                name="ios-paper"
+                type="ionicon"
+                color="#D3D3D3"
+                containerStyle={{ paddingRight: 10 }}
+              />
+            }
           />
 
           <InputHeader text="Your Home Enviroment" />
@@ -346,13 +347,13 @@ export default class buyApplication extends React.Component {
             }
             multiline={true}
             leftIcon={
-                <Icon
-                  name="ios-paper"
-                  type="ionicon"
-                  color="#D3D3D3"
-                  containerStyle={{ paddingRight: 10 }}
-                />
-              }
+              <Icon
+                name="ios-paper"
+                type="ionicon"
+                color="#D3D3D3"
+                containerStyle={{ paddingRight: 10 }}
+              />
+            }
           />
 
           <View
@@ -366,7 +367,7 @@ export default class buyApplication extends React.Component {
                 //   paddingVertical : 25,
                 marginTop: 25,
                 marginBottom: 25,
-                backgroundColor: "#447ECB",
+                backgroundColor: green,
               }}
               onPress={this.handleSubmit}>
               <Text
