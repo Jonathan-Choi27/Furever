@@ -21,7 +21,8 @@ import { auth } from "../../database/firebase";
 import { onBuyTab } from "../../components/petTabComponents";
 import { Input } from "react-native-elements";
 import { CustomInput, InputHeader } from "../../components/CustomInput";
-import istyles from "../../styleSheet/styleSheet"
+import istyles from "../../styleSheet/styleSheet";
+import { Icon } from "react-native-elements";
 
 export default class buyApplication extends React.Component {
   constructor(props) {
@@ -243,6 +244,14 @@ export default class buyApplication extends React.Component {
             onChangeText={(contact_number) => this.setState({ contact_number })}
             validator={() => this.contact_number_validator()}
             errorMessage={this.state.contact_err}
+            leftIcon={
+              <Icon
+                name="ios-call"
+                type="ionicon"
+                color="#D3D3D3"
+                containerStyle={{ paddingRight: 10 }}
+              />
+            }
           />
 
           <CustomInput
@@ -251,6 +260,14 @@ export default class buyApplication extends React.Component {
             onChangeText={(address) => this.setState({ address })}
             validator={() => this.address_validator()}
             errorMessage={this.state.address_err}
+            leftIcon={
+              <Icon
+                name="ios-pin"
+                type="ionicon"
+                color="#D3D3D3"
+                containerStyle={{ paddingRight: 10 }}
+              />
+            }
           />
 
           <InputHeader text="Pet Information" />
@@ -260,6 +277,14 @@ export default class buyApplication extends React.Component {
             placeholder="Please fill in the field"
             onChangeText={(why_want_pet) => this.setState({ why_want_pet })}
             multiline={true}
+            leftIcon={
+              <Icon
+                name="ios-paper"
+                type="ionicon"
+                color="#D3D3D3"
+                containerStyle={{ paddingRight: 10 }}
+              />
+            }
           />
 
           <CustomInput
@@ -269,6 +294,14 @@ export default class buyApplication extends React.Component {
               this.setState({ most_desirable_traits })
             }
             multiline={true}
+            leftIcon={
+                <Icon
+                  name="ios-paper"
+                  type="ionicon"
+                  color="#D3D3D3"
+                  containerStyle={{ paddingRight: 10 }}
+                />
+              }
           />
 
           <CustomInput
@@ -278,6 +311,14 @@ export default class buyApplication extends React.Component {
               this.setState({ least_desirable_traits })
             }
             multiline={true}
+            leftIcon={
+                <Icon
+                  name="ios-paper"
+                  type="ionicon"
+                  color="#D3D3D3"
+                  containerStyle={{ paddingRight: 10 }}
+                />
+              }
           />
 
           <CustomInput
@@ -286,6 +327,14 @@ export default class buyApplication extends React.Component {
             placeholder="Please fill in the field"
             onChangeText={(previous_pets) => this.setState({ previous_pets })}
             multiline={true}
+            leftIcon={
+                <Icon
+                  name="ios-paper"
+                  type="ionicon"
+                  color="#D3D3D3"
+                  containerStyle={{ paddingRight: 10 }}
+                />
+              }
           />
 
           <InputHeader text="Your Home Enviroment" />
@@ -296,6 +345,14 @@ export default class buyApplication extends React.Component {
               this.setState({ house_enviroment })
             }
             multiline={true}
+            leftIcon={
+                <Icon
+                  name="ios-paper"
+                  type="ionicon"
+                  color="#D3D3D3"
+                  containerStyle={{ paddingRight: 10 }}
+                />
+              }
           />
 
           <View
