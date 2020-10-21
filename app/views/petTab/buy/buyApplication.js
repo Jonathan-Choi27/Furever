@@ -18,7 +18,11 @@ import { TextInput as NativeTextInput } from "react-native";
 // import "firebase/storage";
 import { db } from "../../database/firebase";
 import { auth } from "../../database/firebase";
-import {onBuyTab} from "../../components/petTabComponents";
+import { onBuyTab } from "../../components/petTabComponents";
+import { Input } from "react-native-elements";
+import { CustomInput, InputHeader } from "../../components/CustomInput";
+import istyles from "../../styleSheet/styleSheet";
+import { Icon } from "react-native-elements";
 
 export default class buyApplication extends React.Component {
   constructor(props) {
@@ -40,6 +44,8 @@ export default class buyApplication extends React.Component {
       valid_name: true,
       valid_email: true,
       valid_address: true,
+      contact_err: "",
+      address_err: "",
     };
   }
 
@@ -48,7 +54,7 @@ export default class buyApplication extends React.Component {
   }
 
   async fetchData() {
-    const userData = {}
+    const userData = {};
     const user = auth.currentUser;
 
     await db
@@ -66,36 +72,46 @@ export default class buyApplication extends React.Component {
       });
   }
 
-  contact_number_regex = (number) => {
-    if (number == "" || !/\d/.test(number)) {
-      return false;
+  contact_number_validator = () => {
+    var bool;
+    if (
+      this.state.contact_number == "" ||
+      !/\d/.test(this.state.contact_number)
+    ) {
+      bool = false;
+      this.setState({
+        contact_err: "Invalid contact number",
+      });
     } else {
-      return true;
+      bool = true;
+      this.setState({
+        contact_err: "",
+      });
     }
+
+    this.setState({
+      valid_contact_number: bool,
+    });
   };
 
-  name_regex = (name) => {
-    if (name == "") {
-      return false;
-    } else {
-      return true;
-    }
-  };
+  address_validator = () => {
+    var bool;
 
-  email_regex = (email) => {
-    if (email == "") {
-      return false;
+    if (this.state.address == "") {
+      bool = false;
+      this.setState({
+        address_err: "Invalid address",
+      });
     } else {
-      return true;
+      bool = true;
+      this.setState({
+        address_err: "",
+      });
     }
-  };
 
-  address_regex = (address) => {
-    if (address == "") {
-      return false;
-    } else {
-      return true;
-    }
+    this.setState({
+      valid_address: bool,
+    });
   };
 
   handleSubmit = async () => {
@@ -147,7 +163,7 @@ export default class buyApplication extends React.Component {
       <ScrollView>
         <View>
           <View style={styles.container}>
-          {onBuyTab(this.props.navigation)}
+            {onBuyTab(this.props.navigation)}
 
             <View style={styles.titleContainer}>
               <View>
@@ -180,8 +196,7 @@ export default class buyApplication extends React.Component {
                     paddingLeft: 15,
                     paddingRight: 10,
                     width: textWidth,
-                  }}
-                >
+                  }}>
                   <Text>
                     <Text style={{ fontWeight: "bold" }}>Name:</Text>{" "}
                     <Text>{item.petName}</Text>
@@ -220,187 +235,132 @@ export default class buyApplication extends React.Component {
           </View>
         </View>
 
-        <View style={styles.formContainer}>
-          <Text style={styles.sub_heading}>Personal Information</Text>
+        <View style={istyles.formContainer}>
+          <InputHeader text="Personal Information" />
 
-          <View style={styles.inputContainer}>
-            <Text style={styles.inputName}>Age</Text>
-            <TextInput
-              mode="outlined"
-              theme={{ colors: { primary: "#447ECB" } }}
-              style={styles.smallInputBox}
-              onChangeText={(age) => this.setState({ age })}
-            />
-          </View>
+          <CustomInput
+            label="Contact Number"
+            placeholder="(0x) xxxx xxxx"
+            onChangeText={(contact_number) => this.setState({ contact_number })}
+            validator={() => this.contact_number_validator()}
+            errorMessage={this.state.contact_err}
+            leftIcon={
+              <Icon
+                name="ios-call"
+                type="ionicon"
+                color="#D3D3D3"
+                containerStyle={{ paddingRight: 10 }}
+              />
+            }
+          />
 
-          <View style={styles.inputContainer}>
-            <View style={{ flexDirection: "row" }}>
-              <View style={{ flex: 1 }}>
-                <Text style={styles.inputName}>Contact Number</Text>
-              </View>
-              {!this.state.valid_contact_number && (
-                <View style={{ flex: 1 }}>
-                  <Text style={styles.errorText}>Invalid contact number </Text>
-                </View>
-              )}
-            </View>
-            <TextInput
-              mode="outlined"
-              theme={{ colors: { primary: "#447ECB" } }}
-              style={styles.smallInputBox}
-              onChangeText={(contact_number) =>
-                this.setState({
-                  contact_number: contact_number,
-                })
+          <CustomInput
+            label="Address"
+            placeholder="Please fill in the field"
+            onChangeText={(address) => this.setState({ address })}
+            validator={() => this.address_validator()}
+            errorMessage={this.state.address_err}
+            leftIcon={
+              <Icon
+                name="ios-pin"
+                type="ionicon"
+                color="#D3D3D3"
+                containerStyle={{ paddingRight: 10 }}
+              />
+            }
+          />
+
+          <InputHeader text="Pet Information" />
+
+          <CustomInput
+            label="Why do you want this pet?"
+            placeholder="Please fill in the field"
+            onChangeText={(why_want_pet) => this.setState({ why_want_pet })}
+            multiline={true}
+            leftIcon={
+              <Icon
+                name="ios-paper"
+                type="ionicon"
+                color="#D3D3D3"
+                containerStyle={{ paddingRight: 10 }}
+              />
+            }
+          />
+
+          <CustomInput
+            label="What characteristics are most desirable in a pet for you?"
+            placeholder="Please fill in the field"
+            onChangeText={(most_desirable_traits) =>
+              this.setState({ most_desirable_traits })
+            }
+            multiline={true}
+            leftIcon={
+                <Icon
+                  name="ios-paper"
+                  type="ionicon"
+                  color="#D3D3D3"
+                  containerStyle={{ paddingRight: 10 }}
+                />
               }
-              onBlur={() => {
-                var bool = this.contact_number_regex(this.state.contact_number);
-                this.setState({
-                  valid_contact_number: bool,
-                });
-              }}
-            />
-          </View>
+          />
 
-          <View style={styles.inputContainer}>
-            <View style={{ flexDirection: "row" }}>
-              <View style={{ flex: 1 }}>
-                <Text style={styles.inputName}>E-Mail</Text>
-              </View>
-              {!this.state.valid_email && (
-                <View style={{ flex: 1 }}>
-                  <Text style={styles.errorText}>Invalid E-Mail</Text>
-                </View>
-              )}
-            </View>
-            <TextInput
-              mode="outlined"
-              theme={{ colors: { primary: "#447ECB" } }}
-              style={styles.smallInputBox}
-              onChangeText={(email) =>
-                this.setState({
-                  email: email,
-                })
+          <CustomInput
+            label="What characteristics are least desirable in a pet for you?"
+            placeholder="Please fill in the field"
+            onChangeText={(least_desirable_traits) =>
+              this.setState({ least_desirable_traits })
+            }
+            multiline={true}
+            leftIcon={
+                <Icon
+                  name="ios-paper"
+                  type="ionicon"
+                  color="#D3D3D3"
+                  containerStyle={{ paddingRight: 10 }}
+                />
               }
-              onBlur={() => {
-                var bool = this.email_regex(this.state.email);
-                this.setState({
-                  valid_email: bool,
-                });
-              }}
-            />
-          </View>
+          />
 
-          <View style={styles.inputContainer}>
-            <View style={{ flexDirection: "row" }}>
-              <View style={{ flex: 1 }}>
-                <Text style={styles.inputName}>Address</Text>
-              </View>
-              {!this.state.valid_address && (
-                <View style={{ flex: 1 }}>
-                  <Text style={styles.errorText}>Invalid address</Text>
-                </View>
-              )}
-            </View>
-            <TextInput
-              mode="outlined"
-              theme={{ colors: { primary: "#447ECB" } }}
-              style={styles.smallInputBox}
-              onChangeText={(address) =>
-                this.setState({
-                  address: address,
-                })
+          <CustomInput
+            label="Name(s), breed(s), gender(s) and age(s) of current pets (if
+                applicable)"
+            placeholder="Please fill in the field"
+            onChangeText={(previous_pets) => this.setState({ previous_pets })}
+            multiline={true}
+            leftIcon={
+                <Icon
+                  name="ios-paper"
+                  type="ionicon"
+                  color="#D3D3D3"
+                  containerStyle={{ paddingRight: 10 }}
+                />
               }
-              onBlur={() => {
-                var bool = this.address_regex(this.state.address);
-                this.setState({
-                  valid_address: bool,
-                });
-              }}
-            />
-          </View>
+          />
 
-          <View style={{ paddingTop: 25 }} />
-          <Text style={styles.sub_heading}>Pet Information</Text>
-
-          <View style={styles.inputContainer}>
-            <Text style={styles.inputName}>Why do you want this pet?</Text>
-            <TextInput
-              mode="outlined"
-              theme={{ colors: { primary: "#447ECB" } }}
-              multiline={true}
-              onChangeText={(why_want_pet) => this.setState({ why_want_pet })}
-            />
-          </View>
-
-          <View style={styles.inputContainer}>
-            <Text style={styles.inputName}>
-              What characteristics are most desirable in a pet for you?
-            </Text>
-            <TextInput
-              mode="outlined"
-              theme={{ colors: { primary: "#447ECB" } }}
-              multiline={true}
-              onChangeText={(most_desirable_traits) =>
-                this.setState({ most_desirable_traits })
+          <InputHeader text="Your Home Enviroment" />
+          <CustomInput
+            label="Description of your family/members of the household"
+            placeholder="Please fill in the field"
+            onChangeText={(house_enviroment) =>
+              this.setState({ house_enviroment })
+            }
+            multiline={true}
+            leftIcon={
+                <Icon
+                  name="ios-paper"
+                  type="ionicon"
+                  color="#D3D3D3"
+                  containerStyle={{ paddingRight: 10 }}
+                />
               }
-            />
-          </View>
-
-          <View style={styles.inputContainer}>
-            <Text style={styles.inputName}>
-              What characteristics are least desirable in a pet for you?
-            </Text>
-            <TextInput
-              mode="outlined"
-              theme={{ colors: { primary: "#447ECB" } }}
-              multiline={true}
-              onChangeText={(least_desirable_traits) =>
-                this.setState({ least_desirable_traits })
-              }
-            />
-          </View>
-
-          <View style={{ paddingTop: 25 }} />
-          <Text style={styles.sub_heading}>Pet Information</Text>
-
-          <View style={styles.inputContainer}>
-            <Text style={styles.inputName}>
-              Name(s), breed(s), gender(s) and age(s) of current pets (if
-              applicable)
-            </Text>
-            <TextInput
-              mode="outlined"
-              theme={{ colors: { primary: "#447ECB" } }}
-              multiline={true}
-              onChangeText={(previous_pets) => this.setState({ previous_pets })}
-            />
-          </View>
-
-          <View style={{ paddingTop: 25 }} />
-          <Text style={styles.sub_heading}>Your Home Enviroment</Text>
-
-          <View style={styles.inputContainer}>
-            <Text style={styles.inputName}>
-              Description of your family/members of the household
-            </Text>
-            <TextInput
-              mode="outlined"
-              theme={{ colors: { primary: "#447ECB" } }}
-              multiline={true}
-              onChangeText={(house_enviroment) =>
-                this.setState({ house_enviroment })
-              }
-            />
-          </View>
+          />
 
           <View
             style={{
               flexDirection: "row",
               alignItems: "center",
               justifyContent: "center",
-            }}
-          >
+            }}>
             <Button
               style={{
                 //   paddingVertical : 25,
@@ -408,13 +368,11 @@ export default class buyApplication extends React.Component {
                 marginBottom: 25,
                 backgroundColor: "#447ECB",
               }}
-              onPress={this.handleSubmit}
-            >
+              onPress={this.handleSubmit}>
               <Text
                 style={{
                   color: "white",
-                }}
-              >
+                }}>
                 Submit
               </Text>
             </Button>
