@@ -96,23 +96,9 @@ export default class buyApplication extends React.Component {
     });
   };
 
-  address_validator = () => {
-    var bool;
-
-    if (this.state.address == "") {
-      bool = false;
-      this.setState({
-        address_err: "Invalid address",
-      });
-    } else {
-      bool = true;
-      this.setState({
-        address_err: "",
-      });
-    }
-
+  setAddress = (address) => {
     this.setState({
-      valid_address: bool,
+      address: address,
     });
   };
 
@@ -194,7 +180,7 @@ export default class buyApplication extends React.Component {
           </Text>
           <View style={{ marginBottom: 10 }} />
           <InputHeader text="Personal Information" />
-          {/* <GooglePlacesInput/> */}
+
           <CustomInput
             label="Contact Number"
             placeholder="(0x) xxxx xxxx"
@@ -211,21 +197,7 @@ export default class buyApplication extends React.Component {
             }
           />
 
-          <CustomInput
-            label="Address"
-            //   placeholder="Please fill in the field"
-            //   onChangeText={(address) => this.setState({ address })}
-            //   validator={() => this.address_validator()}
-            //   errorMessage={this.state.address_err}
-            leftIcon={
-              <Icon
-                name="ios-pin"
-                type="ionicon"
-                color={darkGreen}
-                containerStyle={{ paddingRight: 10 }}
-              />
-            }
-          />
+          <GooglePlacesInput set={this.setAddress}/>
 
           <InputHeader text="Pet Information" />
 
@@ -239,7 +211,7 @@ export default class buyApplication extends React.Component {
                 name="ios-paper"
                 type="ionicon"
                 color={darkGreen}
-                containerStyle={{ paddingRight: 10 }}
+                containerStyle={{ paddingLeft: 7, paddingRight: 10 }}
               />
             }
           />
@@ -256,7 +228,7 @@ export default class buyApplication extends React.Component {
                 name="ios-paper"
                 type="ionicon"
                 color={darkGreen}
-                containerStyle={{ paddingRight: 10 }}
+                containerStyle={{ paddingLeft: 7, paddingRight: 10 }}
               />
             }
           />
@@ -273,7 +245,7 @@ export default class buyApplication extends React.Component {
                 name="ios-paper"
                 type="ionicon"
                 color={darkGreen}
-                containerStyle={{ paddingRight: 10 }}
+                containerStyle={{ paddingLeft: 7, paddingRight: 10 }}
               />
             }
           />
@@ -289,7 +261,7 @@ export default class buyApplication extends React.Component {
                 name="ios-paper"
                 type="ionicon"
                 color={darkGreen}
-                containerStyle={{ paddingRight: 10 }}
+                containerStyle={{ paddingLeft: 7, paddingRight: 10 }}
               />
             }
           />
@@ -307,7 +279,7 @@ export default class buyApplication extends React.Component {
                 name="ios-paper"
                 type="ionicon"
                 color={darkGreen}
-                containerStyle={{ paddingRight: 10 }}
+                containerStyle={{ paddingLeft: 7, paddingRight: 10 }}
               />
             }
           />
