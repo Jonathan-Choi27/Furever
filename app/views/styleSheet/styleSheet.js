@@ -222,4 +222,8 @@ export default StyleSheet.create({
     fontSize: 18,
     padding: 15,
   },
+  // Form container
+  formContainer: {
+    marginHorizontal: screenWidth * 0.08
+  }
 });
