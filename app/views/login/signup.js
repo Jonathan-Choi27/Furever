@@ -24,6 +24,7 @@ export default class SignUp extends React.Component {
     password: "",
     dob: "",
     isPetShop: false,
+    isNewUser: true,
   };
 
   submit = async () => {
@@ -91,6 +92,7 @@ export default class SignUp extends React.Component {
                 dob: this.state.dob,
                 email: this.state.email,
                 isPetShop: this.state.isPetShop,
+                isNewUser: this.state.isNewUser,
                 uuid: user.uid,
               });
               user.sendEmailVerification();
