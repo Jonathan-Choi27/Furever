@@ -43,25 +43,37 @@ export default class SignUp extends React.Component {
       email == "" ||
       name == "" ||
       confirmPassword == "" ||
-      password != confirmPassword ||
-      !/^([0-2][0-9]|(3)[0-1])(\/)(((0)[0-9])|((1)[0-2]))(\/)\d{4}$/i.test(
-        dob
-      ) ||
-      new Date().getFullYear() - dob.substr(dob.length - 4) < 18 ||
-      !/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/i.test(
-        email
-      ) ||
-      !/^(([A-Za-z]+[\-\']?)*([A-Za-z]+)?\s)+([A-Za-z]+[\-\']?)*([A-Za-z]+)?$/i.test(
-        name
-      )
+      password != confirmPassword
     ) {
-      alert("All input fields required and must be valid.");
-      this.setState({ name: "" });
-      this.setState({ email: "" });
-      this.setState({ password: "" });
-      this.setState({ dob: "" });
-      this.setState({ confirmPassword: "" });
-      this.setState({ isPetShop: false });
+      if (
+        !/^(([A-Za-z]+[\-\']?)*([A-Za-z]+)?\s)+([A-Za-z]+[\-\']?)*([A-Za-z]+)?$/i.test(
+          name
+        )
+      ) {
+        alert("Name field is invalid.");
+        return false;
+      }
+      if (
+        !/^([0-2][0-9]|(3)[0-1])(\/)(((0)[0-9])|((1)[0-2]))(\/)\d{4}$/i.test(
+          dob
+        )
+      ) {
+        alert("Date of birth is invalid.");
+        return false;
+      }
+      if (new Date().getFullYear() - dob.substr(dob.length - 4) < 18) {
+        alert("You must be over 18.");
+        return false;
+      }
+      if (
+        !/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/i.test(
+          email
+        )
+      ) {
+        alert("Email is invalid.");
+        return false;
+      }
+      alert("Password fields must be valid.");
       return false;
     } else {
       firebase
