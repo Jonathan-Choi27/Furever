@@ -100,6 +100,17 @@ export default class CategorySelection extends React.Component {
     };
   }
 
+  componentDidUpdate(prevProps) {
+    if (this.props.category !== prevProps.category) {
+      this.setState({
+        category: this.props.category,
+        breed: this.props.breed,
+        colour: this.props.colour,
+        size: this.props.size,
+      })
+    }
+  }
+
   getBreed(val) {
     if (val === "Dog") {
       return dog_breed;
@@ -150,28 +161,28 @@ export default class CategorySelection extends React.Component {
     this.setState({
       category: value,
     });
-    this.props.category(value);
+    this.props.setCategory(value);
   }
 
   onBreedChange(value) {
     this.setState({
       breed: value,
     });
-    this.props.breed(value);
+    this.props.setBreed(value);
   }
 
   onColourChange(value) {
     this.setState({
       colour: value,
     });
-    this.props.colour(value);
+    this.props.setColour(value);
   }
 
   onSizeChange(value) {
     this.setState({
       size: value,
     });
-    this.props.size(value);
+    this.props.setSize(value);
   }
 
   render() {

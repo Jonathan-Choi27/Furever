@@ -82,7 +82,7 @@ async fetchData() {
       <View>
         {onSellTab(this.props.navigation)}
 
-        <View style={{ height: 70, padding: 10, flexDirection: "row"}}>
+        <View style={{ padding: 10, paddingBottom: 0, flexDirection: "row" }}>
           <Text
             style={{ textAlign: "center", padding: 10, fontWeight: "bold", fontSize: 20 }}>
             Current Listings

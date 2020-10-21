@@ -23,7 +23,7 @@ import { auth } from "../../database/firebase";
 import "firebase/storage";
 import { darkGreen, green, lightGreen, lightGrey, orange, lightBlue } from "../../styleSheet/styleSheet";
 
-export default class application extends React.Component {
+export default class sellApplication extends React.Component {
   constructor(props) {
     super(props);
 
@@ -380,10 +380,10 @@ export default class application extends React.Component {
             </View>
             
             <CategorySelection
-              category={this.setCategory}
-              breed={this.setBreed}
-              colour={this.setColour}
-              size={this.setSize}
+              setCategory={this.setCategory}
+              setBreed={this.setBreed}
+              setColour={this.setColour}
+              setSize={this.setSize}
             />
 
             <View style={styles.inputContainer}>
