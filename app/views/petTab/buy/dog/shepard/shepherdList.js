@@ -36,25 +36,27 @@ export default class shepherdList extends React.Component {
 
   async fetchData() {
     const dataArray = [];
+    const seller = {};
+
     db.collection("pet_listings")
       .where("breed", "==", "German Shepherd")
       .get()
       .then((doc) => {
         doc.forEach(async (listingDoc) => {
           var uuid = listingDoc.data().uuid;
-          var seller_name;
-          var seller_photo;
           await db
             .collection("users")
             .doc(uuid)
             .get()
             .then((user_doc) => {
-              seller_name = user_doc.data().name;
-              seller_photo = user_doc.data().photo;
+              seller["name"] = user_doc.data().name;
+              seller["photo"] = user_doc.data().photo;      
+              seller["info"] = user_doc.data().profileText;      
             });
           dataArray.push({
-            name: seller_name,
-            avatarPhoto: seller_photo,
+            sellerName: seller.name,
+            sellerPhoto: seller.photo,
+            sellerInfo: seller.info,
             petName: listingDoc.data().name,
             category: listingDoc.data().category,
             breed: listingDoc.data().breed,
@@ -75,6 +77,9 @@ export default class shepherdList extends React.Component {
             isLoading: false,
             data: [...dataArray],
           });
+          delete seller.name;
+          delete seller.photo;
+          delete seller.info;
         });
       });
   }
@@ -173,13 +178,13 @@ export default class shepherdList extends React.Component {
                 <Card elevation={5} style={styles.card}>
                   <Card.Title
                     title={item.petName}
-                    subtitle={item.name}
+                    subtitle={item.sellerName}
                     left={(props) => (
                       <Avatar.Image
                         {...props}
                         size={40}
                         source={{
-                          uri: item.avatarPhoto,
+                          uri: item.sellerPhoto,
                         }}
                       />
                     )}
