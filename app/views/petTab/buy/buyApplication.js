@@ -21,8 +21,11 @@ import { auth } from "../../database/firebase";
 import { onBuyTab } from "../../components/petTabComponents";
 import { Input } from "react-native-elements";
 import { CustomInput, InputHeader } from "../../components/CustomInput";
-import istyles, { green } from "../../styleSheet/styleSheet";
+import istyles, { darkGreen, green } from "../../styleSheet/styleSheet";
 import { Icon } from "react-native-elements";
+import GooglePlacesInput from "../../components/mapAutoComplete";
+import { SafeAreaView } from "react-native-safe-area-context";
+// AIzaSyC-6ifFUYzIIgUf1uhbmJ_BU6VQyre4bRw
 
 export default class buyApplication extends React.Component {
   constructor(props) {
@@ -115,7 +118,6 @@ export default class buyApplication extends React.Component {
   };
 
   handleSubmit = async () => {
-
     const doc_id = this.props.route.params.item.doc_id;
 
     if (
@@ -161,225 +163,229 @@ export default class buyApplication extends React.Component {
     const textWidth = screenWidth - 40 - 150 - 10;
 
     return (
-      <ScrollView>
-        <View>
-          <View style={styles.container}>
-            {onBuyTab(this.props.navigation)}
+        <ScrollView keyboardShouldPersistTaps={'handled'}>
+          <View>
+            <View style={styles.container}>
+              {onBuyTab(this.props.navigation)}
 
-            <View style={styles.titleContainer}>
-              <View>
-                <Text style={styles.fontTitle}>
-                  Expression of Interest Application
-                </Text>
-                {/* <Text style={styles.fontHeading}>Application for</Text> */}
-              </View>
-              {/* <View style={{ width: screenWidth / 2 }}>
+              <View style={styles.titleContainer}>
+                <View>
+                  <Text style={styles.fontTitle}>
+                    Expression of Interest Application
+                  </Text>
+                  {/* <Text style={styles.fontHeading}>Application for</Text> */}
+                </View>
+                {/* <View style={{ width: screenWidth / 2 }}>
                 <Text>hello</Text>
               </View> */}
-            </View>
-
-            <Card containerStyle={styles.cardContainer}>
-              <View style={styles.cardContentContainer}>
-                <View>
-                  <Image
-                    style={styles.imageContainer}
-                    source={{
-                      uri: item.photo,
-                    }}
-                  />
-                  <Text style={{ textAlign: "center", paddingTop: 5 }}>
-                    <Text style={{ fontWeight: "bold" }}>Price:</Text>{" "}
-                    <Text>{item.price}</Text>
-                  </Text>
-                </View>
-                <View
-                  style={{
-                    paddingLeft: 15,
-                    paddingRight: 10,
-                    width: textWidth,
-                  }}>
-                  <Text>
-                    <Text style={{ fontWeight: "bold" }}>Name:</Text>{" "}
-                    <Text>{item.petName}</Text>
-                  </Text>
-                  <Text>
-                    <Text style={{ fontWeight: "bold" }}>Category:</Text>{" "}
-                    <Text>{item.category}</Text>
-                  </Text>
-                  <Text>
-                    <Text style={{ fontWeight: "bold" }}>Breed:</Text>{" "}
-                    <Text>{item.breed}</Text>
-                  </Text>
-                  <Text>
-                    <Text style={{ fontWeight: "bold" }}>Colour:</Text>{" "}
-                    <Text>{item.colour}</Text>
-                  </Text>
-                  <Text>
-                    <Text style={{ fontWeight: "bold" }}>Age:</Text>{" "}
-                    <Text>{item.age}</Text>
-                  </Text>
-                  <Text>
-                    <Text style={{ fontWeight: "bold" }}>Gender:</Text>{" "}
-                    <Text>{item.gender}</Text>
-                  </Text>
-                  <Text>
-                    <Text style={{ fontWeight: "bold" }}>Size:</Text>{" "}
-                    <Text>{item.size}</Text>
-                  </Text>
-                  <Text>
-                    <Text style={{ fontWeight: "bold" }}>Location:</Text>{" "}
-                    <Text>{item.location}</Text>
-                  </Text>
-                </View>
               </View>
-            </Card>
+
+              <Card containerStyle={styles.cardContainer}>
+                <View style={styles.cardContentContainer}>
+                  <View>
+                    <Image
+                      style={styles.imageContainer}
+                      source={{
+                        uri: item.photo,
+                      }}
+                    />
+                    <Text style={{ textAlign: "center", paddingTop: 5 }}>
+                      <Text style={{ fontWeight: "bold" }}>Price:</Text>{" "}
+                      <Text>{item.price}</Text>
+                    </Text>
+                  </View>
+                  <View
+                    style={{
+                      paddingLeft: 15,
+                      paddingRight: 10,
+                      width: textWidth,
+                    }}>
+                    <Text>
+                      <Text style={{ fontWeight: "bold" }}>Name:</Text>{" "}
+                      <Text>{item.petName}</Text>
+                    </Text>
+                    <Text>
+                      <Text style={{ fontWeight: "bold" }}>Category:</Text>{" "}
+                      <Text>{item.category}</Text>
+                    </Text>
+                    <Text>
+                      <Text style={{ fontWeight: "bold" }}>Breed:</Text>{" "}
+                      <Text>{item.breed}</Text>
+                    </Text>
+                    <Text>
+                      <Text style={{ fontWeight: "bold" }}>Colour:</Text>{" "}
+                      <Text>{item.colour}</Text>
+                    </Text>
+                    <Text>
+                      <Text style={{ fontWeight: "bold" }}>Age:</Text>{" "}
+                      <Text>{item.age}</Text>
+                    </Text>
+                    <Text>
+                      <Text style={{ fontWeight: "bold" }}>Gender:</Text>{" "}
+                      <Text>{item.gender}</Text>
+                    </Text>
+                    <Text>
+                      <Text style={{ fontWeight: "bold" }}>Size:</Text>{" "}
+                      <Text>{item.size}</Text>
+                    </Text>
+                    <Text>
+                      <Text style={{ fontWeight: "bold" }}>Location:</Text>{" "}
+                      <Text>{item.location}</Text>
+                    </Text>
+                  </View>
+                </View>
+               </Card>
+            </View>
           </View>
-        </View>
 
-        <View style={istyles.formContainer}>
-          <InputHeader text="Personal Information" />
+          <View style={istyles.formContainer}>
+            <InputHeader text="Personal Information" />
+                    <GooglePlacesInput/>
+            <CustomInput
+              label="Contact Number"
+              placeholder="(0x) xxxx xxxx"
+              onChangeText={(contact_number) =>
+                this.setState({ contact_number })
+              }
+              validator={() => this.contact_number_validator()}
+              errorMessage={this.state.contact_err}
+              leftIcon={
+                <Icon
+                  name="ios-call"
+                  type="ionicon"
+                  color={darkGreen}
+                  containerStyle={{ paddingRight: 10 }}
+                />
+              }
+            />
 
-          <CustomInput
-            label="Contact Number"
-            placeholder="(0x) xxxx xxxx"
-            onChangeText={(contact_number) => this.setState({ contact_number })}
-            validator={() => this.contact_number_validator()}
-            errorMessage={this.state.contact_err}
-            leftIcon={
-              <Icon
-                name="ios-call"
-                type="ionicon"
-                color="#D3D3D3"
-                containerStyle={{ paddingRight: 10 }}
-              />
-            }
-          />
+            <CustomInput
+              label="Address"
+            //   placeholder="Please fill in the field"
+            //   onChangeText={(address) => this.setState({ address })}
+            //   validator={() => this.address_validator()}
+            //   errorMessage={this.state.address_err}
+              leftIcon={
+                <Icon
+                  name="ios-pin"
+                  type="ionicon"
+                  color={darkGreen}
+                  containerStyle={{ paddingRight: 10 }}
+                />
+              }
+                render={<GooglePlacesInput/>}
+            />
 
-          <CustomInput
-            label="Address"
-            placeholder="Please fill in the field"
-            onChangeText={(address) => this.setState({ address })}
-            validator={() => this.address_validator()}
-            errorMessage={this.state.address_err}
-            leftIcon={
-              <Icon
-                name="ios-pin"
-                type="ionicon"
-                color="#D3D3D3"
-                containerStyle={{ paddingRight: 10 }}
-              />
-            }
-          />
+            <InputHeader text="Pet Information" />
 
-          <InputHeader text="Pet Information" />
+            <CustomInput
+              label="Why do you want this pet?"
+              placeholder="Please fill in the field"
+              onChangeText={(why_want_pet) => this.setState({ why_want_pet })}
+              multiline={true}
+              leftIcon={
+                <Icon
+                  name="ios-paper"
+                  type="ionicon"
+                  color={darkGreen}
+                  containerStyle={{ paddingRight: 10 }}
+                />
+              }
+            />
 
-          <CustomInput
-            label="Why do you want this pet?"
-            placeholder="Please fill in the field"
-            onChangeText={(why_want_pet) => this.setState({ why_want_pet })}
-            multiline={true}
-            leftIcon={
-              <Icon
-                name="ios-paper"
-                type="ionicon"
-                color="#D3D3D3"
-                containerStyle={{ paddingRight: 10 }}
-              />
-            }
-          />
+            <CustomInput
+              label="What characteristics are most desirable in a pet for you?"
+              placeholder="Please fill in the field"
+              onChangeText={(most_desirable_traits) =>
+                this.setState({ most_desirable_traits })
+              }
+              multiline={true}
+              leftIcon={
+                <Icon
+                  name="ios-paper"
+                  type="ionicon"
+                  color={darkGreen}
+                  containerStyle={{ paddingRight: 10 }}
+                />
+              }
+            />
 
-          <CustomInput
-            label="What characteristics are most desirable in a pet for you?"
-            placeholder="Please fill in the field"
-            onChangeText={(most_desirable_traits) =>
-              this.setState({ most_desirable_traits })
-            }
-            multiline={true}
-            leftIcon={
-              <Icon
-                name="ios-paper"
-                type="ionicon"
-                color="#D3D3D3"
-                containerStyle={{ paddingRight: 10 }}
-              />
-            }
-          />
+            <CustomInput
+              label="What characteristics are least desirable in a pet for you?"
+              placeholder="Please fill in the field"
+              onChangeText={(least_desirable_traits) =>
+                this.setState({ least_desirable_traits })
+              }
+              multiline={true}
+              leftIcon={
+                <Icon
+                  name="ios-paper"
+                  type="ionicon"
+                  color={darkGreen}
+                  containerStyle={{ paddingRight: 10 }}
+                />
+              }
+            />
 
-          <CustomInput
-            label="What characteristics are least desirable in a pet for you?"
-            placeholder="Please fill in the field"
-            onChangeText={(least_desirable_traits) =>
-              this.setState({ least_desirable_traits })
-            }
-            multiline={true}
-            leftIcon={
-              <Icon
-                name="ios-paper"
-                type="ionicon"
-                color="#D3D3D3"
-                containerStyle={{ paddingRight: 10 }}
-              />
-            }
-          />
-
-          <CustomInput
-            label="Name(s), breed(s), gender(s) and age(s) of current pets (if
+            <CustomInput
+              label="Name(s), breed(s), gender(s) and age(s) of current pets (if
                 applicable)"
-            placeholder="Please fill in the field"
-            onChangeText={(previous_pets) => this.setState({ previous_pets })}
-            multiline={true}
-            leftIcon={
-              <Icon
-                name="ios-paper"
-                type="ionicon"
-                color="#D3D3D3"
-                containerStyle={{ paddingRight: 10 }}
-              />
-            }
-          />
+              placeholder="Please fill in the field"
+              onChangeText={(previous_pets) => this.setState({ previous_pets })}
+              multiline={true}
+              leftIcon={
+                <Icon
+                  name="ios-paper"
+                  type="ionicon"
+                  color={darkGreen}
+                  containerStyle={{ paddingRight: 10 }}
+                />
+              }
+            />
 
-          <InputHeader text="Your Home Enviroment" />
-          <CustomInput
-            label="Description of your family/members of the household"
-            placeholder="Please fill in the field"
-            onChangeText={(house_enviroment) =>
-              this.setState({ house_enviroment })
-            }
-            multiline={true}
-            leftIcon={
-              <Icon
-                name="ios-paper"
-                type="ionicon"
-                color="#D3D3D3"
-                containerStyle={{ paddingRight: 10 }}
-              />
-            }
-          />
+            <InputHeader text="Your Home Enviroment" />
+            <CustomInput
+              label="Description of your family/members of the household"
+              placeholder="Please fill in the field"
+              onChangeText={(house_enviroment) =>
+                this.setState({ house_enviroment })
+              }
+              multiline={true}
+              leftIcon={
+                <Icon
+                  name="ios-paper"
+                  type="ionicon"
+                  color={darkGreen}
+                  containerStyle={{ paddingRight: 10 }}
+                />
+              }
+            />
 
-          <View
-            style={{
-              flexDirection: "row",
-              alignItems: "center",
-              justifyContent: "center",
-            }}>
-            <Button
+            <View
               style={{
-                //   paddingVertical : 25,
-                marginTop: 25,
-                marginBottom: 25,
-                backgroundColor: green,
-              }}
-              onPress={this.handleSubmit}>
-              <Text
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "center",
+              }}>
+              <Button
                 style={{
-                  color: "white",
-                }}>
-                Submit
-              </Text>
-            </Button>
+                  //   paddingVertical : 25,
+                  marginTop: 25,
+                  marginBottom: 25,
+                  backgroundColor: green,
+                }}
+                onPress={this.handleSubmit}>
+                <Text
+                  style={{
+                    color: "white",
+                  }}>
+                  Submit
+                </Text>
+              </Button>
+            </View>
           </View>
-        </View>
-      </ScrollView>
+        </ScrollView>
+
     );
   }
 }
