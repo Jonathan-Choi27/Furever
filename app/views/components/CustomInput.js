@@ -1,7 +1,7 @@
 import { Input, Text } from "react-native-elements";
 import React from "react";
 import { StyleSheet } from "react-native";
-import { darkGreen, lightGreen } from "../styleSheet/styleSheet";
+import { darkGreen, lightGreen, lightGrey } from "../styleSheet/styleSheet";
 
 export function CustomInput(props) {
   if (props.multiline) {
@@ -46,8 +46,8 @@ export function InputHeader(props) {
   return (
     <Text
       style={{
-        fontSize: 16,
-        color: "#484848",
+        fontSize: 18,
+        color: "#505050",
         fontWeight: "bold",
         borderBottomWidth: 2,
         borderBottomColor: "#484848",
@@ -63,6 +63,6 @@ const styles = StyleSheet.create({
     borderBottomWidth: 2,
   },
   label: {
-    color: darkGreen,
+    color: "#505050",
   },
 });

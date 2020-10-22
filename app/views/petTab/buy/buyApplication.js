@@ -1,14 +1,13 @@
 import React from "react";
 import {
   StyleSheet,
-  Text,
   ScrollView,
   View,
   TouchableOpacity,
   Dimensions,
   Image,
 } from "react-native";
-import { Card } from "react-native-elements";
+import { Card, Text } from "react-native-elements";
 import { TextInput, Button } from "react-native-paper";
 import "react-navigation";
 import "react-navigation-props-mapper";
@@ -21,8 +20,11 @@ import { auth } from "../../database/firebase";
 import { onBuyTab } from "../../components/petTabComponents";
 import { Input } from "react-native-elements";
 import { CustomInput, InputHeader } from "../../components/CustomInput";
-import istyles, { green } from "../../styleSheet/styleSheet";
+import istyles, { darkGreen, green } from "../../styleSheet/styleSheet";
 import { Icon } from "react-native-elements";
+import GooglePlacesInput from "../../components/mapAutoComplete";
+import { SafeAreaView } from "react-native-safe-area-context";
+// AIzaSyC-6ifFUYzIIgUf1uhbmJ_BU6VQyre4bRw
 
 export default class buyApplication extends React.Component {
   constructor(props) {
@@ -94,28 +96,13 @@ export default class buyApplication extends React.Component {
     });
   };
 
-  address_validator = () => {
-    var bool;
-
-    if (this.state.address == "") {
-      bool = false;
-      this.setState({
-        address_err: "Invalid address",
-      });
-    } else {
-      bool = true;
-      this.setState({
-        address_err: "",
-      });
-    }
-
+  setAddress = (address) => {
     this.setState({
-      valid_address: bool,
+      address: address,
     });
   };
 
   handleSubmit = async () => {
-
     const doc_id = this.props.route.params.item.doc_id;
 
     if (
@@ -161,82 +148,37 @@ export default class buyApplication extends React.Component {
     const textWidth = screenWidth - 40 - 150 - 10;
 
     return (
-      <ScrollView>
-        <View>
-          <View style={styles.container}>
-            {onBuyTab(this.props.navigation)}
-
-            <View style={styles.titleContainer}>
-              <View>
-                <Text style={styles.fontTitle}>
-                  Expression of Interest Application
-                </Text>
-                {/* <Text style={styles.fontHeading}>Application for</Text> */}
-              </View>
-              {/* <View style={{ width: screenWidth / 2 }}>
-                <Text>hello</Text>
-              </View> */}
-            </View>
-
-            <Card containerStyle={styles.cardContainer}>
-              <View style={styles.cardContentContainer}>
-                <View>
-                  <Image
-                    style={styles.imageContainer}
-                    source={{
-                      uri: item.photo,
-                    }}
-                  />
-                  <Text style={{ textAlign: "center", paddingTop: 5 }}>
-                    <Text style={{ fontWeight: "bold" }}>Price:</Text>{" "}
-                    <Text>{item.price}</Text>
-                  </Text>
-                </View>
-                <View
-                  style={{
-                    paddingLeft: 15,
-                    paddingRight: 10,
-                    width: textWidth,
-                  }}>
-                  <Text>
-                    <Text style={{ fontWeight: "bold" }}>Name:</Text>{" "}
-                    <Text>{item.petName}</Text>
-                  </Text>
-                  <Text>
-                    <Text style={{ fontWeight: "bold" }}>Category:</Text>{" "}
-                    <Text>{item.category}</Text>
-                  </Text>
-                  <Text>
-                    <Text style={{ fontWeight: "bold" }}>Breed:</Text>{" "}
-                    <Text>{item.breed}</Text>
-                  </Text>
-                  <Text>
-                    <Text style={{ fontWeight: "bold" }}>Colour:</Text>{" "}
-                    <Text>{item.colour}</Text>
-                  </Text>
-                  <Text>
-                    <Text style={{ fontWeight: "bold" }}>Age:</Text>{" "}
-                    <Text>{item.age}</Text>
-                  </Text>
-                  <Text>
-                    <Text style={{ fontWeight: "bold" }}>Gender:</Text>{" "}
-                    <Text>{item.gender}</Text>
-                  </Text>
-                  <Text>
-                    <Text style={{ fontWeight: "bold" }}>Size:</Text>{" "}
-                    <Text>{item.size}</Text>
-                  </Text>
-                  <Text>
-                    <Text style={{ fontWeight: "bold" }}>Location:</Text>{" "}
-                    <Text>{item.location}</Text>
-                  </Text>
-                </View>
-              </View>
-            </Card>
-          </View>
+      <ScrollView keyboardShouldPersistTaps={"handled"}>
+        <View style={{ marginBottom: 0 }}>
+          <Image
+            style={{ width: screenWidth, height: 300 }}
+            source={{
+              uri: item.photo,
+            }}
+          />
+          <Card containerStyle={{ borderRadius: 10 }}>
+            <Text>
+              <Text
+                style={{ fontWeight: "bold", fontSize: 30, color: "#404040" }}>
+                {item.petName}
+              </Text>
+              <Text
+                style={{ fontSize: 30, color: "#606060", fontWeight: "bold" }}>
+                {", "}
+                {item.age}
+              </Text>
+            </Text>
+            <Text style={{ fontWeight: "bold", color: "#505050" }}>
+              {item.breed}
+            </Text>
+          </Card>
         </View>
 
-        <View style={istyles.formContainer}>
+        <Card containerStyle={{ borderRadius: 10 }}>
+          <Text style={{ fontSize: 25, fontWeight: "bold", color: "#C0C0C0" }}>
+            Buyer Application
+          </Text>
+          <View style={{ marginBottom: 10 }} />
           <InputHeader text="Personal Information" />
 
           <CustomInput
@@ -249,27 +191,13 @@ export default class buyApplication extends React.Component {
               <Icon
                 name="ios-call"
                 type="ionicon"
-                color="#D3D3D3"
+                color={darkGreen}
                 containerStyle={{ paddingRight: 10 }}
               />
             }
           />
 
-          <CustomInput
-            label="Address"
-            placeholder="Please fill in the field"
-            onChangeText={(address) => this.setState({ address })}
-            validator={() => this.address_validator()}
-            errorMessage={this.state.address_err}
-            leftIcon={
-              <Icon
-                name="ios-pin"
-                type="ionicon"
-                color="#D3D3D3"
-                containerStyle={{ paddingRight: 10 }}
-              />
-            }
-          />
+          <GooglePlacesInput set={this.setAddress}/>
 
           <InputHeader text="Pet Information" />
 
@@ -282,8 +210,8 @@ export default class buyApplication extends React.Component {
               <Icon
                 name="ios-paper"
                 type="ionicon"
-                color="#D3D3D3"
-                containerStyle={{ paddingRight: 10 }}
+                color={darkGreen}
+                containerStyle={{ paddingLeft: 7, paddingRight: 10 }}
               />
             }
           />
@@ -299,8 +227,8 @@ export default class buyApplication extends React.Component {
               <Icon
                 name="ios-paper"
                 type="ionicon"
-                color="#D3D3D3"
-                containerStyle={{ paddingRight: 10 }}
+                color={darkGreen}
+                containerStyle={{ paddingLeft: 7, paddingRight: 10 }}
               />
             }
           />
@@ -316,8 +244,8 @@ export default class buyApplication extends React.Component {
               <Icon
                 name="ios-paper"
                 type="ionicon"
-                color="#D3D3D3"
-                containerStyle={{ paddingRight: 10 }}
+                color={darkGreen}
+                containerStyle={{ paddingLeft: 7, paddingRight: 10 }}
               />
             }
           />
@@ -332,8 +260,8 @@ export default class buyApplication extends React.Component {
               <Icon
                 name="ios-paper"
                 type="ionicon"
-                color="#D3D3D3"
-                containerStyle={{ paddingRight: 10 }}
+                color={darkGreen}
+                containerStyle={{ paddingLeft: 7, paddingRight: 10 }}
               />
             }
           />
@@ -350,8 +278,8 @@ export default class buyApplication extends React.Component {
               <Icon
                 name="ios-paper"
                 type="ionicon"
-                color="#D3D3D3"
-                containerStyle={{ paddingRight: 10 }}
+                color={darkGreen}
+                containerStyle={{ paddingLeft: 7, paddingRight: 10 }}
               />
             }
           />
@@ -378,7 +306,7 @@ export default class buyApplication extends React.Component {
               </Text>
             </Button>
           </View>
-        </View>
+        </Card>
       </ScrollView>
     );
   }

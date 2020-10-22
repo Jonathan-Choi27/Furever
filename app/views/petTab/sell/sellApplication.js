@@ -21,8 +21,9 @@ import { openImagePicker, uploadPhoto } from "../../components/ImageUpload";
 import CategorySelection from "./sellAppCategories";
 import { auth } from "../../database/firebase";
 import "firebase/storage";
+import { darkGreen, green, lightGreen, lightGrey, orange, lightBlue } from "../../styleSheet/styleSheet";
 
-export default class application extends React.Component {
+export default class sellApplication extends React.Component {
   constructor(props) {
     super(props);
 
@@ -339,338 +340,321 @@ export default class application extends React.Component {
 
   render() {
     return (
-      // <SafeAreaView style={styles.container}>
+      <SafeAreaView style={styles.container}>
         <ScrollView
           style={styles.scrollView}
           showsVerticalScrollIndicator={false}>
-            <View style={styles.container}>
-          <Text style={styles.heading}>New Pet Listing Application</Text>
-          <Text>
-            <Text style={styles.sub_heading}>General Information</Text>
-          </Text>
-          <View
-            style={{
-              borderBottomColor: "black",
-              borderBottomWidth: 1,
-              //   marginBottom: 10
-            }}
-          />
-          <View style={styles.titleContainer}>
-            <View style={styles.rectangle}>
-              <View style={styles.inputContainer}>
-                <View style={{ flexDirection: "row" }}>
-                  <View style={{ flex: 1 }}>
-                    <Text>
-                      <Text style={styles.inputName}>Name</Text>
-                      <Text style={styles.setColorRed}> *</Text>
-                    </Text>
-                  </View>
-                  {!this.state.valid_name && (
-                    <View style={{ flex: 1 }}>
-                      <Text style={styles.errorText}>Invalid name</Text>
-                    </View>
-                  )}
-                </View>
-                <TextInput
-                  mode="outlined"
-                  theme={{ colors: { primary: "#447ECB" } }}
-                  style={styles.smallInputBox}
-                  onChangeText={(name) =>
-                    this.setState({
-                      name: name,
-                    })
-                  }
-                  onBlur={() => {
-                    this.check_valid_name();
-                  }}
-                />
-              </View>
-              
-              <CategorySelection
-                category={this.setCategory}
-                breed={this.setBreed}
-                colour={this.setColour}
-                size={this.setSize}
-              />
+          <View style={styles.container}>
+            <Text style={styles.heading}>New Pet Listing Application</Text>
+            
+            <View style={{paddingTop: 5}}>
+              <Text style={styles.subHeading}>General Information</Text>
+              <View style={styles.line} />
+            </View>
 
-              <View style={styles.inputContainer}>
-                <View style={{ flexDirection: "row" }}>
-                  <View style={{ flex: 1 }}>
-                  <Text>
-                      <Text style={styles.inputName}>Age</Text>
-                      <Text style={styles.setColorRed}> *</Text>
-                    </Text>
-                  </View>
-                  {!this.state.valid_age && (
-                    <View style={{ flex: 1 }}>
-                      <Text style={styles.errorText}>Invalid age</Text>
-                    </View>
-                  )}
+            <View style={styles.inputContainer, {paddingTop: 10}}>
+              <View style={{ flexDirection: "row" }}>
+                <View style={{ flex: 1, flexDirection: "row" }}>
+                  <Text style={styles.inputName}>Name</Text>
+                  <Text style={styles.setColorRed}> *</Text>
                 </View>
-                <TextInput
-                  mode="outlined"
-                  theme={{ colors: { primary: "#447ECB" } }}
-                  style={styles.smallInputBox}
-                  onChangeText={(age) =>
-                    this.setState({
-                      age: age,
-                    })
-                  }
-                  onBlur={() => {
-                    this.check_valid_age();
-                  }}
-                />
-              </View>
-
-              <View style={{ marginTop: 10 }} />
-              <Text>
-                <Text style={styles.inputName}>Gender</Text>
-                <Text style={styles.setColorRed}> *</Text>
-              </Text>
-
-              <View style={styles.picker_container}>
-                <Picker
-                  style={styles.picker}
-                  selectedValue={this.state.gender}
-                  onValueChange={(gender) => this.setState({ gender })}>
-                  <Picker.Item
-                    label="Select gender"
-                    value="0"
-                    color="#B4B4B4"
-                  />
-                  <Picker.Item label="Male" value="Male" />
-                  <Picker.Item label="Female" value="Female" />
-                </Picker>
-              </View>
-              {/* <View style={{ marginTop: 10 }} /> */}
-
-              <View style={styles.inputContainer}>
-                <View style={{ flexDirection: "row" }}>
+                {!this.state.valid_name && (
                   <View style={{ flex: 1 }}>
-                    <Text>
-                      <Text style={styles.inputName}>Location</Text>
-                      <Text style={styles.setColorRed}> *</Text>
-                    </Text>
-                  </View>
-                  {!this.state.valid_location && (
-                    <View style={{ flex: 1 }}>
-                      <Text style={styles.errorText}>Invalid location</Text>
-                    </View>
-                  )}
-                </View>
-                <TextInput
-                  mode="outlined"
-                  theme={{ colors: { primary: "#447ECB" } }}
-                  style={styles.smallInputBox}
-                  onChangeText={(location) =>
-                    this.setState({
-                      location: location,
-                    })
-                  }
-                  onBlur={() => {
-                    this.check_valid_location();
-                  }}
-                />
-              </View>
-
-              <View style={styles.inputContainer}>
-                <View style={{ flexDirection: "row" }}>
-                  <View style={{ flex: 1 }}>
-                    <Text>
-                      <Text style={styles.inputName}>Price</Text>
-                      <Text style={styles.setColorRed}> *</Text>
-                    </Text>
-                  </View>
-                  {!this.state.valid_price && (
-                    <View style={{ flex: 1 }}>
-                      <Text style={styles.errorText}>Invalid price</Text>
-                    </View>
-                  )}
-                </View>
-                <TextInput
-                  mode="outlined"
-                  theme={{ colors: { primary: "#447ECB" } }}
-                  style={styles.smallInputBox}
-                  onChangeText={(price) =>
-                    this.setState({
-                      price: price,
-                    })
-                  }
-                  onBlur={() => {
-                    this.check_valid_price();
-                  }}
-                />
-              </View>
-              <View style={styles.inputContainer}>
-                <View style={{ flexDirection: "row" }}>
-                  <View style={{ flex: 1 }}>
-                    <Text>
-                      <Text style={styles.inputName}>Behaviour</Text>
-                      <Text style={styles.setColorRed}> *</Text>
-                    </Text>
-                  </View>
-                  {!this.state.valid_behaviour && (
-                    <View style={{ flex: 1 }}>
-                      <Text style={styles.errorText}>Invalid input</Text>
-                    </View>
-                  )}
-                </View>
-                <TextInput
-                  mode="outlined"
-                  multiline={true}
-                  theme={{ colors: { primary: "#447ECB" } }}
-                  onChangeText={(behaviour) =>
-                    this.setState({
-                      behaviour: behaviour,
-                    })
-                  }
-                  onBlur={() => {
-                    this.check_valid_behaviour();
-                  }}
-                />
-              </View>
-
-              <View style={styles.inputContainer}>
-                <View style={{ flexDirection: "row" }}>
-                  <View style={{ flex: 1 }}>
-                    <Text>
-                      <Text style={styles.inputName}>Care, Health, and Feeding</Text>
-                      <Text style={styles.setColorRed}> *</Text>
-                    </Text>
-                  </View>
-                  {!this.state.valid_health && (
-                    <View style={{ flex: 1 }}>
-                      <Text style={styles.errorText}>Invalid input</Text>
-                    </View>
-                  )}
-                </View>
-                <TextInput
-                  mode="outlined"
-                  multiline={true}
-                  theme={{ colors: { primary: "#447ECB" } }}
-                  onChangeText={(health) =>
-                    this.setState({
-                      health: health,
-                    })
-                  }
-                  onBlur={() => {
-                    this.check_valid_health();
-                  }}
-                />
-              </View>
-
-              <View style={styles.inputContainer}>
-                <View style={{ flexDirection: "row" }}>
-                  <View style={{ flex: 1 }}>
-                    <Text>
-                      <Text style={styles.inputName}>Training</Text>
-                      <Text style={styles.setColorRed}> *</Text>
-                    </Text>
-                  </View>
-                  {!this.state.valid_training && (
-                    <View style={{ flex: 1 }}>
-                      <Text style={styles.errorText}>Invalid input</Text>
-                    </View>
-                  )}
-                </View>
-                <TextInput
-                  mode="outlined"
-                  multiline={true}
-                  theme={{ colors: { primary: "#447ECB" } }}
-                  onChangeText={(training) =>
-                    this.setState({
-                      training: training,
-                    })
-                  }
-                  onBlur={() => {
-                    this.check_valid_training();
-                  }}
-                />
-              </View>
-              <View style={styles.inputContainer}>
-                <View style={{ flexDirection: "row" }}>
-                  <View style={{ flex: 1 }}>
-                    <Text style={styles.inputName}>Additional Information</Text>
-                  </View>
-                  {/* {!this.state.valid_additionalInfo && (
-                    <View style={{ flex: 1 }}>
-                      <Text style={styles.errorText}>Invalid input</Text>
-                    </View>
-                  )} */}
-                </View>
-                <TextInput
-                  mode="outlined"
-                  multiline={true}
-                  theme={{ colors: { primary: "#447ECB" } }}
-                  onChangeText={(additionalInfo) =>
-                    this.setState({
-                      additionalInfo: additionalInfo,
-                    })
-                  }
-                  // onBlur={() => {
-                  //   this.check_valid_additionalInfo();
-                  // }}
-                />
-              </View>
-
-              {/* <Text style={styles.titles}>Upload a photo</Text> */}
-
-              <View style={{ flexDirection: "row", paddingTop: 5 }}>
-                <View style={{ flex: 1}}>
-                  <Text style={styles.titles}>
-                    <Text>Upload a Photo</Text>
-                    <Text style={styles.setColorRed}> *</Text>
-                  </Text>
-                </View>
-                {!this.state.valid_uri && (
-                  <View style={{ flex: 1 }}>
-                    <Text style={styles.errorText}>Choose a photo</Text>
+                    <Text style={styles.errorText}>Invalid name</Text>
                   </View>
                 )}
               </View>
+              <TextInput
+                mode="outlined"
+                theme={{ colors: { primary: darkGreen } }}
+                style={styles.smallInputBox}
+                onChangeText={(name) =>
+                  this.setState({
+                    name: name,
+                  })
+                }
+                onBlur={() => {
+                  this.check_valid_name();
+                }}
+              />
+            </View>
+            
+            <CategorySelection
+              setCategory={this.setCategory}
+              setBreed={this.setBreed}
+              setColour={this.setColour}
+              setSize={this.setSize}
+            />
 
+            <View style={styles.inputContainer}>
+              <View style={{ flexDirection: "row" }}>
+                <View style={{ flex: 1, flexDirection: "row" }}>
+                  <Text style={styles.inputName}>Age</Text>
+                  <Text style={styles.setColorRed}> *</Text>
+                </View>
+                {!this.state.valid_age && (
+                  <View style={{ flex: 1 }}>
+                    <Text style={styles.errorText}>Invalid age</Text>
+                  </View>
+                )}
+              </View>
+              <TextInput
+                mode="outlined"
+                theme={{ colors: { primary: darkGreen } }}
+                style={styles.smallInputBox}
+                onChangeText={(age) =>
+                  this.setState({
+                    age: age,
+                  })
+                }
+                onBlur={() => {
+                  this.check_valid_age();
+                }}
+              />
+            </View>
+
+            <View style={{ marginTop: 10 }} />
+            <Text>
+              <Text style={styles.inputName}>Gender</Text>
+              <Text style={styles.setColorRed}> *</Text>
+            </Text>
+
+            <View style={styles.pickerContainer}>
+              <Picker
+                style={styles.picker}
+                selectedValue={this.state.gender}
+                onValueChange={(gender) => this.setState({ gender })}>
+                <Picker.Item
+                  label="Select gender"
+                  value="0"
+                  color="#adadad"
+                />
+                <Picker.Item label="Male" value="Male" />
+                <Picker.Item label="Female" value="Female" />
+              </Picker>
+            </View>
+            {/* <View style={{ marginTop: 10 }} /> */}
+
+            <View style={styles.inputContainer}>
+              <View style={{ flexDirection: "row" }}>
+                <View style={{ flex: 1, flexDirection: "row" }}>
+                  <Text style={styles.inputName}>Location</Text>
+                  <Text style={styles.setColorRed}> *</Text>
+                </View>
+                {!this.state.valid_location && (
+                  <View style={{ flex: 1 }}>
+                    <Text style={styles.errorText}>Invalid location</Text>
+                  </View>
+                )}
+              </View>
+              <TextInput
+                mode="outlined"
+                theme={{ colors: { primary: darkGreen } }}
+                style={styles.smallInputBox}
+                onChangeText={(location) =>
+                  this.setState({
+                    location: location,
+                  })
+                }
+                onBlur={() => {
+                  this.check_valid_location();
+                }}
+              />
+            </View>
+
+            <View style={styles.inputContainer}>
+              <View style={{ flexDirection: "row" }}>
+                <View style={{ flex: 1, flexDirection: "row" }}>
+                  <Text style={styles.inputName}>Price</Text>
+                  <Text style={styles.setColorRed}> *</Text>
+                </View>
+                {!this.state.valid_price && (
+                  <View style={{ flex: 1 }}>
+                    <Text style={styles.errorText}>Invalid price</Text>
+                  </View>
+                )}
+              </View>
+              <TextInput
+                mode="outlined"
+                theme={{ colors: { primary: darkGreen } }}
+                style={styles.smallInputBox}
+                onChangeText={(price) =>
+                  this.setState({
+                    price: price,
+                  })
+                }
+                onBlur={() => {
+                  this.check_valid_price();
+                }}
+              />
+            </View>
+            <View style={styles.subHeadingContainer}>
+              <View style={{ flexDirection: "row" }}>
+                <View style={{ flex: 1, flexDirection: "row" }}>
+                  <Text style={styles.subHeading}>Behaviour</Text>
+                  <Text style={styles.setColorRed}> *</Text>
+                </View>
+                {!this.state.valid_behaviour && (
+                  <View style={{ flex: 1 }}>
+                    <Text style={styles.errorText}>Invalid input</Text>
+                  </View>
+                )}
+              </View>
+              <TextInput
+                mode="outlined"
+                multiline={true}
+                theme={{ colors: { primary: darkGreen } }}
+                style={styles.bigInput}
+                numberOfLines={4}
+                onChangeText={(behaviour) =>
+                  this.setState({
+                    behaviour: behaviour,
+                  })
+                }
+                onBlur={() => {
+                  this.check_valid_behaviour();
+                }}
+              />
+            </View>
+
+            <View style={styles.subHeadingContainer}>
+              <View style={{ flexDirection: "row" }}>
+                <View style={{ flex: 1, flexDirection: "row" }}>
+                  <Text style={styles.subHeading}>Care, Health, and Feeding</Text>
+                  <Text style={styles.setColorRed}> *</Text>
+                </View>
+                {!this.state.valid_health && (
+                  <View style={{ flex: 1 }}>
+                    <Text style={styles.errorText}>Invalid input</Text>
+                  </View>
+                )}
+              </View>
+              <TextInput
+                mode="outlined"
+                multiline={true}
+                theme={{ colors: { primary: darkGreen } }}
+                style={styles.bigInput}
+                numberOfLines={4}
+                onChangeText={(health) =>
+                  this.setState({
+                    health: health,
+                  })
+                }
+                onBlur={() => {
+                  this.check_valid_health();
+                }}
+              />
+            </View>
+
+            <View style={styles.subHeadingContainer}>
+              <View style={{ flexDirection: "row" }}>
+                <View style={{ flex: 1, flexDirection: "row" }}>
+                  <Text style={styles.subHeading}>Training</Text>
+                  <Text style={styles.setColorRed}> *</Text>
+                </View>
+                {!this.state.valid_training && (
+                  <View style={{ flex: 1 }}>
+                    <Text style={styles.errorText}>Invalid input</Text>
+                  </View>
+                )}
+              </View>
+              <TextInput
+                mode="outlined"
+                multiline={true}
+                theme={{ colors: { primary: darkGreen } }}
+                style={styles.bigInput}
+                numberOfLines={4}
+                onChangeText={(training) =>
+                  this.setState({
+                    training: training,
+                  })
+                }
+                onBlur={() => {
+                  this.check_valid_training();
+                }}
+              />
+            </View>
+            <View style={styles.subHeadingContainer}>
+              <View style={{ flexDirection: "row" }}>
+                <View style={{ flex: 1 }}>
+                  <Text style={styles.subHeading}>Additional Information</Text>
+                </View>
+                {/* {!this.state.valid_additionalInfo && (
+                  <View style={{ flex: 1 }}>
+                    <Text style={styles.errorText}>Invalid input</Text>
+                  </View>
+                )} */}
+              </View>
+              <TextInput
+                mode="outlined"
+                multiline={true}
+                theme={{ colors: { primary: darkGreen } }}
+                style={styles.bigInput}
+                numberOfLines={4}
+                onChangeText={(additionalInfo) =>
+                  this.setState({
+                    additionalInfo: additionalInfo,
+                  })
+                }
+                // onBlur={() => {
+                //   this.check_valid_additionalInfo();
+                // }}
+              />
+            </View>
+
+            {/* <Text style={styles.titles}>Upload a photo</Text> */}
+
+            <View style={{ flexDirection: "row", paddingTop: 20 }}>
+              <View style={{ flex: 1, flexDirection: "row", paddingBottom: 3}}>
+                <Text style={styles.inputName}>Upload a Photo</Text>
+                <Text style={styles.setColorRed}> *</Text>
+              </View>
+              {!this.state.valid_uri && (
+                <View style={{ flex: 1 }}>
+                  <Text style={styles.errorText}>Choose a photo</Text>
+                </View>
+              )}
+            </View>
+            <Button
+              style={{
+                backgroundColor: green,
+              }}
+              onPress={this.setPhotoUri}>
+              <Text
+                style={{
+                  color: "white",
+                }}>
+                Choose Photo
+              </Text>
+            </Button>
+
+            <View style={{ paddingTop: 15 }}>
+              <Text style={styles.inputName, {paddingBottom: 3}}>Upload Documents</Text>
               <Button
                 style={{
-                  backgroundColor: "#447ECB",
+                  backgroundColor: green,
                 }}
-                onPress={this.setPhotoUri}>
+                onPress={this.setDocumentUri}>
                 <Text
                   style={{
                     color: "white",
                   }}>
-                  Choose Photo
+                  Choose Document
                 </Text>
               </Button>
+            </View>
 
-              <View style={{ paddingTop: 5 }}>
-                <Text style={styles.titles}>Upload Documents</Text>
-                <Button
-                  style={{
-                    backgroundColor: "#447ECB",
-                  }}
-                  onPress={this.setDocumentUri}>
-                  <Text
-                    style={{
-                      color: "white",
-                    }}>
-                    Choose Document
-                  </Text>
-                </Button>
-              </View>
-
-              <View style={styles.buttonsContainer}>
-                <TouchableOpacity
-                  title={"submit"}
-                  style={styles.buttons}
-                  onPress={this.handleSubmit}>
-                  <Text style={styles.buttonsText}>Submit</Text>
-                </TouchableOpacity>
-              </View>
+            <View style={styles.buttonsContainer}>
+              <TouchableOpacity
+                title={"submit"}
+                style={styles.buttons}
+                onPress={this.handleSubmit}>
+                <Text style={styles.buttonsText}>Submit</Text>
+              </TouchableOpacity>
             </View>
           </View>
-          </View>
         </ScrollView>
-      // </SafeAreaView>
+      </SafeAreaView>
     );
   }
 }
@@ -678,20 +662,14 @@ export default class application extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    padding: 10,
     paddingTop: 10,
-    marginLeft: 30,
-    marginRight: 30,
     justifyContent: "center",
-  },
-  titles: {
-    fontSize: 14,
-    color: "#515151",
-    paddingVertical: 8,
   },
   inputName: {
     marginBottom: 0,
     paddingBottom: 0,
-    color: "#515151",
+    color: "#242424",
     fontSize: 14,
   },
   heading: {
@@ -703,14 +681,18 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     flex: 1,
     paddingVertical: 10,
+    paddingTop: 20,
   },
-  sub_heading: {
+  subHeading: {
     fontSize: 16,
+  },
+  subHeadingContainer: {
+    paddingTop: 20,
   },
   smallInputBox: {
     margin: 0,
     height: 25,
-    backgroundColor: "#F6F6F6",
+    backgroundColor: "#fafafa",
     padding: 0,
   },
   input: {
@@ -722,13 +704,11 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     fontSize: 12,
   },
-  biginput: {
-    width: 314,
-    height: 80,
-    padding: 10,
-    borderWidth: 1,
-    borderColor: "black",
-    backgroundColor: "white",
+  bigInput: {
+    textAlignVertical: "top",
+    margin: 0,
+    backgroundColor: "#fafafa",
+    padding: 0,
   },
   picker: {
     height: 27,
@@ -738,11 +718,10 @@ const styles = StyleSheet.create({
   buttonsContainer: {
     alignItems: "center",
     justifyContent: "center",
-    padding: 20,
-    marginBottom: 10,
+    paddingTop: 30,
   },
   buttons: {
-    backgroundColor: "#447ECB",
+    backgroundColor: darkGreen,
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 10,
@@ -750,7 +729,7 @@ const styles = StyleSheet.create({
     height: 40,
   },
   buttonsText: {
-    color: "#ffffff",
+    color: "white",
     fontSize: 18,
     fontWeight: "bold",
   },
@@ -760,8 +739,8 @@ const styles = StyleSheet.create({
   setColorRed: {
     color: "#f44336",
   },
-  picker_container: {
-    backgroundColor: "#F6F6F6",
+  pickerContainer: {
+    backgroundColor: "white",
     borderColor: "#5D5D5D",
     borderWidth: 1,
     borderRadius: 4,
@@ -774,8 +753,9 @@ const styles = StyleSheet.create({
   //   fontWeight: "bold",
   // },
   inputContainer: {
-    marginTop: 10,
+    paddingTop: 12,
   },
+
   pickerItem: {
     fontSize: 12,
   },
@@ -784,7 +764,8 @@ const styles = StyleSheet.create({
     fontSize: 12,
     textAlign: "right",
   },
-  inputContainer: {
-    marginTop: 10,
-  },
+  line: {
+    borderBottomColor: "black",
+    borderBottomWidth: 1,
+  }
 });

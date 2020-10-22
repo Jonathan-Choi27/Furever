@@ -5,52 +5,61 @@ import {
   ScrollView,
   StyleSheet,
   Text,
-  TextInput,
   TouchableOpacity,
   View,
-  Button,
   Image,
+  BackHandler,
 } from "react-native";
-import { color } from "react-native-reanimated";
+import { TextInput, Button } from "react-native-paper";
 import { db } from "../../database/firebase";
 import uuid from "react-native-uuid";
 import {
   openDocumentPicker,
   uploadDocument,
 } from "../../components/DocumentUpload";
-import * as Font from "expo-font";
 import { openImagePicker, uploadPhoto } from "../../components/ImageUpload";
 import CategorySelection from "./sellAppCategories";
 import { auth } from "../../database/firebase";
-import * as firebase from "firebase/app";
 import "firebase/storage";
-import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { Route } from "react-router";
+import { darkGreen, green, lightGreen, lightGrey, orange, lightBlue } from "../../styleSheet/styleSheet";
 
 export default class updateSellApplication extends React.Component {
-  state = {
-    name: "",
-    category: "",
-    breed: "",
-    colour: "",
-    age: "",
-    gender: "",
-    location: "",
-    price: "",
-    behaviour: "",
-    health: "",
-    training: "",
-    additionalInfo: "",
-    documents: "",
-    //photo
-    photo_link: "",
-    photo_uri: "",
-    photo_uuid: "",
-    documents_uri: "",
-    seller_name: "",
-    size: "",
-    fontLoaded: false,
-  };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      valid_name: true,
+      valid_age: true,
+      valid_location: true,
+      valid_price: true,
+      valid_behaviour: true,
+      valid_health: true,
+      valid_training: true,
+      valid_uri: true,
+      // name: "",
+      // category: "",
+      // breed: "",
+      // colour: "",
+      // age: "",
+      // gender: "",
+      // location: "",
+      // price: "",
+      // behaviour: "",
+      // health: "",
+      // training: "",
+      // additionalInfo: "",
+      // documents: "",
+      //photo
+      // photo_link: "",
+      photo_uri: "",
+      photo_uuid: "",
+      documents_uri: "",
+      seller_name: "",
+      size: "",
+    };
+
+    this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
+  }
 
   componentDidMount() {
     db.collection("pet_listings")
@@ -59,6 +68,10 @@ export default class updateSellApplication extends React.Component {
       .then(async (doc) => {
         this.setState({
             name: doc.data().name,
+            category: doc.data().category,
+            breed: doc.data().breed,
+            colour: doc.data().colour,
+            size: doc.data().size,
             age: doc.data().age,
             gender: doc.data().gender,
             location: doc.data().location,
@@ -67,96 +80,206 @@ export default class updateSellApplication extends React.Component {
             health: doc.data().health,
             training: doc.data().training,
             additionalInfo: doc.data().additionalInfo,
+            photo_link: doc.data().photo_link,
+            documents: doc.data().documents,
         })
         // this.state.name = await doc.data().name;
         // console.log(this.state.name);
       });
+
+      BackHandler.addEventListener(
+        "hardwareBackPress",
+        this.handleBackButtonClick
+      );
+  }
+
+  componentWillUnmount() {
+    BackHandler.removeEventListener(
+      "hardwareBackPress",
+      this.handleBackButtonClick
+    );
+  }
+
+  handleBackButtonClick() {
+    this.props.navigation.goBack();
+    return true;
   }
 
   handleSubmit = async () => {
-    const {
-      name,
-      category,
-      breed,
-      colour,
-      age,
-      gender,
-      location,
-      price,
-      behaviour,
-      health,
-      training,
-      additionalInfo,
-      size,
-      photo_uuid,
-      photo_uri,
-      photo_link,
-      documents,
-      documents_uri,
-      //   seller_name,
-    } = this.state;
-
-    console.log("photo uuid:" + this.state.photo_uuid);
-
-    const photoURL = await uploadPhoto(
-      this.state.photo_uri,
-      this.state.photo_uuid
-    );
-
-    this.setState({
-      photo_link: photoURL,
-    });
-    console.log("class : " + photoURL);
-
-    uploadDocument(this.state.documents_uri, this.state.documents);
-
     const user = auth.currentUser;
 
     var submit;
     if (
-      name == "" ||
-      category == "0" ||
-      breed == "0" ||
-      colour == "0" ||
-      age == "" ||
-      gender == "0" ||
-      size == "0" ||
-      location == "" ||
-      price == "" ||
-      behaviour == "" ||
-      health == "" ||
-      training == "" ||
-      additionalInfo == ""
+      this.name_regex(this.state.name) == false ||
+      this.age_regex(this.state.age) == false ||
+      this.location_regex(this.state.location) == false ||
+      this.price_regex(this.state.price) == false ||
+      this.behaviour_regex(this.state.behaviour) == false ||
+      this.health_regex(this.state.health) == false ||
+      this.training_regex(this.state.training) == false ||
+      this.state.photo_link == ""
     ) {
       alert("All input fields required and must be valid.");
+      this.check_valid_name();
+      this.check_valid_age();
+      this.check_valid_location();
+      this.check_valid_price();
+      this.check_valid_behaviour();
+      this.check_valid_health();
+      this.check_valid_training();
+      if (this.state.photo_link == "" && (this.state.photo_uri == "" || this.state.photo_uri == null)) {
+        this.setState({
+          valid_uri: false,
+        });
+      }
       submit = false;
     } else {
       submit = true;
     }
 
-    db.collection("pet_listings").doc(this.props.route.params.doc_id).update({
-      uuid: user.uid,
-      name: this.state.name,
-      category: this.state.category,
-      breed: this.state.breed   ,
-      colour: this.state.colour,
-      age: this.state.age,
-      gender: this.state.gender,
-      behaviour: this.state.behaviour,
-      health: this.state.health,
-      location: this.state.location,
-      training: this.state.training,
-      photo_link: this.state.photo_link,
-      documents: this.state.documents,
-      price: this.state.price,
-      additionalInfo: this.state.additionalInfo,
-      size: this.state.size,
-    });
-
     if (submit == true) {
-      this.props.navigation.replace("currentListings");
+      if (this.state.photo_uri !== "") {
+        const photoURL = await uploadPhoto(
+          this.state.photo_uri,
+          this.state.photo_uuid
+        );
+
+        this.setState({
+          photo_link: photoURL,
+        });
+      }
+
+      if (this.state.documents_uri !== "") {
+        uploadDocument(this.state.documents_uri, this.state.documents);
+      }
+
+      db.collection("pet_listings").doc(this.props.route.params.doc_id).update({
+        uuid: user.uid,
+        name: this.state.name,
+        category: this.state.category,
+        breed: this.state.breed,
+        colour: this.state.colour,
+        age: this.state.age,
+        gender: this.state.gender,
+        behaviour: this.state.behaviour,
+        health: this.state.health,
+        location: this.state.location,
+        training: this.state.training,
+        photo_link: this.state.photo_link,
+        documents: this.state.documents,
+        price: this.state.price,
+        additionalInfo: this.state.additionalInfo,
+        size: this.state.size,
+      });
+      this.props.navigation.goBack();
     }
   };
+
+  name_regex = (name) => {
+    if (name == "" || /\d+/g.test(name)) {
+      return false;
+    } else {
+      return true;
+    }
+  };
+
+  check_valid_name = () => {
+    var bool = this.name_regex(this.state.name);
+    this.setState({
+      valid_name: bool,
+    });
+  };
+
+  age_regex = (age) => {
+    if (!/^\d+$/.test(age) || age == "") {
+      return false;
+    } else {
+      return true;
+    }
+  };
+
+  check_valid_age = () => {
+    var bool = this.age_regex(this.state.age);
+    this.setState({
+      valid_age: bool,
+    });
+  };
+
+  location_regex = (location) => {
+    if (location == "") {
+      return false;
+    } else {
+      return true;
+    }
+  };
+
+  check_valid_location = () => {
+    var bool = this.location_regex(this.state.location);
+    this.setState({
+      valid_location: bool,
+    });
+  };
+
+  price_regex = (price) => {
+    if (!/^\d+$/.test(price) || price == "") {
+      return false;
+    } else {
+      return true;
+    }
+  };
+
+  check_valid_price = () => {
+    var bool = this.price_regex(this.state.price);
+    this.setState({
+      valid_price: bool,
+    });
+  };
+
+  behaviour_regex = (behaviour) => {
+    if (behaviour == "") {
+      return false;
+    } else {
+      return true;
+    }
+  };
+
+  check_valid_behaviour = () => {
+    var bool = this.behaviour_regex(this.state.behaviour);
+    this.setState({
+      valid_behaviour: bool,
+    });
+  };
+
+  training_regex = (training) => {
+    if (training == "") {
+      return false;
+    } else {
+      return true;
+    }
+  };
+
+  check_valid_training = () => {
+    var bool = this.training_regex(this.state.training);
+    this.setState({
+      valid_training: bool,
+    });
+  };
+
+  health_regex = (health) => {
+    if (health == "") {
+      return false;
+    } else {
+      return true;
+    }
+  };
+
+  check_valid_health = () => {
+    var bool = this.health_regex(this.state.health);
+    this.setState({
+      valid_health: bool,
+    });
+  };
+
 
   setPhotoUri = async () => {
     const get_uri = await openImagePicker();
@@ -200,146 +323,330 @@ export default class updateSellApplication extends React.Component {
     });
   };
 
+  name_regex = (name) => {
+    if (name === "" || /\d+/g.test(name)) {
+      return false;
+    } else {
+      return true;
+    }
+  };
+
   render() {
     return (
       <SafeAreaView style={styles.container}>
         <ScrollView
           style={styles.scrollView}
           showsVerticalScrollIndicator={false}>
-          <Text style={styles.heading}>Update Listing Application</Text>
-          <Text>
-            <Text style={styles.sub_heading}>General Information</Text>
-            <Text style={styles.setColorRed}> *</Text>
-          </Text>
-          <View
-            style={{
-              borderBottomColor: "black",
-              borderBottomWidth: 1,
-            }}
-          />
-          <View style={styles.titleContainer}>
-            <View style={styles.rectangle}>
-              <Text>
-                <Text style={styles.titles}>Name</Text>
-              </Text>
-              <TextInput
-                onChangeText={(name) => this.setState({ name })}
-                style={styles.input}
-                defaultValue={this.state.name}
-              />
+          <View style={styles.container}>
+            <Text style={styles.heading}>Update Pet Listing Application</Text>
+            
+            <View style={{paddingTop: 5}}>
+              <Text style={styles.subHeading}>General Information</Text>
+              <View style={styles.line} />
+            </View>
 
-              <CategorySelection
-                category={this.setCategory}
-                breed={this.setBreed}
-                colour={this.setColour}
-                size={this.setSize}
-              />
-
-              <Text>
-                <Text style={styles.titles}>Age</Text>
-              </Text>
-              <TextInput
-                onChangeText={(age) => this.setState({ age })}
-                style={styles.input}
-                defaultValue={this.state.age}
-              />
-
-              <Text>
-                <Text style={styles.titles}>Gender</Text>
-              </Text>
-              <View style={styles.picker_container}>
-                <Picker
-                  selectedValue={this.state.gender}
-                  style={styles.picker}
-                  onValueChange={(gender) => this.setState({ gender })}>
-                  <Picker.Item
-                    label="Select gender"
-                    value="0"
-                    color="#B4B4B4"
-                  />
-                  <Picker.Item label="Male" value="Male" />
-                  <Picker.Item label="Female" value="Female" />
-                </Picker>
+            <View style={styles.inputContainer, {paddingTop: 10}}>
+              <View style={{ flexDirection: "row" }}>
+                <View style={{ flex: 1, flexDirection: "row" }}>
+                  <Text style={styles.inputName}>Name</Text>
+                  <Text style={styles.setColorRed}> *</Text>
+                </View>
+                {!this.state.valid_name && (
+                  <View style={{ flex: 1 }}>
+                    <Text style={styles.errorText}>Invalid name</Text>
+                  </View>
+                )}
               </View>
-              <Text>
-                <Text style={styles.titles}>Location</Text>
-              </Text>
               <TextInput
-                onChangeText={(location) => this.setState({ location })}
-                style={styles.input}
-                defaultValue={this.state.location}
-              />
-
-              <Text>
-                <Text style={styles.titles}>Price</Text>
-              </Text>
-              <TextInput
-                onChangeText={(price) => this.setState({ price })}
-                style={styles.input}
-                defaultValue={this.state.price}
-              />
-
-              <Text style={styles.titles}>Behaviour</Text>
-              <TextInput
-                onChangeText={(behaviour) => this.setState({ behaviour })}
-                multiline
-                numberOfLines={4}
-                secureTextEntry={true}
-                style={styles.biginput}
-                defaultValue={this.state.behaviour}
-              />
-
-              <Text style={styles.titles}>Care, Health and Feeding</Text>
-              <TextInput
-                onChangeText={(health) => this.setState({ health })}
-                multiline
-                numberOfLines={4}
-                secureTextEntry={true}
-                style={styles.biginput}
-                defaultValue={this.state.health}
-              />
-
-              <Text style={styles.titles}>Training</Text>
-              <TextInput
-                onChangeText={(training) => this.setState({ training })}
-                multiline
-                numberOfLines={4}
-                secureTextEntry={true}
-                style={styles.biginput}
-                defaultValue={this.state.training}
-              />
-
-              <Text style={styles.titles}>Additional Information</Text>
-              <TextInput
-                onChangeText={(additionalInfo) =>
-                  this.setState({ additionalInfo })
+                mode="outlined"
+                theme={{ colors: { primary: darkGreen } }}
+                style={styles.smallInputBox}
+                // defaultValue={this.state.name}
+                defaultValue={this.state.name}
+                onChangeText={(name) =>
+                  this.setState({
+                    name: name,
+                  })
                 }
-                multiline
-                numberOfLines={4}
-                secureTextEntry={true}
-                style={styles.biginput}
-                defaultValue={this.state.additionalInfo}
-              />
-
-              <Text style={styles.titles}>Upload a photo</Text>
-              <Button title="Choose Photo" onPress={this.setPhotoUri} />
-              <Image
-                source={{
-                  image_path: this.state.photo_uri,
+                onBlur={() => {
+                  this.check_valid_name();
                 }}
               />
+            </View>
+            
+            <CategorySelection
+              setCategory={this.setCategory}
+              setBreed={this.setBreed}
+              setColour={this.setColour}
+              setSize={this.setSize}
+              category={this.state.category}
+              breed={this.state.breed}
+              colour={this.state.colour}
+              size={this.state.size}
+            />
 
-              <Text style={styles.titles}>Upload Documents</Text>
-              <Button title="Choose Document" onPress={this.setDocumentUri} />
-
-              <View style={styles.buttonsContainer}>
-                <TouchableOpacity
-                  title={"submit"}
-                  style={styles.buttons}
-                  onPress={this.handleSubmit}>
-                  <Text style={styles.buttonsText}>Submit</Text>
-                </TouchableOpacity>
+            <View style={styles.inputContainer}>
+              <View style={{ flexDirection: "row" }}>
+                <View style={{ flex: 1, flexDirection: "row" }}>
+                  <Text style={styles.inputName}>Age</Text>
+                  <Text style={styles.setColorRed}> *</Text>
+                </View>
+                {!this.state.valid_age && (
+                  <View style={{ flex: 1 }}>
+                    <Text style={styles.errorText}>Invalid age</Text>
+                  </View>
+                )}
               </View>
+              <TextInput
+                mode="outlined"
+                theme={{ colors: { primary: darkGreen } }}
+                style={styles.smallInputBox}
+                defaultValue={this.state.age}
+                onChangeText={(age) =>
+                  this.setState({
+                    age: age,
+                  })
+                }
+                onBlur={() => {
+                  this.check_valid_age();
+                }}
+              />
+            </View>
+
+            <View style={{ marginTop: 10 }} />
+            <Text>
+              <Text style={styles.inputName}>Gender</Text>
+              <Text style={styles.setColorRed}> *</Text>
+            </Text>
+
+            <View style={styles.pickerContainer}>
+              <Picker
+                style={styles.picker}
+                selectedValue={this.state.gender}
+                onValueChange={(gender) => this.setState({ gender })}>
+                <Picker.Item
+                  label="Select gender"
+                  value="0"
+                  color="#adadad"
+                />
+                <Picker.Item label="Male" value="Male" />
+                <Picker.Item label="Female" value="Female" />
+              </Picker>
+            </View>
+            {/* <View style={{ marginTop: 10 }} /> */}
+
+            <View style={styles.inputContainer}>
+              <View style={{ flexDirection: "row" }}>
+                <View style={{ flex: 1, flexDirection: "row" }}>
+                  <Text style={styles.inputName}>Location</Text>
+                  <Text style={styles.setColorRed}> *</Text>
+                </View>
+                {!this.state.valid_location && (
+                  <View style={{ flex: 1 }}>
+                    <Text style={styles.errorText}>Invalid location</Text>
+                  </View>
+                )}
+              </View>
+              <TextInput
+                mode="outlined"
+                theme={{ colors: { primary: darkGreen } }}
+                style={styles.smallInputBox}
+                defaultValue={this.state.location}
+                onChangeText={(location) =>
+                  this.setState({
+                    location: location,
+                  })
+                }
+                onBlur={() => {
+                  this.check_valid_location();
+                }}
+              />
+            </View>
+
+            <View style={styles.inputContainer}>
+              <View style={{ flexDirection: "row" }}>
+                <View style={{ flex: 1, flexDirection: "row" }}>
+                  <Text style={styles.inputName}>Price</Text>
+                  <Text style={styles.setColorRed}> *</Text>
+                </View>
+                {!this.state.valid_price && (
+                  <View style={{ flex: 1 }}>
+                    <Text style={styles.errorText}>Invalid price</Text>
+                  </View>
+                )}
+              </View>
+              <TextInput
+                mode="outlined"
+                theme={{ colors: { primary: darkGreen } }}
+                style={styles.smallInputBox}
+                defaultValue={this.state.price}
+                onChangeText={(price) =>
+                  this.setState({
+                    price: price,
+                  })
+                }
+                onBlur={() => {
+                  this.check_valid_price();
+                }}
+              />
+            </View>
+            <View style={styles.subHeadingContainer}>
+              <View style={{ flexDirection: "row" }}>
+                <View style={{ flex: 1, flexDirection: "row" }}>
+                  <Text style={styles.subHeading}>Behaviour</Text>
+                  <Text style={styles.setColorRed}> *</Text>
+                </View>
+                {!this.state.valid_behaviour && (
+                  <View style={{ flex: 1 }}>
+                    <Text style={styles.errorText}>Invalid input</Text>
+                  </View>
+                )}
+              </View>
+              <TextInput
+                mode="outlined"
+                multiline={true}
+                theme={{ colors: { primary: darkGreen } }}
+                style={styles.bigInput}
+                numberOfLines={4}
+                defaultValue={this.state.behaviour}
+                onChangeText={(behaviour) =>
+                  this.setState({
+                    behaviour: behaviour,
+                  })
+                }
+                onBlur={() => {
+                  this.check_valid_behaviour();
+                }}
+              />
+            </View>
+
+            <View style={styles.subHeadingContainer}>
+              <View style={{ flexDirection: "row" }}>
+                <View style={{ flex: 1, flexDirection: "row" }}>
+                  <Text style={styles.subHeading}>Care, Health, and Feeding</Text>
+                  <Text style={styles.setColorRed}> *</Text>
+                </View>
+                {!this.state.valid_health && (
+                  <View style={{ flex: 1 }}>
+                    <Text style={styles.errorText}>Invalid input</Text>
+                  </View>
+                )}
+              </View>
+              <TextInput
+                mode="outlined"
+                multiline={true}
+                theme={{ colors: { primary: darkGreen } }}
+                style={styles.bigInput}
+                numberOfLines={4}
+                defaultValue={this.state.health}
+                onChangeText={(health) =>
+                  this.setState({
+                    health: health,
+                  })
+                }
+                onBlur={() => {
+                  this.check_valid_health();
+                }}
+              />
+            </View>
+
+            <View style={styles.subHeadingContainer}>
+              <View style={{ flexDirection: "row" }}>
+                <View style={{ flex: 1, flexDirection: "row" }}>
+                  <Text style={styles.subHeading}>Training</Text>
+                  <Text style={styles.setColorRed}> *</Text>
+                </View>
+                {!this.state.valid_training && (
+                  <View style={{ flex: 1 }}>
+                    <Text style={styles.errorText}>Invalid input</Text>
+                  </View>
+                )}
+              </View>
+              <TextInput
+                mode="outlined"
+                multiline={true}
+                theme={{ colors: { primary: darkGreen } }}
+                style={styles.bigInput}
+                numberOfLines={4}
+                defaultValue={this.state.training}
+                onChangeText={(training) =>
+                  this.setState({
+                    training: training,
+                  })
+                }
+                onBlur={() => {
+                  this.check_valid_training();
+                }}
+              />
+            </View>
+            <View style={styles.subHeadingContainer}>
+              <View style={{ flexDirection: "row" }}>
+                <View style={{ flex: 1 }}>
+                  <Text style={styles.subHeading}>Additional Information</Text>
+                </View>
+              </View>
+              <TextInput
+                mode="outlined"
+                multiline={true}
+                theme={{ colors: { primary: darkGreen } }}
+                style={styles.bigInput}
+                numberOfLines={4}
+                defaultValue={this.state.additionalInfo}
+                onChangeText={(additionalInfo) =>
+                  this.setState({
+                    additionalInfo: additionalInfo,
+                  })
+                }
+              />
+            </View>
+
+            <View style={{ flexDirection: "row", paddingTop: 20 }}>
+              <View style={{ flex: 1, flexDirection: "row", paddingBottom: 3}}>
+                <Text style={styles.inputName}>Upload a Photo</Text>
+                <Text style={styles.setColorRed}> *</Text>
+              </View>
+              {!this.state.valid_uri && (
+                <View style={{ flex: 1 }}>
+                  <Text style={styles.errorText}>Choose a photo</Text>
+                </View>
+              )}
+            </View>
+            <Button
+              style={{
+                backgroundColor: green,
+              }}
+              onPress={this.setPhotoUri}>
+              <Text
+                style={{
+                  color: "white",
+                }}>
+                Choose Photo
+              </Text>
+            </Button>
+
+            <View style={{ paddingTop: 15 }}>
+              <Text style={styles.inputName, {paddingBottom: 3}}>Upload Documents</Text>
+              <Button
+                style={{
+                  backgroundColor: green,
+                }}
+                onPress={this.setDocumentUri}>
+                <Text
+                  style={{
+                    color: "white",
+                  }}>
+                  Choose Document
+                </Text>
+              </Button>
+            </View>
+
+            <View style={styles.buttonsContainer}>
+              <TouchableOpacity
+                title={"submit"}
+                style={styles.buttons}
+                onPress={this.handleSubmit}>
+                <Text style={styles.buttonsText}>Save</Text>
+              </TouchableOpacity>
             </View>
           </View>
         </ScrollView>
@@ -351,71 +658,66 @@ export default class updateSellApplication extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 24,
+    padding: 10,
+    paddingTop: 10,
     justifyContent: "center",
-    alignItems: "center",
   },
-  titles: {
+  inputName: {
+    marginBottom: 0,
+    paddingBottom: 0,
+    color: "#242424",
     fontSize: 14,
-    // fontWeight: "bold",
-    color: "#515151",
-    paddingVertical: 8,
-    // width: 50,
   },
   heading: {
     fontSize: 20,
     fontWeight: "bold",
-    // fontFamily: "Rosario_400Regular",
-    // textShadowColor: "rgba(0, 0, 0, 0.3)",
-    // textShadowOffset: { width: -1, height: 1 },
-    // textShadowRadius: 10,
     color: "#000000",
     textAlign: "left",
     alignItems: "center",
     justifyContent: "center",
-    // marginTop: 50,
     flex: 1,
     paddingVertical: 10,
+    paddingTop: 20,
   },
-  sub_heading: {
+  subHeading: {
     fontSize: 16,
-    // fontWeight: "bold",
+  },
+  subHeadingContainer: {
+    paddingTop: 20,
+  },
+  smallInputBox: {
+    margin: 0,
+    height: 25,
+    backgroundColor: "#fafafa",
+    padding: 0,
   },
   input: {
     width: 314,
-    // height: 44,
     height: 34,
     padding: 10,
     borderWidth: 1,
     borderColor: "black",
-    marginBottom: 10,
     backgroundColor: "white",
     fontSize: 12,
   },
-  biginput: {
-    width: 314,
-    height: 80,
-    // height: 44,
-    padding: 10,
-    borderWidth: 1,
-    borderColor: "black",
-    marginBottom: 10,
-    backgroundColor: "white",
+  bigInput: {
+    textAlignVertical: "top",
+    margin: 0,
+    backgroundColor: "#fafafa",
+    padding: 0,
   },
   picker: {
-    height: 34,
-    width: 314,
+    height: 27,
+    borderRadius: 4,
     fontSize: 12,
-    marginBottom: 10,
   },
   buttonsContainer: {
     alignItems: "center",
     justifyContent: "center",
-    padding: 20,
-    marginBottom: 10,
+    paddingTop: 30,
   },
   buttons: {
-    backgroundColor: "#447ECB",
+    backgroundColor: darkGreen,
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 10,
@@ -423,7 +725,7 @@ const styles = StyleSheet.create({
     height: 40,
   },
   buttonsText: {
-    color: "#ffffff",
+    color: "white",
     fontSize: 18,
     fontWeight: "bold",
   },
@@ -433,11 +735,33 @@ const styles = StyleSheet.create({
   setColorRed: {
     color: "#f44336",
   },
-  picker_container: {
+  pickerContainer: {
     backgroundColor: "white",
-    borderColor: "black",
+    borderColor: "#5D5D5D",
     borderWidth: 1,
-    height: 34,
-    marginBottom: 10,
+    borderRadius: 4,
+    marginTop: 5,
   },
+  // errorText: {
+  //   color: "red",
+  //   textAlign: "right",
+  //   fontSize: 14,
+  //   fontWeight: "bold",
+  // },
+  inputContainer: {
+    paddingTop: 12,
+  },
+
+  pickerItem: {
+    fontSize: 12,
+  },
+  errorText: {
+    color: "red",
+    fontSize: 12,
+    textAlign: "right",
+  },
+  line: {
+    borderBottomColor: "black",
+    borderBottomWidth: 1,
+  }
 });

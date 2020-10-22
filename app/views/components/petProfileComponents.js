@@ -3,6 +3,12 @@ import { Text, View, TouchableOpacity, Dimensions, Image } from "react-native";
 import { Card,  } from "react-native-elements";
 import {Button} from "react-native-paper";
 import styles from "../styleSheet/styleSheet";
+<<<<<<< HEAD
+=======
+import { darkGreen, green, lightGreen, lightGrey, orange, lightBlue } from "../styleSheet/styleSheet";
+import { db } from "../database/firebase";
+import { auth } from "../database/firebase";
+>>>>>>> 1fc836f87a040b6867ce69a07543a8e06d52aad9
 
 export const profileInfo = (item) => {
   const screenWidth = Math.round(Dimensions.get("window").width);
@@ -97,27 +103,28 @@ export const profileInfo = (item) => {
 };
 
 export const sellerInfo = (item) => {
+<<<<<<< HEAD
   
+=======
+  // fetch data and store into profileData
+>>>>>>> 1fc836f87a040b6867ce69a07543a8e06d52aad9
   return (
       <View>
-        <Card containerStyle={{borderRadius: 4,
-              alignSelf: "stretch",
-              elevation: 5,
-              paddingLeft: 20,
-              paddingRight: 20,}}>
-        <Text style={styles.fontHeading}>Seller Information </Text>
+        <Card containerStyle={styles.cardContainer}>
+          <Text style={styles.fontHeading}>Seller Information </Text>
+          <View style={styles.line} />
 
           <View style={{flexDirection: 'row', }}> 
-
-          <View style={{width: 100, justifyContent: 'center', alignItems: 'center',}}> 
-            <View style= {{padding: 5}}>
+            <View style={{flex: 1, width: 100, justifyContent: 'center', alignItems: 'center',}}>
               <Image
                 style={{height: 40, width: 40, borderRadius: 40/ 2}}
                 source={{
                   uri: item.sellerPhoto,
                 }}
               />
+              <Text style={{textAlign: "center", paddingTop: 5}}>{item.sellerName}</Text>
             </View>
+<<<<<<< HEAD
             
             <Text>{item.sellerName}</Text>
             
@@ -146,6 +153,15 @@ export const sellerInfo = (item) => {
             </View>
           </View>
         </Card>    
+=======
+
+            <View style= {{flex: 4, paddingTop: 2, paddingLeft: 10, paddingRight: 10}}>
+              <Text>{item.sellerInfo}</Text>
+            </View>
+              
+          </View>
+        </Card>
+>>>>>>> 1fc836f87a040b6867ce69a07543a8e06d52aad9
       </View>
   );
 };
