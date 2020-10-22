@@ -26,7 +26,8 @@ export default class breedList extends React.Component {
     searchText: "",
     visible: false,
     pullToRefresh: false,
-    breedInfo: [],
+    breedDescription: "",
+    breedDescriptionImage: "",
   };
 
   async fetchData() {
@@ -81,6 +82,21 @@ export default class breedList extends React.Component {
           delete seller.info;
         });
       });
+
+      const categoryId = this.props.route.params.categoryId;
+      const breedId = this.props.route.params.item.breedId;
+      db.collection("petCategories")
+        .doc(categoryId)
+        .collection("breed")
+        .doc(breedId)
+        .get()
+        .then((doc) => {
+          this.setState({
+            isLoading: false,
+            breedDescription: doc.data().description,
+            breedDescriptionImage: doc.data().descriptionImage,
+          });
+        });
   }
 
   async componentDidMount() {
@@ -102,7 +118,6 @@ export default class breedList extends React.Component {
     return (
       <Provider>
         {onBuyTab(this.props.navigation)}
-
         <View style={globalStyles.activityContainer}>
           <Searchbar
             style={globalStyles.searchBarSingle}
@@ -120,18 +135,18 @@ export default class breedList extends React.Component {
             >
               <Card elevation={5} style={{ margin: 10 }}>
                 <Card.Cover
+                  source={{ uri: this.state.breedDescriptionImage }}
                   resizeMode={`cover`}
-                  source={{ uri: item.descriptionImage }}
                 />
                 <Card.Title title={item.breed} />
                 <Card.Content>
-                  <Paragraph>{item.description}</Paragraph>
+                  <Paragraph>{this.state.breedDescription}</Paragraph>
                 </Card.Content>
                 <Card.Actions style={{ justifyContent: "flex-end" }}>
                   <Button
                     color={darkGreen}
                     onPress={() =>
-                      this.props.navigation.navigate("breedInfo", { item })
+                      this.props.navigation.navigate("breedInfo", { categoryId: this.props.route.params.categoryId, breedId: this.props.route.params.item.breedId })
                     }
                   >
                     More info

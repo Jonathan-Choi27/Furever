@@ -97,8 +97,6 @@ export default class petBreeds extends React.Component {
           petBreedArray.push({
             breed: breedDoc.data().breed,
             image: breedDoc.data().image,
-            description: breedDoc.data().description,
-            descriptionImage: breedDoc.data().descriptionImage,
             breedId: breedDoc.id,
           });
           this.setState({
@@ -397,7 +395,7 @@ export default class petBreeds extends React.Component {
                       numColumns={2}
                       keyExtractor={(item, index) => index.toString()}
                       renderItem={({ item }) => (
-                        petBuyBreed(item, this.props.navigation)
+                        petBuyBreed(item, this.props.route.params.item.categoryId, this.props.navigation)
                       )}
                       keyExtractor={(item, index) => index.toString()}
                     />
