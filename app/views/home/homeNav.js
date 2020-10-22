@@ -4,6 +4,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import homeListing from "./homePetListing";
 import homePetProfile from "./homePetProfile";
+import sellerProfile from "./sellerProfile"
 import buyApplication from "../petTab/buy/buyApplication";
 import HeaderLogo from "./headerLogo";
 import { darkGreen, green, lightGreen, orange, lightBlue } from "../styleSheet/styleSheet";
@@ -31,8 +32,10 @@ export default function HomeNav() {
 						headerTitleContainerStyle: { left: 0, right: 0 },
 					}}
 				/>
-				<Stack.Screen name="homePetProfile" component={homePetProfile} options={{headerShown: false}} />
-				<Stack.Screen name="buyApplication" component={buyApplication} options={{headerShown: false}}/>
+				<Stack.Screen name="homePetProfile" component={homePetProfile} />
+				<Stack.Screen name="buyApplication" component={buyApplication} />
+				<Stack.Screen name="sellerProfile" component={sellerProfile} />
+
 			</Stack.Navigator>
 		</NavigationContainer>
 	);

@@ -1,6 +1,7 @@
 import React from "react";
 import { Text, View, TouchableOpacity, Dimensions, Image } from "react-native";
-import { Card, Button, Icon } from "react-native-elements";
+import { Card,  } from "react-native-elements";
+import {Button} from "react-native-paper";
 import styles from "../styleSheet/styleSheet";
 import { CustomInput, InputHeader } from "../components/customInput";
 import { darkGreen, green, lightGreen, lightGrey, orange, lightBlue } from "../styleSheet/styleSheet";
@@ -106,8 +107,8 @@ export const profileInfo = (item) => {
   );
 };
 
-export const sellerInfo = (item) => {
-  // fetch data and store into profileData
+export const sellerInfo = (item, navigation) => {
+  
   return (
       <View>
         <Card containerStyle={styles.cardContentContainer}>
@@ -123,13 +124,32 @@ export const sellerInfo = (item) => {
               />
               <Text style={{textAlign: "center", paddingTop: 5}}>{item.sellerName}</Text>
             </View>
-
-            <View style= {{flex: 4, paddingTop: 2, paddingLeft: 10, paddingRight: 10}}>
-              <Text>{item.sellerInfo}</Text>
-            </View>
-              
+            
+            <Text>{item.sellerName}</Text>
+            
           </View>
-        </Card>
+          <View style= {{flex: 1, paddingTop: 5, paddingLeft: 10}}>
+            <Text >{item.sellerInfo}</Text>
+              <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', paddingTop: 10}}>
+                <Button
+                  style={{backgroundColor: "#447ECB",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          borderRadius: 5,
+                          height: 25, 
+                          width: 120}}
+                  mode="contained"
+                  onPress={() => navigation.navigate("sellerProfile", { item })}
+
+                >
+                  <Text style={{color: "#ffffff",
+                      fontSize: 10,
+                      padding: 5,}}>
+                    More Info</Text>
+                </Button>
+              </View>                      
+            </View>
+        </Card>    
       </View>
   );
 };
