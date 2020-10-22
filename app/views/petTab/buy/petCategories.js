@@ -22,6 +22,7 @@ import { db } from "../../database/firebase";
 import {onBuyTab} from "../../components/petTabComponents";
 import { darkGreen, green, lightGreen, orange, lightBlue, lightGrey } from "../../styleSheet/styleSheet";
 import globalStyles from "../../styleSheet/styleSheet";
+import { petBuyCard, petBuyCategory } from "../../components/petBuyComponents";
 
 export default class petCategories extends React.Component {
   state = {
@@ -40,10 +41,12 @@ export default class petCategories extends React.Component {
     turtleCheck: false,
     pigCheck: false,
     filterDisplay: false,
+    petCategories: [],
   };
 
   async componentDidMount() {
     const dataArray = [];
+    const petCategoryArray = [];
     db.collection("pet_listings")
       .get()
       .then((doc) => {
@@ -61,9 +64,9 @@ export default class petCategories extends React.Component {
             })
             .catch((erro) => {});
           dataArray.push({
-            name: seller_name,
-            avatarPhoto: seller_photo,
-            title: listingDoc.data().name,
+            sellerName: seller_name,
+            sellerPhoto: seller_photo,
+            petName: listingDoc.data().name,
             category: listingDoc.data().category,
             breed: listingDoc.data().breed,
             colour: listingDoc.data().colour,
@@ -84,13 +87,29 @@ export default class petCategories extends React.Component {
           });
         });
       });
+
+      db.collection("petCategories")
+        .get()
+        .then((doc) => {
+          doc.forEach(async (categoryDoc) => {
+            petCategoryArray.push({
+              category: categoryDoc.data().category,
+              image: categoryDoc.data().image,
+              categoryId: categoryDoc.id,
+            });
+            this.setState({
+              isLoading: false,
+              petCategories: [...petCategoryArray],
+            });
+          });
+        });
   }
 
   searchFunction = (searchText) => {
     this.setState({ searchText: searchText });
 
     let filteredData = this.state.data.filter(function (item) {
-      return item.title.toLowerCase().includes(searchText.toLowerCase());
+      return item.petName.toLowerCase().includes(searchText.toLowerCase());
     });
 
     this.setState({ filteredData: filteredData });
@@ -237,11 +256,15 @@ export default class petCategories extends React.Component {
               </Button>
             </View>
             
-            <View style={globalStyles.viewAppContainer}>
+            <View style={{height: 52}}>
               <TouchableOpacity
                 style={globalStyles.viewApplication}
                 onPress={() => this.props.navigation.replace("currentApplications")}>
-                <Text style={globalStyles.viewAppText}>
+                <Text style={{ 
+                    textAlign: "center", 
+                    color: "white", 
+                    fontWeight: "bold", 
+                  }}>
                   View Applications
                 </Text>
               </TouchableOpacity>
@@ -363,36 +386,7 @@ export default class petCategories extends React.Component {
               <FlatList
                 keyExtractor={(item, index) => index.toString()}
                 renderItem={({ item }) => (
-                  <Card elevation={5} style={globalStyles.petCard}>
-                    <Card.Cover source={{ uri: item.photo }} />
-                    <Card.Title
-                      title={item.title}
-                      subtitle={item.name}
-                      left={(props) => (
-                        <Avatar.Image
-                          {...props}
-                          size={40}
-                          source={{ uri:item.avatarPhoto}}
-                        />
-                      )}
-                    />
-                    <Card.Content>
-                      <Text style={globalStyles.petCardContentText}>
-                        Age: {item.age}
-                      </Text>
-                      <Text style={globalStyles.petCardContentText}>
-                        Gender: {item.gender}
-                      </Text>
-                      <Text style={globalStyles.petCardContentText}>
-                        Location: {item.location}
-                      </Text>
-                    </Card.Content>
-                    <Card.Actions>
-                      <Button color="#447ECB" onPress={() => {}}>
-                        More info
-                      </Button>
-                    </Card.Actions>
-                  </Card>
+                  petBuyCard(item, this.props.navigation)
                 )}
                 keyExtractor={(item, index) => index.toString()}
                 data={
@@ -404,109 +398,18 @@ export default class petCategories extends React.Component {
             ) : (
               <View style={globalStyles.petContainer}>
                 {this.state.searchText == "" ? (
+
                   <View style={globalStyles.petContainer}>
-                    <View style={globalStyles.categories}>
-                      <TouchableOpacity
-                        onPress={() =>
-                          this.props.navigation.replace("petBreeds")
-                        }>
-                        <View style={globalStyles.iconContainer}>
-                          <Image
-                            style={globalStyles.icon}
-                            source={{
-                              uri:
-                                "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fpet%20buy%20icons%2FdogIcon.jpg?alt=media&token=93b3d467-e37f-4c41-b0a2-e6540755a2e4",
-                            }}
-                          />
-                        </View>
-                      </TouchableOpacity>
-                      <View style={globalStyles.iconContainer}>
-                        <TouchableOpacity>
-                          <Image
-                            style={globalStyles.icon}
-                            source={{
-                              uri:
-                                "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fpet%20buy%20icons%2FCatIcon.jpg?alt=media&token=d3988923-a7a4-465b-b0f3-68cf5aba56aa",
-                            }}
-                          />
-                        </TouchableOpacity>
-                      </View>
-                    </View>
-
-                    <View style={globalStyles.categories}>
-                      <TouchableOpacity>
-                        <View style={globalStyles.iconContainer}>
-                          <Image
-                            style={globalStyles.icon}
-                            source={{
-                              uri:
-                                "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fpet%20buy%20icons%2FRabbitIcon.jpg?alt=media&token=4bf665e6-64de-46c3-8f32-35bf335f0ee7",
-                            }}
-                          />
-                        </View>
-                      </TouchableOpacity>
-                      <View style={globalStyles.iconContainer}>
-                        <TouchableOpacity>
-                          <Image
-                            style={globalStyles.icon}
-                            source={{
-                              uri:
-                                "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fpet%20buy%20icons%2FFishIcon.jpg?alt=media&token=bddda5c1-6e1f-41e2-9f74-b9deed452fff",
-                            }}
-                          />
-                        </TouchableOpacity>
-                      </View>
-                    </View>
-
-                    <View style={globalStyles.categories}>
-                      <TouchableOpacity>
-                        <View style={globalStyles.iconContainer}>
-                          <Image
-                            style={globalStyles.icon}
-                            source={{
-                              uri:
-                                "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fpet%20buy%20icons%2FBirdIcon.jpg?alt=media&token=f1dce94e-9ad6-40ee-947b-6013ec62c23a",
-                            }}
-                          />
-                        </View>
-                      </TouchableOpacity>
-                      <View style={globalStyles.iconContainer}>
-                        <TouchableOpacity>
-                          <Image
-                            style={globalStyles.icon}
-                            source={{
-                              uri:
-                                "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fpet%20buy%20icons%2FHorseIcon.jpg?alt=media&token=387260b4-09ba-42f7-abdd-d9481454ec06",
-                            }}
-                          />
-                        </TouchableOpacity>
-                      </View>
-                    </View>
-
-                    <View style={globalStyles.categories}>
-                      <TouchableOpacity>
-                        <View style={globalStyles.iconContainer}>
-                          <Image
-                            style={globalStyles.icon}
-                            source={{
-                              uri:
-                                "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fpet%20buy%20icons%2FLizardIcon.jpg?alt=media&token=6da22d0c-a534-4c41-b99f-4d507481b41c",
-                            }}
-                          />
-                        </View>
-                      </TouchableOpacity>
-                      <View style={globalStyles.iconContainer}>
-                        <TouchableOpacity>
-                          <Image
-                            style={globalStyles.icon}
-                            source={{
-                              uri:
-                                "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fpet%20buy%20icons%2FTurtleIcon.jpg?alt=media&token=2e0b1354-5f26-47e1-bf50-b6b5956f402c",
-                            }}
-                          />
-                        </TouchableOpacity>
-                      </View>
-                    </View>
+                    <FlatList
+                      data={this.state.petCategories}
+                      columnWrapperStyle={{ justifyContent: "flex-start" }}
+                      numColumns={2}
+                      keyExtractor={(item, index) => index.toString()}
+                      renderItem={({ item }) => (
+                        petBuyCategory(item, this.props.navigation)
+                      )}
+                      keyExtractor={(item, index) => index.toString()}
+                    />
                   </View>
                 ) : (
                   <View style={globalStyles.petContainer}>
@@ -518,36 +421,7 @@ export default class petCategories extends React.Component {
                       <FlatList
                         showsVerticalScrollIndicator={false}
                         renderItem={({ item }) => (
-                          <Card elevation={5} style={globalStyles.petCard}>
-                            <Card.Cover source={{ uri: item.photo }} />
-                            <Card.Title
-                              title={item.title}
-                              subtitle={item.name}
-                              left={(props) => (
-                                <Avatar.Image
-                                  {...props}
-                                  size={40}
-                                  source={{uri: item.photo}}
-                                />
-                              )}
-                            />
-                            <Card.Content>
-                              <Text style={globalStyles.petCardContentText}>
-                                Age: {item.age}
-                              </Text>
-                              <Text style={globalStyles.petCardContentText}>
-                                Gender: {item.gender}
-                              </Text>
-                              <Text style={globalStyles.petCardContentText}>
-                                Location: {item.location}
-                              </Text>
-                            </Card.Content>
-                            <Card.Actions>
-                              <Button color="#447ECB" onPress={() => {}}>
-                                More info
-                              </Button>
-                            </Card.Actions>
-                          </Card>
+                          petBuyCard(item, this.props.navigation)
                         )}
                         keyExtractor={(item, index) => index.toString()}
                         data={

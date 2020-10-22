@@ -16,8 +16,8 @@ import uuid from "react-native-uuid";
 import {
   openDocumentPicker,
   uploadDocument,
-} from "../../components/DocumentUpload";
-import { openImagePicker, uploadPhoto } from "../../components/ImageUpload";
+} from "../../components/documentUpload";
+import { openImagePicker, uploadPhoto } from "../../components/imageUpload";
 import CategorySelection from "./sellAppCategories";
 import { auth } from "../../database/firebase";
 import "firebase/storage";
@@ -167,6 +167,7 @@ export default class updateSellApplication extends React.Component {
         training: this.state.training,
         photo_link: this.state.photo_link,
         documents: this.state.documents,
+        documents_uri: this.state.documents_uri,
         price: this.state.price,
         additionalInfo: this.state.additionalInfo,
         size: this.state.size,

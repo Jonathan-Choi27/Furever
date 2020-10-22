@@ -13,7 +13,7 @@ export default class homePetProfile extends React.Component {
         const item = this.props.route.params.item;
         return (
             <ScrollView>
-                {profileInfo(item, this.closeModal)}
+                {profileInfo(item)}
                 {sellerInfo(item)}
                 {expressInterest(item, this.props.navigation)}
             </ScrollView>

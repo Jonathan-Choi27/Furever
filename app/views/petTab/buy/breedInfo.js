@@ -11,16 +11,14 @@ import {
 import {
     Card,
 } from "react-native-elements"
-import {
-    Searchbar,
-} from "react-native-paper";
 import "react-navigation"
 import "react-navigation-props-mapper"
 import "@react-navigation/native"
 import 'react-navigation-hooks'
-import {onBuyTab} from "../../../../components/petTabComponents"
+import {onBuyTab} from "../../components/petTabComponents"
+import globalStyles, { darkGreen, orange } from "../../styleSheet/styleSheet";
 
-export default class shepherdInfo extends React.Component {
+export default class breedInfo extends React.Component {
 
     state = {
         filteredData: [],

@@ -1,14 +1,37 @@
 import React from "react";
 import { Text, View, TouchableOpacity, Dimensions, Image } from "react-native";
-import { Card, Button } from "react-native-elements";
+import { Card, Button, Icon } from "react-native-elements";
 import styles from "../styleSheet/styleSheet";
-import { CustomInput, InputHeader } from "../components/CustomInput";
+import { CustomInput, InputHeader } from "../components/customInput";
 import { darkGreen, green, lightGreen, lightGrey, orange, lightBlue } from "../styleSheet/styleSheet";
-import { SafeAreaView } from "react-native-safe-area-context";
+
+const checkDocuments = (field) => {
+  if (field === "") {
+    return "No Documents Provided."
+  }
+  return field;
+  // (
+  //   <View>
+  //     <Icon
+  //       name="ios-paper"
+  //       type="ionicon"
+  //       color={darkGreen}
+  //       // containerStyle={{ paddingLeft: 7, paddingRight: 10 }}
+  //     />
+  //   </View>
+  // );
+}
+
+const checkAdditional = (additional) => {
+  if (additional === "") {
+    return "No Additional Information Provided."
+  }
+  return additional;
+}
 
 export const profileInfo = (item) => {
   const screenWidth = Math.round(Dimensions.get("window").width);
-  const textWidth = (screenWidth - 20) / 2;
+  const textWidth = (screenWidth - 20) / 2;  
   return (
     <View style={styles.container}>
       <View style={{ marginBottom: 0 }}>
@@ -20,76 +43,65 @@ export const profileInfo = (item) => {
             }}
           />
         </View>
-        <Card containerStyle={{ borderRadius: 10 }}>
+        <Card containerStyle={styles.cardContentContainer}>
           <Text
-            style={{ fontWeight: "bold", fontSize: 30, color: "#404040" }}>
+            style={{ fontWeight: "bold", fontSize: 30, color: "black" }}>
             {item.petName}'s Profile
           </Text>
         </Card>
-      </View>
 
-      <Card containerStyle={{ borderRadius: 10 }}>
-        <InputHeader text="General Information"/>
-          <View style={styles.container}>
-            <Text>
-              <Text style={{ fontWeight: "bold" }}>Name:</Text>{" "}
-              <Text>{item.petName}</Text>
-            </Text>
-            <Text>
-              <Text style={{ fontWeight: "bold" }}>Category:</Text>{" "}
-              <Text>{item.category}</Text>
-            </Text>
-            <Text>
-              <Text style={{ fontWeight: "bold" }}>Breed:</Text>{" "}
-              <Text>{item.breed}</Text>
-            </Text>
-            <Text>
-              <Text style={{ fontWeight: "bold" }}>Colour:</Text>{" "}
-              <Text>{item.colour}</Text>
-            </Text>
-            <Text>
-              <Text style={{ fontWeight: "bold" }}>Age:</Text>{" "}
-              <Text>{item.age}</Text>
-            </Text>
-            <Text>
-              <Text style={{ fontWeight: "bold" }}>Gender:</Text>{" "}
-              <Text>{item.gender}</Text>
-            </Text>
-            <Text>
-              <Text style={{ fontWeight: "bold" }}>Size:</Text>{" "}
-              <Text>{item.size}</Text>
-            </Text>
-            <Text>
-              <Text style={{ fontWeight: "bold" }}>Location:</Text>{" "}
-              <Text>{item.location}</Text>
-            </Text>
+        <Card containerStyle={styles.cardContentContainer}>
+          <InputHeader text="General Information"/>
+          <View style={styles.cardContainer}>
+            <View style={{paddingRight: 15}}>
+              <Text style={styles.contentTextBold}>Name: </Text>
+              <Text style={styles.contentTextBold}>Category: </Text>
+              <Text style={styles.contentTextBold}>Breed: </Text>
+              <Text style={styles.contentTextBold}>Colour: </Text>
+              <Text style={styles.contentTextBold}>Age: </Text>
+              <Text style={styles.contentTextBold}>Gender: </Text>
+              <Text style={styles.contentTextBold}>Size: </Text>
+              <Text style={styles.contentTextBold}>Location: </Text>
+            </View>
+            <View>
+              <Text numberOfLines={1} style={styles.contentText}>{item.petName}</Text>
+              <Text numberOfLines={1} style={styles.contentText}>{item.category}</Text>
+              <Text numberOfLines={1} style={styles.contentText}>{item.breed}</Text>
+              <Text numberOfLines={1} style={styles.contentText}>{item.colour}</Text>
+              <Text numberOfLines={1} style={styles.contentText}>{item.age}</Text>
+              <Text numberOfLines={1} style={styles.contentText}>{item.gender}</Text>
+              <Text numberOfLines={1} style={styles.contentText}>{item.size}</Text>
+              <Text numberOfLines={1} style={styles.contentText}>{item.location}</Text>
+            </View>
           </View>
       </Card>
 
-      <Card containerStyle={styles.cardContainer}>
-        <Text style={styles.fontHeading}>Behaviour </Text>
-        <View style={styles.line} />
-        <Text style={{ paddingBottom: 10 }}>{item.behaviour}</Text>
+      <Card containerStyle={styles.cardContentContainer}>
+        <InputHeader text="Behaviour"/>
+        <Text style={styles.contentText}>{item.behaviour}</Text>
       </Card>
-      <Card containerStyle={styles.cardContainer}>
-        <Text style={styles.fontHeading}>Care, Health and Feeding </Text>
-        <View style={styles.line} />
-        <Text style={{ paddingBottom: 10 }}>{item.health}</Text>
+
+      <Card containerStyle={styles.cardContentContainer}>
+        <InputHeader text="Care, Health and Feeding"/>
+        <Text style={styles.contentText}>{item.health}</Text>
       </Card>
-      <Card containerStyle={styles.cardContainer}>
-        <Text style={styles.fontHeading}>Training </Text>
-        <View style={styles.line} />
-        <Text style={{ paddingBottom: 10 }}>{item.training}</Text>
+
+      <Card containerStyle={styles.cardContentContainer}>
+        <InputHeader text="Training"/>
+        <Text style={styles.contentText}>{item.training}</Text>
       </Card>
-      <Card containerStyle={styles.cardContainer}>
-        <Text style={styles.fontHeading}>Additional information </Text>
-        <View style={styles.line} />
-        <Text style={{ paddingBottom: 10 }}>{item.additional}</Text>
+
+      <Card containerStyle={styles.cardContentContainer}>
+        <InputHeader text="Additional Information"/>
+        <Text style={styles.contentText}>{checkAdditional(item.additional)}</Text>
       </Card>
-      <Card containerStyle={styles.cardContainer}>
-        <Text style={styles.fontHeading}>Documents </Text>
-        <View style={styles.line} />
+
+      <Card containerStyle={styles.cardContentContainer}>
+        <InputHeader text="Documents"/>
+        {checkDocuments(item.documentName)}
       </Card>
+
+      </View>
     </View>
   );
 };
@@ -98,14 +110,13 @@ export const sellerInfo = (item) => {
   // fetch data and store into profileData
   return (
       <View>
-        <Card containerStyle={styles.cardContainer}>
-          <Text style={styles.fontHeading}>Seller Information </Text>
-          <View style={styles.line} />
+        <Card containerStyle={styles.cardContentContainer}>
+          <InputHeader text="Seller Information"/>
 
           <View style={{flexDirection: 'row', }}> 
             <View style={{flex: 1, width: 100, justifyContent: 'center', alignItems: 'center',}}>
               <Image
-                style={{height: 40, width: 40, borderRadius: 40/ 2}}
+                style={{height: 40, width: 40, borderRadius: 40/2, }}
                 source={{
                   uri: item.sellerPhoto,
                 }}

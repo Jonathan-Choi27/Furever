@@ -3,8 +3,8 @@ import { StyleSheet, BackHandler, Alert } from "react-native";
 import petBreeds from "./buy/petBreeds";
 import petCategories from "./buy/petCategories";
 import currentApplications from "./buy/currentApplications";
-import shepherdList from "./buy/dog/shepard/shepherdList";
-import shepherdInfo from "./buy/dog/shepard/shepherdInfo";
+import breedList from "./buy/breedList";
+import breedInfo from "./buy/breedInfo";
 import buyPetProfile from "./buy/buyPetProfile";
 
 import { NavigationContainer } from "@react-navigation/native";
@@ -43,19 +43,13 @@ export default function PetNav() {
         }}>
         <Stack.Screen name="petCategories" component={petCategories} />
         <Stack.Screen name="petBreeds" component={petBreeds} />
-        <Stack.Screen
-          name="currentApplications"
-          component={currentApplications}
-        />
+        <Stack.Screen name="currentApplications" component={currentApplications} />
         <Stack.Screen name="currentListings" component={currentListings} />
         <Stack.Screen name="sellApplication" component={sellApplication} />
         <Stack.Screen name="sellPetProfile" component={sellPetProfile} />
-        <Stack.Screen
-          name="updateSellApplication"
-          component={updateSellApplication}
-        />
-        <Stack.Screen name="shepherdList" component={shepherdList} />
-        <Stack.Screen name="shepherdInfo" component={shepherdInfo} />
+        <Stack.Screen name="updateSellApplication" component={updateSellApplication} />
+        <Stack.Screen name="breedList" component={breedList} />
+        <Stack.Screen name="breedInfo" component={breedInfo} />
         <Stack.Screen name="buyPetProfile" component={buyPetProfile} />
         <Stack.Screen name="buyApplication" component={buyApplication} />
         <Stack.Screen name="offerApplications" component={offerApplications} />

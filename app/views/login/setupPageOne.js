@@ -2,7 +2,7 @@ import * as React from "react";
 import { ActivityIndicator } from "react-native";
 import { View, Image, Text, BackHandler, StyleSheet } from "react-native";
 import { Button, TextInput, Card } from "react-native-paper";
-import { openImagePicker, uploadPhoto } from "../components/ImageUpload";
+import { openImagePicker, uploadPhoto } from "../components/imageUpload";
 import { db } from "../database/firebase";
 import { auth } from "../database/firebase";
 import uuid from "react-native-uuid";

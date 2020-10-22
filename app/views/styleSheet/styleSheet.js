@@ -20,12 +20,12 @@ export default StyleSheet.create({
     alignItems: "center",
   },
   logoContainer: {
-    top: 200,
+    top: 190,
   },
   logo: {
     width: 300,
     height: 150,
-    marginBottom: 50,
+    marginBottom: 30,
   },
   landingTitle: {
     marginTop: 10,
@@ -56,7 +56,7 @@ export default StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "white",
-    paddingTop: 130,
+    paddingTop: 110,
     flex: 1,
   },
   loginLogo: {
@@ -151,55 +151,21 @@ export default StyleSheet.create({
     flex: 1,
     alignItems: "center",
   },
-  titleContainer: {
-    alignSelf: "stretch",
-    justifyContent: "flex-start",
-    alignItems: "flex-start",
-    flexDirection: "row",
-    paddingTop: 17,
-    paddingLeft: 12,
-    paddingRight: 20,
-  },
-  fontTitle: {
-    textAlign: "left",
-    fontSize: 20,
-    fontWeight: "bold",
-  },
-  fontHeading: {
-    textAlign: "left",
-    fontSize: 16,
-    fontWeight: "bold",
-  },
   cardContainer: {
-    borderRadius: 4,
     alignSelf: "stretch",
     justifyContent: "flex-start",
     alignItems: "flex-start",
     flexDirection: "row",
-    elevation: 5,
-    paddingLeft: 20,
-    paddingRight: 20,
   },
   cardContentContainer: {
-    borderRadius: 4,
-    alignSelf: "stretch",
-    justifyContent: "flex-start",
-    alignItems: "flex-start",
-    flexDirection: "row",
+    borderRadius: 10,
   },
-  imageContainer: {
-    width: 150,
-    height: 150,
-    borderRadius: 6,
+  contentTextBold: {
+    fontWeight: "bold",
+    fontSize: 15,
   },
-  line: {
-    backgroundColor: "#A2A2A2",
-    height: 1.5,
-    width: screenWidth - 75,
-    alignSelf: "stretch",
-    marginTop: 7,
-    marginBottom: 15,
-    marginRight: 10,
+  contentText: {
+    fontSize: 15,
   },
 
   // Express Interest Component
@@ -256,14 +222,6 @@ export default StyleSheet.create({
     alignItems: "center",
     backgroundColor: lightGrey,
   },
-  viewAppContainer: {
-    height: 52,
-  },
-  viewAppText: { 
-    textAlign: "center", 
-    color: "white", 
-    fontWeight: "bold", 
-  },
   viewApplication: {
     backgroundColor: darkGreen,
     flex: 1,
@@ -274,35 +232,19 @@ export default StyleSheet.create({
     marginTop: 5,
     marginBottom: 16,
   },
-  petCardContainer: {
-    flex: 2,
-    justifyContent: "flex-start",
-    alignItems: "flex-start",
-  },
   petCard: {
     margin: 5,
     width: 340,
   },
-  petCardContentText: {
-    fontWeight: "bold",
-  },
-  categories: {
-    alignSelf: "stretch",
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    flexDirection: "row",
-    paddingBottom: 10,
-  },
   iconContainer: {
-    paddingLeft: 20,
-    paddingRight: 20,
+    paddingLeft: 12,
+    paddingRight: 12,
     paddingBottom: 10,
   },
   breedIconContainer: {
-    paddingLeft: 20,
-    paddingRight: 20,
-    paddingTop: 5,
+    paddingLeft: 12,
+    paddingRight: 12,
+    paddingTop: 6,
   },
   icon: {
     height: 130,
@@ -310,7 +252,7 @@ export default StyleSheet.create({
     borderRadius: 10,
   },
   iconText: {
-    paddingTop: 5,
+    paddingTop: 1,
     textAlign: "center",
     color: darkGreen,
     fontWeight: "bold",
@@ -319,5 +261,129 @@ export default StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+  },
+
+  // Profile Page
+  profileContainer: {
+    backgroundColor: darkGreen,
+    borderBottomRightRadius: 1000,
+    borderBottomLeftRadius: 1000,
+    marginBottom: 20,
+    transform: [{ scaleX: 2 }],
+    overflow: "hidden",
+  },
+  dogBackground: {
+    opacity: 0.1, 
+    position: "absolute", 
+  },
+  dogImage: {
+    left: 140,
+    width: 750 / 1.7,
+    height: 610 / 1.7,
+  },
+  divider: {
+    backgroundColor: "#b0b0b0"
+  },
+  avatarContainer: {
+    marginTop: 50,
+    marginBottom: 50,
+    alignItems: "center",
+    alignContent: "center",
+    justifyContent: "center",
+    transform: [{ scaleX: 0.5 }],
+  },
+  listStyle: {
+    paddingLeft: 25,
+  },
+  nameEmailContainer: {
+    marginTop: 15,
+    alignItems: "center",
+    marginHorizontal: 60,
+    justifyContent: "center",
+  },
+  shortLine: {
+    borderBottomColor: "#D3D3D3",
+    borderBottomWidth: 1,
+    paddingBottom: 5,
+  },
+  profileName: {
+    color: "white",
+    fontSize: 30,
+    fontWeight: "bold"
+  },
+  emailStyle: { 
+    color: "#202020", 
+    fontSize: 17, 
+    marginTop: 10 
+  },
+
+  // Breed List
+  breedTitleContainer: {
+    flexDirection: "row",
+    justifyContent: "flex-start",
+    padding: 7,
+    paddingBottom: 10,
+  },
+  breedTitle: {
+    fontWeight: "bold",
+    fontSize: 20,
+    marginRight: 25,
+  },
+
+  // Breed Information
+  
+
+  //Pet Buy Card
+  petBuyCard: {
+    margin: 5,
+    width: 380,
+  },
+  petBuyCardSellerContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignSelf: 'flex-end',
+    position: "absolute",
+    padding: 15
+  },
+  petBuyCardActionCard: {
+    margin: 0,
+    padding: 0,
+  },
+  petBuyCardBigButtonText: {
+    fontSize: 14,
+    color: "white",
+  },
+  petBuyCardBigButton: {
+    flex: 1,
+    backgroundColor: darkGreen,
+    marginTop: 10,
+    marginLeft: 25,
+    marginRight: 25,
+    height: 30,
+    justifyContent: "center",
+  },
+  petBuyCardSellerImage: {
+    height: 40,
+    width: 40,
+    borderRadius: 40 / 2
+  },
+  petBuyCardTextContainer: {
+    flexDirection: "row",
+    padding: 10
+  },
+  petBuyCardImageContainer: {
+    width: 150,
+    height: 150,
+  },
+  petBuyCardImage: {
+    aspectRatio: 1,
+    borderRadius: 5,
+  },
+  petBuyCardContent: {
+    flex: 3,
+    justifyContent: "center",
+  },
+  petBuyCardNameContainer: {
+    marginRight: 40,
   },
 });

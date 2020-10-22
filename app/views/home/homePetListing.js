@@ -88,6 +88,8 @@ export default class HomeListing extends React.Component {
             training: listingDoc.data().training,
             additional: listingDoc.data().additionalInfo,
             photo: listingDoc.data().photo_link,
+            documentName: listingDoc.data().documents,
+            documentUri: listingDoc.data().documents_uri,
             uuid: listingDoc.data().uuid,
             sellerInfo: seller.info,
             sellerName: seller.name,
@@ -235,8 +237,6 @@ export default class HomeListing extends React.Component {
 
   homeCard = (item) => (
     <View style={styles.card}>
-      {/* {console.log(item)} */}
-
       <Card
         elevation={5}
         styles={styles.card}
@@ -248,11 +248,6 @@ export default class HomeListing extends React.Component {
         <Text numberOfLines={1} style={styles.title}>
           {item.petName}
         </Text>
-        {/* <Text numberOfLines={1} style={styles.subtext}>
-					<Text>{item.breed}</Text>
-					<Text> | </Text>
-					<Text>{item.location}</Text>
-				</Text> */}
       </Card>
     </View>
   );
@@ -324,11 +319,13 @@ export default class HomeListing extends React.Component {
                 this.setState({ visible: false });
               }}
             >
-              <Card elevation={5} style={{ margin: 10 }}>
+              <Card elevation={5} style={{margin: 10}}>
                 <Card.Content>
                   <Text>Animal:</Text>
                   <View style={{ flexDirection: "row" }}>
                     <Checkbox.Item
+                      theme={{colors: {primary: darkGreen}}}
+                      color={darkGreen}
                       label="Dog"
                       status={this.state.dogCheck ? "checked" : "unchecked"}
                       onPress={() => {
@@ -336,6 +333,8 @@ export default class HomeListing extends React.Component {
                       }}
                     />
                     <Checkbox.Item
+                      theme={{colors: {primary: darkGreen}}}
+                      color={darkGreen}
                       label="Fish"
                       status={this.state.fishCheck ? "checked" : "unchecked"}
                       onPress={() => {
@@ -343,6 +342,8 @@ export default class HomeListing extends React.Component {
                       }}
                     />
                     <Checkbox.Item
+                      theme={{colors: {primary: darkGreen}}}
+                      color={darkGreen}
                       label="Lizard"
                       status={this.state.lizardCheck ? "checked" : "unchecked"}
                       onPress={() => {
@@ -352,6 +353,8 @@ export default class HomeListing extends React.Component {
                   </View>
                   <View style={{ flexDirection: "row" }}>
                     <Checkbox.Item
+                      theme={{colors: {primary: darkGreen}}}
+                      color={darkGreen}
                       label="Cat"
                       status={this.state.catCheck ? "checked" : "unchecked"}
                       onPress={() => {
@@ -359,6 +362,8 @@ export default class HomeListing extends React.Component {
                       }}
                     />
                     <Checkbox.Item
+                      theme={{colors: {primary: darkGreen}}}
+                      color={darkGreen}
                       label="Bird"
                       status={this.state.birdCheck ? "checked" : "unchecked"}
                       onPress={() => {
@@ -366,6 +371,8 @@ export default class HomeListing extends React.Component {
                       }}
                     />
                     <Checkbox.Item
+                      theme={{colors: {primary: darkGreen}}}
+                      color={darkGreen}
                       label="Turtle"
                       status={this.state.turtleCheck ? "checked" : "unchecked"}
                       onPress={() => {
@@ -375,6 +382,8 @@ export default class HomeListing extends React.Component {
                   </View>
                   <View style={{ flexDirection: "row" }}>
                     <Checkbox.Item
+                      theme={{colors: {primary: darkGreen}}}
+                      color={darkGreen}
                       label="Rabbit"
                       status={this.state.rabbitCheck ? "checked" : "unchecked"}
                       onPress={() => {
@@ -382,6 +391,8 @@ export default class HomeListing extends React.Component {
                       }}
                     />
                     <Checkbox.Item
+                      theme={{colors: {primary: darkGreen}}}
+                      color={darkGreen}
                       label="Horse"
                       status={this.state.horseCheck ? "checked" : "unchecked"}
                       onPress={() => {
@@ -389,6 +400,8 @@ export default class HomeListing extends React.Component {
                       }}
                     />
                     <Checkbox.Item
+                      theme={{colors: {primary: darkGreen}}}
+                      color={darkGreen}
                       label="Pig"
                       status={this.state.pigCheck ? "checked" : "unchecked"}
                       onPress={() => {
@@ -399,11 +412,11 @@ export default class HomeListing extends React.Component {
                 </Card.Content>
                 <Card.Actions style={{ justifyContent: "flex-end" }}>
                   <Button
+                    color={darkGreen}
                     onPress={() => {
                       this.displayFunction();
                       this.setState({ visible: false });
-                    }}
-                  >
+                    }}>
                     Done
                   </Button>
                 </Card.Actions>
@@ -511,6 +524,7 @@ const styles = StyleSheet.create({
     aspectRatio: 1,
   },
   title: {
+    marginRight: 8,
     marginLeft: 8,
     marginTop: 5,
     marginBottom: 5,

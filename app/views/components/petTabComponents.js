@@ -2,6 +2,7 @@ import React from "react";
 import {
     Text,
     View,
+    SafeAreaView,
     TouchableOpacity,
 } from "react-native";
 import { Searchbar } from "react-native-paper";
@@ -13,7 +14,7 @@ import styles from "../styleSheet/styleSheet";
 
 export const onBuyTab = (navigation) => {
     return (
-        <View style={styles.buySellContainer}>
+        <SafeAreaView style={styles.buySellContainer}>
             <TouchableOpacity
                 style={styles.blueTab}
                 onPress={() => navigation.navigate("petCategories")}>
@@ -24,13 +25,13 @@ export const onBuyTab = (navigation) => {
                 onPress={() => navigation.navigate("currentListings")}>
                 <Text style={{ textAlign: "center" }}> Sell </Text>
             </TouchableOpacity>
-        </View>
+        </SafeAreaView>
     );
 }
 
 export const onSellTab = (navigation) => {
     return (
-        <View style={styles.buySellContainer}>
+        <SafeAreaView style={styles.buySellContainer}>
             <TouchableOpacity
                 style={styles.whiteTab}
                 onPress={() => navigation.navigate("petCategories")}>
@@ -41,7 +42,7 @@ export const onSellTab = (navigation) => {
                 onPress={() => navigation.navigate("currentListings")}>
                 <Text style={{ textAlign: "center" }}> Sell </Text>
             </TouchableOpacity>
-        </View>
+        </SafeAreaView>
     );
 }
 
