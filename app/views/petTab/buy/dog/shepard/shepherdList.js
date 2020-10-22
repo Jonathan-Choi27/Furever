@@ -21,7 +21,7 @@ import {
 import { db } from "../../../../database/firebase";
 import { AppLoading } from "expo";
 import * as Font from "expo-font";
-import {onBuyTab} from "../../../../components/petTabComponents" 
+import {onBuyTab} from "../../../../components/petTabComponents"
 import globalStyles, { darkGreen } from "../../../../styleSheet/styleSheet";
 
 export default class shepherdList extends React.Component {
