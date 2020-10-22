@@ -19,7 +19,7 @@ export default class buyPetProfile extends React.Component {
                 {onBuyTab(this.props.navigation)}
                 <ScrollView>
                     {profileInfo(item)}
-                    {sellerInfo(item)}
+                    {sellerInfo(item, this.props.navigation)}
                     {expressInterest(item, this.props.navigation)}
                 </ScrollView>
             </View>

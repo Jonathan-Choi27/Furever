@@ -69,7 +69,9 @@ export default class HomeListing extends React.Component {
                 if (listingDoc.data().uuid == user.data().uuid) {  
                   seller["name"] = user.data().name;
                   seller["photo"] = user.data().photo;      
-                  seller["info"] = user.data().profileText;                      
+                  seller["info"] = user.data().profileText;    
+                  seller["email"] = user.data().email;    
+                  seller["dob"] = user.data().dob;                  
                 }
               })
           });
@@ -92,6 +94,8 @@ export default class HomeListing extends React.Component {
             sellerInfo: seller.info,
             sellerName: seller.name,
             sellerPhoto: seller.photo,
+            sellerEmail: seller.email,
+            sellerDob: seller.dob,
           });
           this.setState({
             isLoading: false,

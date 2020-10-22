@@ -9,9 +9,9 @@ import {
   } from "react-native";
 console.disableYellowBox = true;
 
-import {sellerDetails} from "../../components/sellerInfoComponent";
+import {sellerDetails} from "../components/sellerInfoComponent";
 
-import { db } from "../../database/firebase";
+import { db } from "../database/firebase";
 
 export default class sellerProfile extends React.Component {
 
@@ -27,15 +27,14 @@ export default class sellerProfile extends React.Component {
       async fetchData() {
         const uuid = this.props.route.params.item.uuid;
 
-        console.log("here");
         await db
               .collection("users")
               .doc(uuid)
               .get()
               .then((user_doc) => {
+                userPhoto = user_doc.data().photo;
                 console.log(uuid);
                 console.log(user_doc.data().name);
-                userPhoto = user_doc.data().photo;
 
                 let data = {
                   name: user_doc.data().name,

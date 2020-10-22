@@ -51,12 +51,12 @@ export default class shepherdList extends React.Component {
             .then((user_doc) => {
               seller["name"] = user_doc.data().name;
               seller["photo"] = user_doc.data().photo;      
-              seller["info"] = user_doc.data().profileText;      
+              seller["info"] = user_doc.data().profileText;    
+              seller["email"] = user_doc.data().email;    
+              seller["dob"] = user_doc.data().dob;    
             });
           dataArray.push({
-            sellerName: seller.name,
-            sellerPhoto: seller.photo,
-            sellerInfo: seller.info,
+            
             petName: listingDoc.data().name,
             category: listingDoc.data().category,
             breed: listingDoc.data().breed,
@@ -71,7 +71,13 @@ export default class shepherdList extends React.Component {
             training: listingDoc.data().training,
             additional: listingDoc.data().additionalInfo,
             photo: listingDoc.data().photo_link,
-            doc_id: listingDoc.id,
+            doc_id: listingDoc.data().id,
+            uuid: listingDoc.data().uuid,
+            sellerName: seller.name,
+            sellerPhoto: seller.photo,
+            sellerInfo: seller.info,
+            sellerEmail: seller.email,
+            sellerDob: seller.dob,
           });
           this.setState({
             isLoading: false,

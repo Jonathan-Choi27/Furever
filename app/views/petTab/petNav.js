@@ -61,7 +61,7 @@ export default function PetNav() {
         <Stack.Screen name="buyApplication" component={buyApplication} />
         <Stack.Screen name="offerApplications" component={offerApplications} />
         <Stack.Screen name="buyerProfile" component={buyerProfile} />
-        <Stack.Screen name="sellerProfile" component={sellerProfile} />
+				<Stack.Screen name="sellerProfile" component={sellerProfile} />
       </Stack.Navigator>
     </NavigationContainer>
   );

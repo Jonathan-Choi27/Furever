@@ -3,12 +3,9 @@ import { Text, View, TouchableOpacity, Dimensions, Image } from "react-native";
 import { Card,  } from "react-native-elements";
 import {Button} from "react-native-paper";
 import styles from "../styleSheet/styleSheet";
-<<<<<<< HEAD
-=======
 import { darkGreen, green, lightGreen, lightGrey, orange, lightBlue } from "../styleSheet/styleSheet";
 import { db } from "../database/firebase";
 import { auth } from "../database/firebase";
->>>>>>> 1fc836f87a040b6867ce69a07543a8e06d52aad9
 
 export const profileInfo = (item) => {
   const screenWidth = Math.round(Dimensions.get("window").width);
@@ -102,12 +99,8 @@ export const profileInfo = (item) => {
   );
 };
 
-export const sellerInfo = (item) => {
-<<<<<<< HEAD
+export const sellerInfo = (item, navigation) => {
   
-=======
-  // fetch data and store into profileData
->>>>>>> 1fc836f87a040b6867ce69a07543a8e06d52aad9
   return (
       <View>
         <Card containerStyle={styles.cardContainer}>
@@ -124,7 +117,6 @@ export const sellerInfo = (item) => {
               />
               <Text style={{textAlign: "center", paddingTop: 5}}>{item.sellerName}</Text>
             </View>
-<<<<<<< HEAD
             
             <Text>{item.sellerName}</Text>
             
@@ -140,9 +132,8 @@ export const sellerInfo = (item) => {
                           height: 25, 
                           width: 120}}
                   mode="contained"
-                  onPress={() =>
-                    navigation.navigate("sellerProfile", item)
-                  }
+                  onPress={() => navigation.navigate("sellerProfile", { item })}
+
                 >
                   <Text style={{color: "#ffffff",
                       fontSize: 10,
@@ -151,17 +142,7 @@ export const sellerInfo = (item) => {
                 </Button>
               </View>                      
             </View>
-          </View>
         </Card>    
-=======
-
-            <View style= {{flex: 4, paddingTop: 2, paddingLeft: 10, paddingRight: 10}}>
-              <Text>{item.sellerInfo}</Text>
-            </View>
-              
-          </View>
-        </Card>
->>>>>>> 1fc836f87a040b6867ce69a07543a8e06d52aad9
       </View>
   );
 };
