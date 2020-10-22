@@ -271,6 +271,7 @@ export default class HomeListing extends React.Component {
       const user = auth.currentUser;
       newNotice = (
         <Banner
+          style={{color: darkGreen}}
           visible={this.state.bannerVisible}
           actions={[
             {

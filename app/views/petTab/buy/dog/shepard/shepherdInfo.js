@@ -18,6 +18,7 @@ import "react-navigation"
 import "react-navigation-props-mapper"
 import "@react-navigation/native"
 import 'react-navigation-hooks'
+import {onBuyTab} from "../../../../components/petTabComponents"
 
 export default class shepherdInfo extends React.Component {
 
@@ -41,32 +42,7 @@ export default class shepherdInfo extends React.Component {
         return (
             <ScrollView>
                 <View style={styles.container}>
-                    <View style={styles.buySellContainer}>
-                        <TouchableOpacity
-                            style={{
-                                backgroundColor: "white",
-                                flex: 1,
-                                justifyContent: "center",
-                                alignItems: "center",
-                                height: 50,
-                            }}
-                            onPress={() => this.props.navigation.replace("petCategories")}
-                        >
-                            <Text>Buy</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            style={{
-                                backgroundColor: "#d7e5f7",
-                                flex: 1,
-                                justifyContent: "center",
-                                alignItems: "center",
-                                height: 50,
-                            }}
-                            onPress={() => this.props.navigation.replace("currentListings")}
-                        >
-                            <Text style={{ textAlign: "center" }}> Sell </Text>
-                        </TouchableOpacity>
-                    </View>
+                    {onBuyTab(this.props.navigation)}
 
                     <View style={styles.titleContainer}>
                         <Text style={styles.fontTitle}>German Shepherd</Text>

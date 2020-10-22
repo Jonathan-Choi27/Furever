@@ -2,38 +2,35 @@ import React from "react";
 import { Text, View, TouchableOpacity, Dimensions, Image } from "react-native";
 import { Card, Button } from "react-native-elements";
 import styles from "../styleSheet/styleSheet";
+import { CustomInput, InputHeader } from "../components/CustomInput";
 import { darkGreen, green, lightGreen, lightGrey, orange, lightBlue } from "../styleSheet/styleSheet";
-import { db } from "../database/firebase";
-import { auth } from "../database/firebase";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export const profileInfo = (item) => {
   const screenWidth = Math.round(Dimensions.get("window").width);
   const textWidth = (screenWidth - 20) / 2;
   return (
     <View style={styles.container}>
-      <View style={styles.titleContainer}>
-        <View>
-          <Text style={styles.fontTitle}> {item.petName}'s Profile </Text>
+      <View style={{ marginBottom: 0 }}>
+        <View style={{ alignItems: "center" }}>
+          <Image
+            style={{ width: screenWidth, height: 250 }}
+            source={{
+              uri: item.photo,
+            }}
+          />
         </View>
+        <Card containerStyle={{ borderRadius: 10 }}>
+          <Text
+            style={{ fontWeight: "bold", fontSize: 30, color: "#404040" }}>
+            {item.petName}'s Profile
+          </Text>
+        </Card>
       </View>
 
-      <Card containerStyle={styles.cardContainer}>
-        <Text style={styles.fontHeading}> General Information </Text>
-        <View style={styles.line} />
-        <View style={styles.cardContentContainer}>
-          <View>
-            <Image
-              style={styles.imageContainer}
-              source={{
-                uri: item.photo,
-              }}
-            />
-            <Text style={{ textAlign: "center", paddingTop: 5 }}>
-              <Text style={{ fontWeight: "bold" }}>Price:</Text>{" "}
-              <Text>${item.price}</Text>
-            </Text>
-          </View>
-          <View style={{ paddingLeft: 15, width: textWidth }}>
+      <Card containerStyle={{ borderRadius: 10 }}>
+        <InputHeader text="General Information"/>
+          <View style={styles.container}>
             <Text>
               <Text style={{ fontWeight: "bold" }}>Name:</Text>{" "}
               <Text>{item.petName}</Text>
@@ -67,7 +64,6 @@ export const profileInfo = (item) => {
               <Text>{item.location}</Text>
             </Text>
           </View>
-        </View>
       </Card>
 
       <Card containerStyle={styles.cardContainer}>

@@ -212,14 +212,14 @@ export default class petBreeds extends React.Component {
     const { search } = this.state;
     if (this.state.isLoading) {
       return (
-        <View style={styles.activityContainer}>
+        <View style={globalStyles.activityContainer}>
           <ActivityIndicator size="large" color="#447ECB" />
         </View>
       );
     }
     return (
       <Provider>
-          <View style={styles.container}>
+          <View style={globalStyles.petContainer}>
             {onBuyTab(this.props.navigation)}
 
             <View
@@ -244,18 +244,8 @@ export default class petBreeds extends React.Component {
                 Filter
               </Button>
             </View>
-            
-            <View style={{ height: 30, marginBottom: 15, }}>
-              <TouchableOpacity
-                style={styles.viewApplication}
-                onPress={() => this.props.navigation.replace("currentApplications")}>
-                <Text style={{ textAlign: "center", color: "white" }}>
-                  View Applications
-                </Text>
-              </TouchableOpacity>
-            </View>
-            <ScrollView>
 
+            <ScrollView showsVerticalScrollIndicator={false}>
             <Portal>
               <Modal
                 style={{ backgroundColor: "transparent" }}
@@ -263,11 +253,13 @@ export default class petBreeds extends React.Component {
                 onDismiss={() => {
                   this.setState({ visible: false });
                 }}>
-                <Card elevation={5} style={{ margin: 10 }}>
+                <Card elevation={5} style={{margin: 10}}>
                   <Card.Content>
                     <Text>Animal:</Text>
                     <View style={{ flexDirection: "row" }}>
                       <Checkbox.Item
+                        theme={{colors: {primary: darkGreen}}}
+                        color={darkGreen}
                         label="Dog"
                         status={this.state.dogCheck ? "checked" : "unchecked"}
                         onPress={() => {
@@ -275,6 +267,8 @@ export default class petBreeds extends React.Component {
                         }}
                       />
                       <Checkbox.Item
+                        theme={{colors: {primary: darkGreen}}}
+                        color={darkGreen}
                         label="Fish"
                         status={this.state.fishCheck ? "checked" : "unchecked"}
                         onPress={() => {
@@ -282,10 +276,10 @@ export default class petBreeds extends React.Component {
                         }}
                       />
                       <Checkbox.Item
+                        theme={{colors: {primary: darkGreen}}}
+                        color={darkGreen}
                         label="Lizard"
-                        status={
-                          this.state.lizardCheck ? "checked" : "unchecked"
-                        }
+                        status={this.state.lizardCheck ? "checked" : "unchecked"}
                         onPress={() => {
                           this.checkFunction("lizardCheck");
                         }}
@@ -293,6 +287,8 @@ export default class petBreeds extends React.Component {
                     </View>
                     <View style={{ flexDirection: "row" }}>
                       <Checkbox.Item
+                        theme={{colors: {primary: darkGreen}}}
+                        color={darkGreen}
                         label="Cat"
                         status={this.state.catCheck ? "checked" : "unchecked"}
                         onPress={() => {
@@ -300,6 +296,8 @@ export default class petBreeds extends React.Component {
                         }}
                       />
                       <Checkbox.Item
+                        theme={{colors: {primary: darkGreen}}}
+                        color={darkGreen}
                         label="Bird"
                         status={this.state.birdCheck ? "checked" : "unchecked"}
                         onPress={() => {
@@ -307,10 +305,10 @@ export default class petBreeds extends React.Component {
                         }}
                       />
                       <Checkbox.Item
+                        theme={{colors: {primary: darkGreen}}}
+                        color={darkGreen}
                         label="Turtle"
-                        status={
-                          this.state.turtleCheck ? "checked" : "unchecked"
-                        }
+                        status={this.state.turtleCheck ? "checked" : "unchecked"}
                         onPress={() => {
                           this.checkFunction("turtleCheck");
                         }}
@@ -318,15 +316,17 @@ export default class petBreeds extends React.Component {
                     </View>
                     <View style={{ flexDirection: "row" }}>
                       <Checkbox.Item
+                        theme={{colors: {primary: darkGreen}}}
+                        color={darkGreen}
                         label="Rabbit"
-                        status={
-                          this.state.rabbitCheck ? "checked" : "unchecked"
-                        }
+                        status={this.state.rabbitCheck ? "checked" : "unchecked"}
                         onPress={() => {
                           this.checkFunction("rabbitCheck");
                         }}
                       />
                       <Checkbox.Item
+                        theme={{colors: {primary: darkGreen}}}
+                        color={darkGreen}
                         label="Horse"
                         status={this.state.horseCheck ? "checked" : "unchecked"}
                         onPress={() => {
@@ -334,6 +334,8 @@ export default class petBreeds extends React.Component {
                         }}
                       />
                       <Checkbox.Item
+                        theme={{colors: {primary: darkGreen}}}
+                        color={darkGreen}
                         label="Pig"
                         status={this.state.pigCheck ? "checked" : "unchecked"}
                         onPress={() => {
@@ -344,6 +346,7 @@ export default class petBreeds extends React.Component {
                   </Card.Content>
                   <Card.Actions style={{ justifyContent: "flex-end" }}>
                     <Button
+                      color={darkGreen}
                       onPress={() => {
                         this.displayFunction();
                         this.setState({ visible: false });
@@ -358,7 +361,7 @@ export default class petBreeds extends React.Component {
               <FlatList
                 showsVerticalScrollIndicator={false}
                 renderItem={({ item }) => (
-                  <Card elevation={5} style={styles.card}>
+                  <Card elevation={5} style={globalStyles.petCard}>
                     <Card.Cover source={ {uri: item.photo}}/>
                     <Card.Title
                       title={item.title}
@@ -372,18 +375,18 @@ export default class petBreeds extends React.Component {
                       )}
                     />
                     <Card.Content>
-                      <Text style={styles.cardContentText}>
+                      <Text style={globalStyles.petCardContentText}>
                         Age: {item.age}
                       </Text>
-                      <Text style={styles.cardContentText}>
+                      <Text style={globalStyles.petCardContentText}>
                         Gender: {item.gender}
                       </Text>
-                      <Text style={styles.cardContentText}>
+                      <Text style={globalStyles.petCardContentText}>
                         Location: {item.location}
                       </Text>
                     </Card.Content>
                     <Card.Actions>
-                      <Button color="#447ECB" onPress={() => {}}>
+                      <Button color={darkGreen} onPress={() => {}}>
                         More info
                       </Button>
                     </Card.Actions>
@@ -397,140 +400,131 @@ export default class petBreeds extends React.Component {
                 }
               />
             ) : (
-              <View style={styles.container}>
+              <View style={globalStyles.petContainer}>
                 {this.state.searchText == "" ? (
-                  <View style={styles.container}>
-                    <View style={styles.categories}>
+                  <View style={globalStyles.petContainer}>
+                    <View style={globalStyles.categories}>
                       <TouchableOpacity
-                        style={styles.iconShadow}
                         onPress={() =>
                           this.props.navigation.replace("shepherdList")
                         }>
-                        <View style={styles.iconContainer}>
+                        <View style={globalStyles.breedIconContainer}>
                           <Image
-                            style={styles.icon}
+                            style={globalStyles.icon}
                             source={{
                               uri:
                                 "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fpet%20buy%20icons%2FGermanShepherd.jpg?alt=media&token=83976d43-8ecb-44d9-83cf-280d3eba290d",
                             }}
                           />
-                          <Text style={styles.iconText}>German Shepherd</Text>
+                          <Text style={globalStyles.iconText}>German Shepherd</Text>
                         </View>
                       </TouchableOpacity>
-                      <View style={styles.iconContainer}>
-                        <TouchableOpacity style={styles.iconShadow}>
-                          <View style={styles.iconContainer}>
-                            <Image
-                              style={styles.icon}
-                              source={{
-                                uri:
-                                  "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fpet%20buy%20icons%2FMaltese.jpg?alt=media&token=80dd5f30-f73b-4faf-8361-8f744bd7c97d",
-                              }}
-                            />
-                            <Text style={styles.iconText}>Maltese</Text>
-                          </View>
+                      <View style={globalStyles.breedIconContainer}>
+                        <TouchableOpacity>
+                          <Image
+                            style={globalStyles.icon}
+                            source={{
+                              uri:
+                                "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fpet%20buy%20icons%2FMaltese.jpg?alt=media&token=80dd5f30-f73b-4faf-8361-8f744bd7c97d",
+                            }}
+                          />
+                          <Text style={globalStyles.iconText}>Maltese</Text>
                         </TouchableOpacity>
                       </View>
                     </View>
 
-                    <View style={styles.categories}>
-                      <TouchableOpacity style={styles.iconShadow}>
-                        <View style={styles.iconContainer}>
+                    <View style={globalStyles.categories}>
+                      <TouchableOpacity>
+                        <View style={globalStyles.breedIconContainer}>
                           <Image
-                            style={styles.icon}
+                            style={globalStyles.icon}
                             source={{
                               uri:
                                 "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fpet%20buy%20icons%2FCavoodle.jpg?alt=media&token=b5e332b5-796b-4397-978a-746892b36645",
                             }}
                           />
-                          <Text style={styles.iconText}>Cavoodle</Text>
+                          <Text style={globalStyles.iconText}>Cavoodle</Text>
                         </View>
                       </TouchableOpacity>
-                      <View style={styles.iconContainer}>
-                        <TouchableOpacity style={styles.iconShadow}>
-                          <View style={styles.iconContainer}>
-                            <Image
-                              style={styles.icon}
-                              source={{
-                                uri:
-                                  "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fpet%20buy%20icons%2FSamoyed.jpg?alt=media&token=361103d9-2478-4577-a114-a4c5841eccd2",
-                              }}
-                            />
-                            <Text style={styles.iconText}>Samoyed</Text>
-                          </View>
+                      <View style={globalStyles.breedIconContainer}>
+                        <TouchableOpacity>
+                          <Image
+                            style={globalStyles.icon}
+                            source={{
+                              uri:
+                                "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fpet%20buy%20icons%2FSamoyed.jpg?alt=media&token=361103d9-2478-4577-a114-a4c5841eccd2",
+                            }}
+                          />
+                          <Text style={globalStyles.iconText}>Samoyed</Text>
                         </TouchableOpacity>
                       </View>
                     </View>
 
-                    <View style={styles.categories}>
-                      <TouchableOpacity style={styles.iconShadow}>
-                        <View style={styles.iconContainer}>
+                    <View style={globalStyles.categories}>
+                      <TouchableOpacity>
+                        <View style={globalStyles.breedIconContainer}>
                           <Image
-                            style={styles.icon}
+                            style={globalStyles.icon}
                             source={{
                               uri:
                                 "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fpet%20buy%20icons%2FGoldenRetriever.jpg?alt=media&token=520b3637-9b17-4d8b-93e3-747e0a46ee49",
                             }}
                           />
-                          <Text style={styles.iconText}>Golden Retriever</Text>
+                          <Text style={globalStyles.iconText}>Golden Retriever</Text>
                         </View>
                       </TouchableOpacity>
-                      <View style={styles.iconContainer}>
-                        <TouchableOpacity style={styles.iconShadow}>
-                          <View style={styles.iconContainer}>
-                            <Image
-                              style={styles.icon}
-                              source={{
-                                uri:
-                                  "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fpet%20buy%20icons%2FPomeranian.jpg?alt=media&token=7ff9a11a-11f8-49f1-aa56-5da7ed2b0082",
-                              }}
-                            />
-                            <Text style={styles.iconText}>Pomeranian</Text>
-                          </View>
+                      <View style={globalStyles.breedIconContainer}>
+                        <TouchableOpacity>
+                          <Image
+                            style={globalStyles.icon}
+                            source={{
+                              uri:
+                                "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fpet%20buy%20icons%2FPomeranian.jpg?alt=media&token=7ff9a11a-11f8-49f1-aa56-5da7ed2b0082",
+                            }}
+                          />
+                          <Text style={globalStyles.iconText}>Pomeranian</Text>
                         </TouchableOpacity>
                       </View>
                     </View>
 
-                    <View style={styles.categories}>
-                      <TouchableOpacity style={styles.iconShadow}>
-                        <View style={styles.iconContainer}>
+                    <View style={globalStyles.categories}>
+                      <TouchableOpacity>
+                        <View style={globalStyles.breedIconContainer}>
                           <Image
-                            style={styles.icon}
+                            style={globalStyles.icon}
                             source={{
                               uri:
                                 "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fpet%20buy%20icons%2FRottweiler.jpg?alt=media&token=d3d468ff-08d2-40e3-b13d-6e6a1e0a85e1",
                             }}
                           />
-                          <Text style={styles.iconText}>Rottweiler</Text>
+                          <Text style={globalStyles.iconText}>Rottweiler</Text>
                         </View>
                       </TouchableOpacity>
-                      <View style={styles.iconContainer}>
-                        <TouchableOpacity style={styles.iconShadow}>
-                          <View style={styles.iconContainer}>
+                      <View style={globalStyles.breedIconContainer}>
+                        <TouchableOpacity>
                             <Image
-                              style={styles.icon}
+                              style={globalStyles.icon}
                               source={{
                                 uri:
                                   "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fpet%20buy%20icons%2FCorgi.jpg?alt=media&token=e189582b-f588-4067-8a75-ce2daf84eae1",
                               }}
                             />
-                            <Text style={styles.iconText}>Corgi</Text>
-                          </View>
+                            <Text style={globalStyles.iconText}>Corgi</Text>
                         </TouchableOpacity>
                       </View>
                     </View>
                   </View>
                 ) : (
-                  <View style={styles.container}>
+                  <View style={globalStyles.petContainer}>
                     {this.state.filteredData.length == 0 ? (
-                      <View style={styles.container}>
+                      <View style={globalStyles.petContainer}>
                         <Text style={{ margin: 100 }}>No results found.</Text>
                       </View>
                     ) : (
                       <FlatList
                         showsVerticalScrollIndicator={false}
                         renderItem={({ item }) => (
-                          <Card elevation={5} style={styles.card}>
+                          <Card elevation={5} style={globalStyles.petCard}>
                             <Card.Cover source={{uri: item.photo}} />
                             <Card.Title
                               title={item.title}
@@ -544,18 +538,18 @@ export default class petBreeds extends React.Component {
                               )}
                             />
                             <Card.Content>
-                              <Text style={styles.cardContentText}>
+                              <Text style={globalStyles.petCardContentText}>
                                 Age: {item.age}
                               </Text>
-                              <Text style={styles.cardContentText}>
+                              <Text style={globalStyles.petCardContentText}>
                                 Gender: {item.gender}
                               </Text>
-                              <Text style={styles.cardContentText}>
+                              <Text style={globalStyles.petCardContentText}>
                                 Location: {item.location}
                               </Text>
                             </Card.Content>
                             <Card.Actions>
-                              <Button color="#447ECB" onPress={() => {}}>
+                              <Button color={darkGreen} onPress={() => {}}>
                                 More info
                               </Button>
                             </Card.Actions>
@@ -574,92 +568,9 @@ export default class petBreeds extends React.Component {
                 )}
               </View>
             )}
-                    </ScrollView>
-
+            </ScrollView>
           </View>
       </Provider>
     );
-    // } else {
-    //   return <AppLoading />;
-    // }
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  buySellContainer: {
-    alignSelf: "stretch",
-    justifyContent: "flex-start",
-    alignItems: "flex-start",
-    flexDirection: "row",
-  },
-  categories: {
-    alignSelf: "stretch",
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    flexDirection: "row",
-  },
-  iconContainer: {
-    padding: 10,
-  },
-  icon: {
-    height: 150,
-    width: 150,
-    borderRadius: 10,
-  },
-  iconShadow: {
-    // borderRadius: 10,
-    // backgroundColor: '#FFFFFF',
-    // shadowColor: 'rgba(0, 0, 0, 0.1)',
-    // shadowOpacity: 0.6,
-    // elevation: 5,
-    // shadowRadius: 10 ,
-    // shadowOffset : { width: 1, height: 13},
-  },
-  iconText: {
-    paddingTop: 5,
-    textAlign: "center",
-    color: "#447ECB",
-  },
-  viewApplication: {
-    backgroundColor: "#447ECB",
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    height: 50,
-    width: 200,
-    borderRadius: 5,
-  },
-  titleContainer: {
-    flexDirection: "row",
-    justifyContent: "flex-start",
-    padding: 20,
-  },
-  title: {
-    fontWeight: "bold",
-    fontSize: 20,
-    marginRight: 25,
-  },
-  cardContainer: {
-    flex: 2,
-    justifyContent: "flex-start",
-    alignItems: "flex-start",
-  },
-  card: {
-    margin: 5,
-    width: 340,
-  },
-  cardContentText: {
-    fontWeight: "bold",
-  },
-  activityContainer: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-});

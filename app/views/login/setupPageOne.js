@@ -175,6 +175,7 @@ const styles = StyleSheet.create({
   buttons: {
     borderWidth: 1,
     borderColor: green,
+    backgroundColor: green,
     alignItems: "center",
     justifyContent: "center",
     width: 250,

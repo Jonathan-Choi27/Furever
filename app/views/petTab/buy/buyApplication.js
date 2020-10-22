@@ -13,19 +13,14 @@ import "react-navigation";
 import "react-navigation-props-mapper";
 import "@react-navigation/native";
 import "react-navigation-hooks";
-import { TextInput as NativeTextInput } from "react-native";
-// import "firebase/storage";
 import { db } from "../../database/firebase";
 import { auth } from "../../database/firebase";
-import { onBuyTab } from "../../components/petTabComponents";
-import { Input } from "react-native-elements";
 import { CustomInput, InputHeader } from "../../components/CustomInput";
 import istyles, { darkGreen, green } from "../../styleSheet/styleSheet";
 import { Icon } from "react-native-elements";
 import GooglePlacesInput from "../../components/mapAutoComplete";
-import { SafeAreaView } from "react-native-safe-area-context";
 // AIzaSyC-6ifFUYzIIgUf1uhbmJ_BU6VQyre4bRw
-
+ 
 export default class buyApplication extends React.Component {
   constructor(props) {
     super(props);
@@ -150,12 +145,14 @@ export default class buyApplication extends React.Component {
     return (
       <ScrollView keyboardShouldPersistTaps={"handled"}>
         <View style={{ marginBottom: 0 }}>
+          <View style={{ alignItems: "center" }}>
           <Image
-            style={{ width: screenWidth, height: 300 }}
+            style={{ width: screenWidth, height: 250 }}
             source={{
               uri: item.photo,
             }}
           />
+          </View>
           <Card containerStyle={{ borderRadius: 10 }}>
             <Text>
               <Text
@@ -168,7 +165,8 @@ export default class buyApplication extends React.Component {
                 {item.age}
               </Text>
             </Text>
-            <Text style={{ fontWeight: "bold", color: "#505050" }}>
+            <Text 
+              style={{ fontWeight: "bold", color: "#505050" }}>
               {item.breed}
             </Text>
           </Card>
@@ -196,9 +194,10 @@ export default class buyApplication extends React.Component {
               />
             }
           />
-
           <GooglePlacesInput set={this.setAddress}/>
+        </Card>
 
+        <Card containerStyle={{ borderRadius: 10 }}>
           <InputHeader text="Pet Information" />
 
           <CustomInput
@@ -265,7 +264,9 @@ export default class buyApplication extends React.Component {
               />
             }
           />
+        </Card>
 
+        <Card containerStyle={{ borderRadius: 10 }}>
           <InputHeader text="Your Home Enviroment" />
           <CustomInput
             label="Description of your family/members of the household"
@@ -283,8 +284,9 @@ export default class buyApplication extends React.Component {
               />
             }
           />
+        </Card>
 
-          <View
+        <View
             style={{
               flexDirection: "row",
               alignItems: "center",
@@ -292,10 +294,9 @@ export default class buyApplication extends React.Component {
             }}>
             <Button
               style={{
-                //   paddingVertical : 25,
-                marginTop: 25,
-                marginBottom: 25,
-                backgroundColor: green,
+                marginTop: 20,
+                marginBottom: 20,
+                backgroundColor: darkGreen,
               }}
               onPress={this.handleSubmit}>
               <Text
@@ -305,8 +306,8 @@ export default class buyApplication extends React.Component {
                 Submit
               </Text>
             </Button>
-          </View>
-        </Card>
+        </View>
+
       </ScrollView>
     );
   }

@@ -41,9 +41,9 @@ export default function App() {
           component={Home}
           options={{
             title: "Home",
-            headerStyle: {
-              backgroundColor: "#447ECB",
-            },
+            // headerStyle: {
+            //   backgroundColor: "#447ECB",
+            // },
             headerTitle: <HeaderLogo />,
             headerTitleStyle: {
               alignSelf: "center",

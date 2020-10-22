@@ -21,8 +21,8 @@ import {
 import { db } from "../../../../database/firebase";
 import { AppLoading } from "expo";
 import * as Font from "expo-font";
-import {onBuyTab} from "../../../../components/petTabComponents"
-import globalStyles, { darkGreen } from "../../../../styleSheet/styleSheet";
+import { onBuyTab } from "../../../../components/petTabComponents"
+import globalStyles, { darkGreen, orange } from "../../../../styleSheet/styleSheet";
 
 export default class shepherdList extends React.Component {
   state = {
@@ -50,8 +50,8 @@ export default class shepherdList extends React.Component {
             .get()
             .then((user_doc) => {
               seller["name"] = user_doc.data().name;
-              seller["photo"] = user_doc.data().photo;      
-              seller["info"] = user_doc.data().profileText;      
+              seller["photo"] = user_doc.data().photo;
+              seller["info"] = user_doc.data().profileText;
             });
           dataArray.push({
             sellerName: seller.name,
@@ -101,8 +101,9 @@ export default class shepherdList extends React.Component {
   render() {
     return (
       <Provider>
-          {onBuyTab(this.props.navigation)}
-          <View style={styles.container}>
+        {onBuyTab(this.props.navigation)}
+
+        <View style={styles.container}>
           <Searchbar
             style={globalStyles.searchBarSingle}
             placeholder="Search"
@@ -148,6 +149,7 @@ export default class shepherdList extends React.Component {
               </Card>
             </Modal>
           </Portal>
+
           <View style={styles.titleContainer}>
             <Text style={styles.title}>German Shepherd</Text>
             <Button
@@ -155,11 +157,15 @@ export default class shepherdList extends React.Component {
               onPress={() => {
                 this.setState({ visible: true });
               }}
+              contentStyle={{
+                height: 30,
+              }}
               mode="contained"
             >
               Information
             </Button>
           </View>
+
           <View style={styles.cardContainer}>
             <FlatList
               style={{ paddingBottom: 10 }}
@@ -176,28 +182,19 @@ export default class shepherdList extends React.Component {
               showsVerticalScrollIndicator={false}
               renderItem={({ item }) => (
                 <Card elevation={5} style={styles.card}>
-                  <Card.Title
-                    title={item.petName}
-                    subtitle={item.sellerName}
-                    left={(props) => (
-                      <Avatar.Image
-                        {...props}
-                        size={40}
-                        source={{
-                          uri: item.sellerPhoto,
-                        }}
-                      />
-                    )}
-                  />
-                  <View style={{ flexDirection: "row" }}>
+                  <View style={{ justifyContent: 'center', alignItems: 'center', alignSelf: 'flex-end', position: "absolute", padding: 15 }}>
+                    <Image
+                      style={{ height: 40, width: 40, borderRadius: 40 / 2 }}
+                      source={{
+                        uri: item.sellerPhoto,
+                      }}
+                    />
+                  </View>
+                  <View style={{ flexDirection: "row", padding: 10 }}>
                     <View
                       style={{
-                        paddingLeft: 10,
-                        paddingBottom: 10,
-                        paddingTop: 10,
-                        paddingRight: 10,
-                        width: 170,
-                        height: 170,
+                        width: 150,
+                        height: 150,
                       }}
                     >
                       <Image
@@ -212,6 +209,11 @@ export default class shepherdList extends React.Component {
                       }}
                     >
                       <Card.Content>
+                        <View style={{marginRight: 40}}>
+                          <Text numberOfLines={1} style={{ flex: 1 }}>
+                            <Text style={{ fontSize: 18, paddingBottom: 2 }}>{item.petName}</Text>
+                          </Text>
+                        </View>
                         <Text numberOfLines={1} style={{ flex: 1 }}>
                           <Text style={{ fontWeight: "bold" }}>Age: </Text>
                           <Text>{item.age}</Text>
@@ -223,6 +225,10 @@ export default class shepherdList extends React.Component {
                         <Text numberOfLines={1} style={{ flex: 1 }}>
                           <Text style={{ fontWeight: "bold" }}>Location: </Text>
                           <Text>{item.location}</Text>
+                        </Text>
+                        <Text numberOfLines={1} style={{ flex: 1 }}>
+                          <Text style={{ fontWeight: "bold" }}>Seller: </Text>
+                          <Text>{item.sellerName}</Text>
                         </Text>
                       </Card.Content>
 
@@ -251,7 +257,7 @@ export default class shepherdList extends React.Component {
               }
             />
           </View>
-          </View>
+        </View>
       </Provider>
     );
   }
@@ -282,7 +288,8 @@ const styles = StyleSheet.create({
   titleContainer: {
     flexDirection: "row",
     justifyContent: "flex-start",
-    padding: 20,
+    padding: 7,
+    paddingBottom: 10,
   },
   title: {
     fontWeight: "bold",
@@ -296,15 +303,15 @@ const styles = StyleSheet.create({
   },
   card: {
     margin: 5,
-    width: 340,
+    width: 380,
   },
   bigButton: {
     flex: 1,
     backgroundColor: darkGreen,
+    marginTop: 10,
     marginLeft: 25,
     marginRight: 25,
-    marginTop: 20,
-    height: 35,
+    height: 30,
     justifyContent: "center",
   },
   actionCard: {

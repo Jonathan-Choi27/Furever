@@ -27,14 +27,6 @@ function ShopScreen() {
 	);
 }
 
-// function ProfileScreen() {
-//   return (
-//     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-//       <Text>Profile Page Screen!</Text>
-//     </View>
-//   );
-// }
-
 function MyTabs(props) {
 	return (
 		<NavigationContainer independent={true}>

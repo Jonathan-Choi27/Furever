@@ -9,12 +9,11 @@ import {
 import {expressInterest, profileInfo, sellerInfo} from "../components/petProfileComponents";
 
 export default class homePetProfile extends React.Component {
-
     render() {
         const item = this.props.route.params.item;
         return (
             <ScrollView>
-                {profileInfo(item)}
+                {profileInfo(item, this.closeModal)}
                 {sellerInfo(item)}
                 {expressInterest(item, this.props.navigation)}
             </ScrollView>

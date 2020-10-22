@@ -45,7 +45,6 @@ export const onSellTab = (navigation) => {
     );
 }
 
-
 export const searchBar = () => {
     return (
         <View

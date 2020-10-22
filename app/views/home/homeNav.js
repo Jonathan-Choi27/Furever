@@ -31,8 +31,8 @@ export default function HomeNav() {
 						headerTitleContainerStyle: { left: 0, right: 0 },
 					}}
 				/>
-				<Stack.Screen name="homePetProfile" component={homePetProfile} />
-				<Stack.Screen name="buyApplication" component={buyApplication} />
+				<Stack.Screen name="homePetProfile" component={homePetProfile} options={{headerShown: false}} />
+				<Stack.Screen name="buyApplication" component={buyApplication} options={{headerShown: false}}/>
 			</Stack.Navigator>
 		</NavigationContainer>
 	);

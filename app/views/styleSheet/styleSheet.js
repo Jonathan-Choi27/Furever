@@ -109,14 +109,13 @@ export default StyleSheet.create({
 
   // Buy and Sell Tabs
   buySellContainer: {
-    backgroundColor: darkGreen,
+    backgroundColor: lightGreen,
     alignSelf: "stretch",
     justifyContent: "flex-start",
     alignItems: "flex-start",
     flexDirection: "row",
   },
   blueTab: {
-    marginTop: 25,
     backgroundColor: green,
     flex: 1,
     justifyContent: "center",
@@ -132,7 +131,6 @@ export default StyleSheet.create({
     elevation: 7,
   },
   whiteTab: {
-    marginTop: 25,
     backgroundColor: "white",
     flex: 1,
     justifyContent: "center",
@@ -212,7 +210,7 @@ export default StyleSheet.create({
     marginBottom: 5,
   },
   buttons: {
-    backgroundColor: "#447ECB",
+    backgroundColor: darkGreen,
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 5,
@@ -222,12 +220,15 @@ export default StyleSheet.create({
     color: "#ffffff",
     fontSize: 18,
     padding: 15,
+    fontWeight: "bold",
   },
+
   // Form container
   formContainer: {
     marginHorizontal: screenWidth * 0.08,
   },
-  //Search bar
+
+  // Search bar
   searchFilterContainer: {
     height: 20,
     margin: 20,
@@ -246,5 +247,77 @@ export default StyleSheet.create({
     margin: 10,
     height: 35,
     width: 390,
+  },
+
+  // Pet Categories and Breeds
+  petContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: lightGrey,
+  },
+  viewAppContainer: {
+    height: 52,
+  },
+  viewAppText: { 
+    textAlign: "center", 
+    color: "white", 
+    fontWeight: "bold", 
+  },
+  viewApplication: {
+    backgroundColor: darkGreen,
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    width: 200,
+    borderRadius: 5,
+    marginTop: 5,
+    marginBottom: 16,
+  },
+  petCardContainer: {
+    flex: 2,
+    justifyContent: "flex-start",
+    alignItems: "flex-start",
+  },
+  petCard: {
+    margin: 5,
+    width: 340,
+  },
+  petCardContentText: {
+    fontWeight: "bold",
+  },
+  categories: {
+    alignSelf: "stretch",
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "row",
+    paddingBottom: 10,
+  },
+  iconContainer: {
+    paddingLeft: 20,
+    paddingRight: 20,
+    paddingBottom: 10,
+  },
+  breedIconContainer: {
+    paddingLeft: 20,
+    paddingRight: 20,
+    paddingTop: 5,
+  },
+  icon: {
+    height: 130,
+    width: 130,
+    borderRadius: 10,
+  },
+  iconText: {
+    paddingTop: 5,
+    textAlign: "center",
+    color: darkGreen,
+    fontWeight: "bold",
+  },
+  activityContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
