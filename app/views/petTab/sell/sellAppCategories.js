@@ -100,6 +100,17 @@ export default class CategorySelection extends React.Component {
     };
   }
 
+  componentDidUpdate(prevProps) {
+    if (this.props.category !== prevProps.category) {
+      this.setState({
+        category: this.props.category,
+        breed: this.props.breed,
+        colour: this.props.colour,
+        size: this.props.size,
+      })
+    }
+  }
+
   getBreed(val) {
     if (val === "Dog") {
       return dog_breed;
@@ -150,28 +161,28 @@ export default class CategorySelection extends React.Component {
     this.setState({
       category: value,
     });
-    this.props.category(value);
+    this.props.setCategory(value);
   }
 
   onBreedChange(value) {
     this.setState({
       breed: value,
     });
-    this.props.breed(value);
+    this.props.setBreed(value);
   }
 
   onColourChange(value) {
     this.setState({
       colour: value,
     });
-    this.props.colour(value);
+    this.props.setColour(value);
   }
 
   onSizeChange(value) {
     this.setState({
       size: value,
     });
-    this.props.size(value);
+    this.props.setSize(value);
   }
 
   render() {
@@ -179,38 +190,38 @@ export default class CategorySelection extends React.Component {
       <View>
         <View style={styles.inputContainer}>
           <Text>
-            <Text style={styles.titles}>Category</Text>
+            <Text style={styles.inputName}>Category</Text>
           </Text>
-          <View style={styles.picker_container}>
+          <View style={styles.pickerContainer}>
             <Picker
               style={styles.picker}
               selectedValue={this.state.category}
               onValueChange={this.onCategoryChange.bind(this)}>
-              <Picker.Item label="Select category" value="0" color="#B4B4B4" />
+              <Picker.Item label="Select category" value="0" color="#adadad" />
               <Picker.Item
                 label="Dog"
                 value="Dog"
-                style={styles.picker_entry}
+                style={styles.pickerEntry}
               />
               <Picker.Item
                 label="Cat"
                 value="Cat"
-                style={styles.picker_entry}
+                style={styles.pickerEntry}
               />
               <Picker.Item
                 label="Bird"
                 value="Bird"
-                style={styles.picker_entry}
+                style={styles.pickerEntry}
               />
               <Picker.Item
                 label="Reptile"
                 value="Reptile"
-                style={styles.picker_entry}
+                style={styles.pickerEntry}
               />
               <Picker.Item
                 label="Fish"
                 value="Fish"
-                style={styles.picker_entry}
+                style={styles.pickerEntry}
               />
             </Picker>
           </View>
@@ -218,9 +229,9 @@ export default class CategorySelection extends React.Component {
 
         <View style={styles.inputContainer}>
           <Text>
-            <Text style={styles.titles}>Breed</Text>
+            <Text style={styles.inputName}>Breed</Text>
           </Text>
-          <View style={styles.picker_container}>
+          <View style={styles.pickerContainer}>
             <Picker
               style={styles.picker}
               selectedValue={this.state.breed}
@@ -235,7 +246,7 @@ export default class CategorySelection extends React.Component {
                       label={item}
                       key={i}
                       value={0}
-                      color="#B4B4B4"
+                      color="#adadad"
                     />
                   );
                 } else {
@@ -247,9 +258,9 @@ export default class CategorySelection extends React.Component {
         </View>
         <View style={styles.inputContainer}>
           <Text>
-            <Text style={styles.titles}>Colour</Text>
+            <Text style={styles.inputName}>Colour</Text>
           </Text>
-          <View style={styles.picker_container}>
+          <View style={styles.pickerContainer}>
             <Picker
               style={styles.picker}
               selectedValue={this.state.colour}
@@ -261,7 +272,7 @@ export default class CategorySelection extends React.Component {
                       label={item}
                       key={i}
                       value={0}
-                      color="#B4B4B4"
+                      color="#adadad"
                     />
                   );
                 } else {
@@ -273,9 +284,9 @@ export default class CategorySelection extends React.Component {
         </View>
         <View style={styles.inputContainer}>
           <Text>
-            <Text style={styles.titles}>Size</Text>
+            <Text style={styles.inputName}>Size</Text>
           </Text>
-          <View style={styles.picker_container}>
+          <View style={styles.pickerContainer}>
             <Picker
               style={styles.picker}
               selectedValue={this.state.size}
@@ -287,7 +298,7 @@ export default class CategorySelection extends React.Component {
                       label={item}
                       key={i}
                       value={0}
-                      color="#B4B4B4"
+                      color="#adadad"
                     />
                   );
                 } else {
@@ -303,15 +314,15 @@ export default class CategorySelection extends React.Component {
 }
 
 const styles = StyleSheet.create({
-    inputContainer: {
-        marginTop: 10
-    },
-  titles: {
+  inputContainer: {
+      // marginTop: 10
+      paddingTop: 12,
+  },
+  inputName: {
+    marginBottom: 0,
+    paddingBottom: 0,
+    color: "#242424",
     fontSize: 14,
-    // fontWeight: "bold",
-    color: "#515151",
-    paddingVertical: 8,
-    // width: 50,
   },
   picker: {
     // height: 34,
@@ -328,13 +339,13 @@ const styles = StyleSheet.create({
     //   borderColor: "black",
     //   borderWidth: 1
   },
-  picker_default: {
-    color: "#B4B4B4",
+  pickerDefault: {
+    color: "#fafafa",
   },
-  picker_container: {
+  pickerContainer: {
     // backgroundColor: "white",
     borderColor: "black",
-    backgroundColor: "#F6F6F6",
+    backgroundColor: "#fafafa",
     borderColor: "#5D5D5D",
     borderWidth: 1,
     borderRadius: 4,
@@ -342,7 +353,7 @@ const styles = StyleSheet.create({
     marginTop: 5,
     // marginBottom: 10,
   },
-  picker_entry: {
+  pickerEntry: {
     fontSize: 12,
     color: "#0000FF",
   },

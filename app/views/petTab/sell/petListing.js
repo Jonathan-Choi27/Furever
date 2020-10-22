@@ -2,6 +2,7 @@ import * as React from "react";
 import { StyleSheet, View, Image, Text } from "react-native";
 import { Avatar, Button, Card, Title, Paragraph } from "react-native-paper";
 import firebase from "firebase";
+import { darkGreen, green, lightGreen, lightGrey, orange, lightBlue } from "../../styleSheet/styleSheet";
 console.disableYellowBox = true;
 
 // const LeftContent = (props) => <Avatar.Icon {...props} icon="folder" />;
@@ -112,7 +113,7 @@ const styles = StyleSheet.create({
   },
   smallButtons: {
     flex: 1,
-    borderColor: "#447ECB",
+    borderColor: darkGreen,
     borderWidth: 1,
     marginLeft: 1.5,
     marginRight: 1.5,
@@ -123,7 +124,7 @@ const styles = StyleSheet.create({
   },
   bigButton: {
     flex: 1,
-    backgroundColor: "#447ECB",
+    backgroundColor: darkGreen,
     // borderColor: "#447ECB",
     // borderWidth: 1,
     marginLeft: 1.5,
@@ -134,8 +135,8 @@ const styles = StyleSheet.create({
   },
   smallButtonText: {
     fontSize: 8,
-    color: "#447ECB",
-    fontWeight: "bold",
+    color: "black",
+    // fontWeight: "bold",
   },
   bigButtonText: {
     fontSize: 8,

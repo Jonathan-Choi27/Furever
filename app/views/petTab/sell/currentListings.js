@@ -18,6 +18,7 @@ import { AppLoading } from "expo";
 import SelfPetListing from "./petListing";
 import { auth } from "../../database/firebase";
 import {onSellTab} from "../../components/petTabComponents";
+import { darkGreen, green, lightGreen, lightGrey, orange, lightBlue } from "../../styleSheet/styleSheet";
 
 const db = firebase.firestore();
 
@@ -81,33 +82,32 @@ async fetchData() {
       <View>
         {onSellTab(this.props.navigation)}
 
-        <View style={{ height: 60, padding: 10, flexDirection: "row" }}>
+        <View style={{ padding: 10, paddingBottom: 0, flexDirection: "row" }}>
           <Text
-            style={{ textAlign: "center", padding: 10, fontWeight: "bold" }}>
+            style={{ textAlign: "center", padding: 10, fontWeight: "bold", fontSize: 20 }}>
             Current Listings
           </Text>
 
+          <View style={{height: 40, width: 220, paddingTop: 8}}>
           <TouchableOpacity
             // style={styles.viewApplication}
             style={{
-              backgroundColor: "#447ECB",
+              backgroundColor: darkGreen,
               flex: 1,
               justifyContent: "center",
               alignItems: "center",
-              height: 34,
-              width: 200,
             }}
             onPress={() => this.props.navigation.navigate("sellApplication")}>
             <Text
               style={{
                 textAlign: "center",
-                padding: 10,
                 color: "#FFFFFF",
                 fontWeight: "bold",
               }}>
               Add New Listing
             </Text>
           </TouchableOpacity>
+          </View>
         </View>
         
         <View style={styles.cardContainer}>

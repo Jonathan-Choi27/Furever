@@ -2,6 +2,9 @@ import React from "react";
 import { Text, View, TouchableOpacity, Dimensions, Image } from "react-native";
 import { Card, Button } from "react-native-elements";
 import styles from "../styleSheet/styleSheet";
+import { darkGreen, green, lightGreen, lightGrey, orange, lightBlue } from "../styleSheet/styleSheet";
+import { db } from "../database/firebase";
+import { auth } from "../database/firebase";
 
 export const profileInfo = (item) => {
   const screenWidth = Math.round(Dimensions.get("window").width);
@@ -95,15 +98,32 @@ export const profileInfo = (item) => {
   );
 };
 
-export const sellerInfo = () => {
+export const sellerInfo = (item) => {
+  // fetch data and store into profileData
   return (
-    <Card containerStyle={styles.cardContainer}>
       <View>
-        <Text style={styles.fontHeading}>Seller Information </Text>
-        <View style={styles.line} />
-        <Text></Text>
+        <Card containerStyle={styles.cardContainer}>
+          <Text style={styles.fontHeading}>Seller Information </Text>
+          <View style={styles.line} />
+
+          <View style={{flexDirection: 'row', }}> 
+            <View style={{flex: 1, width: 100, justifyContent: 'center', alignItems: 'center',}}>
+              <Image
+                style={{height: 40, width: 40, borderRadius: 40/ 2}}
+                source={{
+                  uri: item.sellerPhoto,
+                }}
+              />
+              <Text style={{textAlign: "center", paddingTop: 5}}>{item.sellerName}</Text>
+            </View>
+
+            <View style= {{flex: 4, paddingTop: 2, paddingLeft: 10, paddingRight: 10}}>
+              <Text>{item.sellerInfo}</Text>
+            </View>
+              
+          </View>
+        </Card>
       </View>
-    </Card>
   );
 };
 

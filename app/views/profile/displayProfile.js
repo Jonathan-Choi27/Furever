@@ -12,6 +12,7 @@ import {
 } from "react-native-paper";
 import { auth } from "../database/firebase";
 import { Avatar, Accessory, Input } from "react-native-elements";
+import { darkGreen } from "../styleSheet/styleSheet";
 
 export default class Profile extends React.Component {
   constructor(props) {
@@ -33,15 +34,15 @@ export default class Profile extends React.Component {
       <View>
         <View
           style={{
-            backgroundColor: "#447ECB",
+            backgroundColor: darkGreen,
             borderBottomRightRadius: 1000,
             borderBottomLeftRadius: 1000,
             marginBottom: 30,
             transform: [{ scaleX: 2 }],
             overflow: "hidden",
-          }}>
-          <View style={{ alignItems: "center" }}>
-          </View>
+          }}
+        >
+          <View style={{ alignItems: "center" }}></View>
           <View style={styles.avatarContainer}>
             <View style={{ opacity: 0.1, position: "absolute" }}>
               <Image
@@ -62,7 +63,8 @@ export default class Profile extends React.Component {
               renderPlaceholderContent={<ActivityIndicator />}
               source={{
                 uri: this.props.data.photo,
-              }}>
+              }}
+            >
               {/* <Accessory size={45} /> */}
             </Avatar>
 
@@ -72,16 +74,25 @@ export default class Profile extends React.Component {
                 alignItems: "center",
                 marginHorizontal: 60,
                 justifyContent: "center",
-              }}>
+              }}
+            >
               <View
-                style={{ borderBottomColor: "#D3D3D3", borderBottomWidth: 1, paddingBottom: 5  }}>
+                style={{
+                  borderBottomColor: "#D3D3D3",
+                  borderBottomWidth: 1,
+                  paddingBottom: 5,
+                }}
+              >
                 <Text
-                  style={{ color: "white", fontSize: 30, fontWeight: "bold" }}>
+                  style={{ color: "white", fontSize: 30, fontWeight: "bold" }}
+                >
                   {this.props.data.name}
                 </Text>
               </View>
               <View style={{ marginTop: 5 }} />
-              <Text style={{ color: "#202020", fontSize: 17}}>{this.props.data.email}</Text>
+              <Text style={{ color: "#202020", fontSize: 17 }}>
+                {this.props.data.email}
+              </Text>
             </View>
           </View>
         </View>

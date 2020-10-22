@@ -1,14 +1,13 @@
 import React from "react";
 import {
   StyleSheet,
-  Text,
   ScrollView,
   View,
   TouchableOpacity,
   Dimensions,
   Image,
 } from "react-native";
-import { Card } from "react-native-elements";
+import { Card, Text } from "react-native-elements";
 import { TextInput, Button } from "react-native-paper";
 import "react-navigation";
 import "react-navigation-props-mapper";
@@ -18,7 +17,14 @@ import { TextInput as NativeTextInput } from "react-native";
 // import "firebase/storage";
 import { db } from "../../database/firebase";
 import { auth } from "../../database/firebase";
-import {onBuyTab} from "../../components/petTabComponents";
+import { onBuyTab } from "../../components/petTabComponents";
+import { Input } from "react-native-elements";
+import { CustomInput, InputHeader } from "../../components/CustomInput";
+import istyles, { darkGreen, green } from "../../styleSheet/styleSheet";
+import { Icon } from "react-native-elements";
+import GooglePlacesInput from "../../components/mapAutoComplete";
+import { SafeAreaView } from "react-native-safe-area-context";
+// AIzaSyC-6ifFUYzIIgUf1uhbmJ_BU6VQyre4bRw
 
 export default class buyApplication extends React.Component {
   constructor(props) {
@@ -40,6 +46,8 @@ export default class buyApplication extends React.Component {
       valid_name: true,
       valid_email: true,
       valid_address: true,
+      contact_err: "",
+      address_err: "",
     };
   }
 
@@ -48,7 +56,7 @@ export default class buyApplication extends React.Component {
   }
 
   async fetchData() {
-    const userData = {}
+    const userData = {};
     const user = auth.currentUser;
 
     await db
@@ -66,36 +74,32 @@ export default class buyApplication extends React.Component {
       });
   }
 
-  contact_number_regex = (number) => {
-    if (number == "" || !/\d/.test(number)) {
-      return false;
+  contact_number_validator = () => {
+    var bool;
+    if (
+      this.state.contact_number == "" ||
+      !/\d/.test(this.state.contact_number)
+    ) {
+      bool = false;
+      this.setState({
+        contact_err: "Invalid contact number",
+      });
     } else {
-      return true;
+      bool = true;
+      this.setState({
+        contact_err: "",
+      });
     }
+
+    this.setState({
+      valid_contact_number: bool,
+    });
   };
 
-  name_regex = (name) => {
-    if (name == "") {
-      return false;
-    } else {
-      return true;
-    }
-  };
-
-  email_regex = (email) => {
-    if (email == "") {
-      return false;
-    } else {
-      return true;
-    }
-  };
-
-  address_regex = (address) => {
-    if (address == "") {
-      return false;
-    } else {
-      return true;
-    }
+  setAddress = (address) => {
+    this.setState({
+      address: address,
+    });
   };
 
   handleSubmit = async () => {
@@ -144,282 +148,165 @@ export default class buyApplication extends React.Component {
     const textWidth = screenWidth - 40 - 150 - 10;
 
     return (
-      <ScrollView>
-        <View>
-          <View style={styles.container}>
-          {onBuyTab(this.props.navigation)}
-
-            <View style={styles.titleContainer}>
-              <View>
-                <Text style={styles.fontTitle}>
-                  Expression of Interest Application
-                </Text>
-                {/* <Text style={styles.fontHeading}>Application for</Text> */}
-              </View>
-              {/* <View style={{ width: screenWidth / 2 }}>
-                <Text>hello</Text>
-              </View> */}
-            </View>
-
-            <Card containerStyle={styles.cardContainer}>
-              <View style={styles.cardContentContainer}>
-                <View>
-                  <Image
-                    style={styles.imageContainer}
-                    source={{
-                      uri: item.photo,
-                    }}
-                  />
-                  <Text style={{ textAlign: "center", paddingTop: 5 }}>
-                    <Text style={{ fontWeight: "bold" }}>Price:</Text>{" "}
-                    <Text>{item.price}</Text>
-                  </Text>
-                </View>
-                <View
-                  style={{
-                    paddingLeft: 15,
-                    paddingRight: 10,
-                    width: textWidth,
-                  }}
-                >
-                  <Text>
-                    <Text style={{ fontWeight: "bold" }}>Name:</Text>{" "}
-                    <Text>{item.petName}</Text>
-                  </Text>
-                  <Text>
-                    <Text style={{ fontWeight: "bold" }}>Category:</Text>{" "}
-                    <Text>{item.category}</Text>
-                  </Text>
-                  <Text>
-                    <Text style={{ fontWeight: "bold" }}>Breed:</Text>{" "}
-                    <Text>{item.breed}</Text>
-                  </Text>
-                  <Text>
-                    <Text style={{ fontWeight: "bold" }}>Colour:</Text>{" "}
-                    <Text>{item.colour}</Text>
-                  </Text>
-                  <Text>
-                    <Text style={{ fontWeight: "bold" }}>Age:</Text>{" "}
-                    <Text>{item.age}</Text>
-                  </Text>
-                  <Text>
-                    <Text style={{ fontWeight: "bold" }}>Gender:</Text>{" "}
-                    <Text>{item.gender}</Text>
-                  </Text>
-                  <Text>
-                    <Text style={{ fontWeight: "bold" }}>Size:</Text>{" "}
-                    <Text>{item.size}</Text>
-                  </Text>
-                  <Text>
-                    <Text style={{ fontWeight: "bold" }}>Location:</Text>{" "}
-                    <Text>{item.location}</Text>
-                  </Text>
-                </View>
-              </View>
-            </Card>
-          </View>
+      <ScrollView keyboardShouldPersistTaps={"handled"}>
+        <View style={{ marginBottom: 0 }}>
+          <Image
+            style={{ width: screenWidth, height: 300 }}
+            source={{
+              uri: item.photo,
+            }}
+          />
+          <Card containerStyle={{ borderRadius: 10 }}>
+            <Text>
+              <Text
+                style={{ fontWeight: "bold", fontSize: 30, color: "#404040" }}>
+                {item.petName}
+              </Text>
+              <Text
+                style={{ fontSize: 30, color: "#606060", fontWeight: "bold" }}>
+                {", "}
+                {item.age}
+              </Text>
+            </Text>
+            <Text style={{ fontWeight: "bold", color: "#505050" }}>
+              {item.breed}
+            </Text>
+          </Card>
         </View>
 
-        <View style={styles.formContainer}>
-          <Text style={styles.sub_heading}>Personal Information</Text>
+        <Card containerStyle={{ borderRadius: 10 }}>
+          <Text style={{ fontSize: 25, fontWeight: "bold", color: "#C0C0C0" }}>
+            Buyer Application
+          </Text>
+          <View style={{ marginBottom: 10 }} />
+          <InputHeader text="Personal Information" />
 
-          <View style={styles.inputContainer}>
-            <Text style={styles.inputName}>Age</Text>
-            <TextInput
-              mode="outlined"
-              theme={{ colors: { primary: "#447ECB" } }}
-              style={styles.smallInputBox}
-              onChangeText={(age) => this.setState({ age })}
-            />
-          </View>
+          <CustomInput
+            label="Contact Number"
+            placeholder="(0x) xxxx xxxx"
+            onChangeText={(contact_number) => this.setState({ contact_number })}
+            validator={() => this.contact_number_validator()}
+            errorMessage={this.state.contact_err}
+            leftIcon={
+              <Icon
+                name="ios-call"
+                type="ionicon"
+                color={darkGreen}
+                containerStyle={{ paddingRight: 10 }}
+              />
+            }
+          />
 
-          <View style={styles.inputContainer}>
-            <View style={{ flexDirection: "row" }}>
-              <View style={{ flex: 1 }}>
-                <Text style={styles.inputName}>Contact Number</Text>
-              </View>
-              {!this.state.valid_contact_number && (
-                <View style={{ flex: 1 }}>
-                  <Text style={styles.errorText}>Invalid contact number </Text>
-                </View>
-              )}
-            </View>
-            <TextInput
-              mode="outlined"
-              theme={{ colors: { primary: "#447ECB" } }}
-              style={styles.smallInputBox}
-              onChangeText={(contact_number) =>
-                this.setState({
-                  contact_number: contact_number,
-                })
-              }
-              onBlur={() => {
-                var bool = this.contact_number_regex(this.state.contact_number);
-                this.setState({
-                  valid_contact_number: bool,
-                });
-              }}
-            />
-          </View>
+          <GooglePlacesInput set={this.setAddress}/>
 
-          <View style={styles.inputContainer}>
-            <View style={{ flexDirection: "row" }}>
-              <View style={{ flex: 1 }}>
-                <Text style={styles.inputName}>E-Mail</Text>
-              </View>
-              {!this.state.valid_email && (
-                <View style={{ flex: 1 }}>
-                  <Text style={styles.errorText}>Invalid E-Mail</Text>
-                </View>
-              )}
-            </View>
-            <TextInput
-              mode="outlined"
-              theme={{ colors: { primary: "#447ECB" } }}
-              style={styles.smallInputBox}
-              onChangeText={(email) =>
-                this.setState({
-                  email: email,
-                })
-              }
-              onBlur={() => {
-                var bool = this.email_regex(this.state.email);
-                this.setState({
-                  valid_email: bool,
-                });
-              }}
-            />
-          </View>
+          <InputHeader text="Pet Information" />
 
-          <View style={styles.inputContainer}>
-            <View style={{ flexDirection: "row" }}>
-              <View style={{ flex: 1 }}>
-                <Text style={styles.inputName}>Address</Text>
-              </View>
-              {!this.state.valid_address && (
-                <View style={{ flex: 1 }}>
-                  <Text style={styles.errorText}>Invalid address</Text>
-                </View>
-              )}
-            </View>
-            <TextInput
-              mode="outlined"
-              theme={{ colors: { primary: "#447ECB" } }}
-              style={styles.smallInputBox}
-              onChangeText={(address) =>
-                this.setState({
-                  address: address,
-                })
-              }
-              onBlur={() => {
-                var bool = this.address_regex(this.state.address);
-                this.setState({
-                  valid_address: bool,
-                });
-              }}
-            />
-          </View>
+          <CustomInput
+            label="Why do you want this pet?"
+            placeholder="Please fill in the field"
+            onChangeText={(why_want_pet) => this.setState({ why_want_pet })}
+            multiline={true}
+            leftIcon={
+              <Icon
+                name="ios-paper"
+                type="ionicon"
+                color={darkGreen}
+                containerStyle={{ paddingLeft: 7, paddingRight: 10 }}
+              />
+            }
+          />
 
-          <View style={{ paddingTop: 25 }} />
-          <Text style={styles.sub_heading}>Pet Information</Text>
+          <CustomInput
+            label="What characteristics are most desirable in a pet for you?"
+            placeholder="Please fill in the field"
+            onChangeText={(most_desirable_traits) =>
+              this.setState({ most_desirable_traits })
+            }
+            multiline={true}
+            leftIcon={
+              <Icon
+                name="ios-paper"
+                type="ionicon"
+                color={darkGreen}
+                containerStyle={{ paddingLeft: 7, paddingRight: 10 }}
+              />
+            }
+          />
 
-          <View style={styles.inputContainer}>
-            <Text style={styles.inputName}>Why do you want this pet?</Text>
-            <TextInput
-              mode="outlined"
-              theme={{ colors: { primary: "#447ECB" } }}
-              multiline={true}
-              onChangeText={(why_want_pet) => this.setState({ why_want_pet })}
-            />
-          </View>
+          <CustomInput
+            label="What characteristics are least desirable in a pet for you?"
+            placeholder="Please fill in the field"
+            onChangeText={(least_desirable_traits) =>
+              this.setState({ least_desirable_traits })
+            }
+            multiline={true}
+            leftIcon={
+              <Icon
+                name="ios-paper"
+                type="ionicon"
+                color={darkGreen}
+                containerStyle={{ paddingLeft: 7, paddingRight: 10 }}
+              />
+            }
+          />
 
-          <View style={styles.inputContainer}>
-            <Text style={styles.inputName}>
-              What characteristics are most desirable in a pet for you?
-            </Text>
-            <TextInput
-              mode="outlined"
-              theme={{ colors: { primary: "#447ECB" } }}
-              multiline={true}
-              onChangeText={(most_desirable_traits) =>
-                this.setState({ most_desirable_traits })
-              }
-            />
-          </View>
+          <CustomInput
+            label="Name(s), breed(s), gender(s) and age(s) of current pets (if
+                applicable)"
+            placeholder="Please fill in the field"
+            onChangeText={(previous_pets) => this.setState({ previous_pets })}
+            multiline={true}
+            leftIcon={
+              <Icon
+                name="ios-paper"
+                type="ionicon"
+                color={darkGreen}
+                containerStyle={{ paddingLeft: 7, paddingRight: 10 }}
+              />
+            }
+          />
 
-          <View style={styles.inputContainer}>
-            <Text style={styles.inputName}>
-              What characteristics are least desirable in a pet for you?
-            </Text>
-            <TextInput
-              mode="outlined"
-              theme={{ colors: { primary: "#447ECB" } }}
-              multiline={true}
-              onChangeText={(least_desirable_traits) =>
-                this.setState({ least_desirable_traits })
-              }
-            />
-          </View>
-
-          <View style={{ paddingTop: 25 }} />
-          <Text style={styles.sub_heading}>Pet Information</Text>
-
-          <View style={styles.inputContainer}>
-            <Text style={styles.inputName}>
-              Name(s), breed(s), gender(s) and age(s) of current pets (if
-              applicable)
-            </Text>
-            <TextInput
-              mode="outlined"
-              theme={{ colors: { primary: "#447ECB" } }}
-              multiline={true}
-              onChangeText={(previous_pets) => this.setState({ previous_pets })}
-            />
-          </View>
-
-          <View style={{ paddingTop: 25 }} />
-          <Text style={styles.sub_heading}>Your Home Enviroment</Text>
-
-          <View style={styles.inputContainer}>
-            <Text style={styles.inputName}>
-              Description of your family/members of the household
-            </Text>
-            <TextInput
-              mode="outlined"
-              theme={{ colors: { primary: "#447ECB" } }}
-              multiline={true}
-              onChangeText={(house_enviroment) =>
-                this.setState({ house_enviroment })
-              }
-            />
-          </View>
+          <InputHeader text="Your Home Enviroment" />
+          <CustomInput
+            label="Description of your family/members of the household"
+            placeholder="Please fill in the field"
+            onChangeText={(house_enviroment) =>
+              this.setState({ house_enviroment })
+            }
+            multiline={true}
+            leftIcon={
+              <Icon
+                name="ios-paper"
+                type="ionicon"
+                color={darkGreen}
+                containerStyle={{ paddingLeft: 7, paddingRight: 10 }}
+              />
+            }
+          />
 
           <View
             style={{
               flexDirection: "row",
               alignItems: "center",
               justifyContent: "center",
-            }}
-          >
+            }}>
             <Button
               style={{
                 //   paddingVertical : 25,
                 marginTop: 25,
                 marginBottom: 25,
-                backgroundColor: "#447ECB",
+                backgroundColor: green,
               }}
-              onPress={this.handleSubmit}
-            >
+              onPress={this.handleSubmit}>
               <Text
                 style={{
                   color: "white",
-                }}
-              >
+                }}>
                 Submit
               </Text>
             </Button>
           </View>
-        </View>
+        </Card>
       </ScrollView>
     );
   }
