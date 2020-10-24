@@ -32,7 +32,6 @@ const checkAdditional = (additional) => {
 
 export const profileInfo = (item) => {
   const screenWidth = Math.round(Dimensions.get("window").width);
-  const textWidth = (screenWidth - 20) / 2;  
   return (
     <View style={styles.container}>
       <View style={{ marginBottom: 0 }}>
