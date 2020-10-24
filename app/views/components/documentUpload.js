@@ -12,7 +12,6 @@ export const openDocumentPicker = async () => {
         return uri;
     }
 }
-// hello
 
 // export default openDocumentPicker;
 

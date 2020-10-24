@@ -41,7 +41,6 @@ export function CustomInput(props) {
     );
   }
 }
-// hello
 
 export function InputHeader(props) {
   return (
