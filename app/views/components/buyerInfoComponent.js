@@ -24,7 +24,7 @@ export const buyerInfo = (item) => {
             </View>
 
             <Card containerStyle={styles.cardContainer}>
-                <Text style={styles.fontHeading}> Personal Information </Text>
+                <Text style={{fontSize: 20, fontWeight: 'bold', paddingBottom:20}}> Personal Information </Text>
                 {/* <Text style={styles.fontHeading}> ------------------- </Text> */}
                 <View style={styles.line} />
                 <View style={styles.cardContentContainer}>
@@ -89,10 +89,14 @@ export const buyerInfo = (item) => {
                 </Text>
                 <View style={styles.line} />
                 <Text style={{ paddingBottom: 10 }}>{item.previous_pets}</Text>
-                <Text style={styles.fontHeading}>Your Home Environment </Text>
+                
+            </Card>
+            <Card containerStyle={styles.cardContainer}>
+                <Text style={{fontSize: 20, fontWeight: 'bold', paddingBottom:20}}>Your Home Environment: </Text>
                 <View style={styles.line} />
                 <Text style={{ paddingBottom: 10 }}>{item.house_enviroment}</Text>
             </Card>
+            
         </View>
     );
 }
