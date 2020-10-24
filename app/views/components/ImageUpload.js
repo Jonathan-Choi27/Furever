@@ -18,6 +18,7 @@ export const openImagePicker = async () => {
   //         return "err";
   //     }
   //   });
+  // hello
 
   const result = await ImagePicker.launchImageLibraryAsync({
     mediaTypes: "Images",
