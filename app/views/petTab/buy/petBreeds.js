@@ -78,6 +78,7 @@ export default class petBreeds extends React.Component {
             training: listingDoc.data().training,
             additional: listingDoc.data().additionalInfo,
             photo: listingDoc.data().photo_link,
+            uuid: listingDoc.data().uuid,
           });
           this.setState({
             isLoading: false,
@@ -373,6 +374,8 @@ export default class petBreeds extends React.Component {
             </Portal>
             {this.state.filterDisplay ? (
               <FlatList
+                numColumns = {1}
+                key={1}
                 showsVerticalScrollIndicator={false}
                 renderItem={({ item }) => (
                   petBuyCard(item, this.props.navigation)
@@ -393,6 +396,7 @@ export default class petBreeds extends React.Component {
                       data={this.state.petBreeds}
                       columnWrapperStyle={{ justifyContent: "flex-start" }}
                       numColumns={2}
+                      key={2}
                       keyExtractor={(item, index) => index.toString()}
                       renderItem={({ item }) => (
                         petBuyBreed(item, this.props.route.params.item.categoryId, this.props.navigation)
@@ -408,6 +412,8 @@ export default class petBreeds extends React.Component {
                       </View>
                     ) : (
                       <FlatList
+                        numColumns = {1}
+                        key={1}
                         showsVerticalScrollIndicator={false}
                         renderItem={({ item }) => (
                           petBuyCard(item, this.props.navigation)

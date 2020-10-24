@@ -16,7 +16,7 @@ import buyApplication from "./buy/buyApplication";
 import sellPetProfile from "./sell/sellPetProfile";
 import offerApplications from "./sell/offerApplications";
 import buyerProfile from "./sell/buyerProfile";
-import sellerProfile from "./buy/sellerProfile"
+import buySellerProfile from "./buy/buySellerProfile"
 
 const Stack = createStackNavigator();
 
@@ -55,7 +55,7 @@ export default function PetNav() {
         <Stack.Screen name="buyApplication" component={buyApplication} />
         <Stack.Screen name="offerApplications" component={offerApplications} />
         <Stack.Screen name="buyerProfile" component={buyerProfile} />
-				<Stack.Screen name="sellerProfile" component={sellerProfile} />
+				<Stack.Screen name="sellerProfile" component={buySellerProfile} />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -299,6 +299,7 @@ export default class buyApplication extends React.Component {
               <Text
                 style={{
                   color: "white",
+                  fontWeight: "bold",
                 }}>
                 Submit
               </Text>

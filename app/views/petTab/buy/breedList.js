@@ -72,6 +72,7 @@ export default class breedList extends React.Component {
             additional: listingDoc.data().additionalInfo,
             photo: listingDoc.data().photo_link,
             doc_id: listingDoc.id,
+            uuid: listingDoc.data().uuid,
           });
           this.setState({
             isLoading: false,
@@ -85,7 +86,7 @@ export default class breedList extends React.Component {
 
       const categoryId = this.props.route.params.categoryId;
       const breedId = this.props.route.params.item.breedId;
-      db.collection("petCategories")
+      var result = db.collection("petCategories")
         .doc(categoryId)
         .collection("breed")
         .doc(breedId)
@@ -95,8 +96,8 @@ export default class breedList extends React.Component {
             isLoading: false,
             breedDescription: doc.data().description,
             breedDescriptionImage: doc.data().descriptionImage,
-          });
         });
+      });
   }
 
   async componentDidMount() {

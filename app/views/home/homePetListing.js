@@ -62,19 +62,19 @@ export default class HomeListing extends React.Component {
       .get()
       .then((doc) => {
         doc.forEach(async (listingDoc) => {
-          await db.collection("users")
-            .get()
-            .then((doc) => {
-              doc.forEach(async (user) => {
-                if (listingDoc.data().uuid == user.data().uuid) {  
-                  seller["name"] = user.data().name;
-                  seller["photo"] = user.data().photo;      
-                  seller["info"] = user.data().profileText;    
-                  seller["email"] = user.data().email;    
-                  seller["dob"] = user.data().dob;                  
-                }
-              })
-          });
+          // await db.collection("users")
+          //   .get()
+          //   .then((doc) => {
+          //     doc.forEach(async (user) => {
+          //       if (listingDoc.data().uuid == user.data().uuid) {  
+          //         seller["name"] = user.data().name;
+          //         seller["photo"] = user.data().photo;      
+          //         seller["info"] = user.data().profileText;    
+          //         seller["email"] = user.data().email;    
+          //         seller["dob"] = user.data().dob;                  
+          //       }
+          //     })
+          // });
           dataArray.push({
             petName: listingDoc.data().name,
             category: listingDoc.data().category,
@@ -93,19 +93,11 @@ export default class HomeListing extends React.Component {
             documentName: listingDoc.data().documents,
             documentUri: listingDoc.data().documents_uri,
             uuid: listingDoc.data().uuid,
-            sellerInfo: seller.info,
-            sellerName: seller.name,
-            sellerPhoto: seller.photo,
-            sellerEmail: seller.email,
-            sellerDob: seller.dob,
           });
           this.setState({
             isLoading: false,
             data: [...dataArray],
           });
-          delete seller.name;
-          delete seller.photo;
-          delete seller.info;
         });
       });
 

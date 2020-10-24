@@ -18,9 +18,9 @@ import 'react-navigation-hooks'
 import { onBuyTab } from "../../components/petTabComponents"
 import { InputHeader } from "../../components/customInput"
 import globalStyles, { darkGreen, orange } from "../../styleSheet/styleSheet";
+import { db } from "../../database/firebase";
 
 export default class breedInfo extends React.Component {
-
     state = {
         filteredData: [],
         searchText: "",
@@ -30,7 +30,7 @@ export default class breedInfo extends React.Component {
         care: "",
         exterior: "",
         feeding: "",
-        fullDescripton: "",
+        fullDescription: "",
         grooming: "",
         infoImage: "",
         personality: "",
@@ -53,7 +53,7 @@ export default class breedInfo extends React.Component {
                     care: doc.data().care,
                     exterior: doc.data().exterior,
                     feeding: doc.data().feeding,
-                    fullDescripton: doc.data().fullDescripton,
+                    fullDescription: doc.data().fullDescription,
                     grooming: doc.data().feeding,
                     infoImage: doc.data().infoImage,
                     personality: doc.data().personality,
@@ -82,13 +82,11 @@ export default class breedInfo extends React.Component {
         return (
             <ScrollView>
                 <View style={globalStyles.container}>
-                    <View style={{ marginBottom: 0 }}>
+                    <View style={{ marginBottom: 20 }}>
                         <View style={{ alignItems: "center" }}>
                         <Image
                             style={{ width: screenWidth, height: 250 }}
-                            source={{
-                            uri: this.state.infoImage,
-                            }}
+                            source={{ uri: this.state.infoImage }}
                         />
                         </View>
                         <Card containerStyle={globalStyles.cardContentContainer}>
@@ -101,16 +99,26 @@ export default class breedInfo extends React.Component {
                         <Card containerStyle={globalStyles.cardContentContainer}>
                         <InputHeader text="Description"/>
                         <View style={globalStyles.cardContainer}>
-                            <Text style={globalStyles.contentText}>{this.state.fullDescription}</Text>
-                            <Text style={globalStyles.contentTextBold}>Size: </Text>
-                            <Text style={globalStyles.contentText}>{this.state.size}</Text>
-                            <Text style={globalStyles.contentTextBold}>Exterior: </Text>
-                            <Text style={globalStyles.contentText}>{this.state.exterior}</Text>
-                            <Text style={globalStyles.contentTextBold}>Weight/Height Range: </Text>
-                            <Text style={globalStyles.contentText}>{this.state.weight}</Text>
-                            <Text style={globalStyles.contentTextBold}>Ailments: </Text>
-                            <Text style={globalStyles.contentText}>{this.state.ailments}</Text>
+                            <View>
+                                <Text style={globalStyles.contentText}>{this.state.fullDescription}</Text>
+                                <View style={{paddingTop: 5}}>
+                                    <Text style={globalStyles.contentTextBold}>Size: </Text>
+                                    <Text style={globalStyles.contentText}>{this.state.size}</Text>
+                                </View>
+                                <View style={{paddingTop: 5}}>
+                                    <Text style={globalStyles.contentTextBold}>Exterior: </Text>
+                                    <Text style={globalStyles.contentText}>{this.state.exterior}</Text>
+                                </View>
+                                <View style={{paddingTop: 5}}>
+                                    <Text style={globalStyles.contentTextBold}>Weight/Height Range: </Text>
+                                    <Text style={globalStyles.contentText}>{this.state.weight}</Text>
+                                </View>
+                                <View style={{paddingTop: 5}}>
+                                    <Text style={globalStyles.contentTextBold}>Ailments: </Text>
+                                    <Text style={globalStyles.contentText}>{this.state.ailments}</Text>
+                                </View>
                             </View>
+                        </View>
                     </Card>
 
                     <Card containerStyle={globalStyles.cardContentContainer}>

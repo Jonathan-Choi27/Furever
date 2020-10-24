@@ -78,6 +78,7 @@ export default class currentApplications extends React.Component {
                     additional: listingDoc.data().additionalInfo,
                     photo: listingDoc.data().photo_link,
                     doc_id: listingDoc.id,
+                    uuid: listingDoc.data().uuid,
                   });
                   this.setState({
                     isLoading: false,
