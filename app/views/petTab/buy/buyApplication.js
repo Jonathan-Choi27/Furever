@@ -1,31 +1,24 @@
 import React from "react";
 import {
-  StyleSheet,
   ScrollView,
   View,
-  TouchableOpacity,
   Dimensions,
   Image,
 } from "react-native";
 import { Card, Text } from "react-native-elements";
-import { TextInput, Button } from "react-native-paper";
+import { Button } from "react-native-paper";
 import "react-navigation";
 import "react-navigation-props-mapper";
 import "@react-navigation/native";
 import "react-navigation-hooks";
-import { TextInput as NativeTextInput } from "react-native";
-// import "firebase/storage";
 import { db } from "../../database/firebase";
 import { auth } from "../../database/firebase";
-import { onBuyTab } from "../../components/petTabComponents";
-import { Input } from "react-native-elements";
-import { CustomInput, InputHeader } from "../../components/CustomInput";
-import istyles, { darkGreen, green } from "../../styleSheet/styleSheet";
+import { CustomInput, InputHeader } from "../../components/customInput";
+import { darkGreen, green } from "../../styleSheet/styleSheet";
 import { Icon } from "react-native-elements";
 import GooglePlacesInput from "../../components/mapAutoComplete";
-import { SafeAreaView } from "react-native-safe-area-context";
 // AIzaSyC-6ifFUYzIIgUf1uhbmJ_BU6VQyre4bRw
-
+ 
 export default class buyApplication extends React.Component {
   constructor(props) {
     super(props);
@@ -146,12 +139,14 @@ export default class buyApplication extends React.Component {
       // scrollview needs to have keyboardshouldpersisttaps for googlemaps
       <ScrollView keyboardShouldPersistTaps={"handled"}>
         <View style={{ marginBottom: 0 }}>
+          <View style={{ alignItems: "center" }}>
           <Image
-            style={{ width: screenWidth, height: 300 }}
+            style={{ width: screenWidth, height: 250 }}
             source={{
               uri: item.photo,
             }}
           />
+          </View>
           <Card containerStyle={{ borderRadius: 10 }}>
             <Text>
               <Text
@@ -160,11 +155,11 @@ export default class buyApplication extends React.Component {
               </Text>
               <Text
                 style={{ fontSize: 30, color: "#606060", fontWeight: "bold" }}>
-                {", "}
-                {item.age}
+                {", "}{item.age}
               </Text>
             </Text>
-            <Text style={{ fontWeight: "bold", color: "#505050" }}>
+            <Text 
+              style={{ fontWeight: "bold", color: "#505050" }}>
               {item.breed}
             </Text>
           </Card>
@@ -192,11 +187,10 @@ export default class buyApplication extends React.Component {
               />
             }
           />
+          <GooglePlacesInput set={this.setAddress}/>
+        </Card>
 
-          <View style={{ marginBottom: 20, marginHorizontal: 10 }}>
-            <GooglePlacesInput set={this.setAddress} />
-          </View>
-
+        <Card containerStyle={{ borderRadius: 10 }}>
           <InputHeader text="Pet Information" />
 
           <CustomInput
@@ -263,7 +257,9 @@ export default class buyApplication extends React.Component {
               />
             }
           />
+        </Card>
 
+        <Card containerStyle={{ borderRadius: 10 }}>
           <InputHeader text="Your Home Enviroment" />
           <CustomInput
             label="Description of your family/members of the household"
@@ -281,8 +277,9 @@ export default class buyApplication extends React.Component {
               />
             }
           />
+        </Card>
 
-          <View
+        <View
             style={{
               flexDirection: "row",
               alignItems: "center",
@@ -290,145 +287,22 @@ export default class buyApplication extends React.Component {
             }}>
             <Button
               style={{
-                //   paddingVertical : 25,
-                marginTop: 25,
-                marginBottom: 25,
-                backgroundColor: green,
+                marginTop: 20,
+                marginBottom: 20,
+                backgroundColor: darkGreen,
               }}
               onPress={this.handleSubmit}>
               <Text
                 style={{
                   color: "white",
+                  fontWeight: "bold",
                 }}>
                 Submit
               </Text>
             </Button>
-          </View>
-        </Card>
+        </View>
+
       </ScrollView>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    paddingBottom: 25,
-  },
-  buySellContainer: {
-    alignSelf: "stretch",
-    justifyContent: "flex-start",
-    alignItems: "flex-start",
-    flexDirection: "row",
-  },
-  titleContainer: {
-    alignSelf: "stretch",
-    justifyContent: "flex-start",
-    alignItems: "flex-start",
-    flexDirection: "row",
-    paddingTop: 20,
-    paddingLeft: 20,
-    paddingRight: 20,
-  },
-  imageContainer: {
-    width: 150,
-    height: 150,
-  },
-  categories: {
-    alignSelf: "stretch",
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    flexDirection: "row",
-    padding: 20,
-  },
-  iconContainer: {
-    padding: 20,
-  },
-  viewApplication: {
-    backgroundColor: "#447ECB",
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    height: 50,
-    width: 200,
-  },
-  fontTitle: {
-    textAlign: "left",
-    fontSize: 20,
-    fontWeight: "bold",
-  },
-  fontHeading: {
-    textAlign: "left",
-    fontSize: 16,
-    fontWeight: "bold",
-  },
-  cardContainer: {
-    borderRadius: 4,
-    alignSelf: "stretch",
-    justifyContent: "flex-start",
-    alignItems: "flex-start",
-    flexDirection: "row",
-    marginLeft: 20,
-    marginRight: 20,
-    elevation: 5,
-  },
-  cardContentContainer: {
-    borderRadius: 4,
-    alignSelf: "stretch",
-    justifyContent: "flex-start",
-    alignItems: "flex-start",
-    flexDirection: "row",
-  },
-  heading: {
-    fontSize: 20,
-    fontWeight: "bold",
-    // fontFamily: "Rosario_400Regular",
-    // textShadowColor: "rgba(0, 0, 0, 0.3)",
-    // textShadowOffset: { width: -1, height: 1 },
-    // textShadowRadius: 10,
-    color: "#000000",
-    textAlign: "left",
-    alignItems: "center",
-    justifyContent: "center",
-    // marginTop: 50,
-    flex: 1,
-    paddingVertical: 10,
-  },
-  sub_heading: {
-    fontSize: 16,
-    fontWeight: "bold",
-    borderBottomWidth: 1,
-    borderBottomColor: "#707070",
-  },
-  formContainer: {
-    marginLeft: 30,
-    marginRight: 30,
-  },
-  smallInputBox: {
-    margin: 0,
-    height: 25,
-    // borderWidth: 1,
-    // borderWidth: 3,
-    padding: 0,
-  },
-  bigInputBox: {
-    height: 50,
-  },
-  inputName: {
-    marginBottom: 0,
-    paddingBottom: 0,
-    color: "#515151",
-    fontSize: 14,
-  },
-  inputContainer: {
-    marginTop: 10,
-  },
-  errorText: {
-    color: "red",
-    textAlign: "right",
-    fontSize: 14,
-    fontWeight: "bold",
-  },
-});

@@ -19,8 +19,8 @@ import { Card } from "react-native-elements";
 import {
   openDocumentPicker,
   uploadDocument,
-} from "../../components/DocumentUpload";
-import { openImagePicker, uploadPhoto } from "../../components/ImageUpload";
+} from "../../components/documentUpload";
+import { openImagePicker, uploadPhoto } from "../../components/imageUpload";
 import CategorySelection from "./sellAppCategories";
 import { auth } from "../../database/firebase";
 import "firebase/storage";

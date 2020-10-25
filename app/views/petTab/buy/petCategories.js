@@ -1,6 +1,5 @@
 import React from "react";
 import {
-  StyleSheet,
   Text,
   View,
   TouchableOpacity,
@@ -15,17 +14,15 @@ import {
   Searchbar,
   ActivityIndicator,
   Modal,
-  Chip,
   Provider,
   Portal,
   Checkbox,
 } from "react-native-paper";
 import { db } from "../../database/firebase";
-import { AppLoading } from "expo";
-import * as Font from "expo-font";
 import {onBuyTab} from "../../components/petTabComponents";
 import { darkGreen, green, lightGreen, orange, lightBlue, lightGrey } from "../../styleSheet/styleSheet";
 import globalStyles from "../../styleSheet/styleSheet";
+import { petBuyCard, petBuyCategory } from "../../components/petBuyComponents";
 
 export default class petCategories extends React.Component {
   state = {
@@ -44,10 +41,12 @@ export default class petCategories extends React.Component {
     turtleCheck: false,
     pigCheck: false,
     filterDisplay: false,
+    petCategories: [],
   };
 
   async componentDidMount() {
     const dataArray = [];
+    const petCategoryArray = [];
     db.collection("pet_listings")
       .get()
       .then((doc) => {
@@ -65,9 +64,9 @@ export default class petCategories extends React.Component {
             })
             .catch((erro) => {});
           dataArray.push({
-            name: seller_name,
-            avatarPhoto: seller_photo,
-            title: listingDoc.data().name,
+            sellerName: seller_name,
+            sellerPhoto: seller_photo,
+            petName: listingDoc.data().name,
             category: listingDoc.data().category,
             breed: listingDoc.data().breed,
             colour: listingDoc.data().colour,
@@ -81,6 +80,7 @@ export default class petCategories extends React.Component {
             training: listingDoc.data().training,
             additional: listingDoc.data().additionalInfo,
             photo: listingDoc.data().photo_link,
+            uuid: listingDoc.data().uuid,
           });
           this.setState({
             isLoading: false,
@@ -88,13 +88,29 @@ export default class petCategories extends React.Component {
           });
         });
       });
+
+      db.collection("petCategories")
+        .get()
+        .then((doc) => {
+          doc.forEach(async (categoryDoc) => {
+            petCategoryArray.push({
+              category: categoryDoc.data().category,
+              image: categoryDoc.data().image,
+              categoryId: categoryDoc.id,
+            });
+            this.setState({
+              isLoading: false,
+              petCategories: [...petCategoryArray],
+            });
+          });
+        });
   }
 
   searchFunction = (searchText) => {
     this.setState({ searchText: searchText });
 
     let filteredData = this.state.data.filter(function (item) {
-      return item.title.toLowerCase().includes(searchText.toLowerCase());
+      return item.petName.toLowerCase().includes(searchText.toLowerCase());
     });
 
     this.setState({ filteredData: filteredData });
@@ -209,16 +225,15 @@ export default class petCategories extends React.Component {
     const { search } = this.state;
     if (this.state.isLoading) {
       return (
-        <View style={styles.activityContainer}>
+        <View style={globalStyles.activityContainer}>
           <ActivityIndicator size="large" color="#447ECB" />
         </View>
       );
     }
     return (
       <Provider>
-          <View style={styles.container}>
+          <View style={globalStyles.petContainer}>
             {onBuyTab(this.props.navigation)}
-
             <View
               style={globalStyles.searchFilterContainer}
             >
@@ -242,17 +257,21 @@ export default class petCategories extends React.Component {
               </Button>
             </View>
             
-            <View style={{ height: 30, marginBottom: 15, }}>
+            <View style={{height: 52}}>
               <TouchableOpacity
-                style={styles.viewApplication}
+                style={globalStyles.viewApplication}
                 onPress={() => this.props.navigation.replace("currentApplications")}>
-                <Text style={{ textAlign: "center", color: "white", fontWeight: "bold" }}>
+                <Text style={{ 
+                    textAlign: "center", 
+                    color: "white", 
+                    fontWeight: "bold", 
+                  }}>
                   View Applications
                 </Text>
               </TouchableOpacity>
             </View>
-            <ScrollView>
-
+                
+            <ScrollView showsVerticalScrollIndicator={false}>
             <Portal>
               <Modal
                 style={{ backgroundColor: "transparent" }}
@@ -260,13 +279,13 @@ export default class petCategories extends React.Component {
                 onDismiss={() => {
                   this.setState({ visible: false });
                 }}>
-                <Card elevation={5} style={{ margin: 10}}>
+                <Card elevation={5} style={{margin: 10}}>
                   <Card.Content>
                     <Text>Animal:</Text>
                     <View style={{ flexDirection: "row" }}>
                       <Checkbox.Item
-                        theme={{colors: {primary: '#447ECB'}}}
-                        color= "#447ECB"
+                        theme={{colors: {primary: darkGreen}}}
+                        color={darkGreen}
                         label="Dog"
                         status={this.state.dogCheck ? "checked" : "unchecked"}
                         onPress={() => {
@@ -274,6 +293,8 @@ export default class petCategories extends React.Component {
                         }}
                       />
                       <Checkbox.Item
+                        theme={{colors: {primary: darkGreen}}}
+                        color={darkGreen}
                         label="Fish"
                         status={this.state.fishCheck ? "checked" : "unchecked"}
                         onPress={() => {
@@ -281,10 +302,10 @@ export default class petCategories extends React.Component {
                         }}
                       />
                       <Checkbox.Item
+                        theme={{colors: {primary: darkGreen}}}
+                        color={darkGreen}
                         label="Lizard"
-                        status={
-                          this.state.lizardCheck ? "checked" : "unchecked"
-                        }
+                        status={this.state.lizardCheck ? "checked" : "unchecked"}
                         onPress={() => {
                           this.checkFunction("lizardCheck");
                         }}
@@ -292,6 +313,8 @@ export default class petCategories extends React.Component {
                     </View>
                     <View style={{ flexDirection: "row" }}>
                       <Checkbox.Item
+                        theme={{colors: {primary: darkGreen}}}
+                        color={darkGreen}
                         label="Cat"
                         status={this.state.catCheck ? "checked" : "unchecked"}
                         onPress={() => {
@@ -299,6 +322,8 @@ export default class petCategories extends React.Component {
                         }}
                       />
                       <Checkbox.Item
+                        theme={{colors: {primary: darkGreen}}}
+                        color={darkGreen}
                         label="Bird"
                         status={this.state.birdCheck ? "checked" : "unchecked"}
                         onPress={() => {
@@ -306,10 +331,10 @@ export default class petCategories extends React.Component {
                         }}
                       />
                       <Checkbox.Item
+                        theme={{colors: {primary: darkGreen}}}
+                        color={darkGreen}
                         label="Turtle"
-                        status={
-                          this.state.turtleCheck ? "checked" : "unchecked"
-                        }
+                        status={this.state.turtleCheck ? "checked" : "unchecked"}
                         onPress={() => {
                           this.checkFunction("turtleCheck");
                         }}
@@ -317,15 +342,17 @@ export default class petCategories extends React.Component {
                     </View>
                     <View style={{ flexDirection: "row" }}>
                       <Checkbox.Item
+                        theme={{colors: {primary: darkGreen}}}
+                        color={darkGreen}
                         label="Rabbit"
-                        status={
-                          this.state.rabbitCheck ? "checked" : "unchecked"
-                        }
+                        status={this.state.rabbitCheck ? "checked" : "unchecked"}
                         onPress={() => {
                           this.checkFunction("rabbitCheck");
                         }}
                       />
                       <Checkbox.Item
+                        theme={{colors: {primary: darkGreen}}}
+                        color={darkGreen}
                         label="Horse"
                         status={this.state.horseCheck ? "checked" : "unchecked"}
                         onPress={() => {
@@ -333,6 +360,8 @@ export default class petCategories extends React.Component {
                         }}
                       />
                       <Checkbox.Item
+                        theme={{colors: {primary: darkGreen}}}
+                        color={darkGreen}
                         label="Pig"
                         status={this.state.pigCheck ? "checked" : "unchecked"}
                         onPress={() => {
@@ -343,6 +372,7 @@ export default class petCategories extends React.Component {
                   </Card.Content>
                   <Card.Actions style={{ justifyContent: "flex-end" }}>
                     <Button
+                      color={darkGreen}
                       onPress={() => {
                         this.displayFunction();
                         this.setState({ visible: false });
@@ -355,38 +385,11 @@ export default class petCategories extends React.Component {
             </Portal>
             {this.state.filterDisplay ? (
               <FlatList
+                numColumns = {1}
+                key={1}
                 keyExtractor={(item, index) => index.toString()}
                 renderItem={({ item }) => (
-                  <Card elevation={5} style={styles.card}>
-                    <Card.Cover source={{ uri: item.photo }} />
-                    <Card.Title
-                      title={item.title}
-                      subtitle={item.name}
-                      left={(props) => (
-                        <Avatar.Image
-                          {...props}
-                          size={40}
-                          source={{ uri:item.avatarPhoto}}
-                        />
-                      )}
-                    />
-                    <Card.Content>
-                      <Text style={styles.cardContentText}>
-                        Age: {item.age}
-                      </Text>
-                      <Text style={styles.cardContentText}>
-                        Gender: {item.gender}
-                      </Text>
-                      <Text style={styles.cardContentText}>
-                        Location: {item.location}
-                      </Text>
-                    </Card.Content>
-                    <Card.Actions>
-                      <Button color="#447ECB" onPress={() => {}}>
-                        More info
-                      </Button>
-                    </Card.Actions>
-                  </Card>
+                  petBuyCard(item, this.props.navigation)
                 )}
                 keyExtractor={(item, index) => index.toString()}
                 data={
@@ -396,152 +399,35 @@ export default class petCategories extends React.Component {
                 }
               />
             ) : (
-              <View style={styles.container}>
+              <View style={globalStyles.petContainer}>
                 {this.state.searchText == "" ? (
-                  <View style={styles.container}>
-                    <View style={styles.categories}>
-                      <TouchableOpacity
-                        onPress={() =>
-                          this.props.navigation.replace("petBreeds")
-                        }>
-                        <View style={styles.iconContainer}>
-                          <Image
-                            style={styles.icon}
-                            source={{
-                              uri:
-                                "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fpet%20buy%20icons%2FdogIcon.jpg?alt=media&token=93b3d467-e37f-4c41-b0a2-e6540755a2e4",
-                            }}
-                          />
-                        </View>
-                      </TouchableOpacity>
-                      <View style={styles.iconContainer}>
-                        <TouchableOpacity>
-                          <Image
-                            style={styles.icon}
-                            source={{
-                              uri:
-                                "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fpet%20buy%20icons%2FCatIcon.jpg?alt=media&token=d3988923-a7a4-465b-b0f3-68cf5aba56aa",
-                            }}
-                          />
-                        </TouchableOpacity>
-                      </View>
-                    </View>
 
-                    <View style={styles.categories}>
-                      <TouchableOpacity>
-                        <View style={styles.iconContainer}>
-                          <Image
-                            style={styles.icon}
-                            source={{
-                              uri:
-                                "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fpet%20buy%20icons%2FRabbitIcon.jpg?alt=media&token=4bf665e6-64de-46c3-8f32-35bf335f0ee7",
-                            }}
-                          />
-                        </View>
-                      </TouchableOpacity>
-                      <View style={styles.iconContainer}>
-                        <TouchableOpacity>
-                          <Image
-                            style={styles.icon}
-                            source={{
-                              uri:
-                                "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fpet%20buy%20icons%2FFishIcon.jpg?alt=media&token=bddda5c1-6e1f-41e2-9f74-b9deed452fff",
-                            }}
-                          />
-                        </TouchableOpacity>
-                      </View>
-                    </View>
-
-                    <View style={styles.categories}>
-                      <TouchableOpacity>
-                        <View style={styles.iconContainer}>
-                          <Image
-                            style={styles.icon}
-                            source={{
-                              uri:
-                                "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fpet%20buy%20icons%2FBirdIcon.jpg?alt=media&token=f1dce94e-9ad6-40ee-947b-6013ec62c23a",
-                            }}
-                          />
-                        </View>
-                      </TouchableOpacity>
-                      <View style={styles.iconContainer}>
-                        <TouchableOpacity>
-                          <Image
-                            style={styles.icon}
-                            source={{
-                              uri:
-                                "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fpet%20buy%20icons%2FHorseIcon.jpg?alt=media&token=387260b4-09ba-42f7-abdd-d9481454ec06",
-                            }}
-                          />
-                        </TouchableOpacity>
-                      </View>
-                    </View>
-
-                    <View style={styles.categories}>
-                      <TouchableOpacity>
-                        <View style={styles.iconContainer}>
-                          <Image
-                            style={styles.icon}
-                            source={{
-                              uri:
-                                "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fpet%20buy%20icons%2FLizardIcon.jpg?alt=media&token=6da22d0c-a534-4c41-b99f-4d507481b41c",
-                            }}
-                          />
-                        </View>
-                      </TouchableOpacity>
-                      <View style={styles.iconContainer}>
-                        <TouchableOpacity>
-                          <Image
-                            style={styles.icon}
-                            source={{
-                              uri:
-                                "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fpet%20buy%20icons%2FTurtleIcon.jpg?alt=media&token=2e0b1354-5f26-47e1-bf50-b6b5956f402c",
-                            }}
-                          />
-                        </TouchableOpacity>
-                      </View>
-                    </View>
+                  <View style={globalStyles.petContainer}>
+                    <FlatList
+                      data={this.state.petCategories}
+                      columnWrapperStyle={{ justifyContent: "flex-start" }}
+                      numColumns={2}
+                      key={2}
+                      keyExtractor={(item, index) => index.toString()}
+                      renderItem={({ item }) => (
+                        petBuyCategory(item, this.props.navigation)
+                      )}
+                      keyExtractor={(item, index) => index.toString()}
+                    />
                   </View>
                 ) : (
-                  <View style={styles.container}>
+                  <View style={globalStyles.petContainer}>
                     {this.state.filteredData.length == 0 ? (
-                      <View style={styles.container}>
+                      <View style={globalStyles.petContainer}>
                         <Text style={{ margin: 100 }}>No results found.</Text>
                       </View>
                     ) : (
                       <FlatList
                         showsVerticalScrollIndicator={false}
+                        numColumns = {1}
+                        key={1}
                         renderItem={({ item }) => (
-                          <Card elevation={5} style={styles.card}>
-                            <Card.Cover source={{ uri: item.photo }} />
-                            <Card.Title
-                              title={item.title}
-                              subtitle={item.name}
-                              left={(props) => (
-                                <Avatar.Image
-                                  {...props}
-                                  size={40}
-                                  source={{uri: item.photo}}
-                                />
-                              )}
-                            />
-                            <Card.Content>
-                              <Text style={styles.cardContentText}>
-                                Age: {item.age}
-                              </Text>
-                              <Text style={styles.cardContentText}>
-                                Gender: {item.gender}
-                              </Text>
-                              <Text style={styles.cardContentText}>
-                                Location: {item.location}
-                              </Text>
-                            </Card.Content>
-                            <Card.Actions>
-                              <Button color="#447ECB" onPress={() => {}}>
-                                More info
-                              </Button>
-                            </Card.Actions>
-                          </Card>
+                          petBuyCard(item, this.props.navigation)
                         )}
                         keyExtractor={(item, index) => index.toString()}
                         data={
@@ -561,107 +447,5 @@ export default class petCategories extends React.Component {
           </View>
       </Provider>
     );
-    // } else {
-    //   return <AppLoading />;
-    // }
   }
 }
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: lightGrey,
-  },
-  buySellContainer: {
-    alignSelf: "stretch",
-    justifyContent: "flex-start",
-    alignItems: "flex-start",
-    flexDirection: "row",
-  },
-  categories: {
-    alignSelf: "stretch",
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    flexDirection: "row",
-  },
-  cardContainer: {
-    marginLeft: 10,
-    marginRight: 10,
-    marginBottom: 10,
-    marginTop: 10,
-  },
-  card: {
-    margin: 10,
-    flex: 0.5,
-    marginLeft: 9,
-    marginRight: 9,
-  },
-  image: {
-    aspectRatio: 1,
-  },
-  title: {
-    marginLeft: 8,
-    marginTop: 8,
-    marginBottom: 8,
-    fontWeight: "bold",
-    fontSize: 14.5,
-    color: "#447ECB",
-  },
-  subtext: {
-    paddingLeft: 8,
-    paddingTop: 8,
-    marginBottom: 8,
-    fontSize: 12,
-    borderTopWidth: 0.5,
-  },
-
-  iconContainer: {
-    padding: 20,
-  },
-  icon: {
-    height: 150,
-    width: 150,
-    borderRadius: 10,
-  },
-  viewApplication: {
-    backgroundColor: darkGreen,
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    height: 50,
-    width: 200,
-    borderRadius: 5,
-  },
-  titleContainer: {
-    flexDirection: "row",
-    justifyContent: "flex-start",
-    padding: 20,
-  },
-  title: {
-    fontWeight: "bold",
-    fontSize: 20,
-    marginRight: 25,
-  },
-  cardContainer: {
-    flex: 2,
-    justifyContent: "flex-start",
-    alignItems: "flex-start",
-  },
-  card: {
-    margin: 5,
-    width: 340,
-  },
-  cardContentText: {
-    fontWeight: "bold",
-  },
-  activityContainer: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  checkBox: {
-    color: "red",
-  },
-});
