@@ -98,36 +98,39 @@ export default class buyApplication extends React.Component {
   handleSubmit = async () => {
     const doc_id = this.props.route.params.item.doc_id;
 
-    if (!this.state.valid_contact_number) {
-      alert("All input fields required and must be valid.");
-    } else {
-      var submit = false;
-      await db
-        .collection("pet_listings")
-        .doc(doc_id)
-        .collection("buyer_applications")
-        .add({
-          uuid: this.state.profileData.uuid,
-          name: this.state.profileData.name,
-          age: this.state.age,
-          contact_number: this.state.contact_number,
-          email: this.state.profileData.email,
-          address: this.state.address,
-          why_want_pet: this.state.why_want_pet,
-          most_desirable_traits: this.state.most_desirable_traits,
-          least_desirable_traits: this.state.least_desirable_traits,
-          previous_pets: this.state.previous_pets,
-          house_enviroment: this.state.house_enviroment,
-        })
-        .then((success) => {
-          submit = true;
-          alert("Submission successful");
-        });
+    console.log(this.state.profileData.uuid);
+    console.log(this.state.profileData.name);
 
-      if (submit == true) {
-        this.props.navigation.goBack();
-      }
-    }
+    // if (!this.state.valid_contact_number) {
+    //   alert("All input fields required and must be valid.");
+    // } else {
+    //   var submit = false;
+    //   await db
+    //     .collection("pet_listings")
+    //     .doc(doc_id)
+    //     .collection("buyer_applications")
+    //     .add({
+    //       uuid: this.state.profileData.uuid,
+    //       name: this.state.profileData.name,
+    //       age: this.state.age,
+    //       contact_number: this.state.contact_number,
+    //       email: this.state.profileData.email,
+    //       address: this.state.address,
+    //       why_want_pet: this.state.why_want_pet,
+    //       most_desirable_traits: this.state.most_desirable_traits,
+    //       least_desirable_traits: this.state.least_desirable_traits,
+    //       previous_pets: this.state.previous_pets,
+    //       house_enviroment: this.state.house_enviroment,
+    //     })
+    //     .then((success) => {
+    //       submit = true;
+    //       alert("Submission successful");
+    //     });
+
+    //   if (submit == true) {
+    //     this.props.navigation.goBack();
+    //   }
+    // }
   };
 
   render() {

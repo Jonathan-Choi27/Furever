@@ -25,7 +25,7 @@ import CategorySelection from "./sellAppCategories";
 import { auth } from "../../database/firebase";
 import "firebase/storage";
 import globalStyles, { darkGreen, green } from "../../styleSheet/styleSheet";
-import { CustomInput, InputHeader } from "../../components/CustomInput";
+import { CustomInput, InputHeader } from "../../components/customInput";
 import PriceSlider from "../../components/priceSlider";
 import AgePicker from "../../components/AgePicker";
 import GooglePlacesInput from "../../components/mapAutoComplete";
