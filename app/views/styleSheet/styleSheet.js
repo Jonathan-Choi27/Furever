@@ -247,4 +247,21 @@ export default StyleSheet.create({
     height: 35,
     width: 390,
   },
+  error: {
+      color : "red",
+      fontSize: 2
+  },
+  // form
+  formPickerIconContainer:{
+    justifyContent: "center",
+    flex: 0.1,
+  }, 
+  formPickerInnerContainer:{
+    flex: 0.9,
+  },
+  formPickerOuterContainer: {
+    borderBottomColor: "#D3D3D3",
+    borderBottomWidth: 2,
+    flexDirection: "row",
+  }
 });

@@ -105,12 +105,7 @@ export default class buyApplication extends React.Component {
   handleSubmit = async () => {
     const doc_id = this.props.route.params.item.doc_id;
 
-    if (
-      !this.state.valid_contact_number ||
-      !this.state.valid_email ||
-      !this.state.valid_name ||
-      !this.state.valid_address
-    ) {
+    if (!this.state.valid_contact_number) {
       alert("All input fields required and must be valid.");
     } else {
       var submit = false;
@@ -148,6 +143,7 @@ export default class buyApplication extends React.Component {
     const textWidth = screenWidth - 40 - 150 - 10;
 
     return (
+      // scrollview needs to have keyboardshouldpersisttaps for googlemaps
       <ScrollView keyboardShouldPersistTaps={"handled"}>
         <View style={{ marginBottom: 0 }}>
           <Image
@@ -197,7 +193,9 @@ export default class buyApplication extends React.Component {
             }
           />
 
-          <GooglePlacesInput set={this.setAddress}/>
+          <View style={{ marginBottom: 20, marginHorizontal: 10 }}>
+            <GooglePlacesInput set={this.setAddress} />
+          </View>
 
           <InputHeader text="Pet Information" />
 
