@@ -18,7 +18,7 @@ export const sellerDetails = (item) => {
     return (
         <View style={styles.container}>
             <View style={styles.titleContainer}>
-                <View style={{ width: screenWidth / 2 }}>
+                <View style={{ width: screenWidth / 2 , paddingTop: 20}}>
                     <Text style={styles.fontTitle}> {item.name}'s Profile </Text>
                 </View>
             </View>
@@ -71,28 +71,3 @@ export const sellerDetails = (item) => {
         </View>
     );
 }
-
-// export const sellerInfo = () => {
-//     return (
-//         <Card containerStyle={styles.cardContainer}>
-//             <View>
-//                 <Text style={styles.fontHeading}>Seller Information </Text>
-//                 <View style={styles.line} />
-//                 <Text></Text>
-//             </View>
-//         </Card>
-//     );
-// }
-
-// export const expressInterest = (item, navigation) => {
-//     return (
-//         <View style={styles.buttonsContainer}>
-//             <TouchableOpacity
-//                 style={styles.buttons}
-//                 onPress={() => navigation.navigate("buyApplication", { item })}>
-
-//                 <Text style={styles.buttonsText}>EXPRESS INTEREST</Text>
-//             </TouchableOpacity>
-//         </View>
-//     );
-// }

@@ -33,10 +33,7 @@ export default class sellerProfile extends React.Component {
               .get()
               .then((user_doc) => {
                 userPhoto = user_doc.data().photo;
-                console.log(uuid);
-                console.log(user_doc.data().name);
-
-                let data = {
+                          let data = {
                   name: user_doc.data().name,
                   photo: userPhoto,
                   dob: this.props.route.params.item.sellerDob,
@@ -49,7 +46,6 @@ export default class sellerProfile extends React.Component {
                   isLoading: false,
                   data: data, 
                 });
-                console.log(data);
               });
               
       }
