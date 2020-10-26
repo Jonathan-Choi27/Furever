@@ -89,24 +89,24 @@ async fetchData() {
           </Text>
 
           <View style={{height: 40, width: 220, paddingTop: 8}}>
-          <TouchableOpacity
-            // style={styles.viewApplication}
-            style={{
-              backgroundColor: darkGreen,
-              flex: 1,
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-            onPress={() => this.props.navigation.navigate("sellApplication")}>
-            <Text
+            <TouchableOpacity
+              // style={styles.viewApplication}
               style={{
-                textAlign: "center",
-                color: "#FFFFFF",
-                fontWeight: "bold",
-              }}>
-              Add New Listing
-            </Text>
-          </TouchableOpacity>
+                backgroundColor: darkGreen,
+                flex: 1,
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+              onPress={() => this.props.navigation.navigate("sellApplication")}>
+              <Text
+                style={{
+                  textAlign: "center",
+                  color: "#FFFFFF",
+                  fontWeight: "bold",
+                }}>
+                Add New Listing
+              </Text>
+            </TouchableOpacity>
           </View>
         </View>
         

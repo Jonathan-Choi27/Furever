@@ -7,7 +7,7 @@ import { darkGreen } from "../styleSheet/styleSheet";
 
 const GooglePlacesInput = (props) => {
   return (
-    <View style={{ marginHorizontal: 10, marginBottom: 25 }}>
+    <View>
       <Text style={{ color: "#505050", fontWeight: "bold", fontSize: 16 }}>
         {" "}
         Address{" "}
@@ -16,10 +16,10 @@ const GooglePlacesInput = (props) => {
         style={{
           flexDirection: "row",
           borderBottomWidth: 2,
-        //   height: 42,
+          // dont change height css, seems to mess everything up
           borderBottomColor: "#D3D3D3",
         }}>
-        <View style={{ flex: 0.08}}>
+        <View style={{ flex: 0.08 }}>
           <Icon
             name="ios-pin"
             type="ionicon"
@@ -30,11 +30,9 @@ const GooglePlacesInput = (props) => {
         <View style={{ flex: 1 }}>
           <GooglePlacesAutocomplete
             placeholder="Please enter location"
-            //   onPress={(data, details = null) => {
-            //     // 'details' is provided when fetchDetails = true
-            //     console.log(data, details);
-            //   }}
+            // function required to set state of parent
             onPress={(data) => props.set(data.description)}
+            // this is my google places key, will be deleted after sem
             query={{
               key: "AIzaSyC-6ifFUYzIIgUf1uhbmJ_BU6VQyre4bRw",
               language: "en",
@@ -46,8 +44,6 @@ const GooglePlacesInput = (props) => {
                 paddingVertical: 0,
                 marginVertical: 0,
                 height: 40,
-                //   borderBottomWidth: 2,
-                //   borderBottomColor: "#D3D3D3",
                 fontSize: 17,
               },
             }}

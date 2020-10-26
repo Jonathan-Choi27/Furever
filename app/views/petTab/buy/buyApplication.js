@@ -1,29 +1,17 @@
 import React from "react";
-import {
-  StyleSheet,
-  ScrollView,
-  View,
-  TouchableOpacity,
-  Dimensions,
-  Image,
-} from "react-native";
+import { ScrollView, View, Dimensions, Image } from "react-native";
 import { Card, Text } from "react-native-elements";
-import { TextInput, Button } from "react-native-paper";
+import { Button } from "react-native-paper";
 import "react-navigation";
 import "react-navigation-props-mapper";
 import "@react-navigation/native";
 import "react-navigation-hooks";
-import { TextInput as NativeTextInput } from "react-native";
-// import "firebase/storage";
 import { db } from "../../database/firebase";
 import { auth } from "../../database/firebase";
-import { onBuyTab } from "../../components/petTabComponents";
-import { Input } from "react-native-elements";
-import { CustomInput, InputHeader } from "../../components/CustomInput";
-import istyles, { darkGreen, green } from "../../styleSheet/styleSheet";
+import { CustomInput, InputHeader } from "../../components/customInput";
+import { darkGreen, green } from "../../styleSheet/styleSheet";
 import { Icon } from "react-native-elements";
 import GooglePlacesInput from "../../components/mapAutoComplete";
-import { SafeAreaView } from "react-native-safe-area-context";
 // AIzaSyC-6ifFUYzIIgUf1uhbmJ_BU6VQyre4bRw
 
 export default class buyApplication extends React.Component {
@@ -74,7 +62,7 @@ export default class buyApplication extends React.Component {
       });
   }
 
-  contact_number_validator = () => {
+  contactNumberValidator = () => {
     var bool;
     if (
       this.state.contact_number == "" ||
@@ -94,6 +82,25 @@ export default class buyApplication extends React.Component {
     this.setState({
       valid_contact_number: bool,
     });
+
+    return bool;
+  };
+
+  addressValidator = () => {
+    var bool;
+    if (this.state.address == "") {
+      bool = false;
+      this.setState({
+        valid_address: false,
+      });
+    } else {
+      bool = true;
+      this.setState({
+        valid_address: true,
+      });
+    }
+
+    return bool;
   };
 
   setAddress = (address) => {
@@ -102,43 +109,55 @@ export default class buyApplication extends React.Component {
     });
   };
 
-  handleSubmit = async () => {
+  pushData = async () => {
     const doc_id = this.props.route.params.item.doc_id;
+    await db
+      .collection("pet_listings")
+      .doc(doc_id)
+      .collection("buyer_applications")
+      .add({
+        uuid: this.state.profileData.uuid,
+        name: this.state.profileData.name,
+        age: this.state.age,
+        contact_number: this.state.contact_number,
+        email: this.state.profileData.email,
+        address: this.state.address,
+        why_want_pet: this.state.why_want_pet,
+        most_desirable_traits: this.state.most_desirable_traits,
+        least_desirable_traits: this.state.least_desirable_traits,
+        previous_pets: this.state.previous_pets,
+        house_enviroment: this.state.house_enviroment,
+      })
+      .then((success) => {
+        alert("Submission successful");
+      });
+  };
+
+  validationCheck = () => {
+    var bool;
+    this.contactNumberValidator();
+    this.addressValidator();
 
     if (
-      !this.state.valid_contact_number ||
-      !this.state.valid_email ||
-      !this.state.valid_name ||
-      !this.state.valid_address
+      this.contactNumberValidator == false ||
+      this.addressValidator == false
     ) {
-      alert("All input fields required and must be valid.");
+      alert("All fields must be filled and valid");
+      bool = false;
     } else {
-      var submit = false;
-      await db
-        .collection("pet_listings")
-        .doc(doc_id)
-        .collection("buyer_applications")
-        .add({
-          uuid: this.state.profileData.uuid,
-          name: this.state.profileData.name,
-          age: this.state.age,
-          contact_number: this.state.contact_number,
-          email: this.state.profileData.email,
-          address: this.state.address,
-          why_want_pet: this.state.why_want_pet,
-          most_desirable_traits: this.state.most_desirable_traits,
-          least_desirable_traits: this.state.least_desirable_traits,
-          previous_pets: this.state.previous_pets,
-          house_enviroment: this.state.house_enviroment,
-        })
-        .then((success) => {
-          submit = true;
-          alert("Submission successful");
-        });
+      bool = true;
+    }
 
-      if (submit == true) {
-        this.props.navigation.goBack();
-      }
+    return bool;
+  };
+
+  handleSubmit = () => {
+    var bool = this.validationCheck();
+
+    if (bool) {
+      this.pushData();
+      alert("Application Successful!");
+      this.props.navigation.goBack();
     }
   };
 
@@ -148,14 +167,17 @@ export default class buyApplication extends React.Component {
     const textWidth = screenWidth - 40 - 150 - 10;
 
     return (
+      // scrollview needs to have keyboardshouldpersisttaps for googlemaps
       <ScrollView keyboardShouldPersistTaps={"handled"}>
         <View style={{ marginBottom: 0 }}>
-          <Image
-            style={{ width: screenWidth, height: 300 }}
-            source={{
-              uri: item.photo,
-            }}
-          />
+          <View style={{ alignItems: "center" }}>
+            <Image
+              style={{ width: screenWidth, height: 250 }}
+              source={{
+                uri: item.photo,
+              }}
+            />
+          </View>
           <Card containerStyle={{ borderRadius: 10 }}>
             <Text>
               <Text
@@ -185,7 +207,6 @@ export default class buyApplication extends React.Component {
             label="Contact Number"
             placeholder="(0x) xxxx xxxx"
             onChangeText={(contact_number) => this.setState({ contact_number })}
-            validator={() => this.contact_number_validator()}
             errorMessage={this.state.contact_err}
             leftIcon={
               <Icon
@@ -197,8 +218,19 @@ export default class buyApplication extends React.Component {
             }
           />
 
-          <GooglePlacesInput set={this.setAddress}/>
+          <View style={{ marginHorizontal: 10, marginBottom: 20 }}>
+            <GooglePlacesInput set={this.setAddress} />
+            {!this.state.valid_address && (
+              <View style={{ paddingLeft: 10 }}>
+                <Text style={{ fontSize: 12, color: "red", marginTop: 5 }}>
+                  Enter location
+                </Text>
+              </View>
+            )}
+          </View>
+        </Card>
 
+        <Card containerStyle={{ borderRadius: 10 }}>
           <InputHeader text="Pet Information" />
 
           <CustomInput
@@ -265,7 +297,9 @@ export default class buyApplication extends React.Component {
               />
             }
           />
+        </Card>
 
+        <Card containerStyle={{ borderRadius: 10 }}>
           <InputHeader text="Your Home Enviroment" />
           <CustomInput
             label="Description of your family/members of the household"
@@ -283,154 +317,31 @@ export default class buyApplication extends React.Component {
               />
             }
           />
-
-          <View
-            style={{
-              flexDirection: "row",
-              alignItems: "center",
-              justifyContent: "center",
-            }}>
-            <Button
-              style={{
-                //   paddingVertical : 25,
-                marginTop: 25,
-                marginBottom: 25,
-                backgroundColor: green,
-              }}
-              onPress={this.handleSubmit}>
-              <Text
-                style={{
-                  color: "white",
-                }}>
-                Submit
-              </Text>
-            </Button>
-          </View>
         </Card>
+
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "center",
+          }}>
+          <Button
+            style={{
+              marginTop: 20,
+              marginBottom: 20,
+              backgroundColor: darkGreen,
+            }}
+            onPress={this.handleSubmit}>
+            <Text
+              style={{
+                color: "white",
+                fontWeight: "bold",
+              }}>
+              Submit
+            </Text>
+          </Button>
+        </View>
       </ScrollView>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    paddingBottom: 25,
-  },
-  buySellContainer: {
-    alignSelf: "stretch",
-    justifyContent: "flex-start",
-    alignItems: "flex-start",
-    flexDirection: "row",
-  },
-  titleContainer: {
-    alignSelf: "stretch",
-    justifyContent: "flex-start",
-    alignItems: "flex-start",
-    flexDirection: "row",
-    paddingTop: 20,
-    paddingLeft: 20,
-    paddingRight: 20,
-  },
-  imageContainer: {
-    width: 150,
-    height: 150,
-  },
-  categories: {
-    alignSelf: "stretch",
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    flexDirection: "row",
-    padding: 20,
-  },
-  iconContainer: {
-    padding: 20,
-  },
-  viewApplication: {
-    backgroundColor: "#447ECB",
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    height: 50,
-    width: 200,
-  },
-  fontTitle: {
-    textAlign: "left",
-    fontSize: 20,
-    fontWeight: "bold",
-  },
-  fontHeading: {
-    textAlign: "left",
-    fontSize: 16,
-    fontWeight: "bold",
-  },
-  cardContainer: {
-    borderRadius: 4,
-    alignSelf: "stretch",
-    justifyContent: "flex-start",
-    alignItems: "flex-start",
-    flexDirection: "row",
-    marginLeft: 20,
-    marginRight: 20,
-    elevation: 5,
-  },
-  cardContentContainer: {
-    borderRadius: 4,
-    alignSelf: "stretch",
-    justifyContent: "flex-start",
-    alignItems: "flex-start",
-    flexDirection: "row",
-  },
-  heading: {
-    fontSize: 20,
-    fontWeight: "bold",
-    // fontFamily: "Rosario_400Regular",
-    // textShadowColor: "rgba(0, 0, 0, 0.3)",
-    // textShadowOffset: { width: -1, height: 1 },
-    // textShadowRadius: 10,
-    color: "#000000",
-    textAlign: "left",
-    alignItems: "center",
-    justifyContent: "center",
-    // marginTop: 50,
-    flex: 1,
-    paddingVertical: 10,
-  },
-  sub_heading: {
-    fontSize: 16,
-    fontWeight: "bold",
-    borderBottomWidth: 1,
-    borderBottomColor: "#707070",
-  },
-  formContainer: {
-    marginLeft: 30,
-    marginRight: 30,
-  },
-  smallInputBox: {
-    margin: 0,
-    height: 25,
-    // borderWidth: 1,
-    // borderWidth: 3,
-    padding: 0,
-  },
-  bigInputBox: {
-    height: 50,
-  },
-  inputName: {
-    marginBottom: 0,
-    paddingBottom: 0,
-    color: "#515151",
-    fontSize: 14,
-  },
-  inputContainer: {
-    marginTop: 10,
-  },
-  errorText: {
-    color: "red",
-    textAlign: "right",
-    fontSize: 14,
-    fontWeight: "bold",
-  },
-});

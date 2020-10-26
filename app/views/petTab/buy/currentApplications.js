@@ -13,6 +13,7 @@ import { db } from "../../database/firebase";
 import { auth } from "../../database/firebase";
 import {onBuyTab} from "../../components/petTabComponents";
 import globalStyles from "../../styleSheet/styleSheet";
+import { petBuyCard } from "../../components/petBuyComponents";
 
 export default class currentApplications extends React.Component {
   state = {
@@ -77,6 +78,7 @@ export default class currentApplications extends React.Component {
                     additional: listingDoc.data().additionalInfo,
                     photo: listingDoc.data().photo_link,
                     doc_id: listingDoc.id,
+                    uuid: listingDoc.data().uuid,
                   });
                   this.setState({
                     isLoading: false,
@@ -145,73 +147,7 @@ export default class currentApplications extends React.Component {
                 refreshing={this.state.pullToRefresh}
                 showsVerticalScrollIndicator={false}
                 renderItem={({ item }) => (
-                  <Card elevation={5} style={styles.card}>
-                    <Card.Title
-                      title={item.petName}
-                      subtitle={item.name}
-                      left={(props) => (
-                        <Avatar.Image
-                          {...props}
-                          size={40}
-                          source={{
-                            uri: item.avatarPhoto,
-                          }}
-                        />
-                      )}
-                    />
-                    <View style={{ flexDirection: "row" }}>
-                      <View
-                        style={{
-                          paddingLeft: 10,
-                          paddingBottom: 10,
-                          paddingTop: 10,
-                          paddingRight: 10,
-                          width: 170,
-                          height: 170,
-                        }}
-                      >
-                        <Image
-                          source={{ uri: item.photo }}
-                          style={{ aspectRatio: 1, borderRadius: 5 }}
-                        />
-                      </View>
-                      <View
-                        style={{
-                          flex: 3,
-                          justifyContent: "center",
-                        }}
-                      >
-                        <Card.Content>
-                          <Text numberOfLines={1} style={{ flex: 1 }}>
-                            <Text style={{ fontWeight: "bold" }}>Age: </Text>
-                            <Text>{item.age}</Text>
-                          </Text>
-                          <Text numberOfLines={1} style={{ flex: 1 }}>
-                            <Text style={{ fontWeight: "bold" }}>Gender: </Text>
-                            <Text>{item.gender}</Text>
-                          </Text>
-                          <Text numberOfLines={1} style={{ flex: 1 }}>
-                            <Text style={{ fontWeight: "bold" }}>Location: </Text>
-                            <Text>{item.location}</Text>
-                          </Text>
-                        </Card.Content>
-
-                        <Card.Actions style={styles.actionCard}>
-                          <Button
-                            style={styles.bigButton}
-                            mode="contained"
-                            onPress={() =>
-                              this.props.navigation.navigate("buyPetProfile", {
-                                item,
-                              })
-                            }
-                          >
-                            <Text style={styles.bigButtonText}>More Info</Text>
-                          </Button>
-                        </Card.Actions>
-                      </View>
-                    </View>
-                  </Card>
+                  petBuyCard(item, this.props.navigation)
                 )}
                 keyExtractor={(item, index) => index.toString()}
                 data={
@@ -243,73 +179,7 @@ export default class currentApplications extends React.Component {
                 refreshing={this.state.pullToRefresh}
                 showsVerticalScrollIndicator={false}
                 renderItem={({ item }) => (
-                  <Card elevation={5} style={styles.card}>
-                    <Card.Title
-                      title={item.petName}
-                      subtitle={item.name}
-                      left={(props) => (
-                        <Avatar.Image
-                          {...props}
-                          size={40}
-                          source={{
-                            uri: item.avatarPhoto,
-                          }}
-                        />
-                      )}
-                    />
-                    <View style={{ flexDirection: "row" }}>
-                      <View
-                        style={{
-                          paddingLeft: 10,
-                          paddingBottom: 10,
-                          paddingTop: 10,
-                          paddingRight: 10,
-                          width: 170,
-                          height: 170,
-                        }}
-                      >
-                        <Image
-                          source={{ uri: item.photo }}
-                          style={{ aspectRatio: 1, borderRadius: 5 }}
-                        />
-                      </View>
-                      <View
-                        style={{
-                          flex: 3,
-                          justifyContent: "center",
-                        }}
-                      >
-                        <Card.Content>
-                          <Text numberOfLines={1} style={{ flex: 1 }}>
-                            <Text style={{ fontWeight: "bold" }}>Age: </Text>
-                            <Text>{item.age}</Text>
-                          </Text>
-                          <Text numberOfLines={1} style={{ flex: 1 }}>
-                            <Text style={{ fontWeight: "bold" }}>Gender: </Text>
-                            <Text>{item.gender}</Text>
-                          </Text>
-                          <Text numberOfLines={1} style={{ flex: 1 }}>
-                            <Text style={{ fontWeight: "bold" }}>Location: </Text>
-                            <Text>{item.location}</Text>
-                          </Text>
-                        </Card.Content>
-
-                        <Card.Actions style={styles.actionCard}>
-                          <Button
-                            style={styles.bigButton}
-                            mode="contained"
-                            onPress={() =>
-                              this.props.navigation.navigate("buyPetProfile", {
-                                item,
-                              })
-                            }
-                          >
-                            <Text style={styles.bigButtonText}>More Info</Text>
-                          </Button>
-                        </Card.Actions>
-                      </View>
-                    </View>
-                  </Card>
+                  petBuyCard(item, this.props.navigation)
                 )}
                 keyExtractor={(item, index) => index.toString()}
                 data={

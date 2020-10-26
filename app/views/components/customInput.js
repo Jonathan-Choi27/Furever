@@ -47,11 +47,11 @@ export function InputHeader(props) {
     <Text
       style={{
         fontSize: 18,
-        color: "#505050",
+        color: "black",
         fontWeight: "bold",
         borderBottomWidth: 2,
         borderBottomColor: "#484848",
-        marginBottom: 20,
+        marginBottom: 10,
       }}>
       {props.text}
     </Text>
