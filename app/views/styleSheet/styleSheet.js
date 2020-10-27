@@ -163,12 +163,21 @@ export default StyleSheet.create({
     borderRadius: 10,
     width: screenWidth - 20,
   },
+  cardHeading: {
+    fontSize: 18,
+    color: "black",
+    fontWeight: "bold",
+    borderBottomWidth: 2,
+    borderBottomColor: "#484848",
+    marginBottom: 10,
+  },
   contentTextBold: {
     fontWeight: "bold",
     fontSize: 15,
   },
   contentText: {
     fontSize: 15,
+    lineHeight: 20,
   },
 
   // Express Interest Component
