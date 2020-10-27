@@ -108,7 +108,7 @@ export default class petBreeds extends React.Component {
       });
   }
 
-  searchFunction = (searchText) => {
+    searchFunction = (searchText) => {
     this.setState({ searchText: searchText });
 
     let filteredData = this.state.data.filter(function (item) {
