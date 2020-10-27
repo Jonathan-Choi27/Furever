@@ -26,6 +26,14 @@ export default class AgePicker extends React.Component {
       options: "0",
     };
   }
+  componentDidUpdate(prevProps) {
+    console.log(this.props.age);
+    if (this.props.age !== prevProps.age) {
+      this.setState({
+        age : this.props.age,
+      });
+    }
+  }
 
   onOptionChange = (options) => {
     this.setState({
@@ -53,7 +61,7 @@ export default class AgePicker extends React.Component {
               flex: 0.6,
               borderBottomColor: "#D3D3D3",
               borderBottomWidth: 2,
-                flexDirection: "row"
+              flexDirection: "row",
             }}>
             <View style={globalStyles.formPickerIconContainer}>
               <Icon name="ios-paper" type="ionicon" color={darkGreen} />
