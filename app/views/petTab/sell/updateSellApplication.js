@@ -33,7 +33,7 @@ import globalStyles, {
 import { Card } from "react-native-elements";
 import { CustomInput, InputHeader } from "../../components/customInput";
 import { Icon } from "react-native-elements";
-import AgePicker from "../../components/AgePicker";
+import AgePicker from "../../components/agePicker";
 import GooglePlacesInput from "../../components/mapAutoComplete";
 import PriceSlider from "../../components/priceSlider";
 

@@ -1,7 +1,7 @@
 import { Picker, Text, View } from "react-native";
 import React from "react";
-import { CustomPicker } from "./CustomPicker";
-import GooglePlacesInput from "../components/mapAutoComplete";
+import { CustomPicker } from "./customPicker";
+import GooglePlacesInput from "./mapAutoComplete";
 import globalStyles, { darkGreen } from "../styleSheet/styleSheet";
 import { Icon } from "react-native-elements";
 

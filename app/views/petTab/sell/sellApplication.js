@@ -27,7 +27,7 @@ import "firebase/storage";
 import globalStyles, { darkGreen, green } from "../../styleSheet/styleSheet";
 import { CustomInput, InputHeader } from "../../components/customInput";
 import PriceSlider from "../../components/priceSlider";
-import AgePicker from "../../components/AgePicker";
+import AgePicker from "../../components/agePicker";
 import GooglePlacesInput from "../../components/mapAutoComplete";
 import * as firebase from "firebase";
 
