@@ -152,16 +152,16 @@ export default StyleSheet.create({
     alignItems: "center",
     backgroundColor: lightGrey,
   },
+  cardContentContainer: {
+    borderRadius: 10,
+    width: screenWidth - 20,
+  },
   cardContainer: {
     alignSelf: "stretch",
     justifyContent: "flex-start",
     alignItems: "flex-start",
     flexDirection: "row",
     width: screenWidth - 50,
-  },
-  cardContentContainer: {
-    borderRadius: 10,
-    width: screenWidth - 20,
   },
   cardHeading: {
     fontSize: 18,
