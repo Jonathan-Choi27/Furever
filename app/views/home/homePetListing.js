@@ -35,6 +35,11 @@ const db = firebase.firestore();
 export default class HomeListing extends React.Component {
   state = {
     data: [],
+    limit: 12,
+    lastVisible: null,
+    loading: false,
+    refreshing: false,
+
     isLoading: true,
     pullToRefresh: false,
     filteredData: [],
@@ -54,52 +59,101 @@ export default class HomeListing extends React.Component {
     checkNewUser: false,
   };
 
-  async fetchData() {
+  async initialFetchData() {
+    // this.setState({
+    //   loading: true,
+    // });
+
     const dataArray = [];
-    const seller = {};
-    
-    await db.collection("pet_listings")
-      .get()
-      .then((doc) => {
-        doc.forEach(async (listingDoc) => {
-          // await db.collection("users")
-          //   .get()
-          //   .then((doc) => {
-          //     doc.forEach(async (user) => {
-          //       if (listingDoc.data().uuid == user.data().uuid) {  
-          //         seller["name"] = user.data().name;
-          //         seller["photo"] = user.data().photo;      
-          //         seller["info"] = user.data().profileText;    
-          //         seller["email"] = user.data().email;    
-          //         seller["dob"] = user.data().dob;                  
-          //       }
-          //     })
-          // });
-          dataArray.push({
-            petName: listingDoc.data().name,
-            category: listingDoc.data().category,
-            breed: listingDoc.data().breed,
-            colour: listingDoc.data().colour,
-            age: listingDoc.data().age,
-            gender: listingDoc.data().gender,
-            size: listingDoc.data().size,
-            location: listingDoc.data().location,
-            price: listingDoc.data().price,
-            behaviour: listingDoc.data().behaviour,
-            health: listingDoc.data().health,
-            training: listingDoc.data().training,
-            additional: listingDoc.data().additionalInfo,
-            photo: listingDoc.data().photo_link,
-            documentName: listingDoc.data().documents,
-            documentUri: listingDoc.data().documents_uri,
-            uuid: listingDoc.data().uuid,
-          });
-          this.setState({
-            isLoading: false,
-            data: [...dataArray],
-          });
-        });
+
+    let initialQuery = await db
+      .collection("pet_listings")
+      .orderBy("timestamp")
+      //   .endAt(this.state.lastVisible)
+      .limit(this.state.limit);
+
+    let documentSnapshots = await initialQuery.get();
+
+    console.log("  ");
+    console.log("initial");
+    let documentData = documentSnapshots.docs.map((listingDoc) => {
+      console.log(listingDoc.id);
+      dataArray.push({
+        petName: listingDoc.data().name,
+        category: listingDoc.data().category,
+        breed: listingDoc.data().breed,
+        colour: listingDoc.data().colour,
+        age: listingDoc.data().age,
+        gender: listingDoc.data().gender,
+        size: listingDoc.data().size,
+        location: listingDoc.data().location,
+        price: listingDoc.data().price,
+        behaviour: listingDoc.data().behaviour,
+        health: listingDoc.data().health,
+        training: listingDoc.data().training,
+        additional: listingDoc.data().additionalInfo,
+        photo: listingDoc.data().photo_link,
+        documentName: listingDoc.data().documents,
+        documentUri: listingDoc.data().documents_uri,
+        uuid: listingDoc.data().uuid,
       });
+
+      this.setState({
+        lastVisible: listingDoc.data().timestamp,
+      });
+    });
+
+    this.setState({
+      isLoading: false,
+      data: [...dataArray],
+    });
+
+    // const dataArray = [];
+    // const seller = {};
+
+    // await db
+    //   .collection("pet_listings")
+    //   .get()
+    //   .then((doc) => {
+    //     doc.forEach(async (listingDoc) => {
+    //       // await db.collection("users")
+    //       //   .get()
+    //       //   .then((doc) => {
+    //       //     doc.forEach(async (user) => {
+    //       //       if (listingDoc.data().uuid == user.data().uuid) {
+    //       //         seller["name"] = user.data().name;
+    //       //         seller["photo"] = user.data().photo;
+    //       //         seller["info"] = user.data().profileText;
+    //       //         seller["email"] = user.data().email;
+    //       //         seller["dob"] = user.data().dob;
+    //       //       }
+    //       //     })
+    //       // });
+    //       dataArray.push({
+    //         petName: listingDoc.data().name,
+    //         category: listingDoc.data().category,
+    //         breed: listingDoc.data().breed,
+    //         colour: listingDoc.data().colour,
+    //         age: listingDoc.data().age,
+    //         gender: listingDoc.data().gender,
+    //         size: listingDoc.data().size,
+    //         location: listingDoc.data().location,
+    //         price: listingDoc.data().price,
+    //         behaviour: listingDoc.data().behaviour,
+    //         health: listingDoc.data().health,
+    //         training: listingDoc.data().training,
+    //         additional: listingDoc.data().additionalInfo,
+    //         photo: listingDoc.data().photo_link,
+    //         documentName: listingDoc.data().documents,
+    //         documentUri: listingDoc.data().documents_uri,
+    //         uuid: listingDoc.data().uuid,
+    //       });
+    //       this.setState({
+    //         isLoading: false,
+    //         data: [...dataArray],
+    //       });
+    //     });
+    //   });
 
     const user = auth.currentUser;
     db.collection("users")
@@ -112,8 +166,60 @@ export default class HomeListing extends React.Component {
       });
   }
 
+  async fetchMore() {
+    // this.setState({
+    //     loading: true,
+    //   });
+
+    const dataArray = [];
+
+    let initialQuery = await db
+      .collection("pet_listings")
+      .orderBy("timestamp")
+      .startAfter(this.state.lastVisible)
+      //   .startAt(this.state.lastVisible)
+      //   .endAt(this.state.lastVisible)
+      .limit(this.state.limit);
+
+    let documentSnapshots = await initialQuery.get();
+
+    // console.log(this.state.lastVisible);
+    console.log("fetch more");
+    let documentData = documentSnapshots.docs.map((listingDoc) => {
+      console.log(listingDoc.id);
+      dataArray.push({
+        petName: listingDoc.data().name,
+        category: listingDoc.data().category,
+        breed: listingDoc.data().breed,
+        colour: listingDoc.data().colour,
+        age: listingDoc.data().age,
+        gender: listingDoc.data().gender,
+        size: listingDoc.data().size,
+        location: listingDoc.data().location,
+        price: listingDoc.data().price,
+        behaviour: listingDoc.data().behaviour,
+        health: listingDoc.data().health,
+        training: listingDoc.data().training,
+        additional: listingDoc.data().additionalInfo,
+        photo: listingDoc.data().photo_link,
+        documentName: listingDoc.data().documents,
+        documentUri: listingDoc.data().documents_uri,
+        uuid: listingDoc.data().uuid,
+      });
+
+      this.setState({
+        lastVisible: listingDoc.data().timestamp,
+      });
+    });
+
+    this.setState({
+      // isLoading: false,
+      data: this.state.data.concat(dataArray),
+    });
+  }
+
   async componentDidMount() {
-    this.fetchData();
+    this.initialFetchData();
   }
 
   searchFunction = (searchText) => {
@@ -238,8 +344,7 @@ export default class HomeListing extends React.Component {
         styles={styles.card}
         onPress={() =>
           this.props.navigation.navigate("homePetProfile", { item })
-        }
-      >
+        }>
         <Image source={{ uri: item.photo }} style={styles.image} />
         <Text numberOfLines={1} style={styles.title}>
           {item.petName}
@@ -262,15 +367,14 @@ export default class HomeListing extends React.Component {
       const user = auth.currentUser;
       newNotice = (
         <Banner
-          style={{color: darkGreen}}
+          style={{ color: darkGreen }}
           visible={this.state.bannerVisible}
           actions={[
             {
               label: "Close",
               onPress: () => this.setState({ bannerVisible: false }),
             },
-          ]}
-        >
+          ]}>
           <Text style={{ fontSize: 16, fontWeight: "bold" }}>
             Welcome to Furever, we hope you have a wonderful experience! - The
             Furever Team
@@ -301,8 +405,7 @@ export default class HomeListing extends React.Component {
               mode="contained"
               contentStyle={{
                 height: 35,
-              }}
-            >
+              }}>
               Filter
             </Button>
           </View>
@@ -313,14 +416,13 @@ export default class HomeListing extends React.Component {
               visible={this.state.visible}
               onDismiss={() => {
                 this.setState({ visible: false });
-              }}
-            >
-              <Card elevation={5} style={{margin: 10}}>
+              }}>
+              <Card elevation={5} style={{ margin: 10 }}>
                 <Card.Content>
                   <Text>Animal:</Text>
                   <View style={{ flexDirection: "row" }}>
                     <Checkbox.Item
-                      theme={{colors: {primary: darkGreen}}}
+                      theme={{ colors: { primary: darkGreen } }}
                       color={darkGreen}
                       label="Dog"
                       status={this.state.dogCheck ? "checked" : "unchecked"}
@@ -329,7 +431,7 @@ export default class HomeListing extends React.Component {
                       }}
                     />
                     <Checkbox.Item
-                      theme={{colors: {primary: darkGreen}}}
+                      theme={{ colors: { primary: darkGreen } }}
                       color={darkGreen}
                       label="Fish"
                       status={this.state.fishCheck ? "checked" : "unchecked"}
@@ -338,7 +440,7 @@ export default class HomeListing extends React.Component {
                       }}
                     />
                     <Checkbox.Item
-                      theme={{colors: {primary: darkGreen}}}
+                      theme={{ colors: { primary: darkGreen } }}
                       color={darkGreen}
                       label="Lizard"
                       status={this.state.lizardCheck ? "checked" : "unchecked"}
@@ -349,7 +451,7 @@ export default class HomeListing extends React.Component {
                   </View>
                   <View style={{ flexDirection: "row" }}>
                     <Checkbox.Item
-                      theme={{colors: {primary: darkGreen}}}
+                      theme={{ colors: { primary: darkGreen } }}
                       color={darkGreen}
                       label="Cat"
                       status={this.state.catCheck ? "checked" : "unchecked"}
@@ -358,7 +460,7 @@ export default class HomeListing extends React.Component {
                       }}
                     />
                     <Checkbox.Item
-                      theme={{colors: {primary: darkGreen}}}
+                      theme={{ colors: { primary: darkGreen } }}
                       color={darkGreen}
                       label="Bird"
                       status={this.state.birdCheck ? "checked" : "unchecked"}
@@ -367,7 +469,7 @@ export default class HomeListing extends React.Component {
                       }}
                     />
                     <Checkbox.Item
-                      theme={{colors: {primary: darkGreen}}}
+                      theme={{ colors: { primary: darkGreen } }}
                       color={darkGreen}
                       label="Turtle"
                       status={this.state.turtleCheck ? "checked" : "unchecked"}
@@ -378,7 +480,7 @@ export default class HomeListing extends React.Component {
                   </View>
                   <View style={{ flexDirection: "row" }}>
                     <Checkbox.Item
-                      theme={{colors: {primary: darkGreen}}}
+                      theme={{ colors: { primary: darkGreen } }}
                       color={darkGreen}
                       label="Rabbit"
                       status={this.state.rabbitCheck ? "checked" : "unchecked"}
@@ -387,7 +489,7 @@ export default class HomeListing extends React.Component {
                       }}
                     />
                     <Checkbox.Item
-                      theme={{colors: {primary: darkGreen}}}
+                      theme={{ colors: { primary: darkGreen } }}
                       color={darkGreen}
                       label="Horse"
                       status={this.state.horseCheck ? "checked" : "unchecked"}
@@ -396,7 +498,7 @@ export default class HomeListing extends React.Component {
                       }}
                     />
                     <Checkbox.Item
-                      theme={{colors: {primary: darkGreen}}}
+                      theme={{ colors: { primary: darkGreen } }}
                       color={darkGreen}
                       label="Pig"
                       status={this.state.pigCheck ? "checked" : "unchecked"}
@@ -429,7 +531,7 @@ export default class HomeListing extends React.Component {
                   this.setState({
                     pullToRefresh: true,
                   });
-                  await this.fetchData();
+                  await this.initialFetchData();
                   this.setState({
                     pullToRefresh: false,
                   });
@@ -457,7 +559,7 @@ export default class HomeListing extends React.Component {
                       this.setState({
                         pullToRefresh: true,
                       });
-                      await this.fetchData();
+                      await this.initialFetchData();
                       this.setState({
                         pullToRefresh: false,
                       });
@@ -465,7 +567,10 @@ export default class HomeListing extends React.Component {
                     keyExtractor={(item, index) => index.toString()}
                     refreshing={this.state.pullToRefresh}
                     renderItem={({ item }) => this.homeCard(item)}
+                    onEndReached={() => this.fetchMore()}
+                    onEndReachedThreshold={0.5}
                   />
+                  {/* <Button onPress={() => this.fetchMore()}> test </Button> */}
                 </View>
               ) : (
                 <View style={styles.container}>
@@ -482,7 +587,7 @@ export default class HomeListing extends React.Component {
                         this.setState({
                           pullToRefresh: true,
                         });
-                        await this.fetchData();
+                        await this.initialFetchData();
                         this.setState({
                           pullToRefresh: false,
                         });

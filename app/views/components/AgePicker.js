@@ -27,7 +27,7 @@ export default class AgePicker extends React.Component {
     };
   }
   componentDidUpdate(prevProps) {
-    console.log(this.props.age);
+    // console.log(this.props.age);
     if (this.props.age !== prevProps.age) {
       this.setState({
         age : this.props.age,

@@ -19,8 +19,15 @@ import {
   Checkbox,
 } from "react-native-paper";
 import { db } from "../../database/firebase";
-import {onBuyTab} from "../../components/petTabComponents";
-import { darkGreen, green, lightGreen, orange, lightBlue, lightGrey } from "../../styleSheet/styleSheet";
+import { onBuyTab } from "../../components/petTabComponents";
+import {
+  darkGreen,
+  green,
+  lightGreen,
+  orange,
+  lightBlue,
+  lightGrey,
+} from "../../styleSheet/styleSheet";
 import globalStyles from "../../styleSheet/styleSheet";
 import { petBuyCard, petBuyCategory } from "../../components/petBuyComponents";
 
@@ -89,21 +96,21 @@ export default class petCategories extends React.Component {
         });
       });
 
-      db.collection("petCategories")
-        .get()
-        .then((doc) => {
-          doc.forEach(async (categoryDoc) => {
-            petCategoryArray.push({
-              category: categoryDoc.data().category,
-              image: categoryDoc.data().image,
-              categoryId: categoryDoc.id,
-            });
-            this.setState({
-              isLoading: false,
-              petCategories: [...petCategoryArray],
-            });
+    db.collection("petCategories")
+      .get()
+      .then((doc) => {
+        doc.forEach(async (categoryDoc) => {
+          petCategoryArray.push({
+            category: categoryDoc.data().category,
+            image: categoryDoc.data().image,
+            categoryId: categoryDoc.id,
+          });
+          this.setState({
+            isLoading: false,
+            petCategories: [...petCategoryArray],
           });
         });
+      });
   }
 
   searchFunction = (searchText) => {
@@ -232,46 +239,46 @@ export default class petCategories extends React.Component {
     }
     return (
       <Provider>
-          <View style={globalStyles.petContainer}>
-            {onBuyTab(this.props.navigation)}
-            <View
-              style={globalStyles.searchFilterContainer}
-            >
-              <Searchbar
-                style={globalStyles.searchBar}
-                placeholder="Search"
-                onChangeText={this.searchFunction}
-                value={this.state.searchText}
-              />
-              <Button
-                color={lightGreen}
-                onPress={() => {
-                  this.setState({ visible: true });
-                }}
-                mode="contained"
-                contentStyle={{
-                  height: 35,
-                }}
-              >
-                Filter
-              </Button>
-            </View>
-            
-            <View style={{height: 52}}>
-              <TouchableOpacity
-                style={globalStyles.viewApplication}
-                onPress={() => this.props.navigation.replace("currentApplications")}>
-                <Text style={{ 
-                    textAlign: "center", 
-                    color: "white", 
-                    fontWeight: "bold", 
-                  }}>
-                  View Applications
-                </Text>
-              </TouchableOpacity>
-            </View>
-                
-            <ScrollView showsVerticalScrollIndicator={false}>
+        <View style={globalStyles.petContainer}>
+          {onBuyTab(this.props.navigation)}
+          <View style={globalStyles.searchFilterContainer}>
+            <Searchbar
+              style={globalStyles.searchBar}
+              placeholder="Search"
+              onChangeText={this.searchFunction}
+              value={this.state.searchText}
+            />
+            <Button
+              color={lightGreen}
+              onPress={() => {
+                this.setState({ visible: true });
+              }}
+              mode="contained"
+              contentStyle={{
+                height: 35,
+              }}>
+              Filter
+            </Button>
+          </View>
+
+          <View style={{ height: 52 }}>
+            <TouchableOpacity
+              style={globalStyles.viewApplication}
+              onPress={() =>
+                this.props.navigation.replace("currentApplications")
+              }>
+              <Text
+                style={{
+                  textAlign: "center",
+                  color: "white",
+                  fontWeight: "bold",
+                }}>
+                View Applications
+              </Text>
+            </TouchableOpacity>
+          </View>
+
+          <ScrollView showsVerticalScrollIndicator={false}>
             <Portal>
               <Modal
                 style={{ backgroundColor: "transparent" }}
@@ -279,12 +286,12 @@ export default class petCategories extends React.Component {
                 onDismiss={() => {
                   this.setState({ visible: false });
                 }}>
-                <Card elevation={5} style={{margin: 10}}>
+                <Card elevation={5} style={{ margin: 10 }}>
                   <Card.Content>
                     <Text>Animal:</Text>
                     <View style={{ flexDirection: "row" }}>
                       <Checkbox.Item
-                        theme={{colors: {primary: darkGreen}}}
+                        theme={{ colors: { primary: darkGreen } }}
                         color={darkGreen}
                         label="Dog"
                         status={this.state.dogCheck ? "checked" : "unchecked"}
@@ -293,7 +300,7 @@ export default class petCategories extends React.Component {
                         }}
                       />
                       <Checkbox.Item
-                        theme={{colors: {primary: darkGreen}}}
+                        theme={{ colors: { primary: darkGreen } }}
                         color={darkGreen}
                         label="Fish"
                         status={this.state.fishCheck ? "checked" : "unchecked"}
@@ -302,10 +309,12 @@ export default class petCategories extends React.Component {
                         }}
                       />
                       <Checkbox.Item
-                        theme={{colors: {primary: darkGreen}}}
+                        theme={{ colors: { primary: darkGreen } }}
                         color={darkGreen}
                         label="Lizard"
-                        status={this.state.lizardCheck ? "checked" : "unchecked"}
+                        status={
+                          this.state.lizardCheck ? "checked" : "unchecked"
+                        }
                         onPress={() => {
                           this.checkFunction("lizardCheck");
                         }}
@@ -313,7 +322,7 @@ export default class petCategories extends React.Component {
                     </View>
                     <View style={{ flexDirection: "row" }}>
                       <Checkbox.Item
-                        theme={{colors: {primary: darkGreen}}}
+                        theme={{ colors: { primary: darkGreen } }}
                         color={darkGreen}
                         label="Cat"
                         status={this.state.catCheck ? "checked" : "unchecked"}
@@ -322,7 +331,7 @@ export default class petCategories extends React.Component {
                         }}
                       />
                       <Checkbox.Item
-                        theme={{colors: {primary: darkGreen}}}
+                        theme={{ colors: { primary: darkGreen } }}
                         color={darkGreen}
                         label="Bird"
                         status={this.state.birdCheck ? "checked" : "unchecked"}
@@ -331,10 +340,12 @@ export default class petCategories extends React.Component {
                         }}
                       />
                       <Checkbox.Item
-                        theme={{colors: {primary: darkGreen}}}
+                        theme={{ colors: { primary: darkGreen } }}
                         color={darkGreen}
                         label="Turtle"
-                        status={this.state.turtleCheck ? "checked" : "unchecked"}
+                        status={
+                          this.state.turtleCheck ? "checked" : "unchecked"
+                        }
                         onPress={() => {
                           this.checkFunction("turtleCheck");
                         }}
@@ -342,16 +353,18 @@ export default class petCategories extends React.Component {
                     </View>
                     <View style={{ flexDirection: "row" }}>
                       <Checkbox.Item
-                        theme={{colors: {primary: darkGreen}}}
+                        theme={{ colors: { primary: darkGreen } }}
                         color={darkGreen}
                         label="Rabbit"
-                        status={this.state.rabbitCheck ? "checked" : "unchecked"}
+                        status={
+                          this.state.rabbitCheck ? "checked" : "unchecked"
+                        }
                         onPress={() => {
                           this.checkFunction("rabbitCheck");
                         }}
                       />
                       <Checkbox.Item
-                        theme={{colors: {primary: darkGreen}}}
+                        theme={{ colors: { primary: darkGreen } }}
                         color={darkGreen}
                         label="Horse"
                         status={this.state.horseCheck ? "checked" : "unchecked"}
@@ -360,7 +373,7 @@ export default class petCategories extends React.Component {
                         }}
                       />
                       <Checkbox.Item
-                        theme={{colors: {primary: darkGreen}}}
+                        theme={{ colors: { primary: darkGreen } }}
                         color={darkGreen}
                         label="Pig"
                         status={this.state.pigCheck ? "checked" : "unchecked"}
@@ -385,12 +398,12 @@ export default class petCategories extends React.Component {
             </Portal>
             {this.state.filterDisplay ? (
               <FlatList
-                numColumns = {1}
+                numColumns={1}
                 key={1}
                 keyExtractor={(item, index) => index.toString()}
-                renderItem={({ item }) => (
+                renderItem={({ item }) =>
                   petBuyCard(item, this.props.navigation)
-                )}
+                }
                 keyExtractor={(item, index) => index.toString()}
                 data={
                   this.state.filteredData && this.state.filteredData.length > 0
@@ -401,7 +414,6 @@ export default class petCategories extends React.Component {
             ) : (
               <View style={globalStyles.petContainer}>
                 {this.state.searchText == "" ? (
-
                   <View style={globalStyles.petContainer}>
                     <FlatList
                       data={this.state.petCategories}
@@ -409,9 +421,9 @@ export default class petCategories extends React.Component {
                       numColumns={2}
                       key={2}
                       keyExtractor={(item, index) => index.toString()}
-                      renderItem={({ item }) => (
+                      renderItem={({ item }) =>
                         petBuyCategory(item, this.props.navigation)
-                      )}
+                      }
                       keyExtractor={(item, index) => index.toString()}
                     />
                   </View>
@@ -424,11 +436,11 @@ export default class petCategories extends React.Component {
                     ) : (
                       <FlatList
                         showsVerticalScrollIndicator={false}
-                        numColumns = {1}
+                        numColumns={1}
                         key={1}
-                        renderItem={({ item }) => (
+                        renderItem={({ item }) =>
                           petBuyCard(item, this.props.navigation)
-                        )}
+                        }
                         keyExtractor={(item, index) => index.toString()}
                         data={
                           this.state.filteredData &&
@@ -442,9 +454,8 @@ export default class petCategories extends React.Component {
                 )}
               </View>
             )}
-            </ScrollView>
-
-          </View>
+          </ScrollView>
+        </View>
       </Provider>
     );
   }

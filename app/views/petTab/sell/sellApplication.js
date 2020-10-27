@@ -29,6 +29,7 @@ import { CustomInput, InputHeader } from "../../components/customInput";
 import PriceSlider from "../../components/priceSlider";
 import AgePicker from "../../components/AgePicker";
 import GooglePlacesInput from "../../components/mapAutoComplete";
+import * as firebase from "firebase";
 
 const screenWidth = Math.round(Dimensions.get("window").width);
 const emptyImage =
@@ -77,6 +78,7 @@ export default class sellApplication extends React.Component {
       photo_uri: emptyImage,
       photo_uuid: "",
       documents_uri: "",
+      documents_link: "",
       seller_name: "",
       size: "",
     };
@@ -120,27 +122,27 @@ export default class sellApplication extends React.Component {
     this.additionalInfoValidator();
     this.priceValidator();
 
-    var submit;
-    if (
-      this.nameValidator() == false ||
-      this.categoryValidator() == false ||
-      this.breedValidator() == false ||
-      this.colourValidator() == false ||
-      this.sizeValidator() == false ||
-      this.ageValidator() == false ||
-      this.genderValidator() == false ||
-      this.locationValidator() == false ||
-      this.behaviourValidator() == false ||
-      this.healthValidator() == false ||
-      this.trainingValidator() == false ||
-      this.additionalInfoValidator() == false ||
-      this.photoValidator() == false
-    ) {
-      alert("All input fields required and must be valid.");
-      submit = false;
-    } else {
-      submit = true;
-    }
+    var submit = true;
+    // if (
+    //   this.nameValidator() == true
+    // //   this.categoryValidator() == false ||
+    // //   this.breedValidator() == false ||
+    // //   this.colourValidator() == false ||
+    // //   this.sizeValidator() == false ||
+    // //   this.ageValidator() == false ||
+    // //   this.genderValidator() == false ||
+    // //   this.locationValidator() == false ||
+    // //   this.behaviourValidator() == false ||
+    // //   this.healthValidator() == false ||
+    // //   this.trainingValidator() == false ||
+    // //   this.additionalInfoValidator() == false ||
+    // //   this.photoValidator() == false
+    // ) {
+    //   alert("All input fields required and must be valid.");
+    //   submit = false;
+    // } else {
+    //   submit = true;
+    // }
     return submit;
   };
 
@@ -157,13 +159,23 @@ export default class sellApplication extends React.Component {
       photo_link: photoURL,
     });
 
-    if (
-      this.state.documents_uri != "" ||
-      this.state.documents_uri != null ||
-      this.state.documents_uri != undefined
-    ) {
-      uploadDocument(this.state.documents_uri, this.state.documents);
-    }
+    // if (
+    //   this.state.documents_uri != "" ||
+    //   this.state.documents_uri != null ||
+    //   this.state.documents_uri != undefined
+    // ) {
+    //   console.log("1");
+    //   const documentURL = await uploadDocument(
+    //     this.state.documents_uri,
+    //     this.state.documents
+    //   );
+    //   console.log("2");
+
+    //   this.setState({
+    //     documents_link: documentURL,
+    //   });
+    //   console.log("3");
+    // }
 
     db.collection("pet_listings").add({
       uuid: user.uid,
@@ -178,10 +190,11 @@ export default class sellApplication extends React.Component {
       location: this.state.location,
       training: this.state.training,
       photo_link: this.state.photo_link,
-      documents: this.state.documents,
+      documents_link: this.state.documents_link,
       price: this.state.price,
       additionalInfo: this.state.additionalInfo,
       size: this.state.size,
+      timestamp: firebase.firestore.Timestamp.now()
     });
     alert("Application Successful!");
     this.props.navigation.goBack();

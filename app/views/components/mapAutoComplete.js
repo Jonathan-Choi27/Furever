@@ -43,6 +43,10 @@ export const GooglePlacesInput = (props) => {
             placeholder="Please enter location"
             // function required to set state of parent
             onPress={(data) => props.set(data.description)}
+            // onPress={(data) => {
+            //     // 'details' is provided when fetchDetails = true
+            //     console.log(data.structured_formatting.secondary_text);
+            //   }}
             // this is my google places key, will be deleted after sem
             query={{
               key: "AIzaSyC-6ifFUYzIIgUf1uhbmJ_BU6VQyre4bRw",
