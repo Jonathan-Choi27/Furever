@@ -26,7 +26,7 @@ export default class PriceSlider extends React.Component {
               onSlidingComplete={(price) =>
                 this.props.setPrice(price.toString())
               }
-              maximumValue={50}
+              maximumValue={10000}
               minimumValue={0}
               step={1}
               trackStyle={{

@@ -48,11 +48,11 @@ export default class sellApplication extends React.Component {
       valid_additionalInfo: true,
       valid_uri: true,
       valid_gender: true,
-      name_err: "",
-      behaviour_err: "",
-      health_err: "",
-      training_err: "",
-      additionalInfo_err: "",
+      nameErr: "",
+      behaviourErr: "",
+      healthErr: "",
+      trainingErr: "",
+      additionalInfoErr: "",
       categoryErr: "",
       breedErr: "",
       colourErr: "",
@@ -165,7 +165,7 @@ export default class sellApplication extends React.Component {
       uploadDocument(this.state.documents_uri, this.state.documents);
     }
 
-    db.collection("test_listings").add({
+    db.collection("pet_listings").add({
       uuid: user.uid,
       name: this.state.name,
       category: this.state.category,
@@ -266,12 +266,12 @@ export default class sellApplication extends React.Component {
     if (this.state.name == "" || /\d+/g.test(this.state.name)) {
       bool = false;
       this.setState({
-        name_err: "Invalid name",
+        nameErr: "Invalid name",
       });
     } else {
       bool = true;
       this.setState({
-        name_err: "",
+        nameErr: "",
       });
     }
 
@@ -287,12 +287,12 @@ export default class sellApplication extends React.Component {
     if (this.state.behaviour == "") {
       bool = false;
       this.setState({
-        behaviour_err: "Please fill this field in!",
+        behaviourErr: "Please fill this field in!",
       });
     } else {
       bool = true;
       this.setState({
-        behaviour_err: "",
+        behaviourErr: "",
       });
     }
 
@@ -435,12 +435,12 @@ export default class sellApplication extends React.Component {
       bool = false;
       this.setState({
         valid_additionalInfo: false,
-        additionalInfo_err: "Please fill this field in",
+        additionalInfoErr: "Please fill this field in",
       });
     } else {
       bool = true;
       this.setState({
-        additionalInfo_err: "",
+        additionalInfoErr: "",
         valid_additionalInfo: true,
       });
     }
@@ -474,12 +474,12 @@ export default class sellApplication extends React.Component {
     if (this.state.health == "") {
       bool = false;
       this.setState({
-        health_err: "Please fill this field in!",
+        healthErr: "Please fill this field in!",
       });
     } else {
       bool = true;
       this.setState({
-        health_err: "",
+        healthErr: "",
       });
     }
 
@@ -495,12 +495,12 @@ export default class sellApplication extends React.Component {
     if (this.state.training == "") {
       bool = false;
       this.setState({
-        training_err: "Please fill this field in!",
+        trainingErr: "Please fill this field in!",
       });
     } else {
       bool = true;
       this.setState({
-        training_err: "",
+        trainingErr: "",
       });
     }
 
@@ -556,7 +556,7 @@ export default class sellApplication extends React.Component {
               label="Name"
               placeholder="Please fill in the field"
               onChangeText={(name) => this.setState({ name })}
-              errorMessage={this.state.name_err}
+              errorMessage={this.state.nameErr}
               leftIcon={
                 <Icon
                   name="ios-paper"
@@ -647,7 +647,7 @@ export default class sellApplication extends React.Component {
               label="Behaviour"
               placeholder="Please fill in the field"
               onChangeText={(behaviour) => this.setState({ behaviour })}
-              errorMessage={this.state.behaviour_err}
+              errorMessage={this.state.behaviourErr}
               multiline={true}
               leftIcon={
                 <Icon
@@ -663,7 +663,7 @@ export default class sellApplication extends React.Component {
               label="Care, Health and Feeding"
               placeholder="Please fill in the field"
               onChangeText={(health) => this.setState({ health })}
-              errorMessage={this.state.health_err}
+              errorMessage={this.state.healthErr}
               multiline={true}
               leftIcon={
                 <Icon
@@ -679,7 +679,7 @@ export default class sellApplication extends React.Component {
               label="Training"
               placeholder="Please fill in the field"
               onChangeText={(training) => this.setState({ training })}
-              errorMessage={this.state.training_err}
+              errorMessage={this.state.trainingErr}
               multiline={true}
               leftIcon={
                 <Icon
@@ -697,7 +697,7 @@ export default class sellApplication extends React.Component {
               onChangeText={(additionalInfo) =>
                 this.setState({ additionalInfo })
               }
-              errorMessage={this.state.additionalInfo_err}
+              errorMessage={this.state.additionalInfoErr}
               multiline={true}
               leftIcon={
                 <Icon

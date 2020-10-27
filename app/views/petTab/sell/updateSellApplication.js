@@ -9,6 +9,7 @@ import {
   View,
   Image,
   BackHandler,
+  Dimensions,
 } from "react-native";
 import { TextInput, Button } from "react-native-paper";
 import { db } from "../../database/firebase";
@@ -21,8 +22,22 @@ import { openImagePicker, uploadPhoto } from "../../components/imageUpload";
 import CategorySelection from "./sellAppCategories";
 import { auth } from "../../database/firebase";
 import "firebase/storage";
-import { darkGreen, green, lightGreen, lightGrey, orange, lightBlue } from "../../styleSheet/styleSheet";
+import globalStyles, {
+  darkGreen,
+  green,
+  lightGreen,
+  lightGrey,
+  orange,
+  lightBlue,
+} from "../../styleSheet/styleSheet";
+import { Card } from "react-native-elements";
+import { CustomInput, InputHeader } from "../../components/customInput";
+import { Icon } from "react-native-elements";
+import AgePicker from "../../components/AgePicker";
+import GooglePlacesInput from "../../components/mapAutoComplete";
+import PriceSlider from "../../components/priceSlider";
 
+const screenWidth = Math.round(Dimensions.get("window").width);
 export default class updateSellApplication extends React.Component {
   constructor(props) {
     super(props);
@@ -35,7 +50,21 @@ export default class updateSellApplication extends React.Component {
       valid_behaviour: true,
       valid_health: true,
       valid_training: true,
+      valid_additionalInfo: true,
       valid_uri: true,
+      valid_gender: true,
+      price: "",
+      location: "",
+      nameErr: "",
+      behaviourErr: "",
+      healthErr: "",
+      trainingErr: "",
+      additionalInfoErr: "",
+      categoryErr: "",
+      breedErr: "",
+      colourErr: "",
+      sizeErr: "",
+      genderErr: "",
       // name: "",
       // category: "",
       // breed: "",
@@ -61,37 +90,44 @@ export default class updateSellApplication extends React.Component {
     this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
   }
 
-  componentDidMount() {
-    db.collection("pet_listings")
+  componentDidMount = async () => {
+    await db
+      .collection("pet_listings")
       .doc(this.props.route.params.doc_id)
       .get()
-      .then(async (doc) => {
+      .then((doc) => {
         this.setState({
-            name: doc.data().name,
-            category: doc.data().category,
-            breed: doc.data().breed,
-            colour: doc.data().colour,
-            size: doc.data().size,
-            age: doc.data().age,
-            gender: doc.data().gender,
-            location: doc.data().location,
-            price: doc.data().price,
-            behaviour: doc.data().behaviour,
-            health: doc.data().health,
-            training: doc.data().training,
-            additionalInfo: doc.data().additionalInfo,
-            photo_link: doc.data().photo_link,
-            documents: doc.data().documents,
-        })
+          name: doc.data().name,
+          category: doc.data().category,
+          breed: doc.data().breed,
+          colour: doc.data().colour,
+          size: doc.data().size,
+          age: doc.data().age,
+          gender: doc.data().gender,
+          location: doc.data().location,
+          price: doc.data().price,
+          behaviour: doc.data().behaviour,
+          health: doc.data().health,
+          training: doc.data().training,
+          additionalInfo: doc.data().additionalInfo,
+          photo_uri: doc.data().photo_link,
+          documents: doc.data().documents,
+        });
         // this.state.name = await doc.data().name;
         // console.log(this.state.name);
       });
 
-      BackHandler.addEventListener(
-        "hardwareBackPress",
-        this.handleBackButtonClick
-      );
-  }
+    BackHandler.addEventListener(
+      "hardwareBackPress",
+      this.handleBackButtonClick
+    );
+  };
+
+  setLocation = (location) => {
+    this.setState({
+      location: location,
+    });
+  };
 
   componentWillUnmount() {
     BackHandler.removeEventListener(
@@ -105,75 +141,386 @@ export default class updateSellApplication extends React.Component {
     return true;
   }
 
-  handleSubmit = async () => {
-    const user = auth.currentUser;
+  // Handle submit functions
+  validationCheck = () => {
+    this.nameValidator();
+    this.categoryValidator();
+    this.breedValidator();
+    this.colourValidator();
+    this.sizeValidator();
+    this.ageValidator();
+    this.behaviourValidator();
+    this.healthValidator();
+    this.trainingValidator();
+    this.genderValidator();
+    this.locationValidator();
+    this.additionalInfoValidator();
+    this.priceValidator();
 
     var submit;
     if (
-      this.name_regex(this.state.name) == false ||
-      this.age_regex(this.state.age) == false ||
-      this.location_regex(this.state.location) == false ||
-      this.price_regex(this.state.price) == false ||
-      this.behaviour_regex(this.state.behaviour) == false ||
-      this.health_regex(this.state.health) == false ||
-      this.training_regex(this.state.training) == false ||
-      this.state.photo_link == ""
+      this.nameValidator() == false ||
+      this.categoryValidator() == false ||
+      this.breedValidator() == false ||
+      this.colourValidator() == false ||
+      this.sizeValidator() == false ||
+      this.ageValidator() == false ||
+      this.genderValidator() == false ||
+      this.locationValidator() == false ||
+      this.behaviourValidator() == false ||
+      this.healthValidator() == false ||
+      this.trainingValidator() == false ||
+      this.additionalInfoValidator() == false ||
+      this.photoValidator() == false
     ) {
       alert("All input fields required and must be valid.");
-      this.check_valid_name();
-      this.check_valid_age();
-      this.check_valid_location();
-      this.check_valid_price();
-      this.check_valid_behaviour();
-      this.check_valid_health();
-      this.check_valid_training();
-      if (this.state.photo_link == "" && (this.state.photo_uri == "" || this.state.photo_uri == null)) {
-        this.setState({
-          valid_uri: false,
-        });
-      }
       submit = false;
     } else {
       submit = true;
     }
+    return submit;
+  };
 
-    if (submit == true) {
-      if (this.state.photo_uri !== "") {
-        const photoURL = await uploadPhoto(
-          this.state.photo_uri,
-          this.state.photo_uuid
-        );
-
-        this.setState({
-          photo_link: photoURL,
-        });
-      }
-
-      if (this.state.documents_uri !== "") {
-        uploadDocument(this.state.documents_uri, this.state.documents);
-      }
-
-      db.collection("pet_listings").doc(this.props.route.params.doc_id).update({
-        uuid: user.uid,
-        name: this.state.name,
-        category: this.state.category,
-        breed: this.state.breed,
-        colour: this.state.colour,
-        age: this.state.age,
-        gender: this.state.gender,
-        behaviour: this.state.behaviour,
-        health: this.state.health,
-        location: this.state.location,
-        training: this.state.training,
-        photo_link: this.state.photo_link,
-        documents: this.state.documents,
-        documents_uri: this.state.documents_uri,
-        price: this.state.price,
-        additionalInfo: this.state.additionalInfo,
-        size: this.state.size,
+  //Validator functions
+  nameValidator = () => {
+    var bool;
+    if (this.state.name == "" || /\d+/g.test(this.state.name)) {
+      bool = false;
+      this.setState({
+        nameErr: "Invalid name",
       });
-      this.props.navigation.goBack();
+    } else {
+      bool = true;
+      this.setState({
+        nameErr: "",
+      });
     }
+
+    this.setState({
+      valid_name: bool,
+    });
+
+    return bool;
+  };
+
+  behaviourValidator = () => {
+    var bool;
+    if (this.state.behaviour == "") {
+      bool = false;
+      this.setState({
+        behaviourErr: "Please fill this field in!",
+      });
+    } else {
+      bool = true;
+      this.setState({
+        behaviourErr: "",
+      });
+    }
+
+    this.setState({
+      valid_behaviour: bool,
+    });
+
+    return bool;
+  };
+
+  categoryValidator = () => {
+    var bool;
+    if (this.state.category == "0" || this.state.category == "") {
+      bool = false;
+      this.setState({
+        categoryErr: "Select category",
+      });
+    } else {
+      bool = true;
+      this.setState({
+        categoryErr: "",
+      });
+    }
+
+    return bool;
+  };
+
+  breedValidator = () => {
+    var bool;
+    if (this.state.breed == "0" || this.state.breed == "") {
+      bool = false;
+      this.setState({
+        breedErr: "Select breed",
+      });
+    } else {
+      bool = true;
+      this.setState({
+        breedErr: "",
+      });
+    }
+
+    return bool;
+  };
+
+  genderValidator = () => {
+    var bool;
+    if (this.state.gender == "0" || this.state.gender == "") {
+      bool = false;
+      this.setState({
+        valid_gender: false,
+      });
+    } else {
+      bool = true;
+      this.setState({
+        valid_gender: true,
+      });
+    }
+
+    return bool;
+  };
+
+  ageValidator = () => {
+    // console.log(this.state.age);
+    // console.log(this.state.ageOption);
+    var bool;
+    if (
+      this.state.age == "0" ||
+      this.state.ageOption == "0" ||
+      this.state.age == "" ||
+      this.state.ageOption == ""
+    ) {
+      bool = false;
+      this.setState({
+        valid_age: false,
+      });
+    } else {
+      bool = true;
+      this.setState({
+        valid_age: true,
+      });
+    }
+
+    return bool;
+  };
+
+  locationValidator = () => {
+    var bool;
+    if (this.state.location == "") {
+      bool = false;
+      this.setState({
+        valid_location: false,
+      });
+    } else {
+      bool = true;
+      this.setState({
+        valid_location: true,
+      });
+    }
+
+    return bool;
+  };
+
+  colourValidator = () => {
+    var bool;
+    if (this.state.colour == "0" || this.state.colour == "") {
+      bool = false;
+      this.setState({
+        colourErr: "Select colour",
+      });
+    } else {
+      bool = true;
+      this.setState({
+        colourErr: "",
+      });
+    }
+
+    return bool;
+  };
+
+  sizeValidator = () => {
+    var bool;
+    if (this.state.size == "0" || this.state.size == "") {
+      bool = false;
+      this.setState({
+        sizeErr: "Select size",
+      });
+    } else {
+      bool = true;
+      this.setState({
+        sizeErr: "",
+      });
+    }
+
+    return bool;
+  };
+
+  additionalInfoValidator = () => {
+    var bool;
+    if (this.state.additionalInfo == "") {
+      bool = false;
+      this.setState({
+        valid_additionalInfo: false,
+        additionalInfoErr: "Please fill this field in",
+      });
+    } else {
+      bool = true;
+      this.setState({
+        additionalInfoErr: "",
+        valid_additionalInfo: true,
+      });
+    }
+
+    return bool;
+  };
+
+  photoValidator = () => {
+    var bool;
+    if (
+      this.state.photo_uri == "" ||
+      this.state.photo_uri == null ||
+      this.state.photo_uri == undefined ||
+      this.state.photo_uri == emptyImage
+    ) {
+      bool = false;
+      this.setState({
+        valid_uri: false,
+      });
+    } else {
+      bool = true;
+      this.setState({
+        valid_uri: true,
+      });
+    }
+    return bool;
+  };
+
+  healthValidator = () => {
+    var bool;
+    if (this.state.health == "") {
+      bool = false;
+      this.setState({
+        healthErr: "Please fill this field in!",
+      });
+    } else {
+      bool = true;
+      this.setState({
+        healthErr: "",
+      });
+    }
+
+    this.setState({
+      valid_health: bool,
+    });
+
+    return bool;
+  };
+
+  trainingValidator = () => {
+    var bool;
+    if (this.state.training == "") {
+      bool = false;
+      this.setState({
+        trainingErr: "Please fill this field in!",
+      });
+    } else {
+      bool = true;
+      this.setState({
+        trainingErr: "",
+      });
+    }
+
+    this.setState({
+      valid_training: bool,
+    });
+
+    return bool;
+  };
+
+  priceValidator = () => {
+    if (this.state.price == "") {
+      //   console.log("going in loop");
+      this.setState({
+        price: "0",
+      });
+    }
+  };
+
+  handleSubmit = async () => {
+    const user = auth.currentUser;
+    // var submit;
+    // if (
+    //   this.name_regex(this.state.name) == false ||
+    //   this.age_regex(this.state.age) == false ||
+    //   this.location_regex(this.state.location) == false ||
+    //   this.price_regex(this.state.price) == false ||
+    //   this.behaviour_regex(this.state.behaviour) == false ||
+    //   this.health_regex(this.state.health) == false ||
+    //   this.training_regex(this.state.training) == false ||
+    //   this.state.photo_link == ""
+    // ) {
+    //   alert("All input fields required and must be valid.");
+    //   this.check_valid_name();
+    //   this.check_valid_age();
+    //   this.check_valid_location();
+    //   this.check_valid_price();
+    //   this.check_valid_behaviour();
+    //   this.check_valid_health();
+    //   this.check_valid_training();
+    //   if (
+    //     this.state.photo_link == "" &&
+    //     (this.state.photo_uri == "" || this.state.photo_uri == null)
+    //   ) {
+    //     this.setState({
+    //       valid_uri: false,
+    //     });
+    //   }
+    //   submit = false;
+    // } else {
+    //   submit = true;
+    // }
+
+    // if (submit == true) {
+    //   if (this.state.photo_uri !== "") {
+    //     const photoURL = await uploadPhoto(
+    //       this.state.photo_uri,
+    //       this.state.photo_uuid
+    //     );
+
+    //     this.setState({
+    //       photo_link: photoURL,
+    //     });
+    //   }
+
+    //   if (this.state.documents_uri !== "") {
+    //     uploadDocument(this.state.documents_uri, this.state.documents);
+    //   }
+
+    //   db.collection("pet_listings").doc(this.props.route.params.doc_id).update({
+    //     uuid: user.uid,
+    //     name: this.state.name,
+    //     category: this.state.category,
+    //     breed: this.state.breed,
+    //     colour: this.state.colour,
+    //     age: this.state.age,
+    //     gender: this.state.gender,
+    //     behaviour: this.state.behaviour,
+    //     health: this.state.health,
+    //     location: this.state.location,
+    //     training: this.state.training,
+    //     photo_link: this.state.photo_link,
+    //     documents: this.state.documents,
+    //     documents_uri: this.state.documents_uri,
+    //     price: this.state.price,
+    //     additionalInfo: this.state.additionalInfo,
+    //     size: this.state.size,
+    //   });
+    //   this.props.navigation.goBack();
+    // }
+
+    var submit = this.validationCheck();
+  };
+
+  setPrice = (price) => {
+    // console.log(price);
+    this.setState({
+      price: price,
+    });
   };
 
   name_regex = (name) => {
@@ -281,7 +628,6 @@ export default class updateSellApplication extends React.Component {
     });
   };
 
-
   setPhotoUri = async () => {
     const get_uri = await openImagePicker();
 
@@ -337,44 +683,31 @@ export default class updateSellApplication extends React.Component {
       <SafeAreaView style={styles.container}>
         <ScrollView
           style={styles.scrollView}
-          showsVerticalScrollIndicator={false}>
+          showsVerticalScrollIndicator={false}
+          keyboardShouldPersistTaps={"handled"}>
+          {/* <Card containerStyle={{ borderRadius: 10, width: screenWidth - 40 }}> */}
           <View style={styles.container}>
-            <Text style={styles.heading}>Update Pet Listing Application</Text>
-            
-            <View style={{paddingTop: 5}}>
-              <Text style={styles.subHeading}>General Information</Text>
-              <View style={styles.line} />
+            <View style={{ marginTop: 0 }}>
+              <Text style={styles.heading}>Update Pet Listing Application</Text>
+              <InputHeader text="General Information" />
             </View>
 
-            <View style={styles.inputContainer, {paddingTop: 10}}>
-              <View style={{ flexDirection: "row" }}>
-                <View style={{ flex: 1, flexDirection: "row" }}>
-                  <Text style={styles.inputName}>Name</Text>
-                  <Text style={styles.setColorRed}> *</Text>
-                </View>
-                {!this.state.valid_name && (
-                  <View style={{ flex: 1 }}>
-                    <Text style={styles.errorText}>Invalid name</Text>
-                  </View>
-                )}
-              </View>
-              <TextInput
-                mode="outlined"
-                theme={{ colors: { primary: darkGreen } }}
-                style={styles.smallInputBox}
-                // defaultValue={this.state.name}
-                defaultValue={this.state.name}
-                onChangeText={(name) =>
-                  this.setState({
-                    name: name,
-                  })
-                }
-                onBlur={() => {
-                  this.check_valid_name();
-                }}
-              />
-            </View>
-            
+            <CustomInput
+              label="Name"
+              //   placeholder={this.state.name}
+              defaultValue={this.state.name}
+              onChangeText={(name) => this.setState({ name })}
+              errorMessage={this.state.nameErr}
+              leftIcon={
+                <Icon
+                  name="ios-paper"
+                  type="ionicon"
+                  color={darkGreen}
+                  containerStyle={{ paddingLeft: 7, paddingRight: 10 }}
+                />
+              }
+            />
+
             <CategorySelection
               setCategory={this.setCategory}
               setBreed={this.setBreed}
@@ -384,225 +717,150 @@ export default class updateSellApplication extends React.Component {
               breed={this.state.breed}
               colour={this.state.colour}
               size={this.state.size}
+              update={true}
+              categoryErr={this.state.categoryErr}
+              breedErr={this.state.breedErr}
+              colourErr={this.state.colourErr}
+              sizeErr={this.state.sizeErr}
             />
 
-            <View style={styles.inputContainer}>
-              <View style={{ flexDirection: "row" }}>
-                <View style={{ flex: 1, flexDirection: "row" }}>
-                  <Text style={styles.inputName}>Age</Text>
-                  <Text style={styles.setColorRed}> *</Text>
-                </View>
-                {!this.state.valid_age && (
-                  <View style={{ flex: 1 }}>
-                    <Text style={styles.errorText}>Invalid age</Text>
-                  </View>
-                )}
-              </View>
-              <TextInput
-                mode="outlined"
-                theme={{ colors: { primary: darkGreen } }}
-                style={styles.smallInputBox}
-                defaultValue={this.state.age}
-                onChangeText={(age) =>
-                  this.setState({
-                    age: age,
-                  })
-                }
-                onBlur={() => {
-                  this.check_valid_age();
-                }}
+            <View style={{ marginHorizontal: 15, marginBottom: 20 }}>
+              <AgePicker
+                setAge={this.setAge}
+                setAgeOption={this.setAgeOption}
+                age={this.state.age}
               />
+              {!this.state.valid_age && (
+                <View style={{ marginLeft: 5, marginBottom: 5 }}>
+                  <Text style={{ fontSize: 12, color: "red" }}>Select age</Text>
+                </View>
+              )}
             </View>
 
-            <View style={{ marginTop: 10 }} />
-            <Text>
-              <Text style={styles.inputName}>Gender</Text>
-              <Text style={styles.setColorRed}> *</Text>
-            </Text>
+            <View style={{ marginHorizontal: 10, marginBottom: 20 }}>
+              <Text
+                style={{
+                  color: "#505050",
+                  fontWeight: "bold",
+                  fontSize: 16,
+                }}>
+                Gender
+              </Text>
 
-            <View style={styles.pickerContainer}>
-              <Picker
-                style={styles.picker}
-                selectedValue={this.state.gender}
-                onValueChange={(gender) => this.setState({ gender })}>
-                <Picker.Item
-                  label="Select gender"
-                  value="0"
-                  color="#adadad"
+              <View style={globalStyles.formPickerOuterContainer}>
+                <View style={globalStyles.formPickerIconContainer}>
+                  <Icon name="ios-paper" type="ionicon" color={darkGreen} />
+                </View>
+                <View style={globalStyles.formPickerInnerContainer}>
+                  <Picker
+                    selectedValue={this.state.gender}
+                    onValueChange={(gender) => this.setState({ gender })}>
+                    <Picker.Item
+                      label="Select gender"
+                      value="0"
+                      color="#D3D3D3"
+                    />
+                    <Picker.Item label="Male" value="Male" />
+                    <Picker.Item label="Female" value="Female" />
+                  </Picker>
+                </View>
+              </View>
+
+              {!this.state.valid_gender && (
+                <View style={{ paddingLeft: 10 }}>
+                  <Text style={{ fontSize: 12, color: "red" }}>
+                    Select gender
+                  </Text>
+                </View>
+              )}
+            </View>
+
+            <View style={{ marginHorizontal: 10, marginBottom: 20 }}>
+              <GooglePlacesInput
+                set={this.setLocation}
+                previous={true}
+                prev_location={this.state.location}
+              />
+              {!this.state.valid_location && (
+                <View style={{ paddingLeft: 10 }}>
+                  <Text style={{ fontSize: 12, color: "red", marginTop: 5 }}>
+                    Enter location
+                  </Text>
+                </View>
+              )}
+            </View>
+
+            <PriceSlider price={this.state.price} setPrice={this.setPrice} />
+
+            <CustomInput
+              label="Behaviour"
+              defaultValue={this.state.behaviour}
+              onChangeText={(behaviour) => this.setState({ behaviour })}
+              errorMessage={this.state.behaviour_err}
+              multiline={true}
+              leftIcon={
+                <Icon
+                  name="ios-paper"
+                  type="ionicon"
+                  color={darkGreen}
+                  containerStyle={{ paddingLeft: 7, paddingRight: 10 }}
                 />
-                <Picker.Item label="Male" value="Male" />
-                <Picker.Item label="Female" value="Female" />
-              </Picker>
-            </View>
-            {/* <View style={{ marginTop: 10 }} /> */}
+              }
+            />
 
-            <View style={styles.inputContainer}>
-              <View style={{ flexDirection: "row" }}>
-                <View style={{ flex: 1, flexDirection: "row" }}>
-                  <Text style={styles.inputName}>Location</Text>
-                  <Text style={styles.setColorRed}> *</Text>
-                </View>
-                {!this.state.valid_location && (
-                  <View style={{ flex: 1 }}>
-                    <Text style={styles.errorText}>Invalid location</Text>
-                  </View>
-                )}
-              </View>
-              <TextInput
-                mode="outlined"
-                theme={{ colors: { primary: darkGreen } }}
-                style={styles.smallInputBox}
-                defaultValue={this.state.location}
-                onChangeText={(location) =>
-                  this.setState({
-                    location: location,
-                  })
-                }
-                onBlur={() => {
-                  this.check_valid_location();
-                }}
-              />
-            </View>
+            <CustomInput
+              label="Care, Health and Feeding"
+              defaultValue={this.state.health}
+              onChangeText={(health) => this.setState({ health })}
+              errorMessage={this.state.health_err}
+              multiline={true}
+              leftIcon={
+                <Icon
+                  name="ios-paper"
+                  type="ionicon"
+                  color={darkGreen}
+                  containerStyle={{ paddingLeft: 7, paddingRight: 10 }}
+                />
+              }
+            />
 
-            <View style={styles.inputContainer}>
-              <View style={{ flexDirection: "row" }}>
-                <View style={{ flex: 1, flexDirection: "row" }}>
-                  <Text style={styles.inputName}>Price</Text>
-                  <Text style={styles.setColorRed}> *</Text>
-                </View>
-                {!this.state.valid_price && (
-                  <View style={{ flex: 1 }}>
-                    <Text style={styles.errorText}>Invalid price</Text>
-                  </View>
-                )}
-              </View>
-              <TextInput
-                mode="outlined"
-                theme={{ colors: { primary: darkGreen } }}
-                style={styles.smallInputBox}
-                defaultValue={this.state.price}
-                onChangeText={(price) =>
-                  this.setState({
-                    price: price,
-                  })
-                }
-                onBlur={() => {
-                  this.check_valid_price();
-                }}
-              />
-            </View>
-            <View style={styles.subHeadingContainer}>
-              <View style={{ flexDirection: "row" }}>
-                <View style={{ flex: 1, flexDirection: "row" }}>
-                  <Text style={styles.subHeading}>Behaviour</Text>
-                  <Text style={styles.setColorRed}> *</Text>
-                </View>
-                {!this.state.valid_behaviour && (
-                  <View style={{ flex: 1 }}>
-                    <Text style={styles.errorText}>Invalid input</Text>
-                  </View>
-                )}
-              </View>
-              <TextInput
-                mode="outlined"
-                multiline={true}
-                theme={{ colors: { primary: darkGreen } }}
-                style={styles.bigInput}
-                numberOfLines={4}
-                defaultValue={this.state.behaviour}
-                onChangeText={(behaviour) =>
-                  this.setState({
-                    behaviour: behaviour,
-                  })
-                }
-                onBlur={() => {
-                  this.check_valid_behaviour();
-                }}
-              />
-            </View>
+            <CustomInput
+              label="Training"
+              placeholder="Please fill in the field"
+              defaultValue={this.state.training}
+              onChangeText={(training) => this.setState({ training })}
+              errorMessage={this.state.training_err}
+              multiline={true}
+              leftIcon={
+                <Icon
+                  name="ios-paper"
+                  type="ionicon"
+                  color={darkGreen}
+                  containerStyle={{ paddingLeft: 7, paddingRight: 10 }}
+                />
+              }
+            />
 
-            <View style={styles.subHeadingContainer}>
-              <View style={{ flexDirection: "row" }}>
-                <View style={{ flex: 1, flexDirection: "row" }}>
-                  <Text style={styles.subHeading}>Care, Health, and Feeding</Text>
-                  <Text style={styles.setColorRed}> *</Text>
-                </View>
-                {!this.state.valid_health && (
-                  <View style={{ flex: 1 }}>
-                    <Text style={styles.errorText}>Invalid input</Text>
-                  </View>
-                )}
-              </View>
-              <TextInput
-                mode="outlined"
-                multiline={true}
-                theme={{ colors: { primary: darkGreen } }}
-                style={styles.bigInput}
-                numberOfLines={4}
-                defaultValue={this.state.health}
-                onChangeText={(health) =>
-                  this.setState({
-                    health: health,
-                  })
-                }
-                onBlur={() => {
-                  this.check_valid_health();
-                }}
-              />
-            </View>
-
-            <View style={styles.subHeadingContainer}>
-              <View style={{ flexDirection: "row" }}>
-                <View style={{ flex: 1, flexDirection: "row" }}>
-                  <Text style={styles.subHeading}>Training</Text>
-                  <Text style={styles.setColorRed}> *</Text>
-                </View>
-                {!this.state.valid_training && (
-                  <View style={{ flex: 1 }}>
-                    <Text style={styles.errorText}>Invalid input</Text>
-                  </View>
-                )}
-              </View>
-              <TextInput
-                mode="outlined"
-                multiline={true}
-                theme={{ colors: { primary: darkGreen } }}
-                style={styles.bigInput}
-                numberOfLines={4}
-                defaultValue={this.state.training}
-                onChangeText={(training) =>
-                  this.setState({
-                    training: training,
-                  })
-                }
-                onBlur={() => {
-                  this.check_valid_training();
-                }}
-              />
-            </View>
-            <View style={styles.subHeadingContainer}>
-              <View style={{ flexDirection: "row" }}>
-                <View style={{ flex: 1 }}>
-                  <Text style={styles.subHeading}>Additional Information</Text>
-                </View>
-              </View>
-              <TextInput
-                mode="outlined"
-                multiline={true}
-                theme={{ colors: { primary: darkGreen } }}
-                style={styles.bigInput}
-                numberOfLines={4}
-                defaultValue={this.state.additionalInfo}
-                onChangeText={(additionalInfo) =>
-                  this.setState({
-                    additionalInfo: additionalInfo,
-                  })
-                }
-              />
-            </View>
+            <CustomInput
+              label="Additional Information"
+              defaultValue={this.state.additionalInfo}
+              onChangeText={(additionalInfo) =>
+                this.setState({ additionalInfo })
+              }
+              errorMessage={this.state.additionalInfo_err}
+              multiline={true}
+              leftIcon={
+                <Icon
+                  name="ios-paper"
+                  type="ionicon"
+                  color={darkGreen}
+                  containerStyle={{ paddingLeft: 7, paddingRight: 10 }}
+                />
+              }
+            />
 
             <View style={{ flexDirection: "row", paddingTop: 20 }}>
-              <View style={{ flex: 1, flexDirection: "row", paddingBottom: 3}}>
+              <View style={{ flex: 1, flexDirection: "row", paddingBottom: 3 }}>
                 <Text style={styles.inputName}>Upload a Photo</Text>
                 <Text style={styles.setColorRed}> *</Text>
               </View>
@@ -611,6 +869,19 @@ export default class updateSellApplication extends React.Component {
                   <Text style={styles.errorText}>Choose a photo</Text>
                 </View>
               )}
+            </View>
+            <View
+              style={{
+                alignContent: "center",
+                alignItems: "center",
+                //   borderWidth: 2,
+                //   borderColor: "#D3D3D3",
+                marginHorizontal: 10,
+              }}>
+              <Image
+                style={{ height: 300, width: screenWidth - 92 }}
+                source={{ uri: this.state.photo_uri }}
+              />
             </View>
             <Button
               style={{
@@ -626,7 +897,9 @@ export default class updateSellApplication extends React.Component {
             </Button>
 
             <View style={{ paddingTop: 15 }}>
-              <Text style={styles.inputName, {paddingBottom: 3}}>Upload Documents</Text>
+              <Text style={(styles.inputName, { paddingBottom: 3 })}>
+                Upload Documents
+              </Text>
               <Button
                 style={{
                   backgroundColor: green,
@@ -650,6 +923,7 @@ export default class updateSellApplication extends React.Component {
               </TouchableOpacity>
             </View>
           </View>
+          {/* </Card> */}
         </ScrollView>
       </SafeAreaView>
     );
@@ -764,5 +1038,5 @@ const styles = StyleSheet.create({
   line: {
     borderBottomColor: "black",
     borderBottomWidth: 1,
-  }
+  },
 });

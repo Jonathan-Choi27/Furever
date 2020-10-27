@@ -146,7 +146,7 @@ export default class buyApplication extends React.Component {
       bool = false;
     } else {
       bool = true;
-    }
+        }
 
     return bool;
   };
