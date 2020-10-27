@@ -17,8 +17,15 @@ import firebase from "firebase";
 import { AppLoading } from "expo";
 import SelfPetListing from "./petListing";
 import { auth } from "../../database/firebase";
-import {onSellTab} from "../../components/petTabComponents";
-import { darkGreen, green, lightGreen, lightGrey, orange, lightBlue } from "../../styleSheet/styleSheet";
+import { onSellTab } from "../../components/petTabComponents";
+import {
+  darkGreen,
+  green,
+  lightGreen,
+  lightGrey,
+  orange,
+  lightBlue,
+} from "../../styleSheet/styleSheet";
 
 const db = firebase.firestore();
 
@@ -28,46 +35,128 @@ export default class currentListings extends React.Component {
     lists: null,
     isLoading: true,
     pullToRefresh: false,
+    limit: 6,
+    lastVisible: null,
   };
 
-
-async fetchData() {
+  async initialFetchData() {
     const dataArray = [];
-    const user = auth.currentUser;
 
-    db.collection("pet_listings")
-      .where("uuid", "==", user.uid)
-      .get()
-      .then((doc) => {
-        doc.forEach((listingDoc) => {
-          // console.log(listingDoc.data());
-          dataArray.push({
-            petName: listingDoc.data().name,
-            category: listingDoc.data().category,
-            breed: listingDoc.data().breed,
-            colour: listingDoc.data().colour,
-            age: listingDoc.data().age,
-            gender: listingDoc.data().gender,
-            size: listingDoc.data().size,
-            location: listingDoc.data().location,
-            price: listingDoc.data().price,
-            behaviour: listingDoc.data().behaviour,
-            health: listingDoc.data().health,
-            training: listingDoc.data().training,
-            additionalInfo: listingDoc.data().additionalInfo,
-            photo: listingDoc.data().photo_link,
-            doc_id: listingDoc.id
-          });
+    const uid = auth.currentUser.uid;
+    //   .orderBy("timestamp")
+    let initialQuery = await db
+      .collection("pet_listings")
+      .where("uuid", "==", uid)
+      .orderBy("timestamp")
+      .limit(this.state.limit);
 
-          this.setState({
-            isLoading: false,
-            data: [...dataArray],
-          });
-        });
+    let documentSnapshots = await initialQuery.get();
+
+    let documentData = documentSnapshots.docs.map((listingDoc) => {
+      dataArray.push({
+        petName: listingDoc.data().name,
+        category: listingDoc.data().category,
+        breed: listingDoc.data().breed,
+        colour: listingDoc.data().colour,
+        age: listingDoc.data().age,
+        gender: listingDoc.data().gender,
+        size: listingDoc.data().size,
+        location: listingDoc.data().location,
+        price: listingDoc.data().price,
+        behaviour: listingDoc.data().behaviour,
+        health: listingDoc.data().health,
+        training: listingDoc.data().training,
+        additionalInfo: listingDoc.data().additionalInfo,
+        photo: listingDoc.data().photo_link,
+        doc_id: listingDoc.id,
       });
-}
+
+      this.setState({
+        lastVisible: listingDoc.data().timestamp,
+      });
+    });
+
+    this.setState({
+      isLoading: false,
+      data: [...dataArray],
+    });
+    // db.collection("pet_listings")
+    //   .where("uuid", "==", user.uid)
+    //   .get()
+    //   .then((doc) => {
+    //     doc.forEach((listingDoc) => {
+    //       // console.log(listingDoc.data());
+    //       dataArray.push({
+    //         petName: listingDoc.data().name,
+    //         category: listingDoc.data().category,
+    //         breed: listingDoc.data().breed,
+    //         colour: listingDoc.data().colour,
+    //         age: listingDoc.data().age,
+    //         gender: listingDoc.data().gender,
+    //         size: listingDoc.data().size,
+    //         location: listingDoc.data().location,
+    //         price: listingDoc.data().price,
+    //         behaviour: listingDoc.data().behaviour,
+    //         health: listingDoc.data().health,
+    //         training: listingDoc.data().training,
+    //         additionalInfo: listingDoc.data().additionalInfo,
+    //         photo: listingDoc.data().photo_link,
+    //         doc_id: listingDoc.id,
+    //       });
+
+    //       this.setState({
+    //         isLoading: false,
+    //         data: [...dataArray],
+    //       });
+    //     });
+    //   });
+  }
+
+  async fetchMore() {
+    const dataArray = [];
+    console.log("fethc more!");
+    const uid = auth.currentUser.uid;
+    let initialQuery = await db
+      .collection("pet_listings")
+      .where("uuid", "==", uid)
+      .orderBy("timestamp")
+      .startAfter(this.state.lastVisible)
+      .limit(this.state.limit);
+
+    let documentSnapshots = await initialQuery.get();
+
+    let documentData = documentSnapshots.docs.map((listingDoc) => {
+      dataArray.push({
+        petName: listingDoc.data().name,
+        category: listingDoc.data().category,
+        breed: listingDoc.data().breed, 
+        colour: listingDoc.data().colour,
+        age: listingDoc.data().age,
+        gender: listingDoc.data().gender,
+        size: listingDoc.data().size,
+        location: listingDoc.data().location,
+        price: listingDoc.data().price,
+        behaviour: listingDoc.data().behaviour,
+        health: listingDoc.data().health,
+        training: listingDoc.data().training,
+        additionalInfo: listingDoc.data().additionalInfo,
+        photo: listingDoc.data().photo_link,
+        doc_id: listingDoc.id,
+      });
+
+      this.setState({
+        lastVisible: listingDoc.data().timestamp,
+      });
+    });
+
+    this.setState({
+      // isLoading: false,
+      data: this.state.data.concat(dataArray),
+    });
+  }
+
   async componentDidMount() {
-    this.fetchData();
+    this.initialFetchData();
   }
 
   render() {
@@ -84,11 +173,16 @@ async fetchData() {
 
         <View style={{ padding: 10, paddingBottom: 0, flexDirection: "row" }}>
           <Text
-            style={{ textAlign: "center", padding: 10, fontWeight: "bold", fontSize: 20 }}>
+            style={{
+              textAlign: "center",
+              padding: 10,
+              fontWeight: "bold",
+              fontSize: 20,
+            }}>
             Current Listings
           </Text>
 
-          <View style={{height: 40, width: 220, paddingTop: 8}}>
+          <View style={{ height: 40, width: 220, paddingTop: 8 }}>
             <TouchableOpacity
               // style={styles.viewApplication}
               style={{
@@ -109,20 +203,20 @@ async fetchData() {
             </TouchableOpacity>
           </View>
         </View>
-        
+
         <View style={styles.cardContainer}>
           <FlatList
             showsVerticalScrollIndicator={false}
             onRefresh={async () => {
-                this.setState({
-                  pullToRefresh: true,
-                });
-                await this.fetchData();
-                this.setState({
-                  pullToRefresh: false,
-                });
-              }}
-              refreshing={this.state.pullToRefresh}
+              this.setState({
+                pullToRefresh: true,
+              });
+              await this.initialFetchData();
+              this.setState({
+                pullToRefresh: false,
+              });
+            }}
+            refreshing={this.state.pullToRefresh}
             data={this.state.data}
             renderItem={({ item }) => (
               <SelfPetListing
@@ -145,6 +239,8 @@ async fetchData() {
               />
             )}
             keyExtractor={(item, index) => index.toString()}
+            onEndReached={() => this.fetchMore()}
+            onEndReachedThreshold={1}
           />
         </View>
       </View>
@@ -204,7 +300,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   cardContainer: {
-      paddingBottom: 220
+    paddingBottom: 220,
     // flex: 2,
     // justifyContent: "flex-start",
     // alignItems: "flex-start",

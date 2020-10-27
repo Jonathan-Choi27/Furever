@@ -42,21 +42,6 @@ export function CustomInput(props) {
   }
 }
 
-export function InputHeader(props) {
-  return (
-    <Text
-      style={{
-        fontSize: 18,
-        color: "black",
-        fontWeight: "bold",
-        borderBottomWidth: 2,
-        borderBottomColor: "#484848",
-        marginBottom: 10,
-      }}>
-      {props.text}
-    </Text>
-  );
-}
 const styles = StyleSheet.create({
   inputContainer: {
     borderBottomColor: "#D3D3D3",

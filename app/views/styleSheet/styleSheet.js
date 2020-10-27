@@ -150,15 +150,26 @@ export default StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
+    backgroundColor: lightGrey,
+  },
+  cardContentContainer: {
+    borderRadius: 10,
+    width: screenWidth - 20,
   },
   cardContainer: {
     alignSelf: "stretch",
     justifyContent: "flex-start",
     alignItems: "flex-start",
     flexDirection: "row",
+    width: screenWidth - 50,
   },
-  cardContentContainer: {
-    borderRadius: 10,
+  cardHeading: {
+    fontSize: 18,
+    color: "black",
+    fontWeight: "bold",
+    borderBottomWidth: 2,
+    borderBottomColor: "#484848",
+    marginBottom: 10,
   },
   contentTextBold: {
     fontWeight: "bold",
@@ -166,6 +177,7 @@ export default StyleSheet.create({
   },
   contentText: {
     fontSize: 15,
+    lineHeight: 20,
   },
 
   // Express Interest Component

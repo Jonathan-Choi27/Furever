@@ -1,7 +1,7 @@
 import { Picker, Text, View } from "react-native";
 import React from "react";
 
-export function CustomPicker(props) {
+export function customPicker(props) {
   if (props.list) {
     return (
       <View style={{ borderBottomColor: "#D3D3D3", borderBottomWidth: 2 }}>

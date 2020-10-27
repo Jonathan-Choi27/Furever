@@ -25,10 +25,11 @@ import CategorySelection from "./sellAppCategories";
 import { auth } from "../../database/firebase";
 import "firebase/storage";
 import globalStyles, { darkGreen, green } from "../../styleSheet/styleSheet";
-import { CustomInput, InputHeader } from "../../components/customInput";
+import { CustomInput } from "../../components/customInput";
 import PriceSlider from "../../components/priceSlider";
-import AgePicker from "../../components/AgePicker";
+import AgePicker from "../../components/agePicker";
 import GooglePlacesInput from "../../components/mapAutoComplete";
+import * as firebase from "firebase";
 
 const screenWidth = Math.round(Dimensions.get("window").width);
 const emptyImage =
@@ -77,6 +78,7 @@ export default class sellApplication extends React.Component {
       photo_uri: emptyImage,
       photo_uuid: "",
       documents_uri: "",
+      documents_link: "",
       seller_name: "",
       size: "",
     };
@@ -120,7 +122,7 @@ export default class sellApplication extends React.Component {
     this.additionalInfoValidator();
     this.priceValidator();
 
-    var submit;
+    var submit = true;
     if (
       this.nameValidator() == false ||
       this.categoryValidator() == false ||
@@ -141,7 +143,7 @@ export default class sellApplication extends React.Component {
     } else {
       submit = true;
     }
-    return submit;
+    // return submit;
   };
 
   pushData = async () => {
@@ -157,13 +159,23 @@ export default class sellApplication extends React.Component {
       photo_link: photoURL,
     });
 
-    if (
-      this.state.documents_uri != "" ||
-      this.state.documents_uri != null ||
-      this.state.documents_uri != undefined
-    ) {
-      uploadDocument(this.state.documents_uri, this.state.documents);
-    }
+    // if (
+    //   this.state.documents_uri != "" ||
+    //   this.state.documents_uri != null ||
+    //   this.state.documents_uri != undefined
+    // ) {
+    //   console.log("1");
+    //   const documentURL = await uploadDocument(
+    //     this.state.documents_uri,
+    //     this.state.documents
+    //   );
+    //   console.log("2");
+
+    //   this.setState({
+    //     documents_link: documentURL,
+    //   });
+    //   console.log("3");
+    // }
 
     db.collection("pet_listings").add({
       uuid: user.uid,
@@ -178,10 +190,11 @@ export default class sellApplication extends React.Component {
       location: this.state.location,
       training: this.state.training,
       photo_link: this.state.photo_link,
-      documents: this.state.documents,
+      documents_link: this.state.documents_link,
       price: this.state.price,
       additionalInfo: this.state.additionalInfo,
       size: this.state.size,
+      timestamp: firebase.firestore.Timestamp.now()
     });
     alert("Application Successful!");
     this.props.navigation.goBack();
@@ -549,7 +562,7 @@ export default class sellApplication extends React.Component {
           <Card containerStyle={{ borderRadius: 10, width: screenWidth - 40 }}>
             <View style={{ marginTop: 0 }}>
               <Text style={styles.heading}>Seller Application</Text>
-              <InputHeader text="General Information" />
+              <Text style={globalStyles.cardHeading}>General Information</Text>
             </View>
 
             <CustomInput

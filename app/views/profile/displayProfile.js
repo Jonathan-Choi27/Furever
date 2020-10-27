@@ -20,6 +20,7 @@ export default class Profile extends React.Component {
     super(props);
   }
 
+  // fix this one day..
   logout() {
     // auth.signOut().then(function() {
     //     alert("Signed out");
@@ -32,7 +33,7 @@ export default class Profile extends React.Component {
 
   render() {
     return (
-      <View style={{backgroundColor: lightGrey,}}>
+      <View style={{ backgroundColor: lightGrey }}>
         <View style={globalStyles.profileContainer}>
           <View style={globalStyles.avatarContainer}>
             <View style={globalStyles.dogBackground}>
@@ -50,9 +51,7 @@ export default class Profile extends React.Component {
               renderPlaceholderContent={<ActivityIndicator />}
               source={{
                 uri: this.props.data.photo,
-              }}
-            >
-            </Avatar>
+              }}></Avatar>
 
             <View style={globalStyles.nameEmailContainer}>
               <View style={globalStyles.shortLine}>
@@ -78,26 +77,28 @@ export default class Profile extends React.Component {
             })
           }
         />
-        <Divider style={globalStyles.divider}/>
+        <Divider style={globalStyles.divider} />
         <List.Item
           title="Privacy and Security"
           left={(props) => <List.Icon {...props} icon="security" />}
+          onPress={() => this.props.navigation.navigate("profilePrivacy")}
           style={globalStyles.listStyle}
         />
-        <Divider style={globalStyles.divider}/>
+        <Divider style={globalStyles.divider} />
         <List.Item
           title="Help and Support"
           left={(props) => <List.Icon {...props} icon="help" />}
+          onPress={() => this.props.navigation.navigate("profileHelp")}
           style={globalStyles.listStyle}
         />
-        <Divider style={globalStyles.divider}/>
+        <Divider style={globalStyles.divider} />
         <List.Item
           title="Logout"
           onPress={() => this.logout()}
           left={(props) => <List.Icon {...props} icon="door" />}
           style={globalStyles.listStyle}
         />
-        <Divider style={globalStyles.divider}/>
+        <Divider style={globalStyles.divider} />
       </View>
     );
   }

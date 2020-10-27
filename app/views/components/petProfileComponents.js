@@ -3,8 +3,9 @@ import { Text, View, TouchableOpacity, Dimensions, Image } from "react-native";
 import { Card, } from "react-native-elements";
 import { Button } from "react-native-paper";
 import styles from "../styleSheet/styleSheet";
-import { CustomInput, InputHeader } from "../components/customInput";
 import { darkGreen, green, lightGreen, lightGrey, orange, lightBlue } from "../styleSheet/styleSheet";
+
+const screenWidth = Math.round(Dimensions.get("window").width);
 
 const checkDocuments = (field) => {
   if (field === "") {
@@ -21,7 +22,6 @@ const checkAdditional = (additional) => {
 }
 
 export const profileInfo = (item) => {
-  const screenWidth = Math.round(Dimensions.get("window").width);
   return (
     <View style={styles.container}>
       <View style={{ marginBottom: 0 }}>
@@ -41,9 +41,9 @@ export const profileInfo = (item) => {
         </Card>
 
         <Card containerStyle={styles.cardContentContainer}>
-          <InputHeader text="General Information" />
+          <Text style={styles.cardHeading}>General Information</Text>
           <View style={styles.cardContainer}>
-            <View style={{ paddingRight: 15 }}>
+            <View style={{ paddingLeft: 1, paddingRight: 15 }}>
               <Text style={styles.contentTextBold}>Name: </Text>
               <Text style={styles.contentTextBold}>Category: </Text>
               <Text style={styles.contentTextBold}>Breed: </Text>
@@ -53,7 +53,7 @@ export const profileInfo = (item) => {
               <Text style={styles.contentTextBold}>Size: </Text>
               <Text style={styles.contentTextBold}>Location: </Text>
             </View>
-            <View>
+            <View style={{ flex: 1}}>
               <Text numberOfLines={1} style={styles.contentText}>{item.petName}</Text>
               <Text numberOfLines={1} style={styles.contentText}>{item.category}</Text>
               <Text numberOfLines={1} style={styles.contentText}>{item.breed}</Text>
@@ -61,33 +61,33 @@ export const profileInfo = (item) => {
               <Text numberOfLines={1} style={styles.contentText}>{item.age}</Text>
               <Text numberOfLines={1} style={styles.contentText}>{item.gender}</Text>
               <Text numberOfLines={1} style={styles.contentText}>{item.size}</Text>
-              <Text numberOfLines={1} style={styles.contentText}>{item.location}</Text>
+              <Text style={styles.contentText, {flexShrink: 1}}>{item.location}</Text>
             </View>
           </View>
         </Card>
 
         <Card containerStyle={styles.cardContentContainer}>
-          <InputHeader text="Behaviour" />
+          <Text style={styles.cardHeading}>Behaviour</Text>
           <Text style={styles.contentText}>{item.behaviour}</Text>
         </Card>
 
         <Card containerStyle={styles.cardContentContainer}>
-          <InputHeader text="Care, Health and Feeding" />
+          <Text style={styles.cardHeading}>Care, Health, and Feeding</Text>
           <Text style={styles.contentText}>{item.health}</Text>
         </Card>
 
         <Card containerStyle={styles.cardContentContainer}>
-          <InputHeader text="Training" />
+          <Text style={styles.cardHeading}>Training</Text>
           <Text style={styles.contentText}>{item.training}</Text>
         </Card>
 
         <Card containerStyle={styles.cardContentContainer}>
-          <InputHeader text="Additional Information" />
+          <Text style={styles.cardHeading}>Additional Information</Text>
           <Text style={styles.contentText}>{checkAdditional(item.additional)}</Text>
         </Card>
 
         <Card containerStyle={styles.cardContentContainer}>
-          <InputHeader text="Documents" />
+          <Text style={styles.cardHeading}>Documents</Text>
           <Text>{checkDocuments(item.documentName)}</Text>
         </Card>
 
@@ -98,9 +98,9 @@ export const profileInfo = (item) => {
 
 export const sellerInfo = (seller, navigation) => {
   return (
-    <View>
+    <View style={styles.container}>
       <Card containerStyle={styles.cardContentContainer}>
-        <InputHeader text="Seller Information" />
+        <Text style={styles.cardHeading}>Seller Information</Text>
 
         <View style={{ flexDirection: 'row' }}>
           <View style={{ flex: 1, width: 100, justifyContent: 'center', alignItems: 'center', }}>

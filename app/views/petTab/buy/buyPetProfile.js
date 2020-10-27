@@ -49,8 +49,6 @@ export default class buyPetProfile extends React.Component {
         return (
             <View style={{paddingBottom: 50}}>
                 {onBuyTab(this.props.navigation)}
-                <Text>{this.props.route.params.item.uuid}</Text>
-                <Text>{this.state.name}</Text>
                 <ScrollView>
                     {profileInfo(item)}
                     {sellerInfo(this.state, this.props.navigation)}
