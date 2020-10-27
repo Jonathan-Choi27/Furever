@@ -150,15 +150,18 @@ export default StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
+    backgroundColor: lightGrey,
   },
   cardContainer: {
     alignSelf: "stretch",
     justifyContent: "flex-start",
     alignItems: "flex-start",
     flexDirection: "row",
+    width: screenWidth - 50,
   },
   cardContentContainer: {
     borderRadius: 10,
+    width: screenWidth - 20,
   },
   contentTextBold: {
     fontWeight: "bold",

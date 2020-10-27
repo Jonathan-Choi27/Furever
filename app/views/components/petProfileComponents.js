@@ -6,6 +6,8 @@ import styles from "../styleSheet/styleSheet";
 import { CustomInput, InputHeader } from "../components/customInput";
 import { darkGreen, green, lightGreen, lightGrey, orange, lightBlue } from "../styleSheet/styleSheet";
 
+const screenWidth = Math.round(Dimensions.get("window").width);
+
 const checkDocuments = (field) => {
   if (field === "") {
     return "No Documents Provided."
@@ -21,7 +23,6 @@ const checkAdditional = (additional) => {
 }
 
 export const profileInfo = (item) => {
-  const screenWidth = Math.round(Dimensions.get("window").width);
   return (
     <View style={styles.container}>
       <View style={{ marginBottom: 0 }}>
@@ -43,7 +44,7 @@ export const profileInfo = (item) => {
         <Card containerStyle={styles.cardContentContainer}>
           <InputHeader text="General Information" />
           <View style={styles.cardContainer}>
-            <View style={{ paddingRight: 15 }}>
+            <View style={{ paddingLeft: 1, paddingRight: 15 }}>
               <Text style={styles.contentTextBold}>Name: </Text>
               <Text style={styles.contentTextBold}>Category: </Text>
               <Text style={styles.contentTextBold}>Breed: </Text>
@@ -53,7 +54,7 @@ export const profileInfo = (item) => {
               <Text style={styles.contentTextBold}>Size: </Text>
               <Text style={styles.contentTextBold}>Location: </Text>
             </View>
-            <View>
+            <View style={{ flex: 1}}>
               <Text numberOfLines={1} style={styles.contentText}>{item.petName}</Text>
               <Text numberOfLines={1} style={styles.contentText}>{item.category}</Text>
               <Text numberOfLines={1} style={styles.contentText}>{item.breed}</Text>
@@ -61,7 +62,7 @@ export const profileInfo = (item) => {
               <Text numberOfLines={1} style={styles.contentText}>{item.age}</Text>
               <Text numberOfLines={1} style={styles.contentText}>{item.gender}</Text>
               <Text numberOfLines={1} style={styles.contentText}>{item.size}</Text>
-              <Text numberOfLines={1} style={styles.contentText}>{item.location}</Text>
+              <Text style={styles.contentText, {flexShrink: 1}}>{item.location}</Text>
             </View>
           </View>
         </Card>
@@ -98,7 +99,7 @@ export const profileInfo = (item) => {
 
 export const sellerInfo = (seller, navigation) => {
   return (
-    <View>
+    <View style={styles.container}>
       <Card containerStyle={styles.cardContentContainer}>
         <InputHeader text="Seller Information" />
 

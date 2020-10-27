@@ -101,19 +101,19 @@ export default class breedInfo extends React.Component {
                         <View style={globalStyles.cardContainer}>
                             <View>
                                 <Text style={globalStyles.contentText}>{this.state.fullDescription}</Text>
-                                <View style={{paddingTop: 5}}>
+                                <View style={{paddingTop: 10}}>
                                     <Text style={globalStyles.contentTextBold}>Size: </Text>
                                     <Text style={globalStyles.contentText}>{this.state.size}</Text>
                                 </View>
-                                <View style={{paddingTop: 5}}>
+                                <View style={{paddingTop: 10}}>
                                     <Text style={globalStyles.contentTextBold}>Exterior: </Text>
                                     <Text style={globalStyles.contentText}>{this.state.exterior}</Text>
                                 </View>
-                                <View style={{paddingTop: 5}}>
+                                <View style={{paddingTop: 10}}>
                                     <Text style={globalStyles.contentTextBold}>Weight/Height Range: </Text>
                                     <Text style={globalStyles.contentText}>{this.state.weight}</Text>
                                 </View>
-                                <View style={{paddingTop: 5}}>
+                                <View style={{paddingTop: 10}}>
                                     <Text style={globalStyles.contentTextBold}>Ailments: </Text>
                                     <Text style={globalStyles.contentText}>{this.state.ailments}</Text>
                                 </View>

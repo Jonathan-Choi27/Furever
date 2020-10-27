@@ -7,7 +7,7 @@ import { db } from "../database/firebase";
 import { auth } from "../database/firebase";
 import uuid from "react-native-uuid";
 import { Avatar, Accessory, Input } from "react-native-elements";
-import { darkGreen, green } from "../styleSheet/styleSheet";
+import { darkGreen, green, lightGrey } from "../styleSheet/styleSheet";
 
 export default class SetupOne extends React.Component {
   state = {
@@ -80,7 +80,7 @@ export default class SetupOne extends React.Component {
 
   render() {
     return (
-      <View>
+      <View style={{ backgroundColor: lightGrey }}>
         <View
           style={{
             backgroundColor: darkGreen,
