@@ -39,7 +39,6 @@ export default class HomeListing extends React.Component {
     lastVisible: null,
     loading: false,
     refreshing: false,
-
     isLoading: true,
     pullToRefresh: false,
     filteredData: [],
@@ -74,8 +73,6 @@ export default class HomeListing extends React.Component {
 
     let documentSnapshots = await initialQuery.get();
 
-    console.log("  ");
-    console.log("initial");
     let documentData = documentSnapshots.docs.map((listingDoc) => {
       console.log(listingDoc.id);
       dataArray.push({
@@ -177,16 +174,11 @@ export default class HomeListing extends React.Component {
       .collection("pet_listings")
       .orderBy("timestamp")
       .startAfter(this.state.lastVisible)
-      //   .startAt(this.state.lastVisible)
-      //   .endAt(this.state.lastVisible)
       .limit(this.state.limit);
 
     let documentSnapshots = await initialQuery.get();
 
-    // console.log(this.state.lastVisible);
-    console.log("fetch more");
     let documentData = documentSnapshots.docs.map((listingDoc) => {
-      console.log(listingDoc.id);
       dataArray.push({
         petName: listingDoc.data().name,
         category: listingDoc.data().category,

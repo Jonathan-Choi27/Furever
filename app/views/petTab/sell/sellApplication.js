@@ -123,27 +123,27 @@ export default class sellApplication extends React.Component {
     this.priceValidator();
 
     var submit = true;
-    // if (
-    //   this.nameValidator() == true
-    // //   this.categoryValidator() == false ||
-    // //   this.breedValidator() == false ||
-    // //   this.colourValidator() == false ||
-    // //   this.sizeValidator() == false ||
-    // //   this.ageValidator() == false ||
-    // //   this.genderValidator() == false ||
-    // //   this.locationValidator() == false ||
-    // //   this.behaviourValidator() == false ||
-    // //   this.healthValidator() == false ||
-    // //   this.trainingValidator() == false ||
-    // //   this.additionalInfoValidator() == false ||
-    // //   this.photoValidator() == false
-    // ) {
-    //   alert("All input fields required and must be valid.");
-    //   submit = false;
-    // } else {
-    //   submit = true;
-    // }
-    return submit;
+    if (
+      this.nameValidator() == false ||
+      this.categoryValidator() == false ||
+      this.breedValidator() == false ||
+      this.colourValidator() == false ||
+      this.sizeValidator() == false ||
+      this.ageValidator() == false ||
+      this.genderValidator() == false ||
+      this.locationValidator() == false ||
+      this.behaviourValidator() == false ||
+      this.healthValidator() == false ||
+      this.trainingValidator() == false ||
+      this.additionalInfoValidator() == false ||
+      this.photoValidator() == false
+    ) {
+      alert("All input fields required and must be valid.");
+      submit = false;
+    } else {
+      submit = true;
+    }
+    // return submit;
   };
 
   pushData = async () => {
