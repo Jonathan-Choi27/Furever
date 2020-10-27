@@ -8,8 +8,8 @@ import "@react-navigation/native";
 import "react-navigation-hooks";
 import { db } from "../../database/firebase";
 import { auth } from "../../database/firebase";
-import { CustomInput, InputHeader } from "../../components/customInput";
-import { darkGreen, green } from "../../styleSheet/styleSheet";
+import { CustomInput } from "../../components/customInput";
+import globalStyles, { darkGreen, green } from "../../styleSheet/styleSheet";
 import { Icon } from "react-native-elements";
 import GooglePlacesInput from "../../components/mapAutoComplete";
 // AIzaSyC-6ifFUYzIIgUf1uhbmJ_BU6VQyre4bRw
@@ -201,7 +201,7 @@ export default class buyApplication extends React.Component {
             Buyer Application
           </Text>
           <View style={{ marginBottom: 10 }} />
-          <InputHeader text="Personal Information" />
+          <Text style={globalStyles.cardHeading}>Personal Information</Text>
 
           <CustomInput
             label="Contact Number"
@@ -231,7 +231,7 @@ export default class buyApplication extends React.Component {
         </Card>
 
         <Card containerStyle={{ borderRadius: 10 }}>
-          <InputHeader text="Pet Information" />
+          <Text style={globalStyles.cardHeading}>Pet Information</Text>
 
           <CustomInput
             label="Why do you want this pet?"
@@ -300,7 +300,7 @@ export default class buyApplication extends React.Component {
         </Card>
 
         <Card containerStyle={{ borderRadius: 10 }}>
-          <InputHeader text="Your Home Enviroment" />
+          <Text style={globalStyles.cardHeading}>Your Home Environment</Text>
           <CustomInput
             label="Description of your family/members of the household"
             placeholder="Please fill in the field"

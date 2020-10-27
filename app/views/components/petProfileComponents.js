@@ -3,7 +3,6 @@ import { Text, View, TouchableOpacity, Dimensions, Image } from "react-native";
 import { Card, } from "react-native-elements";
 import { Button } from "react-native-paper";
 import styles from "../styleSheet/styleSheet";
-import { CustomInput, InputHeader } from "../components/customInput";
 import { darkGreen, green, lightGreen, lightGrey, orange, lightBlue } from "../styleSheet/styleSheet";
 
 const screenWidth = Math.round(Dimensions.get("window").width);
@@ -42,7 +41,7 @@ export const profileInfo = (item) => {
         </Card>
 
         <Card containerStyle={styles.cardContentContainer}>
-          <InputHeader text="General Information" />
+          <Text style={styles.cardHeading}>General Information</Text>
           <View style={styles.cardContainer}>
             <View style={{ paddingLeft: 1, paddingRight: 15 }}>
               <Text style={styles.contentTextBold}>Name: </Text>
@@ -68,27 +67,27 @@ export const profileInfo = (item) => {
         </Card>
 
         <Card containerStyle={styles.cardContentContainer}>
-          <InputHeader text="Behaviour" />
+          <Text style={styles.cardHeading}>Behaviour</Text>
           <Text style={styles.contentText}>{item.behaviour}</Text>
         </Card>
 
         <Card containerStyle={styles.cardContentContainer}>
-          <InputHeader text="Care, Health and Feeding" />
+          <Text style={styles.cardHeading}>Care, Health, and Feeding</Text>
           <Text style={styles.contentText}>{item.health}</Text>
         </Card>
 
         <Card containerStyle={styles.cardContentContainer}>
-          <InputHeader text="Training" />
+          <Text style={styles.cardHeading}>Training</Text>
           <Text style={styles.contentText}>{item.training}</Text>
         </Card>
 
         <Card containerStyle={styles.cardContentContainer}>
-          <InputHeader text="Additional Information" />
+          <Text style={styles.cardHeading}>Additional Information</Text>
           <Text style={styles.contentText}>{checkAdditional(item.additional)}</Text>
         </Card>
 
         <Card containerStyle={styles.cardContentContainer}>
-          <InputHeader text="Documents" />
+          <Text style={styles.cardHeading}>Documents</Text>
           <Text>{checkDocuments(item.documentName)}</Text>
         </Card>
 
@@ -101,7 +100,7 @@ export const sellerInfo = (seller, navigation) => {
   return (
     <View style={styles.container}>
       <Card containerStyle={styles.cardContentContainer}>
-        <InputHeader text="Seller Information" />
+        <Text style={styles.cardHeading}>Seller Information</Text>
 
         <View style={{ flexDirection: 'row' }}>
           <View style={{ flex: 1, width: 100, justifyContent: 'center', alignItems: 'center', }}>

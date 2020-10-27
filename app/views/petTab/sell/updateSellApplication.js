@@ -31,7 +31,7 @@ import globalStyles, {
   lightBlue,
 } from "../../styleSheet/styleSheet";
 import { Card } from "react-native-elements";
-import { CustomInput, InputHeader } from "../../components/customInput";
+import { CustomInput } from "../../components/customInput";
 import { Icon } from "react-native-elements";
 import AgePicker from "../../components/agePicker";
 import GooglePlacesInput from "../../components/mapAutoComplete";
@@ -689,7 +689,7 @@ export default class updateSellApplication extends React.Component {
           <View style={styles.container}>
             <View style={{ marginTop: 0 }}>
               <Text style={styles.heading}>Update Pet Listing Application</Text>
-              <InputHeader text="General Information" />
+              <Text style={globalStyles.cardHeading}>General Information</Text>
             </View>
 
             <CustomInput
