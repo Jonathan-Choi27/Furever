@@ -219,12 +219,12 @@ export default StyleSheet.create({
   searchBar: {
     marginRight: 10,
     height: 35,
-    width: 284,
+    width: screenWidth - 125,
   },
   searchBarSingle: {
     margin: 10,
     height: 35,
-    width: 390,
+    width: screenWidth - 20,
   },
   error: {
       color : "red",
@@ -346,16 +346,16 @@ export default StyleSheet.create({
   },
 
   // Breed List
-  breedTitleContainer: {
+  pageTitleContainer: {
     flexDirection: "row",
-    justifyContent: "flex-start",
     padding: 7,
-    paddingBottom: 10,
+    justifyContent: "space-between",
+    width: screenWidth - 20,
+    alignItems: "center",
   },
-  breedTitle: {
+  pageTitle: {
     fontWeight: "bold",
-    fontSize: 20,
-    marginRight: 25,
+    fontSize: 23,
   },
 
   // Breed Information
@@ -363,15 +363,15 @@ export default StyleSheet.create({
 
   //Pet Buy Card
   petBuyCard: {
-    margin: 5,
-    width: 380,
+    marginBottom: 10,
+    width: screenWidth - 20,
   },
   petBuyCardSellerContainer: {
     justifyContent: 'center',
     alignItems: 'center',
     alignSelf: 'flex-end',
     position: "absolute",
-    padding: 15
+    padding: 13
   },
   petBuyCardActionCard: {
     margin: 0,
@@ -414,4 +414,14 @@ export default StyleSheet.create({
   petBuyCardNameContainer: {
     marginRight: 40,
   },
+
+  //Current applicatoins
+  pageMargin: {
+    width: screenWidth - 20,
+    flex: 1,
+  },
+  scrollViewContentStyle: {
+    flex: 1,
+    alignItems: "center",
+  }
 });

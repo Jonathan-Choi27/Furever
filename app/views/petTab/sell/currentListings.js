@@ -18,14 +18,7 @@ import { AppLoading } from "expo";
 import SelfPetListing from "./petListing";
 import { auth } from "../../database/firebase";
 import { onSellTab } from "../../components/petTabComponents";
-import {
-  darkGreen,
-  green,
-  lightGreen,
-  lightGrey,
-  orange,
-  lightBlue,
-} from "../../styleSheet/styleSheet";
+import globalStyles, {darkGreen} from "../../styleSheet/styleSheet";
 
 const db = firebase.firestore();
 
@@ -204,7 +197,7 @@ export default class currentListings extends React.Component {
           </View>
         </View>
 
-        <View style={styles.cardContainer}>
+        <View style={{paddingBottom: 220}}>
           <FlatList
             showsVerticalScrollIndicator={false}
             onRefresh={async () => {
@@ -247,62 +240,3 @@ export default class currentListings extends React.Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  buySellContainer: {
-    alignSelf: "stretch",
-    justifyContent: "flex-start",
-    alignItems: "flex-start",
-    flexDirection: "row",
-  },
-  categories: {
-    alignSelf: "stretch",
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    flexDirection: "row",
-    padding: 20,
-  },
-  iconContainer: {
-    padding: 20,
-  },
-  viewApplication: {
-    backgroundColor: "#447ECB",
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    height: 50,
-    width: 200,
-  },
-  listBox: {
-    // width: 50,
-    // height: 1,
-    alignSelf: "stretch",
-    flex: 1,
-    // justifyContent: "center",
-    alignItems: "center",
-    flexDirection: "column",
-    backgroundColor: "#fff",
-    borderRadius: 20,
-    borderWidth: 0.5,
-    borderColor: "#000",
-    padding: 10,
-    margin: 20,
-  },
-  activityContainer: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  cardContainer: {
-    paddingBottom: 220,
-    // flex: 2,
-    // justifyContent: "flex-start",
-    // alignItems: "flex-start",
-  },
-});
