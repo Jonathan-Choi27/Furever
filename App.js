@@ -7,7 +7,7 @@ import HeaderLogo from "./app/views/home/headerLogo";
 import SetupPageOne from "./app/views/login/setupPageOne";
 import PasswordRecoveryPage from "./app/views/login/passwordRecoveryPage";
 import "react-native-gesture-handler";
-import { NavigationContainer } from "@react-navigation/native";
+import { NavigationContainer, Dimensions } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { Platform, StatusBar, View } from "react-native";
 import istyles, { darkGreen, green } from "./app/views/styleSheet/styleSheet";
@@ -54,7 +54,6 @@ export default function App() {
               headerTitleStyle: {
                 alignSelf: "center",
                 flex: 1,
-                paddingBottom: Platform.OS === "web" ? 0 : 5,
               },
               headerTitleContainerStyle: { left: 0, right: 0 },
             }}
