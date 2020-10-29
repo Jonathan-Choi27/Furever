@@ -67,13 +67,13 @@ export default class sellApplication extends React.Component {
       ageOption: "",
       gender: "",
       location: "",
+      suburb: "",
       price: "0",
       behaviour: "",
       health: "",
       training: "",
       additionalInfo: "",
       documents: "",
-      //photo
       photo_link: "",
       photo_uri: emptyImage,
       photo_uuid: "",
@@ -143,13 +143,13 @@ export default class sellApplication extends React.Component {
     } else {
       submit = true;
     }
-    // return submit;
+    return submit;
   };
 
   pushData = async () => {
     const user = auth.currentUser;
-    // console.log("THIS ACTUALLY SUBMITTED");
 
+    // upload photo
     const photoURL = await uploadPhoto(
       this.state.photo_uri,
       this.state.photo_uuid
@@ -159,25 +159,23 @@ export default class sellApplication extends React.Component {
       photo_link: photoURL,
     });
 
-    // if (
-    //   this.state.documents_uri != "" ||
-    //   this.state.documents_uri != null ||
-    //   this.state.documents_uri != undefined
-    // ) {
-    //   console.log("1");
-    //   const documentURL = await uploadDocument(
-    //     this.state.documents_uri,
-    //     this.state.documents
-    //   );
-    //   console.log("2");
+    // only upload document if document selected
+    if (
+      this.state.documents_uri != "" &&
+      this.state.documents_uri != null &&
+      this.state.documents_uri != undefined
+    ) {
+      const documentURL = await uploadDocument(
+        this.state.documents_uri,
+        this.state.documents
+      );
 
-    //   this.setState({
-    //     documents_link: documentURL,
-    //   });
-    //   console.log("3");
-    // }
+      this.setState({
+        documents_link: documentURL,
+      });
+    }
 
-    db.collection("pet_listings").add({
+    db.collection("test_listings").add({
       uuid: user.uid,
       name: this.state.name,
       category: this.state.category,
@@ -188,35 +186,20 @@ export default class sellApplication extends React.Component {
       behaviour: this.state.behaviour,
       health: this.state.health,
       location: this.state.location,
+      suburb: this.state.suburb,
       training: this.state.training,
       photo_link: this.state.photo_link,
       documents_link: this.state.documents_link,
       price: this.state.price,
       additionalInfo: this.state.additionalInfo,
       size: this.state.size,
-      timestamp: firebase.firestore.Timestamp.now()
+      timestamp: firebase.firestore.Timestamp.now(),
     });
     alert("Application Successful!");
     this.props.navigation.goBack();
   };
 
   handleSubmit = () => {
-    // console.log("photo uuid:" + this.state.photo_uuid);
-
-    // const photoURL = await uploadPhoto(
-    //   this.state.photo_uri,
-    //   this.state.photo_uuid
-    // );
-
-    // this.setState({
-    //   photo_link: photoURL,
-    // });
-    // console.log("class : " + photoURL);
-
-    // uploadDocument(this.state.documents_uri, this.state.documents);
-
-    // console.log(this.state.valid_name);
-
     var submit = this.validationCheck();
     if (submit == true) {
       this.pushData();
@@ -225,15 +208,15 @@ export default class sellApplication extends React.Component {
 
   // State setter functions
   setPrice = (price) => {
-    // console.log(price);
     this.setState({
       price: price,
     });
   };
 
-  setLocation = (location) => {
+  setLocation = (location, suburb) => {
     this.setState({
       location: location,
+      suburb: suburb,
     });
   };
 
@@ -368,8 +351,6 @@ export default class sellApplication extends React.Component {
   };
 
   ageValidator = () => {
-    // console.log(this.state.age);
-    // console.log(this.state.ageOption);
     var bool;
     if (
       this.state.age == "0" ||
