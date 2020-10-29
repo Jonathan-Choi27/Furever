@@ -35,60 +35,59 @@ export default class currentApplications extends React.Component {
     db.collection("pet_listings").get().then((doc) => {
       doc.forEach(async (listing) => {
         await db
-            .collection("pet_listings")
-            .doc(listing.id)
-            .collection("buyer_applications")
-            .where("uuid", "==", user.uid)
-            .get()
-            .then((doc) => {
-              doc.forEach(async (applications) => {
-                db.collection("pet_listings")
-                .where("uuid", "==", listing.data().uuid)
-                .get()
-                .then((doc) => {
-
-             doc.forEach(async (listingDoc) => {
-               if (listingDoc.id == listing.id) {
-                  var uuid = listingDoc.data().uuid;
-                  var seller_name;
-                  var seller_photo;
-                  await db
-                    .collection("users")
-                    .doc(uuid)
-                    .get()
-                    .then((user_doc) => {
-                      seller_name = user_doc.data().name;
-                      seller_photo = user_doc.data().photo;
+          .collection("pet_listings")
+          .doc(listing.id)
+          .collection("buyer_applications")
+          .where("uuid", "==", user.uid)
+          .get()
+          .then((doc) => {
+            doc.forEach(async (applications) => {
+              db.collection("pet_listings")
+              .where("uuid", "==", listing.data().uuid)
+              .get()
+              .then((doc) => {
+                doc.forEach(async (listingDoc) => {
+                  if (listingDoc.id == listing.id) {
+                    var uuid = listingDoc.data().uuid;
+                    var seller_name;
+                    var seller_photo;
+                    await db
+                      .collection("users")
+                      .doc(uuid)
+                      .get()
+                      .then((user_doc) => {
+                        seller_name = user_doc.data().name;
+                        seller_photo = user_doc.data().photo;
+                      });
+                    dataArray.push({
+                      sellerName: seller_name,
+                      sellerPhoto: seller_photo,
+                      petName: listingDoc.data().name,
+                      category: listingDoc.data().category,
+                      breed: listingDoc.data().breed,
+                      colour: listingDoc.data().colour,
+                      age: listingDoc.data().age,
+                      gender: listingDoc.data().gender,
+                      size: listingDoc.data().size,
+                      location: listingDoc.data().location,
+                      price: listingDoc.data().price,
+                      behaviour: listingDoc.data().behaviour,
+                      health: listingDoc.data().health,
+                      training: listingDoc.data().training,
+                      additional: listingDoc.data().additionalInfo,
+                      photo: listingDoc.data().photo_link,
+                      doc_id: listingDoc.id,
+                      uuid: listingDoc.data().uuid,
                     });
-                  dataArray.push({
-                    name: seller_name,
-                    avatarPhoto: seller_photo,
-                    petName: listingDoc.data().name,
-                    category: listingDoc.data().category,
-                    breed: listingDoc.data().breed,
-                    colour: listingDoc.data().colour,
-                    age: listingDoc.data().age,
-                    gender: listingDoc.data().gender,
-                    size: listingDoc.data().size,
-                    location: listingDoc.data().location,
-                    price: listingDoc.data().price,
-                    behaviour: listingDoc.data().behaviour,
-                    health: listingDoc.data().health,
-                    training: listingDoc.data().training,
-                    additional: listingDoc.data().additionalInfo,
-                    photo: listingDoc.data().photo_link,
-                    doc_id: listingDoc.id,
-                  });
-                  this.setState({
-                    isLoading: false,
-                    data: [...dataArray],
-                  });
-               }
-              
+                    this.setState({
+                      isLoading: false,
+                      data: [...dataArray],
+                    });
+                  }
+                });
               });
-            });
+            })
           })
-        })
       })
     })
   }
@@ -105,12 +104,12 @@ export default class currentApplications extends React.Component {
 
   render() {
     const { search } = this.state;
+
     // this.listedDataSearch(auth.getuuid);
     return (
-      <ScrollView>
-        <View style={styles.container}>
-          {onBuyTab(this.props.navigation)}
-          
+      <View style={globalStyles.container}>
+        {onBuyTab(this.props.navigation)}
+        <ScrollView contentContainerStyle={{alignItems: 'center' }}>
           <View
             style={{
               flex: 1,
@@ -128,12 +127,10 @@ export default class currentApplications extends React.Component {
           </View>
     
           {this.state.searchText == "" ? (
-            <View style={styles.container}>
-                
-              <Text style={{textAlign: 'center', padding: 5,}}>Your Current Applications:</Text>
-              <View style={styles.container}>
+            <View style={globalStyles.pageMargin}>
+              <Text style={[globalStyles.pageTitle, {paddingLeft: 7, paddingBottom: 10, paddingTop: 3}]}>Your Current Applications</Text>
               <FlatList
-                style={{ paddingBottom: 10 }}
+                style={[{ paddingBottom: 10 }]}
                 onRefresh={async () => {
                   this.setState({
                     pullToRefresh: true,
@@ -156,97 +153,41 @@ export default class currentApplications extends React.Component {
                 }
               />
             </View>
-            </View>
           ) : (
-            <View style={styles.container}>
+            <View style={globalStyles.activityContainer}>
               {this.state.filteredData.length == 0 ? (
-                <View style={styles.container}>
+                <View style={globalStyles.activityContainer}>
                   <Text style={{ margin: 100 }}>No results found.</Text>
                 </View>
               ) : (
                 <FlatList
-                style={{ paddingBottom: 10 }}
-                onRefresh={async () => {
-                  this.setState({
-                    pullToRefresh: true,
-                  });
-                  await this.fetchData();
-                  this.setState({
-                    pullToRefresh: false,
-                  });
-                }}
-                refreshing={this.state.pullToRefresh}
-                showsVerticalScrollIndicator={false}
-                renderItem={({ item }) => (
-                  petBuyCard(item, this.props.navigation)
-                )}
-                keyExtractor={(item, index) => index.toString()}
-                data={
-                  this.state.filteredData && this.state.filteredData.length > 0
-                    ? this.state.filteredData
-                    : this.state.data
-                }
-              />
+                  style={{ paddingBottom: 10 }}
+                  onRefresh={async () => {
+                    this.setState({
+                      pullToRefresh: true,
+                    });
+                    await this.fetchData();
+                    this.setState({
+                      pullToRefresh: false,
+                    });
+                  }}
+                  refreshing={this.state.pullToRefresh}
+                  showsVerticalScrollIndicator={false}
+                  renderItem={({ item }) => (
+                    petBuyCard(item, this.props.navigation)
+                  )}
+                  keyExtractor={(item, index) => index.toString()}
+                  data={
+                    this.state.filteredData && this.state.filteredData.length > 0
+                      ? this.state.filteredData
+                      : this.state.data
+                  }
+                />
               )}
             </View>
           )}
-        </View>
-      </ScrollView>
+        </ScrollView>
+      </View>
     );
   }
 }
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  buySellContainer: {
-    alignSelf: "stretch",
-    justifyContent: "flex-start",
-    alignItems: "flex-start",
-    flexDirection: "row",
-  },
-  categories: {
-    alignSelf: "stretch",
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    flexDirection: "row",
-    padding: 20,
-  },
-  iconContainer: {
-    padding: 20,
-  },
-  viewApplication: {
-    backgroundColor: "#447ECB",
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    height: 50,
-    width: 200,
-    borderRadius: 5,
-  },
-  titleContainer: {
-    flexDirection: "row",
-    justifyContent: "flex-start",
-    padding: 20,
-  },
-  title: {
-    fontWeight: "bold",
-    fontSize: 20,
-    marginRight: 25,
-  },
-  cardContainer: {
-    flex: 2,
-    justifyContent: "flex-start",
-    alignItems: "flex-start",
-  },
-  card: {
-    margin: 5,
-    width: 340,
-  },
-  cardContentText: {
-    fontWeight: "bold",
-  },
-});

@@ -150,15 +150,26 @@ export default StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
+    backgroundColor: lightGrey,
+  },
+  cardContentContainer: {
+    borderRadius: 10,
+    width: screenWidth - 20,
   },
   cardContainer: {
     alignSelf: "stretch",
     justifyContent: "flex-start",
     alignItems: "flex-start",
     flexDirection: "row",
+    width: screenWidth - 50,
   },
-  cardContentContainer: {
-    borderRadius: 10,
+  cardHeading: {
+    fontSize: 18,
+    color: "black",
+    fontWeight: "bold",
+    borderBottomWidth: 2,
+    borderBottomColor: "#484848",
+    marginBottom: 10,
   },
   contentTextBold: {
     fontWeight: "bold",
@@ -166,6 +177,7 @@ export default StyleSheet.create({
   },
   contentText: {
     fontSize: 15,
+    lineHeight: 20,
   },
 
   // Express Interest Component
@@ -207,14 +219,30 @@ export default StyleSheet.create({
   searchBar: {
     marginRight: 10,
     height: 35,
-    width: 284,
+    width: screenWidth - 125,
   },
   searchBarSingle: {
     margin: 10,
     height: 35,
-    width: 390,
+    width: screenWidth - 20,
   },
-
+  error: {
+      color : "red",
+      fontSize: 2
+  },
+  // form
+  formPickerIconContainer:{
+    justifyContent: "center",
+    flex: 0.1,
+  }, 
+  formPickerInnerContainer:{
+    flex: 0.9,
+  },
+  formPickerOuterContainer: {
+    borderBottomColor: "#D3D3D3",
+    borderBottomWidth: 2,
+    flexDirection: "row",
+  },
   // Pet Categories and Breeds
   petContainer: {
     flex: 1,
@@ -318,16 +346,16 @@ export default StyleSheet.create({
   },
 
   // Breed List
-  breedTitleContainer: {
+  pageTitleContainer: {
     flexDirection: "row",
-    justifyContent: "flex-start",
     padding: 7,
-    paddingBottom: 10,
+    justifyContent: "space-between",
+    width: screenWidth - 20,
+    alignItems: "center",
   },
-  breedTitle: {
+  pageTitle: {
     fontWeight: "bold",
-    fontSize: 20,
-    marginRight: 25,
+    fontSize: 23,
   },
 
   // Breed Information
@@ -335,15 +363,15 @@ export default StyleSheet.create({
 
   //Pet Buy Card
   petBuyCard: {
-    margin: 5,
-    width: 380,
+    marginBottom: 10,
+    width: screenWidth - 20,
   },
   petBuyCardSellerContainer: {
     justifyContent: 'center',
     alignItems: 'center',
     alignSelf: 'flex-end',
     position: "absolute",
-    padding: 15
+    padding: 13
   },
   petBuyCardActionCard: {
     margin: 0,
@@ -386,4 +414,14 @@ export default StyleSheet.create({
   petBuyCardNameContainer: {
     marginRight: 40,
   },
+
+  //Current applicatoins
+  pageMargin: {
+    width: screenWidth - 20,
+    flex: 1,
+  },
+  scrollViewContentStyle: {
+    flex: 1,
+    alignItems: "center",
+  }
 });

@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  ScrollView,
-  View,
-  Dimensions,
-  Image,
-} from "react-native";
+import { ScrollView, View, Dimensions, Image } from "react-native";
 import { Card, Text } from "react-native-elements";
 import { Button } from "react-native-paper";
 import "react-navigation";
@@ -13,12 +8,12 @@ import "@react-navigation/native";
 import "react-navigation-hooks";
 import { db } from "../../database/firebase";
 import { auth } from "../../database/firebase";
-import { CustomInput, InputHeader } from "../../components/customInput";
-import { darkGreen, green } from "../../styleSheet/styleSheet";
+import { CustomInput } from "../../components/customInput";
+import globalStyles, { darkGreen, green } from "../../styleSheet/styleSheet";
 import { Icon } from "react-native-elements";
 import GooglePlacesInput from "../../components/mapAutoComplete";
 // AIzaSyC-6ifFUYzIIgUf1uhbmJ_BU6VQyre4bRw
- 
+
 export default class buyApplication extends React.Component {
   constructor(props) {
     super(props);
@@ -67,7 +62,7 @@ export default class buyApplication extends React.Component {
       });
   }
 
-  contact_number_validator = () => {
+  contactNumberValidator = () => {
     var bool;
     if (
       this.state.contact_number == "" ||
@@ -87,6 +82,25 @@ export default class buyApplication extends React.Component {
     this.setState({
       valid_contact_number: bool,
     });
+
+    return bool;
+  };
+
+  addressValidator = () => {
+    var bool;
+    if (this.state.address == "") {
+      bool = false;
+      this.setState({
+        valid_address: false,
+      });
+    } else {
+      bool = true;
+      this.setState({
+        valid_address: true,
+      });
+    }
+
+    return bool;
   };
 
   setAddress = (address) => {
@@ -95,43 +109,55 @@ export default class buyApplication extends React.Component {
     });
   };
 
-  handleSubmit = async () => {
+  pushData = async () => {
     const doc_id = this.props.route.params.item.doc_id;
+    await db
+      .collection("pet_listings")
+      .doc(doc_id)
+      .collection("buyer_applications")
+      .add({
+        uuid: this.state.profileData.uuid,
+        name: this.state.profileData.name,
+        age: this.state.age,
+        contact_number: this.state.contact_number,
+        email: this.state.profileData.email,
+        address: this.state.address,
+        why_want_pet: this.state.why_want_pet,
+        most_desirable_traits: this.state.most_desirable_traits,
+        least_desirable_traits: this.state.least_desirable_traits,
+        previous_pets: this.state.previous_pets,
+        house_enviroment: this.state.house_enviroment,
+      })
+      .then((success) => {
+        alert("Submission successful");
+      });
+  };
+
+  validationCheck = () => {
+    var bool;
+    this.contactNumberValidator();
+    this.addressValidator();
 
     if (
-      !this.state.valid_contact_number ||
-      !this.state.valid_email ||
-      !this.state.valid_name ||
-      !this.state.valid_address
+      this.contactNumberValidator == false ||
+      this.addressValidator == false
     ) {
-      alert("All input fields required and must be valid.");
+      alert("All fields must be filled and valid");
+      bool = false;
     } else {
-      var submit = false;
-      await db
-        .collection("pet_listings")
-        .doc(doc_id)
-        .collection("buyer_applications")
-        .add({
-          uuid: this.state.profileData.uuid,
-          name: this.state.profileData.name,
-          age: this.state.age,
-          contact_number: this.state.contact_number,
-          email: this.state.profileData.email,
-          address: this.state.address,
-          why_want_pet: this.state.why_want_pet,
-          most_desirable_traits: this.state.most_desirable_traits,
-          least_desirable_traits: this.state.least_desirable_traits,
-          previous_pets: this.state.previous_pets,
-          house_enviroment: this.state.house_enviroment,
-        })
-        .then((success) => {
-          submit = true;
-          alert("Submission successful");
-        });
+      bool = true;
+        }
 
-      if (submit == true) {
-        this.props.navigation.goBack();
-      }
+    return bool;
+  };
+
+  handleSubmit = () => {
+    var bool = this.validationCheck();
+
+    if (bool) {
+      this.pushData();
+      alert("Application Successful!");
+      this.props.navigation.goBack();
     }
   };
 
@@ -141,15 +167,16 @@ export default class buyApplication extends React.Component {
     const textWidth = screenWidth - 40 - 150 - 10;
 
     return (
+      // scrollview needs to have keyboardshouldpersisttaps for googlemaps
       <ScrollView keyboardShouldPersistTaps={"handled"}>
         <View style={{ marginBottom: 0 }}>
           <View style={{ alignItems: "center" }}>
-          <Image
-            style={{ width: screenWidth, height: 250 }}
-            source={{
-              uri: item.photo,
-            }}
-          />
+            <Image
+              style={{ width: screenWidth, height: 250 }}
+              source={{
+                uri: item.photo,
+              }}
+            />
           </View>
           <Card containerStyle={{ borderRadius: 10 }}>
             <Text>
@@ -159,11 +186,11 @@ export default class buyApplication extends React.Component {
               </Text>
               <Text
                 style={{ fontSize: 30, color: "#606060", fontWeight: "bold" }}>
-                {", "}{item.age}
+                {", "}
+                {item.age}
               </Text>
             </Text>
-            <Text 
-              style={{ fontWeight: "bold", color: "#505050" }}>
+            <Text style={{ fontWeight: "bold", color: "#505050" }}>
               {item.breed}
             </Text>
           </Card>
@@ -174,13 +201,12 @@ export default class buyApplication extends React.Component {
             Buyer Application
           </Text>
           <View style={{ marginBottom: 10 }} />
-          <InputHeader text="Personal Information" />
+          <Text style={globalStyles.cardHeading}>Personal Information</Text>
 
           <CustomInput
             label="Contact Number"
             placeholder="(0x) xxxx xxxx"
             onChangeText={(contact_number) => this.setState({ contact_number })}
-            validator={() => this.contact_number_validator()}
             errorMessage={this.state.contact_err}
             leftIcon={
               <Icon
@@ -191,11 +217,21 @@ export default class buyApplication extends React.Component {
               />
             }
           />
-          <GooglePlacesInput set={this.setAddress}/>
+
+          <View style={{ marginHorizontal: 10, marginBottom: 20 }}>
+            <GooglePlacesInput set={this.setAddress} />
+            {!this.state.valid_address && (
+              <View style={{ paddingLeft: 10 }}>
+                <Text style={{ fontSize: 12, color: "red", marginTop: 5 }}>
+                  Enter location
+                </Text>
+              </View>
+            )}
+          </View>
         </Card>
 
         <Card containerStyle={{ borderRadius: 10 }}>
-          <InputHeader text="Pet Information" />
+          <Text style={globalStyles.cardHeading}>Pet Information</Text>
 
           <CustomInput
             label="Why do you want this pet?"
@@ -264,7 +300,7 @@ export default class buyApplication extends React.Component {
         </Card>
 
         <Card containerStyle={{ borderRadius: 10 }}>
-          <InputHeader text="Your Home Enviroment" />
+          <Text style={globalStyles.cardHeading}>Your Home Environment</Text>
           <CustomInput
             label="Description of your family/members of the household"
             placeholder="Please fill in the field"
@@ -284,27 +320,27 @@ export default class buyApplication extends React.Component {
         </Card>
 
         <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "center",
+          }}>
+          <Button
             style={{
-              flexDirection: "row",
-              alignItems: "center",
-              justifyContent: "center",
-            }}>
-            <Button
+              marginTop: 20,
+              marginBottom: 20,
+              backgroundColor: darkGreen,
+            }}
+            onPress={this.handleSubmit}>
+            <Text
               style={{
-                marginTop: 20,
-                marginBottom: 20,
-                backgroundColor: darkGreen,
-              }}
-              onPress={this.handleSubmit}>
-              <Text
-                style={{
-                  color: "white",
-                }}>
-                Submit
-              </Text>
-            </Button>
+                color: "white",
+                fontWeight: "bold",
+              }}>
+              Submit
+            </Text>
+          </Button>
         </View>
-
       </ScrollView>
     );
   }

@@ -1,10 +1,8 @@
 import React from "react";
 import {
-    StyleSheet,
     Text,
     ScrollView,
     View,
-    TouchableOpacity,
     Dimensions,
     Image,
 } from "react-native";
@@ -15,21 +13,17 @@ import "react-navigation"
 import "react-navigation-props-mapper"
 import "@react-navigation/native"
 import 'react-navigation-hooks'
-import { onBuyTab } from "../../components/petTabComponents"
-import globalStyles, { darkGreen, orange } from "../../styleSheet/styleSheet";
+import globalStyles from "../../styleSheet/styleSheet";
+import { db } from "../../database/firebase";
 
 export default class breedInfo extends React.Component {
-
     state = {
-        filteredData: [],
-        searchText: "",
-        visible: false,
         ailments: "",
         breed: "",
         care: "",
         exterior: "",
         feeding: "",
-        fullDescripton: "",
+        fullDescription: "",
         grooming: "",
         infoImage: "",
         personality: "",
@@ -52,8 +46,8 @@ export default class breedInfo extends React.Component {
                     care: doc.data().care,
                     exterior: doc.data().exterior,
                     feeding: doc.data().feeding,
-                    fullDescripton: doc.data().fullDescripton,
-                    grooming: doc.data().feeding,
+                    fullDescription: doc.data().fullDescription,
+                    grooming: doc.data().grooming,
                     infoImage: doc.data().infoImage,
                     personality: doc.data().personality,
                     size: doc.data().size,
@@ -66,138 +60,73 @@ export default class breedInfo extends React.Component {
         this.fetchData();
     }
 
-    searchFunction = (searchText) => {
-        this.setState({ searchText: searchText });
-
-        let filteredData = this.state.data.filter(function (item) {
-            return item.title.includes(searchText);
-        });
-
-        this.setState({ filteredData: filteredData });
-    };
-
     render() {
+        const screenWidth = Math.round(Dimensions.get("window").width);
         return (
             <ScrollView>
-                <View style={styles.container}>
-                    {onBuyTab(this.props.navigation)}
+                <View style={globalStyles.container}>
+                    <View style={{ marginBottom: 20 }}>
+                        <View style={{ alignItems: "center" }}>
+                        <Image
+                            style={{ width: screenWidth, height: 250 }}
+                            source={{ uri: this.state.infoImage }}
+                        />
+                        </View>
+                        <Card containerStyle={globalStyles.cardContentContainer}>
+                        <Text
+                            style={{ fontWeight: "bold", fontSize: 30, color: "black" }}>
+                            {this.state.breed}
+                        </Text>
+                        </Card>
 
-                    <View style={styles.titleContainer}>
-                        <Text style={styles.fontTitle}>{this.state.breed}</Text>
-                    </View>
-
-                    <Card containerStyle={styles.cardContainer}>
-                        <Card.Image style={styles.imageContainer} source={{ uri: "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fgerman-shepard.jpg?alt=media&token=5c2b32b6-572e-48d4-9e1a-e1a3612bb7b8" }} />
-                    </Card>
-                    <Card containerStyle={styles.cardContainer}>
-                        <View style={styles.boxContainer}>
-                            <Text style={styles.fontHeading}>Description </Text>
-                            <Text style={{ paddingTop: 10 }}>{this.state.fullDescripton}</Text>
-                            <Text style={{ paddingTop: 10 }}>
-                                <Text style={{ fontWeight: "bold" }}>Size: </Text>
-                                <Text>{this.state.size}</Text>
-                            </Text>
-                            <Text style={{ paddingTop: 10 }}>
-                                <Text style={{ fontWeight: "bold" }}>Exterior: </Text>
-                                <Text>{this.state.exterior}</Text>
-                            </Text>
-                            <Text style={{ paddingTop: 10 }}>
-                                <Text style={{ fontWeight: "bold" }}>Weight/Height Range: </Text>
-                                <Text>{this.state.weight} </Text>
-                            </Text>
-                            <Text style={{ paddingTop: 10 }}>
-                                <Text style={{ fontWeight: "bold" }}>Ailments: </Text>
-                                <Text>{this.state.ailments}</Text>
-                            </Text>
+                        <Card containerStyle={globalStyles.cardContentContainer}>
+                        <Text style={globalStyles.cardHeading}>Description</Text>
+                        <View style={globalStyles.cardContainer}>
+                            <View>
+                                <Text style={globalStyles.contentText}>{this.state.fullDescription}</Text>
+                                <View style={{paddingTop: 10}}>
+                                    <Text style={globalStyles.contentTextBold}>Size: </Text>
+                                    <Text style={globalStyles.contentText}>{this.state.size}</Text>
+                                </View>
+                                <View style={{paddingTop: 10}}>
+                                    <Text style={globalStyles.contentTextBold}>Exterior: </Text>
+                                    <Text style={globalStyles.contentText}>{this.state.exterior}</Text>
+                                </View>
+                                <View style={{paddingTop: 10}}>
+                                    <Text style={globalStyles.contentTextBold}>Weight/Height Range: </Text>
+                                    <Text style={globalStyles.contentText}>{this.state.weight}</Text>
+                                </View>
+                                <View style={{paddingTop: 10}}>
+                                    <Text style={globalStyles.contentTextBold}>Ailments: </Text>
+                                    <Text style={globalStyles.contentText}>{this.state.ailments}</Text>
+                                </View>
+                            </View>
                         </View>
                     </Card>
 
-                    <Card containerStyle={styles.cardContainer}>
-                        <Text style={styles.fontHeading}>Feeding </Text>
-                        <Text style={{ paddingTop: 10 }}>
-                            {this.state.feeding}
-                        </Text>
+                    <Card containerStyle={globalStyles.cardContentContainer}>
+                        <Text style={globalStyles.cardHeading}>Feeding</Text>
+                        <Text style={globalStyles.contentText}>{this.state.feeding}</Text>
                     </Card>
 
-                    <Card containerStyle={styles.cardContainer}>
-                        <Text style={styles.fontHeading}>Personality </Text>
-                        <Text style={{ paddingTop: 10 }}>
-                            {this.state.personality}
-                        </Text>
+                    <Card containerStyle={globalStyles.cardContentContainer}>
+                        <Text style={globalStyles.cardHeading}>Personality</Text>
+                        <Text style={globalStyles.contentText}>{this.state.personality}</Text>
                     </Card>
 
-                    <Card containerStyle={styles.cardContainer}>
-                        <Text style={styles.fontHeading}>Care </Text>
-                        <Text style={{ paddingTop: 10 }}>
-                            {this.state.care}
-                        </Text>
+                    <Card containerStyle={globalStyles.cardContentContainer}>
+                        <Text style={globalStyles.cardHeading}>Care</Text>
+                        <Text style={globalStyles.contentText}>{this.state.care}</Text>
                     </Card>
 
-                    <Card containerStyle={styles.cardContainer}>
-                        <Text style={styles.fontHeading}>Grooming </Text>
-                        <Text style={{ paddingTop: 10 }}>
-                            {this.state.grooming}
-                        </Text>
-                        
+                    <Card containerStyle={globalStyles.cardContentContainer}>
+                        <Text style={globalStyles.cardHeading}>Grooming</Text>
+                        <Text style={globalStyles.contentText}>{this.state.grooming}</Text>
                     </Card>
+
+                    </View>
                 </View>
             </ScrollView>
         );
     }
 }
-
-const styles = StyleSheet.create({
-    searchBar: {
-        height: 50,
-        width: 350,
-        margin: 10,
-    },
-    container: {
-        flex: 1,
-        alignItems: "center",
-    },
-    buySellContainer: {
-        alignSelf: "stretch",
-        justifyContent: "flex-start",
-        alignItems: "flex-start",
-        flexDirection: "row",
-    },
-    titleContainer: {
-        alignSelf: "stretch",
-        paddingTop: 5,
-        paddingLeft: 20,
-        paddingRight: 20,
-    },
-    imageContainer: {
-        width: Math.round(Dimensions.get('window').width) - 73,
-        height: 200
-    },
-    fontTitle: {
-        textAlign: "left",
-        fontSize: 20,
-        fontWeight: "bold",
-        paddingLeft: 5,
-    },
-    fontHeading: {
-        textAlign: "left",
-        fontSize: 16,
-        fontWeight: "bold",
-    },
-    cardContainer: {
-        borderRadius: 4,
-        alignSelf: "stretch",
-        justifyContent: "flex-start",
-        alignItems: "flex-start",
-        flexDirection: "row",
-        marginLeft: 20,
-        marginRight: 20,
-        elevation: 5,
-    },
-    cardContentContainer: {
-        borderRadius: 4,
-        alignSelf: "stretch",
-        justifyContent: "flex-start",
-        alignItems: "flex-start",
-        flexDirection: "row",
-    },
-});

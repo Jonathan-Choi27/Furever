@@ -1,6 +1,21 @@
 import React from "react";
-import { StyleSheet, Text, View, Picker, Button } from "react-native";
-
+import {
+  StyleSheet,
+  Text,
+  View,
+  Picker,
+  Button,
+  TouchableOpacity,
+} from "react-native";
+import { Icon } from "react-native-elements";
+import globalStyles, {
+  darkGreen,
+  green,
+  lightGreen,
+  lightGrey,
+  orange,
+  lightBlue,
+} from "../../styleSheet/styleSheet";
 // Solved from this link https://github.com/GeekyAnts/NativeBase/issues/636
 
 const dog_breed = [
@@ -97,6 +112,7 @@ export default class CategorySelection extends React.Component {
     super(props);
     this.state = {
       category: "key1",
+      categoryErr: "",
     };
   }
 
@@ -107,7 +123,7 @@ export default class CategorySelection extends React.Component {
         breed: this.props.breed,
         colour: this.props.colour,
         size: this.props.size,
-      })
+      });
     }
   }
 
@@ -158,10 +174,11 @@ export default class CategorySelection extends React.Component {
   }
 
   onCategoryChange(value) {
+    // console.log(value);
+    this.props.setCategory(value);
     this.setState({
       category: value,
     });
-    this.props.setCategory(value);
   }
 
   onBreedChange(value) {
@@ -187,43 +204,55 @@ export default class CategorySelection extends React.Component {
 
   render() {
     return (
-      <View>
+      <View style={{ marginHorizontal: 10 }}>
         <View style={styles.inputContainer}>
           <Text>
             <Text style={styles.inputName}>Category</Text>
           </Text>
-          <View style={styles.pickerContainer}>
-            <Picker
-              style={styles.picker}
-              selectedValue={this.state.category}
-              onValueChange={this.onCategoryChange.bind(this)}>
-              <Picker.Item label="Select category" value="0" color="#adadad" />
-              <Picker.Item
-                label="Dog"
-                value="Dog"
-                style={styles.pickerEntry}
-              />
-              <Picker.Item
-                label="Cat"
-                value="Cat"
-                style={styles.pickerEntry}
-              />
-              <Picker.Item
-                label="Bird"
-                value="Bird"
-                style={styles.pickerEntry}
-              />
-              <Picker.Item
-                label="Reptile"
-                value="Reptile"
-                style={styles.pickerEntry}
-              />
-              <Picker.Item
-                label="Fish"
-                value="Fish"
-                style={styles.pickerEntry}
-              />
-            </Picker>
+          <View style={globalStyles.formPickerOuterContainer}>
+            <View style={globalStyles.formPickerIconContainer}>
+              <Icon name="ios-paper" type="ionicon" color={darkGreen} />
+            </View>
+            <View style={globalStyles.formPickerInnerContainer}>
+              <Picker
+                style={styles.picker}
+                selectedValue={this.state.category}
+                onValueChange={this.onCategoryChange.bind(this)}>
+                <Picker.Item
+                  label="Select category"
+                  value="0"
+                  color="#D3D3D3"
+                />
+                <Picker.Item
+                  label="Dog"
+                  value="Dog"
+                  style={styles.pickerEntry}
+                />
+                <Picker.Item
+                  label="Cat"
+                  value="Cat"
+                  style={styles.pickerEntry}
+                />
+                <Picker.Item
+                  label="Bird"
+                  value="Bird"
+                  style={styles.pickerEntry}
+                />
+                <Picker.Item
+                  label="Reptile"
+                  value="Reptile"
+                  style={styles.pickerEntry}
+                />
+                <Picker.Item
+                  label="Fish"
+                  value="Fish"
+                  style={styles.pickerEntry}
+                />
+              </Picker>
+            </View>
+          </View>
+          <View style={{ paddingLeft: 5, paddingTop: 5 }}>
+            <Text style={styles.error}>{this.props.categoryErr}</Text>
           </View>
         </View>
 
@@ -231,82 +260,113 @@ export default class CategorySelection extends React.Component {
           <Text>
             <Text style={styles.inputName}>Breed</Text>
           </Text>
-          <View style={styles.pickerContainer}>
-            <Picker
-              style={styles.picker}
-              selectedValue={this.state.breed}
-              onValueChange={this.onBreedChange.bind(this)}>
-              {this.getBreed(this.state.category).map((item, i) => {
-                // console.log("item", item);
-                // return <Picker.Item label={item} key={`${i}+1`} value={item} />;
 
-                if (i == 0) {
-                  return (
-                    <Picker.Item
-                      label={item}
-                      key={i}
-                      value={0}
-                      color="#adadad"
-                    />
-                  );
-                } else {
-                  return <Picker.Item label={item} key={i} value={item} />;
-                }
-              })}
-            </Picker>
+          <View style={globalStyles.formPickerOuterContainer}>
+            <View style={globalStyles.formPickerIconContainer}>
+              <Icon name="ios-paper" type="ionicon" color={darkGreen} />
+            </View>
+            <View style={globalStyles.formPickerInnerContainer}>
+              <Picker
+                style={styles.picker}
+                selectedValue={this.state.breed}
+                onValueChange={this.onBreedChange.bind(this)}>
+                {this.getBreed(this.state.category).map((item, i) => {
+                  // console.log("item", item);
+                  // return <Picker.Item label={item} key={`${i}+1`} value={item} />;
+
+                  if (i == 0) {
+                    return (
+                      <Picker.Item
+                        label={item}
+                        key={i}
+                        value={0}
+                        color="#D3D3D3"
+                      />
+                    );
+                  } else {
+                    return <Picker.Item label={item} key={i} value={item} />;
+                  }
+                })}
+              </Picker>
+            </View>
           </View>
+          <View style={{ paddingLeft: 5, paddingTop: 5 }}>
+            <Text style={styles.error}>{this.props.breedErr}</Text>
+          </View>
+          {/* <Text style={globalStyles.errorMessage}>{this.props.breedErr}</Text> */}
         </View>
+
         <View style={styles.inputContainer}>
           <Text>
             <Text style={styles.inputName}>Colour</Text>
           </Text>
-          <View style={styles.pickerContainer}>
-            <Picker
-              style={styles.picker}
-              selectedValue={this.state.colour}
-              onValueChange={this.onColourChange.bind(this)}>
-              {this.getColour(this.state.category).map((item, i) => {
-                if (i == 0) {
-                  return (
-                    <Picker.Item
-                      label={item}
-                      key={i}
-                      value={0}
-                      color="#adadad"
-                    />
-                  );
-                } else {
-                  return <Picker.Item label={item} key={i} value={item} />;
-                }
-              })}
-            </Picker>
+          <View style={globalStyles.formPickerOuterContainer}>
+            <View style={globalStyles.formPickerIconContainer}>
+              <Icon name="ios-paper" type="ionicon" color={darkGreen} />
+            </View>
+            <View style={globalStyles.formPickerInnerContainer}>
+              <Picker
+                style={styles.picker}
+                selectedValue={this.state.colour}
+                onValueChange={this.onColourChange.bind(this)}>
+                {this.getColour(this.state.category).map((item, i) => {
+                  if (i == 0) {
+                    return (
+                      <Picker.Item
+                        label={item}
+                        key={i}
+                        value={0}
+                        color="#D3D3D3"
+                      />
+                    );
+                  } else {
+                    return <Picker.Item label={item} key={i} value={item} />;
+                  }
+                })}
+              </Picker>
+            </View>
           </View>
+          <View style={{ paddingLeft: 5, paddingTop: 5 }}>
+            <Text style={styles.error}>{this.props.colourErr}</Text>
+          </View>
+          {/* <Text style={styles.error}>{this.props.colourErr}</Text> */}
         </View>
+
         <View style={styles.inputContainer}>
           <Text>
             <Text style={styles.inputName}>Size</Text>
           </Text>
-          <View style={styles.pickerContainer}>
-            <Picker
-              style={styles.picker}
-              selectedValue={this.state.size}
-              onValueChange={this.onSizeChange.bind(this)}>
-              {this.getSize(this.state.category).map((item, i) => {
-                if (i == 0) {
-                  return (
-                    <Picker.Item
-                      label={item}
-                      key={i}
-                      value={0}
-                      color="#adadad"
-                    />
-                  );
-                } else {
-                  return <Picker.Item label={item} key={i} value={item} />;
-                }
-              })}
-            </Picker>
+
+          <View style={globalStyles.formPickerOuterContainer}>
+            <View style={globalStyles.formPickerIconContainer}>
+              <Icon name="ios-paper" type="ionicon" color={darkGreen} />
+            </View>
+            <View style={globalStyles.formPickerInnerContainer}>
+              <Picker
+                style={styles.picker}
+                selectedValue={this.state.size}
+                onValueChange={this.onSizeChange.bind(this)}>
+                {this.getSize(this.state.category).map((item, i) => {
+                  if (i == 0) {
+                    return (
+                      <Picker.Item
+                        label={item}
+                        key={i}
+                        value={0}
+                        color="#D3D3D3"
+                      />
+                    );
+                  } else {
+                    return <Picker.Item label={item} key={i} value={item} />;
+                  }
+                })}
+              </Picker>
+            </View>
           </View>
+          <View style={{ paddingLeft: 5, paddingTop: 5 }}>
+            <Text style={styles.error}>{this.props.sizeErr}</Text>
+          </View>
+          {/* <Text style={styles.error}>{this.props.sizeErr}</Text> */}
         </View>
       </View>
     );
@@ -314,44 +374,20 @@ export default class CategorySelection extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  error: {
+    color: "red",
+    fontSize: 12,
+  },
   inputContainer: {
-      // marginTop: 10
-      paddingTop: 12,
+    paddingBottom: 10,
   },
   inputName: {
-    marginBottom: 0,
-    paddingBottom: 0,
-    color: "#242424",
-    fontSize: 14,
-  },
-  picker: {
-    // height: 34,
-    // width: 314,
-    // fontSize: 12,
-
-    height: 27,
-    borderRadius: 4,
-    fontSize: 5,
-    // backgroundColor: "#F6F6F6"
-
-    // marginBottom: 100,
-    //   backgroundColor: "white",
-    //   borderColor: "black",
-    //   borderWidth: 1
+    color: "#505050",
+    fontWeight: "bold",
+    fontSize: 16,
   },
   pickerDefault: {
     color: "#fafafa",
-  },
-  pickerContainer: {
-    // backgroundColor: "white",
-    borderColor: "black",
-    backgroundColor: "#fafafa",
-    borderColor: "#5D5D5D",
-    borderWidth: 1,
-    borderRadius: 4,
-    // height: 34,
-    marginTop: 5,
-    // marginBottom: 10,
   },
   pickerEntry: {
     fontSize: 12,

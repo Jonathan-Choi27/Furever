@@ -67,7 +67,7 @@ export default class updateProfile extends React.Component {
       profileText: this.state.profileText,
     });
 
-    console.log("hi");
+    // console.log("hi");
     this.props.route.params.refresh();
     this.props.navigation.goBack();
   }

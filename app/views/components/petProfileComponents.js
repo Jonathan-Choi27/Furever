@@ -1,26 +1,17 @@
 import React from "react";
 import { Text, View, TouchableOpacity, Dimensions, Image } from "react-native";
-import { Card,  } from "react-native-elements";
-import {Button} from "react-native-paper";
+import { Card, } from "react-native-elements";
+import { Button } from "react-native-paper";
 import styles from "../styleSheet/styleSheet";
-import { CustomInput, InputHeader } from "../components/customInput";
 import { darkGreen, green, lightGreen, lightGrey, orange, lightBlue } from "../styleSheet/styleSheet";
+
+const screenWidth = Math.round(Dimensions.get("window").width);
 
 const checkDocuments = (field) => {
   if (field === "") {
     return "No Documents Provided."
   }
   return field;
-  // (
-  //   <View>
-  //     <Icon
-  //       name="ios-paper"
-  //       type="ionicon"
-  //       color={darkGreen}
-  //       // containerStyle={{ paddingLeft: 7, paddingRight: 10 }}
-  //     />
-  //   </View>
-  // );
 }
 
 const checkAdditional = (additional) => {
@@ -31,8 +22,6 @@ const checkAdditional = (additional) => {
 }
 
 export const profileInfo = (item) => {
-  const screenWidth = Math.round(Dimensions.get("window").width);
-  const textWidth = (screenWidth - 20) / 2;  
   return (
     <View style={styles.container}>
       <View style={{ marginBottom: 0 }}>
@@ -52,9 +41,9 @@ export const profileInfo = (item) => {
         </Card>
 
         <Card containerStyle={styles.cardContentContainer}>
-          <InputHeader text="General Information"/>
+          <Text style={styles.cardHeading}>General Information</Text>
           <View style={styles.cardContainer}>
-            <View style={{paddingRight: 15}}>
+            <View style={{ paddingLeft: 1, paddingRight: 15 }}>
               <Text style={styles.contentTextBold}>Name: </Text>
               <Text style={styles.contentTextBold}>Category: </Text>
               <Text style={styles.contentTextBold}>Breed: </Text>
@@ -64,7 +53,7 @@ export const profileInfo = (item) => {
               <Text style={styles.contentTextBold}>Size: </Text>
               <Text style={styles.contentTextBold}>Location: </Text>
             </View>
-            <View>
+            <View style={{ flex: 1}}>
               <Text numberOfLines={1} style={styles.contentText}>{item.petName}</Text>
               <Text numberOfLines={1} style={styles.contentText}>{item.category}</Text>
               <Text numberOfLines={1} style={styles.contentText}>{item.breed}</Text>
@@ -72,85 +61,86 @@ export const profileInfo = (item) => {
               <Text numberOfLines={1} style={styles.contentText}>{item.age}</Text>
               <Text numberOfLines={1} style={styles.contentText}>{item.gender}</Text>
               <Text numberOfLines={1} style={styles.contentText}>{item.size}</Text>
-              <Text numberOfLines={1} style={styles.contentText}>{item.location}</Text>
+              <Text style={styles.contentText, {flexShrink: 1}}>{item.location}</Text>
             </View>
           </View>
-      </Card>
+        </Card>
 
-      <Card containerStyle={styles.cardContentContainer}>
-        <InputHeader text="Behaviour"/>
-        <Text style={styles.contentText}>{item.behaviour}</Text>
-      </Card>
+        <Card containerStyle={styles.cardContentContainer}>
+          <Text style={styles.cardHeading}>Behaviour</Text>
+          <Text style={styles.contentText}>{item.behaviour}</Text>
+        </Card>
 
-      <Card containerStyle={styles.cardContentContainer}>
-        <InputHeader text="Care, Health and Feeding"/>
-        <Text style={styles.contentText}>{item.health}</Text>
-      </Card>
+        <Card containerStyle={styles.cardContentContainer}>
+          <Text style={styles.cardHeading}>Care, Health, and Feeding</Text>
+          <Text style={styles.contentText}>{item.health}</Text>
+        </Card>
 
-      <Card containerStyle={styles.cardContentContainer}>
-        <InputHeader text="Training"/>
-        <Text style={styles.contentText}>{item.training}</Text>
-      </Card>
+        <Card containerStyle={styles.cardContentContainer}>
+          <Text style={styles.cardHeading}>Training</Text>
+          <Text style={styles.contentText}>{item.training}</Text>
+        </Card>
 
-      <Card containerStyle={styles.cardContentContainer}>
-        <InputHeader text="Additional Information"/>
-        <Text style={styles.contentText}>{checkAdditional(item.additional)}</Text>
-      </Card>
+        <Card containerStyle={styles.cardContentContainer}>
+          <Text style={styles.cardHeading}>Additional Information</Text>
+          <Text style={styles.contentText}>{checkAdditional(item.additional)}</Text>
+        </Card>
 
-      <Card containerStyle={styles.cardContentContainer}>
-        <InputHeader text="Documents"/>
-        {checkDocuments(item.documentName)}
-      </Card>
+        <Card containerStyle={styles.cardContentContainer}>
+          <Text style={styles.cardHeading}>Documents</Text>
+          <Text>{checkDocuments(item.documentName)}</Text>
+        </Card>
 
       </View>
     </View>
   );
 };
 
-export const sellerInfo = (item, navigation) => {
-  
+export const sellerInfo = (seller, navigation) => {
   return (
-      <View>
-        <Card containerStyle={styles.cardContentContainer}>
-          <InputHeader text="Seller Information"/>
+    <View style={styles.container}>
+      <Card containerStyle={styles.cardContentContainer}>
+        <Text style={styles.cardHeading}>Seller Information</Text>
 
-          <View style={{flexDirection: 'row', }}> 
-            <View style={{flex: 1, width: 100, justifyContent: 'center', alignItems: 'center',}}>
-              <Image
-                style={{height: 40, width: 40, borderRadius: 40/2, }}
-                source={{
-                  uri: item.sellerPhoto,
-                }}
-              />
-              <Text style={{textAlign: "center", paddingTop: 5}}>{item.sellerName}</Text>
-            </View>
-            
-            <Text>{item.sellerName}</Text>
-            
+        <View style={{ flexDirection: 'row' }}>
+          <View style={{ flex: 1, width: 100, justifyContent: 'center', alignItems: 'center', }}>
+            <Image
+              style={{ height: 40, width: 40, borderRadius: 40 / 2, }}
+              source={{
+                uri: seller.photo,
+              }}
+            />
+            <Text style={{ textAlign: "center", paddingTop: 5 }}>{seller.name}</Text>
           </View>
-          <View style= {{flex: 1, paddingTop: 5, paddingLeft: 10}}>
-            <Text >{item.sellerInfo}</Text>
-              <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', paddingTop: 10}}>
-                <Button
-                  style={{backgroundColor: "#447ECB",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          borderRadius: 5,
-                          height: 25, 
-                          width: 120}}
-                  mode="contained"
-                  onPress={() => navigation.navigate("sellerProfile", { item })}
-
-                >
-                  <Text style={{color: "#ffffff",
-                      fontSize: 10,
-                      padding: 5,}}>
-                    More Info</Text>
-                </Button>
-              </View>                      
+          <View style={{ flex: 4, paddingTop: 2, paddingLeft: 10, paddingRight: 10 }}>
+            <Text >{seller.profileText}</Text>
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', paddingTop: 10 }}>
+              <Button
+                style={{
+                  backgroundColor: green,
+                  alignItems: "center",
+                  justifyContent: "center",
+                  borderRadius: 5,
+                  height: 25,
+                  width: 120
+                }}
+                mode="contained"
+                onPress={() => navigation.navigate("sellerProfile", { seller })}
+              >
+                <Text style={{
+                  color: "#ffffff",
+                  fontSize: 12,
+                  padding: 5,
+                  fontWeight: "bold"
+                }}>
+                  More Info
+                    </Text>
+              </Button>
             </View>
-        </Card>    
-      </View>
+          </View>
+        </View>
+      </Card>
+    </View>
   );
 };
 

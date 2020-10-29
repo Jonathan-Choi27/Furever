@@ -5,6 +5,8 @@ import profileHome from "./profileHome";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import updateProfile from "./updateProfile";
+import ProfilePrivacy from "./profilePrivacy";
+import ProfileHelp from "./profileHelp";
 
 const Stack = createStackNavigator();
 
@@ -32,6 +34,8 @@ export default function ProfileNav() {
         }}>
         <Stack.Screen name="profileHome" component={profileHome} />
         <Stack.Screen name="updateProfile" component={updateProfile} />
+        <Stack.Screen name="profilePrivacy" component={ProfilePrivacy} />
+        <Stack.Screen name="profileHelp" component={ProfileHelp} />
       </Stack.Navigator>
     </NavigationContainer>
   );
