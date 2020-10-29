@@ -101,27 +101,32 @@ export const buyerInfo = (item) => {
     );
 }
 
-// export const sellerInfo = () => {
-//     return (
-//         <Card containerStyle={styles.cardContainer}>
-//             <View>
-//                 <Text style={styles.fontHeading}>Seller Information </Text>
-//                 <View style={styles.line} />
-//                 <Text></Text>
-//             </View>
-//         </Card>
-//     );
-// }
 
-// export const expressInterest = (item, navigation) => {
-//     return (
-//         <View style={styles.buttonsContainer}>
-//             <TouchableOpacity
-//                 style={styles.buttons}
-//                 onPress={() => navigation.navigate("buyApplication", { item })}>
 
-//                 <Text style={styles.buttonsText}>EXPRESS INTEREST</Text>
-//             </TouchableOpacity>
-//         </View>
-//     );
-// }
+export const acceptBuyer = (item, navigation) => {
+    return (
+        <View style={styles.buttonsContainer}>
+            <TouchableOpacity
+                style={styles.buttons}
+                // onPress={() => navigation.navigate("buyApplication", { item })}
+            >
+
+                <Text style={styles.buttonsText}>Accept</Text>
+            </TouchableOpacity>
+        </View>
+    );
+}
+
+export const rejectBuyer = (item, navigation) => {
+    return (
+        <View style={styles.buttonsContainer}>
+            <TouchableOpacity
+                style={styles.buttons}
+                // onPress={() => navigation.navigate("buyApplication", { item })}
+            >
+
+                <Text style={styles.buttonsText}>Reject</Text>
+            </TouchableOpacity>
+        </View>
+    );
+}
