@@ -175,7 +175,7 @@ export default class sellApplication extends React.Component {
       });
     }
 
-    db.collection("test_listings").add({
+    db.collection("pet_listings").add({
       uuid: user.uid,
       name: this.state.name,
       category: this.state.category,

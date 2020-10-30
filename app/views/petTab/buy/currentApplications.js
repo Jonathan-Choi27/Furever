@@ -11,9 +11,11 @@ import {
 import { Avatar, Card, Button, Searchbar } from "react-native-paper";
 import { db } from "../../database/firebase";
 import { auth } from "../../database/firebase";
-import {onBuyTab} from "../../components/petTabComponents";
+import { onBuyTab } from "../../components/petTabComponents";
 import globalStyles from "../../styleSheet/styleSheet";
 import { petBuyCard } from "../../components/petBuyComponents";
+import { buyerApplicationList } from "../../components/buyerApplicationList";
+// import { buyerApplicationView } from "../../components/buyerApplicationView";
 
 export default class currentApplications extends React.Component {
   state = {
@@ -24,7 +26,6 @@ export default class currentApplications extends React.Component {
     listedData: [],
     uuid: "",
     pullToRefresh: false,
-
   };
 
   async componentDidMount() {
@@ -32,64 +33,76 @@ export default class currentApplications extends React.Component {
     const user = auth.currentUser;
     const docs = [];
 
-    db.collection("pet_listings").get().then((doc) => {
-      doc.forEach(async (listing) => {
-        await db
-          .collection("pet_listings")
-          .doc(listing.id)
-          .collection("buyer_applications")
-          .where("uuid", "==", user.uid)
-          .get()
-          .then((doc) => {
-            doc.forEach(async (applications) => {
-              db.collection("pet_listings")
-              .where("uuid", "==", listing.data().uuid)
-              .get()
-              .then((doc) => {
-                doc.forEach(async (listingDoc) => {
-                  if (listingDoc.id == listing.id) {
-                    var uuid = listingDoc.data().uuid;
-                    var seller_name;
-                    var seller_photo;
-                    await db
-                      .collection("users")
-                      .doc(uuid)
-                      .get()
-                      .then((user_doc) => {
-                        seller_name = user_doc.data().name;
-                        seller_photo = user_doc.data().photo;
-                      });
-                    dataArray.push({
-                      sellerName: seller_name,
-                      sellerPhoto: seller_photo,
-                      petName: listingDoc.data().name,
-                      category: listingDoc.data().category,
-                      breed: listingDoc.data().breed,
-                      colour: listingDoc.data().colour,
-                      age: listingDoc.data().age,
-                      gender: listingDoc.data().gender,
-                      size: listingDoc.data().size,
-                      location: listingDoc.data().location,
-                      price: listingDoc.data().price,
-                      behaviour: listingDoc.data().behaviour,
-                      health: listingDoc.data().health,
-                      training: listingDoc.data().training,
-                      additional: listingDoc.data().additionalInfo,
-                      photo: listingDoc.data().photo_link,
-                      doc_id: listingDoc.id,
-                      uuid: listingDoc.data().uuid,
+    db.collection("pet_listings")
+      .get()
+      .then((doc) => {
+        doc.forEach(async (listing) => {
+          await db
+            .collection("pet_listings")
+            .doc(listing.id)
+            .collection("buyer_applications")
+            .where("uuid", "==", user.uid)
+            .get()
+            .then((doc) => {
+              doc.forEach(async (applications) => {
+                db.collection("pet_listings")
+                  .where("uuid", "==", listing.data().uuid)
+                  .get()
+                  .then((doc) => {
+                    doc.forEach(async (listingDoc) => {
+                      if (listingDoc.id == listing.id) {
+                        var uuid = listingDoc.data().uuid;
+                        var seller_name;
+                        var seller_photo;
+                        await db
+                          .collection("users")
+                          .doc(uuid)
+                          .get()
+                          .then((user_doc) => {
+                            seller_name = user_doc.data().name;
+                            seller_photo = user_doc.data().photo;
+                          });
+                        dataArray.push({
+                            buyerWhyWantPet: applications.data().why_want_pet,
+                            buyerPreviousPets: applications.data().previous_pets,
+                            buyerName: applications.data().name,
+                            buyerEmail: applications.data().email,
+                            buyerHouseEnviroment: applications.data()
+                              .house_enviroment,
+                            buyerLeastDesirableTraits: applications.data()
+                              .least_desirable_traits,
+                            buyerMostDesirableTraits: applications.data()
+                              .most_desirable_traits,
+                          sellerName: seller_name,
+                          sellerPhoto: seller_photo,
+                          petName: listingDoc.data().name,
+                          category: listingDoc.data().category,
+                          breed: listingDoc.data().breed,
+                          colour: listingDoc.data().colour,
+                          age: listingDoc.data().age,
+                          gender: listingDoc.data().gender,
+                          size: listingDoc.data().size,
+                          location: listingDoc.data().location,
+                          price: listingDoc.data().price,
+                          behaviour: listingDoc.data().behaviour,
+                          health: listingDoc.data().health,
+                          training: listingDoc.data().training,
+                          additional: listingDoc.data().additionalInfo,
+                          photo: listingDoc.data().photo_link,
+                          doc_id: listingDoc.id,
+                          uuid: listingDoc.data().uuid,
+                        });
+                        this.setState({
+                          isLoading: false,
+                          data: [...dataArray],
+                        });
+                      }
                     });
-                    this.setState({
-                      isLoading: false,
-                      data: [...dataArray],
-                    });
-                  }
-                });
+                  });
               });
-            })
-          })
-      })
-    })
+            });
+        });
+      });
   }
 
   searchFunction = (searchText) => {
@@ -109,15 +122,14 @@ export default class currentApplications extends React.Component {
     return (
       <View style={globalStyles.container}>
         {onBuyTab(this.props.navigation)}
-        <ScrollView contentContainerStyle={{alignItems: 'center' }}>
+        <ScrollView contentContainerStyle={{ alignItems: "center" }}>
           <View
             style={{
               flex: 1,
               justifyContent: "center",
               alignItems: "center",
               alignSelf: "stretch",
-            }}
-          >
+            }}>
             <Searchbar
               style={globalStyles.searchBarSingle}
               placeholder="Search"
@@ -125,10 +137,16 @@ export default class currentApplications extends React.Component {
               value={this.state.searchText}
             />
           </View>
-    
+
           {this.state.searchText == "" ? (
             <View style={globalStyles.pageMargin}>
-              <Text style={[globalStyles.pageTitle, {paddingLeft: 7, paddingBottom: 10, paddingTop: 3}]}>Your Current Applications</Text>
+              <Text
+                style={[
+                  globalStyles.pageTitle,
+                  { paddingLeft: 7, paddingBottom: 10, paddingTop: 3 },
+                ]}                                                                                              >
+                Your Current Applications
+              </Text>
               <FlatList
                 style={[{ paddingBottom: 10 }]}
                 onRefresh={async () => {
@@ -142,9 +160,9 @@ export default class currentApplications extends React.Component {
                 }}
                 refreshing={this.state.pullToRefresh}
                 showsVerticalScrollIndicator={false}
-                renderItem={({ item }) => (
-                  petBuyCard(item, this.props.navigation)
-                )}
+                renderItem={({ item }) =>
+                  buyerApplicationList(item, this.props.navigation)
+                }
                 keyExtractor={(item, index) => index.toString()}
                 data={
                   this.state.filteredData && this.state.filteredData.length > 0
@@ -173,12 +191,13 @@ export default class currentApplications extends React.Component {
                   }}
                   refreshing={this.state.pullToRefresh}
                   showsVerticalScrollIndicator={false}
-                  renderItem={({ item }) => (
+                  renderItem={({ item }) =>
                     petBuyCard(item, this.props.navigation)
-                  )}
+                  }
                   keyExtractor={(item, index) => index.toString()}
                   data={
-                    this.state.filteredData && this.state.filteredData.length > 0
+                    this.state.filteredData &&
+                    this.state.filteredData.length > 0
                       ? this.state.filteredData
                       : this.state.data
                   }
