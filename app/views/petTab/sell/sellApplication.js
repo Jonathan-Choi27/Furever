@@ -535,16 +535,14 @@ export default class sellApplication extends React.Component {
 
   render() {
     return (
-      <SafeAreaView style={styles.container}>
         <ScrollView
           keyboardShouldPersistTaps={"handled"}
-          contentContainerStyle={styles.scrollView}
-          showsVerticalScrollIndicator={false}>
-          <Card containerStyle={{ borderRadius: 10, width: screenWidth - 40 }}>
-            <View style={{ marginTop: 0 }}>
-              <Text style={styles.heading}>Seller Application</Text>
-              <Text style={globalStyles.cardHeading}>General Information</Text>
-            </View>
+          showsVerticalScrollIndicator={false}
+          // style={globalStyles.scrollViewContentStyle}
+          >
+          <Card containerStyle={{ borderRadius: 10 }}>
+            <Text style={globalStyles.applicationHeading}>Seller Application</Text>
+            <Text style={globalStyles.cardHeading}>General Information</Text>
 
             <CustomInput
               label="Name"
@@ -572,6 +570,7 @@ export default class sellApplication extends React.Component {
               sizeErr={this.state.sizeErr}
             />
 
+
             <View style={{ marginHorizontal: 15, marginBottom: 20 }}>
               <AgePicker
                 setAge={this.setAge}
@@ -587,7 +586,7 @@ export default class sellApplication extends React.Component {
             <View style={{ marginHorizontal: 10, marginBottom: 20 }}>
               <Text
                 style={{ color: "#505050", fontWeight: "bold", fontSize: 16 }}>
-                Gender
+                  Gender
               </Text>
 
               <View style={globalStyles.formPickerOuterContainer}>
@@ -637,8 +636,11 @@ export default class sellApplication extends React.Component {
 
             <PriceSlider price={this.state.price} setPrice={this.setPrice} />
 
+          </Card>
+
+          <Card containerStyle={{ borderRadius: 10 }}>
+            <Text style={globalStyles.cardHeading}>Behaviour</Text>
             <CustomInput
-              label="Behaviour"
               placeholder="Please fill in the field"
               onChangeText={(behaviour) => this.setState({ behaviour })}
               errorMessage={this.state.behaviourErr}
@@ -652,9 +654,11 @@ export default class sellApplication extends React.Component {
                 />
               }
             />
+          </Card>
 
+          <Card containerStyle={{ borderRadius: 10 }}>
+            <Text style={globalStyles.cardHeading}>Care, Health and Feeding</Text>
             <CustomInput
-              label="Care, Health and Feeding"
               placeholder="Please fill in the field"
               onChangeText={(health) => this.setState({ health })}
               errorMessage={this.state.healthErr}
@@ -668,9 +672,11 @@ export default class sellApplication extends React.Component {
                 />
               }
             />
+          </Card>
 
+          <Card containerStyle={{ borderRadius: 10 }}>
+            <Text style={globalStyles.cardHeading}>Training</Text>
             <CustomInput
-              label="Training"
               placeholder="Please fill in the field"
               onChangeText={(training) => this.setState({ training })}
               errorMessage={this.state.trainingErr}
@@ -684,9 +690,11 @@ export default class sellApplication extends React.Component {
                 />
               }
             />
+          </Card>
 
+          <Card containerStyle={{ borderRadius: 10 }}>
+            <Text style={globalStyles.cardHeading}>Additional Information</Text>
             <CustomInput
-              label="Additional Information"
               placeholder="Please fill in the field"
               onChangeText={(additionalInfo) =>
                 this.setState({ additionalInfo })
@@ -702,23 +710,24 @@ export default class sellApplication extends React.Component {
                 />
               }
             />
+          </Card>
 
+          <Card containerStyle={{ borderRadius: 10 }}>
             <View style={{ marginBottom: 10 }}>
               <View
                 style={{
                   flexDirection: "row",
-                  paddingTop: 20,
                   marginHorizontal: 10,
                   marginBottom: 10,
                 }}>
                 <View
                   style={{ flex: 1, flexDirection: "row", paddingBottom: 3 }}>
-                  <Text style={styles.inputName}>Upload a Photo</Text>
-                  <Text style={styles.setColorRed}> *</Text>
+                  <Text style={globalStyles.applicationInputName}>Upload a Photo</Text>
+                  <Text style={globalStyles.setColorRed}> *</Text>
                 </View>
                 {!this.state.valid_uri && (
                   <View style={{ flex: 1 }}>
-                    <Text style={styles.errorText}>Choose a photo</Text>
+                    <Text style={globalStyles.applicationErrorText}>Choose a photo</Text>
                   </View>
                 )}
               </View>
@@ -752,10 +761,12 @@ export default class sellApplication extends React.Component {
                 </Text>
               </Button>
             </View>
+            </Card>
 
+            <Card containerStyle={{ borderRadius: 10 }}>
             <View style={{ marginHorizontal: 10 }}>
               <View style={{ marginBottom: 10 }}>
-                <Text style={styles.inputName}>Upload Documents</Text>
+                <Text style={globalStyles.applicationInputName}>Upload Documents</Text>
               </View>
               <Button
                 style={{
@@ -770,137 +781,18 @@ export default class sellApplication extends React.Component {
                 </Text>
               </Button>
             </View>
-
-            <View style={styles.buttonsContainer}>
-              <TouchableOpacity
-                title={"submit"}
-                style={styles.buttons}
-                onPress={this.handleSubmit}>
-                <Text style={styles.buttonsText}>Submit</Text>
-              </TouchableOpacity>
-            </View>
-
-            <Button onPress={this.test_submit}>Test</Button>
-            <View style={{ marginBottom: 50 }} />
           </Card>
+
+          <View style={globalStyles.applicationButtonsContainer}>
+            <TouchableOpacity
+              title={"submit"}
+              style={globalStyles.buttons}
+              onPress={this.handleSubmit}>
+              <Text style={globalStyles.buttonsText}>Submit</Text>
+            </TouchableOpacity>
+          </View>
+          
         </ScrollView>
-      </SafeAreaView>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  scrollView: {
-    alignItems: "center",
-  },
-  container: {
-    flex: 1,
-    padding: 10,
-    paddingTop: 10,
-    justifyContent: "center",
-  },
-  inputName: {
-    color: "#505050",
-    fontWeight: "bold",
-    fontSize: 16,
-  },
-  heading: {
-    fontSize: 30,
-    color: "#606060",
-    fontWeight: "bold",
-    // fontSize: 20,
-    // fontWeight: "bold",
-    // color: "#000000",
-    // textAlign: "left",
-    // alignItems: "center",
-    // justifyContent: "center",
-    // flex: 1,
-    // paddingVertical: 10,
-    // paddingTop: 20,
-  },
-  subHeading: {
-    fontSize: 16,
-  },
-  subHeadingContainer: {
-    paddingTop: 20,
-  },
-  smallInputBox: {
-    margin: 0,
-    height: 25,
-    backgroundColor: "#fafafa",
-    padding: 0,
-  },
-  input: {
-    width: 314,
-    height: 34,
-    padding: 10,
-    borderWidth: 1,
-    borderColor: "black",
-    backgroundColor: "white",
-    fontSize: 12,
-  },
-  bigInput: {
-    textAlignVertical: "top",
-    margin: 0,
-    backgroundColor: "#fafafa",
-    padding: 0,
-  },
-  picker: {
-    height: 27,
-    borderRadius: 4,
-    fontSize: 12,
-  },
-  buttonsContainer: {
-    alignItems: "center",
-    justifyContent: "center",
-    paddingTop: 30,
-  },
-  buttons: {
-    backgroundColor: darkGreen,
-    alignItems: "center",
-    justifyContent: "center",
-    borderRadius: 10,
-    width: 100,
-    height: 40,
-  },
-  buttonsText: {
-    color: "white",
-    fontSize: 18,
-    fontWeight: "bold",
-  },
-  titleContainer: {
-    flex: 1,
-  },
-  setColorRed: {
-    color: "#f44336",
-  },
-  pickerContainer: {
-    backgroundColor: "white",
-    borderColor: "#5D5D5D",
-    borderWidth: 1,
-    borderRadius: 4,
-    marginTop: 5,
-  },
-  // errorText: {
-  //   color: "red",
-  //   textAlign: "right",
-  //   fontSize: 14,
-  //   fontWeight: "bold",
-  // },
-  inputContainer: {
-    paddingTop: 12,
-  },
-
-  pickerItem: {
-    fontSize: 12,
-  },
-  errorText: {
-    color: "red",
-    fontSize: 12,
-    textAlign: "right",
-  },
-  line: {
-    borderBottomColor: "black",
-    borderBottomWidth: 1,
-  },
-});

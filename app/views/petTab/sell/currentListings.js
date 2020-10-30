@@ -1,17 +1,13 @@
 import React, { useState } from "react";
 import {
-  StyleSheet,
   Text,
   View,
   TouchableOpacity,
-  Modal,
-  TouchableHighlight,
   FlatList,
-  ActivityIndicator,
-  Platform,
-  Dimensions,
-  Image,
 } from "react-native";
+import {
+  Button,
+} from "react-native-paper";
 import { SearchBar } from "react-native-elements";
 import firebase from "firebase";
 import { AppLoading } from "expo";
@@ -107,7 +103,7 @@ export default class currentListings extends React.Component {
 
   async fetchMore() {
     const dataArray = [];
-    console.log("fethc more!");
+    console.log("fetch more!");
     const uid = auth.currentUser.uid;
     let initialQuery = await db
       .collection("pet_listings")
@@ -161,39 +157,22 @@ export default class currentListings extends React.Component {
     //   );
     // }
     return (
-      <View>
+      <View style={globalStyles.container}>
         {onSellTab(this.props.navigation)}
 
-        <View style={{ padding: 10, paddingBottom: 0, flexDirection: "row" }}>
-          <Text
-            style={{
-              textAlign: "center",
-              padding: 10,
-              fontWeight: "bold",
-              fontSize: 20,
-            }}>
-            Current Listings
-          </Text>
-
-          <View style={{ height: 40, width: 220, paddingTop: 8 }}>
-            <TouchableOpacity
-              // style={styles.viewApplication}
-              style={{
-                backgroundColor: darkGreen,
-                flex: 1,
-                justifyContent: "center",
-                alignItems: "center",
+        <View style={[globalStyles.pageTitleContainer, {paddingTop: 15}]}>
+          <Text style={globalStyles.pageTitle}>Current Listings</Text>
+          <View>
+            <Button
+              color={darkGreen}
+              onPress={() => this.props.navigation.navigate("sellApplication")}
+              contentStyle={{
+                height: 30,
               }}
-              onPress={() => this.props.navigation.navigate("sellApplication")}>
-              <Text
-                style={{
-                  textAlign: "center",
-                  color: "#FFFFFF",
-                  fontWeight: "bold",
-                }}>
-                Add New Listing
-              </Text>
-            </TouchableOpacity>
+              mode="contained"
+            >
+              Add New Listing
+            </Button>
           </View>
         </View>
 
