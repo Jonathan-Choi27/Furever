@@ -457,4 +457,34 @@ export default StyleSheet.create({
     paddingTop: 30,
     paddingBottom: 30,
   },
+
+  //Listing card
+  smallButton: {
+    flex: 1,
+    borderColor: darkGreen,
+    borderWidth: 1,
+    marginLeft: 1.5,
+    marginRight: 1.5,
+    marginTop: 5,
+    height: 25,
+    justifyContent: "center",
+  },
+  bigButton: {
+    flex: 1,
+    backgroundColor: darkGreen,
+    marginLeft: 1.5,
+    marginRight: 1.5,
+    marginTop: 5,
+    height: 25,
+    justifyContent: "center",
+  },
+  smallButtonText: {
+    fontSize: 8,
+    color: "black",
+  },
+  bigButtonText: {
+    fontSize: 8,
+    color: "white",
+    fontWeight: "bold",
+  },
 });
