@@ -13,7 +13,7 @@ import {onSellTab} from "../../components/petTabComponents";
 
 export default class sellPetProfile extends React.Component {
     render() {
-        const item = this.props.route.params.props;
+        const item = this.props.route.params.item;
         return (
             <View>
                 {onSellTab(this.props.navigation)}
