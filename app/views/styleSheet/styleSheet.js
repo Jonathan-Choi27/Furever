@@ -455,5 +455,6 @@ export default StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     paddingTop: 30,
+    paddingBottom: 30,
   },
 });

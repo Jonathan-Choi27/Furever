@@ -9,10 +9,6 @@ import {
   BackHandler,
   Dimensions,
 } from "react-native";
-import {
-    openDocumentPicker,
-    uploadDocument,
-  } from "../components/documentUpload";
 import { 
   Icon,
   Card,
@@ -23,8 +19,8 @@ import globalStyles, {darkGreen, green} from "../styleSheet/styleSheet";
 import { openImagePicker, uploadPhoto } from "../components/imageUpload";
 import { CustomInput } from "../components/customInput";
 import PriceSlider from "../components/priceSlider";
-import AgePicker from "../components/agePicker";
-import GooglePlacesInput from "../components/mapAutoComplete";
+import uuid from "react-native-uuid";
+import { auth } from "../database/firebase";
 
 const db = firebase.firestore();
 const screenWidth = Math.round(Dimensions.get("window").width);
@@ -48,9 +44,9 @@ export default class accessoryListingApplication extends React.Component {
       type: "",
       description: "",
       price: "0",
-      photo_link: "",
-      photo_uri: emptyImage,
-      photo_uuid: "",
+      photoLink: "",
+      photoUri: emptyImage,
+      photoUuid: "",
     }
     
     this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
@@ -105,12 +101,12 @@ export default class accessoryListingApplication extends React.Component {
 
     // upload photo
     const photoURL = await uploadPhoto(
-      this.state.photo_uri,
-      this.state.photo_uuid
+      this.state.photoUri,
+      this.state.photoUuid
     );
 
     this.setState({
-      photo_link: photoURL,
+      photoLink: photoURL,
     });
 
     db.collection("accessories").add({
@@ -119,7 +115,7 @@ export default class accessoryListingApplication extends React.Component {
       category: this.state.category,
       type: this.state.type,
       description: this.state.description,
-      photo_link: this.state.photo_link,
+      photoLink: this.state.photoLink,
       price: this.state.price,
       timestamp: firebase.firestore.Timestamp.now(),
     });
@@ -231,10 +227,10 @@ export default class accessoryListingApplication extends React.Component {
   photoValidator = () => {
     var bool;
     if (
-      this.state.photo_uri == "" ||
-      this.state.photo_uri == null ||
-      this.state.photo_uri == undefined ||
-      this.state.photo_uri == emptyImage
+      this.state.photoUri == "" ||
+      this.state.photoUri == null ||
+      this.state.photoUri == undefined ||
+      this.state.photoUri == emptyImage
     ) {
       bool = false;
       this.setState({
@@ -263,8 +259,8 @@ export default class accessoryListingApplication extends React.Component {
     const get_uri = await openImagePicker();
 
     this.setState({
-      photo_uuid: uuid.v4(),
-      photo_uri: get_uri,
+      photoUuid: uuid.v4(),
+      photoUri: get_uri,
     });
   };
 
@@ -282,7 +278,7 @@ export default class accessoryListingApplication extends React.Component {
             label="Accessory Name"
             placeholder="Please fill in the field"
             onChangeText={(name) => this.setState({ name })}
-            // errorMessage={this.state.nameErr}
+            errorMessage={this.state.nameErr}
             leftIcon={
               <Icon
                 name="ios-paper"
@@ -345,8 +341,8 @@ export default class accessoryListingApplication extends React.Component {
                     color="#D3D3D3"
                   />
                   <Picker.Item label="Food" value="Food" />
-                  <Picker.Item label="Toys" value="Toys" />
-                  <Picker.Item label="Collars" value="Collars" />
+                  <Picker.Item label="Toy" value="Toy" />
+                  <Picker.Item label="Collar" value="Collar" />
                   <Picker.Item label="Wash" value="Wash" />
                   <Picker.Item label="Bed" value="Bed" />
                   <Picker.Item label="Bowl" value="Bowl" />
@@ -409,7 +405,7 @@ export default class accessoryListingApplication extends React.Component {
               }}>
               <Image
                 style={{ height: 300, width: screenWidth - 92 }}
-                source={{ uri: this.state.photo_uri }}
+                source={{ uri: this.state.photoUri }}
               />
             </View>
 
@@ -438,7 +434,6 @@ export default class accessoryListingApplication extends React.Component {
             <Text style={globalStyles.buttonsText}>Submit</Text>
           </TouchableOpacity>
         </View>
-        <View style={{ marginBottom: 50 }} />
           
       </ScrollView>
     );
