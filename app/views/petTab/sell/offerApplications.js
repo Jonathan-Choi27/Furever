@@ -73,6 +73,7 @@ export default class offerApplications extends React.Component {
                 previous_pets: buyer.data().previous_pets,
                 why_want_pet: buyer.data().why_want_pet,
                 category: petCategory,
+                is_accepted: false,
                 doc_id: buyer.id
               };
               
@@ -131,6 +132,9 @@ export default class offerApplications extends React.Component {
                                                 source={{ uri: item.avatarPhoto }}
                                                 style={{ aspectRatio: 1, borderRadius: 5 }}
                                             />
+                                            
+                                            <Text>Status: {item.is_accepted ? <Text>Accepted</Text> : <Text>Pending</Text>}</Text>
+                                            
 
                                         </View>
                                         <View
