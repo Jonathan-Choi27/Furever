@@ -12,8 +12,6 @@ const width = 140 + Math.floor(win.width*0.01);
 export default class HeaderLogo extends Component {
 
 	render() {
-		console.log("height: " + height);
-		console.log("width: " + width);
 
 		return (
 			<Image
