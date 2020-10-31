@@ -17,6 +17,11 @@ export const buyerApplicationList = (item, navigation) => {
       <View style={styles.petBuyCardTextContainer}>
         <View style={styles.petBuyCardImageContainer}>
           <Image source={{ uri: item.photo }} style={styles.petBuyCardImage} />
+          <View style={{flexDirection: 'row', justifyContent: 'center', paddingTop: 5}}>
+            <Text style={{fontWeight: 'bold'}}>Status:  </Text>
+            <Text>{item.buyerIsAccepted ? <Text>Accepted</Text> : <Text>Pending</Text>}</Text>
+          </View>
+          
         </View>
         <View style={styles.petBuyCardContent}>
           <Card.Content>

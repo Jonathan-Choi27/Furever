@@ -401,7 +401,7 @@ export default StyleSheet.create({
   },
   petBuyCardImageContainer: {
     width: 150,
-    height: 150,
+    height: 170,
   },
   petBuyCardImage: {
     aspectRatio: 1,

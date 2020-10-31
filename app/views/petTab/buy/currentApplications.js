@@ -73,6 +73,7 @@ export default class currentApplications extends React.Component {
                               .least_desirable_traits,
                             buyerMostDesirableTraits: applications.data()
                               .most_desirable_traits,
+                            buyerIsAccepted: applications.data().is_accepted,
                           sellerName: seller_name,
                           sellerPhoto: seller_photo,
                           petName: listingDoc.data().name,

@@ -73,7 +73,7 @@ export default class offerApplications extends React.Component {
                 previous_pets: buyer.data().previous_pets,
                 why_want_pet: buyer.data().why_want_pet,
                 category: petCategory,
-                is_accepted: false,
+                is_accepted: buyer.data().is_accepted,
                 doc_id: buyer.id
               };
               
@@ -132,10 +132,6 @@ export default class offerApplications extends React.Component {
                                                 source={{ uri: item.avatarPhoto }}
                                                 style={{ aspectRatio: 1, borderRadius: 5 }}
                                             />
-                                            
-                                            <Text>Status: {item.is_accepted ? <Text>Accepted</Text> : <Text>Pending</Text>}</Text>
-                                            
-
                                         </View>
                                         <View
                                             style={{
@@ -148,10 +144,10 @@ export default class offerApplications extends React.Component {
                                                     <Text style={{ fontWeight: "bold" }}>Name: </Text>
                                                     <Text>{item.name}</Text>
                                                 </Text>
-                                                <Text numberOfLines={1} style={{ flex: 1 }}>
+                                                {/* <Text numberOfLines={1} style={{ flex: 1 }}>
                                                     <Text style={{ fontWeight: "bold" }}>Age: </Text>
                                                     <Text>{item.age}</Text>
-                                                </Text>
+                                                </Text> */}
                                                 <Text numberOfLines={1} style={{ flex: 1 }}>
                                                     <Text style={{ fontWeight: "bold" }}>Contact: </Text>
                                                     <Text>{item.contact_number}</Text>

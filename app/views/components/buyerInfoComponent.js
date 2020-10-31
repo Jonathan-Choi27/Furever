@@ -42,14 +42,14 @@ export const buyerInfo = (item) => {
                                 uri: item.avatarPhoto,
                             }}
                         />
-                        <Text style={{ textAlign: "center", paddingTop: 5 }}>
+                        <Text style={{paddingTop: 10, paddingLeft: 15, width: textWidth }}>
                             <Text style={{ fontWeight: "bold" }}>Name:</Text>{" "}
                             <Text>{item.name}</Text>
                         </Text>
-                        <Text style={{ textAlign: "center", paddingTop: 5 }}>
+                        {/* <Text style={{ textAlign: "center", paddingTop: 5 }}>
                             <Text style={{ fontWeight: "bold" }}>Age:</Text>{" "}
                             <Text>{item.age}</Text>
-                        </Text>
+                        </Text> */}
                     </View>
                     <View style={{ paddingLeft: 15, width: textWidth }}>
                         <Text>
@@ -112,10 +112,8 @@ export const acceptBuyer = (item, navigation) => {
                 onPress={() => sendEmail(
                     item.email,
                     'Offer Accepted',
-                    'Hi, your application has been accepted by the seller. Please contact the seller.'
-                ).then(() => {
-                    // console.log('sent');
-                })}
+                    'Hi, your application has been accepted by the seller. The seller will contact you as soon as possible.\n\n Thank you.\n\n Regards,\n The Furever Team.'
+                )}
             >
 
                 <Text style={styles.buttonsText}>Accept</Text>
