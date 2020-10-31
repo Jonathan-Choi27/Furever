@@ -11,17 +11,18 @@ import {
     Button,
 } from "react-native-elements";
 import styles from "../styleSheet/styleSheet";
+import { sendEmail } from '../petTab/sell/sendEmail';
 
 export const buyerInfo = (item) => {
     const screenWidth = Math.round(Dimensions.get('window').width);
     const textWidth = (screenWidth - 20) / 2;
     return (
         <View style={styles.container}>
-            <View style={styles.titleContainer}>
+            {/* <View style={styles.titleContainer}>
                 <View style={{ width: screenWidth / 2 }}>
                     <Text style={styles.fontTitle}> {item.name}'s Application </Text>
                 </View>
-            </View>
+            </View> */}
 
             <Card containerStyle={styles.cardContainer}>
                 <Text style={{fontSize: 20, fontWeight: 'bold', paddingBottom:20}}> Personal Information </Text>
@@ -108,7 +109,13 @@ export const acceptBuyer = (item, navigation) => {
         <View style={styles.buttonsContainer}>
             <TouchableOpacity
                 style={styles.buttons}
-                // onPress={() => navigation.navigate("buyApplication", { item })}
+                onPress={() => sendEmail(
+                    item.email,
+                    'Offer Accepted',
+                    'Hi, your application has been accepted by the seller. Please contact the seller.'
+                ).then(() => {
+                    // console.log('sent');
+                })}
             >
 
                 <Text style={styles.buttonsText}>Accept</Text>
