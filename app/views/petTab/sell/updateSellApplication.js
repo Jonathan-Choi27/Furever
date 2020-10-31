@@ -55,6 +55,7 @@ export default class updateSellApplication extends React.Component {
       valid_gender: true,
       price: "",
       location: "",
+      suburb: "",
       nameErr: "",
       behaviourErr: "",
       healthErr: "",
@@ -123,9 +124,10 @@ export default class updateSellApplication extends React.Component {
     );
   };
 
-  setLocation = (location) => {
+  setLocation = (location, suburb) => {
     this.setState({
       location: location,
+      suburb: suburb,
     });
   };
 
@@ -439,6 +441,42 @@ export default class updateSellApplication extends React.Component {
         price: "0",
       });
     }
+  };
+
+  pushData = async () => {
+    if (this.state.photo_uri !== "") {
+      const photoURL = await uploadPhoto(
+        this.state.photo_uri,
+        this.state.photo_uuid
+      );
+      this.setState({
+        photo_link: photoURL,
+      });
+    }
+    if (this.state.documents_uri !== "") {
+      uploadDocument(this.state.documents_uri, this.state.documents);
+    }
+    db.collection("pet_listings").doc(this.props.route.params.doc_id).update({
+      uuid: user.uid,
+      name: this.state.name,
+      category: this.state.category,
+      breed: this.state.breed,
+      colour: this.state.colour,
+      age: this.state.age,
+      gender: this.state.gender,
+      behaviour: this.state.behaviour,
+      health: this.state.health,
+      location: this.state.location,
+      suburb: this.state.suburb,
+      training: this.state.training,
+      photo_link: this.state.photo_link,
+      documents: this.state.documents,
+      documents_uri: this.state.documents_uri,
+      price: this.state.price,
+      additionalInfo: this.state.additionalInfo,
+      size: this.state.size,
+    });
+    this.props.navigation.goBack();
   };
 
   handleSubmit = async () => {

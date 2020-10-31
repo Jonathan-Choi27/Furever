@@ -7,6 +7,7 @@ import PetNav from "../petTab/petNav";
 import firebase from "firebase";
 import HomeNav from "./homeNav";
 import ProfileNav from "../profile/profileNav"
+import ShopNav from "../shop/shopNav";
 import { darkGreen, green, lightGreen, orange, lightBlue } from "../styleSheet/styleSheet";
 
 const db = firebase.firestore();
@@ -18,14 +19,6 @@ export default class LandingPage extends React.Component {
 }
 
 const Tab = createBottomTabNavigator();
-
-function ShopScreen() {
-	return (
-		<View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-			<Text>Shop Screen!</Text>
-		</View>
-	);
-}
 
 function MyTabs(props) {
 	return (
@@ -54,29 +47,9 @@ function MyTabs(props) {
 				}}>
 				<Tab.Screen name="Home" component={HomeNav} />
 				<Tab.Screen name="Pet" component={PetNav} />
-				<Tab.Screen name="Shop" component={ShopScreen} />
+				<Tab.Screen name="Shop" component={ShopNav} />
 				<Tab.Screen name="Profile" component={ProfileNav} />
 			</Tab.Navigator>
 		</NavigationContainer>
 	);
 }
-
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		justifyContent: "center",
-		margin: 25,
-	},
-	insideContainer: {
-		flex: 2,
-		alignItems: "center",
-		justifyContent: "center",
-	},
-	title: {
-		fontSize: 20,
-	},
-	middleText: {
-		fontSize: 20,
-		color: "#787878",
-	},
-});

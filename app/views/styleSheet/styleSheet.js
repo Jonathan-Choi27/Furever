@@ -219,12 +219,12 @@ export default StyleSheet.create({
   searchBar: {
     marginRight: 10,
     height: 35,
-    width: 284,
+    width: screenWidth - 125,
   },
   searchBarSingle: {
     margin: 10,
     height: 35,
-    width: 390,
+    width: screenWidth - 20,
   },
   error: {
       color : "red",
@@ -346,16 +346,16 @@ export default StyleSheet.create({
   },
 
   // Breed List
-  breedTitleContainer: {
+  pageTitleContainer: {
     flexDirection: "row",
-    justifyContent: "flex-start",
     padding: 7,
-    paddingBottom: 10,
+    justifyContent: "space-between",
+    width: screenWidth - 20,
+    alignItems: "center",
   },
-  breedTitle: {
+  pageTitle: {
     fontWeight: "bold",
-    fontSize: 20,
-    marginRight: 25,
+    fontSize: 23,
   },
 
   // Breed Information
@@ -363,15 +363,15 @@ export default StyleSheet.create({
 
   //Pet Buy Card
   petBuyCard: {
-    margin: 5,
-    width: 380,
+    marginBottom: 10,
+    width: screenWidth - 20,
   },
   petBuyCardSellerContainer: {
     justifyContent: 'center',
     alignItems: 'center',
     alignSelf: 'flex-end',
     position: "absolute",
-    padding: 15
+    padding: 13
   },
   petBuyCardActionCard: {
     margin: 0,
@@ -413,5 +413,78 @@ export default StyleSheet.create({
   },
   petBuyCardNameContainer: {
     marginRight: 40,
+  },
+
+  //Current applications
+  pageMargin: {
+    width: screenWidth - 20,
+    flex: 1,
+  },
+  scrollViewContentStyle: {
+    flex: 1,
+    alignItems: "center",
+  },
+
+  //Sell application
+  sellAppContainer: {
+    flex: 1,
+    padding: 10,
+    paddingTop: 10,
+    justifyContent: "center",
+  },
+  applicationHeading: {
+    fontSize: 30,
+    color: "#606060",
+    fontWeight: "bold",
+    paddingBottom: 5,
+  },
+  applicationInputName: {
+    color: "#505050",
+    fontWeight: "bold",
+    fontSize: 16,
+  },
+  setColorRed: {
+    color: "#f44336",
+  },
+  applicationErrorText: {
+    color: "red",
+    fontSize: 12,
+    textAlign: "right",
+  },
+  applicationButtonsContainer: {
+    alignItems: "center",
+    justifyContent: "center",
+    paddingTop: 30,
+    paddingBottom: 30,
+  },
+
+  //Listing card
+  smallButton: {
+    flex: 1,
+    borderColor: darkGreen,
+    borderWidth: 1,
+    marginLeft: 1.5,
+    marginRight: 1.5,
+    marginTop: 5,
+    height: 25,
+    justifyContent: "center",
+  },
+  bigButton: {
+    flex: 1,
+    backgroundColor: darkGreen,
+    marginLeft: 1.5,
+    marginRight: 1.5,
+    marginTop: 5,
+    height: 25,
+    justifyContent: "center",
+  },
+  smallButtonText: {
+    fontSize: 8,
+    color: "black",
+  },
+  bigButtonText: {
+    fontSize: 8,
+    color: "white",
+    fontWeight: "bold",
   },
 });

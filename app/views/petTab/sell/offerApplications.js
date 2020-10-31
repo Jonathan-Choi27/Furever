@@ -58,7 +58,7 @@ export default class offerApplications extends React.Component {
               .get()
               .then((user_doc) => {
                 buyer_photo = user_doc.data().photo;
-                console.log(uuid);
+                // console.log(uuid);
               });
               let buyer_info = {
                 name: buyer.data().name,

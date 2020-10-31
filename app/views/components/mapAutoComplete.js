@@ -42,7 +42,7 @@ export const GooglePlacesInput = (props) => {
             {...props}
             placeholder="Please enter location"
             // function required to set state of parent
-            onPress={(data) => props.set(data.description)}
+            onPress={(data) => props.set(data.description, data.structured_formatting.secondary_text)}
             // onPress={(data) => {
             //     // 'details' is provided when fetchDetails = true
             //     console.log(data.structured_formatting.secondary_text);

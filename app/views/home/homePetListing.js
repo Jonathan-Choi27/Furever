@@ -74,7 +74,7 @@ export default class HomeListing extends React.Component {
     let documentSnapshots = await initialQuery.get();
 
     let documentData = documentSnapshots.docs.map((listingDoc) => {
-      console.log(listingDoc.id);
+    //   console.log(listingDoc.id);
       dataArray.push({
         petName: listingDoc.data().name,
         category: listingDoc.data().category,

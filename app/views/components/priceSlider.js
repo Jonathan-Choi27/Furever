@@ -19,7 +19,7 @@ export default class PriceSlider extends React.Component {
           Price
         </Text>
         <View style={{ flexDirection: "row" }}>
-          <View style={{ flex: 0.8 }}>
+          <View style={{ flex: 0.7 }}>
             <Slider
                 // converesion to int this way. parseInt() giving errors for some reason
               value={this.props.price * 1}
@@ -40,7 +40,7 @@ export default class PriceSlider extends React.Component {
               thumbTintColor={darkGreen}
             />
           </View>
-          <View style={{ flex: 0.2 }}>
+          <View style={{ flex: 0.3 }}>
             <Input
               placeholder="0"
               placeholderTextColor={"#D3D3D3"}

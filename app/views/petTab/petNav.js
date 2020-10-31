@@ -17,6 +17,7 @@ import sellPetProfile from "./sell/sellPetProfile";
 import offerApplications from "./sell/offerApplications";
 import buyerProfile from "./sell/buyerProfile";
 import buySellerProfile from "./buy/buySellerProfile"
+import buyerApplicationView  from "../components/buyerApplicationView"
 
 const Stack = createStackNavigator();
 
@@ -53,6 +54,7 @@ export default function PetNav() {
         <Stack.Screen name="breedInfo" component={breedInfo} />
         <Stack.Screen name="buyPetProfile" component={buyPetProfile} />
         <Stack.Screen name="buyApplication" component={buyApplication} />
+        <Stack.Screen name="buyerApplicationView" component={buyerApplicationView}/>
         <Stack.Screen name="offerApplications" component={offerApplications} />
         <Stack.Screen name="buyerProfile" component={buyerProfile} />
 				<Stack.Screen name="sellerProfile" component={buySellerProfile} />
@@ -60,28 +62,3 @@ export default function PetNav() {
     </NavigationContainer>
   );
 }
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  buySellContainer: {
-    flex: 1,
-    justifyContent: "flex-start",
-    alignItems: "flex-start",
-    flexDirection: "row",
-  },
-  categories: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    flexDirection: "row",
-    padding: 20,
-  },
-  icon: {
-    width: 100,
-    height: 100,
-    padding: 20,
-  },
-});

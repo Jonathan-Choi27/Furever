@@ -15,7 +15,7 @@ export default class AgePicker extends React.Component {
 
     for (let i = 0; i < 30; i++) {
       if (i == 0) {
-        age[i] = "Select Age";
+        age[i] = "Select";
       } else {
         age[i] = i;
       }
@@ -30,7 +30,7 @@ export default class AgePicker extends React.Component {
     // console.log(this.props.age);
     if (this.props.age !== prevProps.age) {
       this.setState({
-        age : this.props.age,
+        age: this.props.age,
       });
     }
   }
@@ -63,7 +63,7 @@ export default class AgePicker extends React.Component {
               borderBottomWidth: 2,
               flexDirection: "row",
             }}>
-            <View style={globalStyles.formPickerIconContainer}>
+            <View style={{ justifyContent: "center", flex: 0.2 }}>
               <Icon name="ios-paper" type="ionicon" color={darkGreen} />
             </View>
             <View style={globalStyles.formPickerInnerContainer}>
@@ -90,11 +90,11 @@ export default class AgePicker extends React.Component {
           </View>
 
           {/* space between */}
-          <View style={{ flex: 0.1 }} />
+          <View style={{ flex: 0.05 }} />
 
           <View
             style={{
-              flex: 0.3,
+              flex: 0.4,
               borderBottomColor: "#D3D3D3",
               borderBottomWidth: 2,
             }}>

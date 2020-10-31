@@ -17,6 +17,7 @@ import { db } from "../../database/firebase";
 import { onBuyTab } from "../../components/petTabComponents"
 import globalStyles, { darkGreen, orange } from "../../styleSheet/styleSheet";
 import { petBuyCard } from "../../components/petBuyComponents";
+import { Dimensions } from "react-native";
 
 export default class breedList extends React.Component {
   state = {
@@ -116,10 +117,11 @@ export default class breedList extends React.Component {
 
   render() {
     const item = this.props.route.params.item;
+    const screenWidth = Math.round(Dimensions.get("window").width);
     return (
       <Provider>
         {onBuyTab(this.props.navigation)}
-        <View style={globalStyles.activityContainer}>
+        <View style={globalStyles.container}>
           <Searchbar
             style={globalStyles.searchBarSingle}
             placeholder="Search"
@@ -157,20 +159,22 @@ export default class breedList extends React.Component {
             </Modal>
           </Portal>
 
-          <View style={globalStyles.breedTitleContainer}>
-            <Text style={globalStyles.breedTitle}>{item.breed}</Text>
-            <Button
-              color={darkGreen}
-              onPress={() => {
-                this.setState({ visible: true });
-              }}
-              contentStyle={{
-                height: 30,
-              }}
-              mode="contained"
-            >
-              Information
-            </Button>
+          <View style={globalStyles.pageTitleContainer}>
+            <Text style={globalStyles.pageTitle}>{item.breed}</Text>
+            <View>
+              <Button
+                color={darkGreen}
+                onPress={() => {
+                  this.setState({ visible: true });
+                }}
+                contentStyle={{
+                  height: 30,
+                }}
+                mode="contained"
+              >
+                Information
+              </Button>
+            </View>
           </View>
 
           <View style={{

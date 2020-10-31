@@ -1,10 +1,8 @@
 import React from "react";
 import {
-    StyleSheet,
     Text,
     ScrollView,
     View,
-    TouchableOpacity,
     Dimensions,
     Image,
 } from "react-native";
@@ -15,15 +13,11 @@ import "react-navigation"
 import "react-navigation-props-mapper"
 import "@react-navigation/native"
 import 'react-navigation-hooks'
-import { onBuyTab } from "../../components/petTabComponents"
-import globalStyles, { darkGreen, orange } from "../../styleSheet/styleSheet";
+import globalStyles from "../../styleSheet/styleSheet";
 import { db } from "../../database/firebase";
 
 export default class breedInfo extends React.Component {
     state = {
-        filteredData: [],
-        searchText: "",
-        visible: false,
         ailments: "",
         breed: "",
         care: "",
@@ -53,7 +47,7 @@ export default class breedInfo extends React.Component {
                     exterior: doc.data().exterior,
                     feeding: doc.data().feeding,
                     fullDescription: doc.data().fullDescription,
-                    grooming: doc.data().feeding,
+                    grooming: doc.data().grooming,
                     infoImage: doc.data().infoImage,
                     personality: doc.data().personality,
                     size: doc.data().size,
@@ -65,16 +59,6 @@ export default class breedInfo extends React.Component {
     async componentDidMount() {
         this.fetchData();
     }
-
-    searchFunction = (searchText) => {
-        this.setState({ searchText: searchText });
-
-        let filteredData = this.state.data.filter(function (item) {
-            return item.title.includes(searchText);
-        });
-
-        this.setState({ filteredData: filteredData });
-    };
 
     render() {
         const screenWidth = Math.round(Dimensions.get("window").width);

@@ -174,7 +174,7 @@ export default class CategorySelection extends React.Component {
   }
 
   onCategoryChange(value) {
-    console.log(value);
+    // console.log(value);
     this.props.setCategory(value);
     this.setState({
       category: value,
