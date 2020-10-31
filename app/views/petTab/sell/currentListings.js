@@ -1,24 +1,20 @@
 import React, { useState } from "react";
 import {
-  StyleSheet,
   Text,
   View,
   TouchableOpacity,
-  Modal,
-  TouchableHighlight,
   FlatList,
-  ActivityIndicator,
-  Platform,
-  Dimensions,
-  Image,
 } from "react-native";
+import {
+  Button,
+} from "react-native-paper";
 import { SearchBar } from "react-native-elements";
 import firebase from "firebase";
 import { AppLoading } from "expo";
-import SelfPetListing from "./petListing";
 import { auth } from "../../database/firebase";
 import { onSellTab } from "../../components/petTabComponents";
 import globalStyles, {darkGreen} from "../../styleSheet/styleSheet";
+import {petSellListingCard} from "../../components/petSellListingComponent";
 
 const db = firebase.firestore();
 
@@ -107,7 +103,7 @@ export default class currentListings extends React.Component {
 
   async fetchMore() {
     const dataArray = [];
-    console.log("fethc more!");
+    console.log("fetch more!");
     const uid = auth.currentUser.uid;
     let initialQuery = await db
       .collection("pet_listings")
@@ -132,7 +128,7 @@ export default class currentListings extends React.Component {
         behaviour: listingDoc.data().behaviour,
         health: listingDoc.data().health,
         training: listingDoc.data().training,
-        additionalInfo: listingDoc.data().additionalInfo,
+        additional: listingDoc.data().additionalInfo,
         photo: listingDoc.data().photo_link,
         doc_id: listingDoc.id,
       });
@@ -161,43 +157,26 @@ export default class currentListings extends React.Component {
     //   );
     // }
     return (
-      <View>
+      <View style={globalStyles.container}>
         {onSellTab(this.props.navigation)}
 
-        <View style={{ padding: 10, paddingBottom: 0, flexDirection: "row" }}>
-          <Text
-            style={{
-              textAlign: "center",
-              padding: 10,
-              fontWeight: "bold",
-              fontSize: 20,
-            }}>
-            Current Listings
-          </Text>
-
-          <View style={{ height: 40, width: 220, paddingTop: 8 }}>
-            <TouchableOpacity
-              // style={styles.viewApplication}
-              style={{
-                backgroundColor: darkGreen,
-                flex: 1,
-                justifyContent: "center",
-                alignItems: "center",
+        <View style={[globalStyles.pageTitleContainer, {paddingTop: 15}]}>
+          <Text style={globalStyles.pageTitle}>Current Listings</Text>
+          <View>
+            <Button
+              color={darkGreen}
+              onPress={() => this.props.navigation.navigate("sellApplication")}
+              contentStyle={{
+                height: 30,
               }}
-              onPress={() => this.props.navigation.navigate("sellApplication")}>
-              <Text
-                style={{
-                  textAlign: "center",
-                  color: "#FFFFFF",
-                  fontWeight: "bold",
-                }}>
-                Add New Listing
-              </Text>
-            </TouchableOpacity>
+              mode="contained"
+            >
+              Add New Listing
+            </Button>
           </View>
         </View>
 
-        <View style={{paddingBottom: 220}}>
+        <View style={{paddingTop: 7, paddingBottom: 220}}>
           <FlatList
             showsVerticalScrollIndicator={false}
             onRefresh={async () => {
@@ -212,24 +191,7 @@ export default class currentListings extends React.Component {
             refreshing={this.state.pullToRefresh}
             data={this.state.data}
             renderItem={({ item }) => (
-              <SelfPetListing
-                petName={item.petName}
-                category={item.category}
-                breed={item.breed}
-                colour={item.colour}
-                age={item.age}
-                gender={item.gender}
-                size={item.size}
-                location={item.location}
-                price={item.price}
-                behaviour={item.behaviour}
-                health={item.health}
-                training={item.training}
-                additional={item.additionalInfo}
-                photo={item.photo}
-                doc_id={item.doc_id}
-                navigation={this.props.navigation}
-              />
+              petSellListingCard(item, this.props.navigation)
             )}
             keyExtractor={(item, index) => index.toString()}
             onEndReached={() => this.fetchMore()}

@@ -415,7 +415,7 @@ export default StyleSheet.create({
     marginRight: 40,
   },
 
-  //Current applicatoins
+  //Current applications
   pageMargin: {
     width: screenWidth - 20,
     flex: 1,
@@ -423,5 +423,68 @@ export default StyleSheet.create({
   scrollViewContentStyle: {
     flex: 1,
     alignItems: "center",
-  }
+  },
+
+  //Sell application
+  sellAppContainer: {
+    flex: 1,
+    padding: 10,
+    paddingTop: 10,
+    justifyContent: "center",
+  },
+  applicationHeading: {
+    fontSize: 30,
+    color: "#606060",
+    fontWeight: "bold",
+    paddingBottom: 5,
+  },
+  applicationInputName: {
+    color: "#505050",
+    fontWeight: "bold",
+    fontSize: 16,
+  },
+  setColorRed: {
+    color: "#f44336",
+  },
+  applicationErrorText: {
+    color: "red",
+    fontSize: 12,
+    textAlign: "right",
+  },
+  applicationButtonsContainer: {
+    alignItems: "center",
+    justifyContent: "center",
+    paddingTop: 30,
+    paddingBottom: 30,
+  },
+
+  //Listing card
+  smallButton: {
+    flex: 1,
+    borderColor: darkGreen,
+    borderWidth: 1,
+    marginLeft: 1.5,
+    marginRight: 1.5,
+    marginTop: 5,
+    height: 25,
+    justifyContent: "center",
+  },
+  bigButton: {
+    flex: 1,
+    backgroundColor: darkGreen,
+    marginLeft: 1.5,
+    marginRight: 1.5,
+    marginTop: 5,
+    height: 25,
+    justifyContent: "center",
+  },
+  smallButtonText: {
+    fontSize: 8,
+    color: "black",
+  },
+  bigButtonText: {
+    fontSize: 8,
+    color: "white",
+    fontWeight: "bold",
+  },
 });
