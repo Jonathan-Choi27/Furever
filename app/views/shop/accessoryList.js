@@ -41,14 +41,13 @@ export default class accessoryList extends React.Component {
     const dataArray = [];
     const uid = auth.currentUser.uid;
 
-    const type = this.props.route.params.item.breed;
+    const type = this.props.route.params.item.type;
 
     db.collection("accessories")
-      .where("type", "==", this.props.route.params.item.breed)
+      .where("type", "==", this.props.route.params.item.type)
       .get()
       .then((doc) => {
         doc.forEach((listingDoc) => {
-            if (listingDoc.data().type == this.props.route.params.item.breed) {
                 dataArray.push({
                     accessoryName: listingDoc.data().name,
                     category: listingDoc.data().category,
@@ -57,10 +56,6 @@ export default class accessoryList extends React.Component {
                     photo: listingDoc.data().photoLink,
                     docIdd: listingDoc.id,
                   });
-            }
-    
-          
-
           this.setState({
             isLoading: false,
             data: [...dataArray],
@@ -127,7 +122,7 @@ export default class accessoryList extends React.Component {
           </Modal>
         </Portal>
         <Text style = {{padding: 15}}>
-            Shop - {this.props.route.params.item.breed}
+            Shop - {this.props.route.params.item.type}
         </Text>   
         <View style={globalStyles.petContainer}>
             

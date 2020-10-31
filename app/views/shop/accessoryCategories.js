@@ -58,9 +58,9 @@ import { db } from "../database/firebase";
 import {onBuyTab} from "../components/petTabComponents";
 import globalStyles from "../styleSheet/styleSheet";
 import { darkGreen, green, lightGreen, lightGrey, orange, lightBlue } from "../styleSheet/styleSheet";
-import { petBuyCard, accessoryCategory } from "../components/shopComponents";
+import { shopAccessoryCard, accessoryCategory } from "../components/shopComponents";
 
-export default class petBreeds extends React.Component {
+export default class accessoryCateogries extends React.Component {
 
   state = {
     data: [],
@@ -79,7 +79,7 @@ export default class petBreeds extends React.Component {
     turtleCheck: false,
     pigCheck: false,
     filterDisplay: false,
-    petBreeds: [],
+    accessoryTypes: [],
   };
   
   async componentDidMount() {
@@ -126,22 +126,22 @@ export default class petBreeds extends React.Component {
         });
       });
 
-    const petBreedArray = [];
+    const accessoryTypesArray = [];
     const categoryId = this.props.route.params.item.categoryId;
     db.collection("shopCategories")
       .doc(categoryId)
       .collection("categories")
       .get()
       .then((doc) => {
-        doc.forEach(async (breedDoc) => {
-          petBreedArray.push({
-            breed: breedDoc.data().name,
-            image: breedDoc.data().image,
-            breedId: breedDoc.id,
+        doc.forEach(async (accessoryDoc) => {
+          accessoryTypesArray.push({
+            type: accessoryDoc.data().name,
+            image: accessoryDoc.data().image,
+            typeId: accessoryDoc.id,
           });
           this.setState({
             isLoading: false,
-            petBreeds: [...petBreedArray],
+            accessoryTypes: [...accessoryTypesArray],
           });
         });
       });
@@ -157,111 +157,7 @@ export default class petBreeds extends React.Component {
     this.setState({ filteredData: filteredData });
   };
 
-  checkFunction = (input) => {
-    switch (input) {
-      case "dogCheck":
-        this.setState({ dogCheck: !this.state.dogCheck });
-        break;
-      case "catCheck":
-        this.setState({ catCheck: !this.state.catCheck });
-        break;
-      case "rabbitCheck":
-        this.setState({ rabbitCheck: !this.state.rabbitCheck });
-        break;
-      case "fishCheck":
-        this.setState({ fishCheck: !this.state.fishCheck });
-        break;
-      case "birdCheck":
-        this.setState({ birdCheck: !this.state.birdCheck });
-        break;
-      case "horseCheck":
-        this.setState({ horseCheck: !this.state.horseCheck });
-        break;
-      case "lizardCheck":
-        this.setState({ lizardCheck: !this.state.lizardCheck });
-        break;
-      case "turtleCheck":
-        this.setState({ catCturtleCheckheck: !this.state.turtleCheck });
-        break;
-      case "pigCheck":
-        this.setState({ pigCheck: !this.state.pigCheck });
-        break;
-      default:
-    }
-  };
-
-  displayFunction = () => {
-    let listData = [];
-    if (this.state.dogCheck) {
-      this.setState({ filterDisplay: true });
-      let filteredData = this.state.data.filter(function (item) {
-        return item.category.includes("dog");
-      });
-      listData = listData.concat(filteredData);
-    }
-    if (this.state.catCheck) {
-      this.setState({ filterDisplay: true });
-      let filteredData = this.state.data.filter(function (item) {
-        return item.category.includes("cat");
-      });
-      listData = listData.concat(filteredData);
-    }
-    if (this.state.rabbitCheck) {
-      this.setState({ filterDisplay: true });
-      let filteredData = this.state.data.filter(function (item) {
-        return item.category.includes("rabbit");
-      });
-      listData = listData.concat(filteredData);
-    }
-    if (this.state.fishCheck) {
-      this.setState({ filterDisplay: true });
-      let filteredData = this.state.data.filter(function (item) {
-        return item.category.includes("fish");
-      });
-      listData = listData.concat(filteredData);
-    }
-    if (this.state.birdCheck) {
-      this.setState({ filterDisplay: true });
-      let filteredData = this.state.data.filter(function (item) {
-        return item.category.includes("bird");
-      });
-      listData = listData.concat(filteredData);
-    }
-    if (this.state.horseCheck) {
-      this.setState({ filterDisplay: true });
-      let filteredData = this.state.data.filter(function (item) {
-        return item.category.includes("horse");
-      });
-      listData = listData.concat(filteredData);
-    }
-    if (this.state.lizardCheck) {
-      this.setState({ filterDisplay: true });
-      let filteredData = this.state.data.filter(function (item) {
-        return item.category.includes("lizard");
-      });
-      listData = listData.concat(filteredData);
-    }
-    if (this.state.turtleCheck) {
-      this.setState({ filterDisplay: true });
-      let filteredData = this.state.data.filter(function (item) {
-        return item.category.includes("turtle");
-      });
-      listData = listData.concat(filteredData);
-    }
-    if (this.state.pigCheck) {
-      this.setState({ filterDisplay: true });
-      let filteredData = this.state.data.filter(function (item) {
-        return item.category.includes("pig");
-      });
-      listData = listData.concat(filteredData);
-    }
-
-    if (!this.state.dogCheck && !this.state.catCheck && !this.state.birdCheck) {
-      this.setState({ filterDisplay: false });
-    }
-    this.setState({ filteredData: listData });
-  };
-
+  
   render() {
     const { search } = this.state;
     if (this.state.isLoading) {
@@ -345,7 +241,7 @@ export default class petBreeds extends React.Component {
                 key={1}
                 showsVerticalScrollIndicator={false}
                 renderItem={({ item }) => (
-                  petBuyCard(item, this.props.navigation)
+                  shopAccessoryCard(item, this.props.navigation)
                 )}
                 keyExtractor={(item, index) => index.toString()}
                 data={
@@ -360,7 +256,7 @@ export default class petBreeds extends React.Component {
 
                   <View style={globalStyles.petContainer}>
                     <FlatList
-                      data={this.state.petBreeds}
+                      data={this.state.accessoryTypes}
                       columnWrapperStyle={{ justifyContent: "flex-start" }}
                       numColumns={2}
                       key={2}
@@ -383,7 +279,7 @@ export default class petBreeds extends React.Component {
                         key={1}
                         showsVerticalScrollIndicator={false}
                         renderItem={({ item }) => (
-                          petBuyCard(item, this.props.navigation)
+                          shopAccessoryCard(item, this.props.navigation)
                         )}
                         keyExtractor={(item, index) => index.toString()}
                         data={

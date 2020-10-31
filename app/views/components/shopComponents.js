@@ -45,7 +45,7 @@ export const shopAccessoryCard = (item, navigation) => {
   )
 }
 
-export const petBuyCategory = (item, navigation) => {
+export const shopCategory = (item, navigation) => {
   return (
     
     <View style={styles.iconContainer}>

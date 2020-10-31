@@ -29,7 +29,7 @@ import {
   lightGrey,
 } from "../styleSheet/styleSheet";
 import globalStyles from "../styleSheet/styleSheet";
-import { petBuyCard, petBuyCategory } from "../components/shopComponents";
+import { shopAccessoryCard, shopCategory } from "../components/shopComponents";
 
 export default class petCategories extends React.Component {
   state = {
@@ -204,7 +204,7 @@ export default class petCategories extends React.Component {
                 key={1}
                 keyExtractor={(item, index) => index.toString()}
                 renderItem={({ item }) =>
-                  petBuyCategory(item, this.props.navigation)
+                shopCategory(item, this.props.navigation)
                 }
                 keyExtractor={(item, index) => index.toString()}
                 data={
@@ -224,7 +224,7 @@ export default class petCategories extends React.Component {
                       key={2}
                       keyExtractor={(item, index) => index.toString()}
                       renderItem={({ item }) =>
-                        petBuyCategory(item, this.props.navigation)
+                      shopCategory(item, this.props.navigation)
                       }
                       keyExtractor={(item, index) => index.toString()}
                     />
@@ -241,7 +241,7 @@ export default class petCategories extends React.Component {
                         numColumns={1}
                         key={1}
                         renderItem={({ item }) =>
-                          petBuyCard(item, this.props.navigation)
+                        shopAccessoryCard(item, this.props.navigation)
                         }
                         keyExtractor={(item, index) => index.toString()}
                         data={
