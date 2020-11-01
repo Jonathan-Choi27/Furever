@@ -127,7 +127,8 @@ export default class buyApplication extends React.Component {
         least_desirable_traits: this.state.least_desirable_traits,
         previous_pets: this.state.previous_pets,
         house_enviroment: this.state.house_enviroment,
-        is_accepted: false
+        is_accepted: false,
+        pet_doc_id: doc_id
       })
       .then((success) => {
         alert("Submission successful");

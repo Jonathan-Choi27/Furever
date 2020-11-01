@@ -31,9 +31,10 @@ export default class offerApplications extends React.Component {
     
       async fetchData() {
         const dataArray = [];
-        const doc_id = this.props.route.params.doc_id;
+        const pet_doc_id = this.props.route.params.doc_id;
+        console.log(pet_doc_id);
         db.collection("pet_listings")
-          .doc(doc_id)
+          .doc(pet_doc_id)
           .collection("buyer_applications")
           .get()
           .then((doc) => {
@@ -45,7 +46,7 @@ export default class offerApplications extends React.Component {
             
             await db
               .collection("pet_listings")
-              .doc(doc_id)
+              .doc(pet_doc_id)
               .get()
               .then((doc) => {
                 uuid = doc.data().uuid;
@@ -74,7 +75,8 @@ export default class offerApplications extends React.Component {
                 why_want_pet: buyer.data().why_want_pet,
                 category: petCategory,
                 is_accepted: buyer.data().is_accepted,
-                doc_id: buyer.id
+                doc_id: buyer.id,
+                pet_id: pet_doc_id,
               };
               
               dataArray.push(buyer_info);

@@ -12,6 +12,8 @@ import {
 } from "react-native-elements";
 import styles from "../styleSheet/styleSheet";
 import { sendEmail } from '../petTab/sell/sendEmail';
+import { db } from "../database/firebase";
+
 
 export const buyerInfo = (item) => {
     const screenWidth = Math.round(Dimensions.get('window').width);
@@ -51,7 +53,8 @@ export const buyerInfo = (item) => {
                             <Text>{item.age}</Text>
                         </Text> */}
                     </View>
-                    <View style={{ paddingLeft: 15, width: textWidth }}>
+                    <View style={{ paddingLeft: 15, width: textWidth, numberofLines: 3 }}>
+
                         <Text>
                             <Text style={{ fontWeight: "bold" }}>Contact:</Text>{" "}
                             <Text>{item.contact_number}</Text>
@@ -62,7 +65,7 @@ export const buyerInfo = (item) => {
                         </Text>
                         <Text>
                             <Text style={{ fontWeight: "bold" }}>Address:</Text>{" "}
-                            <Text style={{numberofLines: 3}}>{item.address}</Text>
+                            <Text>{item.address}</Text>
                         </Text>
                     </View>
                 </View>
@@ -109,11 +112,22 @@ export const acceptBuyer = (item, navigation) => {
         <View style={styles.buttonsContainer}>
             <TouchableOpacity
                 style={styles.buttons}
-                onPress={() => sendEmail(
+                onPress={() => { sendEmail(
                     item.email,
                     'Offer Accepted',
                     'Hi, your application has been accepted by the seller. The seller will contact you as soon as possible.\n\n Thank you.\n\n Regards,\n The Furever Team.'
-                )}
+                ); 
+                    // item.is_accepted = true;
+                    console.log(item.pet_id);
+                    console.log(item.doc_id);
+                    db.collection("pet_listings").doc(item.pet_id).collection("buyer_applications").doc(item.doc_id).update({
+                        is_accepted: true
+                    });
+                    console.log(item.is_accepted);
+                }
+            
+                }
+
             >
 
                 <Text style={styles.buttonsText}>Accept</Text>
@@ -122,16 +136,16 @@ export const acceptBuyer = (item, navigation) => {
     );
 }
 
-export const rejectBuyer = (item, navigation) => {
-    return (
-        <View style={styles.buttonsContainer}>
-            <TouchableOpacity
-                style={styles.buttons}
-                // onPress={() => navigation.navigate("buyApplication", { item })}
-            >
+// export const rejectBuyer = (item, navigation) => {
+//     return (
+//         <View style={styles.buttonsContainer}>
+//             <TouchableOpacity
+//                 style={styles.buttons}
+//                 // onPress={() => navigation.navigate("buyApplication", { item })}
+//             >
 
-                <Text style={styles.buttonsText}>Reject</Text>
-            </TouchableOpacity>
-        </View>
-    );
-}
+//                 <Text style={styles.buttonsText}>Reject</Text>
+//             </TouchableOpacity>
+//         </View>
+//     );
+// }

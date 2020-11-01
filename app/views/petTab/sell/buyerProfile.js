@@ -22,7 +22,7 @@ export default class buyerProfile extends React.Component {
                     {buyerInfo(item)}
                     <View style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center', }}>
                         {acceptBuyer(item, this.props.navigation)}
-                        {rejectBuyer(item, this.props.navigation)}
+                        {/* {rejectBuyer(item, this.props.navigation)} */}
                     </View>
                     
                 </ScrollView>
