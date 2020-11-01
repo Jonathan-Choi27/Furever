@@ -6,7 +6,8 @@ import { createStackNavigator } from "@react-navigation/stack";
 import accessoryListings from "./accessoryListings";
 import accessoryListingApplication from "./accessoryListingApplication";
 import accessoryCategories from "./accessoryCategories";
-
+import petCategories from "./petCategories";
+import accessoryList from "./accessoryList";
 
 const Stack = createStackNavigator();
 
@@ -32,9 +33,12 @@ export default function PetNav() {
         screenOptions={{
           headerShown: false,
         }}>
+        <Stack.Screen name="petCategories" component={petCategories} />
         <Stack.Screen name="accessoryCategories" component={accessoryCategories} />
         <Stack.Screen name="accessoryListings" component={accessoryListings} />
         <Stack.Screen name="accessoryListingApplication" component={accessoryListingApplication} />
+        <Stack.Screen name="accessoryList" component={accessoryList} />
+
       </Stack.Navigator>
     </NavigationContainer>
   );

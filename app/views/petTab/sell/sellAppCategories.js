@@ -40,7 +40,7 @@ const cat_breed = [
   "Ragdoll",
   "Scottish Fold",
   "Bengal cat",
-  "Ragdoll",
+  "Sphynx",
   "Other",
 ];
 
