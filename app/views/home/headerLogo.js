@@ -2,21 +2,16 @@ import React, { Component } from "react";
 import { Image } from "react-native";
 import { Dimensions } from 'react-native';
 
-//Gets the dimensions of the device
+//Sets the dimensions of the device
 const win = Dimensions.get('window');
 var height = 23;
 var width = 143;
-//Sets the height and width, adding on in ratio to device size
-console.log(win.height/win.width);
+
+//Changes the height and width depending on ratio of device size
 if (win.height/win.width > 1.88) {
 	height = 22
 	width = 140 
-} else {
-
 }
-console.log(win.width);
-// + Math.floor(win.height*0.0045);
-// + Math.floor(win.width*0.01);
 
 export default class HeaderLogo extends Component {
 
