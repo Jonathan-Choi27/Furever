@@ -9,6 +9,7 @@ import {
     Card,
     Button,
 } from "react-native-paper";
+// import { accessibilityProps } from "react-native-paper/lib/typescript/src/components/MaterialCommunityIcon";
 import styleSheet from "../styleSheet/styleSheet";
 import styles from "../styleSheet/styleSheet";
 import globalStyles, { darkGreen, green, lightGreen, lightGrey, orange, lightBlue } from "../styleSheet/styleSheet";
@@ -22,7 +23,8 @@ export const shopAccessoryCard = (item, navigation) => {
         //   navigation.replace(/*add nav*/, { item })
         // }
         >
-        <View style={styles.iconContainer}>
+        <View style={styles.iconContainer} 
+          onPress={() => props.navigation}>
           <Image
             style={styles.icon}
             source={{uri: item.photo}}
@@ -36,7 +38,7 @@ export const shopAccessoryCard = (item, navigation) => {
 
 
       <Button style={globalStyles.smallButton}
-        //   onPress={() => props.navigation.navigate("sellPetProfile", {props})}
+          onPress={() => navigation.navigate("shopProfile", {item})}
       >
         <Text style={{ fontWeight: "bold", color:"#53A687"}}>Add to Cart</Text>
       </Button>
