@@ -40,7 +40,7 @@ export default class accessoryListings extends React.Component {
             type: listingDoc.data().type,
             price: listingDoc.data().price,
             photo: listingDoc.data().photoLink,
-            docIdd: listingDoc.id,
+            docId: listingDoc.id,
           });
 
           this.setState({
@@ -74,7 +74,7 @@ export default class accessoryListings extends React.Component {
           </View>
         </View>
 
-        <View style={{paddingTop: 10, paddingBottom: 220}}>
+        <View style={{paddingTop: 10, paddingBottom: 60}}>
           <FlatList
             showsVerticalScrollIndicator={false}
             onRefresh={async () => {

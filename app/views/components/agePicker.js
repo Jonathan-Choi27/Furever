@@ -5,8 +5,6 @@ import GooglePlacesInput from "./mapAutoComplete";
 import globalStyles, { darkGreen } from "../styleSheet/styleSheet";
 import { Icon } from "react-native-elements";
 
-var option;
-
 var age = [];
 
 export default class AgePicker extends React.Component {
@@ -23,7 +21,7 @@ export default class AgePicker extends React.Component {
 
     this.state = {
       age,
-      options: "0",
+      option: "0",
     };
   }
   componentDidUpdate(prevProps) {
@@ -33,13 +31,18 @@ export default class AgePicker extends React.Component {
         age: this.props.age,
       });
     }
+    if (this.props.option !== prevProps.option) {
+      this.setState({
+        option: this.props.option,
+      });
+    }
   }
 
-  onOptionChange = (options) => {
+  onOptionChange = (option) => {
     this.setState({
-      options: options,
+      option: option,
     });
-    this.props.setAgeOption(options);
+    this.props.setAgeOption(option);
   };
 
   onAgeChange = (age) => {
@@ -99,8 +102,8 @@ export default class AgePicker extends React.Component {
               borderBottomWidth: 2,
             }}>
             <Picker
-              selectedValue={this.state.options}
-              onValueChange={(options) => this.onOptionChange(options)}>
+              selectedValue={this.state.option}
+              onValueChange={(option) => this.onOptionChange(option)}>
               <Picker.Item label="Select" value="0" color="#D3D3D3" />
               <Picker.Item label="Months" value="Months" />
               <Picker.Item label="Years" value="Years" />
