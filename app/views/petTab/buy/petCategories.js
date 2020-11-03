@@ -240,7 +240,7 @@ export default class petCategories extends React.Component {
     return (
       <Provider>
         <View style={globalStyles.petContainer}>
-          {onBuyTab(this.props.navigation)}
+          {/* {onBuyTab(this.props.navigation)} */}
           <View style={globalStyles.searchFilterContainer}>
             <Searchbar
               style={globalStyles.searchBar}

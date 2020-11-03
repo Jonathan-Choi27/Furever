@@ -353,7 +353,7 @@ export default class accessoryListingApplication extends React.Component {
             </View>
           </View>
 
-          <PriceSlider price={this.state.price} setPrice={this.setPrice} />
+          <PriceSlider price={this.state.price} setPrice={this.setPrice} max={1000}/>
 
         </Card>
 

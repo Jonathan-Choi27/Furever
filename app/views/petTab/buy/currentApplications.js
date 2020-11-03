@@ -122,7 +122,7 @@ export default class currentApplications extends React.Component {
     // this.listedDataSearch(auth.getuuid);
     return (
       <View style={globalStyles.container}>
-        {onBuyTab(this.props.navigation)}
+        {/* {onBuyTab(this.props.navigation)} */}
         <ScrollView contentContainerStyle={{ alignItems: "center" }}>
           <View
             style={{

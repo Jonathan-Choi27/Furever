@@ -97,7 +97,7 @@ export default class offerApplications extends React.Component {
       render(){
         return (
           <Provider>
-            {onSellTab(this.props.navigation)}
+            {/* {onSellTab(this.props.navigation)} */}
 
             <View style={styles.titleContainer}>
               <Text style={styles.title}>Offer Applications</Text>

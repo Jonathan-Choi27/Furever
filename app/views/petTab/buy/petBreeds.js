@@ -236,7 +236,7 @@ export default class petBreeds extends React.Component {
     return (
       <Provider>
           <View style={globalStyles.petContainer}>
-            {onBuyTab(this.props.navigation)}
+            {/* {onBuyTab(this.props.navigation)} */}
             <View
               style={globalStyles.searchFilterContainer}
             >
@@ -248,7 +248,7 @@ export default class petBreeds extends React.Component {
               />
               <Button
                 color={lightGreen}
-                onPress={() => {
+                onPress={() =>  {
                   this.setState({ visible: true });
                 }}
                 mode="contained"

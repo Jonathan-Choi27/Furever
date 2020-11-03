@@ -1,20 +1,13 @@
 import React, { useState } from "react";
-import {
-  Text,
-  View,
-  TouchableOpacity,
-  FlatList,
-} from "react-native";
-import {
-  Button,
-} from "react-native-paper";
+import { Text, View, TouchableOpacity, FlatList } from "react-native";
+import { Button } from "react-native-paper";
 import { SearchBar } from "react-native-elements";
 import firebase from "firebase";
 import { AppLoading } from "expo";
 import { auth } from "../../database/firebase";
 import { onSellTab } from "../../components/petTabComponents";
-import globalStyles, {darkGreen} from "../../styleSheet/styleSheet";
-import {petSellListingCard} from "../../components/petSellListingComponent";
+import globalStyles, { darkGreen } from "../../styleSheet/styleSheet";
+import { petSellListingCard } from "../../components/petSellListingComponent";
 
 const db = firebase.firestore();
 
@@ -118,7 +111,7 @@ export default class currentListings extends React.Component {
       dataArray.push({
         petName: listingDoc.data().name,
         category: listingDoc.data().category,
-        breed: listingDoc.data().breed, 
+        breed: listingDoc.data().breed,
         colour: listingDoc.data().colour,
         age: listingDoc.data().age,
         gender: listingDoc.data().gender,
@@ -158,9 +151,7 @@ export default class currentListings extends React.Component {
     // }
     return (
       <View style={globalStyles.container}>
-        {onSellTab(this.props.navigation)}
-
-        <View style={[globalStyles.pageTitleContainer, {paddingTop: 15}]}>
+        <View style={[globalStyles.pageTitleContainer, { paddingTop: 15 }]}>
           <Text style={globalStyles.pageTitle}>Current Listings</Text>
           <View>
             <Button
@@ -169,15 +160,15 @@ export default class currentListings extends React.Component {
               contentStyle={{
                 height: 30,
               }}
-              mode="contained"
-            >
+              mode="contained">
               Add New Listing
             </Button>
           </View>
         </View>
 
-        <View style={{paddingTop: 7, paddingBottom: 220}}>
+        <View style={{ paddingTop: 7 }}>
           <FlatList
+            style={{ marginBottom: 50 }}
             showsVerticalScrollIndicator={false}
             onRefresh={async () => {
               this.setState({
@@ -190,9 +181,9 @@ export default class currentListings extends React.Component {
             }}
             refreshing={this.state.pullToRefresh}
             data={this.state.data}
-            renderItem={({ item }) => (
+            renderItem={({ item }) =>
               petSellListingCard(item, this.props.navigation)
-            )}
+            }
             keyExtractor={(item, index) => index.toString()}
             onEndReached={() => this.fetchMore()}
             onEndReachedThreshold={1}

@@ -120,7 +120,7 @@ export default class breedList extends React.Component {
     const screenWidth = Math.round(Dimensions.get("window").width);
     return (
       <Provider>
-        {onBuyTab(this.props.navigation)}
+        {/* {onBuyTab(this.props.navigation)} */}
         <View style={globalStyles.container}>
           <Searchbar
             style={globalStyles.searchBarSingle}
@@ -149,7 +149,7 @@ export default class breedList extends React.Component {
                   <Button
                     color={darkGreen}
                     onPress={() =>
-                      this.props.navigation.navigate("breedInfo", { categoryId: this.props.route.params.categoryId, breedId: this.props.route.params.item.breedId })
+                      this.props.navigation.replace("breedInfo", { categoryId: this.props.route.params.categoryId, breedId: this.props.route.params.item.breedId })
                     }
                   >
                     More info

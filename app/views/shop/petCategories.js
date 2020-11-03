@@ -158,9 +158,9 @@ export default class petCategories extends React.Component {
           <View style={{ height: 52 }}>
             <TouchableOpacity
               style={globalStyles.viewApplication}
-              // onPress={() =>
-              //  this.props.navigation.replace( /*Appropriate link*/)
-              // }
+              onPress={() =>
+               this.props.navigation.replace("accessoryListings")
+              }
               >
               <Text
                 style={{
