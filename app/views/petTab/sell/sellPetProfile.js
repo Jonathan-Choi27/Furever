@@ -16,7 +16,6 @@ export default class sellPetProfile extends React.Component {
         const item = this.props.route.params.item;
         return (
             <View>
-                {onSellTab(this.props.navigation)}
                 <ScrollView>
                     {profileInfo(item)}
                     <View style={{padding: 40}}></View>

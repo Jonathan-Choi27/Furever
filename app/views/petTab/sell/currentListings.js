@@ -139,7 +139,7 @@ export default class currentListings extends React.Component {
       dataArray.push({
         petName: listingDoc.data().name,
         category: listingDoc.data().category,
-        breed: listingDoc.data().breed, 
+        breed: listingDoc.data().breed,
         colour: listingDoc.data().colour,
         age: listingDoc.data().age,
         gender: listingDoc.data().gender,
@@ -233,8 +233,7 @@ export default class currentListings extends React.Component {
               contentStyle={{
                 height: 30,
               }}
-              mode="contained"
-            >
+              mode="contained">
               Add New Listing
             </Button>
           </View>
@@ -275,9 +274,21 @@ export default class currentListings extends React.Component {
         <View style={{paddingTop: 7, paddingBottom: 60}}>
 
           <FlatList
+            style={{ marginBottom: 50 }}
             showsVerticalScrollIndicator={false}
             numColumns={1}
             key={1}
+            onRefresh={async () => {
+              this.setState({
+                pullToRefresh: true,
+              });
+              await this.initialFetchData();
+              this.setState({
+                pullToRefresh: false,
+              });
+            }}
+            refreshing={this.state.pullToRefresh}
+            data={this.state.data}
             renderItem={({ item }) =>
               petSellListingCard(item, this.props.navigation)
             }

@@ -17,7 +17,7 @@ export default class buyerProfile extends React.Component {
         const item = this.props.route.params.item; 
         return (
             <View style={{paddingBottom: 50}}>
-                {onBuyTab(this.props.navigation)}
+                {/* {onBuyTab(this.props.navigation)} */}
                 <ScrollView>
                     {buyerInfo(item)}
                     <View style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center', }}>
