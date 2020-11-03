@@ -1,12 +1,22 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Text,
   View,
   TouchableOpacity,
+  Image,
+  ScrollView,
   FlatList,
 } from "react-native";
 import {
+  Avatar,
+  Card,
   Button,
+  Searchbar,
+  ActivityIndicator,
+  Modal,
+  Provider,
+  Portal,
+  Checkbox,
 } from "react-native-paper";
 import { SearchBar } from "react-native-elements";
 import firebase from "firebase";
@@ -14,6 +24,13 @@ import { AppLoading } from "expo";
 import { auth } from "../../database/firebase";
 import { onSellTab } from "../../components/petTabComponents";
 import globalStyles, {darkGreen} from "../../styleSheet/styleSheet";
+import {
+  green,
+  lightGreen,
+  lightGrey,
+  orange,
+  lightBlue,
+} from "../../styleSheet/styleSheet";
 import {petSellListingCard} from "../../components/petSellListingComponent";
 
 const db = firebase.firestore();
@@ -26,6 +43,10 @@ export default class currentListings extends React.Component {
     pullToRefresh: false,
     limit: 6,
     lastVisible: null,
+    filteredData: [],
+    searchText: "",
+
+
   };
 
   async initialFetchData() {
@@ -148,6 +169,31 @@ export default class currentListings extends React.Component {
     this.initialFetchData();
   }
 
+  searchFunction = (searchText) => {
+    this.setState({ searchText: searchText });
+
+    let filteredData = this.state.data.filter(function (item) {
+      return item.petName.toLowerCase().includes(searchText.toLowerCase());
+    });
+
+    this.setState({ filteredData: filteredData });
+  };
+
+  homeCard = (item) => (
+    <View style={styles.card}>
+      <Card
+        elevation={5}
+        styles={styles.card}
+        onPress={() =>
+          this.props.navigation.navigate("homePetProfile", { item })
+        }>
+        <Image source={{ uri: item.photo }} style={styles.image} />
+        <Text numberOfLines={1} style={styles.title}>
+          {item.petName}
+        </Text>
+      </Card>
+    </View>
+  );
   render() {
     // if (this.state.isLoading) {
     //   return (
@@ -159,7 +205,25 @@ export default class currentListings extends React.Component {
     return (
       <View style={globalStyles.container}>
         {onSellTab(this.props.navigation)}
-
+        <View style={globalStyles.searchFilterContainer}>
+            <Searchbar
+              style={globalStyles.searchBar}
+              placeholder="Search"
+              onChangeText={this.searchFunction}
+              value={this.state.searchText}
+            />
+            <Button
+              color={lightGreen}
+              onPress={() => {
+                this.setState({ visible: true });
+              }}
+              mode="contained"
+              contentStyle={{
+                height: 35,
+              }}>
+              Filter
+            </Button>
+          </View>
         <View style={[globalStyles.pageTitleContainer, {paddingTop: 15}]}>
           <Text style={globalStyles.pageTitle}>Current Listings</Text>
           <View>
@@ -176,28 +240,62 @@ export default class currentListings extends React.Component {
           </View>
         </View>
 
+        {this.state.searchText == "" ? 
         <View style={{paddingTop: 7, paddingBottom: 60}}>
+        <FlatList
+          showsVerticalScrollIndicator={false}
+          onRefresh={async () => {
+            this.setState({
+              pullToRefresh: true,
+            });
+            await this.initialFetchData();
+            this.setState({
+              pullToRefresh: false,
+            });
+          }}
+          refreshing={this.state.pullToRefresh}
+          data={this.state.data}
+          renderItem={({ item }) => (
+            petSellListingCard(item, this.props.navigation)
+          )}
+          keyExtractor={(item, index) => index.toString()}
+          onEndReached={() => this.fetchMore()}
+          onEndReachedThreshold={1}
+        />
+      </View>
+        
+        
+        :
+        <View style={globalStyles.petContainer}>
+        {this.state.filteredData.length == 0 ? (
+          <View style={globalStyles.petContainer}>
+            <Text style={{ margin: 100 }}>No results found.</Text>
+          </View>
+        ) : (
+        <View style={{paddingTop: 7, paddingBottom: 60}}>
+
           <FlatList
             showsVerticalScrollIndicator={false}
-            onRefresh={async () => {
-              this.setState({
-                pullToRefresh: true,
-              });
-              await this.initialFetchData();
-              this.setState({
-                pullToRefresh: false,
-              });
-            }}
-            refreshing={this.state.pullToRefresh}
-            data={this.state.data}
-            renderItem={({ item }) => (
+            numColumns={1}
+            key={1}
+            renderItem={({ item }) =>
               petSellListingCard(item, this.props.navigation)
-            )}
+            }
             keyExtractor={(item, index) => index.toString()}
-            onEndReached={() => this.fetchMore()}
-            onEndReachedThreshold={1}
+            data={
+              this.state.filteredData &&
+              this.state.filteredData.length > 0
+                ? this.state.filteredData
+                : this.state.data
+            }
           />
         </View>
+
+        )}
+            </View>
+        
+          }
+  
       </View>
     );
   }

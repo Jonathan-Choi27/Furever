@@ -230,7 +230,7 @@ export default class HomeListing extends React.Component {
     this.setState({ searchText: searchText });
 
     let filteredData = this.state.data.filter(function (item) {
-      return item.petName.includes(searchText);
+      return item.petName.toLowerCase().includes(searchText.toLowerCase());
     });
 
     this.setState({ filteredData: filteredData });
