@@ -635,11 +635,7 @@ export default class sellApplication extends React.Component {
               </View>
             )} */}
 
-<<<<<<< HEAD
             <PriceSlider price={this.state.price} setPrice={this.setPrice} max={10000}/>
-=======
-            <PriceSlider price={this.state.price} setPrice={this.setPrice} max={10000} />
->>>>>>> dc3eaf3d922859887f337b2d7188f53c5d5cdeb3
 
           </Card>
 
