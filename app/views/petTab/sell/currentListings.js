@@ -176,7 +176,7 @@ export default class currentListings extends React.Component {
           </View>
         </View>
 
-        <View style={{paddingTop: 7, paddingBottom: 220}}>
+        <View style={{paddingTop: 7, paddingBottom: 60}}>
           <FlatList
             showsVerticalScrollIndicator={false}
             onRefresh={async () => {
