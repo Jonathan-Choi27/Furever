@@ -166,7 +166,11 @@ export default class currentListings extends React.Component {
           </View>
         </View>
 
+<<<<<<< HEAD
         <View style={{ paddingTop: 7 }}>
+=======
+        <View style={{paddingTop: 7, paddingBottom: 60}}>
+>>>>>>> dc3eaf3d922859887f337b2d7188f53c5d5cdeb3
           <FlatList
             style={{ marginBottom: 50 }}
             showsVerticalScrollIndicator={false}

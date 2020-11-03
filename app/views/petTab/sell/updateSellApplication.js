@@ -104,6 +104,7 @@ export default class updateSellApplication extends React.Component {
           colour: doc.data().colour,
           size: doc.data().size,
           age: doc.data().age,
+          ageOption: doc.data().ageOption,
           gender: doc.data().gender,
           location: doc.data().location,
           price: doc.data().price,
@@ -463,6 +464,7 @@ export default class updateSellApplication extends React.Component {
       breed: this.state.breed,
       colour: this.state.colour,
       age: this.state.age,
+      ageOption: this.state.ageOption,
       gender: this.state.gender,
       behaviour: this.state.behaviour,
       health: this.state.health,
@@ -767,6 +769,7 @@ export default class updateSellApplication extends React.Component {
                 setAge={this.setAge}
                 setAgeOption={this.setAgeOption}
                 age={this.state.age}
+                option={this.state.ageOption}
               />
               {!this.state.valid_age && (
                 <View style={{ marginLeft: 5, marginBottom: 5 }}>
