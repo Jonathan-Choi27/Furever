@@ -42,7 +42,7 @@ export const buyerApplicationList = (item, navigation) => {
             </Text>
             <Text numberOfLines={1} style={{ flex: 1 }}>
               <Text style={{ fontWeight: "bold" }}>Location: </Text>
-              <Text>{item.location}</Text>
+              <Text>{item.suburb}</Text>
             </Text>
             <Text numberOfLines={1} style={{ flex: 1 }}>
               <Text style={{ fontWeight: "bold" }}>Seller: </Text>
