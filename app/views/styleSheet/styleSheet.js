@@ -174,6 +174,7 @@ export default StyleSheet.create({
   contentTextBold: {
     fontWeight: "bold",
     fontSize: 15,
+    lineHeight: 20,
   },
   contentText: {
     fontSize: 15,

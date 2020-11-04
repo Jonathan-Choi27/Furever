@@ -14,109 +14,96 @@ import styles from "../styleSheet/styleSheet";
 import { sendEmail } from '../petTab/sell/sendEmail';
 import { db } from "../database/firebase";
 
-
 export const buyerInfo = (item) => {
     const screenWidth = Math.round(Dimensions.get('window').width);
-    const textWidth = (screenWidth - 20) / 2;
     return (
         <View style={styles.container}>
-            {/* <View style={styles.titleContainer}>
-                <View style={{ width: screenWidth / 2 }}>
-                    <Text style={styles.fontTitle}> {item.name}'s Application </Text>
+            <Card containerStyle={styles.cardContentContainer}>
+                <Text
+                    style={{ fontWeight: "bold", fontSize: 30, color: "black" }}>
+                    {item.name}'s Application
+                </Text>
+            </Card>
+
+            <Card containerStyle={styles.cardContentContainer}>
+                <Text style={styles.cardHeading}>Personal Information</Text>
+                <View style={{alignItems: "center"}}>
+                    <Image
+                        style={{paddingLeft: 10,
+                            paddingBottom: 10,
+                            paddingTop: 10,
+                            paddingRight: 10,
+                            width: screenWidth/3,
+                            height: screenWidth/3,
+                            borderRadius: 10,
+                        }}
+                        source={{
+                            uri: item.buyerPhoto,
+                        }}
+                    />
                 </View>
-            </View> */}
-
-            <Card containerStyle={styles.cardContainer}>
-                <Text style={{fontSize: 20, fontWeight: 'bold', paddingBottom:20}}> Personal Information </Text>
-                {/* <Text style={styles.fontHeading}> ------------------- </Text> */}
-                <View style={styles.line} />
-                <View style={styles.cardContentContainer}>
-                    <View>
-                        <Image
-                            style={{paddingLeft: 10,
-                                paddingBottom: 10,
-                                paddingTop: 10,
-                                paddingRight: 10,
-                                width: 120,
-                                height: 120,
-                                borderRadius: 120/2}}
-                            source={{
-                                uri: item.buyerPhoto,
-                            }}
-                        />
-                        <Text style={{paddingTop: 10, paddingLeft: 15, width: textWidth }}>
-                            <Text style={{ fontWeight: "bold" }}>Name:</Text>{" "}
-                            <Text>{item.name}</Text>
-                        </Text>
-                        {/* <Text style={{ textAlign: "center", paddingTop: 5 }}>
-                            <Text style={{ fontWeight: "bold" }}>Age:</Text>{" "}
-                            <Text>{item.age}</Text>
-                        </Text> */}
+                <View style={[styles.cardContainer, {paddingTop: 10, paddingBottom: 5}]}>
+                    <View style={{}}>
+                        <Text style={styles.contentTextBold}>Name: </Text>
+                        <Text style={styles.contentTextBold}>Contact: </Text>
+                        <Text style={styles.contentTextBold}>Email: </Text>
+                        <Text style={styles.contentTextBold}>Address: </Text>
                     </View>
-                    <View style={{ paddingLeft: 15, width: textWidth, numberofLines: 3 }}>
-
-                        <Text>
-                            <Text style={{ fontWeight: "bold" }}>Contact:</Text>{" "}
-                            <Text>{item.contact_number}</Text>
-                        </Text>
-                        <Text>
-                            <Text style={{ fontWeight: "bold" }}>Email:</Text>{" "}
-                            <Text>{item.email}</Text>
-                        </Text>
-                        <Text>
-                            <Text style={{ fontWeight: "bold" }}>Address:</Text>{" "}
-                            <Text>{item.address}</Text>
-                        </Text>
+                    <View style={{}}>
+                        <Text numberOfLines={1} style={styles.contentText}>{item.name}</Text>
+                        <Text numberOfLines={1} style={styles.contentText}>{item.contact_number}</Text>
+                        <Text numberOfLines={1} style={styles.contentText}>{item.email}</Text>
+                        <Text style={styles.contentText}>{item.address}</Text>
                     </View>
                 </View>
             </Card>
 
-            <Card containerStyle={styles.cardContainer}>
-                <Text style={{fontSize: 20, fontWeight: 'bold', paddingBottom:20}}>
-                    {item.category} Experience
-                </Text>
-                <Text style={{textAlign: "left", fontSize: 16, fontWeight: "bold", paddingBottom:5}}>Why do you want this pet? </Text>
-                <View style={styles.line} />
-                <Text style={{ paddingBottom: 15 }}>{item.why_want_pet}</Text>
-                <Text style={{textAlign: "left", fontSize: 16, fontWeight: "bold", paddingBottom:5}}>What characteristics are most desirable in a pet for you? </Text>
-                <View style={styles.line} />
-                {/* <View style={styles.line} /> */}
-                <Text style={{ paddingBottom: 15 }}>{item.most_desirable_traits}</Text>
-                <Text style={{textAlign: "left", fontSize: 16, fontWeight: "bold", paddingBottom:5}}>What characteristics are least desirable in a pet for you? </Text>
-                <View style={styles.line} />
-                <Text style={{ paddingBottom: 10 }}>{item.least_desirable_traits}</Text>
+            <Card containerStyle={styles.cardContentContainer}>
+                <Text style={styles.cardHeading}>Pet Information</Text>
+                <View style={{paddingBottom: 20}}>
+                    <Text style={styles.contentTextBold}>Why do you want this pet?</Text>
+                    <Text numberOfLines={1} style={styles.contentText}>{item.why_want_pet}</Text>
+                </View>
+
+                <View style={{paddingBottom: 20}}>
+                    <Text style={styles.contentTextBold}>What characteristics are most desirable in a pet for you?</Text>
+                    <Text numberOfLines={1} style={styles.contentText}>{item.most_desirable_traits}</Text>
+                </View>
+
+                <View style={{paddingBottom: 20}}>
+                    <Text style={styles.contentTextBold}>What characteristics are least desirable in a pet for you?</Text>
+                    <Text numberOfLines={1} style={styles.contentText}>{item.least_desirable_traits}</Text>
+                </View>
+
+                <View style={{paddingBottom: 5}}>
+                    <Text style={styles.contentTextBold}>Name(s), breed(s), gender(s) and age(s) of current pets (if applicable)</Text>
+                    <Text numberOfLines={1} style={styles.contentText}>{item.previous_pets}</Text>
+                </View>
             </Card>
-            <Card containerStyle={styles.cardContainer}>
-                <Text style={{fontSize: 20, fontWeight: 'bold', paddingBottom:20}}>Your Pet Experience </Text>
-                <Text style={{textAlign: "left", fontSize: 16, fontWeight: "bold", paddingBottom:5}}
-                    >Name(s), breed(s), gender(s), and age(s) of current pets (if applicable): 
-                </Text>
-                <View style={styles.line} />
-                <Text style={{ paddingBottom: 10 }}>{item.previous_pets}</Text>
-                
-            </Card>
-            <Card containerStyle={styles.cardContainer}>
-                <Text style={{fontSize: 20, fontWeight: 'bold', paddingBottom:20}}>Your Home Environment: </Text>
-                <View style={styles.line} />
-                <Text style={{ paddingBottom: 10 }}>{item.house_enviroment}</Text>
+
+            <Card containerStyle={styles.cardContentContainer}>
+                <Text style={styles.cardHeading}>Your Home Environment</Text>
+                <View style={{paddingBottom: 5}}>
+                    <Text style={styles.contentTextBold}>Description of your family/members of the household</Text>
+                    <Text numberOfLines={1} style={styles.contentText}>{item.house_enviroment}</Text>
+                </View>
             </Card>
             
         </View>
-    );
+    )
 }
-
-
 
 export const acceptBuyer = (item, navigation) => {
     return (
         <View style={styles.buttonsContainer}>
             <TouchableOpacity
                 style={styles.buttons}
-                onPress={() => { sendEmail(
-                    item.email,
-                    'Offer Accepted',
-                    'Hi, your application has been accepted by the seller. The seller will contact you as soon as possible.\n\n Thank you.\n\n Regards,\n The Furever Team.'
-                ); 
+                onPress={() => {
+                    sendEmail(
+                        item.email,
+                        'Offer Accepted',
+                        'Hi, your application has been accepted by the seller. The seller will contact you as soon as possible.\n\n Thank you.\n\n Regards,\n The Furever Team.'
+                    ); 
                     // item.is_accepted = true;
                     console.log(item.pet_id);
                     console.log(item.doc_id);
@@ -124,12 +111,8 @@ export const acceptBuyer = (item, navigation) => {
                         is_accepted: true
                     });
                     console.log(item.is_accepted);
-                }
-            
-                }
-
+                }}
             >
-
                 <Text style={styles.buttonsText}>Accept</Text>
             </TouchableOpacity>
         </View>
