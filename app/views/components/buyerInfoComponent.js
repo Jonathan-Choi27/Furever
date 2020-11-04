@@ -41,7 +41,7 @@ export const buyerInfo = (item) => {
                                 height: 120,
                                 borderRadius: 120/2}}
                             source={{
-                                uri: item.avatarPhoto,
+                                uri: item.buyerPhoto,
                             }}
                         />
                         <Text style={{paddingTop: 10, paddingLeft: 15, width: textWidth }}>
