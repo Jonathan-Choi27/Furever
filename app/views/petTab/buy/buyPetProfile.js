@@ -47,14 +47,11 @@ export default class buyPetProfile extends React.Component {
     render() {
         const item = this.props.route.params.item;
         return (
-            <View style={{paddingBottom: 50}}>
-                {/* {onBuyTab(this.props.navigation)} */}
-                <ScrollView>
-                    {profileInfo(item)}
-                    {sellerInfo(this.state, this.props.navigation)}
-                    {expressInterest(item, this.props.navigation)}
-                </ScrollView>
-            </View>
+            <ScrollView>
+                {profileInfo(item)}
+                {sellerInfo(this.state, this.props.navigation)}
+                {expressInterest(item, this.props.navigation)}
+            </ScrollView>
         );
     }
 }

@@ -191,7 +191,7 @@ export default class currentListings extends React.Component {
     // }
     return (
       <View style={globalStyles.container}>
-        {onSellTab(this.props.navigation)}
+        {/* {onSellTab(this.props.navigation)} */}
         <View style={globalStyles.searchFilterContainer}>
             <Searchbar
               style={globalStyles.searchBar}
