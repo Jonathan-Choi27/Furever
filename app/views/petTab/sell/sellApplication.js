@@ -46,14 +46,14 @@ export default class sellApplication extends React.Component {
       valid_behaviour: true,
       valid_health: true,
       valid_training: true,
-      valid_additionalInfo: true,
+      // valid_additionalInfo: true,
       valid_uri: true,
       valid_gender: true,
       nameErr: "",
       behaviourErr: "",
       healthErr: "",
       trainingErr: "",
-      additionalInfoErr: "",
+      // additionalInfoErr: "",
       categoryErr: "",
       breedErr: "",
       colourErr: "",
@@ -119,7 +119,7 @@ export default class sellApplication extends React.Component {
     this.trainingValidator();
     this.genderValidator();
     this.locationValidator();
-    this.additionalInfoValidator();
+    // this.additionalInfoValidator();
     this.priceValidator();
 
     var submit = true;
@@ -135,7 +135,7 @@ export default class sellApplication extends React.Component {
       this.behaviourValidator() == false ||
       this.healthValidator() == false ||
       this.trainingValidator() == false ||
-      this.additionalInfoValidator() == false ||
+      // this.additionalInfoValidator() == false ||
       this.photoValidator() == false
     ) {
       alert("All input fields required and must be valid.");
@@ -424,24 +424,24 @@ export default class sellApplication extends React.Component {
     return bool;
   };
 
-  additionalInfoValidator = () => {
-    var bool;
-    if (this.state.additionalInfo == "") {
-      bool = false;
-      this.setState({
-        valid_additionalInfo: false,
-        additionalInfoErr: "Please fill this field in",
-      });
-    } else {
-      bool = true;
-      this.setState({
-        additionalInfoErr: "",
-        valid_additionalInfo: true,
-      });
-    }
+  // additionalInfoValidator = () => {
+  //   var bool;
+  //   if (this.state.additionalInfo == "") {
+  //     bool = false;
+  //     this.setState({
+  //       valid_additionalInfo: false,
+  //       additionalInfoErr: "Please fill this field in",
+  //     });
+  //   } else {
+  //     bool = true;
+  //     this.setState({
+  //       additionalInfoErr: "",
+  //       valid_additionalInfo: true,
+  //     });
+  //   }
 
-    return bool;
-  };
+  //   return bool;
+  // };
 
   photoValidator = () => {
     var bool;
@@ -700,7 +700,7 @@ export default class sellApplication extends React.Component {
               onChangeText={(additionalInfo) =>
                 this.setState({ additionalInfo })
               }
-              errorMessage={this.state.additionalInfoErr}
+              // errorMessage={this.state.additionalInfoErr}
               multiline={true}
               leftIcon={
                 <Icon
