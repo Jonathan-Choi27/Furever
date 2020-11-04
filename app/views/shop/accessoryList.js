@@ -34,6 +34,8 @@ export default class accessoryList extends React.Component {
     pullToRefresh: false,
     limit: 6,
     lastVisible: null,
+    filteredData: [],
+    searchText: "",
 
   };
 
@@ -67,6 +69,16 @@ export default class accessoryList extends React.Component {
   async componentDidMount() {
     this.fetchData();
   }
+
+  searchFunction = (searchText) => {
+    this.setState({ searchText: searchText });
+
+    let filteredData = this.state.data.filter(function (item) {
+      return item.accessoryName.toLowerCase().includes(searchText.toLowerCase());
+    });
+
+    this.setState({ filteredData: filteredData });
+  };
 
   render() {
     return (
@@ -123,30 +135,78 @@ export default class accessoryList extends React.Component {
         </Portal>
         <Text style = {{padding: 15}}>
             Shop - {this.props.route.params.item.type}
-        </Text>   
-        <View style={globalStyles.petContainer}>
-            
-            <FlatList
-            columnWrapperStyle={{ justifyContent: "flex-start" }}
-            numColumns={2}
+        </Text>  
+
+        {this.state.filterDisplay ? (
+              <FlatList
+                numColumns = {2}
+                key={1}
                 showsVerticalScrollIndicator={false}
-                onRefresh={async () => {
-                    this.setState({
-                    pullToRefresh: true,
-                    });
-                    await this.fetchData();
-                    this.setState({
-                    pullToRefresh: false,
-                    });
-                }}
-                refreshing={this.state.pullToRefresh}
-                data={this.state.data}
                 renderItem={({ item }) => (
-                    shopAccessoryCard(item, this.props.navigation)
+                  shopAccessoryCard(item, this.props.navigation)
                 )}
                 keyExtractor={(item, index) => index.toString()}
-            />
-          </View>
+                data={
+                  this.state.filteredData && this.state.filteredData.length > 0
+                    ? this.state.filteredData
+                    : this.state.data
+                }
+              />
+            ) : (
+              <View style={globalStyles.petContainer}>
+                {this.state.searchText == "" ? (
+
+              <View style={globalStyles.petContainer}>
+            
+              <FlatList
+              columnWrapperStyle={{ justifyContent: "flex-start" }}
+              numColumns={2}
+                  showsVerticalScrollIndicator={false}
+                  onRefresh={async () => {
+                      this.setState({
+                      pullToRefresh: true,
+                      });
+                      await this.fetchData();
+                      this.setState({
+                      pullToRefresh: false,
+                      });
+                  }}
+                  refreshing={this.state.pullToRefresh}
+                  data={this.state.data}
+                  renderItem={({ item }) => (
+                      shopAccessoryCard(item, this.props.navigation)
+                  )}
+                  keyExtractor={(item, index) => index.toString()}
+              />
+              </View>
+                ) : (
+                  <View style={globalStyles.petContainer}>
+                    {this.state.filteredData.length == 0 ? (
+                      <View style={globalStyles.petContainer}>
+                        <Text style={{ margin: 100 }}>No results found.</Text>
+                      </View>
+                    ) : (
+                      <FlatList
+                        numColumns = {2}
+                        key={1}
+                        showsVerticalScrollIndicator={false}
+                        renderItem={({ item }) => (
+                          shopAccessoryCard(item, this.props.navigation)
+                        )}
+                        keyExtractor={(item, index) => index.toString()}
+                        data={
+                          this.state.filteredData &&
+                          this.state.filteredData.length > 0
+                            ? this.state.filteredData
+                            : this.state.data
+                        }
+                      />
+                    )}
+                  </View>
+                )}
+              </View>
+            )} 
+        
     
         </ScrollView>
       </View>

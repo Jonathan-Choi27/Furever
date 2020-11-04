@@ -3,9 +3,9 @@ import {
   Text,
   View,
   TouchableOpacity,
-  Image,
   ScrollView,
   FlatList,
+  Image,
 } from "react-native";
 import {
   Avatar,
@@ -51,44 +51,23 @@ export default class petCategories extends React.Component {
     petCategories: [],
   };
 
-  async componentDidMount() {
+  async fetchData() {
     const dataArray = [];
     const petCategoryArray = [];
-    db.collection("pet_listings")
+
+
+    db.collection("accessories")
       .get()
       .then((doc) => {
-        doc.forEach(async (listingDoc) => {
-          var uuid = listingDoc.data().uuid;
-          var seller_name;
-          var seller_photo;
-          await db
-            .collection("users")
-            .doc(uuid)
-            .get()
-            .then((user_doc) => {
-              seller_name = user_doc.data().name;
-              seller_photo = user_doc.data().photo;
-            })
-            .catch((erro) => {});
-          dataArray.push({
-            sellerName: seller_name,
-            sellerPhoto: seller_photo,
-            petName: listingDoc.data().name,
-            category: listingDoc.data().category,
-            breed: listingDoc.data().breed,
-            colour: listingDoc.data().colour,
-            age: listingDoc.data().age,
-            gender: listingDoc.data().gender,
-            size: listingDoc.data().size,
-            location: listingDoc.data().location,
-            price: listingDoc.data().price,
-            behaviour: listingDoc.data().behaviour,
-            health: listingDoc.data().health,
-            training: listingDoc.data().training,
-            additional: listingDoc.data().additionalInfo,
-            photo: listingDoc.data().photo_link,
-            uuid: listingDoc.data().uuid,
-          });
+        doc.forEach((listingDoc) => {
+                dataArray.push({
+                    accessoryName: listingDoc.data().name,
+                    category: listingDoc.data().category,
+                    type: listingDoc.data().type,
+                    price: listingDoc.data().price,
+                    photo: listingDoc.data().photoLink,
+                    docIdd: listingDoc.id,
+                  });
           this.setState({
             isLoading: false,
             data: [...dataArray],
@@ -113,11 +92,15 @@ export default class petCategories extends React.Component {
       });
   }
 
+  async componentDidMount() {
+    this.fetchData();
+  }
+
   searchFunction = (searchText) => {
     this.setState({ searchText: searchText });
 
     let filteredData = this.state.data.filter(function (item) {
-      return item.petName.toLowerCase().includes(searchText.toLowerCase());
+      return item.accessoryName.toLowerCase().includes(searchText.toLowerCase());
     });
 
     this.setState({ filteredData: filteredData });
@@ -238,7 +221,7 @@ export default class petCategories extends React.Component {
                     ) : (
                       <FlatList
                         showsVerticalScrollIndicator={false}
-                        numColumns={1}
+                        numColumns={2}
                         key={1}
                         renderItem={({ item }) =>
                         shopAccessoryCard(item, this.props.navigation)

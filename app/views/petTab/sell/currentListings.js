@@ -2,35 +2,18 @@ import React from "react";
 import {
   Text,
   View,
-  TouchableOpacity,
   Image,
-  ScrollView,
   FlatList,
 } from "react-native";
 import {
-  Avatar,
   Card,
   Button,
   Searchbar,
-  ActivityIndicator,
-  Modal,
-  Provider,
-  Portal,
-  Checkbox,
 } from "react-native-paper";
-import { SearchBar } from "react-native-elements";
 import firebase from "firebase";
-import { AppLoading } from "expo";
 import { auth } from "../../database/firebase";
 import { onSellTab } from "../../components/petTabComponents";
-import globalStyles, {darkGreen} from "../../styleSheet/styleSheet";
-import {
-  green,
-  lightGreen,
-  lightGrey,
-  orange,
-  lightBlue,
-} from "../../styleSheet/styleSheet";
+import globalStyles, {darkGreen, lightGreen} from "../../styleSheet/styleSheet";
 import {petSellListingCard} from "../../components/petSellListingComponent";
 
 const db = firebase.firestore();
