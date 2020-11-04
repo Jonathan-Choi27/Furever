@@ -19,37 +19,38 @@ export const buyerInfo = (item) => {
     return (
         <View style={styles.container}>
             <Card containerStyle={styles.cardContentContainer}>
-                <Text
-                    style={{ fontWeight: "bold", fontSize: 30, color: "black" }}>
-                    {item.name}'s Application
-                </Text>
-            </Card>
-
-            <Card containerStyle={styles.cardContentContainer}>
-                <Text style={styles.cardHeading}>Personal Information</Text>
-                <View style={{alignItems: "center"}}>
+                <View style={{ flexDirection: "row", alignItems: "center" }}>
                     <Image
-                        style={{paddingLeft: 10,
+                        style={{
+                            paddingLeft: 10,
                             paddingBottom: 10,
                             paddingTop: 10,
                             paddingRight: 10,
-                            width: screenWidth/3,
-                            height: screenWidth/3,
+                            width: screenWidth / 4,
+                            height: screenWidth / 4,
                             borderRadius: 10,
                         }}
                         source={{
                             uri: item.buyerPhoto,
                         }}
                     />
+                    <Text
+                        style={{ fontWeight: "bold", fontSize: 30, color: "black", paddingLeft: 20 }}>
+                        {item.name}'s Application
+                    </Text>
                 </View>
-                <View style={[styles.cardContainer, {paddingTop: 10, paddingBottom: 5}]}>
-                    <View style={{}}>
+            </Card>
+
+            <Card containerStyle={styles.cardContentContainer}>
+                <Text style={styles.cardHeading}>Personal Information</Text>
+                <View style={[styles.cardContainer, { paddingBottom: 5 }]}>
+                    <View>
                         <Text style={styles.contentTextBold}>Name: </Text>
                         <Text style={styles.contentTextBold}>Contact: </Text>
                         <Text style={styles.contentTextBold}>Email: </Text>
                         <Text style={styles.contentTextBold}>Address: </Text>
                     </View>
-                    <View style={{}}>
+                    <View style={{paddingLeft: 5}}>
                         <Text numberOfLines={1} style={styles.contentText}>{item.name}</Text>
                         <Text numberOfLines={1} style={styles.contentText}>{item.contact_number}</Text>
                         <Text numberOfLines={1} style={styles.contentText}>{item.email}</Text>
@@ -60,22 +61,22 @@ export const buyerInfo = (item) => {
 
             <Card containerStyle={styles.cardContentContainer}>
                 <Text style={styles.cardHeading}>Pet Information</Text>
-                <View style={{paddingBottom: 20}}>
+                <View style={{ paddingBottom: 20 }}>
                     <Text style={styles.contentTextBold}>Why do you want this pet?</Text>
                     <Text numberOfLines={1} style={styles.contentText}>{item.why_want_pet}</Text>
                 </View>
 
-                <View style={{paddingBottom: 20}}>
+                <View style={{ paddingBottom: 20 }}>
                     <Text style={styles.contentTextBold}>What characteristics are most desirable in a pet for you?</Text>
                     <Text numberOfLines={1} style={styles.contentText}>{item.most_desirable_traits}</Text>
                 </View>
 
-                <View style={{paddingBottom: 20}}>
+                <View style={{ paddingBottom: 20 }}>
                     <Text style={styles.contentTextBold}>What characteristics are least desirable in a pet for you?</Text>
                     <Text numberOfLines={1} style={styles.contentText}>{item.least_desirable_traits}</Text>
                 </View>
 
-                <View style={{paddingBottom: 5}}>
+                <View style={{ paddingBottom: 5 }}>
                     <Text style={styles.contentTextBold}>Name(s), breed(s), gender(s) and age(s) of current pets (if applicable)</Text>
                     <Text numberOfLines={1} style={styles.contentText}>{item.previous_pets}</Text>
                 </View>
@@ -83,17 +84,18 @@ export const buyerInfo = (item) => {
 
             <Card containerStyle={styles.cardContentContainer}>
                 <Text style={styles.cardHeading}>Your Home Environment</Text>
-                <View style={{paddingBottom: 5}}>
+                <View style={{ paddingBottom: 5 }}>
                     <Text style={styles.contentTextBold}>Description of your family/members of the household</Text>
                     <Text numberOfLines={1} style={styles.contentText}>{item.house_enviroment}</Text>
                 </View>
             </Card>
-            
+
         </View>
     )
 }
 
 export const acceptBuyer = (item, navigation) => {
+    let body = 'Hi ' + item.name + ',' + `<br><br>` + 'Congratulations!' + `<br><br>` + 'Your application has been accepted. I will contact you shortly for further details about the next steps.' + `<br><br>` + 'Thank you.' + `<br><br>` + 'Kind Regards,' + `<br>` + item.sellerName;
     return (
         <View style={styles.buttonsContainer}>
             <TouchableOpacity
@@ -101,9 +103,9 @@ export const acceptBuyer = (item, navigation) => {
                 onPress={() => {
                     sendEmail(
                         item.email,
-                        'Offer Accepted',
-                        'Hi, your application has been accepted by the seller. The seller will contact you as soon as possible.\n\n Thank you.\n\n Regards,\n The Furever Team.'
-                    ); 
+                        'Offer Accepted - ' + item.petName + " (" + item.petBreed + ", " + item.petCategory + ")",
+                        body
+                    );
                     // item.is_accepted = true;
                     console.log(item.pet_id);
                     console.log(item.doc_id);

@@ -15,7 +15,7 @@ export const buyerApplicationList = (item, navigation) => {
         />
       </View>
       <View style={styles.petBuyCardTextContainer}>
-        <View style={styles.petBuyCardImageContainer}>
+        <View style={styles.petBuyCardImageStatusContainer}>
           <Image source={{ uri: item.photo }} style={styles.petBuyCardImage} />
           <View style={{flexDirection: 'row', justifyContent: 'center', paddingTop: 5}}>
             <Text style={{fontWeight: 'bold'}}>Status:  </Text>
@@ -55,7 +55,7 @@ export const buyerApplicationList = (item, navigation) => {
               style={styles.petBuyCardBigButton}
               mode="contained"
               onPress={() => navigation.navigate("buyerApplicationView", { item })}>
-              <Text style={styles.petBuyCardBigButtonText}> Test Test</Text>
+              <Text style={styles.petBuyCardBigButtonText}>View Application</Text>
             </Button>
           </Card.Actions>
         </View>

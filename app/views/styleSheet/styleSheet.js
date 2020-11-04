@@ -402,6 +402,10 @@ export default StyleSheet.create({
   },
   petBuyCardImageContainer: {
     width: 150,
+    height: 150,
+  },
+  petBuyCardImageStatusContainer: {
+    width: 150,
     height: 170,
   },
   petBuyCardImage: {
@@ -484,7 +488,7 @@ export default StyleSheet.create({
     color: "black",
   },
   bigButtonText: {
-    fontSize: 8,
+    fontSize: 10,
     color: "white",
     fontWeight: "bold",
   },

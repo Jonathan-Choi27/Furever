@@ -20,7 +20,8 @@ export default class buyPetProfile extends React.Component {
         email: "",
         isPetShop: false,
         profileText: "",
-        photo: ""
+        photo: "",
+        sellerId: "",
      };
      
     async fetchData() {
@@ -36,6 +37,7 @@ export default class buyPetProfile extends React.Component {
                     isPetShop: doc.data().isPetShop,
                     profileText: doc.data().profileText,
                     photo: doc.data().photo,
+                    sellerId: uuid,
                 });
         });
     };

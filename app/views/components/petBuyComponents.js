@@ -61,7 +61,7 @@ export const petBuyCard = (item, navigation) => {
               style={styles.petBuyCardBigButton}
               mode="contained"
               onPress={() =>
-                navigation.navigate("buyPetProfile", {item})
+                navigation.navigate("petProfile", {item})
               }
             >
               <Text style={styles.petBuyCardBigButtonText}>More Info</Text>

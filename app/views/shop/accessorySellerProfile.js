@@ -13,8 +13,8 @@ import {sellerDetails} from "../components/sellerInfoComponent";
 
 import { db } from "../database/firebase";
 
-export default class sellerProfile extends React.Component {
-
+export default class accessorySellerProfile extends React.Component {
+ 
     state = {
         data: [],
         isLoading: true,
@@ -58,7 +58,7 @@ export default class sellerProfile extends React.Component {
         return (
             <View style={{paddingBottom: 50}}>
                 <ScrollView>
-                    {sellerDetails(this.state.data)}                    
+                    {sellerDetails(this.state.data)}
                 </ScrollView>
             </View>
         );

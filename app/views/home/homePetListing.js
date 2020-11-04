@@ -451,7 +451,7 @@ export default class HomeListing extends React.Component {
         elevation={5}
         styles={styles.card}
         onPress={() =>
-          this.props.navigation.navigate("homePetProfile", { item })
+          this.props.navigation.navigate("petProfile", { item })
         }>
         <Image source={{ uri: item.photo }} style={styles.image} />
         <Text numberOfLines={1} style={styles.title}>

@@ -52,30 +52,32 @@ export default class currentApplications extends React.Component {
                     doc.forEach(async (listingDoc) => {
                       if (listingDoc.id == listing.id) {
                         var uuid = listingDoc.data().uuid;
-                        var seller_name;
-                        var seller_photo;
+                        var sellerName;
+                        var sellerPhoto;
                         await db
                           .collection("users")
                           .doc(uuid)
                           .get()
                           .then((user_doc) => {
-                            seller_name = user_doc.data().name;
-                            seller_photo = user_doc.data().photo;
+                            sellerName = user_doc.data().name;
+                            sellerPhoto = user_doc.data().photo;
                           });
                         dataArray.push({
-                            buyerWhyWantPet: applications.data().why_want_pet,
-                            buyerPreviousPets: applications.data().previous_pets,
-                            buyerName: applications.data().name,
-                            buyerEmail: applications.data().email,
-                            buyerHouseEnviroment: applications.data()
-                              .house_enviroment,
-                            buyerLeastDesirableTraits: applications.data()
-                              .least_desirable_traits,
-                            buyerMostDesirableTraits: applications.data()
-                              .most_desirable_traits,
-                            buyerIsAccepted: applications.data().is_accepted,
-                          sellerName: seller_name,
-                          sellerPhoto: seller_photo,
+                          buyerWhyWantPet: applications.data().why_want_pet,
+                          buyerPreviousPets: applications.data().previous_pets,
+                          buyerName: applications.data().name,
+                          buyerEmail: applications.data().email,
+                          buyerNumber: applications.data().contact_number,
+                          buyerAddress: applications.data().address,
+                          buyerHouseEnviroment: applications.data()
+                            .house_enviroment,
+                          buyerLeastDesirableTraits: applications.data()
+                            .least_desirable_traits,
+                          buyerMostDesirableTraits: applications.data()
+                            .most_desirable_traits,
+                          buyerIsAccepted: applications.data().is_accepted,
+                          sellerName: sellerName,
+                          sellerPhoto: sellerPhoto,
                           petName: listingDoc.data().name,
                           category: listingDoc.data().category,
                           breed: listingDoc.data().breed,
@@ -175,39 +177,39 @@ export default class currentApplications extends React.Component {
               />
             </View>
           ) : (
-            <View style={globalStyles.activityContainer}>
-              {this.state.filteredData.length == 0 ? (
-                <View style={globalStyles.activityContainer}>
-                  <Text style={{ margin: 100 }}>No results found.</Text>
-                </View>
-              ) : (
-                <FlatList
-                  style={{ paddingBottom: 10 }}
-                  onRefresh={async () => {
-                    this.setState({
-                      pullToRefresh: true,
-                    });
-                    await this.fetchData();
-                    this.setState({
-                      pullToRefresh: false,
-                    });
-                  }}
-                  refreshing={this.state.pullToRefresh}
-                  showsVerticalScrollIndicator={false}
-                  renderItem={({ item }) =>
-                    petBuyCard(item, this.props.navigation)
-                  }
-                  keyExtractor={(item, index) => index.toString()}
-                  data={
-                    this.state.filteredData &&
-                    this.state.filteredData.length > 0
-                      ? this.state.filteredData
-                      : this.state.data
-                  }
-                />
-              )}
-            </View>
-          )}
+              <View style={globalStyles.activityContainer}>
+                {this.state.filteredData.length == 0 ? (
+                  <View style={globalStyles.activityContainer}>
+                    <Text style={{ margin: 100 }}>No results found.</Text>
+                  </View>
+                ) : (
+                    <FlatList
+                      style={{ paddingBottom: 10 }}
+                      onRefresh={async () => {
+                        this.setState({
+                          pullToRefresh: true,
+                        });
+                        await this.fetchData();
+                        this.setState({
+                          pullToRefresh: false,
+                        });
+                      }}
+                      refreshing={this.state.pullToRefresh}
+                      showsVerticalScrollIndicator={false}
+                      renderItem={({ item }) =>
+                        petBuyCard(item, this.props.navigation)
+                      }
+                      keyExtractor={(item, index) => index.toString()}
+                      data={
+                        this.state.filteredData &&
+                          this.state.filteredData.length > 0
+                          ? this.state.filteredData
+                          : this.state.data
+                      }
+                    />
+                  )}
+              </View>
+            )}
         </ScrollView>
       </View>
     );

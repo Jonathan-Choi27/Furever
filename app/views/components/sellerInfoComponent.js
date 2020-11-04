@@ -19,50 +19,46 @@ export const sellerDetails = (seller) => {
         <View style={styles.container}>
             {/* The seller name title */}
             <Card containerStyle={styles.cardContentContainer}>
-                <Text
-                    style={{ fontWeight: "bold", fontSize: 30, color: "black" }}>
-                    {seller.name}'s Profile
-                </Text>
-            </Card>
-
-            <Card containerStyle={styles.cardContentContainer}>
-                <Text style={styles.cardHeading}>Personal Information</Text>
-                <View style={styles.cardContainer}>
+                <View style={{ flexDirection: "row", alignItems: "center" }}>
                     <Image
-                        style={{paddingLeft: 10,
+                        style={{
+                            paddingLeft: 10,
                             paddingBottom: 10,
                             paddingTop: 10,
                             paddingRight: 10,
-                            width: 120,
-                            height: 120,
-                            borderRadius: 120/2}}
+                            width: screenWidth / 4,
+                            height: screenWidth / 4,
+                            borderRadius: 10,
+                        }}
                         source={{
                             uri: seller.photo,
                         }}
                     />
-                    <View style={{paddingLeft: 20, paddingTop: 10, flex: 1}}>
-                        <Text>
-                            <Text style={styles.contentTextBold}>Name: </Text>
-                            <Text style={styles.contentText}>{seller.name}</Text>
-                        </Text>
-                        <Text>
-                            <Text style={styles.contentTextBold}>Dob: </Text>
-                            <Text style={styles.contentText}>{seller.dob}</Text>
-                        </Text>
-                        <Text>
-                            <Text style={styles.contentTextBold}>Email: </Text>
-                            <Text style={styles.contentText}>{seller.email}</Text>
-                        </Text>
-                        {/* <Text>
-                            <Text style={{ fontWeight: "bold" }}>Location:</Text>{" "}
-                            <Text style={{numberofLines: 3}}>{seller.location}</Text>
-                        </Text> */}
+                    <Text
+                        style={{ fontWeight: "bold", fontSize: 30, color: "black", paddingLeft: 20 }}>
+                        {seller.name}'s Profile
+                    </Text>
+                </View>
+            </Card>
+
+            <Card containerStyle={styles.cardContentContainer}>
+                <Text style={styles.cardHeading}>Personal Information</Text>
+                <View style={[styles.cardContainer, { paddingBottom: 5 }]}>
+                    <View>
+                        <Text style={styles.contentTextBold}>Name: </Text>
+                        <Text style={styles.contentTextBold}>Email: </Text>
+                        <Text style={styles.contentTextBold}>Description: </Text>
+                    </View>
+                    <View style={{paddingLeft: 5}}>
+                        <Text numberOfLines={1} style={styles.contentText}>{seller.name}</Text>
+                        <Text numberOfLines={1} style={styles.contentText}>{seller.email}</Text>
+                        <Text style={styles.contentText}>{seller.profileText}</Text>
                     </View>
                 </View>
-                <Text style={[styles.contentText, {paddingTop: 20}]}>{seller.profileText}</Text>
             </Card>
 
             
+
         </View>
     );
 }
