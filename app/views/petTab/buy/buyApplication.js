@@ -112,7 +112,7 @@ export default class buyApplication extends React.Component {
   pushData = async () => {
     const doc_id = this.props.route.params.item.doc_id;
     await db
-      .collection("pet_listings")
+      .collection("petListings")
       .doc(doc_id)
       .collection("buyer_applications")
       .add({

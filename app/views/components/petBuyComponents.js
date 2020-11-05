@@ -83,7 +83,7 @@ export const petBuyCategory = (item, navigation) => {
         <View style={styles.iconContainer}>
           <Image
             style={styles.icon}
-            source={{uri: item.image}}
+            source={{uri: item.categoryImage}}
           />
         </View>
       </TouchableOpacity>
@@ -91,19 +91,19 @@ export const petBuyCategory = (item, navigation) => {
   )
 }
 
-export const petBuyBreed = (item, categoryId, navigation) => {
+export const petBuyBreed = (item, category, navigation) => {
   return (
     <View style={styles.iconContainer}>
       <TouchableOpacity
         onPress={() =>
-          navigation.replace("breedList", { item, categoryId })
+          navigation.replace("breedList", { item, category })
         }>
         <View style={styles.breedIconContainer}>
           <Image
             style={styles.icon}
-            source={{uri: item.image}}
+            source={{uri: item.breedImage}}
           />
-          <Text style={styles.iconText}>{item.breed}</Text>
+          <Text style={styles.iconText}>{item.breedName}</Text>
         </View>
       </TouchableOpacity>
     </View>

@@ -109,7 +109,7 @@ export const acceptBuyer = (item, navigation) => {
                     // item.is_accepted = true;
                     console.log(item.pet_id);
                     console.log(item.doc_id);
-                    db.collection("pet_listings").doc(item.pet_id).collection("buyer_applications").doc(item.doc_id).update({
+                    db.collection("petListings").doc(item.pet_id).collection("buyer_applications").doc(item.doc_id).update({
                         is_accepted: true
                     });
                     console.log(item.is_accepted);

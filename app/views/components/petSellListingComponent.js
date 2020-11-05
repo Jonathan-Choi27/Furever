@@ -9,7 +9,7 @@ const db = firebase.firestore();
 
 const deletePet = async (item) => {
     // const deleteItemId = doc_id;
-    // db.collection("pet_listings").doc(deleteItemId).delete().then(function() {
+    // db.collection("petListings").doc(deleteItemId).delete().then(function() {
     //      alert("deleted")
     //  }).catch(function(error) {
     //      alert("Error removing document: ", error);

@@ -33,19 +33,19 @@ export default class currentApplications extends React.Component {
     const user = auth.currentUser;
     const docs = [];
 
-    db.collection("pet_listings")
+    db.collection("petListings")
       .get()
       .then((doc) => {
         doc.forEach(async (listing) => {
           await db
-            .collection("pet_listings")
+            .collection("petListings")
             .doc(listing.id)
             .collection("buyer_applications")
             .where("uuid", "==", user.uid)
             .get()
             .then((doc) => {
               doc.forEach(async (applications) => {
-                db.collection("pet_listings")
+                db.collection("petListings")
                   .where("uuid", "==", listing.data().uuid)
                   .get()
                   .then((doc) => {
@@ -93,7 +93,7 @@ export default class currentApplications extends React.Component {
                           health: listingDoc.data().health,
                           training: listingDoc.data().training,
                           additional: listingDoc.data().additionalInfo,
-                          photo: listingDoc.data().photo_link,
+                          photo: listingDoc.data().photoLink,
                           doc_id: listingDoc.id,
                           uuid: listingDoc.data().uuid,
                         });

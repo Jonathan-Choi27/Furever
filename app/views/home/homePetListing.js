@@ -78,7 +78,7 @@ export default class HomeListing extends React.Component {
     const dataArray = [];
 
     let initialQuery = await db
-      .collection("pet_listings")
+      .collection("petListings")
       .orderBy("timestamp")
       //   .endAt(this.state.lastVisible)
       .limit(this.state.limit);
@@ -103,7 +103,7 @@ export default class HomeListing extends React.Component {
         health: listingDoc.data().health,
         training: listingDoc.data().training,
         additional: listingDoc.data().additionalInfo,
-        photo: listingDoc.data().photo_link,
+        photo: listingDoc.data().photoLink,
         documentName: listingDoc.data().documents,
         documentUri: listingDoc.data().documents_uri,
         uuid: listingDoc.data().uuid,
@@ -123,7 +123,7 @@ export default class HomeListing extends React.Component {
     // const seller = {};
 
     // await db
-    //   .collection("pet_listings")
+    //   .collection("petListings")
     //   .get()
     //   .then((doc) => {
     //     doc.forEach(async (listingDoc) => {
@@ -154,7 +154,7 @@ export default class HomeListing extends React.Component {
     //         health: listingDoc.data().health,
     //         training: listingDoc.data().training,
     //         additional: listingDoc.data().additionalInfo,
-    //         photo: listingDoc.data().photo_link,
+    //         photo: listingDoc.data().photoLink,
     //         documentName: listingDoc.data().documents,
     //         documentUri: listingDoc.data().documents_uri,
     //         uuid: listingDoc.data().uuid,
@@ -185,7 +185,7 @@ export default class HomeListing extends React.Component {
     const dataArray = [];
 
     let initialQuery = await db
-      .collection("pet_listings")
+      .collection("petListings")
       .orderBy("timestamp")
       .startAfter(this.state.lastVisible)
       .limit(this.state.limit);
@@ -209,7 +209,7 @@ export default class HomeListing extends React.Component {
         health: listingDoc.data().health,
         training: listingDoc.data().training,
         additional: listingDoc.data().additionalInfo,
-        photo: listingDoc.data().photo_link,
+        photo: listingDoc.data().photoLink,
         documentName: listingDoc.data().documents,
         documentUri: listingDoc.data().documents_uri,
         uuid: listingDoc.data().uuid,

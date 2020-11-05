@@ -41,7 +41,7 @@ export default class offerApplications extends React.Component {
     var petBreed;
     var sellerId
     // Getting Pet Info
-    await db.collection("pet_listings")
+    await db.collection("petListings")
       .doc(pet_doc_id)
       .get()
       .then((doc) => {
@@ -60,7 +60,7 @@ export default class offerApplications extends React.Component {
         sellerName = seller.data().name;
     });
 
-    db.collection("pet_listings")
+    db.collection("petListings")
       .doc(pet_doc_id)
       .collection("buyer_applications")
       .get()
