@@ -4,7 +4,7 @@ import "react-navigation-props-mapper"
 import "@react-navigation/native"
 import 'react-navigation-hooks'
 import {
-    ScrollView
+    ScrollView,
 } from "react-native";
 import {expressInterest, profileInfo, sellerInfo} from "../components/petProfileComponents";
 import { db } from "../database/firebase";
@@ -16,7 +16,8 @@ export default class homePetProfile extends React.Component {
        email: "",
        isPetShop: false,
        profileText: "",
-       photo: ""
+       photo: "",
+       sellerId: "",
     };
     
     async fetchData() {
@@ -32,6 +33,7 @@ export default class homePetProfile extends React.Component {
                     isPetShop: doc.data().isPetShop,
                     profileText: doc.data().profileText,
                     photo: doc.data().photo,
+                    sellerId: uuid,
                 });
             });
     };

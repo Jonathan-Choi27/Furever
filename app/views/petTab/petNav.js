@@ -66,7 +66,7 @@ export default function PetNav() {
         />
         {/* <Stack.Screen name="breedList" component={breedList} /> */}
         <Stack.Screen name="breedInfo" component={breedInfo} />
-        <Stack.Screen name="buyPetProfile" component={buyPetProfile} />
+        <Stack.Screen name="petProfile" component={buyPetProfile} />
         <Stack.Screen name="buyApplication" component={buyApplication} />
         <Stack.Screen
           name="buyerApplicationView"

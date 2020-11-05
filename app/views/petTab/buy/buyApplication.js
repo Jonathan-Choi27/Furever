@@ -181,15 +181,18 @@ export default class buyApplication extends React.Component {
             />
           </View>
           <Card containerStyle={{ borderRadius: 10 }}>
+            <Text
+              style={{ fontWeight: "bold", fontSize: 30, color: "#333333" }}>
+              {item.petName}
+            </Text>
             <Text>
               <Text
-                style={{ fontWeight: "bold", fontSize: 30, color: "#404040" }}>
-                {item.petName}
-              </Text>
-              <Text
-                style={{ fontSize: 30, color: "#606060", fontWeight: "bold" }}>
-                {", "}
+                style={{ fontSize: 25, color: "#606060", fontWeight: "bold" }}>
                 {item.age}
+              </Text>
+              <Text style={{ fontSize: 22, color: "#606060", fontWeight: "bold" }}>
+                {" "}
+                {item.ageOption.toUpperCase()}
               </Text>
             </Text>
             <Text style={{ fontWeight: "bold", color: "#505050" }}>
@@ -199,7 +202,7 @@ export default class buyApplication extends React.Component {
         </View>
 
         <Card containerStyle={{ borderRadius: 10 }}>
-          <Text style={{ fontSize: 25, fontWeight: "bold", color: "#C0C0C0" }}>
+          <Text style={{ fontSize: 25, fontWeight: "bold", color: "#a8a8a8" }}>
             Buyer Application
           </Text>
           <View style={{ marginBottom: 10 }} />

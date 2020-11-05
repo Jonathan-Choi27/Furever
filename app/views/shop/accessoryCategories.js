@@ -1,39 +1,3 @@
-// import * as React from "react";
-// import {
-//   Text,
-//   View,
-//   TouchableOpacity,
-// } from "react-native";
-// import firebase from "firebase";
-// import globalStyles, {darkGreen} from "../styleSheet/styleSheet";
-
-// const db = firebase.firestore();
-
-// export default class accessoryCategories extends React.Component {
-//     render() {
-//         return (
-//           <View>
-//             <View style={{ height: 52, alignItems: "center", justifyContent: "center" }}>
-//               <TouchableOpacity
-//                 style={globalStyles.viewApplication}
-//                 onPress={() =>
-//                     this.props.navigation.replace("accessoryListings")
-//               }>
-//                 <Text
-//                     style={{
-//                     textAlign: "center",
-//                     color: "white",
-//                     fontWeight: "bold",
-//                     }}>
-//                     Sell Accessories
-//                 </Text>
-//               </TouchableOpacity>
-//             </View>
-//           </View>
-//         );
-//     }
-// }
-
 import React from "react";
 import {
   Text,
@@ -57,8 +21,14 @@ import {
 import { db } from "../database/firebase";
 import {onBuyTab} from "../components/petTabComponents";
 import globalStyles from "../styleSheet/styleSheet";
-import { darkGreen, green, lightGreen, lightGrey, orange, lightBlue } from "../styleSheet/styleSheet";
-import { shopAccessoryCard, accessoryCategory } from "../components/shopComponents";
+import {
+  darkGreen,
+  green,
+  lightGreen,
+  orange,
+  lightBlue,
+  lightGrey,
+} from "../styleSheet/styleSheet";import { shopAccessoryCard, accessoryCategory } from "../components/shopComponents";
 
 export default class accessoryCateogries extends React.Component {
 
@@ -84,41 +54,18 @@ export default class accessoryCateogries extends React.Component {
   
   async componentDidMount() {
     const dataArray = [];
-    db.collection("pet_listings")
+    db.collection("accessories")
       .get()
       .then((doc) => {
-        doc.forEach(async (listingDoc) => {
-          var uuid = listingDoc.data().uuid;
-          var seller_name;
-          var seller_photo;
-          await db
-            .collection("users")
-            .doc(uuid)
-            .get()
-            .then((user_doc) => {
-              seller_name = user_doc.data().name;
-              seller_photo = user_doc.data().photo;
-            })
-            .catch((erro) => {});
-          dataArray.push({
-            sellerName: seller_name,
-            sellerPhoto: seller_photo,
-            petName: listingDoc.data().name,
-            category: listingDoc.data().category,
-            breed: listingDoc.data().breed,
-            colour: listingDoc.data().colour,
-            age: listingDoc.data().age,
-            gender: listingDoc.data().gender,
-            size: listingDoc.data().size,
-            location: listingDoc.data().location,
-            price: listingDoc.data().price,
-            behaviour: listingDoc.data().behaviour,
-            health: listingDoc.data().health,
-            training: listingDoc.data().training,
-            additional: listingDoc.data().additionalInfo,
-            photo: listingDoc.data().photo_link,
-            uuid: listingDoc.data().uuid,
-          });
+        doc.forEach((listingDoc) => {
+                dataArray.push({
+                    accessoryName: listingDoc.data().name,
+                    category: listingDoc.data().category,
+                    type: listingDoc.data().type,
+                    price: listingDoc.data().price,
+                    photo: listingDoc.data().photoLink,
+                    docIdd: listingDoc.id,
+                  });
           this.setState({
             isLoading: false,
             data: [...dataArray],
@@ -151,7 +98,7 @@ export default class accessoryCateogries extends React.Component {
     this.setState({ searchText: searchText });
 
     let filteredData = this.state.data.filter(function (item) {
-      return item.petName.toLowerCase().includes(searchText.toLowerCase());
+      return item.accessoryName.toLowerCase().includes(searchText.toLowerCase());
     });
 
     this.setState({ filteredData: filteredData });
@@ -237,7 +184,7 @@ export default class accessoryCateogries extends React.Component {
             
             {this.state.filterDisplay ? (
               <FlatList
-                numColumns = {1}
+                numColumns = {2}
                 key={1}
                 showsVerticalScrollIndicator={false}
                 renderItem={({ item }) => (
@@ -275,7 +222,7 @@ export default class accessoryCateogries extends React.Component {
                       </View>
                     ) : (
                       <FlatList
-                        numColumns = {1}
+                        numColumns = {2}
                         key={1}
                         showsVerticalScrollIndicator={false}
                         renderItem={({ item }) => (

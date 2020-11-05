@@ -18,7 +18,7 @@ export default class sellPetProfile extends React.Component {
             <View>
                 <ScrollView>
                     {profileInfo(item)}
-                    <View style={{padding: 40}}></View>
+                    <View style={{padding: 10}}></View>
                 </ScrollView>
             </View>
         );
