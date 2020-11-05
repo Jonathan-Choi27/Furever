@@ -14,10 +14,11 @@ const db = firebase.firestore();
 export default class currentListings extends React.Component {
   state = {
     data: [],
+    temp: [],
     lists: null,
     isLoading: true,
     pullToRefresh: false,
-    limit: 6,
+    limit: 5,
     lastVisible: null,
   };
 
@@ -26,7 +27,7 @@ export default class currentListings extends React.Component {
 
     const uid = auth.currentUser.uid;
     //   .orderBy("timestamp")
-    let initialQuery = await db
+    let initialQuery = db
       .collection("pet_listings")
       .where("uuid", "==", uid)
       .orderBy("timestamp")
@@ -62,6 +63,7 @@ export default class currentListings extends React.Component {
       isLoading: false,
       data: [...dataArray],
     });
+
     // db.collection("pet_listings")
     //   .where("uuid", "==", user.uid)
     //   .get()
@@ -94,51 +96,117 @@ export default class currentListings extends React.Component {
     //   });
   }
 
-  async fetchMore() {
+  async fetchData() {
+    console.log("being fetching");
+    this.setState({
+      data: [],
+    });
     const dataArray = [];
-    console.log("fetch more!");
     const uid = auth.currentUser.uid;
-    let initialQuery = await db
-      .collection("pet_listings")
-      .where("uuid", "==", uid)
+
+    // retrieve list of references stored within users
+    const referenceData = await db
+      .collection("users")
+      .doc(uid)
+      .collection("sellList")
       .orderBy("timestamp")
-      .startAfter(this.state.lastVisible)
-      .limit(this.state.limit);
+      .limit(this.state.limit)
+      .get();
 
-    let documentSnapshots = await initialQuery.get();
+    var counter = 0;
+    let documentData = referenceData.forEach(async (referenceDoc) => {
+      // data can be retrieved by reference_object.get()
+      await referenceDoc
+        .data()
+        .list.get()
+        .then((snapshot) => {
+          console.log(snapshot.data().name);
+          dataArray.push({
+            petName: snapshot.data().name,
+            category: snapshot.data().category,
+            breed: snapshot.data().breed,
+            colour: snapshot.data().colour,
+            age: snapshot.data().age,
+            gender: snapshot.data().gender,
+            size: snapshot.data().size,
+            location: snapshot.data().location,
+            price: snapshot.data().price,
+            behaviour: snapshot.data().behaviour,
+            health: snapshot.data().health,
+            training: snapshot.data().training,
+            additionalInfo: snapshot.data().additionalInfo,
+            photo: snapshot.data().photo_link,
+            doc_id: snapshot.id,
+          });
+          this.state.data.push(dataArray.pop());
+        });
 
-    let documentData = documentSnapshots.docs.map((listingDoc) => {
-      dataArray.push({
-        petName: listingDoc.data().name,
-        category: listingDoc.data().category,
-        breed: listingDoc.data().breed,
-        colour: listingDoc.data().colour,
-        age: listingDoc.data().age,
-        gender: listingDoc.data().gender,
-        size: listingDoc.data().size,
-        location: listingDoc.data().location,
-        price: listingDoc.data().price,
-        behaviour: listingDoc.data().behaviour,
-        health: listingDoc.data().health,
-        training: listingDoc.data().training,
-        additional: listingDoc.data().additionalInfo,
-        photo: listingDoc.data().photo_link,
-        doc_id: listingDoc.id,
-      });
+      /* This code disables rendering 1 by 1 --> might be more efficient because it only updates
+    state once at the end */
+      //   if (referenceData.size - 1 == counter) {
+      //     this.setState({
+      //       data: [...dataArray],
+      //     });
+      //   }
+      //   counter++;
 
+      // Set last visible - gets overwritten so the last one is always stored.
       this.setState({
-        lastVisible: listingDoc.data().timestamp,
+        lastVisible: referenceDoc.data().timestamp,
       });
     });
+  }
 
-    this.setState({
-      // isLoading: false,
-      data: this.state.data.concat(dataArray),
+  async fetchMore() {
+    const dataArray = [];
+    const uid = auth.currentUser.uid;
+
+    // retrieve list of references stored within users
+    const referenceData = await db
+      .collection("users")
+      .doc(uid)
+      .collection("sellList")
+      .orderBy("timestamp")
+      .startAfter(this.state.lastVisible)
+      .limit(this.state.limit)
+      .get();
+
+    let documentData = referenceData.docs.map(async (referenceDoc) => {
+      // data can be retrieved by reference_object.get()
+      await referenceDoc
+        .data()
+        .list.get()
+        .then((snapshot) => {
+          dataArray.push({
+            petName: snapshot.data().name,
+            category: snapshot.data().category,
+            breed: snapshot.data().breed,
+            colour: snapshot.data().colour,
+            age: snapshot.data().age,
+            gender: snapshot.data().gender,
+            size: snapshot.data().size,
+            location: snapshot.data().location,
+            price: snapshot.data().price,
+            behaviour: snapshot.data().behaviour,
+            health: snapshot.data().health,
+            training: snapshot.data().training,
+            additionalInfo: snapshot.data().additionalInfo,
+            photo: snapshot.data().photo_link,
+            doc_id: snapshot.id,
+          });
+
+          this.setState({
+            data: this.state.data.concat(dataArray.pop()),
+          });
+        });
+      this.setState({
+        lastVisible: referenceDoc.data().timestamp,
+      });
     });
   }
 
   async componentDidMount() {
-    this.initialFetchData();
+    this.fetchData();
   }
 
   render() {
@@ -166,15 +234,17 @@ export default class currentListings extends React.Component {
           </View>
         </View>
 
+        <Button onPress={() => this.fetchMore()}> Fetch </Button>
         <View style={{ paddingTop: 7 }}>
           <FlatList
-            style={{ marginBottom: 50 }}
+            style={{ marginBottom: 100 }}
             showsVerticalScrollIndicator={false}
             onRefresh={async () => {
               this.setState({
                 pullToRefresh: true,
               });
-              await this.initialFetchData();
+              //   await this.initialFetchData();
+              this.fetchData();
               this.setState({
                 pullToRefresh: false,
               });
@@ -185,8 +255,8 @@ export default class currentListings extends React.Component {
               petSellListingCard(item, this.props.navigation)
             }
             keyExtractor={(item, index) => index.toString()}
-            onEndReached={() => this.fetchMore()}
-            onEndReachedThreshold={1}
+            // onEndReached={() => this.fetchMore()}
+            // onEndReachedThreshold={0.5}
           />
         </View>
       </View>

@@ -123,26 +123,26 @@ export default class sellApplication extends React.Component {
     this.priceValidator();
 
     var submit = true;
-    if (
-      this.nameValidator() == false ||
-      this.categoryValidator() == false ||
-      this.breedValidator() == false ||
-      this.colourValidator() == false ||
-      this.sizeValidator() == false ||
-      this.ageValidator() == false ||
-      this.genderValidator() == false ||
-      this.locationValidator() == false ||
-      this.behaviourValidator() == false ||
-      this.healthValidator() == false ||
-      this.trainingValidator() == false ||
-      this.additionalInfoValidator() == false ||
-      this.photoValidator() == false
-    ) {
-      alert("All input fields required and must be valid.");
-      submit = false;
-    } else {
-      submit = true;
-    }
+    // if (
+    //   this.nameValidator() == false ||
+    //   this.categoryValidator() == false ||
+    //   this.breedValidator() == false ||
+    //   this.colourValidator() == false ||
+    //   this.sizeValidator() == false ||
+    //   this.ageValidator() == false ||
+    //   this.genderValidator() == false ||
+    //   this.locationValidator() == false ||
+    //   this.behaviourValidator() == false ||
+    //   this.healthValidator() == false ||
+    //   this.trainingValidator() == false ||
+    //   this.additionalInfoValidator() == false ||
+    //   this.photoValidator() == false
+    // ) {
+    //   alert("All input fields required and must be valid.");
+    //   submit = false;
+    // } else {
+    //   submit = true;
+    // }
     return submit;
   };
 
@@ -175,27 +175,43 @@ export default class sellApplication extends React.Component {
       });
     }
 
-    db.collection("pet_listings").add({
-      uuid: user.uid,
-      name: this.state.name,
-      category: this.state.category,
-      breed: this.state.breed,
-      colour: this.state.colour,
-      age: this.state.age,
-      ageOption: this.state.ageOption,
-      gender: this.state.gender,
-      behaviour: this.state.behaviour,
-      health: this.state.health,
-      location: this.state.location,
-      suburb: this.state.suburb,
-      training: this.state.training,
-      photo_link: this.state.photo_link,
-      documents_link: this.state.documents_link,
-      price: this.state.price,
-      additionalInfo: this.state.additionalInfo,
-      size: this.state.size,
-      timestamp: firebase.firestore.Timestamp.now(),
-    });
+    // check this
+    db.collection("pet_listings")
+      .add({
+        uuid: user.uid,
+        name: this.state.name,
+        category: this.state.category,
+        breed: this.state.breed,
+        colour: this.state.colour,
+        age: this.state.age,
+        ageOption: this.state.ageOption,
+        gender: this.state.gender,
+        behaviour: this.state.behaviour,
+        health: this.state.health,
+        location: this.state.location,
+        suburb: this.state.suburb,
+        training: this.state.training,
+        photo_link: this.state.photo_link,
+        documents_link: this.state.documents_link,
+        price: this.state.price,
+        additionalInfo: this.state.additionalInfo,
+        size: this.state.size,
+        timestamp: firebase.firestore.Timestamp.now(),
+      })
+      .then((docRef) => {
+        db.collection("users").doc(user.uid).collection("sellList").add({
+          list: docRef,
+          timestamp: firebase.firestore.Timestamp.now(),
+        });
+        db.collection("categorizedPetListings")
+          .doc(this.state.category)
+          .collection(this.state.breed)
+          .add({
+            list: docRef,
+            timestamp: firebase.firestore.Timestamp.now(),
+          });
+      });
+
     alert("Application Successful!");
     this.props.navigation.goBack();
   };
@@ -536,264 +552,267 @@ export default class sellApplication extends React.Component {
 
   render() {
     return (
-        <ScrollView
-          keyboardShouldPersistTaps={"handled"}
-          showsVerticalScrollIndicator={false}
-          // style={globalStyles.scrollViewContentStyle}
-          >
-          <Card containerStyle={{ borderRadius: 10 }}>
-            <Text style={globalStyles.applicationHeading}>Seller Application</Text>
-            <Text style={globalStyles.cardHeading}>General Information</Text>
+      <ScrollView
+        keyboardShouldPersistTaps={"handled"}
+        showsVerticalScrollIndicator={false}
+        // style={globalStyles.scrollViewContentStyle}
+      >
+        <Card containerStyle={{ borderRadius: 10 }}>
+          <Text style={globalStyles.applicationHeading}>
+            Seller Application
+          </Text>
+          <Text style={globalStyles.cardHeading}>General Information</Text>
 
-            <CustomInput
-              label="Name"
-              placeholder="Please fill in the field"
-              onChangeText={(name) => this.setState({ name })}
-              errorMessage={this.state.nameErr}
-              leftIcon={
-                <Icon
-                  name="ios-paper"
-                  type="ionicon"
-                  color={darkGreen}
-                  containerStyle={{ paddingLeft: 7, paddingRight: 10 }}
-                />
-              }
-            />
-
-            <CategorySelection
-              setCategory={this.setCategory}
-              categoryErr={this.state.categoryErr}
-              setBreed={this.setBreed}
-              breedErr={this.state.breedErr}
-              setColour={this.setColour}
-              colourErr={this.state.colourErr}
-              setSize={this.setSize}
-              sizeErr={this.state.sizeErr}
-            />
-
-
-            <View style={{ marginHorizontal: 15, marginBottom: 20 }}>
-              <AgePicker
-                setAge={this.setAge}
-                setAgeOption={this.setAgeOption}
+          <CustomInput
+            label="Name"
+            placeholder="Please fill in the field"
+            onChangeText={(name) => this.setState({ name })}
+            errorMessage={this.state.nameErr}
+            leftIcon={
+              <Icon
+                name="ios-paper"
+                type="ionicon"
+                color={darkGreen}
+                containerStyle={{ paddingLeft: 7, paddingRight: 10 }}
               />
-              {!this.state.valid_age && (
-                <View style={{ marginLeft: 5, marginBottom: 5 }}>
-                  <Text style={{ fontSize: 12, color: "red" }}>Select age</Text>
-                </View>
-              )}
-            </View>
+            }
+          />
 
-            <View style={{ marginHorizontal: 10, marginBottom: 20 }}>
-              <Text
-                style={{ color: "#505050", fontWeight: "bold", fontSize: 16 }}>
-                  Gender
-              </Text>
+          <CategorySelection
+            setCategory={this.setCategory}
+            categoryErr={this.state.categoryErr}
+            setBreed={this.setBreed}
+            breedErr={this.state.breedErr}
+            setColour={this.setColour}
+            colourErr={this.state.colourErr}
+            setSize={this.setSize}
+            sizeErr={this.state.sizeErr}
+          />
 
-              <View style={globalStyles.formPickerOuterContainer}>
-                <View style={globalStyles.formPickerIconContainer}>
-                  <Icon name="ios-paper" type="ionicon" color={darkGreen} />
-                </View>
-                <View style={globalStyles.formPickerInnerContainer}>
-                  <Picker
-                    selectedValue={this.state.gender}
-                    onValueChange={(gender) => this.setState({ gender })}>
-                    <Picker.Item
-                      label="Select gender"
-                      value="0"
-                      color="#D3D3D3"
-                    />
-                    <Picker.Item label="Male" value="Male" />
-                    <Picker.Item label="Female" value="Female" />
-                  </Picker>
-                </View>
+          <View style={{ marginHorizontal: 15, marginBottom: 20 }}>
+            <AgePicker setAge={this.setAge} setAgeOption={this.setAgeOption} />
+            {!this.state.valid_age && (
+              <View style={{ marginLeft: 5, marginBottom: 5 }}>
+                <Text style={{ fontSize: 12, color: "red" }}>Select age</Text>
               </View>
+            )}
+          </View>
 
-              {!this.state.valid_gender && (
-                <View style={{ paddingLeft: 10 }}>
-                  <Text style={{ fontSize: 12, color: "red" }}>
-                    Select gender
-                  </Text>
-                </View>
-              )}
+          <View style={{ marginHorizontal: 10, marginBottom: 20 }}>
+            <Text
+              style={{ color: "#505050", fontWeight: "bold", fontSize: 16 }}>
+              Gender
+            </Text>
+
+            <View style={globalStyles.formPickerOuterContainer}>
+              <View style={globalStyles.formPickerIconContainer}>
+                <Icon name="ios-paper" type="ionicon" color={darkGreen} />
+              </View>
+              <View style={globalStyles.formPickerInnerContainer}>
+                <Picker
+                  selectedValue={this.state.gender}
+                  onValueChange={(gender) => this.setState({ gender })}>
+                  <Picker.Item
+                    label="Select gender"
+                    value="0"
+                    color="#D3D3D3"
+                  />
+                  <Picker.Item label="Male" value="Male" />
+                  <Picker.Item label="Female" value="Female" />
+                </Picker>
+              </View>
             </View>
 
-            <View style={{ marginHorizontal: 10, marginBottom: 20 }}>
-              <GooglePlacesInput set={this.setLocation} />
-              {!this.state.valid_location && (
-                <View style={{ paddingLeft: 10 }}>
-                  <Text style={{ fontSize: 12, color: "red", marginTop: 5 }}>
-                    Enter location
-                  </Text>
-                </View>
-              )}
-            </View>
+            {!this.state.valid_gender && (
+              <View style={{ paddingLeft: 10 }}>
+                <Text style={{ fontSize: 12, color: "red" }}>
+                  Select gender
+                </Text>
+              </View>
+            )}
+          </View>
 
-            {/* {!this.state.valid_location && (
+          <View style={{ marginHorizontal: 10, marginBottom: 20 }}>
+            <GooglePlacesInput set={this.setLocation} />
+            {!this.state.valid_location && (
+              <View style={{ paddingLeft: 10 }}>
+                <Text style={{ fontSize: 12, color: "red", marginTop: 5 }}>
+                  Enter location
+                </Text>
+              </View>
+            )}
+          </View>
+
+          {/* {!this.state.valid_location && (
               <View style={{ flex: 1 }}>
                 <Text style={styles.errorText}>Enter location</Text>
               </View>
             )} */}
 
-            <PriceSlider price={this.state.price} setPrice={this.setPrice} max={10000}/>
+          <PriceSlider
+            price={this.state.price}
+            setPrice={this.setPrice}
+            max={10000}
+          />
+        </Card>
 
-          </Card>
+        <Card containerStyle={{ borderRadius: 10 }}>
+          <Text style={globalStyles.cardHeading}>Behaviour</Text>
+          <CustomInput
+            placeholder="Please fill in the field"
+            onChangeText={(behaviour) => this.setState({ behaviour })}
+            errorMessage={this.state.behaviourErr}
+            multiline={true}
+            leftIcon={
+              <Icon
+                name="ios-paper"
+                type="ionicon"
+                color={darkGreen}
+                containerStyle={{ paddingLeft: 7, paddingRight: 10 }}
+              />
+            }
+          />
+        </Card>
 
-          <Card containerStyle={{ borderRadius: 10 }}>
-            <Text style={globalStyles.cardHeading}>Behaviour</Text>
-            <CustomInput
-              placeholder="Please fill in the field"
-              onChangeText={(behaviour) => this.setState({ behaviour })}
-              errorMessage={this.state.behaviourErr}
-              multiline={true}
-              leftIcon={
-                <Icon
-                  name="ios-paper"
-                  type="ionicon"
-                  color={darkGreen}
-                  containerStyle={{ paddingLeft: 7, paddingRight: 10 }}
-                />
-              }
-            />
-          </Card>
+        <Card containerStyle={{ borderRadius: 10 }}>
+          <Text style={globalStyles.cardHeading}>Care, Health and Feeding</Text>
+          <CustomInput
+            placeholder="Please fill in the field"
+            onChangeText={(health) => this.setState({ health })}
+            errorMessage={this.state.healthErr}
+            multiline={true}
+            leftIcon={
+              <Icon
+                name="ios-paper"
+                type="ionicon"
+                color={darkGreen}
+                containerStyle={{ paddingLeft: 7, paddingRight: 10 }}
+              />
+            }
+          />
+        </Card>
 
-          <Card containerStyle={{ borderRadius: 10 }}>
-            <Text style={globalStyles.cardHeading}>Care, Health and Feeding</Text>
-            <CustomInput
-              placeholder="Please fill in the field"
-              onChangeText={(health) => this.setState({ health })}
-              errorMessage={this.state.healthErr}
-              multiline={true}
-              leftIcon={
-                <Icon
-                  name="ios-paper"
-                  type="ionicon"
-                  color={darkGreen}
-                  containerStyle={{ paddingLeft: 7, paddingRight: 10 }}
-                />
-              }
-            />
-          </Card>
+        <Card containerStyle={{ borderRadius: 10 }}>
+          <Text style={globalStyles.cardHeading}>Training</Text>
+          <CustomInput
+            placeholder="Please fill in the field"
+            onChangeText={(training) => this.setState({ training })}
+            errorMessage={this.state.trainingErr}
+            multiline={true}
+            leftIcon={
+              <Icon
+                name="ios-paper"
+                type="ionicon"
+                color={darkGreen}
+                containerStyle={{ paddingLeft: 7, paddingRight: 10 }}
+              />
+            }
+          />
+        </Card>
 
-          <Card containerStyle={{ borderRadius: 10 }}>
-            <Text style={globalStyles.cardHeading}>Training</Text>
-            <CustomInput
-              placeholder="Please fill in the field"
-              onChangeText={(training) => this.setState({ training })}
-              errorMessage={this.state.trainingErr}
-              multiline={true}
-              leftIcon={
-                <Icon
-                  name="ios-paper"
-                  type="ionicon"
-                  color={darkGreen}
-                  containerStyle={{ paddingLeft: 7, paddingRight: 10 }}
-                />
-              }
-            />
-          </Card>
+        <Card containerStyle={{ borderRadius: 10 }}>
+          <Text style={globalStyles.cardHeading}>Additional Information</Text>
+          <CustomInput
+            placeholder="Please fill in the field"
+            onChangeText={(additionalInfo) => this.setState({ additionalInfo })}
+            errorMessage={this.state.additionalInfoErr}
+            multiline={true}
+            leftIcon={
+              <Icon
+                name="ios-paper"
+                type="ionicon"
+                color={darkGreen}
+                containerStyle={{ paddingLeft: 7, paddingRight: 10 }}
+              />
+            }
+          />
+        </Card>
 
-          <Card containerStyle={{ borderRadius: 10 }}>
-            <Text style={globalStyles.cardHeading}>Additional Information</Text>
-            <CustomInput
-              placeholder="Please fill in the field"
-              onChangeText={(additionalInfo) =>
-                this.setState({ additionalInfo })
-              }
-              errorMessage={this.state.additionalInfoErr}
-              multiline={true}
-              leftIcon={
-                <Icon
-                  name="ios-paper"
-                  type="ionicon"
-                  color={darkGreen}
-                  containerStyle={{ paddingLeft: 7, paddingRight: 10 }}
-                />
-              }
-            />
-          </Card>
-
-          <Card containerStyle={{ borderRadius: 10 }}>
-            <View style={{ marginBottom: 10 }}>
-              <View
-                style={{
-                  flexDirection: "row",
-                  marginHorizontal: 10,
-                  marginBottom: 10,
-                }}>
-                <View
-                  style={{ flex: 1, flexDirection: "row", paddingBottom: 3 }}>
-                  <Text style={globalStyles.applicationInputName}>Upload a Photo</Text>
-                  <Text style={globalStyles.setColorRed}> *</Text>
+        <Card containerStyle={{ borderRadius: 10 }}>
+          <View style={{ marginBottom: 10 }}>
+            <View
+              style={{
+                flexDirection: "row",
+                marginHorizontal: 10,
+                marginBottom: 10,
+              }}>
+              <View style={{ flex: 1, flexDirection: "row", paddingBottom: 3 }}>
+                <Text style={globalStyles.applicationInputName}>
+                  Upload a Photo
+                </Text>
+                <Text style={globalStyles.setColorRed}> *</Text>
+              </View>
+              {!this.state.valid_uri && (
+                <View style={{ flex: 1 }}>
+                  <Text style={globalStyles.applicationErrorText}>
+                    Choose a photo
+                  </Text>
                 </View>
-                {!this.state.valid_uri && (
-                  <View style={{ flex: 1 }}>
-                    <Text style={globalStyles.applicationErrorText}>Choose a photo</Text>
-                  </View>
-                )}
-              </View>
+              )}
+            </View>
 
-              <View
+            <View
+              style={{
+                alignContent: "center",
+                alignItems: "center",
+                //   borderWidth: 2,
+                //   borderColor: "#D3D3D3",
+                marginHorizontal: 10,
+              }}>
+              <Image
+                style={{ height: 300, width: screenWidth - 92 }}
+                source={{ uri: this.state.photo_uri }}
+              />
+            </View>
+
+            <Button
+              style={{
+                marginTop: 10,
+                backgroundColor: green,
+                marginHorizontal: 10,
+              }}
+              onPress={this.setPhotoUri}>
+              <Text
                 style={{
-                  alignContent: "center",
-                  alignItems: "center",
-                  //   borderWidth: 2,
-                  //   borderColor: "#D3D3D3",
-                  marginHorizontal: 10,
+                  color: "white",
                 }}>
-                <Image
-                  style={{ height: 300, width: screenWidth - 92 }}
-                  source={{ uri: this.state.photo_uri }}
-                />
-              </View>
-
-              <Button
-                style={{
-                  marginTop: 10,
-                  backgroundColor: green,
-                  marginHorizontal: 10,
-                }}
-                onPress={this.setPhotoUri}>
-                <Text
-                  style={{
-                    color: "white",
-                  }}>
-                  Choose Photo
-                </Text>
-              </Button>
-            </View>
-            </Card>
-
-            <Card containerStyle={{ borderRadius: 10 }}>
-            <View style={{ marginHorizontal: 10 }}>
-              <View style={{ marginBottom: 10 }}>
-                <Text style={globalStyles.applicationInputName}>Upload Documents</Text>
-              </View>
-              <Button
-                style={{
-                  backgroundColor: green,
-                }}
-                onPress={this.setDocumentUri}>
-                <Text
-                  style={{
-                    color: "white",
-                  }}>
-                  Choose Document
-                </Text>
-              </Button>
-            </View>
-          </Card>
-
-          <View style={globalStyles.applicationButtonsContainer}>
-            <TouchableOpacity
-              title={"submit"}
-              style={globalStyles.buttons}
-              onPress={this.handleSubmit}>
-              <Text style={globalStyles.buttonsText}>Submit</Text>
-            </TouchableOpacity>
+                Choose Photo
+              </Text>
+            </Button>
           </View>
-          
-        </ScrollView>
+        </Card>
+
+        <Card containerStyle={{ borderRadius: 10 }}>
+          <View style={{ marginHorizontal: 10 }}>
+            <View style={{ marginBottom: 10 }}>
+              <Text style={globalStyles.applicationInputName}>
+                Upload Documents
+              </Text>
+            </View>
+            <Button
+              style={{
+                backgroundColor: green,
+              }}
+              onPress={this.setDocumentUri}>
+              <Text
+                style={{
+                  color: "white",
+                }}>
+                Choose Document
+              </Text>
+            </Button>
+          </View>
+        </Card>
+
+        <View style={globalStyles.applicationButtonsContainer}>
+          <TouchableOpacity
+            title={"submit"}
+            style={globalStyles.buttons}
+            onPress={this.handleSubmit}>
+            <Text style={globalStyles.buttonsText}>Submit</Text>
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
     );
   }
 }
