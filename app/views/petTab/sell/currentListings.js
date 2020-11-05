@@ -90,7 +90,6 @@ export default class currentListings extends React.Component {
     });
   }
 
-  // todo make it so cant fetch whilst fetching
   async fetchMore() {
     if (!this.state.isFetchingMore) {
       this.setState({
