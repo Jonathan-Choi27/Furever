@@ -21,6 +21,7 @@ import currentApplications from "./buy/currentApplications";
 import breedList from "./buy/breedList";
 import breedInfo from "./buy/breedInfo";
 import buyPetProfile from "./buy/buyPetProfile";
+import { darkGreen } from "../styleSheet/styleSheet";
 
 const Stack = createStackNavigator();
 // const PetNavigator = StackNav
@@ -28,7 +29,12 @@ const Tab = createMaterialTopTabNavigator();
 
 function PetTab() {
   return (
-    <Tab.Navigator>
+    <Tab.Navigator tabBarOptions={{
+        indicatorStyle: {backgroundColor : darkGreen},
+        activeTintColor : darkGreen,
+        inactiveTintColor: "#cccccc",
+    }}
+    >
       <Tab.Screen name="Buy" component={BuyTab} />
       <Tab.Screen name="Sell" component={currentListings} />
     </Tab.Navigator>

@@ -158,7 +158,7 @@ export default class buyApplication extends React.Component {
 
     if (bool) {
       this.pushData();
-      alert("Application Successful!");
+    //   alert("Application Successful!");
       this.props.navigation.goBack();
     }
   };
