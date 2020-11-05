@@ -18,8 +18,9 @@ export default class currentListings extends React.Component {
     temp: [],
     lists: null,
     isLoading: true,
+    isFetchingMore: false,
     pullToRefresh: false,
-    limit: 5,
+    limit: 10,
     lastVisible: null,
     filteredData: [],
     searchText: "",
@@ -88,53 +89,62 @@ export default class currentListings extends React.Component {
 
   // todo make it so cant fetch whilst fetching
   async fetchMore() {
-    console.log("fetch more");
-    const dataArray = [];
-    const uid = auth.currentUser.uid;
+    if (!this.state.isFetchingMore) {
+      this.setState({
+        isFetchingMore: true,
+      });
+      console.log("fetch more");
+      const dataArray = [];
+      const uid = auth.currentUser.uid;
 
-    // retrieve list of references stored within users
-    const referenceData = await db
-      .collection("users")
-      .doc(uid)
-      .collection("sellList")
-      .orderBy("timestamp")
-      .startAfter(this.state.lastVisible)
-      .limit(this.state.limit)
-      .get();
+      // retrieve list of references stored within users
+      const referenceData = await db
+        .collection("users")
+        .doc(uid)
+        .collection("sellList")
+        .orderBy("timestamp")
+        .startAfter(this.state.lastVisible)
+        .limit(this.state.limit)
+        .get();
 
-    let documentData = referenceData.docs.map(async (referenceDoc) => {
-      // data can be retrieved by reference_object.get()
-      await referenceDoc
-        .data()
-        .list.get()
-        .then((snapshot) => {
-          dataArray.push({
-            petName: snapshot.data().name,
-            category: snapshot.data().category,
-            breed: snapshot.data().breed,
-            colour: snapshot.data().colour,
-            age: snapshot.data().age,
-            gender: snapshot.data().gender,
-            size: snapshot.data().size,
-            location: snapshot.data().location,
-            price: snapshot.data().price,
-            behaviour: snapshot.data().behaviour,
-            health: snapshot.data().health,
-            training: snapshot.data().training,
-            additionalInfo: snapshot.data().additionalInfo,
-            photo: snapshot.data().photo_link,
-            doc_id: snapshot.id,
+      let documentData = referenceData.docs.map(async (referenceDoc) => {
+        // data can be retrieved by reference_object.get()
+        await referenceDoc
+          .data()
+          .list.get()
+          .then((snapshot) => {
+            dataArray.push({
+              petName: snapshot.data().name,
+              category: snapshot.data().category,
+              breed: snapshot.data().breed,
+              colour: snapshot.data().colour,
+              age: snapshot.data().age,
+              gender: snapshot.data().gender,
+              size: snapshot.data().size,
+              location: snapshot.data().location,
+              price: snapshot.data().price,
+              behaviour: snapshot.data().behaviour,
+              health: snapshot.data().health,
+              training: snapshot.data().training,
+              additionalInfo: snapshot.data().additionalInfo,
+              photo: snapshot.data().photo_link,
+              doc_id: snapshot.id,
+            });
+
+            this.setState({
+              data: this.state.data.concat(dataArray.pop()),
+            });
           });
 
-          this.setState({
-            data: this.state.data.concat(dataArray.pop()),
-          });
+        this.setState({
+          lastVisible: referenceDoc.data().timestamp,
         });
+      });
 
       this.setState({
-        lastVisible: referenceDoc.data().timestamp,
+        isFetchingMore: false,
       });
-    });
+    }
   }
 
   async componentDidMount() {
@@ -242,8 +252,8 @@ export default class currentListings extends React.Component {
               </View>
             ) : (
               <View style={{ paddingTop: 7, paddingBottom: 60 }}>
-                {/* <FlatList
-                  style={{ marginBottom: 100 }}
+                <FlatList
+                  style={{ marginBottom: 20 }}
                   showsVerticalScrollIndicator={false}
                   numColumns={1}
                   key={1}
@@ -252,7 +262,7 @@ export default class currentListings extends React.Component {
                       pullToRefresh: true,
                     });
                     //   await this.initialFetchData();
-                    this.fetchData();
+                    await this.fetchData();
                     this.setState({
                       pullToRefresh: false,
                     });
@@ -269,7 +279,7 @@ export default class currentListings extends React.Component {
                       ? this.state.filteredData
                       : this.state.data
                   }
-                /> */}
+                />
               </View>
             )}
           </View>
