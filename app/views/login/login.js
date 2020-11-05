@@ -3,7 +3,7 @@ import { auth, db } from "../database/firebase";
 import { Text, View, TouchableOpacity, Image } from "react-native";
 import { Input } from "react-native-elements";
 import styles from "../styleSheet/styleSheet";
-import { darkGreen, green } from "../styleSheet/styleSheet";
+import { darkGreen } from "../styleSheet/styleSheet";
 
 export default class Login extends React.Component {
   state = {
@@ -37,21 +37,8 @@ export default class Login extends React.Component {
           alert("Email address is not verified.");
         }
       })
-      .catch((err) => {
-        switch (err.code) {
-          case "auth/invalid-email":
-            alert("Email address is invalid.");
-            break;
-          case "auth/user-disabled":
-            alert("User is disabled.");
-            break;
-          case "auth/user-not-found":
-            alert("User is not found.");
-            break;
-          case "auth/wrong-password":
-            alert("Password is invalid.");
-            break;
-        }
+      .catch((error) => {
+        alert(error);
       });
     this.setState({ email: "" });
     this.setState({ password: "" });
@@ -64,7 +51,7 @@ export default class Login extends React.Component {
         alert(`A password reset email has been sent to ${email}`);
       })
       .catch((error) => {
-        console.error(error);
+        alert(error);
       });
   }
 
@@ -120,7 +107,6 @@ export default class Login extends React.Component {
           >
             FORGOT PASSWORD?
           </Text>
-
           <Text
             style={styles.loginTitle2}
             onPress={() => this.props.navigation.replace("Sign Up")}

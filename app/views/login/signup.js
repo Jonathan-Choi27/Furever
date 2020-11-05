@@ -1,20 +1,11 @@
 import React from "react";
-import {
-  Text,
-  View,
-  StyleSheet,
-  TextInput,
-  TouchableOpacity,
-  ScrollView,
-  SafeAreaView,
-  Image,
-} from "react-native";
+import { Text, View, TouchableOpacity, Image } from "react-native";
 import { CheckBox } from "react-native-elements";
 import firebase from "firebase";
 import { db } from "../database/firebase";
 import { Input } from "react-native-elements";
 import styles from "../styleSheet/styleSheet";
-import { darkGreen, green } from "../styleSheet/styleSheet";
+import { darkGreen } from "../styleSheet/styleSheet";
 
 export default class SignUp extends React.Component {
   state = {
@@ -106,22 +97,7 @@ export default class SignUp extends React.Component {
             });
         })
         .catch((error) => {
-          switch (error.code) {
-            case "auth/email-already-in-use":
-              alert(`Email address ${this.state.email} already in use.`);
-              break;
-            case "auth/invalid-email":
-              alert("Email address is invalid.");
-              break;
-            case "auth/operation-not-allowed":
-              alert("Error during sign up.");
-              break;
-            case "auth/weak-password":
-              alert(
-                "Password is not strong enough. Add additional characters including special characters and numbers."
-              );
-              break;
-          }
+          alert(error);
         });
     }
   };
@@ -230,7 +206,6 @@ export default class SignUp extends React.Component {
           onPress={() => this.setState({ isPetShop: !this.state.isPetShop })}
           size={20}
           styles={{ marginBottom: 0 }}
-          // containerStyle = {{paddingBottom: 0}}
         />
 
         <TouchableOpacity style={styles.landingButtons} onPress={this.submit}>
