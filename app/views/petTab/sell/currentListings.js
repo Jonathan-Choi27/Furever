@@ -67,6 +67,9 @@ export default class currentListings extends React.Component {
             additionalInfo: snapshot.data().additionalInfo,
             photo: snapshot.data().photo_link,
             doc_id: snapshot.id,
+            selfRef: snapshot.data().selfRef,
+            userSellListRef: snapshot.data().userSellListRef,
+            categorizedListingsRef: snapshot.data().categorizedListingsRef,
           });
           this.state.data.push(dataArray.pop());
         });
@@ -128,6 +131,9 @@ export default class currentListings extends React.Component {
               training: snapshot.data().training,
               additionalInfo: snapshot.data().additionalInfo,
               photo: snapshot.data().photo_link,
+              selfRef: snapshot,
+              userSellListRef: snapshot.data().userSellListRef,
+              categorizedListingsRef: snapshot.data().categorizedListingsRef,
               doc_id: snapshot.id,
             });
 
