@@ -16,7 +16,7 @@ import {
     Button,
 } from "react-native-paper";
 import globalStyles, { darkGreen, green, lightGreen, lightGrey, orange, lightBlue } from "../styleSheet/styleSheet";
-
+import { addItemToCart } from "../components/shopComponents";
 
 
 export default class shopProfile extends React.Component {
@@ -28,6 +28,7 @@ export default class shopProfile extends React.Component {
         profileText: "",
         photo: "",
         quantity: 0,
+        items: [],
      };
      
     async fetchData() {
@@ -51,12 +52,20 @@ export default class shopProfile extends React.Component {
     async componentDidMount() {
         this.fetchData();
     };
+
+    
+    pushItem(item) {
+        const itemsArray = [];
+        itemsArray.push(item);
+        this.setState({items: [...itemsArray]});
+    }
     
     render() {
         const item = this.props.route.params.item;
-        console.log(item);
+        console.log(item.docId);
         return (
             <View style={{paddingBottom: 50}}>
+                {/* {onCartTab(this.state.items, this.props.navigation)} */}
                 <ScrollView>
                     {profileInfo(item)}
                     {sellerInfo(this.state, this.props.navigation)}
@@ -80,13 +89,14 @@ export default class shopProfile extends React.Component {
                             }}
                             mode="contained"
                             // onPress={() => navigation.navigate("sellerProfile", { seller })}
+                            onPress={() => addItemToCart(item.docId)}
                         >
                             <Text style={{
                             color: "#ffffff",
                             fontSize: 12,
                             padding: 5,
                             fontWeight: "bold"
-                            }}>
+                            }} >
                             Add To Cart
                                 </Text>
                         </Button>

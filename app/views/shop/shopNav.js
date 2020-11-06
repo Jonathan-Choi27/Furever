@@ -9,6 +9,8 @@ import accessoryCategories from "./accessoryCategories";
 import petCategories from "./petCategories";
 import accessoryList from "./accessoryList";
 import shopProfile from "./shopProfile";
+import Cart from "./Cart";
+
 
 const Stack = createStackNavigator();
 
@@ -40,6 +42,7 @@ export default function PetNav() {
         <Stack.Screen name="accessoryListingApplication" component={accessoryListingApplication} />
         <Stack.Screen name="accessoryList" component={accessoryList} />
         <Stack.Screen name="shopProfile" component={shopProfile} />
+        <Stack.Screen name="Cart" component={Cart} />
 
       </Stack.Navigator>
     </NavigationContainer>

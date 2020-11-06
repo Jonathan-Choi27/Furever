@@ -54,7 +54,7 @@ export default class accessoryList extends React.Component {
                     type: listingDoc.data().type,
                     price: listingDoc.data().price,
                     photo: listingDoc.data().photoLink,
-                    docIdd: listingDoc.id,
+                    docId: listingDoc.id,
                   });
           this.setState({
             isLoading: false,

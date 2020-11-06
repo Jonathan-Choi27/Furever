@@ -487,4 +487,12 @@ export default StyleSheet.create({
     color: "white",
     fontWeight: "bold",
   },
+
+  // cart icon and sell accessories button
+  cartContainer: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-between",
+  }
+
 });

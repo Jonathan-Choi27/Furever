@@ -59,6 +59,8 @@ import {onBuyTab} from "../components/petTabComponents";
 import globalStyles from "../styleSheet/styleSheet";
 import { darkGreen, green, lightGreen, lightGrey, orange, lightBlue } from "../styleSheet/styleSheet";
 import { shopAccessoryCard, accessoryCategory } from "../components/shopComponents";
+import { cartTab } from "../components/shopTabComponent";
+import { MaterialIcons, AntDesign, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 
 export default class accessoryCateogries extends React.Component {
 
@@ -118,6 +120,7 @@ export default class accessoryCateogries extends React.Component {
             additional: listingDoc.data().additionalInfo,
             photo: listingDoc.data().photo_link,
             uuid: listingDoc.data().uuid,
+            items: [],
           });
           this.setState({
             isLoading: false,
@@ -169,6 +172,7 @@ export default class accessoryCateogries extends React.Component {
     }
     return (
       <Provider>
+          {/* {onCartTab(this.state.items, this.props.navigation)} */}
           <View style={globalStyles.petContainer}>
             <View
               style={globalStyles.searchFilterContainer}
@@ -192,23 +196,25 @@ export default class accessoryCateogries extends React.Component {
                 Filter
               </Button>
             </View>
-            <View style={{ height: 52 }}>
-            <TouchableOpacity
-              style={globalStyles.viewApplication}
-              // onPress={() =>
-              //  this.props.navigation.replace( /*Appropriate link*/)
-              // }
-              >
-              <Text
-                style={{
-                  textAlign: "center",
-                  color: "white",
-                  fontWeight: "bold",
-                }}>
-                Sell Accessories
-              </Text>
-            </TouchableOpacity>
-          </View>
+            <View style={{height: 52, flexDirection: 'row', justifyContent: 'space-between', paddingLeft: 10}}>
+              <TouchableOpacity
+                style={[globalStyles.viewApplication]}
+                // onPress={() =>
+                //  this.props.navigation.replace( /*Appropriate link*/)
+                // }
+                >
+                <Text
+                  style={{
+                    textAlign: "center",
+                    color: "white",
+                    fontWeight: "bold",
+                  }}>
+                  Sell Accessories
+                </Text>
+              </TouchableOpacity>
+              {cartTab(this.state.items, this.props.navigation)}
+            
+            </View>
             <ScrollView showsVerticalScrollIndicator={false}>
             <Portal>
               <Modal
