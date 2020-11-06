@@ -74,11 +74,11 @@ export default class sellApplication extends React.Component {
       training: "",
       additionalInfo: "",
       documents: "",
-      photo_link: "",
+      photoLink: "",
       photo_uri: emptyImage,
       photo_uuid: "",
       documents_uri: "",
-      documents_link: "",
+      documentsLink: "",
       seller_name: "",
       size: "",
     };
@@ -156,7 +156,7 @@ export default class sellApplication extends React.Component {
     );
 
     this.setState({
-      photo_link: photoURL,
+      photoLink: photoURL,
     });
 
     // only upload document if document selected
@@ -171,12 +171,12 @@ export default class sellApplication extends React.Component {
       );
 
       this.setState({
-        documents_link: documentURL,
+        documentsLink: documentURL,
       });
     }
 
     // Timestamp is used as a key to sort
-    db.collection("pet_listings")
+    db.collection("petListings")
       .add({
         uuid: user.uid,
         name: this.state.name,
@@ -191,8 +191,8 @@ export default class sellApplication extends React.Component {
         location: this.state.location,
         suburb: this.state.suburb,
         training: this.state.training,
-        photo_link: this.state.photo_link,
-        documents_link: this.state.documents_link,
+        photoLink: this.state.photoLink,
+        documentsLink: this.state.documentsLink,
         price: this.state.price,
         additionalInfo: this.state.additionalInfo,
         size: this.state.size,

@@ -80,7 +80,7 @@ export default class updateSellApplication extends React.Component {
       // additionalInfo: "",
       // documents: "",
       //photo
-      // photo_link: "",
+      // photoLink: "",
       photo_uri: "",
       photo_uuid: "",
       documents_uri: "",
@@ -93,7 +93,7 @@ export default class updateSellApplication extends React.Component {
 
   componentDidMount = async () => {
     await db
-      .collection("pet_listings")
+      .collection("petListings")
       .doc(this.props.route.params.doc_id)
       .get()
       .then((doc) => {
@@ -112,7 +112,7 @@ export default class updateSellApplication extends React.Component {
           health: doc.data().health,
           training: doc.data().training,
           additionalInfo: doc.data().additionalInfo,
-          photo_uri: doc.data().photo_link,
+          photo_uri: doc.data().photoLink,
           documents: doc.data().documents,
         });
         // this.state.name = await doc.data().name;
@@ -451,13 +451,13 @@ export default class updateSellApplication extends React.Component {
         this.state.photo_uuid
       );
       this.setState({
-        photo_link: photoURL,
+        photoLink: photoURL,
       });
     }
     if (this.state.documents_uri !== "") {
       uploadDocument(this.state.documents_uri, this.state.documents);
     }
-    db.collection("pet_listings").doc(this.props.route.params.doc_id).update({
+    db.collection("petListings").doc(this.props.route.params.doc_id).update({
       uuid: user.uid,
       name: this.state.name,
       category: this.state.category,
@@ -471,7 +471,7 @@ export default class updateSellApplication extends React.Component {
       location: this.state.location,
       suburb: this.state.suburb,
       training: this.state.training,
-      photo_link: this.state.photo_link,
+      photoLink: this.state.photoLink,
       documents: this.state.documents,
       documents_uri: this.state.documents_uri,
       price: this.state.price,
@@ -492,7 +492,7 @@ export default class updateSellApplication extends React.Component {
     //   this.behaviour_regex(this.state.behaviour) == false ||
     //   this.health_regex(this.state.health) == false ||
     //   this.training_regex(this.state.training) == false ||
-    //   this.state.photo_link == ""
+    //   this.state.photoLink == ""
     // ) {
     //   alert("All input fields required and must be valid.");
     //   this.check_valid_name();
@@ -503,7 +503,7 @@ export default class updateSellApplication extends React.Component {
     //   this.check_valid_health();
     //   this.check_valid_training();
     //   if (
-    //     this.state.photo_link == "" &&
+    //     this.state.photoLink == "" &&
     //     (this.state.photo_uri == "" || this.state.photo_uri == null)
     //   ) {
     //     this.setState({
@@ -523,7 +523,7 @@ export default class updateSellApplication extends React.Component {
     //     );
 
     //     this.setState({
-    //       photo_link: photoURL,
+    //       photoLink: photoURL,
     //     });
     //   }
 
@@ -531,7 +531,7 @@ export default class updateSellApplication extends React.Component {
     //     uploadDocument(this.state.documents_uri, this.state.documents);
     //   }
 
-    //   db.collection("pet_listings").doc(this.props.route.params.doc_id).update({
+    //   db.collection("petListings").doc(this.props.route.params.doc_id).update({
     //     uuid: user.uid,
     //     name: this.state.name,
     //     category: this.state.category,
@@ -543,7 +543,7 @@ export default class updateSellApplication extends React.Component {
     //     health: this.state.health,
     //     location: this.state.location,
     //     training: this.state.training,
-    //     photo_link: this.state.photo_link,
+    //     photoLink: this.state.photoLink,
     //     documents: this.state.documents,
     //     documents_uri: this.state.documents_uri,
     //     price: this.state.price,

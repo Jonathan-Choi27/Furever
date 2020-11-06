@@ -27,42 +27,47 @@ export default class buySellerProfile extends React.Component {
     async fetchData() {
         const dataArray = [];
         const seller = this.props.route.params.seller;
-        db.collection("pet_listings")
-            .where("uuid", "==", seller.sellerId)
+        db.collection("users")
+            .doc(seller.sellerId)
+            .collection("sellList")
             .get()
             .then((doc) => {
-                doc.forEach(async (listingDoc) => {
-                    dataArray.push({
-                        sellerName: seller.name,
-                        sellerPhoto: seller.photo,
-                        sellerInfo: seller.profileText,
-                        sellerEmail: seller.email,
-                        sellerDob: seller.dob,
-                        petName: listingDoc.data().name,
-                        category: listingDoc.data().category,
-                        breed: listingDoc.data().breed,
-                        colour: listingDoc.data().colour,
-                        age: listingDoc.data().age,
-                        ageOption: listingDoc.data().ageOption,
-                        gender: listingDoc.data().gender,
-                        size: listingDoc.data().size,
-                        location: listingDoc.data().location,
-                        suburb: listingDoc.data().suburb,
-                        price: listingDoc.data().price,
-                        behaviour: listingDoc.data().behaviour,
-                        health: listingDoc.data().health,
-                        training: listingDoc.data().training,
-                        additional: listingDoc.data().additionalInfo,
-                        photo: listingDoc.data().photo_link,
-                        doc_id: listingDoc.id,
-                        uuid: listingDoc.data().uuid,
-                    });
-                    this.setState({
-                        isLoading: false,
-                        data: [...dataArray],
-                    });
-                });
-            });
+                doc.forEach(async (refDoc) => {
+                    refDoc.data().list
+                        .get()
+                        .then(async (listingDoc) => {
+                            dataArray.push({
+                                sellerName: seller.name,
+                                sellerPhoto: seller.photo,
+                                sellerInfo: seller.profileText,
+                                sellerEmail: seller.email,
+                                sellerDob: seller.dob,
+                                petName: listingDoc.data().name,
+                                category: listingDoc.data().category,
+                                breed: listingDoc.data().breed,
+                                colour: listingDoc.data().colour,
+                                age: listingDoc.data().age,
+                                ageOption: listingDoc.data().ageOption,
+                                gender: listingDoc.data().gender,
+                                size: listingDoc.data().size,
+                                location: listingDoc.data().location,
+                                suburb: listingDoc.data().suburb,
+                                price: listingDoc.data().price,
+                                behaviour: listingDoc.data().behaviour,
+                                health: listingDoc.data().health,
+                                training: listingDoc.data().training,
+                                additional: listingDoc.data().additionalInfo,
+                                photo: listingDoc.data().photoLink,
+                                doc_id: listingDoc.id,
+                                uuid: listingDoc.data().uuid,
+                            });
+                            this.setState({
+                                isLoading: false,
+                                data: [...dataArray],
+                            });
+                        })
+                })
+            })
     }
 
     async componentDidMount() {

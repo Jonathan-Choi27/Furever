@@ -27,80 +27,69 @@ export default class breedList extends React.Component {
     searchText: "",
     visible: false,
     pullToRefresh: false,
-    breedDescription: "",
-    breedDescriptionImage: "",
   };
 
   async fetchData() {
     const dataArray = [];
     const seller = {};
-    const breedName = this.props.route.params.item.breed;
-    db.collection("pet_listings")
-      .where("breed", "==", breedName)
+    const breedName = this.props.route.params.item.breedName;
+    const category = this.props.route.params.category;
+    db.collection("categorizedPetListings")
+      .doc(category)
+      .collection(breedName)
       .get()
       .then((doc) => {
-        doc.forEach(async (listingDoc) => {
-          var uuid = listingDoc.data().uuid;
-          await db
-            .collection("users")
-            .doc(uuid)
+        doc.forEach(async (refDoc) => {
+          refDoc.data().list
             .get()
-            .then((user_doc) => {
-              seller["name"] = user_doc.data().name;
-              seller["photo"] = user_doc.data().photo;
-              seller["info"] = user_doc.data().profileText;
-              seller["email"] = user_doc.data().email;    
-              seller["dob"] = user_doc.data().dob;    
-            });
-          dataArray.push({
-            sellerName: seller.name,
-            sellerPhoto: seller.photo,
-            sellerInfo: seller.info,
-            sellerEmail: seller.email,
-            sellerDob: seller.dob,
-            petName: listingDoc.data().name,
-            category: listingDoc.data().category,
-            breed: listingDoc.data().breed,
-            colour: listingDoc.data().colour,
-            age: listingDoc.data().age,
-            ageOption: listingDoc.data().ageOption,
-            gender: listingDoc.data().gender,
-            size: listingDoc.data().size,
-            location: listingDoc.data().location,
-            suburb: listingDoc.data().suburb,
-            price: listingDoc.data().price,
-            behaviour: listingDoc.data().behaviour,
-            health: listingDoc.data().health,
-            training: listingDoc.data().training,
-            additional: listingDoc.data().additionalInfo,
-            photo: listingDoc.data().photo_link,
-            doc_id: listingDoc.id,
-            uuid: listingDoc.data().uuid,
-          });
-          this.setState({
-            isLoading: false,
-            data: [...dataArray],
-          });
-          delete seller.name;
-          delete seller.photo;
-          delete seller.info;
-        });
-      });
-
-      const categoryId = this.props.route.params.categoryId;
-      const breedId = this.props.route.params.item.breedId;
-      var result = db.collection("petCategories")
-        .doc(categoryId)
-        .collection("breed")
-        .doc(breedId)
-        .get()
-        .then((doc) => {
-          this.setState({
-            isLoading: false,
-            breedDescription: doc.data().description,
-            breedDescriptionImage: doc.data().descriptionImage,
-        });
-      });
+            .then(async (listingDoc) => {
+              var uuid = listingDoc.data().uuid;
+              await db
+                .collection("users")
+                .doc(uuid)
+                .get()
+                .then((user_doc) => {
+                  seller["name"] = user_doc.data().name;
+                  seller["photo"] = user_doc.data().photo;
+                  seller["info"] = user_doc.data().profileText;
+                  seller["email"] = user_doc.data().email;    
+                  seller["dob"] = user_doc.data().dob;    
+                });
+              dataArray.push({
+                sellerName: seller.name,
+                sellerPhoto: seller.photo,
+                sellerInfo: seller.info,
+                sellerEmail: seller.email,
+                sellerDob: seller.dob,
+                petName: listingDoc.data().name,
+                category: listingDoc.data().category,
+                breed: listingDoc.data().breed,
+                colour: listingDoc.data().colour,
+                age: listingDoc.data().age,
+                ageOption: listingDoc.data().ageOption,
+                gender: listingDoc.data().gender,
+                size: listingDoc.data().size,
+                location: listingDoc.data().location,
+                suburb: listingDoc.data().suburb,
+                price: listingDoc.data().price,
+                behaviour: listingDoc.data().behaviour,
+                health: listingDoc.data().health,
+                training: listingDoc.data().training,
+                additional: listingDoc.data().additionalInfo,
+                photo: listingDoc.data().photoLink,
+                doc_id: listingDoc.id,
+                uuid: listingDoc.data().uuid,
+              });
+              this.setState({
+                isLoading: false,
+                data: [...dataArray],
+              });
+              delete seller.name;
+              delete seller.photo;
+              delete seller.info;
+            })
+        })
+      })
   }
 
   async componentDidMount() {
@@ -140,18 +129,18 @@ export default class breedList extends React.Component {
             >
               <Card elevation={5} style={{ margin: 10 }}>
                 <Card.Cover
-                  source={{ uri: this.state.breedDescriptionImage }}
+                  source={{ uri: item.descriptionImage }}
                   resizeMode={`cover`}
                 />
-                <Card.Title title={item.breed} />
+                <Card.Title title={item.breedName} />
                 <Card.Content>
-                  <Paragraph>{this.state.breedDescription}</Paragraph>
+                  <Paragraph>{item.description}</Paragraph>
                 </Card.Content>
                 <Card.Actions style={{ justifyContent: "flex-end" }}>
                   <Button
                     color={darkGreen}
                     onPress={() =>
-                      this.props.navigation.replace("breedInfo", { categoryId: this.props.route.params.categoryId, breedId: this.props.route.params.item.breedId })
+                      this.props.navigation.replace("breedInfo", {item})
                     }
                   >
                     More info
@@ -162,7 +151,7 @@ export default class breedList extends React.Component {
           </Portal>
 
           <View style={globalStyles.pageTitleContainer}>
-            <Text style={globalStyles.pageTitle}>{item.breed}</Text>
+            <Text style={globalStyles.pageTitle}>{item.breedName}</Text>
             <View>
               <Button
                 color={darkGreen}
