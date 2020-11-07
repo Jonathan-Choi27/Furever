@@ -59,7 +59,6 @@ export default class accessorySellerProfile extends React.Component {
       
       };
       
-      
       componentWillUnmount() {
         BackHandler.removeEventListener(
           "hardwareBackPress",
