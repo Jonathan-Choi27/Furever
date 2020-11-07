@@ -5,6 +5,7 @@ import "@react-navigation/native"
 import 'react-navigation-hooks'
 import {
     ScrollView,
+    BackHandler,
 } from "react-native";
 import {expressInterest, profileInfo, sellerInfo} from "../components/petProfileComponents";
 import { db } from "../database/firebase";
@@ -40,7 +41,24 @@ export default class homePetProfile extends React.Component {
 
     async componentDidMount() {
         this.fetchData();
+
+        BackHandler.addEventListener(
+          "hardwareBackPress",
+          this.handleBackButtonClick
+        );
     };
+
+    componentWillUnmount() {
+        BackHandler.removeEventListener(
+        "hardwareBackPress",
+        this.handleBackButtonClick
+        );
+    }
+    
+    handleBackButtonClick = () => {
+        this.props.navigation.goBack();
+        return true;
+    }
 
     render() {
         const item = this.props.route.params.item;
