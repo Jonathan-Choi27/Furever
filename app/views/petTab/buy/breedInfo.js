@@ -5,6 +5,7 @@ import {
     View,
     Dimensions,
     Image,
+    BackHandler
 } from "react-native";
 import {
     Card,
@@ -17,6 +18,26 @@ import globalStyles from "../../styleSheet/styleSheet";
 import { db } from "../../database/firebase";
 
 export default class breedInfo extends React.Component {
+
+    componentDidMount() {
+        BackHandler.addEventListener(
+          "hardwareBackPress",
+          this.handleBackButtonClick
+        );
+      }
+    
+      componentWillUnmount() {
+        BackHandler.removeEventListener(
+          "hardwareBackPress",
+          this.handleBackButtonClick
+        );
+      }
+    
+      handleBackButtonClick = () => {
+        this.props.navigation.goBack();
+        return true;
+      }
+      
     render() {
         const screenWidth = Math.round(Dimensions.get("window").width);
         const item = this.props.route.params.item;

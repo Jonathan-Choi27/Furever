@@ -6,6 +6,7 @@ import {
   Image,
   ScrollView,
   FlatList,
+  BackHandler,
 } from "react-native";
 import {
   Avatar,
@@ -107,7 +108,25 @@ export default class petCategories extends React.Component {
           });
         });
       });
+      BackHandler.addEventListener(
+        "hardwareBackPress",
+        this.handleBackButtonClick
+      );
   }
+
+  componentWillUnmount() {
+    BackHandler.removeEventListener(
+      "hardwareBackPress",
+      this.handleBackButtonClick
+    );
+  }
+
+  handleBackButtonClick = () => {
+    this.props.navigation.goBack();
+    return true;
+  }
+  
+
 
   searchFunction = (searchText) => {
     this.setState({ searchText: searchText });
@@ -363,7 +382,7 @@ export default class petCategories extends React.Component {
             <TouchableOpacity
               style={globalStyles.viewApplication}
               onPress={() =>
-                this.props.navigation.replace("currentApplications")
+                this.props.navigation.navigate("currentApplications")
               }>
               <Text
                 style={{
