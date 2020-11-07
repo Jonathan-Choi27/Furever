@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { StyleSheet, Platform } from "react-native";
+import React, { useState, useEffect } from "react";
+import { StyleSheet, Platform, BackHandler } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import homeListing from "./homePetListing";
@@ -12,6 +12,22 @@ import { darkGreen, green, lightGreen, orange, lightBlue } from "../styleSheet/s
 const Stack = createStackNavigator();
 
 export default function HomeNav() {
+	
+	useEffect(() => {
+		const backAction = () => {
+		  onPress: () => null;
+		  // onPress: () => BackHandler.exitApp();
+		  return true;
+		};
+	
+		const backHandler = BackHandler.addEventListener(
+		  "hardwareBackPress",
+		  backAction
+		);
+	
+		return () => backHandler.remove();
+	}, []);
+
 	return (
 		<NavigationContainer independent={true}>
 			<Stack.Navigator>

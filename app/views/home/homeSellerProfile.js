@@ -7,7 +7,8 @@ import {
     View,
     ScrollView,
     FlatList,
-    Text
+    Text,
+    BackHandler,
 } from "react-native";
 import { Card, } from "react-native-elements";
 console.disableYellowBox = true;
@@ -72,6 +73,23 @@ export default class homeSellerProfile extends React.Component {
 
     async componentDidMount() {
         this.fetchData();
+
+        BackHandler.addEventListener(
+          "hardwareBackPress",
+          this.handleBackButtonClick
+        );
+    };
+
+    componentWillUnmount() {
+        BackHandler.removeEventListener(
+        "hardwareBackPress",
+        this.handleBackButtonClick
+        );
+    }
+    
+    handleBackButtonClick = () => {
+        this.props.navigation.goBack();
+        return true;
     }
 
     render() {

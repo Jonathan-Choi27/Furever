@@ -4,6 +4,7 @@ import {
   View,
   ScrollView,
   FlatList,
+  BackHandler
 } from "react-native";
 import {
   Card,
@@ -87,6 +88,22 @@ export default class petBreeds extends React.Component {
           });
         });
       });
+      BackHandler.addEventListener(
+        "hardwareBackPress",
+        this.handleBackButtonClick
+      );
+  }
+
+  componentWillUnmount() {
+    BackHandler.removeEventListener(
+      "hardwareBackPress",
+      this.handleBackButtonClick
+    );
+  }
+
+  handleBackButtonClick = () => {
+    this.props.navigation.goBack();
+    return true;
   }
 
     searchFunction = (searchText) => {

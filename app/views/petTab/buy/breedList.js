@@ -140,7 +140,7 @@ export default class breedList extends React.Component {
                   <Button
                     color={darkGreen}
                     onPress={() =>
-                      this.props.navigation.replace("breedInfo", {item})
+                      this.props.navigation.navigate("breedInfo", {item})
                     }
                   >
                     More info

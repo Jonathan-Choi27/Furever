@@ -7,6 +7,7 @@ import {
   Image,
   ScrollView,
   FlatList,
+  BackHandler
 } from "react-native";
 import { Avatar, Card, Button, Searchbar } from "react-native-paper";
 import { db } from "../../database/firebase";
@@ -108,6 +109,22 @@ export default class currentApplications extends React.Component {
             });
         });
       });
+      BackHandler.addEventListener(
+        "hardwareBackPress",
+        this.handleBackButtonClick
+      );
+  }
+
+  componentWillUnmount() {
+    BackHandler.removeEventListener(
+      "hardwareBackPress",
+      this.handleBackButtonClick
+    );
+  }
+
+  handleBackButtonClick = () => {
+    this.props.navigation.goBack();
+    return true;
   }
 
   searchFunction = (searchText) => {

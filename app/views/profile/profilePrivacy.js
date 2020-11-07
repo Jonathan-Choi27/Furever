@@ -13,7 +13,6 @@ export default class ProfilePrivacy extends React.Component {
       newPassword: "",
       currentPassword: "",
     };
-    this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
   }
 
   componentDidMount() {
@@ -30,7 +29,7 @@ export default class ProfilePrivacy extends React.Component {
     );
   }
 
-  handleBackButtonClick() {
+  handleBackButtonClick = () => {
     this.props.navigation.goBack();
     return true;
   }
