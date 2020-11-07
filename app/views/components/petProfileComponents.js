@@ -58,10 +58,10 @@ export const profileInfo = (item) => {
               <Text numberOfLines={1} style={styles.contentText}>{item.category}</Text>
               <Text numberOfLines={1} style={styles.contentText}>{item.breed}</Text>
               <Text numberOfLines={1} style={styles.contentText}>{item.colour}</Text>
-              <Text numberOfLines={1} style={styles.contentText}>{item.age}</Text>
+              <Text numberOfLines={1} style={styles.contentText}>{item.age} {item.ageOption}</Text>
               <Text numberOfLines={1} style={styles.contentText}>{item.gender}</Text>
               <Text numberOfLines={1} style={styles.contentText}>{item.size}</Text>
-              <Text style={styles.contentText, {flexShrink: 1}}>{item.location}</Text>
+              <Text style={styles.contentText, {flexShrink: 1}}>{item.suburb}</Text>
             </View>
           </View>
         </Card>

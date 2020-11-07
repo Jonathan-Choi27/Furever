@@ -174,6 +174,7 @@ export default StyleSheet.create({
   contentTextBold: {
     fontWeight: "bold",
     fontSize: 15,
+    lineHeight: 20,
   },
   contentText: {
     fontSize: 15,
@@ -199,6 +200,13 @@ export default StyleSheet.create({
     fontSize: 18,
     padding: 15,
     fontWeight: "bold",
+  },
+  buttonsError: {
+    backgroundColor: "red",
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 5,
+    height: 40,
   },
 
   // Form container
@@ -227,15 +235,15 @@ export default StyleSheet.create({
     width: screenWidth - 20,
   },
   error: {
-      color : "red",
-      fontSize: 2
+    color: "red",
+    fontSize: 2,
   },
   // form
-  formPickerIconContainer:{
+  formPickerIconContainer: {
     justifyContent: "center",
     flex: 0.1,
-  }, 
-  formPickerInnerContainer:{
+  },
+  formPickerInnerContainer: {
     flex: 0.9,
   },
   formPickerOuterContainer: {
@@ -301,8 +309,8 @@ export default StyleSheet.create({
     overflow: "hidden",
   },
   dogBackground: {
-    opacity: 0.1, 
-    position: "absolute", 
+    opacity: 0.1,
+    position: "absolute",
   },
   dogImage: {
     left: 140,
@@ -310,7 +318,7 @@ export default StyleSheet.create({
     height: 610 / 1.7,
   },
   divider: {
-    backgroundColor: "#b0b0b0"
+    backgroundColor: "#b0b0b0",
   },
   avatarContainer: {
     marginTop: 50,
@@ -337,12 +345,12 @@ export default StyleSheet.create({
   profileName: {
     color: "white",
     fontSize: 30,
-    fontWeight: "bold"
+    fontWeight: "bold",
   },
-  emailStyle: { 
-    color: "#202020", 
-    fontSize: 17, 
-    marginTop: 10 
+  emailStyle: {
+    color: "#202020",
+    fontSize: 17,
+    marginTop: 10,
   },
 
   // Breed List
@@ -359,7 +367,6 @@ export default StyleSheet.create({
   },
 
   // Breed Information
-  
 
   //Pet Buy Card
   petBuyCard: {
@@ -367,11 +374,11 @@ export default StyleSheet.create({
     width: screenWidth - 20,
   },
   petBuyCardSellerContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    alignSelf: 'flex-end',
+    justifyContent: "center",
+    alignItems: "center",
+    alignSelf: "flex-end",
     position: "absolute",
-    padding: 13
+    padding: 13,
   },
   petBuyCardActionCard: {
     margin: 0,
@@ -393,13 +400,17 @@ export default StyleSheet.create({
   petBuyCardSellerImage: {
     height: 40,
     width: 40,
-    borderRadius: 40 / 2
+    borderRadius: 40 / 2,
   },
   petBuyCardTextContainer: {
     flexDirection: "row",
-    padding: 10
+    padding: 10,
   },
   petBuyCardImageContainer: {
+    width: 150,
+    height: 150,
+  },
+  petBuyCardImageStatusContainer: {
     width: 150,
     height: 170,
   },
@@ -483,7 +494,7 @@ export default StyleSheet.create({
     color: "black",
   },
   bigButtonText: {
-    fontSize: 8,
+    fontSize: 10,
     color: "white",
     fontWeight: "bold",
   },

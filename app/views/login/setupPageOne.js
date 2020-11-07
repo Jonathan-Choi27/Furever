@@ -12,10 +12,9 @@ import { darkGreen, green, lightGrey } from "../styleSheet/styleSheet";
 export default class SetupOne extends React.Component {
   state = {
     name: "",
-    photo:
-      "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2FemptyUser.png?alt=media&token=9414c888-2439-4138-a431-46a314a44c03",
-    photo_uuid: "",
-    photo_uri: "",
+    photo: "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2FemptyUser.png?alt=media&token=9414c888-2439-4138-a431-46a314a44c03",
+    photoUuid: "",
+    photoUri: "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2FemptyUser.png?alt=media&token=9414c888-2439-4138-a431-46a314a44c03",
   };
 
   componentDidMount() {
@@ -46,10 +45,10 @@ export default class SetupOne extends React.Component {
 
   async handleUpdate() {
     // dont set new photo uri if no pic selected or no update
-    if (this.state.photo != "" && this.state.photo_uri != null) {
+    if (this.state.photo != this.state.photoUri) {
       const photoURL = await uploadPhoto(
-        this.state.photo,
-        this.state.photo_uuid
+        this.state.photoUri,
+        this.state.photoUuid,
       );
 
       this.setState({
@@ -72,8 +71,8 @@ export default class SetupOne extends React.Component {
     const get_uri = await openImagePicker();
     if (get_uri != null) {
       this.setState({
-        photo_uuid: uuid.v4(),
-        photo: get_uri,
+        photoUuid: uuid.v4(),
+        photoUri: get_uri,
       });
     }
   };
@@ -121,7 +120,7 @@ export default class SetupOne extends React.Component {
               rounded
               renderPlaceholderContent={<ActivityIndicator />}
               source={{
-                uri: this.state.photo,
+                uri: this.state.photoUri,
               }}
             >
               <Accessory size={45} onPress={this.setPhotoUri} />
@@ -183,7 +182,7 @@ const styles = StyleSheet.create({
     height: 40,
   },
   buttonsText: {
-    color: darkGreen,
+    color: "white",
     fontSize: 18,
     padding: 15,
   },

@@ -7,6 +7,7 @@ import {
     View,
     ScrollView,
     Text,
+    BackHandler
   } from "react-native";
 console.disableYellowBox = true;
 import {profileInfo, sellerInfo} from "../components/accessoryProfileComponent";
@@ -51,7 +52,25 @@ export default class shopProfile extends React.Component {
 
     async componentDidMount() {
         this.fetchData();
+        BackHandler.addEventListener(
+            "hardwareBackPress",
+            this.handleBackButtonClick
+        );
+    
     };
+        
+        
+    componentWillUnmount() {
+      BackHandler.removeEventListener(
+        "hardwareBackPress",
+        this.handleBackButtonClick
+      );
+    }
+              
+    handleBackButtonClick = () => {
+      this.props.navigation.goBack();
+      return true;
+    }
 
     
     pushItem(item) {
@@ -62,12 +81,12 @@ export default class shopProfile extends React.Component {
     
     render() {
         const item = this.props.route.params.item;
-        console.log(item.docId);
+        // console.log(item.docId);
         return (
             <View style={{paddingBottom: 50}}>
                 {/* {onCartTab(this.state.items, this.props.navigation)} */}
                 <ScrollView>
-                    {profileInfo(item)}
+                    {profileInfo(item, this.props.navigation)}
                     {sellerInfo(this.state, this.props.navigation)}
                     <View style={{ flexDirection: 'row', paddingTop: 30, justifyContent: 'center', alignItems: 'center' }}>
                         <Icon onPress={() => this.setState({quantity: this.state.quantity - 1})} name="minuscircle" size={30} style={{justifyContent: 'center', alignItems: 'center'}}/>
@@ -89,7 +108,7 @@ export default class shopProfile extends React.Component {
                             }}
                             mode="contained"
                             // onPress={() => navigation.navigate("sellerProfile", { seller })}
-                            onPress={() => addItemToCart(item.docId)}
+                            onPress={() => addItemToCart(item)}
                         >
                             <Text style={{
                             color: "#ffffff",

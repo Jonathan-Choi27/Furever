@@ -17,51 +17,9 @@ import globalStyles from "../../styleSheet/styleSheet";
 import { db } from "../../database/firebase";
 
 export default class breedInfo extends React.Component {
-    state = {
-        ailments: "",
-        breed: "",
-        care: "",
-        exterior: "",
-        feeding: "",
-        fullDescription: "",
-        grooming: "",
-        infoImage: "",
-        personality: "",
-        size: "",
-        weight: "",
-    };
-
-    async fetchData() {
-        const categoryId = this.props.route.params.categoryId;
-        const breedId = this.props.route.params.breedId;
-        db.collection("petCategories")
-            .doc(categoryId)
-            .collection("breed")
-            .doc(breedId)
-            .get()
-            .then((doc) => {
-                this.setState({
-                    breed: doc.data().breed,
-                    ailments: doc.data().ailments,
-                    care: doc.data().care,
-                    exterior: doc.data().exterior,
-                    feeding: doc.data().feeding,
-                    fullDescription: doc.data().fullDescription,
-                    grooming: doc.data().grooming,
-                    infoImage: doc.data().infoImage,
-                    personality: doc.data().personality,
-                    size: doc.data().size,
-                    weight: doc.data().weight,
-                });
-            });
-    }
-
-    async componentDidMount() {
-        this.fetchData();
-    }
-
     render() {
         const screenWidth = Math.round(Dimensions.get("window").width);
+        const item = this.props.route.params.item;
         return (
             <ScrollView>
                 <View style={globalStyles.container}>
@@ -69,13 +27,13 @@ export default class breedInfo extends React.Component {
                         <View style={{ alignItems: "center" }}>
                         <Image
                             style={{ width: screenWidth, height: 250 }}
-                            source={{ uri: this.state.infoImage }}
+                            source={{ uri: item.infoImage }}
                         />
                         </View>
                         <Card containerStyle={globalStyles.cardContentContainer}>
                         <Text
                             style={{ fontWeight: "bold", fontSize: 30, color: "black" }}>
-                            {this.state.breed}
+                            {item.breedName}
                         </Text>
                         </Card>
 
@@ -83,22 +41,22 @@ export default class breedInfo extends React.Component {
                         <Text style={globalStyles.cardHeading}>Description</Text>
                         <View style={globalStyles.cardContainer}>
                             <View>
-                                <Text style={globalStyles.contentText}>{this.state.fullDescription}</Text>
+                                <Text style={globalStyles.contentText}>{item.fullDescription}</Text>
                                 <View style={{paddingTop: 10}}>
                                     <Text style={globalStyles.contentTextBold}>Size: </Text>
-                                    <Text style={globalStyles.contentText}>{this.state.size}</Text>
+                                    <Text style={globalStyles.contentText}>{item.size}</Text>
                                 </View>
                                 <View style={{paddingTop: 10}}>
                                     <Text style={globalStyles.contentTextBold}>Exterior: </Text>
-                                    <Text style={globalStyles.contentText}>{this.state.exterior}</Text>
+                                    <Text style={globalStyles.contentText}>{item.exterior}</Text>
                                 </View>
                                 <View style={{paddingTop: 10}}>
                                     <Text style={globalStyles.contentTextBold}>Weight/Height Range: </Text>
-                                    <Text style={globalStyles.contentText}>{this.state.weight}</Text>
+                                    <Text style={globalStyles.contentText}>{item.weight}</Text>
                                 </View>
                                 <View style={{paddingTop: 10}}>
                                     <Text style={globalStyles.contentTextBold}>Ailments: </Text>
-                                    <Text style={globalStyles.contentText}>{this.state.ailments}</Text>
+                                    <Text style={globalStyles.contentText}>{item.ailments}</Text>
                                 </View>
                             </View>
                         </View>
@@ -106,22 +64,22 @@ export default class breedInfo extends React.Component {
 
                     <Card containerStyle={globalStyles.cardContentContainer}>
                         <Text style={globalStyles.cardHeading}>Feeding</Text>
-                        <Text style={globalStyles.contentText}>{this.state.feeding}</Text>
+                        <Text style={globalStyles.contentText}>{item.feeding}</Text>
                     </Card>
 
                     <Card containerStyle={globalStyles.cardContentContainer}>
                         <Text style={globalStyles.cardHeading}>Personality</Text>
-                        <Text style={globalStyles.contentText}>{this.state.personality}</Text>
+                        <Text style={globalStyles.contentText}>{item.personality}</Text>
                     </Card>
 
                     <Card containerStyle={globalStyles.cardContentContainer}>
                         <Text style={globalStyles.cardHeading}>Care</Text>
-                        <Text style={globalStyles.contentText}>{this.state.care}</Text>
+                        <Text style={globalStyles.contentText}>{item.care}</Text>
                     </Card>
 
                     <Card containerStyle={globalStyles.cardContentContainer}>
                         <Text style={globalStyles.cardHeading}>Grooming</Text>
-                        <Text style={globalStyles.contentText}>{this.state.grooming}</Text>
+                        <Text style={globalStyles.contentText}>{item.grooming}</Text>
                     </Card>
 
                     </View>

@@ -15,12 +15,14 @@ import styles from "../styleSheet/styleSheet";
 import globalStyles, { darkGreen, green, lightGreen, lightGrey, orange, lightBlue } from "../styleSheet/styleSheet";
 import { db } from "../database/firebase";
 import { auth } from "../database/firebase";
+import { Cart } from "../shop/Cart";
+
+const itemList = [];
 
 export const shopAccessoryCard = (item, navigation) => {
   return (
+    
     <View style={styles.iconContainer}>
-      {/* {console.log(item.docId)} */}
-      {/* {onCartTab(this.state.items, this.props.navigation)} */}
       <TouchableOpacity
         onPress={() => navigation.navigate("shopProfile", {item})}
         >
@@ -39,7 +41,7 @@ export const shopAccessoryCard = (item, navigation) => {
 
 
       <Button style={globalStyles.smallButton}
-          onPress={() => addItemToCart(item.docId)}
+          onPress={() => addItemToCart(item)}
           
       >
         <Text style={{ fontWeight: "bold", color:"#53A687"}}>Add to Cart</Text>
@@ -55,7 +57,7 @@ export const shopCategory = (item, navigation) => {
     <View style={styles.iconContainer}>
       <TouchableOpacity
         onPress={() =>
-          navigation.replace("accessoryCategories", { item })
+          navigation.navigate("accessoryCategories", { item })
         }>
         <View style={styles.iconContainer}>
           <Image
@@ -73,7 +75,7 @@ export const accessoryCategory = (item, categoryId, navigation) => {
     <View style={styles.iconContainer}>
       <TouchableOpacity
         onPress={() =>
-          navigation.replace("accessoryList", { item, categoryId })
+          navigation.navigate("accessoryList", { item, categoryId })
         }>
         <View style={styles.breedIconContainer}>
           <Image
@@ -86,23 +88,75 @@ export const accessoryCategory = (item, categoryId, navigation) => {
   )
 }
 
-export const addItemToCart = async (itemId) => {
-  const user = auth.currentUser;
+export const getItemList = () =>{
+  // const newList = [...itemList];
+  return itemList;
+}
+
+// add item to the cart
+export const addItemToCart = (item) => {
+  // console.log(item);
+  itemList.push(item);
+  console.log(itemList);
+
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  // const user = auth.currentUser;
   // console.log(itemId);
-  Alert.alert("Your item has been added!");
-  // await db.collection("cart").get().then((doc) => {
-  //   doc.forEach((listingDoc) => {
-  //     if(itemId === listingDoc.data().itemId){
-  //       console.log("same doc")
-  //       db.collection("cart").doc(listingDoc.id).update({
-  //         qty: listingDoc.data().qty + 1
-  //       })
-  //     } else if (itemId != listingDoc.data().itemId) {
-  //       console.log("no same doc exist");
-  //       db.collection("cart").add({itemId: itemId, uuid: user.uid, qty: 1}); 
+
+  // const usersRef = db.collection("cart");
+  // const arrayLength = (await usersRef.get()).size
+  // let check = false;
+  // let docId = null;
+  // let currentQty = 0;
+
+  
+
+  // if(arrayLength === 0){
+  //   usersRef.add({itemId: itemId, uuid: user.uid, qty: 1});
+  // } else {
+  //   await usersRef.get().then((doc) => {
+  //     doc.forEach(async (listingDoc) => {
+  //         // console.log(listingDoc.data().itemId);
+  //       if(itemId === listingDoc.data().itemId){
+  //         check = true;
+  //         docId = listingDoc.id;
+  //         currentQty = listingDoc.data().qty;
+  //       }  
+  //     })
+  //   });
+  //   if(arrayLength > 0){
+  //     if(check === true){
+  //       console.log("check is true");
+  //       usersRef.doc(docId).update({ qty: currentQty + 1 });
+        
+  //     } else {
+  //       console.log("check is false")
+  //       usersRef.add({itemId: itemId, uuid: user.uid, qty: 1}); 
   //     }
-  //   })
-  // })
-  db.collection("cart").add({itemId: itemId, uuid: user.uid, qty: 1}); 
+  //   }
+
+  // }
+
+  Alert.alert("Your item has been added!");
+  
 };
 

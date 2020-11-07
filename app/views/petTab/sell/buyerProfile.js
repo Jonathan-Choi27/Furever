@@ -16,17 +16,14 @@ export default class buyerProfile extends React.Component {
     render() {
         const item = this.props.route.params.item; 
         return (
-            <View style={{paddingBottom: 50}}>
-                {onBuyTab(this.props.navigation)}
-                <ScrollView>
-                    {buyerInfo(item)}
-                    <View style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center', }}>
-                        {acceptBuyer(item, this.props.navigation)}
-                        {/* {rejectBuyer(item, this.props.navigation)} */}
-                    </View>
-                    
-                </ScrollView>
-            </View>
+            <ScrollView>
+                {buyerInfo(item)}
+                <View style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center', }}>
+                    {acceptBuyer(item, this.props.navigation)}
+                    {/* {rejectBuyer(item, this.props.navigation)} */}
+                </View>
+                
+            </ScrollView>
         );
     }
 }

@@ -40,7 +40,7 @@ export const petBuyCard = (item, navigation) => {
             </View>
             <Text numberOfLines={1} style={{ flex: 1 }}>
               <Text style={{ fontWeight: "bold" }}>Age: </Text>
-              <Text>{item.age}</Text>
+              <Text>{item.age} {item.ageOption}</Text>
             </Text>
             <Text numberOfLines={1} style={{ flex: 1 }}>
               <Text style={{ fontWeight: "bold" }}>Gender: </Text>
@@ -48,7 +48,7 @@ export const petBuyCard = (item, navigation) => {
             </Text>
             <Text numberOfLines={1} style={{ flex: 1 }}>
               <Text style={{ fontWeight: "bold" }}>Location: </Text>
-              <Text>{item.location}</Text>
+              <Text>{item.suburb}</Text>
             </Text>
             <Text numberOfLines={1} style={{ flex: 1 }}>
               <Text style={{ fontWeight: "bold" }}>Seller: </Text>
@@ -61,7 +61,7 @@ export const petBuyCard = (item, navigation) => {
               style={styles.petBuyCardBigButton}
               mode="contained"
               onPress={() =>
-                navigation.navigate("buyPetProfile", {item})
+                navigation.navigate("petProfile", {item})
               }
             >
               <Text style={styles.petBuyCardBigButtonText}>More Info</Text>
@@ -83,7 +83,7 @@ export const petBuyCategory = (item, navigation) => {
         <View style={styles.iconContainer}>
           <Image
             style={styles.icon}
-            source={{uri: item.image}}
+            source={{uri: item.categoryImage}}
           />
         </View>
       </TouchableOpacity>
@@ -91,19 +91,19 @@ export const petBuyCategory = (item, navigation) => {
   )
 }
 
-export const petBuyBreed = (item, categoryId, navigation) => {
+export const petBuyBreed = (item, category, navigation) => {
   return (
     <View style={styles.iconContainer}>
       <TouchableOpacity
         onPress={() =>
-          navigation.replace("breedList", { item, categoryId })
+          navigation.replace("breedList", { item, category })
         }>
         <View style={styles.breedIconContainer}>
           <Image
             style={styles.icon}
-            source={{uri: item.image}}
+            source={{uri: item.breedImage}}
           />
-          <Text style={styles.iconText}>{item.breed}</Text>
+          <Text style={styles.iconText}>{item.breedName}</Text>
         </View>
       </TouchableOpacity>
     </View>

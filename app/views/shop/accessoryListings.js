@@ -4,6 +4,7 @@ import {
   View,
   TouchableOpacity,
   FlatList,
+  BackHandler
 } from "react-native";
 import {
   Button,
@@ -53,6 +54,24 @@ export default class accessoryListings extends React.Component {
 
   async componentDidMount() {
     this.fetchData();
+    BackHandler.addEventListener(
+      "hardwareBackPress",
+      this.handleBackButtonClick
+    );
+  
+  };
+  
+  
+  componentWillUnmount() {
+    BackHandler.removeEventListener(
+      "hardwareBackPress",
+      this.handleBackButtonClick
+    );
+  }
+        
+  handleBackButtonClick = () => {
+    this.props.navigation.goBack();
+    return true;
   }
 
   render() {
@@ -74,7 +93,7 @@ export default class accessoryListings extends React.Component {
           </View>
         </View>
 
-        <View style={{paddingTop: 10, paddingBottom: 220}}>
+        <View style={{paddingTop: 10, paddingBottom: 60}}>
           <FlatList
             showsVerticalScrollIndicator={false}
             onRefresh={async () => {

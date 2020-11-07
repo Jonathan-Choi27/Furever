@@ -40,12 +40,11 @@ export default class petBreeds extends React.Component {
     turtleCheck: false,
     pigCheck: false,
     filterDisplay: false,
-    petBreeds: [],
   };
   
   async componentDidMount() {
     const dataArray = [];
-    db.collection("pet_listings")
+    db.collection("petListings")
       .get()
       .then((doc) => {
         doc.forEach(async (listingDoc) => {
@@ -69,40 +68,22 @@ export default class petBreeds extends React.Component {
             breed: listingDoc.data().breed,
             colour: listingDoc.data().colour,
             age: listingDoc.data().age,
+            ageOption: listingDoc.data().ageOption,
             gender: listingDoc.data().gender,
             size: listingDoc.data().size,
             location: listingDoc.data().location,
+            suburb: listingDoc.data().suburb,
             price: listingDoc.data().price,
             behaviour: listingDoc.data().behaviour,
             health: listingDoc.data().health,
             training: listingDoc.data().training,
             additional: listingDoc.data().additionalInfo,
-            photo: listingDoc.data().photo_link,
+            photo: listingDoc.data().photoLink,
             uuid: listingDoc.data().uuid,
           });
           this.setState({
             isLoading: false,
             data: [...dataArray],
-          });
-        });
-      });
-
-    const petBreedArray = [];
-    const categoryId = this.props.route.params.item.categoryId;
-    db.collection("petCategories")
-      .doc(categoryId)
-      .collection("breed")
-      .get()
-      .then((doc) => {
-        doc.forEach(async (breedDoc) => {
-          petBreedArray.push({
-            breed: breedDoc.data().breed,
-            image: breedDoc.data().image,
-            breedId: breedDoc.id,
-          });
-          this.setState({
-            isLoading: false,
-            petBreeds: [...petBreedArray],
           });
         });
       });
@@ -226,6 +207,7 @@ export default class petBreeds extends React.Component {
 
   render() {
     const { search } = this.state;
+    const category = this.props.route.params.item;
     if (this.state.isLoading) {
       return (
         <View style={globalStyles.activityContainer}>
@@ -236,7 +218,7 @@ export default class petBreeds extends React.Component {
     return (
       <Provider>
           <View style={globalStyles.petContainer}>
-            {onBuyTab(this.props.navigation)}
+            {/* {onBuyTab(this.props.navigation)} */}
             <View
               style={globalStyles.searchFilterContainer}
             >
@@ -248,7 +230,7 @@ export default class petBreeds extends React.Component {
               />
               <Button
                 color={lightGreen}
-                onPress={() => {
+                onPress={() =>  {
                   this.setState({ visible: true });
                 }}
                 mode="contained"
@@ -393,13 +375,12 @@ export default class petBreeds extends React.Component {
 
                   <View style={globalStyles.petContainer}>
                     <FlatList
-                      data={this.state.petBreeds}
+                      data={category.breeds}
                       columnWrapperStyle={{ justifyContent: "flex-start" }}
                       numColumns={2}
                       key={2}
-                      keyExtractor={(item, index) => index.toString()}
                       renderItem={({ item }) => (
-                        petBuyBreed(item, this.props.route.params.item.categoryId, this.props.navigation)
+                        petBuyBreed(item, category.category, this.props.navigation)
                       )}
                       keyExtractor={(item, index) => index.toString()}
                     />

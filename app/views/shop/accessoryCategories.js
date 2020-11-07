@@ -1,39 +1,3 @@
-// import * as React from "react";
-// import {
-//   Text,
-//   View,
-//   TouchableOpacity,
-// } from "react-native";
-// import firebase from "firebase";
-// import globalStyles, {darkGreen} from "../styleSheet/styleSheet";
-
-// const db = firebase.firestore();
-
-// export default class accessoryCategories extends React.Component {
-//     render() {
-//         return (
-//           <View>
-//             <View style={{ height: 52, alignItems: "center", justifyContent: "center" }}>
-//               <TouchableOpacity
-//                 style={globalStyles.viewApplication}
-//                 onPress={() =>
-//                     this.props.navigation.replace("accessoryListings")
-//               }>
-//                 <Text
-//                     style={{
-//                     textAlign: "center",
-//                     color: "white",
-//                     fontWeight: "bold",
-//                     }}>
-//                     Sell Accessories
-//                 </Text>
-//               </TouchableOpacity>
-//             </View>
-//           </View>
-//         );
-//     }
-// }
-
 import React from "react";
 import {
   Text,
@@ -42,6 +6,7 @@ import {
   Image,
   ScrollView,
   FlatList,
+  BackHandler
 } from "react-native";
 import {
   Avatar,
@@ -57,10 +22,17 @@ import {
 import { db } from "../database/firebase";
 import {onBuyTab} from "../components/petTabComponents";
 import globalStyles from "../styleSheet/styleSheet";
-import { darkGreen, green, lightGreen, lightGrey, orange, lightBlue } from "../styleSheet/styleSheet";
-import { shopAccessoryCard, accessoryCategory } from "../components/shopComponents";
+import { shopAccessoryCard, accessoryCategory, getItemList } from "../components/shopComponents";
 import { cartTab } from "../components/shopTabComponent";
 import { MaterialIcons, AntDesign, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
+import {
+  darkGreen,
+  green,
+  lightGreen,
+  orange,
+  lightBlue,
+  lightGrey,
+} from "../styleSheet/styleSheet";
 
 export default class accessoryCateogries extends React.Component {
 
@@ -85,8 +57,9 @@ export default class accessoryCateogries extends React.Component {
   };
   
   async componentDidMount() {
+    
     const dataArray = [];
-    db.collection("pet_listings")
+    db.collection("accessories")
       .get()
       .then((doc) => {
         doc.forEach(async (listingDoc) => {
@@ -122,6 +95,15 @@ export default class accessoryCateogries extends React.Component {
             uuid: listingDoc.data().uuid,
             items: [],
           });
+        doc.forEach((listingDoc) => {
+                dataArray.push({
+                    accessoryName: listingDoc.data().name,
+                    category: listingDoc.data().category,
+                    type: listingDoc.data().type,
+                    price: listingDoc.data().price,
+                    photo: listingDoc.data().photoLink,
+                    docIdd: listingDoc.id,
+                  });
           this.setState({
             isLoading: false,
             data: [...dataArray],
@@ -148,13 +130,32 @@ export default class accessoryCateogries extends React.Component {
           });
         });
       });
-  }
+  });
+  BackHandler.addEventListener(
+    "hardwareBackPress",
+    this.handleBackButtonClick
+  );
 
-    searchFunction = (searchText) => {
+};
+
+
+componentWillUnmount() {
+  BackHandler.removeEventListener(
+    "hardwareBackPress",
+    this.handleBackButtonClick
+  );
+}
+      
+handleBackButtonClick = () => {
+  this.props.navigation.goBack();
+  return true;
+}
+
+  searchFunction = (searchText) => {
     this.setState({ searchText: searchText });
 
     let filteredData = this.state.data.filter(function (item) {
-      return item.petName.toLowerCase().includes(searchText.toLowerCase());
+      return item.accessoryName.toLowerCase().includes(searchText.toLowerCase());
     });
 
     this.setState({ filteredData: filteredData });
@@ -172,7 +173,6 @@ export default class accessoryCateogries extends React.Component {
     }
     return (
       <Provider>
-          {/* {onCartTab(this.state.items, this.props.navigation)} */}
           <View style={globalStyles.petContainer}>
             <View
               style={globalStyles.searchFilterContainer}
@@ -196,12 +196,12 @@ export default class accessoryCateogries extends React.Component {
                 Filter
               </Button>
             </View>
-            <View style={{height: 52, flexDirection: 'row', justifyContent: 'space-between', paddingLeft: 10}}>
+            <View style={{ height: 52, flexDirection:'row', paddingLeft: 10 }}>
               <TouchableOpacity
-                style={[globalStyles.viewApplication]}
-                // onPress={() =>
-                //  this.props.navigation.replace( /*Appropriate link*/)
-                // }
+                style={globalStyles.viewApplication}
+                onPress={() =>
+                this.props.navigation.navigate("accessoryListings")
+                }
                 >
                 <Text
                   style={{
@@ -212,8 +212,7 @@ export default class accessoryCateogries extends React.Component {
                   Sell Accessories
                 </Text>
               </TouchableOpacity>
-              {cartTab(this.state.items, this.props.navigation)}
-            
+              {cartTab(getItemList(), this.props.navigation)}
             </View>
             <ScrollView showsVerticalScrollIndicator={false}>
             <Portal>
@@ -243,7 +242,7 @@ export default class accessoryCateogries extends React.Component {
             
             {this.state.filterDisplay ? (
               <FlatList
-                numColumns = {1}
+                numColumns = {2}
                 key={1}
                 showsVerticalScrollIndicator={false}
                 renderItem={({ item }) => (
@@ -281,7 +280,7 @@ export default class accessoryCateogries extends React.Component {
                       </View>
                     ) : (
                       <FlatList
-                        numColumns = {1}
+                        numColumns = {2}
                         key={1}
                         showsVerticalScrollIndicator={false}
                         renderItem={({ item }) => (

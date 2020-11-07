@@ -7,8 +7,8 @@ console.disableYellowBox = true;
 
 const db = firebase.firestore();
 
-const deleteAccessory = (doc_id) => {
-  const deleteItemId = doc_id;
+const deleteAccessory = (docId) => {
+  const deleteItemId = docId;
   db.collection("accessories").doc(deleteItemId).delete().then(function() {
        alert("Accessory deleted.")
    }).catch(function(error) {
@@ -54,34 +54,34 @@ export const accessoriesListingCard = (item, navigation) => {
                                 <Text>{item.type}</Text>
                             </Text>
                             <Text numberOfLines={1} style={{ flex: 1 }}>
-                                <Text style={{ fontWeight: "bold" }}>Price: </Text>
+                                <Text style={{ fontWeight: "bold" }}>Price: $</Text>
                                 <Text>{item.price}</Text>
                             </Text>
                         </View>
 
                         <View style={{ flexDirection: "row" }}>
                             <Button style={globalStyles.smallButton}
-                            //   onPress={() => props.navigation.navigate("sellPetProfile", {props})}
+                            //   onPress={() => navigation.navigate("sellPetProfile", {props})}
                             >
                                 <Text style={globalStyles.smallButtonText}>View</Text>
                             </Button>
 
                             <Button style={globalStyles.smallButton}
-                            //   onPress={() => props.navigation.navigate("updateSellApplication", {doc_id: props.doc_id})}
+                              onPress={() => navigation.navigate("updateAccessoryListingApplication", {docId: item.docId})}
                             >
                                 <Text style={globalStyles.smallButtonText}>Update</Text>
                             </Button>
 
                             <Button style={globalStyles.smallButton}
-                                onPress={() => deleteAccessory(props.doc_id)}> 
+                                onPress={() => deleteAccessory(item.docId)}> 
                                 <Text style={globalStyles.smallButtonText}>Delete</Text>
                             </Button>
                         </View>
                         <View>
                             <Button style={globalStyles.bigButton}
-                                // onPress={() => props.navigation.navigate("offerApplications", {doc_id: props.doc_id})}
+                                // onPress={() => navigation.navigate("offerApplications", {doc_id: props.doc_id})}
                             >
-                            <Text style={globalStyles.bigButtonText}>View Offers</Text>
+                            <Text style={globalStyles.bigButtonText}>View Orders</Text>
                             </Button>
                         </View>
                     </View>

@@ -12,12 +12,15 @@ import "@react-navigation/native"
 import 'react-navigation-hooks'
 import styles from "../styleSheet/styleSheet";
 import { MaterialIcons, AntDesign, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
+import globalStyles from "../styleSheet/styleSheet";
+import { getItemList } from "../components/shopComponents";
 
 
-export const cartTab = (item, navigation) => {
+export const cartTab = (itemList, navigation) => {
+    const items = getItemList();
     return (
-        <View style={{paddingLeft: 100, paddingRight: 30}}>
-			<TouchableOpacity onPress={() => navigation.navigate("Cart")}>
+        <View style={{paddingLeft: 100, paddingRight: 10}}>
+			<TouchableOpacity onPress={() => navigation.navigate("Cart", {items})}>
 			    <AntDesign name={"shoppingcart"} size={40} color={"green"} />
 			</TouchableOpacity>
 		</View>

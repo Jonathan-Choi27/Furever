@@ -7,14 +7,19 @@ console.disableYellowBox = true;
 
 const db = firebase.firestore();
 
-const deletePet = (doc_id) => {
-    const deleteItemId = doc_id;
-    db.collection("pet_listings").doc(deleteItemId).delete().then(function() {
-         alert("deleted")
-     }).catch(function(error) {
-         alert("Error removing document: ", error);
-     });
-  
+const deletePet = async (item) => {
+    // const deleteItemId = doc_id;
+    // db.collection("petListings").doc(deleteItemId).delete().then(function() {
+    //      alert("deleted")
+    //  }).catch(function(error) {
+    //      alert("Error removing document: ", error);
+    //  });
+
+    // console.log(item.userSellListRef);
+    await item.selfRef.delete();
+    await item.userSellListRef.delete();
+    await item.categorizedListingsRef.delete();
+    alert("deleted");
   }
 
 export const petSellListingCard = (item, navigation) => {
@@ -73,7 +78,7 @@ export const petSellListingCard = (item, navigation) => {
                             </Button>
 
                             <Button style={globalStyles.smallButton}
-                                onPress={() => deletePet(item.doc_id)}> 
+                                onPress={() => deletePet(item)}> 
                                 <Text style={globalStyles.smallButtonText}>Delete</Text>
                             </Button>
                         </View>

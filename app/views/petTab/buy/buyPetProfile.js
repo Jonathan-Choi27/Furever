@@ -20,7 +20,8 @@ export default class buyPetProfile extends React.Component {
         email: "",
         isPetShop: false,
         profileText: "",
-        photo: ""
+        photo: "",
+        sellerId: "",
      };
      
     async fetchData() {
@@ -36,6 +37,7 @@ export default class buyPetProfile extends React.Component {
                     isPetShop: doc.data().isPetShop,
                     profileText: doc.data().profileText,
                     photo: doc.data().photo,
+                    sellerId: uuid,
                 });
         });
     };
@@ -47,14 +49,11 @@ export default class buyPetProfile extends React.Component {
     render() {
         const item = this.props.route.params.item;
         return (
-            <View style={{paddingBottom: 50}}>
-                {onBuyTab(this.props.navigation)}
-                <ScrollView>
-                    {profileInfo(item)}
-                    {sellerInfo(this.state, this.props.navigation)}
-                    {expressInterest(item, this.props.navigation)}
-                </ScrollView>
-            </View>
+            <ScrollView>
+                {profileInfo(item)}
+                {sellerInfo(this.state, this.props.navigation)}
+                {expressInterest(item, this.props.navigation)}
+            </ScrollView>
         );
     }
 }

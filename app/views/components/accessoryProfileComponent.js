@@ -5,6 +5,7 @@ import { Button } from "react-native-paper";
 import styles from "../styleSheet/styleSheet";
 import Icon from 'react-native-vector-icons/AntDesign';
 import { darkGreen, green, lightGreen, lightGrey, orange, lightBlue } from "../styleSheet/styleSheet";
+import { cartTab } from "./shopTabComponent";
 
 const screenWidth = Math.round(Dimensions.get("window").width);
 
@@ -22,10 +23,11 @@ const checkAdditional = (additional) => {
   return additional;
 }
 
-export const profileInfo = (item) => {
+export const profileInfo = (item, navigation) => {
   return (
     <View style={styles.container}>
       <View style={{ marginBottom: 0 }}>
+        {cartTab(item, navigation)}
         <View style={{ alignItems: "center" }}>
           <Image
             style={{ width: screenWidth, height: 250 }}
