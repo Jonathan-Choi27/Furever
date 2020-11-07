@@ -23,8 +23,6 @@ export default class updateProfile extends React.Component {
       prevName: profileData.name,
       prevProfileText: profileData.profileText,
     };
-
-    this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
   }
 
   componentDidMount() {
@@ -41,7 +39,7 @@ export default class updateProfile extends React.Component {
     );
   }
 
-  handleBackButtonClick() {
+  handleBackButtonClick = () => {
     this.props.navigation.goBack();
     return true;
   }

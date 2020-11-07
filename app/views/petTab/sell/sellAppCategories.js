@@ -22,12 +22,12 @@ const dog_breed = [
   "Select breed",
   "German Shepherd",
   "Maltese",
-  "Poodle",
+  "Cavoodle",
+  "Samoyed",
   "Golden Retriever",
   "Pomeranian",
   "Rottweiler",
   "Corgi",
-  "Other",
 ];
 
 const dog_colour = ["Select colour", "Black", "Grey", "Brown", "White"];
