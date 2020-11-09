@@ -4,6 +4,25 @@ import { Card } from "react-native-elements";
 import globalStyles from "../styleSheet/styleSheet";
 
 export default class ProfileHelp extends React.Component {
+  componentDidMount() {
+    BackHandler.addEventListener(
+      "hardwareBackPress",
+      this.handleBackButtonClick
+    );
+  }
+
+  componentWillUnmount() {
+    BackHandler.removeEventListener(
+      "hardwareBackPress",
+      this.handleBackButtonClick
+    );
+  }
+
+  handleBackButtonClick = () => {
+    this.props.navigation.goBack();
+    return true;
+  };
+
   render() {
     return (
       <View>
