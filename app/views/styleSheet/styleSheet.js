@@ -514,6 +514,13 @@ export default StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     justifyContent: "space-between",
+  },
+  // FAQ
+  faqHeader: {
+    fontWeight: "bold",
+    marginBottom: 10,
+  },
+  faqContainer: {
+    marginTop: 10
   }
-
 });
