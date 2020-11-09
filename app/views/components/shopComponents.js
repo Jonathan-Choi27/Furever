@@ -95,12 +95,26 @@ export const getItemList = () =>{
 
 // add item to the cart
 export const addItemToCart = (item) => {
-  // console.log(item);
-  itemList.push(item);
-  console.log(itemList);
+  let index = 0;
+  let duplicate = false;
+  while (index < itemList.length){
+    console.log(itemList[index].qty);
+    if(item.docId === itemList[index].docId){
+      let currentQty = itemList[index].qty + 1;
+      console.log(currentQty);
+      duplicate = true;
+      itemList[index].qty = currentQty;  
+      break;
+    }
+    index++;
+  }
 
-  
-  
+  if(!duplicate){
+    item['qty'] = 1;
+    itemList.push(item);
+  }
+  duplicate = false;
+  console.log(itemList); 
 
 
 

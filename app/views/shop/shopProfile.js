@@ -84,7 +84,6 @@ export default class shopProfile extends React.Component {
         // console.log(item.docId);
         return (
             <View style={{paddingBottom: 50}}>
-                {/* {onCartTab(this.state.items, this.props.navigation)} */}
                 <ScrollView>
                     {profileInfo(item, this.props.navigation)}
                     {sellerInfo(this.state, this.props.navigation)}
