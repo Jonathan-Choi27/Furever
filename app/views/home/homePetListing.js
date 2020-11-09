@@ -67,7 +67,14 @@ export default class HomeListing extends React.Component {
     brownColour: false,
     redColour: false,
     orangeColour: false,
-
+    nswCheck: false,
+    vicCheck: false,
+    qldCheck: false,
+    waCheck: false,
+    saCheck: false,
+    tasCheck: false,
+    actCheck: false,
+    ntCheck: false,
   };
 
   async initialFetchData() {
@@ -242,6 +249,7 @@ export default class HomeListing extends React.Component {
 
   checkFunction = (input) => {
     switch (input) {
+      //Animal
       case "dogCheck":
         this.setState({ dogCheck: !this.state.dogCheck });
         break;
@@ -270,6 +278,7 @@ export default class HomeListing extends React.Component {
         this.setState({ pigCheck: !this.state.pigCheck });
         break;
 
+        //Colour
       case "whiteColour":
         this.setState({ whiteColour: !this.state.whiteColour });
         break;
@@ -297,148 +306,236 @@ export default class HomeListing extends React.Component {
       case "orangeColour":
         this.setState({ orangeColour: !this.state.orangeColour });
         break;
+
+        //Location
+      case "nswCheck": 
+        this.setState({nswCheck: !this.state.nswCheck});
+        break;
+      case "vicCheck": 
+        this.setState({vicCheck: !this.state.vicCheck});
+        break;
+      case "qldCheck": 
+        this.setState({qldCheck: !this.state.qldCheck});
+        break;
+      case "waCheck": 
+        this.setState({waCheck: !this.state.waCheck});
+        break;
+      case "saCheck": 
+        this.setState({saCheck: !this.state.saCheck});
+        break;
+      case "ntCheck": 
+        this.setState({ntCheck: !this.state.ntCheck});
+        break;
       default:
     }
   };
 
   displayFunction = () => {
     let listData = [];
+    //Animal
     if (this.state.dogCheck) {
       this.setState({ filterDisplay: true });
       let filteredData = this.state.data.filter(function (item) {
-        return item.category.includes("dog");
+        return item.category.toLowerCase().includes("dog");
       });
       listData = listData.concat(filteredData);
     }
     if (this.state.catCheck) {
       this.setState({ filterDisplay: true });
       let filteredData = this.state.data.filter(function (item) {
-        return item.category.includes("cat");
+        return item.category.toLowerCase().includes("cat");
       });
       listData = listData.concat(filteredData);
     }
     if (this.state.rabbitCheck) {
       this.setState({ filterDisplay: true });
       let filteredData = this.state.data.filter(function (item) {
-        return item.category.includes("rabbit");
+        return item.category.toLowerCase().includes("rabbit");
       });
       listData = listData.concat(filteredData);
     }
     if (this.state.fishCheck) {
       this.setState({ filterDisplay: true });
       let filteredData = this.state.data.filter(function (item) {
-        return item.category.includes("fish");
+        return item.category.toLowerCase().includes("fish");
       });
       listData = listData.concat(filteredData);
     }
     if (this.state.birdCheck) {
       this.setState({ filterDisplay: true });
       let filteredData = this.state.data.filter(function (item) {
-        return item.category.includes("bird");
+        return item.category.toLowerCase().includes("bird");
       });
       listData = listData.concat(filteredData);
     }
     if (this.state.horseCheck) {
       this.setState({ filterDisplay: true });
       let filteredData = this.state.data.filter(function (item) {
-        return item.category.includes("horse");
+        return item.category.toLowerCase().includes("horse");
       });
       listData = listData.concat(filteredData);
     }
     if (this.state.lizardCheck) {
       this.setState({ filterDisplay: true });
       let filteredData = this.state.data.filter(function (item) {
-        return item.category.includes("lizard");
+        return item.category.toLowerCase().includes("lizard");
       });
       listData = listData.concat(filteredData);
     }
     if (this.state.turtleCheck) {
       this.setState({ filterDisplay: true });
       let filteredData = this.state.data.filter(function (item) {
-        return item.category.includes("turtle");
+        return item.category.toLowerCase().includes("turtle");
       });
       listData = listData.concat(filteredData);
     }
     if (this.state.pigCheck) {
       this.setState({ filterDisplay: true });
       let filteredData = this.state.data.filter(function (item) {
-        return item.category.includes("pig");
+        return item.category.toLowerCase().includes("pig");
       });
       listData = listData.concat(filteredData);
     }
 
-
+    //Colour
     if (this.state.whiteColour) {
       this.setState({ filterDisplay: true });
       let filteredData = this.state.data.filter(function (item) {
-        return item.colour.includes("White");
+        return item.colour.toLowerCase().includes("white");
       });
-      listData = listData.concat(white);
+      listData = listData.concat(filteredData);
     }
     if (this.state.goldColour) {
       this.setState({ filterDisplay: true });
       let filteredData = this.state.data.filter(function (item) {
-        return item.colour.includes("Gold");
+        return item.colour.toLowerCase().includes("gold");
       });
       listData = listData.concat(filteredData);
     }
     if (this.state.greenColour) {
       this.setState({ filterDisplay: true });
       let filteredData = this.state.data.filter(function (item) {
-        return item.colour.includes("Green");
+        return item.colour.toLowerCase().includes("green");
       });
       listData = listData.concat(filteredData);
     }
     if (this.state.blackColour) {
       this.setState({ filterDisplay: true });
       let filteredData = this.state.data.filter(function (item) {
-        return item.colour.includes("Black");
+        return item.colour.toLowerCase().includes("black");
       });
       listData = listData.concat(filteredData);
     }
     if (this.state.rainbowColour) {
       this.setState({ filterDisplay: true });
       let filteredData = this.state.data.filter(function (item) {
-        return item.colour.includes("Rainbow");
+        return item.colour.toLowerCase().includes("rainbow");
       });
       listData = listData.concat(filteredData);
     }
     if (this.state.greyColour) {
       this.setState({ filterDisplay: true });
       let filteredData = this.state.data.filter(function (item) {
-        return item.colour.includes("Grey");
+        return item.colour.toLowerCase().includes("grey");
       });
       listData = listData.concat(filteredData);
     }
     if (this.state.brownColour) {
       this.setState({ filterDisplay: true });
       let filteredData = this.state.data.filter(function (item) {
-        return item.colour.includes("Brown");
+        return item.colour.toLowerCase().includes("brown");
       });
       listData = listData.concat(filteredData);
     }
     if (this.state.redColour) {
       this.setState({ filterDisplay: true });
       let filteredData = this.state.data.filter(function (item) {
-        return item.colour.includes("Red");
+        return item.colour.toLowerCase().includes("red");
       });
       listData = listData.concat(filteredData);
     }
     if (this.state.orangeColour) {
       this.setState({ filterDisplay: true });
       let filteredData = this.state.data.filter(function (item) {
-        return item.colour.includes("Orange");
+        return item.colour.toLowerCase().includes("orange");
       });
       listData = listData.concat(filteredData);
     }
 
-    if (!this.state.dogCheck && !this.state.catCheck && !this.state.birdCheck &&
+    
+    //Location
+    if (this.state.nswCheck) {
+      this.setState({ filterDisplay: true });
+      let filteredData = this.state.data.filter(function (item) {
+        return item.location.toLowerCase().includes("nsw");
+      });
+      listData = listData.concat(filteredData);
+    }
+    if (this.state.vicCheck) {
+      this.setState({ filterDisplay: true });
+      let filteredData = this.state.data.filter(function (item) {
+        return item.location.toLowerCase().includes("vic");
+      });
+      listData = listData.concat(filteredData);
+    }
+    if (this.state.qldCheck) {
+      this.setState({ filterDisplay: true });
+      let filteredData = this.state.data.filter(function (item) {
+        return item.location.toLowerCase().includes("qld");
+      });
+      listData = listData.concat(filteredData);
+    }
+    if (this.state.waCheck) {
+      this.setState({ filterDisplay: true });
+      let filteredData = this.state.data.filter(function (item) {
+        return item.location.toLowerCase().includes("wa");
+      });
+      listData = listData.concat(filteredData);
+    }
+    if (this.state.saCheck) {
+      this.setState({ filterDisplay: true });
+      let filteredData = this.state.data.filter(function (item) {
+        return item.location.toLowerCase().includes("sa");
+      });
+      listData = listData.concat(filteredData);
+    }
+    if (this.state.tasCheck) {
+      this.setState({ filterDisplay: true });
+      let filteredData = this.state.data.filter(function (item) {
+        return item.location.toLowerCase().includes("tas");
+      });
+      listData = listData.concat(filteredData);
+    }
+    if (this.state.actCheck) {
+      this.setState({ filterDisplay: true });
+      let filteredData = this.state.data.filter(function (item) {
+        return item.location.toLowerCase().includes("act");
+      });
+      listData = listData.concat(filteredData);
+    }
+    if (this.state.ntCheck) {
+      this.setState({ filterDisplay: true });
+      let filteredData = this.state.data.filter(function (item) {
+        return item.location.toLowerCase().includes("nt");
+      });
+      listData = listData.concat(filteredData);
+    }
+
+    if (
+      //Animal
+      !this.state.dogCheck && !this.state.catCheck && !this.state.birdCheck &&
       !this.state.rabbitCheck && !this.state.fishCheck && !this.state.horseCheck &&
       !this.state.lizardCheck && !this.state.turtleCheck && !this.state.pigCheck &&
 
+      //Colour
       !this.state.whiteColour && !this.state.goldColour && !this.state.greenColour &&
       !this.state.blackColour && !this.state.rainbowColour && !this.state.greyColour &&
-      !this.state.brownColour && !this.state.redColour && !this.state.orangeColour
+      !this.state.brownColour && !this.state.redColour && !this.state.orangeColour &&
+
+      //Location
+      !this.state.nswCheck && !this.state.vicCheck && !this.state.qldCheck &&
+      !this.state.waCheck && !this.state.saCheck && !this.state.tasCheck &&
+      !this.state.actCheck && !this.state.ntCheck
       ) {
       this.setState({ filterDisplay: false });
     }
@@ -527,7 +624,7 @@ export default class HomeListing extends React.Component {
               }}>
               <Card elevation={5} style={{ margin: 10 }}>
                 <Card.Content>
-                  <ScrollView>
+                  <ScrollView style={{height: 450}}>
                     <Text>Animal:</Text>
                     <View style={{ flexDirection: "row" }}>
                       <Checkbox.Item
@@ -619,7 +716,6 @@ export default class HomeListing extends React.Component {
 
                         {/* Filter for colour  */}
                     <Text>Colour:</Text>
-
                     <View style={{ flexDirection: "row" }}>
                       <Checkbox.Item
                         theme={{ colors: { primary: darkGreen } }}
@@ -707,16 +803,99 @@ export default class HomeListing extends React.Component {
                         }}
                       />
                     </View>
+
+                    {/* Filter for Location */}
+                    <Text>Location:</Text>
+                    <View style={{ flexDirection: "row" }}>
+                      <Checkbox.Item
+                        theme={{ colors: { primary: darkGreen } }}
+                        color={darkGreen}
+                        label="NSW"
+                        status={this.state.nswCheck ? "checked" : "unchecked"}
+                        onPress={() => {
+                          this.checkFunction("nswCheck");
+                        }}
+                      />
+                      <Checkbox.Item
+                        theme={{ colors: { primary: darkGreen } }}
+                        color={darkGreen}
+                        label="VIC"
+                        status={this.state.vicCheck ? "checked" : "unchecked"}
+                        onPress={() => {
+                          this.checkFunction("vicCheck");
+                        }}
+                      />
+                      <Checkbox.Item
+                        theme={{ colors: { primary: darkGreen } }}
+                        color={darkGreen}
+                        label="QLD"
+                        status={this.state.qldCheck ? "checked" : "unchecked"}
+                        onPress={() => {
+                          this.checkFunction("qldCheck");
+                        }}
+                      />
+                    </View>
+                    <View style={{ flexDirection: "row" }}>
+                      <Checkbox.Item
+                        theme={{ colors: { primary: darkGreen } }}
+                        color={darkGreen}
+                        label="WA"
+                        status={this.state.waCheck ? "checked" : "unchecked"}
+                        onPress={() => {
+                          this.checkFunction("waCheck");
+                        }}
+                      />
+                      <Checkbox.Item
+                        theme={{ colors: { primary: darkGreen } }}
+                        color={darkGreen}
+                        label="SA"
+                        status={this.state.saCheck ? "checked" : "unchecked"}
+                        onPress={() => {
+                          this.checkFunction("saCheck");
+                        }}
+                      />
+                      <Checkbox.Item
+                        theme={{ colors: { primary: darkGreen } }}
+                        color={darkGreen}
+                        label="TAS"
+                        status={this.state.tasCheck ? "checked" : "unchecked"}
+                        onPress={() => {
+                          this.checkFunction("tasCheck");
+                        }}
+                      />
+                    </View>
+                    <View style={{ flexDirection: "row" }}>
+                      <Checkbox.Item
+                        theme={{ colors: { primary: darkGreen } }}
+                        color={darkGreen}
+                        label="ACT"
+                        status={this.state.actCheck ? "checked" : "unchecked"}
+                        onPress={() => {
+                          this.checkFunction("actCheck");
+                        }}
+                      />
+                      <Checkbox.Item
+                        theme={{ colors: { primary: darkGreen } }}
+                        color={darkGreen}
+                        label="NT"
+                        status={this.state.ntCheck ? "checked" : "unchecked"}
+                        onPress={() => {
+                          this.checkFunction("ntCheck");
+                        }}
+                      />
+      
+                    </View>
                   </ScrollView>                  
                 </Card.Content>
-                <Card.Actions style={{ justifyContent: "flex-end" }}>
+                <Card.Actions style={{ justifyContent: "flex-end"}}>
                   <Button
+                    style={{ backgroundColor: lightGreen, }}
                     color={darkGreen}
                     onPress={() => {
                       this.displayFunction();
                       this.setState({ visible: false });
                     }}>
-                    Done
+                      Done
                   </Button>
                 </Card.Actions>
               </Card>
@@ -724,30 +903,37 @@ export default class HomeListing extends React.Component {
           </Portal>
           {this.state.filterDisplay ? (
             <View style={styles.container}>
-              <FlatList
-                data={this.state.data}
-                columnWrapperStyle={{ justifyContent: "space-between" }}
-                numColumns={3}
-                onRefresh={async () => {
-                  this.setState({
-                    pullToRefresh: true,
-                  });
-                  await this.initialFetchData();
-                  this.setState({
-                    pullToRefresh: false,
-                  });
-                }}
-                keyExtractor={(item, index) => index.toString()}
-                refreshing={this.state.pullToRefresh}
-                renderItem={({ item }) => this.homeCard(item)}
-                keyExtractor={(item, index) => index.toString()}
-                data={
-                  this.state.filteredData && this.state.filteredData.length > 0
-                    ? this.state.filteredData
-                    : this.state.data
-                }
-              />
-            </View>
+              {this.state.filteredData.length == 0 ? (
+                <View style={styles.container}>
+                  <Text style={{ margin: 100 }}>No results found.</Text>
+                </View>
+              ) : (
+                <FlatList
+                  data={this.state.data}
+                  columnWrapperStyle={{ justifyContent: "flex-start" }}
+                  numColumns={3}
+                  onRefresh={async () => {
+                    this.setState({
+                      pullToRefresh: true,
+                    });
+                    await this.initialFetchData();
+                    this.setState({
+                      pullToRefresh: false,
+                    });
+                  }}
+                  keyExtractor={(item, index) => index.toString()}
+                  refreshing={this.state.pullToRefresh}
+                  renderItem={({ item }) => this.homeCard(item)}
+                  keyExtractor={(item, index) => index.toString()}
+                  data={
+                    this.state.filteredData &&
+                    this.state.filteredData.length > 0
+                      ? this.state.filteredData
+                      : this.state.data
+                  }
+                />
+              )}
+            </View>          
           ) : (
             <View style={styles.container}>
               {this.state.searchText == "" ? (
@@ -775,36 +961,29 @@ export default class HomeListing extends React.Component {
                 </View>
               ) : (
                 <View style={styles.container}>
-                  {this.state.filteredData.length == 0 ? (
-                    <View style={styles.container}>
-                      <Text style={{ margin: 100 }}>No results found.</Text>
-                    </View>
-                  ) : (
-                    <FlatList
-                      data={this.state.data}
-                      columnWrapperStyle={{ justifyContent: "flex-start" }}
-                      numColumns={3}
-                      onRefresh={async () => {
-                        this.setState({
-                          pullToRefresh: true,
-                        });
-                        await this.initialFetchData();
-                        this.setState({
-                          pullToRefresh: false,
-                        });
-                      }}
-                      keyExtractor={(item, index) => index.toString()}
-                      refreshing={this.state.pullToRefresh}
-                      renderItem={({ item }) => this.homeCard(item)}
-                      keyExtractor={(item, index) => index.toString()}
-                      data={
-                        this.state.filteredData &&
-                        this.state.filteredData.length > 0
-                          ? this.state.filteredData
-                          : this.state.data
-                      }
-                    />
-                  )}
+                  <FlatList
+                    data={this.state.data}
+                    columnWrapperStyle={{ justifyContent: "space-between" }}
+                    numColumns={3}
+                    onRefresh={async () => {
+                      this.setState({
+                        pullToRefresh: true,
+                      });
+                      await this.initialFetchData();
+                      this.setState({
+                        pullToRefresh: false,
+                      });
+                    }}
+                    keyExtractor={(item, index) => index.toString()}
+                    refreshing={this.state.pullToRefresh}
+                    renderItem={({ item }) => this.homeCard(item)}
+                    keyExtractor={(item, index) => index.toString()}
+                    data={
+                      this.state.filteredData && this.state.filteredData.length > 0
+                        ? this.state.filteredData
+                        : this.state.data
+                    }
+                  />
                 </View>
               )}
             </View>
