@@ -4,18 +4,21 @@ import { Dimensions } from "react-native";
 const screenWidth = Math.round(Dimensions.get("window").width);
 const textWidth = (screenWidth - 20) / 2;
 
-export const darkGreen = "#53A687";
+// export const darkGreen = "#53A687";
 export const green = "#C1D96C";
 export const lightGreen = "#DEF294";
 export const orange = "#F2B885";
 export const lightBlue = "#E8FAF4";
 export const lightGrey = "#F6F6F6";
 
+export const darkGrey = "#222222";
+export const darkGreen = "#027e62";
+
 export default StyleSheet.create({
   // Landing Page
   landingContainer: {
     flex: 1,
-    backgroundColor: "white",
+    backgroundColor: darkGrey,
     justifyContent: "center",
     alignItems: "center",
   },
@@ -30,6 +33,7 @@ export default StyleSheet.create({
   landingTitle: {
     marginTop: 10,
     textAlign: "center",
+    color: "white"
   },
   landingButtonsContainer: {
     alignItems: "center",
@@ -37,7 +41,7 @@ export default StyleSheet.create({
     flexGrow: 1,
   },
   landingButtons: {
-    backgroundColor: green,
+    backgroundColor: darkGreen,
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 10,
@@ -50,12 +54,19 @@ export default StyleSheet.create({
     fontSize: 15,
     fontWeight: "bold",
   },
+  textInput: {
+    color: "white",
+  },
+  linkText: {
+    fontWeight: "bold", 
+    textDecorationLine: "underline",
+  },
 
   // Login Page
   loginLogoContainer: {
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "white",
+    backgroundColor: darkGrey,
     paddingTop: 110,
     flex: 1,
   },
@@ -88,10 +99,9 @@ export default StyleSheet.create({
   signupLogoContainer: {
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "white",
-    paddingTop: 30,
+    backgroundColor: darkGrey,
+    paddingTop: 15,
     flex: 1,
-    backgroundColor: "white",
   },
   signupInputContainer: {
     width: 325,
