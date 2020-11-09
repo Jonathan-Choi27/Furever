@@ -1,24 +1,26 @@
 import { StyleSheet } from "react-native";
 import { Dimensions } from "react-native";
 
-const screenWidth = Math.round(Dimensions.get("window").width);
+export const screenWidth = Math.round(Dimensions.get("window").width);
 const textWidth = (screenWidth - 20) / 2;
 
 // export const darkGreen = "#53A687";
-export const green = "#C1D96C";
+export const green = "#038f6f";
 export const lightGreen = "#DEF294";
-export const orange = "#F2B885";
-export const lightBlue = "#E8FAF4";
-export const lightGrey = "#F6F6F6";
+export const darkGreen = "#00614b";
+export const pageBackgroundColour = "#f7f8fa";
 
-export const darkGrey = "#222222";
-export const darkGreen = "#027e62";
+export const navy = "#1D304E";
+export const darkNavy = "#0C1C30";
+export const orange = "#FF8611";
+export const lightOrange = "#FFAD4C";
+export const pink = "#FF686B";
 
 export default StyleSheet.create({
   // Landing Page
   landingContainer: {
     flex: 1,
-    backgroundColor: darkGrey,
+    backgroundColor: "white",
     justifyContent: "center",
     alignItems: "center",
   },
@@ -33,7 +35,6 @@ export default StyleSheet.create({
   landingTitle: {
     marginTop: 10,
     textAlign: "center",
-    color: "white"
   },
   landingButtonsContainer: {
     alignItems: "center",
@@ -41,13 +42,13 @@ export default StyleSheet.create({
     flexGrow: 1,
   },
   landingButtons: {
-    backgroundColor: darkGreen,
+    backgroundColor: green,
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 10,
-    width: 200,
+    width: 210,
     marginTop: 10,
-    height: 35,
+    height: 40,
   },
   landingButtonsText: {
     color: "white",
@@ -58,15 +59,15 @@ export default StyleSheet.create({
     color: "white",
   },
   linkText: {
-    fontWeight: "bold", 
-    textDecorationLine: "underline",
+    fontWeight: "bold",
+    color: green,
   },
 
   // Login Page
   loginLogoContainer: {
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: darkGrey,
+    backgroundColor: "white",
     paddingTop: 110,
     flex: 1,
   },
@@ -85,21 +86,21 @@ export default StyleSheet.create({
   loginTitle: {
     marginTop: 12,
     textAlign: "center",
-    color: darkGreen,
+    color: navy,
     padding: 10,
     fontSize: 15,
   },
   loginTitle2: {
     marginTop: 10,
     textAlign: "center",
-    color: darkGreen,
+    color: navy,
   },
 
-  //Signup
-  signupLogoContainer: {
+  // Signup
+  signupContainer: {
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: darkGrey,
+    backgroundColor: "white",
     paddingTop: 15,
     flex: 1,
   },
@@ -117,50 +118,46 @@ export default StyleSheet.create({
     marginBottom: 20,
   },
 
-  // Buy and Sell Tabs
-  buySellContainer: {
-    backgroundColor: lightGreen,
-    alignSelf: "stretch",
-    justifyContent: "flex-start",
-    alignItems: "flex-start",
-    flexDirection: "row",
+  // Home Card
+  homeCardImage: {
+    width: 120,
+    height: 120,
+    borderTopLeftRadius: 5,
+    borderTopRightRadius: 5,
   },
-  blueTab: {
-    backgroundColor: green,
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    height: 50,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.18,
-    shadowRadius: 1.0,
-    elevation: 7,
-  },
-  whiteTab: {
+  homeCardTitle: {
+    paddingRight: 8,
+    paddingLeft: 8,
+    paddingTop: 5,
+    paddingBottom: 3,
+    fontWeight: "bold",
+    fontSize: 14.5,
+    color: navy,
     backgroundColor: "white",
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    height: 50,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.18,
-    shadowRadius: 1.0,
-    elevation: 7,
+    borderBottomLeftRadius: 10,
+    borderBottomRightRadius: 10,
+    width: 120,
+  },
+  homeCardSubtitle: {
+    paddingRight: 8,
+    paddingLeft: 8,
+    paddingBottom: 10,
+    fontSize: 10,
+    color: "#878787",
+    backgroundColor: "white",
+    borderBottomLeftRadius: 10,
+    borderBottomRightRadius: 10,
+    width: 120,
+  },
+  homeCard: {
+    padding: 5,
   },
 
   // Pet Profile Pages
   container: {
     flex: 1,
     alignItems: "center",
-    backgroundColor: lightGrey,
+    backgroundColor: pageBackgroundColour,
   },
   cardContentContainer: {
     borderRadius: 10,
@@ -266,14 +263,14 @@ export default StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: lightGrey,
+    backgroundColor: pageBackgroundColour,
   },
   viewApplication: {
     backgroundColor: darkGreen,
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    width: 200,
+    width: 295,
     borderRadius: 5,
     marginTop: 5,
     marginBottom: 16,
@@ -283,6 +280,23 @@ export default StyleSheet.create({
     width: 340,
   },
   iconContainer: {
+    marginLeft: 15,
+    marginRight: 15,
+    marginBottom: 10,
+    paddingBottom: 5,
+    paddingLeft: 5,
+    paddingRight: 5,
+    backgroundColor: "white",
+    elevation: 5,
+    borderRadius: 10,
+  },
+  icon: {
+    height: 100,
+    width: 100,
+    borderRadius: 10,
+    marginBottom: 8,
+  },
+  breedContainer: {
     paddingLeft: 12,
     paddingRight: 12,
     paddingBottom: 10,
@@ -292,7 +306,7 @@ export default StyleSheet.create({
     paddingRight: 12,
     paddingTop: 6,
   },
-  icon: {
+  breedIcon: {
     height: 130,
     width: 130,
     borderRadius: 10,

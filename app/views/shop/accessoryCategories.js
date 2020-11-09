@@ -20,7 +20,6 @@ import {
   Checkbox,
 } from "react-native-paper";
 import { db } from "../database/firebase";
-import {onBuyTab} from "../components/petTabComponents";
 import globalStyles from "../styleSheet/styleSheet";
 import { shopAccessoryCard, accessoryCategory, getItemList } from "../components/shopComponents";
 import { cartTab } from "../components/shopTabComponent";
@@ -28,10 +27,6 @@ import { MaterialIcons, AntDesign, Ionicons, MaterialCommunityIcons } from '@exp
 import {
   darkGreen,
   green,
-  lightGreen,
-  orange,
-  lightBlue,
-  lightGrey,
 } from "../styleSheet/styleSheet";
 
 export default class accessoryCateogries extends React.Component {
@@ -184,7 +179,7 @@ handleBackButtonClick = () => {
                 value={this.state.searchText}
               />
               <Button
-                color={lightGreen}
+                color={green}
                 onPress={() => {
                   this.setState({ visible: true });
                 }}

@@ -12,7 +12,6 @@ import {
 import { Avatar, Card, Button, Searchbar } from "react-native-paper";
 import { db } from "../../database/firebase";
 import { auth } from "../../database/firebase";
-import { onBuyTab } from "../../components/petTabComponents";
 import globalStyles from "../../styleSheet/styleSheet";
 import { petBuyCard } from "../../components/petBuyComponents";
 import { buyerApplicationList } from "../../components/buyerApplicationList";

@@ -20,14 +20,10 @@ import {
   Checkbox,
 } from "react-native-paper";
 import { db } from "../database/firebase";
-import { onBuyTab } from "../components/petTabComponents";
 import {
   darkGreen,
   green,
-  lightGreen,
-  orange,
-  lightBlue,
-  lightGrey,
+  pageBackgroundColour,
 } from "../styleSheet/styleSheet";
 import globalStyles from "../styleSheet/styleSheet";
 import { shopAccessoryCard, shopCategory } from "../components/shopComponents";
@@ -146,7 +142,7 @@ export default class petCategories extends React.Component {
               value={this.state.searchText}
             />
             <Button
-              color={lightGreen}
+              color={green}
               onPress={() => {
                 this.setState({ visible: true });
               }}

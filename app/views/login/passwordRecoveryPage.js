@@ -4,7 +4,7 @@ import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
 import { Input } from "react-native-elements";
 import { AppLoading } from "expo";
 import * as Font from "expo-font";
-import styles from "../styleSheet/styleSheet";
+import globalStyles from "../styleSheet/styleSheet";
 import { darkGreen, green } from "../styleSheet/styleSheet";
 
 export default class PasswordRecoveryPage extends React.Component {
@@ -38,15 +38,15 @@ export default class PasswordRecoveryPage extends React.Component {
 
   render() {
     return (
-      <View style={styles.loginLogoContainer}>
+      <View style={globalStyles.loginLogoContainer}>
         <Image
-          style={styles.loginLogo}
+          style={globalStyles.loginLogo}
           source={{
             uri:
-              "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2FlogoWithWords.png?alt=media&token=ac29597a-9268-419f-8769-fa44ac76a5df",
+              "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2FlogoWithWords.png?alt=media&token=4d7beb37-6108-4c5c-95a7-5e0e89c4e6d0",
           }}
         />
-        <View style={styles.loginInputContainer}>
+        <View style={globalStyles.loginInputContainer}>
           <Input
             placeholder="EMAIL"
             value={this.state.email}
@@ -61,23 +61,23 @@ export default class PasswordRecoveryPage extends React.Component {
             }}
           />
         </View>
-        <View style={styles.landingButtonsContainer}>
+        <View style={globalStyles.landingButtonsContainer}>
           <TouchableOpacity
-            style={styles.landingButtons}
+            style={globalStyles.landingButtons}
             onPress={() => this.onPasswordRecovery(this.state.email)}
           >
-            <Text style={styles.landingButtonsText}>RESET PASSWORD</Text>
+            <Text style={globalStyles.landingButtonsText}>RESET PASSWORD</Text>
           </TouchableOpacity>
 
           <Text
-            style={styles.loginTitle}
+            style={globalStyles.loginTitle}
             onPress={() => this.props.navigation.navigate("Login")}
           >
-            BACK TO <Text style={{ fontWeight: "bold" }}>{"LOGIN"}</Text>
+            BACK TO <Text style={globalStyles.linkText}>{"LOGIN"}</Text>
           </Text>
         </View>
         <Image
-          style={styles.logo2}
+          style={globalStyles.logo2}
           source={{
             uri:
               "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Flogo.svg?alt=media&token=21d331fe-dc33-4021-a632-aeaa3b7cf6c4",

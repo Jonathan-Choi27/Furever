@@ -9,7 +9,6 @@ import {
 } from "react-native";
 console.disableYellowBox = true;
 import {profileInfo} from "../../components/petProfileComponents";
-import {onSellTab} from "../../components/petTabComponents";
 
 export default class sellPetProfile extends React.Component {
     render() {

@@ -17,7 +17,6 @@ import {
   Checkbox,
 } from "react-native-paper";
 import { db } from "../../database/firebase";
-import {onBuyTab} from "../../components/petTabComponents";
 import globalStyles from "../../styleSheet/styleSheet";
 import { darkGreen, green, lightGreen, lightGrey, orange, lightBlue } from "../../styleSheet/styleSheet";
 import { petBuyCard, petBuyBreed } from "../../components/petBuyComponents";
@@ -246,7 +245,7 @@ export default class petBreeds extends React.Component {
                 value={this.state.searchText}
               />
               <Button
-                color={lightGreen}
+                color={green}
                 onPress={() =>  {
                   this.setState({ visible: true });
                 }}
@@ -389,7 +388,6 @@ export default class petBreeds extends React.Component {
             ) : (
               <View style={globalStyles.petContainer}>
                 {this.state.searchText == "" ? (
-
                   <View style={globalStyles.petContainer}>
                     <FlatList
                       data={category.breeds}

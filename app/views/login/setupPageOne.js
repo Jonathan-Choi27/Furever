@@ -7,7 +7,7 @@ import { db } from "../database/firebase";
 import { auth } from "../database/firebase";
 import uuid from "react-native-uuid";
 import { Avatar, Accessory, Input } from "react-native-elements";
-import { darkGreen, green, lightGrey } from "../styleSheet/styleSheet";
+import globalStyles, { darkGreen, green, lightGrey, screenWidth } from "../styleSheet/styleSheet";
 
 export default class SetupOne extends React.Component {
   state = {
@@ -79,7 +79,7 @@ export default class SetupOne extends React.Component {
 
   render() {
     return (
-      <View style={{ backgroundColor: lightGrey }}>
+      <View style={globalStyles.container}>
         <View
           style={{
             backgroundColor: darkGreen,
@@ -128,17 +128,17 @@ export default class SetupOne extends React.Component {
           </View>
         </View>
 
-        <View style={{ marginHorizontal: 50, marginTop: 30 }}>
+        <View style={{ marginTop: 50, width: screenWidth - 80 }}>
           <View>
             <Input
               label="Add Profile Text"
               placeholder="Can be anything about you..."
-              labelStyle={{ color: darkGreen }}
+              labelStyle={{ color: green }}
               onChangeText={(profileText) => this.setState({ profileText })}
               multiline
             />
 
-            <View style={{ alignItems: "center", marginTop: 25 }}>
+            <View style={{ alignItems: "center", marginTop: 20 }}>
               <Button
                 mode="outlined"
                 style={styles.buttons}

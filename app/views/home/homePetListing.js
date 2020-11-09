@@ -7,19 +7,18 @@ import {
   Image,
   ActivityIndicator,
   ScrollView,
-
 } from "react-native";
 import firebase from "firebase";
 import { auth } from "../database/firebase";
 import {
   Button,
-  Card,
   Searchbar,
   Modal,
   Provider,
   Portal,
   Checkbox,
   Banner,
+  Card,
 } from "react-native-paper";
 import {
   darkGreen,
@@ -29,12 +28,12 @@ import {
   orange,
   lightBlue,
 } from "../styleSheet/styleSheet";
-import { searchBar } from "../components/petTabComponents";
 import globalStyles from "../styleSheet/styleSheet";
+import {homeListingCard} from "../components/homePetListingComponents"
 
 const db = firebase.firestore();
 
-export default class HomeListing extends React.Component {
+export default class HomePetListing extends React.Component {
   state = {
     data: [],
     limit: 12,
@@ -86,7 +85,7 @@ export default class HomeListing extends React.Component {
     let documentSnapshots = await initialQuery.get();
 
     let documentData = documentSnapshots.docs.map((listingDoc) => {
-    //   console.log(listingDoc.id);
+      //   console.log(listingDoc.id);
       dataArray.push({
         petName: listingDoc.data().name,
         category: listingDoc.data().category,
@@ -118,53 +117,6 @@ export default class HomeListing extends React.Component {
       isLoading: false,
       data: [...dataArray],
     });
-
-    // const dataArray = [];
-    // const seller = {};
-
-    // await db
-    //   .collection("petListings")
-    //   .get()
-    //   .then((doc) => {
-    //     doc.forEach(async (listingDoc) => {
-    //       // await db.collection("users")
-    //       //   .get()
-    //       //   .then((doc) => {
-    //       //     doc.forEach(async (user) => {
-    //       //       if (listingDoc.data().uuid == user.data().uuid) {
-    //       //         seller["name"] = user.data().name;
-    //       //         seller["photo"] = user.data().photo;
-    //       //         seller["info"] = user.data().profileText;
-    //       //         seller["email"] = user.data().email;
-    //       //         seller["dob"] = user.data().dob;
-    //       //       }
-    //       //     })
-    //       // });
-    //       dataArray.push({
-    //         petName: listingDoc.data().name,
-    //         category: listingDoc.data().category,
-    //         breed: listingDoc.data().breed,
-    //         colour: listingDoc.data().colour,
-    //         age: listingDoc.data().age,
-    //         gender: listingDoc.data().gender,
-    //         size: listingDoc.data().size,
-    //         location: listingDoc.data().location,
-    //         price: listingDoc.data().price,
-    //         behaviour: listingDoc.data().behaviour,
-    //         health: listingDoc.data().health,
-    //         training: listingDoc.data().training,
-    //         additional: listingDoc.data().additionalInfo,
-    //         photo: listingDoc.data().photoLink,
-    //         documentName: listingDoc.data().documents,
-    //         documentUri: listingDoc.data().documents_uri,
-    //         uuid: listingDoc.data().uuid,
-    //       });
-    //       this.setState({
-    //         isLoading: false,
-    //         data: [...dataArray],
-    //       });
-    //     });
-    //   });
 
     const user = auth.currentUser;
     db.collection("users")
@@ -367,7 +319,6 @@ export default class HomeListing extends React.Component {
       listData = listData.concat(filteredData);
     }
 
-
     if (this.state.whiteColour) {
       this.setState({ filterDisplay: true });
       let filteredData = this.state.data.filter(function (item) {
@@ -439,27 +390,11 @@ export default class HomeListing extends React.Component {
       !this.state.whiteColour && !this.state.goldColour && !this.state.greenColour &&
       !this.state.blackColour && !this.state.rainbowColour && !this.state.greyColour &&
       !this.state.brownColour && !this.state.redColour && !this.state.orangeColour
-      ) {
+    ) {
       this.setState({ filterDisplay: false });
     }
     this.setState({ filteredData: listData });
   };
-
-  homeCard = (item) => (
-    <View style={styles.card}>
-      <Card
-        elevation={5}
-        styles={styles.card}
-        onPress={() =>
-          this.props.navigation.navigate("petProfile", { item })
-        }>
-        <Image source={{ uri: item.photo }} style={styles.image} />
-        <Text numberOfLines={1} style={styles.title}>
-          {item.petName}
-        </Text>
-      </Card>
-    </View>
-  );
 
   render() {
     if (this.state.isLoading) {
@@ -497,7 +432,6 @@ export default class HomeListing extends React.Component {
       <Provider>
         {newNotice}
         <View style={styles.container}>
-          {/* {searchBar()} */}
           <View style={globalStyles.searchFilterContainer}>
             <Searchbar
               style={globalStyles.searchBar}
@@ -506,7 +440,7 @@ export default class HomeListing extends React.Component {
               value={this.state.searchText}
             />
             <Button
-              color={lightGreen}
+              color={green}
               onPress={() => {
                 this.setState({ visible: true });
               }}
@@ -617,7 +551,7 @@ export default class HomeListing extends React.Component {
                       />
                     </View>
 
-                        {/* Filter for colour  */}
+                    {/* Filter for colour  */}
                     <Text>Colour:</Text>
 
                     <View style={{ flexDirection: "row" }}>
@@ -707,7 +641,7 @@ export default class HomeListing extends React.Component {
                         }}
                       />
                     </View>
-                  </ScrollView>                  
+                  </ScrollView>
                 </Card.Content>
                 <Card.Actions style={{ justifyContent: "flex-end" }}>
                   <Button
@@ -739,7 +673,7 @@ export default class HomeListing extends React.Component {
                 }}
                 keyExtractor={(item, index) => index.toString()}
                 refreshing={this.state.pullToRefresh}
-                renderItem={({ item }) => this.homeCard(item)}
+                renderItem={({ item }) => (homeListingCard(item, this.props.navigation))}
                 keyExtractor={(item, index) => index.toString()}
                 data={
                   this.state.filteredData && this.state.filteredData.length > 0
@@ -749,37 +683,9 @@ export default class HomeListing extends React.Component {
               />
             </View>
           ) : (
-            <View style={styles.container}>
-              {this.state.searchText == "" ? (
-                <View style={styles.container}>
-                  <FlatList
-                    data={this.state.data}
-                    columnWrapperStyle={{ justifyContent: "flex-start" }}
-                    numColumns={3}
-                    onRefresh={async () => {
-                      this.setState({
-                        pullToRefresh: true,
-                      });
-                      await this.initialFetchData();
-                      this.setState({
-                        pullToRefresh: false,
-                      });
-                    }}
-                    keyExtractor={(item, index) => index.toString()}
-                    refreshing={this.state.pullToRefresh}
-                    renderItem={({ item }) => this.homeCard(item)}
-                    onEndReached={() => this.fetchMore()}
-                    onEndReachedThreshold={0.5}
-                  />
-                  {/* <Button onPress={() => this.fetchMore()}> test </Button> */}
-                </View>
-              ) : (
-                <View style={styles.container}>
-                  {this.state.filteredData.length == 0 ? (
-                    <View style={styles.container}>
-                      <Text style={{ margin: 100 }}>No results found.</Text>
-                    </View>
-                  ) : (
+              <View style={styles.container}>
+                {this.state.searchText == "" ? (
+                  <View style={styles.container}>
                     <FlatList
                       data={this.state.data}
                       columnWrapperStyle={{ justifyContent: "flex-start" }}
@@ -795,20 +701,48 @@ export default class HomeListing extends React.Component {
                       }}
                       keyExtractor={(item, index) => index.toString()}
                       refreshing={this.state.pullToRefresh}
-                      renderItem={({ item }) => this.homeCard(item)}
-                      keyExtractor={(item, index) => index.toString()}
-                      data={
-                        this.state.filteredData &&
-                        this.state.filteredData.length > 0
-                          ? this.state.filteredData
-                          : this.state.data
-                      }
+                      renderItem={({ item }) => (homeListingCard(item, this.props.navigation))}
+                      onEndReached={() => this.fetchMore()}
+                      onEndReachedThreshold={0.5}
                     />
+                    {/* <Button onPress={() => this.fetchMore()}> test </Button> */}
+                  </View>
+                ) : (
+                    <View style={styles.container}>
+                      {this.state.filteredData.length == 0 ? (
+                        <View style={styles.container}>
+                          <Text style={{ margin: 100 }}>No results found.</Text>
+                        </View>
+                      ) : (
+                          <FlatList
+                            data={this.state.data}
+                            columnWrapperStyle={{ justifyContent: "flex-start" }}
+                            numColumns={3}
+                            onRefresh={async () => {
+                              this.setState({
+                                pullToRefresh: true,
+                              });
+                              await this.initialFetchData();
+                              this.setState({
+                                pullToRefresh: false,
+                              });
+                            }}
+                            keyExtractor={(item, index) => index.toString()}
+                            refreshing={this.state.pullToRefresh}
+                            renderItem={({ item }) => (homeListingCard(item, this.props.navigation))}
+                            keyExtractor={(item, index) => index.toString()}
+                            data={
+                              this.state.filteredData &&
+                                this.state.filteredData.length > 0
+                                ? this.state.filteredData
+                                : this.state.data
+                            }
+                          />
+                        )}
+                    </View>
                   )}
-                </View>
-              )}
-            </View>
-          )}
+              </View>
+            )}
         </View>
       </Provider>
     );
@@ -820,46 +754,11 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: lightGrey,
-  },
-  image: {
-    aspectRatio: 1,
-  },
-  title: {
-    marginRight: 8,
-    marginLeft: 8,
-    marginTop: 5,
-    marginBottom: 5,
-    fontWeight: "bold",
-    fontSize: 14.5,
-    color: darkGreen,
-  },
-  subtext: {
-    paddingLeft: 8,
-    paddingTop: 8,
-    marginBottom: 8,
-    fontSize: 12,
-    borderTopWidth: 0.5,
+    backgroundColor: "#F7F8FA",
   },
   activityContainer: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-  },
-  titleContainer: {
-    flexDirection: "row",
-    justifyContent: "flex-start",
-  },
-  cardContainer: {
-    flex: 2,
-    justifyContent: "flex-start",
-    alignItems: "flex-start",
-  },
-  card: {
-    margin: 5,
-    width: 120,
-  },
-  cardContentText: {
-    fontWeight: "bold",
   },
 });

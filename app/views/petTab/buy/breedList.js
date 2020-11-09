@@ -14,8 +14,7 @@ import {
   Paragraph,
 } from "react-native-paper";
 import { db } from "../../database/firebase";
-import { onBuyTab } from "../../components/petTabComponents"
-import globalStyles, { darkGreen, orange } from "../../styleSheet/styleSheet";
+import globalStyles, { darkGreen, green } from "../../styleSheet/styleSheet";
 import { petBuyCard } from "../../components/petBuyComponents";
 import { Dimensions } from "react-native";
 
@@ -154,7 +153,7 @@ export default class breedList extends React.Component {
             <Text style={globalStyles.pageTitle}>{item.breedName}</Text>
             <View>
               <Button
-                color={darkGreen}
+                color={green}
                 onPress={() => {
                   this.setState({ visible: true });
                 }}

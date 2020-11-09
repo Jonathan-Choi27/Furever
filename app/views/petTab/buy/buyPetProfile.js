@@ -10,7 +10,6 @@ import {
   } from "react-native";
 console.disableYellowBox = true;
 import {expressInterest, profileInfo, sellerInfo} from "../../components/petProfileComponents";
-import {onBuyTab} from "../../components/petTabComponents";
 import { db } from "../../database/firebase";
 
 export default class buyPetProfile extends React.Component {

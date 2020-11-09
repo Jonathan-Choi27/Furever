@@ -9,7 +9,6 @@ import {
   } from "react-native";
 console.disableYellowBox = true;
 import {buyerInfo, acceptBuyer, rejectBuyer} from "../../components/buyerInfoComponent";
-import {onBuyTab} from "../../components/petTabComponents";
 import styles from "../../styleSheet/styleSheet";
 
 export default class buyerProfile extends React.Component {

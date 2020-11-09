@@ -15,7 +15,6 @@ import {
     Paragraph,
   } from "react-native-paper";
 import firebase from "firebase";
-import {onSellTab} from "../../components/petTabComponents";
 import globalStyles from "../../styleSheet/styleSheet";
 import {offerApplicationListingCard} from "../../components/offerApplicationListingsComponent";
 

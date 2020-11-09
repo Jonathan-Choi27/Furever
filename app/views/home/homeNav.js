@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { StyleSheet, Platform, BackHandler } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import homeListing from "./homePetListing";
+import homePetListing from "./homePetListing";
 import homePetProfile from "./homePetProfile";
 import homeSellerProfile from "./homeSellerProfile"
 import buyApplication from "../petTab/buy/buyApplication";
@@ -32,12 +32,12 @@ export default function HomeNav() {
 		<NavigationContainer independent={true}>
 			<Stack.Navigator>
 				<Stack.Screen
-					name="homeListing"
-					component={homeListing}
+					name="homePetListing"
+					component={homePetListing}
 					options={{
 						title: "Home",
 						headerStyle: {
-							backgroundColor: green,
+							backgroundColor: "white",
 						},
 						headerTitle: <HeaderLogo/>,
 						headerTitleStyle: {

@@ -20,14 +20,9 @@ import {
   Checkbox,
 } from "react-native-paper";
 import { db } from "../../database/firebase";
-import { onBuyTab } from "../../components/petTabComponents";
 import {
   darkGreen,
   green,
-  lightGreen,
-  orange,
-  lightBlue,
-  lightGrey,
 } from "../../styleSheet/styleSheet";
 import globalStyles from "../../styleSheet/styleSheet";
 import { petBuyCard, petBuyCategory } from "../../components/petBuyComponents";
@@ -366,7 +361,7 @@ export default class petCategories extends React.Component {
               value={this.state.searchText}
             />
             <Button
-              color={lightGreen}
+              color={green}
               onPress={() => {
                 this.setState({ visible: true });
               }}
@@ -378,7 +373,7 @@ export default class petCategories extends React.Component {
             </Button>
           </View>
 
-          <View style={{ height: 52 }}>
+          {/* <View style={{ height: 52 }}>
             <TouchableOpacity
               style={globalStyles.viewApplication}
               onPress={() =>
@@ -393,6 +388,27 @@ export default class petCategories extends React.Component {
                 View Applications
               </Text>
             </TouchableOpacity>
+          </View> */}
+
+          <View style={{ width: 300, marginTop: 5, marginBottom: 16,}}>
+            <Card
+              elevation={5}
+              containerStyle={{ borderRadius: 10 }}
+              onPress={() =>
+                this.props.navigation.navigate("currentApplications")
+              }>
+              <View style={{flexDirection: "row", justifyContent: "center", alignItems: "center"}}>
+                <Text numberOfLines={1} style={[globalStyles.pageTitle, {padding: 10}]}>
+                    View Applications
+                </Text>
+                <Image 
+                  style={{width: 30, height: 30}}
+                  source={{
+                    uri: "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fpet%20buy%20icons%2FpetCategories%2Fapplication.png?alt=media&token=896bdaf8-ba26-4ce5-974c-7cff5815bd98"
+                  }}>
+                </Image>
+              </View>
+            </Card>
           </View>
 
           <ScrollView showsVerticalScrollIndicator={false}>

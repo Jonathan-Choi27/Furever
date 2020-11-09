@@ -3,7 +3,6 @@ import { Text, View, Image, FlatList } from "react-native";
 import { Card, Button, Searchbar } from "react-native-paper";
 import firebase from "firebase";
 import { auth } from "../../database/firebase";
-import { onSellTab } from "../../components/petTabComponents";
 import globalStyles, {
   darkGreen,
   lightGreen,

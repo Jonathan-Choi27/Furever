@@ -114,7 +114,7 @@ export default class accessoryList extends React.Component {
             value={this.state.searchText}
           />
           <Button
-            color={lightGreen}
+            color={green}
             onPress={() => {
               this.setState({ visible: true });
             }}
