@@ -52,6 +52,7 @@ export default function App() {
               //     flex: 1,
               //   },
               //   headerTitleContainerStyle: { left: 0, right: 0 },
+              headerLeft: null,
               headerShown: false,
             }}
           />
