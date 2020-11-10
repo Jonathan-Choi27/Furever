@@ -116,61 +116,6 @@ export const addItemToCart = (item) => {
   duplicate = false;
   console.log(itemList); 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  // const user = auth.currentUser;
-  // console.log(itemId);
-
-  // const usersRef = db.collection("cart");
-  // const arrayLength = (await usersRef.get()).size
-  // let check = false;
-  // let docId = null;
-  // let currentQty = 0;
-
-  
-
-  // if(arrayLength === 0){
-  //   usersRef.add({itemId: itemId, uuid: user.uid, qty: 1});
-  // } else {
-  //   await usersRef.get().then((doc) => {
-  //     doc.forEach(async (listingDoc) => {
-  //         // console.log(listingDoc.data().itemId);
-  //       if(itemId === listingDoc.data().itemId){
-  //         check = true;
-  //         docId = listingDoc.id;
-  //         currentQty = listingDoc.data().qty;
-  //       }  
-  //     })
-  //   });
-  //   if(arrayLength > 0){
-  //     if(check === true){
-  //       console.log("check is true");
-  //       usersRef.doc(docId).update({ qty: currentQty + 1 });
-        
-  //     } else {
-  //       console.log("check is false")
-  //       usersRef.add({itemId: itemId, uuid: user.uid, qty: 1}); 
-  //     }
-  //   }
-
-  // }
-
-  Alert.alert("Your item has been added!");
-  
+  Alert.alert("Your item has been added!"); 
 };
 

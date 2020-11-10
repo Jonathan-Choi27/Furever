@@ -21,7 +21,9 @@ import {
 } from "react-native-paper";
 import firebase from "firebase";
 import { auth } from "../database/firebase";
-import {shopAccessoryCard} from "../components/shopComponents"
+import {shopAccessoryCard, getItemList} from "../components/shopComponents";
+import { cartTab } from "../components/shopTabComponent";
+
 
 import globalStyles, { darkGreen, green, lightGreen, lightGrey, orange, lightBlue } from "../styleSheet/styleSheet";
 
@@ -58,6 +60,7 @@ export default class accessoryList extends React.Component {
                     price: listingDoc.data().price,
                     photo: listingDoc.data().photoLink,
                     docId: listingDoc.id,
+                    description: listingDoc.data().description,
                   });
           this.setState({
             isLoading: false,
@@ -152,9 +155,25 @@ export default class accessoryList extends React.Component {
             </Card>
           </Modal>
         </Portal>
-        <Text style = {{padding: 15}}>
-            Shop - {this.props.route.params.item.type}
-        </Text>  
+        <View style={{ height: 52, flexDirection:'row', justifyContent:'space-between', marginBottom: 10}}>
+              
+          <Text style={{fontSize: 20,
+                  fontWeight: 'bold',
+                  justifyContent: "center",
+                  alignItems: "center",
+                  // width: 300,
+                  flexDirection: 'row',
+                  borderRadius: 5,
+                  marginTop: 5,
+                  marginBottom: 16,}}>
+              Shop - {this.props.route.params.item.type}
+          </Text>  
+          <View style={{paddingLeft:200}}>
+            {cartTab(getItemList(), this.props.navigation)}
+          </View>
+          
+        </View>
+        
 
         {this.state.filterDisplay ? (
               <FlatList

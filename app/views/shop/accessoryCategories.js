@@ -196,9 +196,17 @@ handleBackButtonClick = () => {
                 Filter
               </Button>
             </View>
-            <View style={{ height: 52, flexDirection:'row', paddingLeft: 10 }}>
+            <View style={{ height: 52, flexDirection:'row', justifyContent:'space-between', }}>
+              
               <TouchableOpacity
-                style={globalStyles.viewApplication}
+                style={{backgroundColor: darkGreen,
+                  justifyContent: "center",
+                  alignItems: "center",
+                  width: 200,
+                  flexDirection: 'row',
+                  borderRadius: 5,
+                  marginTop: 5,
+                  marginBottom: 16,}}
                 onPress={() =>
                 this.props.navigation.navigate("accessoryListings")
                 }
@@ -212,7 +220,10 @@ handleBackButtonClick = () => {
                   Sell Accessories
                 </Text>
               </TouchableOpacity>
-              {cartTab(getItemList(), this.props.navigation)}
+              <View style={{paddingLeft: 110}}>
+                {cartTab(getItemList(), this.props.navigation)}
+              </View>
+              
             </View>
             <ScrollView showsVerticalScrollIndicator={false}>
             <Portal>

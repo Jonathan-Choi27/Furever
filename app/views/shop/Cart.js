@@ -13,6 +13,7 @@ export default class Cart extends React.Component {
 			selectAll: false,
 			cartItemsIsLoading: false,
 			cartItems: this.props.route.params.items,
+			totalPrice: ""
 		}
 		console.log("im in cart");
     	
@@ -90,7 +91,8 @@ export default class Cart extends React.Component {
 	calculateTotalPrice = () => {
 		const { cartItems } = this.state;
 		if(cartItems){
-			return cartItems.reduce((sum, item) => sum + item.qty * item.price, 0);
+			const total = cartItems.reduce((sum, item) => sum + item.qty * item.price, 0)
+			return total;
 		}
 		return 0;
 	}
@@ -189,7 +191,7 @@ export default class Cart extends React.Component {
 								</TouchableOpacity> */}
 							</View>
 							<View style={{flexDirection: 'row', flexGrow: 1, flexShrink: 1, justifyContent: 'space-between', alignItems: 'center'}}>
-								<Text>Select All</Text>
+								<Text></Text>
 								<View style={{flexDirection: 'row', paddingRight: 20, alignItems: 'center'}}>
 									<Text style={{color: '#8f8f8f'}}>Total Price: </Text>
 									<Text>${this.calculateTotalPrice().toFixed(2)}</Text>
@@ -197,7 +199,7 @@ export default class Cart extends React.Component {
 							</View>
 						</View>
 						<View style={{flexDirection: 'row', justifyContent: 'flex-end', height: 32, paddingRight: 20, alignItems: 'center'}}>
-							<TouchableOpacity style={[styles.centerElement, {backgroundColor: '#0faf9a', width: 100, height: 25, borderRadius: 5}]} onPress={() => this.props.navigation.navigate("Checkout", this.state.cartItems)}>
+							<TouchableOpacity style={[styles.centerElement, {backgroundColor: '#0faf9a', width: 100, height: 25, borderRadius: 5}]} onPress={() => this.props.navigation.navigate("CheckoutSummary", {cartItems: this.state.cartItems, price: this.calculateTotalPrice()})}>
 								<Text style={{color: '#ffffff'}}>Checkout</Text>
 							</TouchableOpacity>
 						</View>

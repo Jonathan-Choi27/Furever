@@ -19,7 +19,7 @@ import { getItemList } from "../components/shopComponents";
 export const cartTab = (itemList, navigation) => {
     const items = getItemList();
     return (
-        <View style={{paddingLeft: 100, paddingRight: 10}}>
+        <View>
 			<TouchableOpacity onPress={() => navigation.navigate("Cart", {items})}>
 			    <AntDesign name={"shoppingcart"} size={40} color={"green"} />
 			</TouchableOpacity>

@@ -11,8 +11,9 @@ import petCategories from "./petCategories";
 import accessoryList from "./accessoryList";
 import shopProfile from "./shopProfile";
 import Cart from "./Cart";
-import Checkout from "./Checkout";
+import CheckoutInformation from "./CheckoutInformation";
 import accessorySellerProfile from "./accessorySellerProfile";
+import CheckoutSummary from "./CheckoutSummary";
 
 const Stack = createStackNavigator();
 
@@ -46,7 +47,8 @@ export default function PetNav() {
         <Stack.Screen name="accessoryList" component={accessoryList} />
         <Stack.Screen name="shopProfile" component={shopProfile} />
         <Stack.Screen name="Cart" component={Cart} />
-        <Stack.Screen name="Checkout" component={Checkout} />
+        <Stack.Screen name="CheckoutInformation" component={CheckoutInformation} />
+        <Stack.Screen name="CheckoutSummary" component={CheckoutSummary} />
         <Stack.Screen name="accessorySellerProfile" component={accessorySellerProfile} />
 
       </Stack.Navigator>

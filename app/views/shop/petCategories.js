@@ -30,7 +30,9 @@ import {
   lightGrey,
 } from "../styleSheet/styleSheet";
 import globalStyles from "../styleSheet/styleSheet";
-import { shopAccessoryCard, shopCategory } from "../components/shopComponents";
+import { shopAccessoryCard, shopCategory, getItemList } from "../components/shopComponents";
+import { cartTab } from "../components/shopTabComponent";
+
 
 export default class petCategories extends React.Component {
   state = {
@@ -158,23 +160,36 @@ export default class petCategories extends React.Component {
             </Button>
           </View>
 
-          <View style={{ height: 52 }}>
-            <TouchableOpacity
-              style={globalStyles.viewApplication}
-              onPress={() =>
-               this.props.navigation.navigate("accessoryListings")
-              }
-              >
-              <Text
-                style={{
-                  textAlign: "center",
-                  color: "white",
-                  fontWeight: "bold",
-                }}>
-                Sell Accessories
-              </Text>
-            </TouchableOpacity>
-          </View>
+          <View style={{ height: 52, flexDirection:'row', justifyContent:'space-between', }}>
+              
+              <TouchableOpacity
+                style={{backgroundColor: darkGreen,
+                  // flex: 1,
+                  justifyContent: "center",
+                  alignItems: "center",
+                  width: 200,
+                  flexDirection: 'row',
+                  borderRadius: 5,
+                  marginTop: 5,
+                  marginBottom: 16,}}
+                onPress={() =>
+                this.props.navigation.navigate("accessoryListings")
+                }
+                >
+                <Text
+                  style={{
+                    textAlign: "center",
+                    color: "white",
+                    fontWeight: "bold",
+                  }}>
+                  Sell Accessories
+                </Text>
+              </TouchableOpacity>
+              <View style={{paddingLeft: 110}}>
+                {cartTab(getItemList(), this.props.navigation)}
+              </View>
+              
+            </View>
 
           <ScrollView showsVerticalScrollIndicator={false}>
             <Portal>

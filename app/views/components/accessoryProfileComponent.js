@@ -24,17 +24,25 @@ const checkAdditional = (additional) => {
 }
 
 export const profileInfo = (item, navigation) => {
-  return (
+  console.log(item);
+  return (    
     <View style={styles.container}>
       <View style={{ marginBottom: 0 }}>
-        {cartTab(item, navigation)}
         <View style={{ alignItems: "center" }}>
           <Image
             style={{ width: screenWidth, height: 250 }}
             source={{
               uri: item.photo,
             }}
+            
           />
+          <View style={{position: 'absolute',  margin: 10, backgroundColor:"white", borderRadius: 50/2, height: 50, width: 50, justifyContent:"center", alignItems:"center", right: 10 }}>
+            
+            {cartTab(item, navigation)} 
+            {/* </View> */}
+            
+          </View>
+          
         </View>
         <Card containerStyle={styles.cardContentContainer}>
           <Text
@@ -47,17 +55,19 @@ export const profileInfo = (item, navigation) => {
           <Text style={styles.cardHeading}>Item Description</Text>
           <View style={styles.cardContainer}>
             <View style={{ paddingLeft: 1, paddingRight: 15 }}>
-                <Text style={styles.contentTextBold}>Price: </Text>
-              <Text style={styles.contentTextBold}>Material: </Text>
-              <Text style={styles.contentTextBold}>Size: </Text>
-              <Text style={styles.contentTextBold}>Colour: </Text>
+              <Text style={styles.contentTextBold}>Price: </Text>
+              <Text style={styles.contentTextBold}>Type: </Text>
+              <Text style={styles.contentTextBold}>Description: </Text>
+              {/* <Text style={styles.contentTextBold}>Date Posted: </Text> */}
+              {/* <Text style={styles.contentTextBold}>Colour: </Text> */}
               {/* <Text style={styles.contentTextBold}>Comments: </Text> */}
             </View>
             <View style={{ flex: 1}}>
-              <Text numberOfLines={1} style={styles.contentText}>{item.price}</Text>
-              <Text numberOfLines={1} style={styles.contentText}>{item.material}</Text>
-              <Text numberOfLines={1} style={styles.contentText}>{item.size}</Text>
-              <Text numberOfLines={1} style={styles.contentText}>{item.colour}</Text>
+              <Text numberOfLines={1} style={styles.contentText}>$ {item.price}</Text>
+              <Text numberOfLines={1} style={styles.contentText}>{item.type}</Text>
+              <Text numberOfLines={1} style={styles.contentText}>{item.description}</Text>
+              {/* <Text numberOfLines={1} style={styles.contentText}>{item.datePosted}</Text> */}
+              {/* <Text numberOfLines={1} style={styles.contentText}>{item.colour}</Text> */}
               {/* <Text numberOfLines={1} style={styles.contentText}>{item.comments}</Text> */}
             </View>
           </View>

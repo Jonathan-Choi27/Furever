@@ -86,23 +86,23 @@ export default class shopProfile extends React.Component {
             <View style={{paddingBottom: 50}}>
                 <ScrollView>
                     {profileInfo(item, this.props.navigation)}
-                    {sellerInfo(this.state, this.props.navigation)}
-                    <View style={{ flexDirection: 'row', paddingTop: 30, justifyContent: 'center', alignItems: 'center' }}>
+                    {/* {sellerInfo(this.state, this.props.navigation)} */}
+                    {/* <View style={{ flexDirection: 'row', paddingTop: 30, justifyContent: 'center', alignItems: 'center' }}>
                         <Icon onPress={() => this.setState({quantity: this.state.quantity - 1})} name="minuscircle" size={30} style={{justifyContent: 'center', alignItems: 'center'}}/>
                         <Text style={{fontSize: 20, margin: 20}}>{this.state.quantity}</Text>
                         <Icon onPress={() => this.setState({quantity: this.state.quantity + 1})} name="pluscircle" size={30} style={{justifyContent: 'center', alignItems: 'center'}} />
                     </View>
                     <View style={{paddingTop: 10, paddingBottom:10, justifyContent: 'center', alignItems: 'center'}}>
                         <Text style={{fontSize: 15}}>Total price: {this.state.quantity * item.price}</Text>
-                    </View>
-                    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', paddingTop: 10 }}>
+                    </View> */}
+                    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', paddingTop: 20 }}>
                         <Button
                             style={{
-                            backgroundColor: green,
+                            backgroundColor: "green",
                             alignItems: "center",
                             justifyContent: "center",
                             borderRadius: 5,
-                            height: 25,
+                            height: 35,
                             width: 120
                             }}
                             mode="contained"
