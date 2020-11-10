@@ -809,7 +809,7 @@ export default class HomePetListing extends React.Component {
                           this.checkFunction("actCheck");
                         }}
                       />
-                      
+
                      <Checkbox.Item
                         theme={{ colors: { primary: darkGreen } }}
                         color={darkGreen}
@@ -838,88 +838,88 @@ export default class HomePetListing extends React.Component {
           </Portal>
           {this.state.filterDisplay ? (
             <View style={styles.container}>
-              <FlatList
-                data={this.state.data}
-                columnWrapperStyle={{ justifyContent: "space-between" }}
-                numColumns={3}
-                onRefresh={async () => {
-                  this.setState({
-                    pullToRefresh: true,
-                  });
-                  await this.initialFetchData();
-                  this.setState({
-                    pullToRefresh: false,
-                  });
-                }}
-                keyExtractor={(item, index) => index.toString()}
-                refreshing={this.state.pullToRefresh}
-                renderItem={({ item }) => (homeListingCard(item, this.props.navigation))}
-                keyExtractor={(item, index) => index.toString()}
-                data={
-                  this.state.filteredData && this.state.filteredData.length > 0
-                    ? this.state.filteredData
-                    : this.state.data
-                }
-              />
-            </View>
+              {this.state.filteredData.length == 0 ? (
+                <View style={styles.container}>
+                  <Text style={{ margin: 100 }}>No results found.</Text>
+                </View>
+              ) : (
+                <FlatList
+                  data={this.state.data}
+                  columnWrapperStyle={{ justifyContent: "flex-start" }}
+                  numColumns={3}
+                  onRefresh={async () => {
+                    this.setState({
+                      pullToRefresh: true,
+                    });
+                    await this.initialFetchData();
+                    this.setState({
+                      pullToRefresh: false,
+                    });
+                  }}
+                  keyExtractor={(item, index) => index.toString()}
+                  refreshing={this.state.pullToRefresh}
+                  renderItem={({ item }) => (homeListingCard(item, this.props.navigation))}
+                  keyExtractor={(item, index) => index.toString()}
+                  data={
+                    this.state.filteredData &&
+                    this.state.filteredData.length > 0
+                      ? this.state.filteredData
+                      : this.state.data
+                  }
+                />
+              )}
+            </View>          
           ) : (
-              <View style={styles.container}>
-                {this.state.searchText == "" ? (
-                  <View style={styles.container}>
-                    <FlatList
-                      data={this.state.data}
-                      columnWrapperStyle={{ justifyContent: "flex-start" }}
-                      numColumns={3}
-                      onRefresh={async () => {
-                        this.setState({
-                          pullToRefresh: true,
-                        });
-                        await this.initialFetchData();
-                        this.setState({
-                          pullToRefresh: false,
-                        });
-                      }}
-                      keyExtractor={(item, index) => index.toString()}
-                      refreshing={this.state.pullToRefresh}
-                      renderItem={({ item }) => (homeListingCard(item, this.props.navigation))}
-                      onEndReached={() => this.fetchMore()}
-                      onEndReachedThreshold={0.5}
-                    />
-                    {/* <Button onPress={() => this.fetchMore()}> test </Button> */}
-                  </View>
+            <View style={styles.container}>
+              {this.state.searchText == "" ? (
+                <View style={styles.container}>
+                  <FlatList
+                    data={this.state.data}
+                    columnWrapperStyle={{ justifyContent: "flex-start" }}
+                    numColumns={3}
+                    onRefresh={async () => {
+                      this.setState({
+                        pullToRefresh: true,
+                      });
+                      await this.initialFetchData();
+                      this.setState({
+                        pullToRefresh: false,
+                      });
+                    }}
+                    keyExtractor={(item, index) => index.toString()}
+                    refreshing={this.state.pullToRefresh}
+                    renderItem={({ item }) => (homeListingCard(item, this.props.navigation))}
+                    onEndReached={() => this.fetchMore()}
+                    onEndReachedThreshold={0.5}
+                  />
+                  {/* <Button onPress={() => this.fetchMore()}> test </Button> */}
+                </View>
                 ) : (
-                    <View style={styles.container}>
-                      {this.state.filteredData.length == 0 ? (
-                        <View style={styles.container}>
-                          <Text style={{ margin: 100 }}>No results found.</Text>
-                        </View>
-                      ) : (
-                          <FlatList
-                            data={this.state.data}
-                            columnWrapperStyle={{ justifyContent: "flex-start" }}
-                            numColumns={3}
-                            onRefresh={async () => {
-                              this.setState({
-                                pullToRefresh: true,
-                              });
-                              await this.initialFetchData();
-                              this.setState({
-                                pullToRefresh: false,
-                              });
-                            }}
-                            keyExtractor={(item, index) => index.toString()}
-                            refreshing={this.state.pullToRefresh}
-                            renderItem={({ item }) => (homeListingCard(item, this.props.navigation))}
-                            keyExtractor={(item, index) => index.toString()}
-                            data={
-                              this.state.filteredData &&
-                                this.state.filteredData.length > 0
-                                ? this.state.filteredData
-                                : this.state.data
-                            }
-                          />
-                        )}
-                    </View>
+                  <View style={styles.container}>
+                  <FlatList
+                    data={this.state.data}
+                    columnWrapperStyle={{ justifyContent: "space-between" }}
+                    numColumns={3}
+                    onRefresh={async () => {
+                      this.setState({
+                        pullToRefresh: true,
+                      });
+                      await this.initialFetchData();
+                      this.setState({
+                        pullToRefresh: false,
+                      });
+                    }}
+                    keyExtractor={(item, index) => index.toString()}
+                    refreshing={this.state.pullToRefresh}
+                    renderItem={({ item }) => (homeListingCard(item, this.props.navigation))}
+                    keyExtractor={(item, index) => index.toString()}
+                    data={
+                      this.state.filteredData && this.state.filteredData.length > 0
+                        ? this.state.filteredData
+                        : this.state.data
+                    }
+                  />
+                </View>
                   )}
               </View>
             )}
