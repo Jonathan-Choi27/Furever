@@ -14,7 +14,6 @@ export default class SignUp extends React.Component {
     confirmPassword: "",
     password: "",
     dob: "",
-    isPetShop: false,
     isNewUser: true,
   };
 
@@ -82,7 +81,6 @@ export default class SignUp extends React.Component {
                 name: this.state.name,
                 dob: this.state.dob,
                 email: this.state.email,
-                isPetShop: this.state.isPetShop,
                 isNewUser: this.state.isNewUser,
                 uuid: user.uid,
               });
@@ -199,16 +197,10 @@ export default class SignUp extends React.Component {
           />
         </View>
 
-        <CheckBox
-          title="Are you a pet shop?"
-          checked={this.state.isPetShop}
-          checkedColor={darkGreen}
-          onPress={() => this.setState({ isPetShop: !this.state.isPetShop })}
-          size={20}
-          globalStyles={{ marginBottom: 0 }}
-        />
-
-        <TouchableOpacity style={globalStyles.landingButtons} onPress={this.submit}>
+        <TouchableOpacity
+          style={globalStyles.landingButtons}
+          onPress={this.submit}
+        >
           <Text style={globalStyles.landingButtonsText}>SIGN UP</Text>
         </TouchableOpacity>
         <Text
