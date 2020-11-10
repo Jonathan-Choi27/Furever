@@ -80,11 +80,12 @@ export const petBuyCategory = (item, navigation) => {
         onPress={() =>
           navigation.navigate("petBreeds", { item })
         }>
-        <View style={styles.iconContainer}>
+        <View style={styles.categoryIconContainer}>
           <Image
             style={styles.icon}
             source={{uri: item.categoryImage}}
           />
+          <Text style={styles.iconText}>{item.category}</Text>
         </View>
       </TouchableOpacity>
     </View>
@@ -93,14 +94,14 @@ export const petBuyCategory = (item, navigation) => {
 
 export const petBuyBreed = (item, category, navigation) => {
   return (
-    <View style={styles.iconContainer}>
+    <View style={styles.breedContainer}>
       <TouchableOpacity
         onPress={() =>
           navigation.navigate("breedList", { item, category })
         }>
         <View style={styles.breedIconContainer}>
           <Image
-            style={styles.icon}
+            style={styles.breedIcon}
             source={{uri: item.breedImage}}
           />
           <Text style={styles.iconText}>{item.breedName}</Text>

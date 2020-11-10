@@ -20,19 +20,15 @@ import {
   Checkbox,
 } from "react-native-paper";
 import { db } from "../database/firebase";
-import {onBuyTab} from "../components/petTabComponents";
 import globalStyles from "../styleSheet/styleSheet";
-import { shopAccessoryCard, accessoryCategory, getItemList } from "../components/shopComponents";
-import { cartTab } from "../components/shopTabComponent";
+import { accessoryListingCard, accessoryCategory, getItemList } from "../components/shopComponents";
 import { MaterialIcons, AntDesign, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import {
   darkGreen,
   green,
-  lightGreen,
-  orange,
-  lightBlue,
-  lightGrey,
 } from "../styleSheet/styleSheet";
+
+const accessoryInformation = require('./accessoryInformation.json');
 
 export default class accessoryCateogries extends React.Component {
 
@@ -110,34 +106,14 @@ export default class accessoryCateogries extends React.Component {
           });
         });
       });
-
-    const accessoryTypesArray = [];
-    const categoryId = this.props.route.params.item.categoryId;
-    db.collection("shopCategories")
-      .doc(categoryId)
-      .collection("categories")
-      .get()
-      .then((doc) => {
-        doc.forEach(async (accessoryDoc) => {
-          accessoryTypesArray.push({
-            type: accessoryDoc.data().name,
-            image: accessoryDoc.data().image,
-            typeId: accessoryDoc.id,
-          });
-          this.setState({
-            isLoading: false,
-            accessoryTypes: [...accessoryTypesArray],
-          });
-        });
-      });
   });
+
   BackHandler.addEventListener(
     "hardwareBackPress",
     this.handleBackButtonClick
   );
 
 };
-
 
 componentWillUnmount() {
   BackHandler.removeEventListener(
@@ -164,6 +140,7 @@ handleBackButtonClick = () => {
   
   render() {
     const { search } = this.state;
+    const items = getItemList();
     if (this.state.isLoading) {
       return (
         <View style={globalStyles.activityContainer}>
@@ -184,7 +161,7 @@ handleBackButtonClick = () => {
                 value={this.state.searchText}
               />
               <Button
-                color={lightGreen}
+                color={green}
                 onPress={() => {
                   this.setState({ visible: true });
                 }}
@@ -196,35 +173,26 @@ handleBackButtonClick = () => {
                 Filter
               </Button>
             </View>
-            <View style={{ height: 52, flexDirection:'row', justifyContent:'space-between', }}>
-              
-              <TouchableOpacity
-                style={{backgroundColor: darkGreen,
-                  justifyContent: "center",
-                  alignItems: "center",
-                  width: 200,
-                  flexDirection: 'row',
-                  borderRadius: 5,
-                  marginTop: 5,
-                  marginBottom: 16,}}
-                onPress={() =>
-                this.props.navigation.navigate("accessoryListings")
-                }
-                >
-                <Text
-                  style={{
-                    textAlign: "center",
-                    color: "white",
-                    fontWeight: "bold",
-                  }}>
-                  Sell Accessories
-                </Text>
-              </TouchableOpacity>
-              <View style={{paddingLeft: 110}}>
-                {cartTab(getItemList(), this.props.navigation)}
-              </View>
-              
+            <View style={{ width: 300, marginTop: 5, marginBottom: 16,}}>
+              <Card
+                elevation={5}
+                containerStyle={{ borderRadius: 10 }}
+                onPress={() => this.props.navigation.navigate("Cart", {items})}
+              >
+                <View style={{flexDirection: "row", justifyContent: "center", alignItems: "center"}}>
+                  <Text numberOfLines={1} style={[globalStyles.pageTitle, {padding: 10}]}>
+                      View Shopping Cart
+                  </Text>
+                  <Image 
+                    style={{width: 30, height: 30}}
+                    source={{
+                      uri: "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fshop%2Fshopping-cart.png?alt=media&token=0d9f90e7-22ac-4800-bf4b-d6f64449c201"
+                    }}>
+                  </Image>
+                </View>
+              </Card>
             </View>
+            
             <ScrollView showsVerticalScrollIndicator={false}>
             <Portal>
               <Modal
@@ -257,7 +225,7 @@ handleBackButtonClick = () => {
                 key={1}
                 showsVerticalScrollIndicator={false}
                 renderItem={({ item }) => (
-                  shopAccessoryCard(item, this.props.navigation)
+                  accessoryListingCard(item, this.props.navigation)
                 )}
                 keyExtractor={(item, index) => index.toString()}
                 data={
@@ -272,15 +240,13 @@ handleBackButtonClick = () => {
 
                   <View style={globalStyles.petContainer}>
                     <FlatList
-                      data={this.state.accessoryTypes}
+                      data={accessoryInformation}
                       columnWrapperStyle={{ justifyContent: "flex-start" }}
                       numColumns={2}
                       key={2}
-                      keyExtractor={(item, index) => index.toString()}
                       renderItem={({ item }) => (
-                        accessoryCategory(item, this.props.route.params.item.categoryId, this.props.navigation)
+                        accessoryCategory(item, this.props.route.params.category, this.props.navigation)
                       )}
-                      keyExtractor={(item, index) => index.toString()}
                     />
                   </View>
                 ) : (
@@ -295,7 +261,7 @@ handleBackButtonClick = () => {
                         key={1}
                         showsVerticalScrollIndicator={false}
                         renderItem={({ item }) => (
-                          shopAccessoryCard(item, this.props.navigation)
+                          accessoryListingCard(item, this.props.navigation)
                         )}
                         keyExtractor={(item, index) => index.toString()}
                         data={

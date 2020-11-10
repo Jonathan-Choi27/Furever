@@ -6,13 +6,32 @@ import 'react-navigation-hooks'
 import {
     View,
     ScrollView,
+    BackHandler,
   } from "react-native";
 console.disableYellowBox = true;
 import {buyerInfo, acceptBuyer, rejectBuyer} from "../../components/buyerInfoComponent";
-import {onBuyTab} from "../../components/petTabComponents";
 import styles from "../../styleSheet/styleSheet";
 
 export default class buyerProfile extends React.Component {
+    componentDidMount() {
+        BackHandler.addEventListener(
+          "hardwareBackPress",
+          this.handleBackButtonClick
+        );
+    };
+
+    componentWillUnmount() {
+        BackHandler.removeEventListener(
+        "hardwareBackPress",
+        this.handleBackButtonClick
+        );
+    }
+    
+    handleBackButtonClick = () => {
+        this.props.navigation.goBack();
+        return true;
+    }
+
     render() {
         const item = this.props.route.params.item; 
         return (

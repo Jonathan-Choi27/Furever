@@ -1,0 +1,34 @@
+[
+    {
+        "accessory": "Food",
+        "accessoryImage": "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fshop%2Fcategories%2Ffood.png?alt=media&token=a980f30c-3b79-455f-8443-266d0c44cbdf"
+    },
+    {
+        "accessory": "Toy",
+        "accessoryImage": "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fshop%2Fcategories%2Ftoy.png?alt=media&token=493b1861-af4c-4bcc-8c13-f42e86c4c732"
+    },
+    {
+        "accessory": "Apparel",
+        "accessoryImage": "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fshop%2Fcategories%2Fapparel.png?alt=media&token=a24e22cd-5ae1-42a1-be23-2be9db7fe40b"
+    },
+    {
+        "accessory": "Wash",
+        "accessoryImage": "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fshop%2Fcategories%2Fwash.png?alt=media&token=e2b5ebd4-72a4-4d05-bf8e-257fe6de606b"
+    },
+    {
+        "accessory": "Bed",
+        "accessoryImage": "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fshop%2Fcategories%2Fbed.png?alt=media&token=f3341649-a7a4-4ea6-af32-e244ef1fce9a"
+    },
+    {
+        "accessory": "Bowl",
+        "accessoryImage": "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fshop%2Fcategories%2Fbowl.png?alt=media&token=d31086aa-492e-40b7-a396-34083ae38b2f"
+    },
+    {
+        "accessory": "Home",
+        "accessoryImage": "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fshop%2Fcategories%2Fhome.png?alt=media&token=c6e839a7-cbdb-4be7-987b-7b4c9908b7de"
+    },
+    {
+        "accessory": "Medicine",
+        "accessoryImage": "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fshop%2Fcategories%2Fmedicine.png?alt=media&token=f2dec37f-d54a-4a90-9122-2bd634cc8d5b"
+    }
+]

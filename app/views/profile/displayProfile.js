@@ -1,6 +1,6 @@
 import * as React from "react";
 import { ActivityIndicator } from "react-native";
-import { View, Image, Text, StyleSheet } from "react-native";
+import { Alert, View, Image, Text, StyleSheet } from "react-native";
 import {
   Button,
   Card,
@@ -14,6 +14,7 @@ import { auth } from "../database/firebase";
 import { Avatar, Accessory, Input } from "react-native-elements";
 import { darkGreen, lightGrey } from "../styleSheet/styleSheet";
 import globalStyles from "../styleSheet/styleSheet";
+import { NavigationActions } from "react-navigation";
 
 export default class Profile extends React.Component {
   constructor(props) {
@@ -21,14 +22,16 @@ export default class Profile extends React.Component {
   }
 
   // fix this one day..
-  logout() {
-    // auth.signOut().then(function() {
-    //     alert("Signed out");
-    // this.props.navigation.navigate("login");
-    this.props.navigation.navigate("Home", { screen: "Home" });
-    //   }).catch(function(error) {
-    //     // An error happened.
-    //   });
+  logout(props) {
+    auth
+      .signOut()
+      .then(function () {
+        Alert.alert("Logged Out", "Successfully signed out of Furever!");
+        props.navigation.navigate("Pet Search");
+      })
+      .catch(function (error) {
+        console.error(error);
+      });
   }
 
   render() {
@@ -51,7 +54,8 @@ export default class Profile extends React.Component {
               renderPlaceholderContent={<ActivityIndicator />}
               source={{
                 uri: this.props.data.photo,
-              }}></Avatar>
+              }}
+            ></Avatar>
 
             <View style={globalStyles.nameEmailContainer}>
               <View style={globalStyles.shortLine}>
@@ -94,7 +98,7 @@ export default class Profile extends React.Component {
         <Divider style={globalStyles.divider} />
         <List.Item
           title="Logout"
-          onPress={() => this.logout()}
+          onPress={() => this.logout(this.props)}
           left={(props) => <List.Icon {...props} icon="door" />}
           style={globalStyles.listStyle}
         />

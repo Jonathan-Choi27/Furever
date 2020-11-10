@@ -5,7 +5,8 @@ import { Button } from "react-native-paper";
 import styles from "../styleSheet/styleSheet";
 import Icon from 'react-native-vector-icons/AntDesign';
 import { darkGreen, green, lightGreen, lightGrey, orange, lightBlue } from "../styleSheet/styleSheet";
-import { cartTab } from "./shopTabComponent";
+import { cartTab } from "../components/shopTabComponent";
+
 
 const screenWidth = Math.round(Dimensions.get("window").width);
 
@@ -37,18 +38,18 @@ export const profileInfo = (item, navigation) => {
             
           />
           <View style={{position: 'absolute',  margin: 10, backgroundColor:"white", borderRadius: 50/2, height: 50, width: 50, justifyContent:"center", alignItems:"center", right: 10 }}>
-            
-            {cartTab(item, navigation)} 
-            {/* </View> */}
-            
+            {cartTab(item, navigation)}             
           </View>
           
         </View>
-        <Card containerStyle={styles.cardContentContainer}>
+        <Card containerStyle={styles.cardContentContainer, {flexDirection:'row'}}>
           <Text
-            style={{ fontWeight: "bold", fontSize: 30, color: "black" }}>
+            style={{ fontWeight: "bold", fontSize: 30, color: "black"}}>
             {item.accessoryName}
+            
+            
           </Text>
+          
         </Card>
 
         <Card containerStyle={styles.cardContentContainer}>

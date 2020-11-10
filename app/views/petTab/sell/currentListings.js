@@ -1,13 +1,9 @@
 import React from "react";
-import { Text, View, Image, FlatList } from "react-native";
+import { Text, View, Image, FlatList, BackHandler } from "react-native";
 import { Card, Button, Searchbar } from "react-native-paper";
 import firebase from "firebase";
 import { auth } from "../../database/firebase";
-import { onSellTab } from "../../components/petTabComponents";
-import globalStyles, {
-  darkGreen,
-  lightGreen,
-} from "../../styleSheet/styleSheet";
+import globalStyles, { darkGreen, green } from "../../styleSheet/styleSheet";
 import { petSellListingCard } from "../../components/petSellListingComponent";
 
 const db = firebase.firestore();
@@ -154,7 +150,24 @@ export default class currentListings extends React.Component {
 
   async componentDidMount() {
     this.fetchData();
+
+    BackHandler.addEventListener(
+      "hardwareBackPress",
+      this.handleBackButtonClick
+    );
   }
+
+  componentWillUnmount() {
+    BackHandler.removeEventListener(
+      "hardwareBackPress",
+      this.handleBackButtonClick
+    );
+  }
+
+  handleBackButtonClick = () => {
+    // do nothing
+    return true;
+  };
 
   searchFunction = (searchText) => {
     this.setState({ searchText: searchText });
@@ -171,7 +184,8 @@ export default class currentListings extends React.Component {
       <Card
         elevation={5}
         styles={styles.card}
-        onPress={() => this.props.navigation.navigate("petProfile", { item })}>
+        onPress={() => this.props.navigation.navigate("petProfile", { item })}
+      >
         <Image source={{ uri: item.photo }} style={styles.image} />
         <Text numberOfLines={1} style={styles.title}>
           {item.petName}
@@ -198,14 +212,15 @@ export default class currentListings extends React.Component {
             value={this.state.searchText}
           />
           <Button
-            color={lightGreen}
+            color={green}
             onPress={() => {
               this.setState({ visible: true });
             }}
             mode="contained"
             contentStyle={{
               height: 35,
-            }}>
+            }}
+          >
             Filter
           </Button>
         </View>
@@ -218,10 +233,19 @@ export default class currentListings extends React.Component {
               contentStyle={{
                 height: 30,
               }}
-              mode="contained">
+              mode="contained"
+            >
               Add New Listing
             </Button>
           </View>
+        </View>
+
+        <View>
+          <Text>
+            {this.state.data.length === 0
+              ? `You have not added any pet listings`
+              : null}
+          </Text>
         </View>
 
         {this.state.searchText == "" ? (

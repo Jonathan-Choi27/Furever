@@ -7,19 +7,19 @@ import {
   Image,
   ActivityIndicator,
   ScrollView,
-
+  BackHandler,
 } from "react-native";
 import firebase from "firebase";
 import { auth } from "../database/firebase";
 import {
   Button,
-  Card,
   Searchbar,
   Modal,
   Provider,
   Portal,
   Checkbox,
   Banner,
+  Card,
 } from "react-native-paper";
 import {
   darkGreen,
@@ -29,12 +29,12 @@ import {
   orange,
   lightBlue,
 } from "../styleSheet/styleSheet";
-import { searchBar } from "../components/petTabComponents";
 import globalStyles from "../styleSheet/styleSheet";
+import {homeListingCard} from "../components/homePetListingComponents"
 
 const db = firebase.firestore();
 
-export default class HomeListing extends React.Component {
+export default class HomePetListing extends React.Component {
   state = {
     data: [],
     limit: 12,
@@ -67,7 +67,14 @@ export default class HomeListing extends React.Component {
     brownColour: false,
     redColour: false,
     orangeColour: false,
-
+    nswCheck: false,
+    vicCheck: false,
+    qldCheck: false,
+    waCheck: false,
+    saCheck: false,
+    tasCheck: false,
+    actCheck: false,
+    ntCheck: false,
   };
 
   async initialFetchData() {
@@ -86,7 +93,7 @@ export default class HomeListing extends React.Component {
     let documentSnapshots = await initialQuery.get();
 
     let documentData = documentSnapshots.docs.map((listingDoc) => {
-    //   console.log(listingDoc.id);
+      //   console.log(listingDoc.id);
       dataArray.push({
         petName: listingDoc.data().name,
         category: listingDoc.data().category,
@@ -118,53 +125,6 @@ export default class HomeListing extends React.Component {
       isLoading: false,
       data: [...dataArray],
     });
-
-    // const dataArray = [];
-    // const seller = {};
-
-    // await db
-    //   .collection("petListings")
-    //   .get()
-    //   .then((doc) => {
-    //     doc.forEach(async (listingDoc) => {
-    //       // await db.collection("users")
-    //       //   .get()
-    //       //   .then((doc) => {
-    //       //     doc.forEach(async (user) => {
-    //       //       if (listingDoc.data().uuid == user.data().uuid) {
-    //       //         seller["name"] = user.data().name;
-    //       //         seller["photo"] = user.data().photo;
-    //       //         seller["info"] = user.data().profileText;
-    //       //         seller["email"] = user.data().email;
-    //       //         seller["dob"] = user.data().dob;
-    //       //       }
-    //       //     })
-    //       // });
-    //       dataArray.push({
-    //         petName: listingDoc.data().name,
-    //         category: listingDoc.data().category,
-    //         breed: listingDoc.data().breed,
-    //         colour: listingDoc.data().colour,
-    //         age: listingDoc.data().age,
-    //         gender: listingDoc.data().gender,
-    //         size: listingDoc.data().size,
-    //         location: listingDoc.data().location,
-    //         price: listingDoc.data().price,
-    //         behaviour: listingDoc.data().behaviour,
-    //         health: listingDoc.data().health,
-    //         training: listingDoc.data().training,
-    //         additional: listingDoc.data().additionalInfo,
-    //         photo: listingDoc.data().photoLink,
-    //         documentName: listingDoc.data().documents,
-    //         documentUri: listingDoc.data().documents_uri,
-    //         uuid: listingDoc.data().uuid,
-    //       });
-    //       this.setState({
-    //         isLoading: false,
-    //         data: [...dataArray],
-    //       });
-    //     });
-    //   });
 
     const user = auth.currentUser;
     db.collection("users")
@@ -228,6 +188,23 @@ export default class HomeListing extends React.Component {
 
   async componentDidMount() {
     this.initialFetchData();
+
+    BackHandler.addEventListener(
+      "hardwareBackPress",
+      this.handleBackButtonClick
+    );
+  }
+
+  componentWillUnmount() {
+    BackHandler.removeEventListener(
+      "hardwareBackPress",
+      this.handleBackButtonClick
+    );
+  }
+
+  handleBackButtonClick = () => {
+    // do nothing
+    return true;
   }
 
   searchFunction = (searchText) => {
@@ -270,6 +247,7 @@ export default class HomeListing extends React.Component {
         this.setState({ pigCheck: !this.state.pigCheck });
         break;
 
+      // Colour
       case "whiteColour":
         this.setState({ whiteColour: !this.state.whiteColour });
         break;
@@ -297,12 +275,34 @@ export default class HomeListing extends React.Component {
       case "orangeColour":
         this.setState({ orangeColour: !this.state.orangeColour });
         break;
+
+      //Location
+      case "nswCheck": 
+        this.setState({nswCheck: !this.state.nswCheck});
+        break;
+      case "vicCheck": 
+        this.setState({vicCheck: !this.state.vicCheck});
+        break;
+      case "qldCheck": 
+        this.setState({qldCheck: !this.state.qldCheck});
+        break;
+      case "waCheck": 
+        this.setState({waCheck: !this.state.waCheck});
+        break;
+      case "saCheck": 
+        this.setState({saCheck: !this.state.saCheck});
+        break;
+      case "ntCheck": 
+        this.setState({ntCheck: !this.state.ntCheck});
+        break;
       default:
     }
   };
 
   displayFunction = () => {
     let listData = [];
+
+    // Animal
     if (this.state.dogCheck) {
       this.setState({ filterDisplay: true });
       let filteredData = this.state.data.filter(function (item) {
@@ -367,7 +367,7 @@ export default class HomeListing extends React.Component {
       listData = listData.concat(filteredData);
     }
 
-
+    // Colour
     if (this.state.whiteColour) {
       this.setState({ filterDisplay: true });
       let filteredData = this.state.data.filter(function (item) {
@@ -432,34 +432,84 @@ export default class HomeListing extends React.Component {
       listData = listData.concat(filteredData);
     }
 
-    if (!this.state.dogCheck && !this.state.catCheck && !this.state.birdCheck &&
+    // Location
+    if (this.state.nswCheck) {
+      this.setState({ filterDisplay: true });
+      let filteredData = this.state.data.filter(function (item) {
+        return item.location.toLowerCase().includes("nsw");
+      });
+      listData = listData.concat(filteredData);
+    }
+    if (this.state.vicCheck) {
+      this.setState({ filterDisplay: true });
+      let filteredData = this.state.data.filter(function (item) {
+        return item.location.toLowerCase().includes("vic");
+      });
+      listData = listData.concat(filteredData);
+    }
+    if (this.state.qldCheck) {
+      this.setState({ filterDisplay: true });
+      let filteredData = this.state.data.filter(function (item) {
+        return item.location.toLowerCase().includes("qld");
+      });
+      listData = listData.concat(filteredData);
+    }
+    if (this.state.waCheck) {
+      this.setState({ filterDisplay: true });
+      let filteredData = this.state.data.filter(function (item) {
+        return item.location.toLowerCase().includes("wa");
+      });
+      listData = listData.concat(filteredData);
+    }
+    if (this.state.saCheck) {
+      this.setState({ filterDisplay: true });
+      let filteredData = this.state.data.filter(function (item) {
+        return item.location.toLowerCase().includes("sa");
+      });
+      listData = listData.concat(filteredData);
+    }
+    if (this.state.tasCheck) {
+      this.setState({ filterDisplay: true });
+      let filteredData = this.state.data.filter(function (item) {
+        return item.location.toLowerCase().includes("tas");
+      });
+      listData = listData.concat(filteredData);
+    }
+    if (this.state.actCheck) {
+      this.setState({ filterDisplay: true });
+      let filteredData = this.state.data.filter(function (item) {
+        return item.location.toLowerCase().includes("act");
+      });
+      listData = listData.concat(filteredData);
+    }
+    if (this.state.ntCheck) {
+      this.setState({ filterDisplay: true });
+      let filteredData = this.state.data.filter(function (item) {
+        return item.location.toLowerCase().includes("nt");
+      });
+      listData = listData.concat(filteredData);
+    }
+
+    if (
+      // Animal
+      !this.state.dogCheck && !this.state.catCheck && !this.state.birdCheck &&
       !this.state.rabbitCheck && !this.state.fishCheck && !this.state.horseCheck &&
       !this.state.lizardCheck && !this.state.turtleCheck && !this.state.pigCheck &&
 
+      // Colour
       !this.state.whiteColour && !this.state.goldColour && !this.state.greenColour &&
       !this.state.blackColour && !this.state.rainbowColour && !this.state.greyColour &&
-      !this.state.brownColour && !this.state.redColour && !this.state.orangeColour
+      !this.state.brownColour && !this.state.redColour && !this.state.orangeColour &&
+
+      // Location
+      !this.state.nswCheck && !this.state.vicCheck && !this.state.qldCheck &&
+      !this.state.waCheck && !this.state.saCheck && !this.state.tasCheck &&
+      !this.state.actCheck && !this.state.ntCheck
       ) {
       this.setState({ filterDisplay: false });
     }
     this.setState({ filteredData: listData });
   };
-
-  homeCard = (item) => (
-    <View style={styles.card}>
-      <Card
-        elevation={5}
-        styles={styles.card}
-        onPress={() =>
-          this.props.navigation.navigate("petProfile", { item })
-        }>
-        <Image source={{ uri: item.photo }} style={styles.image} />
-        <Text numberOfLines={1} style={styles.title}>
-          {item.petName}
-        </Text>
-      </Card>
-    </View>
-  );
 
   render() {
     if (this.state.isLoading) {
@@ -497,7 +547,6 @@ export default class HomeListing extends React.Component {
       <Provider>
         {newNotice}
         <View style={styles.container}>
-          {/* {searchBar()} */}
           <View style={globalStyles.searchFilterContainer}>
             <Searchbar
               style={globalStyles.searchBar}
@@ -506,7 +555,7 @@ export default class HomeListing extends React.Component {
               value={this.state.searchText}
             />
             <Button
-              color={lightGreen}
+              color={green}
               onPress={() => {
                 this.setState({ visible: true });
               }}
@@ -527,7 +576,7 @@ export default class HomeListing extends React.Component {
               }}>
               <Card elevation={5} style={{ margin: 10 }}>
                 <Card.Content>
-                  <ScrollView>
+                  <ScrollView style={{height: 450}}>
                     <Text>Animal:</Text>
                     <View style={{ flexDirection: "row" }}>
                       <Checkbox.Item
@@ -617,7 +666,7 @@ export default class HomeListing extends React.Component {
                       />
                     </View>
 
-                        {/* Filter for colour  */}
+                    {/* Filter for colour  */}
                     <Text>Colour:</Text>
 
                     <View style={{ flexDirection: "row" }}>
@@ -707,7 +756,90 @@ export default class HomeListing extends React.Component {
                         }}
                       />
                     </View>
-                  </ScrollView>                  
+
+                     {/* Filter for Location */}
+                    <Text>Location:</Text>
+                    <View style={{ flexDirection: "row" }}>
+                      <Checkbox.Item
+                        theme={{ colors: { primary: darkGreen } }}
+                        color={darkGreen}
+                        label="NSW"
+                        status={this.state.nswCheck ? "checked" : "unchecked"}
+                        onPress={() => {
+                          this.checkFunction("nswCheck");
+                        }}
+                      />
+                      <Checkbox.Item
+                        theme={{ colors: { primary: darkGreen } }}
+                        color={darkGreen}
+                        label="VIC"
+                        status={this.state.vicCheck ? "checked" : "unchecked"}
+                        onPress={() => {
+                          this.checkFunction("vicCheck");
+                        }}
+                      />
+                    <Checkbox.Item
+                        theme={{ colors: { primary: darkGreen } }}
+                        color={darkGreen}
+                        label="QLD"
+                        status={this.state.qldCheck ? "checked" : "unchecked"}
+                        onPress={() => {
+                          this.checkFunction("qldCheck");
+                        }}
+                      />
+                    </View>
+                    <View style={{ flexDirection: "row" }}>
+                      <Checkbox.Item
+                        theme={{ colors: { primary: darkGreen } }}
+                        color={darkGreen}
+                        label="WA"
+                        status={this.state.waCheck ? "checked" : "unchecked"}
+                        onPress={() => {
+                          this.checkFunction("waCheck");
+                        }}
+                      />
+                      <Checkbox.Item
+                        theme={{ colors: { primary: darkGreen } }}
+                        color={darkGreen}
+                        label="SA"
+                        status={this.state.saCheck ? "checked" : "unchecked"}
+                        onPress={() => {
+                          this.checkFunction("saCheck");
+                        }}
+                      />
+                    <Checkbox.Item
+                        theme={{ colors: { primary: darkGreen } }}
+                        color={darkGreen}
+                        label="TAS"
+                        status={this.state.tasCheck ? "checked" : "unchecked"}
+                        onPress={() => {
+                          this.checkFunction("tasCheck");
+                        }}
+                      />
+                    </View>
+                    <View style={{ flexDirection: "row" }}>
+                      <Checkbox.Item
+                        theme={{ colors: { primary: darkGreen } }}
+                        color={darkGreen}
+                        label="ACT"
+                        status={this.state.actCheck ? "checked" : "unchecked"}
+                        onPress={() => {
+                          this.checkFunction("actCheck");
+                        }}
+                      />
+
+                     <Checkbox.Item
+                        theme={{ colors: { primary: darkGreen } }}
+                        color={darkGreen}
+                        label="NT"
+                        status={this.state.ntCheck ? "checked" : "unchecked"}
+                        onPress={() => {
+                          this.checkFunction("ntCheck");
+                        }}
+                      />
+                    </View>
+
+                  </ScrollView>
                 </Card.Content>
                 <Card.Actions style={{ justifyContent: "flex-end" }}>
                   <Button
@@ -724,30 +856,37 @@ export default class HomeListing extends React.Component {
           </Portal>
           {this.state.filterDisplay ? (
             <View style={styles.container}>
-              <FlatList
-                data={this.state.data}
-                columnWrapperStyle={{ justifyContent: "space-between" }}
-                numColumns={3}
-                onRefresh={async () => {
-                  this.setState({
-                    pullToRefresh: true,
-                  });
-                  await this.initialFetchData();
-                  this.setState({
-                    pullToRefresh: false,
-                  });
-                }}
-                keyExtractor={(item, index) => index.toString()}
-                refreshing={this.state.pullToRefresh}
-                renderItem={({ item }) => this.homeCard(item)}
-                keyExtractor={(item, index) => index.toString()}
-                data={
-                  this.state.filteredData && this.state.filteredData.length > 0
-                    ? this.state.filteredData
-                    : this.state.data
-                }
-              />
-            </View>
+              {this.state.filteredData.length == 0 ? (
+                <View style={styles.container}>
+                  <Text style={{ margin: 100 }}>No results found.</Text>
+                </View>
+              ) : (
+                <FlatList
+                  data={this.state.data}
+                  columnWrapperStyle={{ justifyContent: "flex-start" }}
+                  numColumns={3}
+                  onRefresh={async () => {
+                    this.setState({
+                      pullToRefresh: true,
+                    });
+                    await this.initialFetchData();
+                    this.setState({
+                      pullToRefresh: false,
+                    });
+                  }}
+                  keyExtractor={(item, index) => index.toString()}
+                  refreshing={this.state.pullToRefresh}
+                  renderItem={({ item }) => (homeListingCard(item, this.props.navigation))}
+                  keyExtractor={(item, index) => index.toString()}
+                  data={
+                    this.state.filteredData &&
+                    this.state.filteredData.length > 0
+                      ? this.state.filteredData
+                      : this.state.data
+                  }
+                />
+              )}
+            </View>          
           ) : (
             <View style={styles.container}>
               {this.state.searchText == "" ? (
@@ -767,48 +906,41 @@ export default class HomeListing extends React.Component {
                     }}
                     keyExtractor={(item, index) => index.toString()}
                     refreshing={this.state.pullToRefresh}
-                    renderItem={({ item }) => this.homeCard(item)}
+                    renderItem={({ item }) => (homeListingCard(item, this.props.navigation))}
                     onEndReached={() => this.fetchMore()}
                     onEndReachedThreshold={0.5}
                   />
                   {/* <Button onPress={() => this.fetchMore()}> test </Button> */}
                 </View>
-              ) : (
-                <View style={styles.container}>
-                  {this.state.filteredData.length == 0 ? (
-                    <View style={styles.container}>
-                      <Text style={{ margin: 100 }}>No results found.</Text>
-                    </View>
-                  ) : (
-                    <FlatList
-                      data={this.state.data}
-                      columnWrapperStyle={{ justifyContent: "flex-start" }}
-                      numColumns={3}
-                      onRefresh={async () => {
-                        this.setState({
-                          pullToRefresh: true,
-                        });
-                        await this.initialFetchData();
-                        this.setState({
-                          pullToRefresh: false,
-                        });
-                      }}
-                      keyExtractor={(item, index) => index.toString()}
-                      refreshing={this.state.pullToRefresh}
-                      renderItem={({ item }) => this.homeCard(item)}
-                      keyExtractor={(item, index) => index.toString()}
-                      data={
-                        this.state.filteredData &&
-                        this.state.filteredData.length > 0
-                          ? this.state.filteredData
-                          : this.state.data
-                      }
-                    />
-                  )}
+                ) : (
+                  <View style={styles.container}>
+                  <FlatList
+                    data={this.state.data}
+                    columnWrapperStyle={{ justifyContent: "space-between" }}
+                    numColumns={3}
+                    onRefresh={async () => {
+                      this.setState({
+                        pullToRefresh: true,
+                      });
+                      await this.initialFetchData();
+                      this.setState({
+                        pullToRefresh: false,
+                      });
+                    }}
+                    keyExtractor={(item, index) => index.toString()}
+                    refreshing={this.state.pullToRefresh}
+                    renderItem={({ item }) => (homeListingCard(item, this.props.navigation))}
+                    keyExtractor={(item, index) => index.toString()}
+                    data={
+                      this.state.filteredData && this.state.filteredData.length > 0
+                        ? this.state.filteredData
+                        : this.state.data
+                    }
+                  />
                 </View>
-              )}
-            </View>
-          )}
+                  )}
+              </View>
+            )}
         </View>
       </Provider>
     );
@@ -820,46 +952,11 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: lightGrey,
-  },
-  image: {
-    aspectRatio: 1,
-  },
-  title: {
-    marginRight: 8,
-    marginLeft: 8,
-    marginTop: 5,
-    marginBottom: 5,
-    fontWeight: "bold",
-    fontSize: 14.5,
-    color: darkGreen,
-  },
-  subtext: {
-    paddingLeft: 8,
-    paddingTop: 8,
-    marginBottom: 8,
-    fontSize: 12,
-    borderTopWidth: 0.5,
+    backgroundColor: "#F7F8FA",
   },
   activityContainer: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-  },
-  titleContainer: {
-    flexDirection: "row",
-    justifyContent: "flex-start",
-  },
-  cardContainer: {
-    flex: 2,
-    justifyContent: "flex-start",
-    alignItems: "flex-start",
-  },
-  card: {
-    margin: 5,
-    width: 120,
-  },
-  cardContentText: {
-    fontWeight: "bold",
   },
 });

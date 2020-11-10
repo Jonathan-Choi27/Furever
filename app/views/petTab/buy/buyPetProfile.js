@@ -7,10 +7,10 @@ import {
     View,
     ScrollView,
     Text,
+    BackHandler,
   } from "react-native";
 console.disableYellowBox = true;
 import {expressInterest, profileInfo, sellerInfo} from "../../components/petProfileComponents";
-import {onBuyTab} from "../../components/petTabComponents";
 import { db } from "../../database/firebase";
 
 export default class buyPetProfile extends React.Component {
@@ -44,7 +44,24 @@ export default class buyPetProfile extends React.Component {
 
     async componentDidMount() {
         this.fetchData();
+
+        BackHandler.addEventListener(
+            "hardwareBackPress",
+            this.handleBackButtonClick
+        );
     };
+
+    componentWillUnmount() {
+        BackHandler.removeEventListener(
+            "hardwareBackPress",
+            this.handleBackButtonClick
+        );
+    }
+    
+    handleBackButtonClick = () => {
+        this.props.navigation.goBack();
+        return true;
+    }
     
     render() {
         const item = this.props.route.params.item;

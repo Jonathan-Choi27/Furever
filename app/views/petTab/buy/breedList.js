@@ -1,9 +1,5 @@
 import * as React from "react";
-import {
-  Text,
-  View,
-  FlatList,
-} from "react-native";
+import { Text, View, FlatList, BackHandler } from "react-native";
 import {
   Card,
   Button,
@@ -14,8 +10,7 @@ import {
   Paragraph,
 } from "react-native-paper";
 import { db } from "../../database/firebase";
-import { onBuyTab } from "../../components/petTabComponents"
-import globalStyles, { darkGreen, orange } from "../../styleSheet/styleSheet";
+import globalStyles, { darkGreen, green } from "../../styleSheet/styleSheet";
 import { petBuyCard } from "../../components/petBuyComponents";
 import { Dimensions } from "react-native";
 
@@ -40,8 +35,9 @@ export default class breedList extends React.Component {
       .get()
       .then((doc) => {
         doc.forEach(async (refDoc) => {
-          refDoc.data().list
-            .get()
+          refDoc
+            .data()
+            .list.get()
             .then(async (listingDoc) => {
               var uuid = listingDoc.data().uuid;
               await db
@@ -52,8 +48,8 @@ export default class breedList extends React.Component {
                   seller["name"] = user_doc.data().name;
                   seller["photo"] = user_doc.data().photo;
                   seller["info"] = user_doc.data().profileText;
-                  seller["email"] = user_doc.data().email;    
-                  seller["dob"] = user_doc.data().dob;    
+                  seller["email"] = user_doc.data().email;
+                  seller["dob"] = user_doc.data().dob;
                 });
               dataArray.push({
                 sellerName: seller.name,
@@ -87,14 +83,31 @@ export default class breedList extends React.Component {
               delete seller.name;
               delete seller.photo;
               delete seller.info;
-            })
-        })
-      })
+            });
+        });
+      });
   }
 
   async componentDidMount() {
     this.fetchData();
+
+    BackHandler.addEventListener(
+      "hardwareBackPress",
+      this.handleBackButtonClick
+    );
   }
+
+  componentWillUnmount() {
+    BackHandler.removeEventListener(
+      "hardwareBackPress",
+      this.handleBackButtonClick
+    );
+  }
+
+  handleBackButtonClick = () => {
+    this.props.navigation.goBack();
+    return true;
+  };
 
   searchFunction = (searchText) => {
     this.setState({ searchText: searchText });
@@ -140,7 +153,7 @@ export default class breedList extends React.Component {
                   <Button
                     color={darkGreen}
                     onPress={() =>
-                      this.props.navigation.navigate("breedInfo", {item})
+                      this.props.navigation.navigate("breedInfo", { item })
                     }
                   >
                     More info
@@ -154,7 +167,7 @@ export default class breedList extends React.Component {
             <Text style={globalStyles.pageTitle}>{item.breedName}</Text>
             <View>
               <Button
-                color={darkGreen}
+                color={green}
                 onPress={() => {
                   this.setState({ visible: true });
                 }}
@@ -168,34 +181,40 @@ export default class breedList extends React.Component {
             </View>
           </View>
 
-          <View style={{
-            flex: 2,
-            justifyContent: "flex-start",
-            alignItems: "flex-start",
-          }}>
-            <FlatList
-              style={{ paddingBottom: 10 }}
-              onRefresh={async () => {
-                this.setState({
-                  pullToRefresh: true,
-                });
-                await this.fetchData();
-                this.setState({
-                  pullToRefresh: false,
-                });
-              }}
-              refreshing={this.state.pullToRefresh}
-              showsVerticalScrollIndicator={false}
-              renderItem={({ item }) => (
-                petBuyCard(item, this.props.navigation)
-              )}
-              keyExtractor={(item, index) => index.toString()}
-              data={
-                this.state.filteredData && this.state.filteredData.length > 0
-                  ? this.state.filteredData
-                  : this.state.data
-              }
-            />
+          <View
+            style={{
+              flex: 2,
+              justifyContent: "flex-start",
+              alignItems: "flex-start",
+            }}
+          >
+            {this.state.data.length === 0 ? (
+              <Text>No available {item.breedName}'s for purchase</Text>
+            ) : (
+              <FlatList
+                style={{ paddingBottom: 10 }}
+                onRefresh={async () => {
+                  this.setState({
+                    pullToRefresh: true,
+                  });
+                  await this.fetchData();
+                  this.setState({
+                    pullToRefresh: false,
+                  });
+                }}
+                refreshing={this.state.pullToRefresh}
+                showsVerticalScrollIndicator={false}
+                renderItem={({ item }) =>
+                  petBuyCard(item, this.props.navigation)
+                }
+                keyExtractor={(item, index) => index.toString()}
+                data={
+                  this.state.filteredData && this.state.filteredData.length > 0
+                    ? this.state.filteredData
+                    : this.state.data
+                }
+              />
+            )}
           </View>
         </View>
       </Provider>

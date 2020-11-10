@@ -5,7 +5,7 @@ jest.useFakeTimers();
 // test('renders correctly', () => {
 //   jest.useFakeTimers();
 
-//   const tree = renderer.create(<HomeListing/>).toJSON();
+//   const tree = renderer.create(<HomePetListing/>).toJSON();
 //   expect(tree).toMatchSnapshot();
 // });
 test('adds 1 + 2 to equal 3', () => {

@@ -125,6 +125,18 @@ export default class updateSellApplication extends React.Component {
     );
   };
 
+  componentWillUnmount() {
+    BackHandler.removeEventListener(
+      "hardwareBackPress",
+      this.handleBackButtonClick
+    );
+  }
+
+  handleBackButtonClick = () => {
+    this.props.navigation.goBack();
+    return true;
+  }
+
   setLocation = (location, suburb) => {
     this.setState({
       location: location,

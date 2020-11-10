@@ -2,7 +2,7 @@ import React from "react";
 import { auth, db } from "../database/firebase";
 import { Text, View, TouchableOpacity, Image } from "react-native";
 import { Input } from "react-native-elements";
-import styles from "../styleSheet/styleSheet";
+import globalStyles from "../styleSheet/styleSheet";
 import { darkGreen } from "../styleSheet/styleSheet";
 
 export default class Login extends React.Component {
@@ -57,15 +57,15 @@ export default class Login extends React.Component {
 
   render() {
     return (
-      <View style={styles.loginLogoContainer}>
+      <View style={globalStyles.loginLogoContainer}>
         <Image
-          style={styles.loginLogo}
+          style={globalStyles.loginLogo}
           source={{
             uri:
-              "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2FlogoWithWords.png?alt=media&token=ac29597a-9268-419f-8769-fa44ac76a5df",
+              "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2FlogoWithWords.png?alt=media&token=4d7beb37-6108-4c5c-95a7-5e0e89c4e6d0",
           }}
         />
-        <View style={styles.loginInputContainer}>
+        <View style={globalStyles.loginInputContainer}>
           <Input
             placeholder="EMAIL"
             value={this.state.email}
@@ -94,24 +94,24 @@ export default class Login extends React.Component {
             }}
           />
         </View>
-        <View style={styles.loginButtonsContainer}>
+        <View style={globalStyles.loginButtonsContainer}>
           <TouchableOpacity
-            style={styles.landingButtons}
+            style={globalStyles.landingButtons}
             onPress={this.onLogin.bind(this)}
           >
-            <Text style={styles.landingButtonsText}>LOGIN</Text>
+            <Text style={globalStyles.landingButtonsText}>LOGIN</Text>
           </TouchableOpacity>
           <Text
-            style={styles.loginTitle}
+            style={globalStyles.loginTitle}
             onPress={() => this.props.navigation.replace("Forgot Password")}
           >
             FORGOT PASSWORD?
           </Text>
           <Text
-            style={styles.loginTitle2}
+            style={globalStyles.loginTitle2}
             onPress={() => this.props.navigation.replace("Sign Up")}
           >
-            NO ACCOUNT? <Text style={{ fontWeight: "bold" }}>{"SIGN UP"}</Text>
+            NO ACCOUNT? <Text style={globalStyles.linkText}>{"SIGN UP"}</Text>
           </Text>
         </View>
       </View>

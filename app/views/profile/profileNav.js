@@ -27,16 +27,15 @@ export default function ProfileNav() {
   }, []);
 
   return (
-    <NavigationContainer independent={true}>
-      <Stack.Navigator
-        screenOptions={{
-          headerShown: false,
-        }}>
-        <Stack.Screen name="profileHome" component={profileHome} />
-        <Stack.Screen name="updateProfile" component={updateProfile} />
-        <Stack.Screen name="profilePrivacy" component={ProfilePrivacy} />
-        <Stack.Screen name="profileHelp" component={ProfileHelp} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}
+    >
+      <Stack.Screen name="profileHome" component={profileHome} />
+      <Stack.Screen name="updateProfile" component={updateProfile} />
+      <Stack.Screen name="profilePrivacy" component={ProfilePrivacy} />
+      <Stack.Screen name="profileHelp" component={ProfileHelp} />
+    </Stack.Navigator>
   );
 }

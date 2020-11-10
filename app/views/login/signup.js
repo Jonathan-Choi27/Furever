@@ -4,7 +4,7 @@ import { CheckBox } from "react-native-elements";
 import firebase from "firebase";
 import { db } from "../database/firebase";
 import { Input } from "react-native-elements";
-import styles from "../styleSheet/styleSheet";
+import globalStyles from "../styleSheet/styleSheet";
 import { darkGreen } from "../styleSheet/styleSheet";
 
 export default class SignUp extends React.Component {
@@ -14,7 +14,6 @@ export default class SignUp extends React.Component {
     confirmPassword: "",
     password: "",
     dob: "",
-    isPetShop: false,
     isNewUser: true,
   };
 
@@ -82,7 +81,6 @@ export default class SignUp extends React.Component {
                 name: this.state.name,
                 dob: this.state.dob,
                 email: this.state.email,
-                isPetShop: this.state.isPetShop,
                 isNewUser: this.state.isNewUser,
                 uuid: user.uid,
               });
@@ -104,15 +102,15 @@ export default class SignUp extends React.Component {
 
   render() {
     return (
-      <View style={styles.signupLogoContainer}>
+      <View style={globalStyles.signupContainer}>
         <Image
-          style={styles.logo2}
+          style={globalStyles.logo2}
           source={{
             uri:
-              "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2FlogoWithWords.png?alt=media&token=ac29597a-9268-419f-8769-fa44ac76a5df",
+              "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2FlogoWithWords.png?alt=media&token=4d7beb37-6108-4c5c-95a7-5e0e89c4e6d0",
           }}
         />
-        <View style={styles.signupInputContainer}>
+        <View style={globalStyles.signupInputContainer}>
           <Input
             placeholder="NAME"
             value={this.state.name}
@@ -199,24 +197,18 @@ export default class SignUp extends React.Component {
           />
         </View>
 
-        <CheckBox
-          title="Are you a pet shop?"
-          checked={this.state.isPetShop}
-          checkedColor={darkGreen}
-          onPress={() => this.setState({ isPetShop: !this.state.isPetShop })}
-          size={20}
-          styles={{ marginBottom: 0 }}
-        />
-
-        <TouchableOpacity style={styles.landingButtons} onPress={this.submit}>
-          <Text style={styles.landingButtonsText}>SIGN UP</Text>
+        <TouchableOpacity
+          style={globalStyles.landingButtons}
+          onPress={this.submit}
+        >
+          <Text style={globalStyles.landingButtonsText}>SIGN UP</Text>
         </TouchableOpacity>
         <Text
-          style={styles.loginTitle}
+          style={globalStyles.loginTitle}
           onPress={() => this.props.navigation.navigate("Login")}
         >
           ALREADY HAVE AN ACCOUNT?{" "}
-          <Text style={{ fontWeight: "bold" }}>{"LOGIN"}</Text>
+          <Text style={globalStyles.linkText}>{"LOGIN"}</Text>
         </Text>
       </View>
     );

@@ -21,7 +21,7 @@ import {
 } from "react-native-paper";
 import firebase from "firebase";
 import { auth } from "../database/firebase";
-import {shopAccessoryCard, getItemList} from "../components/shopComponents";
+import {shopAccessoryCard, accessoryListingCard, getItemList} from "../components/shopComponents";
 import { cartTab } from "../components/shopTabComponent";
 
 
@@ -46,10 +46,10 @@ export default class accessoryList extends React.Component {
     const dataArray = [];
     const uid = auth.currentUser.uid;
 
-    const type = this.props.route.params.item.type;
+    // const type = this.props.route.params.item.type;
 
     db.collection("accessories")
-      .where("type", "==", this.props.route.params.item.type)
+      .where("type", "==", this.props.route.params.accessory.accessory)
       .get()
       .then((doc) => {
         doc.forEach((listingDoc) => {
@@ -103,6 +103,7 @@ export default class accessoryList extends React.Component {
   };
 
   render() {
+    console.log(this.state.data);
     return (
         
       <Provider>
@@ -117,7 +118,7 @@ export default class accessoryList extends React.Component {
             value={this.state.searchText}
           />
           <Button
-            color={lightGreen}
+            color={green}
             onPress={() => {
               this.setState({ visible: true });
             }}
@@ -166,7 +167,7 @@ export default class accessoryList extends React.Component {
                   borderRadius: 5,
                   marginTop: 5,
                   marginBottom: 16,}}>
-              Shop - {this.props.route.params.item.type}
+              Shop - {this.props.route.params.accessory.accessory}
           </Text>  
           <View style={{paddingLeft:200}}>
             {cartTab(getItemList(), this.props.navigation)}
@@ -181,7 +182,7 @@ export default class accessoryList extends React.Component {
                 key={1}
                 showsVerticalScrollIndicator={false}
                 renderItem={({ item }) => (
-                  shopAccessoryCard(item, this.props.navigation)
+                  accessoryListingCard(item, this.props.navigation)
                 )}
                 keyExtractor={(item, index) => index.toString()}
                 data={
@@ -212,7 +213,7 @@ export default class accessoryList extends React.Component {
                   refreshing={this.state.pullToRefresh}
                   data={this.state.data}
                   renderItem={({ item }) => (
-                      shopAccessoryCard(item, this.props.navigation)
+                    accessoryListingCard(item, this.props.navigation)
                   )}
                   keyExtractor={(item, index) => index.toString()}
               />
@@ -229,7 +230,7 @@ export default class accessoryList extends React.Component {
                         key={1}
                         showsVerticalScrollIndicator={false}
                         renderItem={({ item }) => (
-                          shopAccessoryCard(item, this.props.navigation)
+                          accessoryListingCard(item, this.props.navigation)
                         )}
                         keyExtractor={(item, index) => index.toString()}
                         data={
