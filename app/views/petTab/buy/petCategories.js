@@ -21,6 +21,7 @@ import {
 } from "react-native-paper";
 import { db } from "../../database/firebase";
 import {
+  lightGreen,
   darkGreen,
   green,
 } from "../../styleSheet/styleSheet";
@@ -782,7 +783,7 @@ export default class petCategories extends React.Component {
                   </Card.Content>
                   <Card.Actions style={{ justifyContent: "flex-end" }}>
                     <Button
-                      style={{ backgroundColor: lightGreen, }}
+                      style={{ backgroundColor: green, }}
                       color={darkGreen}
                       onPress={() => {
                         this.displayFunction();

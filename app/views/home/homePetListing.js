@@ -228,6 +228,8 @@ export default class HomePetListing extends React.Component {
       case "pigCheck":
         this.setState({ pigCheck: !this.state.pigCheck });
         break;
+
+      // Colour
       case "whiteColour":
         this.setState({ whiteColour: !this.state.whiteColour });
         break;
@@ -255,12 +257,34 @@ export default class HomePetListing extends React.Component {
       case "orangeColour":
         this.setState({ orangeColour: !this.state.orangeColour });
         break;
+
+      //Location
+      case "nswCheck": 
+        this.setState({nswCheck: !this.state.nswCheck});
+        break;
+      case "vicCheck": 
+        this.setState({vicCheck: !this.state.vicCheck});
+        break;
+      case "qldCheck": 
+        this.setState({qldCheck: !this.state.qldCheck});
+        break;
+      case "waCheck": 
+        this.setState({waCheck: !this.state.waCheck});
+        break;
+      case "saCheck": 
+        this.setState({saCheck: !this.state.saCheck});
+        break;
+      case "ntCheck": 
+        this.setState({ntCheck: !this.state.ntCheck});
+        break;
       default:
     }
   };
 
   displayFunction = () => {
     let listData = [];
+
+    // Animal
     if (this.state.dogCheck) {
       this.setState({ filterDisplay: true });
       let filteredData = this.state.data.filter(function (item) {
@@ -325,6 +349,7 @@ export default class HomePetListing extends React.Component {
       listData = listData.concat(filteredData);
     }
 
+    // Colour
     if (this.state.whiteColour) {
       this.setState({ filterDisplay: true });
       let filteredData = this.state.data.filter(function (item) {
@@ -389,14 +414,80 @@ export default class HomePetListing extends React.Component {
       listData = listData.concat(filteredData);
     }
 
-    if (!this.state.dogCheck && !this.state.catCheck && !this.state.birdCheck &&
+    // Location
+    if (this.state.nswCheck) {
+      this.setState({ filterDisplay: true });
+      let filteredData = this.state.data.filter(function (item) {
+        return item.location.toLowerCase().includes("nsw");
+      });
+      listData = listData.concat(filteredData);
+    }
+    if (this.state.vicCheck) {
+      this.setState({ filterDisplay: true });
+      let filteredData = this.state.data.filter(function (item) {
+        return item.location.toLowerCase().includes("vic");
+      });
+      listData = listData.concat(filteredData);
+    }
+    if (this.state.qldCheck) {
+      this.setState({ filterDisplay: true });
+      let filteredData = this.state.data.filter(function (item) {
+        return item.location.toLowerCase().includes("qld");
+      });
+      listData = listData.concat(filteredData);
+    }
+    if (this.state.waCheck) {
+      this.setState({ filterDisplay: true });
+      let filteredData = this.state.data.filter(function (item) {
+        return item.location.toLowerCase().includes("wa");
+      });
+      listData = listData.concat(filteredData);
+    }
+    if (this.state.saCheck) {
+      this.setState({ filterDisplay: true });
+      let filteredData = this.state.data.filter(function (item) {
+        return item.location.toLowerCase().includes("sa");
+      });
+      listData = listData.concat(filteredData);
+    }
+    if (this.state.tasCheck) {
+      this.setState({ filterDisplay: true });
+      let filteredData = this.state.data.filter(function (item) {
+        return item.location.toLowerCase().includes("tas");
+      });
+      listData = listData.concat(filteredData);
+    }
+    if (this.state.actCheck) {
+      this.setState({ filterDisplay: true });
+      let filteredData = this.state.data.filter(function (item) {
+        return item.location.toLowerCase().includes("act");
+      });
+      listData = listData.concat(filteredData);
+    }
+    if (this.state.ntCheck) {
+      this.setState({ filterDisplay: true });
+      let filteredData = this.state.data.filter(function (item) {
+        return item.location.toLowerCase().includes("nt");
+      });
+      listData = listData.concat(filteredData);
+    }
+
+    if (
+      // Animal
+      !this.state.dogCheck && !this.state.catCheck && !this.state.birdCheck &&
       !this.state.rabbitCheck && !this.state.fishCheck && !this.state.horseCheck &&
       !this.state.lizardCheck && !this.state.turtleCheck && !this.state.pigCheck &&
 
+      // Colour
       !this.state.whiteColour && !this.state.goldColour && !this.state.greenColour &&
       !this.state.blackColour && !this.state.rainbowColour && !this.state.greyColour &&
-      !this.state.brownColour && !this.state.redColour && !this.state.orangeColour
-    ) {
+      !this.state.brownColour && !this.state.redColour && !this.state.orangeColour &&
+
+      // Location
+      !this.state.nswCheck && !this.state.vicCheck && !this.state.qldCheck &&
+      !this.state.waCheck && !this.state.saCheck && !this.state.tasCheck &&
+      !this.state.actCheck && !this.state.ntCheck
+      ) {
       this.setState({ filterDisplay: false });
     }
     this.setState({ filteredData: listData });
@@ -467,7 +558,7 @@ export default class HomePetListing extends React.Component {
               }}>
               <Card elevation={5} style={{ margin: 10 }}>
                 <Card.Content>
-                  <ScrollView>
+                  <ScrollView style={{height: 450}}>
                     <Text>Animal:</Text>
                     <View style={{ flexDirection: "row" }}>
                       <Checkbox.Item
@@ -647,6 +738,89 @@ export default class HomePetListing extends React.Component {
                         }}
                       />
                     </View>
+
+                     {/* Filter for Location */}
+                    <Text>Location:</Text>
+                    <View style={{ flexDirection: "row" }}>
+                      <Checkbox.Item
+                        theme={{ colors: { primary: darkGreen } }}
+                        color={darkGreen}
+                        label="NSW"
+                        status={this.state.nswCheck ? "checked" : "unchecked"}
+                        onPress={() => {
+                          this.checkFunction("nswCheck");
+                        }}
+                      />
+                      <Checkbox.Item
+                        theme={{ colors: { primary: darkGreen } }}
+                        color={darkGreen}
+                        label="VIC"
+                        status={this.state.vicCheck ? "checked" : "unchecked"}
+                        onPress={() => {
+                          this.checkFunction("vicCheck");
+                        }}
+                      />
+                    <Checkbox.Item
+                        theme={{ colors: { primary: darkGreen } }}
+                        color={darkGreen}
+                        label="QLD"
+                        status={this.state.qldCheck ? "checked" : "unchecked"}
+                        onPress={() => {
+                          this.checkFunction("qldCheck");
+                        }}
+                      />
+                    </View>
+                    <View style={{ flexDirection: "row" }}>
+                      <Checkbox.Item
+                        theme={{ colors: { primary: darkGreen } }}
+                        color={darkGreen}
+                        label="WA"
+                        status={this.state.waCheck ? "checked" : "unchecked"}
+                        onPress={() => {
+                          this.checkFunction("waCheck");
+                        }}
+                      />
+                      <Checkbox.Item
+                        theme={{ colors: { primary: darkGreen } }}
+                        color={darkGreen}
+                        label="SA"
+                        status={this.state.saCheck ? "checked" : "unchecked"}
+                        onPress={() => {
+                          this.checkFunction("saCheck");
+                        }}
+                      />
+                    <Checkbox.Item
+                        theme={{ colors: { primary: darkGreen } }}
+                        color={darkGreen}
+                        label="TAS"
+                        status={this.state.tasCheck ? "checked" : "unchecked"}
+                        onPress={() => {
+                          this.checkFunction("tasCheck");
+                        }}
+                      />
+                    </View>
+                    <View style={{ flexDirection: "row" }}>
+                      <Checkbox.Item
+                        theme={{ colors: { primary: darkGreen } }}
+                        color={darkGreen}
+                        label="ACT"
+                        status={this.state.actCheck ? "checked" : "unchecked"}
+                        onPress={() => {
+                          this.checkFunction("actCheck");
+                        }}
+                      />
+                      
+                     <Checkbox.Item
+                        theme={{ colors: { primary: darkGreen } }}
+                        color={darkGreen}
+                        label="NT"
+                        status={this.state.ntCheck ? "checked" : "unchecked"}
+                        onPress={() => {
+                          this.checkFunction("ntCheck");
+                        }}
+                      />
+                    </View>
+
                   </ScrollView>
                 </Card.Content>
                 <Card.Actions style={{ justifyContent: "flex-end" }}>
