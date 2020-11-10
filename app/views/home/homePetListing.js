@@ -66,7 +66,14 @@ export default class HomePetListing extends React.Component {
     brownColour: false,
     redColour: false,
     orangeColour: false,
-
+    nswCheck: false,
+    vicCheck: false,
+    qldCheck: false,
+    waCheck: false,
+    saCheck: false,
+    tasCheck: false,
+    actCheck: false,
+    ntCheck: false,
   };
 
   async initialFetchData() {
@@ -221,7 +228,6 @@ export default class HomePetListing extends React.Component {
       case "pigCheck":
         this.setState({ pigCheck: !this.state.pigCheck });
         break;
-
       case "whiteColour":
         this.setState({ whiteColour: !this.state.whiteColour });
         break;
