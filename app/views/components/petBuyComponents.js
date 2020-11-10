@@ -80,7 +80,7 @@ export const petBuyCategory = (item, navigation) => {
         onPress={() =>
           navigation.navigate("petBreeds", { item })
         }>
-        <View style={styles.breedIconContainer}>
+        <View style={styles.categoryIconContainer}>
           <Image
             style={styles.icon}
             source={{uri: item.categoryImage}}

@@ -1,11 +1,11 @@
 import React from "react";
-import { Text, View, Image, FlatList } from "react-native";
+import { Text, View, Image, FlatList, BackHandler } from "react-native";
 import { Card, Button, Searchbar } from "react-native-paper";
 import firebase from "firebase";
 import { auth } from "../../database/firebase";
 import globalStyles, {
   darkGreen,
-  lightGreen,
+  green,
 } from "../../styleSheet/styleSheet";
 import { petSellListingCard } from "../../components/petSellListingComponent";
 
@@ -153,6 +153,23 @@ export default class currentListings extends React.Component {
 
   async componentDidMount() {
     this.fetchData();
+
+    BackHandler.addEventListener(
+      "hardwareBackPress",
+      this.handleBackButtonClick
+    );
+  }
+
+  componentWillUnmount() {
+    BackHandler.removeEventListener(
+      "hardwareBackPress",
+      this.handleBackButtonClick
+    );
+  }
+
+  handleBackButtonClick = () => {
+    // do nothing
+    return true;
   }
 
   searchFunction = (searchText) => {
@@ -197,7 +214,7 @@ export default class currentListings extends React.Component {
             value={this.state.searchText}
           />
           <Button
-            color={lightGreen}
+            color={green}
             onPress={() => {
               this.setState({ visible: true });
             }}

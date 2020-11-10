@@ -104,6 +104,7 @@ export default class petBreeds extends React.Component {
           });
         });
       });
+
       BackHandler.addEventListener(
         "hardwareBackPress",
         this.handleBackButtonClick
@@ -751,6 +752,7 @@ export default class petBreeds extends React.Component {
                 </Card>
               </Modal>
             </Portal>
+            <View style={{paddingTop: 3}}></View>
             {this.state.filterDisplay ? (
               <FlatList
                 numColumns = {1}

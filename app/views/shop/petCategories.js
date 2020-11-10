@@ -26,7 +26,9 @@ import {
   pageBackgroundColour,
 } from "../styleSheet/styleSheet";
 import globalStyles from "../styleSheet/styleSheet";
-import { shopAccessoryCard, shopCategory } from "../components/shopComponents";
+import { accessoryListingCard, shopCategory } from "../components/shopComponents";
+
+const shopInformation = require('./shopInformation.json');
 
 export default class petCategories extends React.Component {
   state = {
@@ -71,22 +73,6 @@ export default class petCategories extends React.Component {
           });
         });
       });
-
-    db.collection("shopCategories")
-      .get()
-      .then((doc) => {
-        doc.forEach(async (categoryDoc) => {
-          petCategoryArray.push({
-            category: categoryDoc.data().category,
-            image: categoryDoc.data().image,
-            categoryId: categoryDoc.id,
-          });
-          this.setState({
-            isLoading: false,
-            petCategories: [...petCategoryArray],
-          });
-        });
-      });
   }
 
   async componentDidMount() {
@@ -107,7 +93,7 @@ export default class petCategories extends React.Component {
   }
         
   handleBackButtonClick = () => {
-    this.props.navigation.goBack();
+    // do nothing
     return true;
   }
   
@@ -154,22 +140,25 @@ export default class petCategories extends React.Component {
             </Button>
           </View>
 
-          <View style={{ height: 52 }}>
-            <TouchableOpacity
-              style={globalStyles.viewApplication}
+          <View style={{ width: 300, marginTop: 5, marginBottom: 16,}}>
+            <Card
+              elevation={5}
+              containerStyle={{ borderRadius: 10 }}
               onPress={() =>
-               this.props.navigation.navigate("accessoryListings")
-              }
-              >
-              <Text
-                style={{
-                  textAlign: "center",
-                  color: "white",
-                  fontWeight: "bold",
-                }}>
-                Sell Accessories
-              </Text>
-            </TouchableOpacity>
+                this.props.navigation.navigate("accessoryListings")
+              }>
+              <View style={{flexDirection: "row", justifyContent: "center", alignItems: "center"}}>
+                <Text numberOfLines={1} style={[globalStyles.pageTitle, {padding: 10}]}>
+                    Sell Accessories
+                </Text>
+                <Image 
+                  style={{width: 30, height: 30}}
+                  source={{
+                    uri: "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fpet%20buy%20icons%2FpetCategories%2Fapplication.png?alt=media&token=896bdaf8-ba26-4ce5-974c-7cff5815bd98"
+                  }}>
+                </Image>
+              </View>
+            </Card>
           </View>
 
           <ScrollView showsVerticalScrollIndicator={false}>
@@ -203,7 +192,7 @@ export default class petCategories extends React.Component {
                 key={1}
                 keyExtractor={(item, index) => index.toString()}
                 renderItem={({ item }) =>
-                shopCategory(item, this.props.navigation)
+                  shopCategory(item, this.props.navigation)
                 }
                 keyExtractor={(item, index) => index.toString()}
                 data={
@@ -217,15 +206,13 @@ export default class petCategories extends React.Component {
                 {this.state.searchText == "" ? (
                   <View style={globalStyles.petContainer}>
                     <FlatList
-                      data={this.state.petCategories}
+                      data={shopInformation}
                       columnWrapperStyle={{ justifyContent: "flex-start" }}
                       numColumns={2}
                       key={2}
-                      keyExtractor={(item, index) => index.toString()}
                       renderItem={({ item }) =>
-                      shopCategory(item, this.props.navigation)
+                        shopCategory(item, this.props.navigation)
                       }
-                      keyExtractor={(item, index) => index.toString()}
                     />
                   </View>
                 ) : (
@@ -240,7 +227,7 @@ export default class petCategories extends React.Component {
                         numColumns={2}
                         key={1}
                         renderItem={({ item }) =>
-                        shopAccessoryCard(item, this.props.navigation)
+                          accessoryListingCard(item, this.props.navigation)
                         }
                         keyExtractor={(item, index) => index.toString()}
                         data={

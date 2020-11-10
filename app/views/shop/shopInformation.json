@@ -1,0 +1,34 @@
+[
+    {
+        "category": "Dog",
+        "categoryImage": "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fpet%20buy%20icons%2FpetCategories%2Fdog.png?alt=media&token=c080cbf5-952f-45a6-b3e9-19203b864613"
+    },
+    {
+        "category": "Cat",
+        "categoryImage": "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fpet%20buy%20icons%2FpetCategories%2Fcat.png?alt=media&token=082a5c6e-826a-4dce-b704-c12f04936d03"
+    },
+    {
+        "category": "Rabbit",
+        "categoryImage": "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fpet%20buy%20icons%2FpetCategories%2Frabbit.png?alt=media&token=52413cb3-9041-4bb4-87d2-4b82dae88f35"
+    },
+    {
+        "category": "Fish",
+        "categoryImage": "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fpet%20buy%20icons%2FpetCategories%2Fclownfish.png?alt=media&token=b0d7f1e0-8157-46fd-9648-4168ca71419a"
+    },
+    {
+        "category": "Bird",
+        "categoryImage": "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fpet%20buy%20icons%2FpetCategories%2Fbird.png?alt=media&token=d21144d7-c221-4c12-8ebd-295fe5e24d96"
+    },
+    {
+        "category": "Horse",
+        "categoryImage": "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fpet%20buy%20icons%2FpetCategories%2Fhorse.png?alt=media&token=ee9c4274-252a-4635-bc35-b2f0284aaa2d"
+    },
+    {
+        "category": "Lizard",
+        "categoryImage": "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fpet%20buy%20icons%2FpetCategories%2Fchameleon.png?alt=media&token=200630c0-0b3e-48dd-b395-2250d1590b3f"
+    },
+    {
+        "category": "Turtle",
+        "categoryImage": "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fpet%20buy%20icons%2FpetCategories%2Fturtle.png?alt=media&token=62234512-d490-46e8-8a6c-94911e31ec0c"
+    }
+]

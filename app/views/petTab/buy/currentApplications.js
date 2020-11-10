@@ -108,6 +108,7 @@ export default class currentApplications extends React.Component {
             });
         });
       });
+      
       BackHandler.addEventListener(
         "hardwareBackPress",
         this.handleBackButtonClick

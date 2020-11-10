@@ -29,7 +29,7 @@ import {
   lightGrey,
 } from "../styleSheet/styleSheet";
 import globalStyles from "../styleSheet/styleSheet";
-import { shopAccessoryCard, shopCategory } from "../components/shopComponents";
+import { accessoryListingCard, shopCategory } from "../components/shopComponents";
 export default class Checkout extends React.Component {
     constructor(props){
 		super(props);

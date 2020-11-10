@@ -3,6 +3,7 @@ import {
   Text,
   View,
   FlatList,
+  BackHandler,
 } from "react-native";
 import {
   Card,
@@ -51,8 +52,8 @@ export default class breedList extends React.Component {
                   seller["name"] = user_doc.data().name;
                   seller["photo"] = user_doc.data().photo;
                   seller["info"] = user_doc.data().profileText;
-                  seller["email"] = user_doc.data().email;    
-                  seller["dob"] = user_doc.data().dob;    
+                  seller["email"] = user_doc.data().email;
+                  seller["dob"] = user_doc.data().dob;
                 });
               dataArray.push({
                 sellerName: seller.name,
@@ -93,6 +94,24 @@ export default class breedList extends React.Component {
 
   async componentDidMount() {
     this.fetchData();
+    
+    BackHandler.addEventListener(
+      "hardwareBackPress",
+      this.handleBackButtonClick
+    );
+  }
+
+
+  componentWillUnmount() {
+    BackHandler.removeEventListener(
+      "hardwareBackPress",
+      this.handleBackButtonClick
+    );
+  }
+
+  handleBackButtonClick = () => {
+    this.props.navigation.goBack();
+    return true;
   }
 
   searchFunction = (searchText) => {
@@ -139,7 +158,7 @@ export default class breedList extends React.Component {
                   <Button
                     color={darkGreen}
                     onPress={() =>
-                      this.props.navigation.navigate("breedInfo", {item})
+                      this.props.navigation.navigate("breedInfo", { item })
                     }
                   >
                     More info

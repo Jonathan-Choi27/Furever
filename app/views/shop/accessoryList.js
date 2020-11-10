@@ -21,7 +21,7 @@ import {
 } from "react-native-paper";
 import firebase from "firebase";
 import { auth } from "../database/firebase";
-import {shopAccessoryCard} from "../components/shopComponents"
+import {accessoryListingCard} from "../components/shopComponents"
 
 import globalStyles, { darkGreen, green, lightGreen, lightGrey, orange, lightBlue } from "../styleSheet/styleSheet";
 
@@ -153,7 +153,7 @@ export default class accessoryList extends React.Component {
           </Modal>
         </Portal>
         <Text style = {{padding: 15}}>
-            Shop - {this.props.route.params.item.type}
+            Shop - {this.props.route.params.item.accessory}
         </Text>  
 
         {this.state.filterDisplay ? (
@@ -162,7 +162,7 @@ export default class accessoryList extends React.Component {
                 key={1}
                 showsVerticalScrollIndicator={false}
                 renderItem={({ item }) => (
-                  shopAccessoryCard(item, this.props.navigation)
+                  accessoryListingCard(item, this.props.navigation)
                 )}
                 keyExtractor={(item, index) => index.toString()}
                 data={
@@ -193,7 +193,7 @@ export default class accessoryList extends React.Component {
                   refreshing={this.state.pullToRefresh}
                   data={this.state.data}
                   renderItem={({ item }) => (
-                      shopAccessoryCard(item, this.props.navigation)
+                    accessoryListingCard(item, this.props.navigation)
                   )}
                   keyExtractor={(item, index) => index.toString()}
               />
@@ -210,7 +210,7 @@ export default class accessoryList extends React.Component {
                         key={1}
                         showsVerticalScrollIndicator={false}
                         renderItem={({ item }) => (
-                          shopAccessoryCard(item, this.props.navigation)
+                          accessoryListingCard(item, this.props.navigation)
                         )}
                         keyExtractor={(item, index) => index.toString()}
                         data={

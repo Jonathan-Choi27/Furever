@@ -1,5 +1,5 @@
 import React from "react";
-import { ScrollView, View, Dimensions, Image } from "react-native";
+import { ScrollView, View, Dimensions, Image, BackHandler, } from "react-native";
 import { Card, Text } from "react-native-elements";
 import { Button } from "react-native-paper";
 import "react-navigation";
@@ -41,6 +41,23 @@ export default class buyApplication extends React.Component {
 
   async componentDidMount() {
     this.fetchData();
+
+    BackHandler.addEventListener(
+      "hardwareBackPress",
+      this.handleBackButtonClick
+    );
+  }
+
+  componentWillUnmount() {
+    BackHandler.removeEventListener(
+      "hardwareBackPress",
+      this.handleBackButtonClick
+    );
+  }
+
+  handleBackButtonClick = () => {
+    this.props.navigation.goBack();
+    return true;
   }
 
   async fetchData() {

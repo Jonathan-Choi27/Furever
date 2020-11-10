@@ -53,7 +53,7 @@ export const profileInfo = (item) => {
               <Text style={styles.contentTextBold}>Size: </Text>
               <Text style={styles.contentTextBold}>Location: </Text>
             </View>
-            <View style={{ flex: 1}}>
+            <View style={{ flex: 1 }}>
               <Text numberOfLines={1} style={styles.contentText}>{item.petName}</Text>
               <Text numberOfLines={1} style={styles.contentText}>{item.category}</Text>
               <Text numberOfLines={1} style={styles.contentText}>{item.breed}</Text>
@@ -61,7 +61,7 @@ export const profileInfo = (item) => {
               <Text numberOfLines={1} style={styles.contentText}>{item.age} {item.ageOption}</Text>
               <Text numberOfLines={1} style={styles.contentText}>{item.gender}</Text>
               <Text numberOfLines={1} style={styles.contentText}>{item.size}</Text>
-              <Text style={styles.contentText, {flexShrink: 1}}>{item.suburb}</Text>
+              <Text style={styles.contentText, { flexShrink: 1 }}>{item.suburb}</Text>
             </View>
           </View>
         </Card>
@@ -100,21 +100,17 @@ export const sellerInfo = (seller, navigation) => {
   return (
     <View style={styles.container}>
       <Card containerStyle={styles.cardContentContainer}>
-        <Text style={styles.cardHeading}>Seller Information</Text>
-
+      <Text style={styles.cardHeading}>{seller.name}'s Information</Text>
         <View style={{ flexDirection: 'row' }}>
-          <View style={{ flex: 1, width: 100, justifyContent: 'center', alignItems: 'center', }}>
-            <Image
-              style={{ height: 40, width: 40, borderRadius: 40 / 2, }}
-              source={{
-                uri: seller.photo,
-              }}
-            />
-            <Text style={{ textAlign: "center", paddingTop: 5 }}>{seller.name}</Text>
-          </View>
-          <View style={{ flex: 4, paddingTop: 2, paddingLeft: 10, paddingRight: 10 }}>
-            <Text >{seller.profileText}</Text>
-            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', paddingTop: 10 }}>
+          <Image
+            style={{ height: 100, width: 100, borderRadius: 5, marginRight: 5 }}
+            source={{
+              uri: seller.photo,
+            }}
+          />
+          <View style={{ flex: 4, paddingLeft: 10, paddingRight: 10 }}>
+            <Text numberOfLines={4}>{seller.profileText}</Text>
+            <View style={{ flex: 1, paddingTop: 7 }}>
               <Button
                 style={{
                   backgroundColor: green,

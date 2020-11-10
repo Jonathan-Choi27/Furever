@@ -5,7 +5,6 @@ import { Button } from "react-native-paper";
 import styles from "../styleSheet/styleSheet";
 import Icon from 'react-native-vector-icons/AntDesign';
 import { darkGreen, green, lightGreen, lightGrey, orange, lightBlue } from "../styleSheet/styleSheet";
-import { cartTab } from "./shopTabComponent";
 
 const screenWidth = Math.round(Dimensions.get("window").width);
 

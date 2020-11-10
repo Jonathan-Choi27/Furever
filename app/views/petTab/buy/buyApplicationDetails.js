@@ -1,9 +1,28 @@
 import React from "react";
-import { View, Text, Image, Dimensions } from "react-native";
+import { View, Text, Image, Dimensions, BackHandler, } from "react-native";
 import { Card } from "react-native-elements";
 
 const screenWidth = Math.round(Dimensions.get("window").width);
 export default class buyApplicationDetail extends React.Component {
+  componentDidMount() {
+    BackHandler.addEventListener(
+      "hardwareBackPress",
+      this.handleBackButtonClick
+    );
+  }
+
+  componentWillUnmount() {
+    BackHandler.removeEventListener(
+      "hardwareBackPress",
+      this.handleBackButtonClick
+    );
+  }
+
+  handleBackButtonClick = () => {
+    this.props.navigation.goBack();
+    return true;
+  }
+  
   render() {
     const item = this.props.route.params.item;
     return (

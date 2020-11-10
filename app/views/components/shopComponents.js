@@ -19,9 +19,8 @@ import { Cart } from "../shop/Cart";
 
 const itemList = [];
 
-export const shopAccessoryCard = (item, navigation) => {
+export const accessoryListingCard = (item, navigation) => {
   return (
-    
     <View style={styles.iconContainer}>
       <TouchableOpacity
         onPress={() => navigation.navigate("shopProfile", {item})}
@@ -53,35 +52,36 @@ export const shopAccessoryCard = (item, navigation) => {
 
 export const shopCategory = (item, navigation) => {
   return (
-    
     <View style={styles.iconContainer}>
       <TouchableOpacity
         onPress={() =>
-          navigation.navigate("accessoryCategories", { item })
+          navigation.navigate("accessoryCategories", { category: item })
         }>
-        <View style={styles.iconContainer}>
+        <View style={styles.categoryIconContainer}>
           <Image
             style={styles.icon}
-            source={{uri: item.image}}
+            source={{uri: item.categoryImage}}
           />
+          <Text style={styles.iconText}>{item.category}</Text>
         </View>
       </TouchableOpacity>
     </View>
   )
 }
 
-export const accessoryCategory = (item, categoryId, navigation) => {
+export const accessoryCategory = (accessory, category, navigation) => {
   return (
     <View style={styles.iconContainer}>
       <TouchableOpacity
         onPress={() =>
-          navigation.navigate("accessoryList", { item, categoryId })
+          navigation.navigate("accessoryList", { accessory, category })
         }>
-        <View style={styles.breedIconContainer}>
+        <View style={styles.categoryIconContainer}>
           <Image
             style={styles.icon}
-            source={{uri: item.image}}
+            source={{uri: accessory.accessoryImage}}
           />
+          <Text style={styles.iconText}>{accessory.accessory}</Text>
         </View>
       </TouchableOpacity>
     </View>

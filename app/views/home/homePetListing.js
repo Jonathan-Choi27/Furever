@@ -7,6 +7,7 @@ import {
   Image,
   ActivityIndicator,
   ScrollView,
+  BackHandler,
 } from "react-native";
 import firebase from "firebase";
 import { auth } from "../database/firebase";
@@ -187,6 +188,23 @@ export default class HomePetListing extends React.Component {
 
   async componentDidMount() {
     this.initialFetchData();
+
+    BackHandler.addEventListener(
+      "hardwareBackPress",
+      this.handleBackButtonClick
+    );
+  }
+
+  componentWillUnmount() {
+    BackHandler.removeEventListener(
+      "hardwareBackPress",
+      this.handleBackButtonClick
+    );
+  }
+
+  handleBackButtonClick = () => {
+    // do nothing
+    return true;
   }
 
   searchFunction = (searchText) => {

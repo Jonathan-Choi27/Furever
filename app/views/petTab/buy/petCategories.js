@@ -112,6 +112,7 @@ export default class petCategories extends React.Component {
           });
         });
       });
+      
       BackHandler.addEventListener(
         "hardwareBackPress",
         this.handleBackButtonClick
@@ -126,11 +127,9 @@ export default class petCategories extends React.Component {
   }
 
   handleBackButtonClick = () => {
-    this.props.navigation.goBack();
+    // do nothing
     return true;
   }
-  
-
 
   searchFunction = (searchText) => {
     this.setState({ searchText: searchText });

@@ -297,19 +297,28 @@ export default StyleSheet.create({
     marginBottom: 8,
   },
   breedContainer: {
-    paddingLeft: 12,
-    paddingRight: 12,
-    paddingBottom: 10,
+    marginLeft: 15,
+    marginRight: 15,
+    marginBottom: 12,
+    paddingBottom: 5,
+    backgroundColor: "white",
+    borderRadius: 10,
+    elevation: 5,
   },
-  breedIconContainer: {
+  categoryIconContainer: {
     paddingLeft: 12,
     paddingRight: 12,
     paddingTop: 6,
   },
+  breedIconContainer: {
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
+  },
   breedIcon: {
     height: 130,
-    width: 130,
-    borderRadius: 10,
+    width: 140,
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
   },
   iconText: {
     paddingTop: 1,
