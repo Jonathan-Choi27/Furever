@@ -15,11 +15,8 @@ const Stack = createStackNavigator();
 
 export default function App() {
   return (
-    <View style={{flex:1}}>
-      <StatusBar
-        backgroundColor="black"
-        barStyle="light-content"
-      />
+    <View style={{ flex: 1 }}>
+      <StatusBar backgroundColor="black" barStyle="light-content" />
       <NavigationContainer>
         <Stack.Navigator
           screenOptions={{
@@ -45,17 +42,17 @@ export default function App() {
             name="Home"
             component={Home}
             options={{
-            //   title: "Home",
-            //   headerStyle: {
-            //     backgroundColor: green,
-            //   },
-            //   headerTitle: <HeaderLogo />,
-            //   headerTitleStyle: {
-            //     alignSelf: "center",
-            //     flex: 1,
-            //   },
-            //   headerTitleContainerStyle: { left: 0, right: 0 },
-                headerShown: false
+              //   title: "Home",
+              //   headerStyle: {
+              //     backgroundColor: green,
+              //   },
+              //   headerTitle: <HeaderLogo />,
+              //   headerTitleStyle: {
+              //     alignSelf: "center",
+              //     flex: 1,
+              //   },
+              //   headerTitleContainerStyle: { left: 0, right: 0 },
+              headerShown: false,
             }}
           />
           <Stack.Screen
