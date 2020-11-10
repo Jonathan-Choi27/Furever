@@ -7,7 +7,7 @@ import {
   Image,
   ScrollView,
   FlatList,
-  BackHandler
+  BackHandler,
 } from "react-native";
 import { Avatar, Card, Button, Searchbar } from "react-native-paper";
 import { db } from "../../database/firebase";
@@ -108,11 +108,11 @@ export default class currentApplications extends React.Component {
             });
         });
       });
-      
-      BackHandler.addEventListener(
-        "hardwareBackPress",
-        this.handleBackButtonClick
-      );
+
+    BackHandler.addEventListener(
+      "hardwareBackPress",
+      this.handleBackButtonClick
+    );
   }
 
   componentWillUnmount() {
@@ -125,7 +125,7 @@ export default class currentApplications extends React.Component {
   handleBackButtonClick = () => {
     this.props.navigation.goBack();
     return true;
-  }
+  };
 
   searchFunction = (searchText) => {
     this.setState({ searchText: searchText });
@@ -151,7 +151,8 @@ export default class currentApplications extends React.Component {
               justifyContent: "center",
               alignItems: "center",
               alignSelf: "stretch",
-            }}>
+            }}
+          >
             <Searchbar
               style={globalStyles.searchBarSingle}
               placeholder="Search"
@@ -166,9 +167,17 @@ export default class currentApplications extends React.Component {
                 style={[
                   globalStyles.pageTitle,
                   { paddingLeft: 7, paddingBottom: 10, paddingTop: 3 },
-                ]}                                                                                              >
+                ]}
+              >
                 Your Current Applications
               </Text>
+              <View>
+                <Text>
+                  {this.state.data.length === 0
+                    ? `You have not submitted any pet applications`
+                    : null}
+                </Text>
+              </View>
               <FlatList
                 style={[{ paddingBottom: 10 }]}
                 onRefresh={async () => {
@@ -194,39 +203,39 @@ export default class currentApplications extends React.Component {
               />
             </View>
           ) : (
-              <View style={globalStyles.activityContainer}>
-                {this.state.filteredData.length == 0 ? (
-                  <View style={globalStyles.activityContainer}>
-                    <Text style={{ margin: 100 }}>No results found.</Text>
-                  </View>
-                ) : (
-                    <FlatList
-                      style={{ paddingBottom: 10 }}
-                      onRefresh={async () => {
-                        this.setState({
-                          pullToRefresh: true,
-                        });
-                        await this.fetchData();
-                        this.setState({
-                          pullToRefresh: false,
-                        });
-                      }}
-                      refreshing={this.state.pullToRefresh}
-                      showsVerticalScrollIndicator={false}
-                      renderItem={({ item }) =>
-                        petBuyCard(item, this.props.navigation)
-                      }
-                      keyExtractor={(item, index) => index.toString()}
-                      data={
-                        this.state.filteredData &&
-                          this.state.filteredData.length > 0
-                          ? this.state.filteredData
-                          : this.state.data
-                      }
-                    />
-                  )}
-              </View>
-            )}
+            <View style={globalStyles.activityContainer}>
+              {this.state.filteredData.length == 0 ? (
+                <View style={globalStyles.activityContainer}>
+                  <Text style={{ margin: 100 }}>No results found.</Text>
+                </View>
+              ) : (
+                <FlatList
+                  style={{ paddingBottom: 10 }}
+                  onRefresh={async () => {
+                    this.setState({
+                      pullToRefresh: true,
+                    });
+                    await this.fetchData();
+                    this.setState({
+                      pullToRefresh: false,
+                    });
+                  }}
+                  refreshing={this.state.pullToRefresh}
+                  showsVerticalScrollIndicator={false}
+                  renderItem={({ item }) =>
+                    petBuyCard(item, this.props.navigation)
+                  }
+                  keyExtractor={(item, index) => index.toString()}
+                  data={
+                    this.state.filteredData &&
+                    this.state.filteredData.length > 0
+                      ? this.state.filteredData
+                      : this.state.data
+                  }
+                />
+              )}
+            </View>
+          )}
         </ScrollView>
       </View>
     );

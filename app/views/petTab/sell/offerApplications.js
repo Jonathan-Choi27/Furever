@@ -1,22 +1,30 @@
 import * as React from "react";
-import "react-navigation"
-import "react-navigation-props-mapper"
-import "@react-navigation/native"
-import 'react-navigation-hooks'
-import { StyleSheet, View, TouchableOpacity, FlatList, Image, Text, BackHandler, } from "react-native";
+import "react-navigation";
+import "react-navigation-props-mapper";
+import "@react-navigation/native";
+import "react-navigation-hooks";
 import {
-    Avatar,
-    ActivityIndicator,
-    Card,
-    Button,
-    Portal,
-    Modal,
-    Provider,
-    Paragraph,
-  } from "react-native-paper";
+  StyleSheet,
+  View,
+  TouchableOpacity,
+  FlatList,
+  Image,
+  Text,
+  BackHandler,
+} from "react-native";
+import {
+  Avatar,
+  ActivityIndicator,
+  Card,
+  Button,
+  Portal,
+  Modal,
+  Provider,
+  Paragraph,
+} from "react-native-paper";
 import firebase from "firebase";
 import globalStyles from "../../styleSheet/styleSheet";
-import {offerApplicationListingCard} from "../../components/offerApplicationListingsComponent";
+import { offerApplicationListingCard } from "../../components/offerApplicationListingsComponent";
 
 const db = firebase.firestore();
 
@@ -29,18 +37,19 @@ export default class offerApplications extends React.Component {
     visible: false,
     pullToRefresh: false,
   };
-    
+
   async fetchData() {
     const dataArray = [];
     const pet_doc_id = this.props.route.params.doc_id;
     console.log(pet_doc_id);
-    
+
     var petName;
     var petCategory;
     var petBreed;
-    var sellerId
+    var sellerId;
     // Getting Pet Info
-    await db.collection("petListings")
+    await db
+      .collection("petListings")
       .doc(pet_doc_id)
       .get()
       .then((doc) => {
@@ -48,7 +57,7 @@ export default class offerApplications extends React.Component {
         petCategory = doc.data().category;
         petBreed = doc.data().breed;
         sellerId = doc.data().uuid;
-    });
+      });
 
     var sellerName;
     await db
@@ -57,7 +66,7 @@ export default class offerApplications extends React.Component {
       .get()
       .then((seller) => {
         sellerName = seller.data().name;
-    });
+      });
 
     db.collection("petListings")
       .doc(pet_doc_id)
@@ -94,15 +103,14 @@ export default class offerApplications extends React.Component {
             petBreed: petBreed,
             sellerName: sellerName,
           };
-            
+
           dataArray.push(buyer_info);
           this.setState({
             isLoading: false,
-            data: [...dataArray], 
+            data: [...dataArray],
           });
-          
         });
-      });  
+      });
   }
 
   async componentDidMount() {
@@ -123,17 +131,24 @@ export default class offerApplications extends React.Component {
   handleBackButtonClick = () => {
     this.props.navigation.goBack();
     return true;
-  }
+  };
 
-      
-  render(){
+  render() {
     return (
       <View style={globalStyles.container}>
-        <View style={[globalStyles.pageTitleContainer, {paddingTop: 15}]}>
+        <View style={[globalStyles.pageTitleContainer, { paddingTop: 15 }]}>
           <Text style={globalStyles.pageTitle}>Offer Applications</Text>
         </View>
 
-        <View style={{paddingTop: 10, paddingBottom: 60}}>
+        <View>
+          <Text>
+            {this.state.data.length === 0
+              ? `No available offers were made for this pet`
+              : null}
+          </Text>
+        </View>
+
+        <View style={{ paddingTop: 10, paddingBottom: 60 }}>
           <FlatList
             showsVerticalScrollIndicator={false}
             onRefresh={async () => {
@@ -147,13 +162,13 @@ export default class offerApplications extends React.Component {
             }}
             refreshing={this.state.pullToRefresh}
             data={this.state.data}
-            renderItem={({ item }) => (
+            renderItem={({ item }) =>
               offerApplicationListingCard(item, this.props.navigation)
-            )}
+            }
             keyExtractor={(item, index) => index.toString()}
           />
         </View>
       </View>
-    )
+    );
   }
 }

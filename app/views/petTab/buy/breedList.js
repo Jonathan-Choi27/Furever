@@ -1,10 +1,5 @@
 import * as React from "react";
-import {
-  Text,
-  View,
-  FlatList,
-  BackHandler,
-} from "react-native";
+import { Text, View, FlatList, BackHandler } from "react-native";
 import {
   Card,
   Button,
@@ -40,8 +35,9 @@ export default class breedList extends React.Component {
       .get()
       .then((doc) => {
         doc.forEach(async (refDoc) => {
-          refDoc.data().list
-            .get()
+          refDoc
+            .data()
+            .list.get()
             .then(async (listingDoc) => {
               var uuid = listingDoc.data().uuid;
               await db
@@ -87,20 +83,19 @@ export default class breedList extends React.Component {
               delete seller.name;
               delete seller.photo;
               delete seller.info;
-            })
-        })
-      })
+            });
+        });
+      });
   }
 
   async componentDidMount() {
     this.fetchData();
-    
+
     BackHandler.addEventListener(
       "hardwareBackPress",
       this.handleBackButtonClick
     );
   }
-
 
   componentWillUnmount() {
     BackHandler.removeEventListener(
@@ -112,7 +107,7 @@ export default class breedList extends React.Component {
   handleBackButtonClick = () => {
     this.props.navigation.goBack();
     return true;
-  }
+  };
 
   searchFunction = (searchText) => {
     this.setState({ searchText: searchText });
@@ -186,34 +181,40 @@ export default class breedList extends React.Component {
             </View>
           </View>
 
-          <View style={{
-            flex: 2,
-            justifyContent: "flex-start",
-            alignItems: "flex-start",
-          }}>
-            <FlatList
-              style={{ paddingBottom: 10 }}
-              onRefresh={async () => {
-                this.setState({
-                  pullToRefresh: true,
-                });
-                await this.fetchData();
-                this.setState({
-                  pullToRefresh: false,
-                });
-              }}
-              refreshing={this.state.pullToRefresh}
-              showsVerticalScrollIndicator={false}
-              renderItem={({ item }) => (
-                petBuyCard(item, this.props.navigation)
-              )}
-              keyExtractor={(item, index) => index.toString()}
-              data={
-                this.state.filteredData && this.state.filteredData.length > 0
-                  ? this.state.filteredData
-                  : this.state.data
-              }
-            />
+          <View
+            style={{
+              flex: 2,
+              justifyContent: "flex-start",
+              alignItems: "flex-start",
+            }}
+          >
+            {this.state.data.length === 0 ? (
+              <Text>No available {item.breedName}'s for purchase</Text>
+            ) : (
+              <FlatList
+                style={{ paddingBottom: 10 }}
+                onRefresh={async () => {
+                  this.setState({
+                    pullToRefresh: true,
+                  });
+                  await this.fetchData();
+                  this.setState({
+                    pullToRefresh: false,
+                  });
+                }}
+                refreshing={this.state.pullToRefresh}
+                showsVerticalScrollIndicator={false}
+                renderItem={({ item }) =>
+                  petBuyCard(item, this.props.navigation)
+                }
+                keyExtractor={(item, index) => index.toString()}
+                data={
+                  this.state.filteredData && this.state.filteredData.length > 0
+                    ? this.state.filteredData
+                    : this.state.data
+                }
+              />
+            )}
           </View>
         </View>
       </Provider>
