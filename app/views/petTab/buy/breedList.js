@@ -189,7 +189,7 @@ export default class breedList extends React.Component {
             }}
           >
             {this.state.data.length === 0 ? (
-              <Text>No available {item.breedName}'s for purchase</Text>
+              <Text style={{paddingTop: 30, fontSize: 15, textAlign: "center"}}>No available {item.breedName}'s for purchase</Text>
             ) : (
               <FlatList
                 style={{ paddingBottom: 10 }}

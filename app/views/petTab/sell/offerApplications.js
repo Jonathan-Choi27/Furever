@@ -141,11 +141,9 @@ export default class offerApplications extends React.Component {
         </View>
 
         <View>
-          <Text>
-            {this.state.data.length === 0
-              ? `No available offers were made for this pet`
-              : null}
-          </Text>
+          {this.state.data.length === 0
+            ? <Text style={{paddingTop: 30, fontSize: 15, textAlign: "center"}}>No available offers were made for this pet</Text>
+            : null}
         </View>
 
         <View style={{ paddingTop: 10, paddingBottom: 60 }}>

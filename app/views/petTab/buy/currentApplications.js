@@ -166,18 +166,18 @@ export default class currentApplications extends React.Component {
               <Text
                 style={[
                   globalStyles.pageTitle,
-                  { paddingLeft: 7, paddingBottom: 10, paddingTop: 3 },
+                  { paddingLeft: 7, paddingBottom: 10, paddingTop: 5 },
                 ]}
               >
                 Your Current Applications
               </Text>
+              
               <View>
-                <Text>
-                  {this.state.data.length === 0
-                    ? `You have not submitted any pet applications`
-                    : null}
-                </Text>
+                {this.state.data.length === 0
+                  ? <Text style={{paddingTop: 30, fontSize: 15, textAlign: "center"}}>You have not submitted any pet applications</Text>
+                  : null}
               </View>
+              
               <FlatList
                 style={[{ paddingBottom: 10 }]}
                 onRefresh={async () => {

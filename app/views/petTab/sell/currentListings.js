@@ -203,7 +203,6 @@ export default class currentListings extends React.Component {
     // }
     return (
       <View style={globalStyles.container}>
-        {/* {onSellTab(this.props.navigation)} */}
         <View style={globalStyles.searchFilterContainer}>
           <Searchbar
             style={globalStyles.searchBar}
@@ -224,7 +223,7 @@ export default class currentListings extends React.Component {
             Filter
           </Button>
         </View>
-        <View style={[globalStyles.pageTitleContainer, { paddingTop: 15 }]}>
+        <View style={[globalStyles.pageTitleContainer, { paddingTop: 10 }]}>
           <Text style={globalStyles.pageTitle}>Current Listings</Text>
           <View>
             <Button
@@ -241,11 +240,9 @@ export default class currentListings extends React.Component {
         </View>
 
         <View>
-          <Text>
-            {this.state.data.length === 0
-              ? `You have not added any pet listings`
-              : null}
-          </Text>
+          {this.state.data.length === 0
+            ? <Text style={{paddingTop: 30, fontSize: 15, textAlign: "center"}}>You have not added any pet listings</Text>
+            : null}
         </View>
 
         {this.state.searchText == "" ? (
