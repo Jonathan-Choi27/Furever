@@ -21,48 +21,56 @@ const itemList = [];
 
 export const accessoryListingCard = (item, navigation) => {
   return (
-    <View style={styles.iconContainer}>
-      <TouchableOpacity
-        onPress={() => navigation.navigate("shopProfile", {item})}
-        >
-        <View style={styles.iconContainer} 
-          onPress={() => props.navigation}>
+    <Card elevation={5} style={globalStyles.petBuyCard}>
+      <View style={globalStyles.petBuyCardTextContainer}>
+        <View style={{width: 125, height: 125}}>
           <Image
-            style={styles.icon}
-            source={{uri: item.photo}}
+            source={{ uri: item.photo }}
+            style={globalStyles.petBuyCardImage}
           />
         </View>
-      </TouchableOpacity>
-      <View 
-      style={styles.container}
-      >
-      <Text>{item.accessoryName} - ${item.price} </Text>
+        <View style={globalStyles.petBuyCardContent}>
+          <Card.Content>
+            <View style={{marginRight: 40}}>
+              <Text numberOfLines={1} style={{ flex: 1 }}>
+                <Text style={{ fontSize: 18, paddingBottom: 2 }}>{item.accessoryName}</Text>
+              </Text>
+            </View>
+            <Text numberOfLines={1} style={{ flex: 1 }}>
+              <Text style={{ fontWeight: "bold" }}>Price: </Text>
+              <Text>${item.price}</Text>
+            </Text>
+            <Text numberOfLines={2} style={{ flex: 1, paddingTop: 3 }}>{item.description}</Text>
+          </Card.Content>
 
-
-      <Button style={globalStyles.smallButton}
-          onPress={() => addItemToCart(item)}
-          
-      >
-        <Text style={{ fontWeight: "bold", color:"#53A687"}}>Add to Cart</Text>
-      </Button>
-    </View>
-    </View>    
+          <Card.Actions style={globalStyles.petBuyCardActionCard}>
+            <Button
+              style={globalStyles.petBuyCardBigButton}
+              mode="contained"
+              onPress={() => addItemToCart(item)}
+            >
+              <Text style={globalStyles.petBuyCardBigButtonText}>Add to Cart</Text>
+            </Button>
+          </Card.Actions>
+        </View>
+      </View>
+    </Card>
   )
 }
 
-export const shopCategory = (item, navigation) => {
+export const shopCategory = (category, navigation) => {
   return (
     <View style={styles.iconContainer}>
       <TouchableOpacity
         onPress={() =>
-          navigation.navigate("accessoryCategories", { category: item })
+          navigation.navigate("accessoryCategories", { category })
         }>
         <View style={styles.categoryIconContainer}>
           <Image
             style={styles.icon}
-            source={{uri: item.categoryImage}}
+            source={{uri: category.categoryImage}}
           />
-          <Text style={styles.iconText}>{item.category}</Text>
+          <Text style={styles.iconText}>{category.category}</Text>
         </View>
       </TouchableOpacity>
     </View>

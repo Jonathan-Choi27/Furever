@@ -26,7 +26,7 @@ import {
   pageBackgroundColour,
 } from "../styleSheet/styleSheet";
 import globalStyles from "../styleSheet/styleSheet";
-import { cartTab } from "../components/shopTabComponent";
+import { cartTab, cartCard } from "../components/shopTabComponent";
 import { accessoryListingCard, shopCategory, getItemList } from "../components/shopComponents";
 
 const shopInformation = require('./shopInformation.json');
@@ -111,6 +111,7 @@ export default class petCategories extends React.Component {
 
   render() {
     const { search } = this.state;
+    const items = getItemList();
     if (this.state.isLoading) {
       return (
         <View style={globalStyles.activityContainer}>
@@ -140,37 +141,6 @@ export default class petCategories extends React.Component {
               Filter
             </Button>
           </View>
-
-          <View style={{ height: 52, flexDirection:'row', justifyContent:'space-between', }}>
-              
-              <TouchableOpacity
-                style={{backgroundColor: darkGreen,
-                  // flex: 1,
-                  justifyContent: "center",
-                  alignItems: "center",
-                  width: 200,
-                  flexDirection: 'row',
-                  borderRadius: 5,
-                  marginTop: 5,
-                  marginBottom: 16,}}
-                onPress={() =>
-                this.props.navigation.navigate("accessoryListings")
-                }
-                >
-                <Text
-                  style={{
-                    textAlign: "center",
-                    color: "white",
-                    fontWeight: "bold",
-                  }}>
-                  Sell Accessories
-                </Text>
-              </TouchableOpacity>
-              <View style={{paddingLeft: 110}}>
-                {cartTab(getItemList(), this.props.navigation)}
-              </View>
-              
-            </View>
 
           <ScrollView showsVerticalScrollIndicator={false}>
             <Portal>
@@ -215,16 +185,42 @@ export default class petCategories extends React.Component {
             ) : (
               <View style={globalStyles.petContainer}>
                 {this.state.searchText == "" ? (
-                  <View style={globalStyles.petContainer}>
-                    <FlatList
-                      data={shopInformation}
-                      columnWrapperStyle={{ justifyContent: "flex-start" }}
-                      numColumns={2}
-                      key={2}
-                      renderItem={({ item }) =>
-                        shopCategory(item, this.props.navigation)
-                      }
-                    />
+                  //the page when not searching
+                  <View>
+                    <View style={globalStyles.petContainer}>
+                      <View style={{ width: 300, marginTop: 5, marginBottom: 12, }}>
+                        <Card
+                          elevation={5}
+                          containerStyle={{ borderRadius: 10 }}
+                          onPress={() =>
+                            this.props.navigation.navigate("accessoryListings")
+                          }>
+                          <View style={{ flexDirection: "row", justifyContent: "center", alignItems: "center"}}>
+                            <Text numberOfLines={1} style={[globalStyles.pageTitle, {padding: 10}]}>
+                                Sell Accessories
+                            </Text>
+                            <Image 
+                              style={{width: 30, height: 30}}
+                              source={{
+                                uri: "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fshop%2Fpet-shop.png?alt=media&token=46c0a73c-ea4e-4539-ba05-355f6cb164ed"
+                              }}>
+                            </Image>
+                          </View>
+                        </Card>
+                      </View>
+                      <View style={{ width: 300, marginBottom: 12,}}>
+                        {cartCard(this.props.navigation)}
+                      </View>
+                      <FlatList
+                        data={shopInformation}
+                        columnWrapperStyle={{ justifyContent: "flex-start" }}
+                        numColumns={2}
+                        key={2}
+                        renderItem={({ item }) =>
+                          shopCategory(item, this.props.navigation)
+                        }
+                      />
+                    </View>
                   </View>
                 ) : (
                   <View style={globalStyles.petContainer}>

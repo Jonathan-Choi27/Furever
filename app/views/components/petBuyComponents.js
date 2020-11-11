@@ -9,28 +9,28 @@ import {
     Card,
     Button,
 } from "react-native-paper";
-import styles from "../styleSheet/styleSheet";
+import globalStyles from "../styleSheet/styleSheet";
 
 export const petBuyCard = (item, navigation) => {
   return (
-    <Card elevation={5} style={styles.petBuyCard}>
-      <View style={styles.petBuyCardSellerContainer}>
+    <Card elevation={5} style={globalStyles.petBuyCard}>
+      <View style={globalStyles.petBuyCardSellerContainer}>
         <Image
-          style={styles.petBuyCardSellerImage}
+          style={globalStyles.petBuyCardSellerImage}
           source={{
             uri: item.sellerPhoto,
           }}
         />
       </View>
-      <View style={styles.petBuyCardTextContainer}>
-        <View style={styles.petBuyCardImageContainer}>
+      <View style={globalStyles.petBuyCardTextContainer}>
+        <View style={globalStyles.petBuyCardImageContainer}>
           <Image
             source={{ uri: item.photo }}
-            style={styles.petBuyCardImage}
+            style={globalStyles.petBuyCardImage}
           />
         </View>
         <View
-          style={styles.petBuyCardContent}
+          style={globalStyles.petBuyCardContent}
         >
           <Card.Content>
             <View style={{marginRight: 40}}>
@@ -56,15 +56,15 @@ export const petBuyCard = (item, navigation) => {
             </Text>
           </Card.Content>
 
-          <Card.Actions style={styles.petBuyCardActionCard}>
+          <Card.Actions style={globalStyles.petBuyCardActionCard}>
             <Button
-              style={styles.petBuyCardBigButton}
+              style={globalStyles.petBuyCardBigButton}
               mode="contained"
               onPress={() =>
                 navigation.navigate("petProfile", {item})
               }
             >
-              <Text style={styles.petBuyCardBigButtonText}>More Info</Text>
+              <Text style={globalStyles.petBuyCardBigButtonText}>More Info</Text>
             </Button>
           </Card.Actions>
         </View>
@@ -75,17 +75,17 @@ export const petBuyCard = (item, navigation) => {
 
 export const petBuyCategory = (item, navigation) => {
   return (
-    <View style={styles.iconContainer}>
+    <View style={globalStyles.iconContainer}>
       <TouchableOpacity
         onPress={() =>
           navigation.navigate("petBreeds", { item })
         }>
-        <View style={styles.categoryIconContainer}>
+        <View style={globalStyles.categoryIconContainer}>
           <Image
-            style={styles.icon}
+            style={globalStyles.icon}
             source={{uri: item.categoryImage}}
           />
-          <Text style={styles.iconText}>{item.category}</Text>
+          <Text style={globalStyles.iconText}>{item.category}</Text>
         </View>
       </TouchableOpacity>
     </View>
@@ -94,17 +94,17 @@ export const petBuyCategory = (item, navigation) => {
 
 export const petBuyBreed = (item, category, navigation) => {
   return (
-    <View style={styles.breedContainer}>
+    <View style={globalStyles.breedContainer}>
       <TouchableOpacity
         onPress={() =>
           navigation.navigate("breedList", { item, category })
         }>
-        <View style={styles.breedIconContainer}>
+        <View style={globalStyles.breedIconContainer}>
           <Image
-            style={styles.breedIcon}
+            style={globalStyles.breedIcon}
             source={{uri: item.breedImage}}
           />
-          <Text style={styles.iconText}>{item.breedName}</Text>
+          <Text style={globalStyles.iconText}>{item.breedName}</Text>
         </View>
       </TouchableOpacity>
     </View>

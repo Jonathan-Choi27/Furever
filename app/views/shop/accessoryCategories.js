@@ -22,6 +22,7 @@ import {
 import { db } from "../database/firebase";
 import globalStyles from "../styleSheet/styleSheet";
 import { accessoryListingCard, accessoryCategory, getItemList } from "../components/shopComponents";
+import { cartCard, cartTab } from "../components/shopTabComponent";
 import { MaterialIcons, AntDesign, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import {
   darkGreen,
@@ -141,6 +142,7 @@ handleBackButtonClick = () => {
   render() {
     const { search } = this.state;
     const items = getItemList();
+    const category = this.props.route.params.category;
     if (this.state.isLoading) {
       return (
         <View style={globalStyles.activityContainer}>
@@ -172,25 +174,6 @@ handleBackButtonClick = () => {
               >
                 Filter
               </Button>
-            </View>
-            <View style={{ width: 300, marginTop: 5, marginBottom: 16,}}>
-              <Card
-                elevation={5}
-                containerStyle={{ borderRadius: 10 }}
-                onPress={() => this.props.navigation.navigate("Cart", {items})}
-              >
-                <View style={{flexDirection: "row", justifyContent: "center", alignItems: "center"}}>
-                  <Text numberOfLines={1} style={[globalStyles.pageTitle, {padding: 10}]}>
-                      View Shopping Cart
-                  </Text>
-                  <Image 
-                    style={{width: 30, height: 30}}
-                    source={{
-                      uri: "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fshop%2Fshopping-cart.png?alt=media&token=0d9f90e7-22ac-4800-bf4b-d6f64449c201"
-                    }}>
-                  </Image>
-                </View>
-              </Card>
             </View>
             
             <ScrollView showsVerticalScrollIndicator={false}>
@@ -237,17 +220,25 @@ handleBackButtonClick = () => {
             ) : (
               <View style={globalStyles.petContainer}>
                 {this.state.searchText == "" ? (
-
-                  <View style={globalStyles.petContainer}>
-                    <FlatList
-                      data={accessoryInformation}
-                      columnWrapperStyle={{ justifyContent: "flex-start" }}
-                      numColumns={2}
-                      key={2}
-                      renderItem={({ item }) => (
-                        accessoryCategory(item, this.props.route.params.category, this.props.navigation)
-                      )}
-                    />
+                  <View>
+                    <View style={{flexDirection: "row", justifyContent:'space-between', marginLeft: 15, marginRight: 15, paddingBottom: 10, paddingTop: 3}}>
+                      <Text style={globalStyles.pageTitle}>{category.category}</Text>
+                      {cartTab(this.props.navigation)}
+                    </View>
+                    <View style={globalStyles.petContainer}>
+                      {/* <View style={{ width: 300, marginTop: 5, marginBottom: 10 }}>
+                        {cartCard(this.props.navigation)}
+                      </View> */}
+                      <FlatList
+                        data={accessoryInformation}
+                        columnWrapperStyle={{ justifyContent: "flex-start" }}
+                        numColumns={2}
+                        key={2}
+                        renderItem={({ item }) => (
+                          accessoryCategory(item, category, this.props.navigation)
+                        )}
+                      />
+                    </View>
                   </View>
                 ) : (
                   <View style={globalStyles.petContainer}>

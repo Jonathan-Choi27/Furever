@@ -487,27 +487,6 @@ export default class petCategories extends React.Component {
             </TouchableOpacity>
           </View> */}
 
-          <View style={{ width: 300, marginTop: 5, marginBottom: 16,}}>
-            <Card
-              elevation={5}
-              containerStyle={{ borderRadius: 10 }}
-              onPress={() =>
-                this.props.navigation.navigate("currentApplications")
-              }>
-              <View style={{flexDirection: "row", justifyContent: "center", alignItems: "center"}}>
-                <Text numberOfLines={1} style={[globalStyles.pageTitle, {padding: 10}]}>
-                    View Applications
-                </Text>
-                <Image 
-                  style={{width: 30, height: 30}}
-                  source={{
-                    uri: "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fpet%20buy%20icons%2FpetCategories%2Fapplication.png?alt=media&token=896bdaf8-ba26-4ce5-974c-7cff5815bd98"
-                  }}>
-                </Image>
-              </View>
-            </Card>
-          </View>
-
           <ScrollView showsVerticalScrollIndicator={false}>
             <Portal>
               <Modal
@@ -822,7 +801,28 @@ export default class petCategories extends React.Component {
             ) : (
                 <View style={globalStyles.petContainer}>
                   {this.state.searchText == "" ? (
+                    //the page when not searching
                     <View style={globalStyles.petContainer}>
+                      <View style={{ width: 298, marginTop: 5, marginBottom: 10,}}>
+                        <Card
+                          elevation={5}
+                          containerStyle={{ borderRadius: 10 }}
+                          onPress={() =>
+                            this.props.navigation.navigate("currentApplications")
+                          }>
+                          <View style={{flexDirection: "row", justifyContent: "center", alignItems: "center"}}>
+                            <Text numberOfLines={1} style={[globalStyles.pageTitle, {padding: 10}]}>
+                                View Applications
+                            </Text>
+                            <Image 
+                              style={{width: 30, height: 30}}
+                              source={{
+                                uri: "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fpet%20buy%20icons%2FpetCategories%2Fapplication.png?alt=media&token=896bdaf8-ba26-4ce5-974c-7cff5815bd98"
+                              }}>
+                            </Image>
+                          </View>
+                        </Card>
+                      </View>
                       <FlatList
                         data={petInformation}
                         columnWrapperStyle={{ justifyContent: "flex-start" }}

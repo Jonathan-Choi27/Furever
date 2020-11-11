@@ -771,17 +771,20 @@ export default class petBreeds extends React.Component {
             ) : (
               <View style={globalStyles.petContainer}>
                 {this.state.searchText == "" ? (
-                  <View style={globalStyles.petContainer}>
-                    <FlatList
-                      data={category.breeds}
-                      columnWrapperStyle={{ justifyContent: "flex-start" }}
-                      numColumns={2}
-                      key={2}
-                      renderItem={({ item }) => (
-                        petBuyBreed(item, category.category, this.props.navigation)
-                      )}
-                      keyExtractor={(item, index) => index.toString()}
-                    />
+                  <View>
+                    <Text style={[globalStyles.pageTitle, {paddingLeft: 15, paddingBottom: 10, paddingTop: 3}]}>{category.category}</Text>
+                    <View style={globalStyles.petContainer}>
+                      <FlatList
+                        data={category.breeds}
+                        columnWrapperStyle={{ justifyContent: "flex-start" }}
+                        numColumns={2}
+                        key={2}
+                        renderItem={({ item }) => (
+                          petBuyBreed(item, category.category, this.props.navigation)
+                        )}
+                        keyExtractor={(item, index) => index.toString()}
+                      />
+                    </View>
                   </View>
                 ) : (
                   <View style={globalStyles.petContainer}>
