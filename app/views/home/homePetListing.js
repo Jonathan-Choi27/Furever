@@ -111,7 +111,7 @@ export default class HomePetListing extends React.Component {
         training: listingDoc.data().training,
         additional: listingDoc.data().additionalInfo,
         photo: listingDoc.data().photoLink,
-        documentName: listingDoc.data().documents,
+        documentName: listingDoc.data().documentsLink,
         documentUri: listingDoc.data().documents_uri,
         uuid: listingDoc.data().uuid,
         doc_id: listingDoc.id
