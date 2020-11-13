@@ -33,7 +33,7 @@ const petInformation = require('./petInformation.json');
 export default class petCategories extends React.Component {
   state = {
     data: [],
-    isLoading: true,
+    isLoading: false,
     filteredData: [],
     searchText: "",
     visible: false,
@@ -65,6 +65,7 @@ export default class petCategories extends React.Component {
     tasCheck: false,
     actCheck: false,
     ntCheck: false,
+    isLoaded: false,
   };
 
   async componentDidMount() {
@@ -108,6 +109,7 @@ export default class petCategories extends React.Component {
           });
           this.setState({
             isLoading: false,
+            isLoaded: true,
             data: [...dataArray],
           });
         });
@@ -132,6 +134,11 @@ export default class petCategories extends React.Component {
   }
 
   searchFunction = (searchText) => {
+    if (!this.state.isLoaded) {
+      this.setState({
+        isLoading: true,
+      });
+    }
     this.setState({ searchText: searchText });
 
     let filteredData = this.state.data.filter(function (item) {
@@ -142,6 +149,11 @@ export default class petCategories extends React.Component {
   };
 
   checkFunction = (input) => {
+    if (!this.state.isLoaded) {
+      this.setState({
+        isLoading: true,
+      });
+    }
     switch (input) {
       //Animal
       case "dogCheck":
@@ -439,420 +451,431 @@ export default class petCategories extends React.Component {
   render() {
     const { search } = this.state;
 
-    if (this.state.isLoading) {
-      return (
-        <View style={globalStyles.activityContainer}>
-          <ActivityIndicator size="large" color={green} />
-        </View>
-      );
-    }
     return (
       <Provider>
-        <View style={globalStyles.petContainer}>
-          {/* {onBuyTab(this.props.navigation)} */}
-          <View style={globalStyles.searchFilterContainer}>
-            <Searchbar
-              style={globalStyles.searchBar}
-              placeholder="Search"
-              onChangeText={this.searchFunction}
-              value={this.state.searchText}
-            />
-            <Button
-              color={green}
-              onPress={() => {
-                this.setState({ visible: true });
-              }}
-              mode="contained"
-              contentStyle={{
-                height: 35,
-              }}>
-              Filter
-            </Button>
+        {this.state.isLoading  ? 
+          <View style={globalStyles.activityContainer}>
+            <ActivityIndicator size="large" color={green} />
           </View>
-
-          {/* <View style={{ height: 52 }}>
-            <TouchableOpacity
-              style={globalStyles.viewApplication}
-              onPress={() =>
-                this.props.navigation.navigate("currentApplications")
-              }>
-              <Text
-                style={{
-                  textAlign: "center",
-                  color: "white",
-                  fontWeight: "bold",
+       :
+          <View style={globalStyles.petContainer}>
+            {/* {onBuyTab(this.props.navigation)} */}
+            <View style={globalStyles.searchFilterContainer}>
+              <Searchbar
+                style={globalStyles.searchBar}
+                placeholder="Search"
+                onChangeText={this.searchFunction}
+                value={this.state.searchText}
+              />
+              <Button
+                color={green}
+                onPress={() => {
+                  this.setState({ visible: true });
+                }}
+                mode="contained"
+                contentStyle={{
+                  height: 35,
                 }}>
-                View Applications
-              </Text>
-            </TouchableOpacity>
-          </View> */}
+                Filter
+              </Button>
+            </View>
 
-          <ScrollView showsVerticalScrollIndicator={false}>
-            <Portal>
-              <Modal
-                style={{ backgroundColor: "transparent" }}
-                visible={this.state.visible}
-                onDismiss={() => {
-                  this.setState({ visible: false });
-                }}>
-              <Card elevation={5} style={{ margin: 10 }}>
-                  <Card.Content>
-                    <ScrollView style={{height: 450}}>
-                      <Text>Animal:</Text>
-                      <View style={{ flexDirection: "row" }}>
-                        <Checkbox.Item
-                          theme={{ colors: { primary: darkGreen } }}
-                          color={darkGreen}
-                          label="Dog"
-                          status={this.state.dogCheck ? "checked" : "unchecked"}
-                          onPress={() => {
-                            this.checkFunction("dogCheck");
-                          }}
-                        />
-                        <Checkbox.Item
-                          theme={{ colors: { primary: darkGreen } }}
-                          color={darkGreen}
-                          label="Fish"
-                          status={this.state.fishCheck ? "checked" : "unchecked"}
-                          onPress={() => {
-                            this.checkFunction("fishCheck");
-                          }}
-                        />
-                        <Checkbox.Item
-                          theme={{ colors: { primary: darkGreen } }}
-                          color={darkGreen}
-                          label="Lizard"
-                          status={this.state.lizardCheck ? "checked" : "unchecked"}
-                          onPress={() => {
-                            this.checkFunction("lizardCheck");
-                          }}
-                        />
-                      </View>
-                      <View style={{ flexDirection: "row" }}>
-                        <Checkbox.Item
-                          theme={{ colors: { primary: darkGreen } }}
-                          color={darkGreen}
-                          label="Cat"
-                          status={this.state.catCheck ? "checked" : "unchecked"}
-                          onPress={() => {
-                            this.checkFunction("catCheck");
-                          }}
-                        />
-                        <Checkbox.Item
-                          theme={{ colors: { primary: darkGreen } }}
-                          color={darkGreen}
-                          label="Bird"
-                          status={this.state.birdCheck ? "checked" : "unchecked"}
-                          onPress={() => {
-                            this.checkFunction("birdCheck");
-                          }}
-                        />
-                        <Checkbox.Item
-                          theme={{ colors: { primary: darkGreen } }}
-                          color={darkGreen}
-                          label="Turtle"
-                          status={this.state.turtleCheck ? "checked" : "unchecked"}
-                          onPress={() => {
-                            this.checkFunction("turtleCheck");
-                          }}
-                        />
-                      </View>
-                      <View style={{ flexDirection: "row" }}>
-                        <Checkbox.Item
-                          theme={{ colors: { primary: darkGreen } }}
-                          color={darkGreen}
-                          label="Rabbit"
-                          status={this.state.rabbitCheck ? "checked" : "unchecked"}
-                          onPress={() => {
-                            this.checkFunction("rabbitCheck");
-                          }}
-                        />
-                        <Checkbox.Item
-                          theme={{ colors: { primary: darkGreen } }}
-                          color={darkGreen}
-                          label="Horse"
-                          status={this.state.horseCheck ? "checked" : "unchecked"}
-                          onPress={() => {
-                            this.checkFunction("horseCheck");
-                          }}
-                        />
-                        <Checkbox.Item
-                          theme={{ colors: { primary: darkGreen } }}
-                          color={darkGreen}
-                          label="Pig"
-                          status={this.state.pigCheck ? "checked" : "unchecked"}
-                          onPress={() => {
-                            this.checkFunction("pigCheck");
-                          }}
-                        />
-                      </View>
+            {/* <View style={{ height: 52 }}>
+              <TouchableOpacity
+                style={globalStyles.viewApplication}
+                onPress={() =>
+                  this.props.navigation.navigate("currentApplications")
+                }>
+                <Text
+                  style={{
+                    textAlign: "center",
+                    color: "white",
+                    fontWeight: "bold",
+                  }}>
+                  View Applications
+                </Text>
+              </TouchableOpacity>
+            </View> */}
 
-                      {/* Filter for colour  */}
-                      <Text>Colour:</Text>
+            <ScrollView showsVerticalScrollIndicator={false}>
+              <Portal>
+                <Modal
+                  style={{ backgroundColor: "transparent" }}
+                  visible={this.state.visible}
+                  onDismiss={() => {
+                    this.setState({ visible: false });
+                  }}>
+                <Card elevation={5} style={{ margin: 10 }}>
+                    <Card.Content>
+                      <ScrollView style={{height: 450}}>
+                        <Text>Animal:</Text>
+                        <View style={{ flexDirection: "row" }}>
+                          <Checkbox.Item
+                            theme={{ colors: { primary: darkGreen } }}
+                            color={darkGreen}
+                            label="Dog"
+                            status={this.state.dogCheck ? "checked" : "unchecked"}
+                            onPress={() => {
+                              this.checkFunction("dogCheck");
+                            }}
+                          />
+                          <Checkbox.Item
+                            theme={{ colors: { primary: darkGreen } }}
+                            color={darkGreen}
+                            label="Fish"
+                            status={this.state.fishCheck ? "checked" : "unchecked"}
+                            onPress={() => {
+                              this.checkFunction("fishCheck");
+                            }}
+                          />
+                          <Checkbox.Item
+                            theme={{ colors: { primary: darkGreen } }}
+                            color={darkGreen}
+                            label="Lizard"
+                            status={this.state.lizardCheck ? "checked" : "unchecked"}
+                            onPress={() => {
+                              this.checkFunction("lizardCheck");
+                            }}
+                          />
+                        </View>
+                        <View style={{ flexDirection: "row" }}>
+                          <Checkbox.Item
+                            theme={{ colors: { primary: darkGreen } }}
+                            color={darkGreen}
+                            label="Cat"
+                            status={this.state.catCheck ? "checked" : "unchecked"}
+                            onPress={() => {
+                              this.checkFunction("catCheck");
+                            }}
+                          />
+                          <Checkbox.Item
+                            theme={{ colors: { primary: darkGreen } }}
+                            color={darkGreen}
+                            label="Bird"
+                            status={this.state.birdCheck ? "checked" : "unchecked"}
+                            onPress={() => {
+                              this.checkFunction("birdCheck");
+                            }}
+                          />
+                          <Checkbox.Item
+                            theme={{ colors: { primary: darkGreen } }}
+                            color={darkGreen}
+                            label="Turtle"
+                            status={this.state.turtleCheck ? "checked" : "unchecked"}
+                            onPress={() => {
+                              this.checkFunction("turtleCheck");
+                            }}
+                          />
+                        </View>
+                        <View style={{ flexDirection: "row" }}>
+                          <Checkbox.Item
+                            theme={{ colors: { primary: darkGreen } }}
+                            color={darkGreen}
+                            label="Rabbit"
+                            status={this.state.rabbitCheck ? "checked" : "unchecked"}
+                            onPress={() => {
+                              this.checkFunction("rabbitCheck");
+                            }}
+                          />
+                          <Checkbox.Item
+                            theme={{ colors: { primary: darkGreen } }}
+                            color={darkGreen}
+                            label="Horse"
+                            status={this.state.horseCheck ? "checked" : "unchecked"}
+                            onPress={() => {
+                              this.checkFunction("horseCheck");
+                            }}
+                          />
+                          <Checkbox.Item
+                            theme={{ colors: { primary: darkGreen } }}
+                            color={darkGreen}
+                            label="Pig"
+                            status={this.state.pigCheck ? "checked" : "unchecked"}
+                            onPress={() => {
+                              this.checkFunction("pigCheck");
+                            }}
+                          />
+                        </View>
 
-                      <View style={{ flexDirection: "row" }}>
-                        <Checkbox.Item
-                          theme={{ colors: { primary: darkGreen } }}
-                          color={darkGreen}
-                          label="White"
-                          status={this.state.whiteColour ? "checked" : "unchecked"}
-                          onPress={() => {
-                            this.checkFunction("whiteColour");
-                          }}
-                        />
-                        <Checkbox.Item
-                          theme={{ colors: { primary: darkGreen } }}
-                          color={darkGreen}
-                          label="Gold"
-                          status={this.state.goldColour ? "checked" : "unchecked"}
-                          onPress={() => {
-                            this.checkFunction("goldColour");
-                          }}
-                        />
-                        <Checkbox.Item
-                          theme={{ colors: { primary: darkGreen } }}
-                          color={darkGreen}
-                          label="Green"
-                          status={this.state.greenColour ? "checked" : "unchecked"}
-                          onPress={() => {
-                            this.checkFunction("greenColour");
-                          }}
-                        />
-                      </View>
-                      <View style={{ flexDirection: "row" }}>
-                        <Checkbox.Item
-                          theme={{ colors: { primary: darkGreen } }}
-                          color={darkGreen}
-                          label="Black"
-                          status={this.state.blackColour ? "checked" : "unchecked"}
-                          onPress={() => {
-                            this.checkFunction("blackColour");
-                          }}
-                        />
-                        <Checkbox.Item
-                          theme={{ colors: { primary: darkGreen } }}
-                          color={darkGreen}
-                          label="Rainbow"
-                          status={this.state.rainbowColour ? "checked" : "unchecked"}
-                          onPress={() => {
-                            this.checkFunction("rainbowColour");
-                          }}
-                        />
-                        <Checkbox.Item
-                          theme={{ colors: { primary: darkGreen } }}
-                          color={darkGreen}
-                          label="Grey"
-                          status={this.state.greyColour ? "checked" : "unchecked"}
-                          onPress={() => {
-                            this.checkFunction("greyColour");
-                          }}
-                        />
-                      </View>
-                      <View style={{ flexDirection: "row" }}>
-                        <Checkbox.Item
-                          theme={{ colors: { primary: darkGreen } }}
-                          color={darkGreen}
-                          label="Brown"
-                          status={this.state.brownColour ? "checked" : "unchecked"}
-                          onPress={() => {
-                            this.checkFunction("brownColour");
-                          }}
-                        />
-                        <Checkbox.Item
-                          theme={{ colors: { primary: darkGreen } }}
-                          color={darkGreen}
-                          label="Red"
-                          status={this.state.redColour ? "checked" : "unchecked"}
-                          onPress={() => {
-                            this.checkFunction("redColour");
-                          }}
-                        />
-                        <Checkbox.Item
-                          theme={{ colors: { primary: darkGreen } }}
-                          color={darkGreen}
-                          label="Orange"
-                          status={this.state.orangeColour ? "checked" : "unchecked"}
-                          onPress={() => {
-                            this.checkFunction("orangeColour");
-                          }}
-                        />
-                      </View>
-                      {/* Filter for Location */}
-                    <Text>Location:</Text>
-                      <View style={{ flexDirection: "row" }}>
-                        <Checkbox.Item
-                          theme={{ colors: { primary: darkGreen } }}
-                          color={darkGreen}
-                          label="NSW"
-                          status={this.state.nswCheck ? "checked" : "unchecked"}
-                          onPress={() => {
-                            this.checkFunction("nswCheck");
-                          }}
-                        />
-                        <Checkbox.Item
-                          theme={{ colors: { primary: darkGreen } }}
-                          color={darkGreen}
-                          label="VIC"
-                          status={this.state.vicCheck ? "checked" : "unchecked"}
-                          onPress={() => {
-                            this.checkFunction("vicCheck");
-                          }}
-                        />
-                        <Checkbox.Item
-                          theme={{ colors: { primary: darkGreen } }}
-                          color={darkGreen}
-                          label="QLD"
-                          status={this.state.qldCheck ? "checked" : "unchecked"}
-                          onPress={() => {
-                            this.checkFunction("qldCheck");
-                          }}
-                        />
-                      </View>
-                      <View style={{ flexDirection: "row" }}>
-                        <Checkbox.Item
-                          theme={{ colors: { primary: darkGreen } }}
-                          color={darkGreen}
-                          label="WA"
-                          status={this.state.waCheck ? "checked" : "unchecked"}
-                          onPress={() => {
-                            this.checkFunction("waCheck");
-                          }}
-                        />
-                        <Checkbox.Item
-                          theme={{ colors: { primary: darkGreen } }}
-                          color={darkGreen}
-                          label="SA"
-                          status={this.state.saCheck ? "checked" : "unchecked"}
-                          onPress={() => {
-                            this.checkFunction("saCheck");
-                          }}
-                        />
-                        <Checkbox.Item
-                          theme={{ colors: { primary: darkGreen } }}
-                          color={darkGreen}
-                          label="TAS"
-                          status={this.state.tasCheck ? "checked" : "unchecked"}
-                          onPress={() => {
-                            this.checkFunction("tasCheck");
-                          }}
-                        />
-                      </View>
-                      <View style={{ flexDirection: "row" }}>
-                        <Checkbox.Item
-                          theme={{ colors: { primary: darkGreen } }}
-                          color={darkGreen}
-                          label="ACT"
-                          status={this.state.actCheck ? "checked" : "unchecked"}
-                          onPress={() => {
-                            this.checkFunction("actCheck");
-                          }}
-                        />
-                        <Checkbox.Item
-                          theme={{ colors: { primary: darkGreen } }}
-                          color={darkGreen}
-                          label="NT"
-                          status={this.state.ntCheck ? "checked" : "unchecked"}
-                          onPress={() => {
-                            this.checkFunction("ntCheck");
-                          }}
-                        />
-                      </View>
-                    </ScrollView>
-                  </Card.Content>
-                  <Card.Actions style={{ justifyContent: "flex-end" }}>
-                    <Button
-                      style={{ backgroundColor: green, }}
-                      color={darkGreen}
-                      onPress={() => {
-                        this.displayFunction();
-                        this.setState({ visible: false });
-                      }}>
-                      Done
-                  </Button>
-                  </Card.Actions>
-                </Card>
-              </Modal>
-            </Portal>
-            {this.state.filterDisplay ? (
-              <View style={globalStyles.petContainer}>
-                {this.state.filteredData.length == 0 ? (
-                  <View style={globalStyles.petContainer}>
-                    <Text style={{ margin: 100 }}>No results found.</Text>
-                  </View>
-                ) : (
-                    <FlatList
-                      showsVerticalScrollIndicator={false}
-                      numColumns={1}
-                      key={1}
-                      renderItem={({ item }) =>
-                        petBuyCard(item, this.props.navigation)
-                      }
-                      keyExtractor={(item, index) => index.toString()}
-                      data={
-                        this.state.filteredData &&
-                          this.state.filteredData.length > 0
-                          ? this.state.filteredData
-                          : this.state.data
-                      }
-                    />
-                  )}
-              </View>
-              
-            ) : (
+                        {/* Filter for colour  */}
+                        <Text>Colour:</Text>
+
+                        <View style={{ flexDirection: "row" }}>
+                          <Checkbox.Item
+                            theme={{ colors: { primary: darkGreen } }}
+                            color={darkGreen}
+                            label="White"
+                            status={this.state.whiteColour ? "checked" : "unchecked"}
+                            onPress={() => {
+                              this.checkFunction("whiteColour");
+                            }}
+                          />
+                          <Checkbox.Item
+                            theme={{ colors: { primary: darkGreen } }}
+                            color={darkGreen}
+                            label="Gold"
+                            status={this.state.goldColour ? "checked" : "unchecked"}
+                            onPress={() => {
+                              this.checkFunction("goldColour");
+                            }}
+                          />
+                          <Checkbox.Item
+                            theme={{ colors: { primary: darkGreen } }}
+                            color={darkGreen}
+                            label="Green"
+                            status={this.state.greenColour ? "checked" : "unchecked"}
+                            onPress={() => {
+                              this.checkFunction("greenColour");
+                            }}
+                          />
+                        </View>
+                        <View style={{ flexDirection: "row" }}>
+                          <Checkbox.Item
+                            theme={{ colors: { primary: darkGreen } }}
+                            color={darkGreen}
+                            label="Black"
+                            status={this.state.blackColour ? "checked" : "unchecked"}
+                            onPress={() => {
+                              this.checkFunction("blackColour");
+                            }}
+                          />
+                          <Checkbox.Item
+                            theme={{ colors: { primary: darkGreen } }}
+                            color={darkGreen}
+                            label="Rainbow"
+                            status={this.state.rainbowColour ? "checked" : "unchecked"}
+                            onPress={() => {
+                              this.checkFunction("rainbowColour");
+                            }}
+                          />
+                          <Checkbox.Item
+                            theme={{ colors: { primary: darkGreen } }}
+                            color={darkGreen}
+                            label="Grey"
+                            status={this.state.greyColour ? "checked" : "unchecked"}
+                            onPress={() => {
+                              this.checkFunction("greyColour");
+                            }}
+                          />
+                        </View>
+                        <View style={{ flexDirection: "row" }}>
+                          <Checkbox.Item
+                            theme={{ colors: { primary: darkGreen } }}
+                            color={darkGreen}
+                            label="Brown"
+                            status={this.state.brownColour ? "checked" : "unchecked"}
+                            onPress={() => {
+                              this.checkFunction("brownColour");
+                            }}
+                          />
+                          <Checkbox.Item
+                            theme={{ colors: { primary: darkGreen } }}
+                            color={darkGreen}
+                            label="Red"
+                            status={this.state.redColour ? "checked" : "unchecked"}
+                            onPress={() => {
+                              this.checkFunction("redColour");
+                            }}
+                          />
+                          <Checkbox.Item
+                            theme={{ colors: { primary: darkGreen } }}
+                            color={darkGreen}
+                            label="Orange"
+                            status={this.state.orangeColour ? "checked" : "unchecked"}
+                            onPress={() => {
+                              this.checkFunction("orangeColour");
+                            }}
+                          />
+                        </View>
+                        {/* Filter for Location */}
+                      <Text>Location:</Text>
+                        <View style={{ flexDirection: "row" }}>
+                          <Checkbox.Item
+                            theme={{ colors: { primary: darkGreen } }}
+                            color={darkGreen}
+                            label="NSW"
+                            status={this.state.nswCheck ? "checked" : "unchecked"}
+                            onPress={() => {
+                              this.checkFunction("nswCheck");
+                            }}
+                          />
+                          <Checkbox.Item
+                            theme={{ colors: { primary: darkGreen } }}
+                            color={darkGreen}
+                            label="VIC"
+                            status={this.state.vicCheck ? "checked" : "unchecked"}
+                            onPress={() => {
+                              this.checkFunction("vicCheck");
+                            }}
+                          />
+                          <Checkbox.Item
+                            theme={{ colors: { primary: darkGreen } }}
+                            color={darkGreen}
+                            label="QLD"
+                            status={this.state.qldCheck ? "checked" : "unchecked"}
+                            onPress={() => {
+                              this.checkFunction("qldCheck");
+                            }}
+                          />
+                        </View>
+                        <View style={{ flexDirection: "row" }}>
+                          <Checkbox.Item
+                            theme={{ colors: { primary: darkGreen } }}
+                            color={darkGreen}
+                            label="WA"
+                            status={this.state.waCheck ? "checked" : "unchecked"}
+                            onPress={() => {
+                              this.checkFunction("waCheck");
+                            }}
+                          />
+                          <Checkbox.Item
+                            theme={{ colors: { primary: darkGreen } }}
+                            color={darkGreen}
+                            label="SA"
+                            status={this.state.saCheck ? "checked" : "unchecked"}
+                            onPress={() => {
+                              this.checkFunction("saCheck");
+                            }}
+                          />
+                          <Checkbox.Item
+                            theme={{ colors: { primary: darkGreen } }}
+                            color={darkGreen}
+                            label="TAS"
+                            status={this.state.tasCheck ? "checked" : "unchecked"}
+                            onPress={() => {
+                              this.checkFunction("tasCheck");
+                            }}
+                          />
+                        </View>
+                        <View style={{ flexDirection: "row" }}>
+                          <Checkbox.Item
+                            theme={{ colors: { primary: darkGreen } }}
+                            color={darkGreen}
+                            label="ACT"
+                            status={this.state.actCheck ? "checked" : "unchecked"}
+                            onPress={() => {
+                              this.checkFunction("actCheck");
+                            }}
+                          />
+                          <Checkbox.Item
+                            theme={{ colors: { primary: darkGreen } }}
+                            color={darkGreen}
+                            label="NT"
+                            status={this.state.ntCheck ? "checked" : "unchecked"}
+                            onPress={() => {
+                              this.checkFunction("ntCheck");
+                            }}
+                          />
+                        </View>
+                      </ScrollView>
+                    </Card.Content>
+                    <Card.Actions style={{ justifyContent: "flex-end" }}>
+                      <Button
+                        style={{ backgroundColor: green, }}
+                        color={darkGreen}
+                        onPress={() => {
+                          this.displayFunction();
+                          this.setState({ visible: false });
+                        }}>
+                        Done
+                    </Button>
+                    </Card.Actions>
+                  </Card>
+                </Modal>
+              </Portal>
+              {this.state.filterDisplay ? (
                 <View style={globalStyles.petContainer}>
-                  {this.state.searchText == "" ? (
-                    //the page when not searching
+                  {this.state.filteredData.length == 0 ? (
+                    //No filtered data
                     <View style={globalStyles.petContainer}>
-                      <View style={{ width: 298, marginTop: 5, marginBottom: 10,}}>
-                        <Card
-                          elevation={5}
-                          containerStyle={{ borderRadius: 10 }}
-                          onPress={() =>
-                            this.props.navigation.navigate("currentApplications")
-                          }>
-                          <View style={{flexDirection: "row", justifyContent: "center", alignItems: "center"}}>
-                            <Text numberOfLines={1} style={[globalStyles.pageTitle, {padding: 10}]}>
-                                View Applications
-                            </Text>
-                            <Image 
-                              style={{width: 30, height: 30}}
-                              source={{
-                                uri: "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fpet%20buy%20icons%2FpetCategories%2Fapplication.png?alt=media&token=896bdaf8-ba26-4ce5-974c-7cff5815bd98"
-                              }}>
-                            </Image>
-                          </View>
-                        </Card>
-                      </View>
-                      <FlatList
-                        data={petInformation}
-                        columnWrapperStyle={{ justifyContent: "flex-start" }}
-                        numColumns={2}
-                        key={2}
-                        renderItem={({ item }) =>
-                          petBuyCategory(item, this.props.navigation)
-                        }
-                      />
+                      <Text style={{ margin: 100 }}>No results found.</Text>
                     </View>
                   ) : (
-                    <FlatList
-                      numColumns={1}
-                      key={1}
-                      keyExtractor={(item, index) => index.toString()}
-                      renderItem={({ item }) =>
-                        petBuyCard(item, this.props.navigation)
-                      }
-                      keyExtractor={(item, index) => index.toString()}
-                      data={
-                        this.state.filteredData && this.state.filteredData.length > 0
-                          ? this.state.filteredData
-                          : this.state.data
-                      }
-                    />
+                    //Filtered display
+                      <FlatList
+                        showsVerticalScrollIndicator={false}
+                        numColumns={1}
+                        key={1}
+                        renderItem={({ item }) =>
+                          petBuyCard(item, this.props.navigation)
+                        }
+                        keyExtractor={(item, index) => index.toString()}
+                        data={
+                          this.state.filteredData &&
+                            this.state.filteredData.length > 0
+                            ? this.state.filteredData
+                            : this.state.data
+                        }
+                      />
                     )}
                 </View>
-              )}
-          </ScrollView>
-        </View>
+                
+              ) : (
+                  <View style={globalStyles.petContainer}>
+                    {this.state.searchText == "" ? (
+                      //the page when not searching
+                      <View style={globalStyles.petContainer}>
+                        <View style={{ width: 298, marginTop: 5, marginBottom: 10,}}>
+                          <Card
+                            elevation={5}
+                            containerStyle={{ borderRadius: 10 }}
+                            onPress={() =>
+                              this.props.navigation.navigate("currentApplications")
+                            }>
+                            <View style={{flexDirection: "row", justifyContent: "center", alignItems: "center"}}>
+                              <Text numberOfLines={1} style={[globalStyles.pageTitle, {padding: 10}]}>
+                                  View Applications
+                              </Text>
+                              <Image 
+                                style={{width: 30, height: 30}}
+                                source={{
+                                  uri: "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fpet%20buy%20icons%2FpetCategories%2Fapplication.png?alt=media&token=896bdaf8-ba26-4ce5-974c-7cff5815bd98"
+                                }}>
+                              </Image>
+                            </View>
+                          </Card>
+                        </View>
+                        <FlatList
+                          data={petInformation}
+                          columnWrapperStyle={{ justifyContent: "flex-start" }}
+                          numColumns={2}
+                          key={2}
+                          renderItem={({ item }) =>
+                            petBuyCategory(item, this.props.navigation)
+                          }
+                        />
+                      </View>
+                    ) : (
+                      <View>
+                         {this.state.filteredData.length == 0 ? (
+                           //No results found from search
+                          <View style={globalStyles.petContainer}>
+                            <Text style={{ margin: 100 }}>No results found.</Text>
+                          </View>
+                          ) : (
+                            //Search results
+                            <FlatList
+                              numColumns={1}
+                              key={1}
+                              keyExtractor={(item, index) => index.toString()}
+                              renderItem={({ item }) =>
+                                petBuyCard(item, this.props.navigation)
+                              }
+                              keyExtractor={(item, index) => index.toString()}
+                              data={
+                                this.state.filteredData && this.state.filteredData.length > 0
+                                  ? this.state.filteredData
+                                  : this.state.data
+                              }
+                            />
+                          )}
+                      </View>
+                      )}
+                  </View>
+                )}
+            </ScrollView>
+          </View>
+       } 
       </Provider>
     );
   }
