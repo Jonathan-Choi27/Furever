@@ -442,7 +442,7 @@ export default class petCategories extends React.Component {
     if (this.state.isLoading) {
       return (
         <View style={globalStyles.activityContainer}>
-          <ActivityIndicator size="large" color="#447ECB" />
+          <ActivityIndicator size="large" color={green} />
         </View>
       );
     }

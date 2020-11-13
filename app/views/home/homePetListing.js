@@ -114,6 +114,7 @@ export default class HomePetListing extends React.Component {
         documentName: listingDoc.data().documents,
         documentUri: listingDoc.data().documents_uri,
         uuid: listingDoc.data().uuid,
+        doc_id: listingDoc.id
       });
 
       this.setState({
@@ -515,7 +516,7 @@ export default class HomePetListing extends React.Component {
     if (this.state.isLoading) {
       return (
         <View style={styles.activityContainer}>
-          <ActivityIndicator size="large" color="#447ECB" />
+          <ActivityIndicator size="large" color={green} />
         </View>
       );
     }
