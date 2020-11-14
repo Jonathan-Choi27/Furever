@@ -53,7 +53,7 @@ const OpenURLButton = ({ url, title }) => {
 
 const checkAdditional = (additional) => {
   if (additional === "") {
-    return "No Additional Information Provided.";
+    return <Text>No Additional Information Provided.</Text>;
   }
   return additional;
 };
