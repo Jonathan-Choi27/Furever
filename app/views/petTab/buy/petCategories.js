@@ -260,49 +260,49 @@ export default class petCategories extends React.Component {
       let filteredData = listData.filter(function (item) {
         return item.category.toLowerCase().includes("rabbit");
       });
-      listData = filteredData;
+      listData = listData.concat(filteredData);
     }
     if (this.state.fishCheck) {
       this.setState({ filterDisplay: true });
       let filteredData = listData.filter(function (item) {
         return item.category.toLowerCase().includes("fish");
       });
-      listData = filteredData;
+      listData = listData.concat(filteredData);
     }
     if (this.state.birdCheck) {
       this.setState({ filterDisplay: true });
       let filteredData = listData.filter(function (item) {
         return item.category.toLowerCase().includes("bird");
       });
-      listData = filteredData;
+      listData = listData.concat(filteredData);
     }
     if (this.state.horseCheck) {
       this.setState({ filterDisplay: true });
       let filteredData = listData.filter(function (item) {
         return item.category.toLowerCase().includes("horse");
       });
-      listData = filteredData;
+      listData = listData.concat(filteredData);
     }
     if (this.state.lizardCheck) {
       this.setState({ filterDisplay: true });
       let filteredData = listData.filter(function (item) {
         return item.category.toLowerCase().includes("lizard");
       });
-      listData = filteredData;
+      listData = listData.concat(filteredData);
     }
     if (this.state.turtleCheck) {
       this.setState({ filterDisplay: true });
       let filteredData = listData.filter(function (item) {
         return item.category.toLowerCase().includes("turtle");
       });
-      listData = filteredData;
+      listData = listData.concat(filteredData);
     }
     if (this.state.pigCheck) {
       this.setState({ filterDisplay: true });
       let filteredData = listData.filter(function (item) {
         return item.category.toLowerCase().includes("pig");
       });
-      listData = filteredData;
+      listData = listData.concat(filteredData);
     }
 
     //Colour
@@ -312,7 +312,7 @@ export default class petCategories extends React.Component {
         !this.state.dogCheck && !this.state.catCheck && !this.state.birdCheck &&
         !this.state.rabbitCheck && !this.state.fishCheck && !this.state.horseCheck &&
         !this.state.lizardCheck && !this.state.turtleCheck && !this.state.pigCheck) {
-          console.log(!this.state.dogCheck + " " + !this.state.catCheck);
+          // console.log(!this.state.dogCheck + " " + !this.state.catCheck);
           listData = this.state.data;
         }
     }
@@ -502,15 +502,14 @@ export default class petCategories extends React.Component {
     // if (listData.length == 0) {
     //   listData = this.state.data;
     // }
-    var addOn2 = false;
     if (this.state.nswCheck) {
       this.setState({ filterDisplay: true });
-      if (addOn2) {
+      if (addOn) {
         let filteredData = this.state.data.filter(function (item) {
           return item.location.toLowerCase().includes("nsw");        
         });
         if (filteredData.length > 0) {
-          addOn2 = true;
+          addOn = true;
           listData = listData.concat(filteredData);
         }
       } else {
@@ -518,19 +517,19 @@ export default class petCategories extends React.Component {
           return item.location.toLowerCase().includes("nsw");
         });
         if (filteredData.length > 0) {
-          addOn2 = true;
+          addOn = true;
           listData = filteredData;
         }
       }
     }
     if (this.state.vicCheck) {
       this.setState({ filterDisplay: true });
-      if (addOn2) {
+      if (addOn) {
         let filteredData = this.state.data.filter(function (item) {
           return item.location.toLowerCase().includes("vic");        
         });
         if (filteredData.length > 0) {
-          addOn2 = true;
+          addOn = true;
           listData = listData.concat(filteredData);
         }
       } else {
@@ -538,19 +537,19 @@ export default class petCategories extends React.Component {
           return item.location.toLowerCase().includes("vic");
         });
         if (filteredData.length > 0) {
-          addOn2 = true;
+          addOn = true;
           listData = filteredData;
         }
       }
     }
     if (this.state.qldCheck) {
       this.setState({ filterDisplay: true });
-      if (addOn2) {
+      if (addOn) {
         let filteredData = this.state.data.filter(function (item) {
           return item.location.toLowerCase().includes("qld");        
         });
         if (filteredData.length > 0) {
-          addOn2 = true;
+          addOn = true;
           listData = listData.concat(filteredData);
         }
       } else {
@@ -558,19 +557,19 @@ export default class petCategories extends React.Component {
           return item.location.toLowerCase().includes("qld");
         });
         if (filteredData.length > 0) {
-          addOn2 = true;
+          addOn = true;
           listData = filteredData;
         }
       }
     }
     if (this.state.waCheck) {
       this.setState({ filterDisplay: true });
-      if (addOn2) {
+      if (addOn) {
         let filteredData = this.state.data.filter(function (item) {
           return item.location.toLowerCase().includes("wa");        
         });
         if (filteredData.length > 0) {
-          addOn2 = true;
+          addOn = true;
           listData = listData.concat(filteredData);
         }
       } else {
@@ -578,19 +577,19 @@ export default class petCategories extends React.Component {
           return item.location.toLowerCase().includes("wa");
         });
         if (filteredData.length > 0) {
-          addOn2 = true;
+          addOn = true;
           listData = filteredData;
         }
       }
     }
     if (this.state.saCheck) {
       this.setState({ filterDisplay: true });
-      if (addOn2) {
+      if (addOn) {
         let filteredData = this.state.data.filter(function (item) {
           return item.location.toLowerCase().includes("sa");        
         });
         if (filteredData.length > 0) {
-          addOn2 = true;
+          addOn = true;
           listData = listData.concat(filteredData);
         }
       } else {
@@ -598,19 +597,19 @@ export default class petCategories extends React.Component {
           return item.location.toLowerCase().includes("sa");
         });
         if (filteredData.length > 0) {
-          addOn2 = true;
+          addOn = true;
           listData = filteredData;
         }
       }
     }
     if (this.state.tasCheck) {
       this.setState({ filterDisplay: true });
-      if (addOn2) {
+      if (addOn) {
         let filteredData = this.state.data.filter(function (item) {
           return item.location.toLowerCase().includes("tas");        
         });
         if (filteredData.length > 0) {
-          addOn2 = true;
+          addOn = true;
           listData = listData.concat(filteredData);
         }
       } else {
@@ -618,19 +617,19 @@ export default class petCategories extends React.Component {
           return item.location.toLowerCase().includes("tas");
         });
         if (filteredData.length > 0) {
-          addOn2 = true;
+          addOn = true;
           listData = filteredData;
         }
       }
     }
     if (this.state.actCheck) {
       this.setState({ filterDisplay: true });
-      if (addOn2) {
+      if (addOn) {
         let filteredData = this.state.data.filter(function (item) {
           return item.location.toLowerCase().includes("act");        
         });
         if (filteredData.length > 0) {
-          addOn2 = true;
+          addOn = true;
           listData = listData.concat(filteredData);
         }
       } else {
@@ -638,19 +637,19 @@ export default class petCategories extends React.Component {
           return item.location.toLowerCase().includes("act");
         });
         if (filteredData.length > 0) {
-          addOn2 = true;
+          addOn = true;
           listData = filteredData;
         }
       }
     }
     if (this.state.ntCheck) {
       this.setState({ filterDisplay: true });
-      if (addOn2) {
+      if (addOn) {
         let filteredData = this.state.data.filter(function (item) {
           return item.location.toLowerCase().includes("nt");        
         });
         if (filteredData.length > 0) {
-          addOn2 = true;
+          addOn = true;
           listData = listData.concat(filteredData);
         }
       } else {
@@ -658,7 +657,7 @@ export default class petCategories extends React.Component {
           return item.location.toLowerCase().includes("nt");
         });
         if (filteredData.length > 0) {
-          addOn2 = true;
+          addOn = true;
           listData = filteredData;
         }
       }
