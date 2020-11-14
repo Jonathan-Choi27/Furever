@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<Image
+  source={
+    Object {
+      "uri": "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2FLogoBlack.png?alt=media&token=e1c8474a-de3f-46a6-ad62-f623d9f1f677",
+    }
+  }
+  style={
+    Object {
+      "flex": 1,
+      "flexDirection": "row",
+      "height": 23,
+      "width": 143,
+    }
+  }
+/>
+`;
