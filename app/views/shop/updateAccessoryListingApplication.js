@@ -361,12 +361,12 @@ export default class updateAccessoryListingApplication extends React.Component {
                     />
                     <Picker.Item label="Food" value="Food" />
                     <Picker.Item label="Toy" value="Toy" />
-                    <Picker.Item label="Collar" value="Collar" />
+                    <Picker.Item label="Apparel" value="Apparel" />
                     <Picker.Item label="Wash" value="Wash" />
                     <Picker.Item label="Bed" value="Bed" />
                     <Picker.Item label="Bowl" value="Bowl" />
                     <Picker.Item label="Home" value="Home" />
-                    <Picker.Item label="Apparel" value="Apparel" />
+                    <Picker.Item label="Medicine" value="Medicine" />
                     </Picker>
                 </View>
                 </View>

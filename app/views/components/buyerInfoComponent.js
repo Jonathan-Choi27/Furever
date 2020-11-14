@@ -18,7 +18,7 @@ export const buyerInfo = (item) => {
   return (
     <View style={styles.container}>
       <Card containerStyle={styles.cardContentContainer}>
-        <View style={{ flexDirection: "row", alignItems: "center" }}>
+        <View style={{ flexDirection: "row", alignItems: "center", }}>
           <Image
             style={{
               paddingLeft: 10,
@@ -39,6 +39,7 @@ export const buyerInfo = (item) => {
               fontSize: 30,
               color: "black",
               paddingLeft: 20,
+              flex: 1,
             }}
           >
             {item.name}'s Application

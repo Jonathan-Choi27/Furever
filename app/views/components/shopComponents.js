@@ -21,40 +21,42 @@ const itemList = [];
 
 export const accessoryListingCard = (item, navigation) => {
   return (
-    <Card elevation={5} style={globalStyles.petBuyCard}>
-      <View style={globalStyles.petBuyCardTextContainer}>
-        <View style={{width: 125, height: 125}}>
-          <Image
-            source={{ uri: item.photo }}
-            style={globalStyles.petBuyCardImage}
-          />
-        </View>
-        <View style={globalStyles.petBuyCardContent}>
-          <Card.Content>
-            <View style={{marginRight: 40}}>
+    <TouchableOpacity onPress={() => navigation.navigate("shopListingProfile", { item })}>
+      <Card elevation={5} style={globalStyles.petBuyCard}>
+        <View style={globalStyles.petBuyCardTextContainer}>
+          <View style={{width: 125, height: 125}}>
+            <Image
+              source={{ uri: item.photo }}
+              style={globalStyles.petBuyCardImage}
+            />
+          </View>
+          <View style={globalStyles.petBuyCardContent}>
+            <Card.Content>
+              <View style={{marginRight: 40}}>
+                <Text numberOfLines={1} style={{ flex: 1 }}>
+                  <Text style={{ fontSize: 18, paddingBottom: 2 }}>{item.accessoryName}</Text>
+                </Text>
+              </View>
               <Text numberOfLines={1} style={{ flex: 1 }}>
-                <Text style={{ fontSize: 18, paddingBottom: 2 }}>{item.accessoryName}</Text>
+                <Text style={{ fontWeight: "bold" }}>Price: </Text>
+                <Text>${item.price}</Text>
               </Text>
-            </View>
-            <Text numberOfLines={1} style={{ flex: 1 }}>
-              <Text style={{ fontWeight: "bold" }}>Price: </Text>
-              <Text>${item.price}</Text>
-            </Text>
-            <Text numberOfLines={2} style={{ flex: 1, paddingTop: 3 }}>{item.description}</Text>
-          </Card.Content>
+              <Text numberOfLines={2} style={{ flex: 1, paddingTop: 3 }}>{item.description}</Text>
+            </Card.Content>
 
-          <Card.Actions style={globalStyles.petBuyCardActionCard}>
-            <Button
-              style={globalStyles.petBuyCardBigButton}
-              mode="contained"
-              onPress={() => addItemToCart(item)}
-            >
-              <Text style={globalStyles.petBuyCardBigButtonText}>Add to Cart</Text>
-            </Button>
-          </Card.Actions>
+            <Card.Actions style={globalStyles.petBuyCardActionCard}>
+              <Button
+                style={globalStyles.petBuyCardBigButton}
+                mode="contained"
+                onPress={() => addItemToCart(item)}
+              >
+                <Text style={globalStyles.petBuyCardBigButtonText}>Add to Cart</Text>
+              </Button>
+            </Card.Actions>
+          </View>
         </View>
-      </View>
-    </Card>
+      </Card>
+    </TouchableOpacity>
   )
 }
 

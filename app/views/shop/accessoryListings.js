@@ -20,38 +20,106 @@ export default class accessoryListings extends React.Component {
     lists: null,
     isLoading: true,
     pullToRefresh: false,
-    limit: 6,
+    limit: 10,
     lastVisible: null,
+    isFetchingMore: false,
   };
 
   async fetchData() {
+    this.setState({
+      data: [],
+    });
     const dataArray = [];
     const uid = auth.currentUser.uid;
 
-    db.collection("accessories")
-      .where("uuid", "==", uid)
-      .get()
-      .then((doc) => {
-        doc.forEach((listingDoc) => {
+    // retrieve list of references stored within users
+    const referenceData = await db
+      .collection("users")
+      .doc(uid)
+      .collection("shopSellList")
+      .orderBy("timestamp")
+      .limit(this.state.limit)
+      .get();
+
+    let documentData = referenceData.forEach(async (referenceDoc) => {
+      // data can be retrieved by reference_object.get()
+      await referenceDoc
+        .data()
+        .list.get()
+        .then((snapshot) => {
           dataArray.push({
-            accessoryName: listingDoc.data().name,
-            category: listingDoc.data().category,
-            type: listingDoc.data().type,
-            price: listingDoc.data().price,
-            photo: listingDoc.data().photoLink,
-            docId: listingDoc.id,
+            accessoryName: snapshot.data().name,
+            category: snapshot.data().category,
+            type: snapshot.data().type,
+            price: snapshot.data().price,
+            description: snapshot.data().description,
+            photo: snapshot.data().photoLink,
+            doc_id: snapshot.id,
+          });
+          this.state.data.push(dataArray.pop());
+        });
+
+      // Set last visible - gets overwritten so the last one is always stored.
+      this.setState({
+        lastVisible: referenceDoc.data().timestamp,
+      });
+    });
+  }
+
+  async fetchMore() {
+    if (!this.state.isFetchingMore) {
+      this.setState({
+        isFetchingMore: true,
+      });
+      console.log("fetch more");
+      const dataArray = [];
+      const uid = auth.currentUser.uid;
+
+      // retrieve list of references stored within users
+      const referenceData = await db
+        .collection("users")
+        .doc(uid)
+        .collection("shopSellList")
+        .orderBy("timestamp")
+        .startAfter(this.state.lastVisible)
+        .limit(this.state.limit)
+        .get();
+
+      let documentData = referenceData.docs.map(async (referenceDoc) => {
+        // data can be retrieved by reference_object.get()
+        await referenceDoc
+          .data()
+          .list.get()
+          .then((snapshot) => {
+            dataArray.push({
+              accessoryName: snapshot.data().name,
+              category: snapshot.data().category,
+              type: snapshot.data().type,
+              price: snapshot.data().price,
+              description: snapshot.data().description,
+              photo: snapshot.data().photoLink,
+              doc_id: snapshot.id,
+            });
+
+            this.setState({
+              data: this.state.data.concat(dataArray.pop()),
+            });
           });
 
-          this.setState({
-            isLoading: false,
-            data: [...dataArray],
-          });
+        this.setState({
+          lastVisible: referenceDoc.data().timestamp,
         });
       });
+
+      this.setState({
+        isFetchingMore: false,
+      });
+    }
   }
 
   async componentDidMount() {
     this.fetchData();
+
     BackHandler.addEventListener(
       "hardwareBackPress",
       this.handleBackButtonClick
@@ -86,7 +154,7 @@ export default class accessoryListings extends React.Component {
               }}
               mode="contained"
             >
-              Add New Listing
+              Add Listing
             </Button>
           </View>
         </View>
@@ -120,6 +188,8 @@ export default class accessoryListings extends React.Component {
                 accessoriesListingCard(item, this.props.navigation)
               }
               keyExtractor={(item, index) => index.toString()}
+              onEndReached={() => this.fetchMore()}
+              onEndReachedThreshold={0.5}
             />
           )}
         </View>
