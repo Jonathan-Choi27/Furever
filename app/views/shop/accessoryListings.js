@@ -4,15 +4,13 @@ import {
   View,
   TouchableOpacity,
   FlatList,
-  BackHandler
+  BackHandler,
 } from "react-native";
-import {
-  Button,
-} from "react-native-paper";
+import { Button } from "react-native-paper";
 import firebase from "firebase";
 import { auth } from "../database/firebase";
-import globalStyles, {darkGreen} from "../styleSheet/styleSheet";
-import {accessoriesListingCard} from "../components/accessoriesListingComponent";
+import globalStyles, { darkGreen } from "../styleSheet/styleSheet";
+import { accessoriesListingCard } from "../components/accessoriesListingComponent";
 
 const db = firebase.firestore();
 
@@ -58,31 +56,31 @@ export default class accessoryListings extends React.Component {
       "hardwareBackPress",
       this.handleBackButtonClick
     );
-  
-  };
-  
-  
+  }
+
   componentWillUnmount() {
     BackHandler.removeEventListener(
       "hardwareBackPress",
       this.handleBackButtonClick
     );
   }
-        
+
   handleBackButtonClick = () => {
     this.props.navigation.goBack();
     return true;
-  }
+  };
 
   render() {
     return (
       <View style={globalStyles.container}>
-        <View style={[globalStyles.pageTitleContainer, {paddingTop: 15}]}>
+        <View style={[globalStyles.pageTitleContainer, { paddingTop: 15 }]}>
           <Text style={globalStyles.pageTitle}>Accessory Listings</Text>
           <View>
             <Button
               color={darkGreen}
-              onPress={() => this.props.navigation.navigate("accessoryListingApplication")}
+              onPress={() =>
+                this.props.navigation.navigate("accessoryListingApplication")
+              }
               contentStyle={{
                 height: 30,
               }}
@@ -93,25 +91,37 @@ export default class accessoryListings extends React.Component {
           </View>
         </View>
 
-        <View style={{paddingTop: 10, paddingBottom: 60}}>
-          <FlatList
-            showsVerticalScrollIndicator={false}
-            onRefresh={async () => {
-              this.setState({
-                pullToRefresh: true,
-              });
-              await this.fetchData();
-              this.setState({
-                pullToRefresh: false,
-              });
-            }}
-            refreshing={this.state.pullToRefresh}
-            data={this.state.data}
-            renderItem={({ item }) => (
-              accessoriesListingCard(item, this.props.navigation)
-            )}
-            keyExtractor={(item, index) => index.toString()}
-          />
+        <View style={{ paddingTop: 10, paddingBottom: 60 }}>
+          {this.state.data.length === 0 ? (
+            <Text
+              style={{
+                paddingTop: 30,
+                fontSize: 15,
+                textAlign: "center",
+              }}
+            >
+              You have not added any accessory listings
+            </Text>
+          ) : (
+            <FlatList
+              showsVerticalScrollIndicator={false}
+              onRefresh={async () => {
+                this.setState({
+                  pullToRefresh: true,
+                });
+                await this.fetchData();
+                this.setState({
+                  pullToRefresh: false,
+                });
+              }}
+              refreshing={this.state.pullToRefresh}
+              data={this.state.data}
+              renderItem={({ item }) =>
+                accessoriesListingCard(item, this.props.navigation)
+              }
+              keyExtractor={(item, index) => index.toString()}
+            />
+          )}
         </View>
       </View>
     );
