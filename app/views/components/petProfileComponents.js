@@ -1,25 +1,62 @@
-import React from "react";
-import { Text, View, TouchableOpacity, Dimensions, Image } from "react-native";
-import { Card, } from "react-native-elements";
+import React, { useCallback } from "react";
+import {
+  Text,
+  View,
+  TouchableOpacity,
+  Dimensions,
+  Image,
+  Linking,
+} from "react-native";
+import { Card } from "react-native-elements";
 import { Button } from "react-native-paper";
 import styles from "../styleSheet/styleSheet";
-import { darkGreen, green, lightGreen, lightGrey, orange, lightBlue } from "../styleSheet/styleSheet";
+import {
+  darkGreen,
+  green,
+  lightGreen,
+  lightGrey,
+  orange,
+  lightBlue,
+} from "../styleSheet/styleSheet";
 
 const screenWidth = Math.round(Dimensions.get("window").width);
 
 const checkDocuments = (field) => {
   if (field === "") {
-    return "No Documents Provided."
+    return "No Documents Provided.";
   }
-  return field;
-}
+  return <OpenURLButton url={field} title="Open Document" />;
+};
+
+const OpenURLButton = ({ url, title }) => {
+  const handlePress = useCallback(async () => {
+    // Checking if the link is supported for links with custom URL scheme.
+    const supported = await Linking.canOpenURL(url);
+
+    if (supported) {
+      // Opening the link with some app, if the URL scheme is "http" the web link should be opened
+      // by some browser in the mobile
+      await Linking.openURL(url);
+    } else {
+      Alert.alert(`Don't know how to open this URL: ${url}`);
+    }
+  }, [url]);
+
+  return (
+    <Button
+      color={green}
+      onPress={handlePress}>
+      {title}
+    </Button>
+  );
+};
 
 const checkAdditional = (additional) => {
   if (additional === "") {
-    return "No Additional Information Provided."
+    return "No Additional Information Provided.";
   }
   return additional;
-}
+};
 
 export const profileInfo = (item) => {
   return (
@@ -34,8 +71,7 @@ export const profileInfo = (item) => {
           />
         </View>
         <Card containerStyle={styles.cardContentContainer}>
-          <Text
-            style={{ fontWeight: "bold", fontSize: 30, color: "black" }}>
+          <Text style={{ fontWeight: "bold", fontSize: 30, color: "black" }}>
             {item.petName}'s Profile
           </Text>
         </Card>
@@ -54,14 +90,30 @@ export const profileInfo = (item) => {
               <Text style={styles.contentTextBold}>Location: </Text>
             </View>
             <View style={{ flex: 1 }}>
-              <Text numberOfLines={1} style={styles.contentText}>{item.petName}</Text>
-              <Text numberOfLines={1} style={styles.contentText}>{item.category}</Text>
-              <Text numberOfLines={1} style={styles.contentText}>{item.breed}</Text>
-              <Text numberOfLines={1} style={styles.contentText}>{item.colour}</Text>
-              <Text numberOfLines={1} style={styles.contentText}>{item.age} {item.ageOption}</Text>
-              <Text numberOfLines={1} style={styles.contentText}>{item.gender}</Text>
-              <Text numberOfLines={1} style={styles.contentText}>{item.size}</Text>
-              <Text style={styles.contentText, { flexShrink: 1 }}>{item.suburb}</Text>
+              <Text numberOfLines={1} style={styles.contentText}>
+                {item.petName}
+              </Text>
+              <Text numberOfLines={1} style={styles.contentText}>
+                {item.category}
+              </Text>
+              <Text numberOfLines={1} style={styles.contentText}>
+                {item.breed}
+              </Text>
+              <Text numberOfLines={1} style={styles.contentText}>
+                {item.colour}
+              </Text>
+              <Text numberOfLines={1} style={styles.contentText}>
+                {item.age} {item.ageOption}
+              </Text>
+              <Text numberOfLines={1} style={styles.contentText}>
+                {item.gender}
+              </Text>
+              <Text numberOfLines={1} style={styles.contentText}>
+                {item.size}
+              </Text>
+              <Text style={(styles.contentText, { flexShrink: 1 })}>
+                {item.suburb}
+              </Text>
             </View>
           </View>
         </Card>
@@ -83,14 +135,15 @@ export const profileInfo = (item) => {
 
         <Card containerStyle={styles.cardContentContainer}>
           <Text style={styles.cardHeading}>Additional Information</Text>
-          <Text style={styles.contentText}>{checkAdditional(item.additional)}</Text>
+          <Text style={styles.contentText}>
+            {checkAdditional(item.additional)}
+          </Text>
         </Card>
 
         <Card containerStyle={styles.cardContentContainer}>
           <Text style={styles.cardHeading}>Documents</Text>
-          <Text>{checkDocuments(item.documentName)}</Text>
+          {checkDocuments(item.documentName)}
         </Card>
-
       </View>
     </View>
   );
@@ -100,8 +153,8 @@ export const sellerInfo = (seller, navigation) => {
   return (
     <View style={styles.container}>
       <Card containerStyle={styles.cardContentContainer}>
-      <Text style={styles.cardHeading}>{seller.name}'s Information</Text>
-        <View style={{ flexDirection: 'row' }}>
+        <Text style={styles.cardHeading}>{seller.name}'s Information</Text>
+        <View style={{ flexDirection: "row" }}>
           <Image
             style={{ height: 100, width: 100, borderRadius: 5, marginRight: 5 }}
             source={{
@@ -118,19 +171,21 @@ export const sellerInfo = (seller, navigation) => {
                   justifyContent: "center",
                   borderRadius: 5,
                   height: 25,
-                  width: 120
+                  width: 120,
                 }}
                 mode="contained"
-                onPress={() => navigation.navigate("sellerProfile", { seller })}
-              >
-                <Text style={{
-                  color: "#ffffff",
-                  fontSize: 12,
-                  padding: 5,
-                  fontWeight: "bold"
-                }}>
+                onPress={() =>
+                  navigation.navigate("sellerProfile", { seller })
+                }>
+                <Text
+                  style={{
+                    color: "#ffffff",
+                    fontSize: 12,
+                    padding: 5,
+                    fontWeight: "bold",
+                  }}>
                   More Info
-                    </Text>
+                </Text>
               </Button>
             </View>
           </View>
@@ -145,8 +200,7 @@ export const expressInterest = (item, navigation) => {
     <View style={styles.buttonsContainer}>
       <TouchableOpacity
         style={styles.buttons}
-        onPress={() => navigation.navigate("buyApplication", { item })}
-      >
+        onPress={() => navigation.navigate("buyApplication", { item })}>
         <Text style={styles.buttonsText}>EXPRESS INTEREST</Text>
       </TouchableOpacity>
     </View>
