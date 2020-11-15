@@ -6,6 +6,7 @@ import styles from "../styleSheet/styleSheet";
 import Icon from 'react-native-vector-icons/AntDesign';
 import { darkGreen, green, lightGreen, lightGrey, orange, lightBlue } from "../styleSheet/styleSheet";
 import { cartTab } from "../components/shopTabComponent";
+import { getItemList, addItemToCart } from "../components/shopComponents";
 
 
 const screenWidth = Math.round(Dimensions.get("window").width);
@@ -24,9 +25,8 @@ const checkAdditional = (additional) => {
   return additional;
 }
 
-export const profileInfo = (item, navigation) => {
-  console.log(item);
-  return (    
+export const profileInfo = (item) => {
+  return (
     <View style={styles.container}>
       <View style={{ marginBottom: 0 }}>
         <View style={{ alignItems: "center" }}>
@@ -35,41 +35,40 @@ export const profileInfo = (item, navigation) => {
             source={{
               uri: item.photo,
             }}
-            
           />
-          <View style={{position: 'absolute',  margin: 10, backgroundColor:"white", borderRadius: 50/2, height: 50, width: 50, justifyContent:"center", alignItems:"center", right: 10 }}>
-            {cartTab(item, navigation)}             
-          </View>
-          
         </View>
-        <Card containerStyle={styles.cardContentContainer, {flexDirection:'row'}}>
-          <Text
-            style={{ fontWeight: "bold", fontSize: 30, color: "black"}}>
+        <Card containerStyle={styles.cardContentContainer}>
+          <Text style={{ fontWeight: "bold", fontSize: 30, color: "black" }}>
             {item.accessoryName}
-            
-            
           </Text>
-          
         </Card>
 
         <Card containerStyle={styles.cardContentContainer}>
-          <Text style={styles.cardHeading}>Item Description</Text>
+          <Text style={styles.cardHeading}>General Information</Text>
           <View style={styles.cardContainer}>
             <View style={{ paddingLeft: 1, paddingRight: 15 }}>
-              <Text style={styles.contentTextBold}>Price: </Text>
+              <Text style={styles.contentTextBold}>Name: </Text>
+              <Text style={styles.contentTextBold}>Category: </Text>
               <Text style={styles.contentTextBold}>Type: </Text>
+              <Text style={styles.contentTextBold}>Price: </Text>
               <Text style={styles.contentTextBold}>Description: </Text>
-              {/* <Text style={styles.contentTextBold}>Date Posted: </Text> */}
-              {/* <Text style={styles.contentTextBold}>Colour: </Text> */}
-              {/* <Text style={styles.contentTextBold}>Comments: </Text> */}
             </View>
-            <View style={{ flex: 1}}>
-              <Text numberOfLines={1} style={styles.contentText}>$ {item.price}</Text>
-              <Text numberOfLines={1} style={styles.contentText}>{item.type}</Text>
-              <Text numberOfLines={1} style={styles.contentText}>{item.description}</Text>
-              {/* <Text numberOfLines={1} style={styles.contentText}>{item.datePosted}</Text> */}
-              {/* <Text numberOfLines={1} style={styles.contentText}>{item.colour}</Text> */}
-              {/* <Text numberOfLines={1} style={styles.contentText}>{item.comments}</Text> */}
+            <View style={{ flex: 1 }}>
+              <Text numberOfLines={1} style={styles.contentText}>
+                {item.accessoryName}
+              </Text>
+              <Text numberOfLines={1} style={styles.contentText}>
+                {item.category}
+              </Text>
+              <Text numberOfLines={1} style={styles.contentText}>
+                {item.type}
+              </Text>
+              <Text numberOfLines={1} style={styles.contentText}>
+                {item.price}
+              </Text>
+              <Text style={styles.contentText}>
+                {item.description}
+              </Text>
             </View>
           </View>
         </Card>
@@ -77,6 +76,23 @@ export const profileInfo = (item, navigation) => {
     </View>
   );
 };
+
+export const addToCartButton = (item) => {
+  return(
+    <View style={styles.buttonsContainer}>
+      <Button
+        color={darkGreen}
+        onPress={() => addItemToCart(item)}
+        contentStyle={{
+          height: 30,
+        }}
+        mode="contained"
+      >
+        Add To Cart
+      </Button>
+    </View>
+  )
+}
 
 export const sellerInfo = (seller, navigation) => {
   return (

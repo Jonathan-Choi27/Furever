@@ -10,7 +10,6 @@ import "react-native-gesture-handler";
 import { NavigationContainer, Dimensions } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { Platform, StatusBar, View } from "react-native";
-
 const Stack = createStackNavigator();
 
 export default function App() {

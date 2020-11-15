@@ -23,7 +23,6 @@ export default class currentListings extends React.Component {
   };
 
   async fetchData() {
-    console.log("begin fetching");
     this.setState({
       data: [],
     });
@@ -39,7 +38,7 @@ export default class currentListings extends React.Component {
       .limit(this.state.limit)
       .get();
 
-    var counter = 0;
+    // var counter = 0;
     let documentData = referenceData.forEach(async (referenceDoc) => {
       // data can be retrieved by reference_object.get()
       await referenceDoc

@@ -1,5 +1,12 @@
 import * as React from "react";
-import { View, Image, Text, BackHandler, StyleSheet } from "react-native";
+import {
+  Alert,
+  View,
+  Image,
+  Text,
+  BackHandler,
+  StyleSheet,
+} from "react-native";
 import { Button } from "react-native-paper";
 import { auth } from "../database/firebase";
 import * as firebase from "firebase";
@@ -32,7 +39,7 @@ export default class ProfilePrivacy extends React.Component {
   handleBackButtonClick = () => {
     this.props.navigation.goBack();
     return true;
-  }
+  };
 
   reauthenticate = (currentPassword) => {
     var user = auth.currentUser;
@@ -45,22 +52,24 @@ export default class ProfilePrivacy extends React.Component {
 
   onChangePasswordPress = () => {
     this.reauthenticate(this.state.currentPassword)
-      .then(() => {
+      .then(async () => {
         var user = auth.currentUser;
-        user
+        await user
           .updatePassword(this.state.newPassword)
           .then(() => {
-            alert("Password was changed.");
+            Alert.alert("Password changed", "Your change was successful.");
+            this.setState({ newPassword: "" });
+            this.setState({ currentPassword: "" });
           })
           .catch((error) => {
             alert(error);
+            this.setState({ newPassword: "" });
+            this.setState({ currentPassword: "" });
           });
       })
       .catch((error) => {
         alert(error);
       });
-    this.setState({ newPassword: "" });
-    this.setState({ currentPassword: "" });
   };
 
   render() {

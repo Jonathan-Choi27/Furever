@@ -25,7 +25,6 @@ export default class shopProfile extends React.Component {
         name: "",
         dob: "",
         email: "",
-        isPetShop: false,
         profileText: "",
         photo: "",
         quantity: 0,

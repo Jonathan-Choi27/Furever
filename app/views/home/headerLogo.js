@@ -6,9 +6,8 @@ import { Dimensions } from 'react-native';
 const win = Dimensions.get('window');
 var height = 23;
 var width = 143;
-
 //Changes the height and width depending on ratio of device size
-if (win.height/win.width > 1.88) {
+if (win.height/win.width > 1.88 && win.height/win.width < 1.9) {
 	height = 22
 	width = 140 
 }

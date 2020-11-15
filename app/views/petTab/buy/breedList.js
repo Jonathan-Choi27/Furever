@@ -44,12 +44,12 @@ export default class breedList extends React.Component {
                 .collection("users")
                 .doc(uuid)
                 .get()
-                .then((user_doc) => {
-                  seller["name"] = user_doc.data().name;
-                  seller["photo"] = user_doc.data().photo;
-                  seller["info"] = user_doc.data().profileText;
-                  seller["email"] = user_doc.data().email;
-                  seller["dob"] = user_doc.data().dob;
+                .then((userDoc) => {
+                  seller["name"] = userDoc.data().name;
+                  seller["photo"] = userDoc.data().photo;
+                  seller["info"] = userDoc.data().profileText;
+                  seller["email"] = userDoc.data().email;
+                  seller["dob"] = userDoc.data().dob;
                 });
               dataArray.push({
                 sellerName: seller.name,
