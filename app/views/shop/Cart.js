@@ -199,7 +199,7 @@ export default class Cart extends React.Component {
 							</View>
 						</View>
 						<View style={{flexDirection: 'row', justifyContent: 'flex-end', height: 32, paddingRight: 20, alignItems: 'center'}}>
-							<TouchableOpacity style={[styles.centerElement, {backgroundColor: '#0faf9a', width: 100, height: 25, borderRadius: 5}]} onPress={() => this.props.navigation.navigate("CheckoutSummary", {cartItems: this.state.cartItems, price: this.calculateTotalPrice()})}>
+							<TouchableOpacity style={[styles.centerElement, {backgroundColor: '#0faf9a', width: 100, height: 25, borderRadius: 5}]} onPress={() => this.props.navigation.navigate("CheckoutInformation", {cartItems: this.state.cartItems, price: this.calculateTotalPrice()})}>
 								<Text style={{color: '#ffffff'}}>Checkout</Text>
 							</TouchableOpacity>
 						</View>
