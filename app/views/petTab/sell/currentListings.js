@@ -148,6 +148,10 @@ export default class currentListings extends React.Component {
   }
 
   async componentDidMount() {
+    this.props.navigation.addListener('focus', () => {
+        this.fetchData();
+    }) 
+
     this.fetchData();
 
     BackHandler.addEventListener(
