@@ -117,7 +117,38 @@ export default class accessoryListingApplication extends React.Component {
       description: this.state.description,
       photoLink: this.state.photoLink,
       price: this.state.price,
-      timestamp: firebase.firestore.Timestamp.now(),
+    })
+    .then((accessoryDocRef) => {
+      // Recieve DocumentReference of the accessory and store in self (for convenience of retrieval)
+      accessoryDocRef.update({
+        selfRef: accessoryDocRef,
+      });
+      db.collection("users")
+          .doc(user.uid)
+          .collection("shopSellList")
+          .add({
+            list: accessoryDocRef,
+            timestamp: firebase.firestore.Timestamp.now(),
+          })
+          .then((userShopSellListRef) => {
+            // Recieve DocumentReference and store
+            accessoryDocRef.update({
+              userShopSellListRef: userShopSellListRef,
+            });
+          });
+      db.collection("categorizedShopListings")
+        .doc(this.state.category)
+        .collection(this.state.type)
+        .add({
+          list: accessoryDocRef,
+        })
+        .then((categorizedShopListingsRef) => {
+          // Recieve DocumentReference and store
+          accessoryDocRef.update({
+            categorizedShopListingsRef: categorizedShopListingsRef,
+            timestamp: firebase.firestore.Timestamp.now(),
+          });
+        });
     });
     alert("Application Successful!");
     this.props.navigation.goBack();
@@ -342,12 +373,12 @@ export default class accessoryListingApplication extends React.Component {
                   />
                   <Picker.Item label="Food" value="Food" />
                   <Picker.Item label="Toy" value="Toy" />
-                  <Picker.Item label="Collar" value="Collar" />
+                  <Picker.Item label="Apparel" value="Apparel" />
                   <Picker.Item label="Wash" value="Wash" />
                   <Picker.Item label="Bed" value="Bed" />
                   <Picker.Item label="Bowl" value="Bowl" />
                   <Picker.Item label="Home" value="Home" />
-                  <Picker.Item label="Apparel" value="Apparel" />
+                  <Picker.Item label="Medicine" value="Medicine" />
                 </Picker>
               </View>
             </View>

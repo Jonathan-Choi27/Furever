@@ -138,9 +138,12 @@ export default class CheckoutInformation extends React.Component {
     render() {
 
         return (
-            <View keyboardShouldPersistTaps={"handled"} 
-                style={{flex: 1,justifyContent: 'center',  }}>
-                <Card containerStyle={{ borderRadius: 10 }}>
+            // band aid fix cant figure out how to center for some reason
+            <View style={{flex: 1, paddingVertical: 150}}>
+            <ScrollView
+            keyboardShouldPersistTaps={"handled"}
+            >
+                <Card containerStyle={{ borderRadius: 10}}>
                     <Text style={{ fontSize: 25, fontWeight: "bold", color: "#a8a8a8" }}>
                         Send to:
                     </Text>
@@ -182,6 +185,7 @@ export default class CheckoutInformation extends React.Component {
                       </TouchableOpacity>
                   </View>
                 </Card>
+            </ScrollView>
             </View>
         )
     }

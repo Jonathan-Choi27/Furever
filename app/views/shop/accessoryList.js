@@ -55,34 +55,43 @@ export default class accessoryList extends React.Component {
   async fetchData() {
     const dataArray = [];
     const uid = auth.currentUser.uid;
-
+ 
     const category = this.props.route.params.category.category;
-    const accessory = this.props.route.params.accessory.accessory;
+    const type = this.props.route.params.accessory.accessory;
 
-    db.collection("accessories")
-      .where("category", "==", category)
-      .where("type", "==", accessory)
-      .get()
-      .then((doc) => {
-        doc.forEach((listingDoc) => {
-          dataArray.push({
-            accessoryName: listingDoc.data().name,
-            category: listingDoc.data().category,
-            type: listingDoc.data().type,
-            price: listingDoc.data().price,
-            photo: listingDoc.data().photoLink,
-            description: listingDoc.data().description,
-            docId: listingDoc.id,
+    db.collection("categorizedShopListings")
+    .doc(category)
+    .collection(type)
+    .get()
+    .then((doc) => {
+      doc.forEach(async (refDoc) => {
+        refDoc
+          .data()
+          .list.get()
+          .then(async (listingDoc) => {
+            dataArray.push({
+              accessoryName: listingDoc.data().name,
+              category: listingDoc.data().category,
+              type: listingDoc.data().type,
+              price: listingDoc.data().price,
+              photo: listingDoc.data().photoLink,
+              description: listingDoc.data().description,
+              docId: listingDoc.id,
+              uuid: listingDoc.data().uuid,
+            });
+            this.setState({
+              isLoading: false,
+              data: [...dataArray],
+            });
           });
-          this.setState({
-            isLoading: false,
-            data: [...dataArray],
-          });
-        });
       });
+    });
   }
 
   async componentDidMount() {
+    this.props.navigation.addListener('focus', () => {
+        this.fetchData();
+    }) 
     this.fetchData();
     BackHandler.addEventListener(
       "hardwareBackPress",

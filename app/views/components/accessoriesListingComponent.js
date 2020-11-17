@@ -1,5 +1,5 @@
 import * as React from "react";
-import { StyleSheet, View, Image, Text } from "react-native";
+import { StyleSheet, View, Image, Text, TouchableOpacity } from "react-native";
 import { Avatar, Button, Card, Title, Paragraph } from "react-native-paper";
 import firebase from "firebase";
 import globalStyles, { darkGreen, green, lightGreen, lightGrey, orange, lightBlue } from "../styleSheet/styleSheet";
@@ -20,10 +20,11 @@ const deleteAccessory = (docId) => {
 export const accessoriesListingCard = (item, navigation) => {
     return (
         <View style={[globalStyles.cardContentContainer, {marginBottom: 11,}]}>
-            <Card elevation={5}>
+            <Card elevation={5} >
                 <View style={{ flexDirection: "row" }}>
                     <View style={{
-                        flex: 10.5,
+                        // flex: 10.5,
+                        flex: 8,
                         padding: 10,
                         justifyContent: "center",
                     }}>
@@ -61,13 +62,13 @@ export const accessoriesListingCard = (item, navigation) => {
 
                         <View style={{ flexDirection: "row" }}>
                             <Button style={globalStyles.smallButton}
-                            //   onPress={() => navigation.navigate("sellPetProfile", {props})}
+                                onPress={() => navigation.navigate("accessoryListingProfile", { item })}
                             >
                                 <Text style={globalStyles.smallButtonText}>View</Text>
                             </Button>
 
                             <Button style={globalStyles.smallButton}
-                              onPress={() => navigation.navigate("updateAccessoryListingApplication", {docId: item.docId})}
+                                onPress={() => navigation.navigate("updateAccessoryListingApplication", {docId: item.docId})}
                             >
                                 <Text style={globalStyles.smallButtonText}>Update</Text>
                             </Button>
@@ -77,13 +78,13 @@ export const accessoriesListingCard = (item, navigation) => {
                                 <Text style={globalStyles.smallButtonText}>Delete</Text>
                             </Button>
                         </View>
-                        <View>
+                        {/* <View>
                             <Button style={globalStyles.bigButton}
                                 // onPress={() => navigation.navigate("offerApplications", {doc_id: props.doc_id})}
                             >
                             <Text style={globalStyles.bigButtonText}>View Orders</Text>
                             </Button>
-                        </View>
+                        </View> */}
                     </View>
                 </View>
             </Card>
