@@ -58,6 +58,12 @@ export default class petBreeds extends React.Component {
     actCheck: false,
     ntCheck: false,
     isLoaded: false,
+    price1Check: false,
+    price2Check: false,
+    price3Check: false,
+    price4Check: false,
+    price5Check: false,
+    price6Check: false,
   };
 
   async componentDidMount() {
@@ -225,6 +231,27 @@ export default class petBreeds extends React.Component {
       case "ntCheck":
         this.setState({ ntCheck: !this.state.ntCheck });
         break;
+
+      //Price
+      case "price1Check":
+        this.setState({ price1Check: !this.state.price1Check });
+        break;
+      case "price2Check":
+        this.setState({ price2Check: !this.state.price2Check });
+        break;
+      case "price3Check":
+        this.setState({ price3Check: !this.state.price3Check });
+        break;
+      case "price4Check":
+        this.setState({ price4Check: !this.state.price4Check });
+        break;
+      case "price5Check":
+        this.setState({ price5Check: !this.state.price5Check });
+        break;
+      case "price6Check":
+        this.setState({ price6Check: !this.state.price6Check });
+        break;
+
       default:
     }
   };
@@ -656,7 +683,154 @@ export default class petBreeds extends React.Component {
       }
     }
 
-    if (
+    //Price
+    if (this.state.price1Check) {
+      this.setState({ filterDisplay: true });
+      if (addOn) {
+        let filteredData = this.state.data.filter(function (item) {
+          if (item.price < 500) {
+            return item;
+          }
+        });
+        if (filteredData.length > 0) {
+          addOn = true;
+          listData = listData.concat(filteredData);
+        }
+      } else {
+        let filteredData = listData.filter(function (item) {
+          if (item.price < 500) {
+            return item;
+          }
+        });
+        if (filteredData.length > 0) {
+          addOn = true;
+          listData = filteredData;
+        }
+      }
+    }
+    if (this.state.price2Check) {
+      this.setState({ filterDisplay: true });
+      if (addOn) {
+        let filteredData = this.state.data.filter(function (item) {
+          if (item.price < 1000) {
+            return item;
+          }
+        });
+        if (filteredData.length > 0) {
+          addOn = true;
+          listData = listData.concat(filteredData);
+        }
+      } else {
+        let filteredData = listData.filter(function (item) {
+          if (item.price < 1000) {
+            return item;
+          }
+        });
+        if (filteredData.length > 0) {
+          addOn = true;
+          listData = filteredData;
+        }
+      }
+    }
+    if (this.state.price3Check) {
+      this.setState({ filterDisplay: true });
+      if (addOn) {
+        let filteredData = this.state.data.filter(function (item) {
+          if (item.price < 3000) {
+            return item;
+          }
+        });
+        if (filteredData.length > 0) {
+          addOn = true;
+          listData = listData.concat(filteredData);
+        }
+      } else {
+        let filteredData = listData.filter(function (item) {
+          if (item.price < 3000) {
+            return item;
+          }
+        });
+        if (filteredData.length > 0) {
+          addOn = true;
+          listData = filteredData;
+        }
+      }
+    }
+    if (this.state.price4Check) {
+      this.setState({ filterDisplay: true });
+      if (addOn) {
+        let filteredData = this.state.data.filter(function (item) {
+          if (item.price < 5000) {
+            return item;
+          }
+        });
+        if (filteredData.length > 0) {
+          addOn = true;
+          listData = listData.concat(filteredData);
+        }
+      } else {
+        let filteredData = listData.filter(function (item) {
+          if (item.price < 5000) {
+            return item;
+          }
+        });
+        if (filteredData.length > 0) {
+          addOn = true;
+          listData = filteredData;
+        }
+      }
+    }
+    if (this.state.price5Check) {
+      this.setState({ filterDisplay: true });
+      if (addOn) {
+        let filteredData = this.state.data.filter(function (item) {
+          if (item.price < 10000) {
+            return item;
+          }
+        });
+        if (filteredData.length > 0) {
+          addOn = true;
+          listData = listData.concat(filteredData);
+        }
+      } else {
+        let filteredData = listData.filter(function (item) {
+          if (item.price < 10000) {
+            return item;
+          }
+        });
+        if (filteredData.length > 0) {
+          addOn = true;
+          listData = filteredData;
+        }
+      }
+    }
+    if (this.state.price2Check) {
+      this.setState({ filterDisplay: true });
+      if (addOn) {
+        let filteredData = this.state.data.filter(function (item) {
+          if (item.price > 10000) {
+            return item;
+          }
+        });
+        if (filteredData.length > 0) {
+          addOn = true;
+          listData = listData.concat(filteredData);
+        }
+      } else {
+        let filteredData = listData.filter(function (item) {
+          if (item.price > 10000) {
+            return item;
+          }
+        });
+        if (filteredData.length > 0) {
+          addOn = true;
+          listData = filteredData;
+        }
+      }
+    }
+    
+
+    if ( //If nothing is checked, don't display filter
       //Animal
       !this.state.dogCheck && !this.state.catCheck && !this.state.birdCheck &&
       !this.state.rabbitCheck && !this.state.fishCheck && !this.state.horseCheck &&
@@ -670,7 +844,11 @@ export default class petBreeds extends React.Component {
       //Location
       !this.state.nswCheck && !this.state.vicCheck && !this.state.qldCheck &&
       !this.state.waCheck && !this.state.saCheck && !this.state.tasCheck &&
-      !this.state.actCheck && !this.state.ntCheck
+      !this.state.actCheck && !this.state.ntCheck &&
+
+      //Price
+      !this.state.price1Check && !this.state.price2Check && !this.state.price3Check &&
+      !this.state.price4Check && !this.state.price5Check && !this.state.price6Check 
     ) {
       this.setState({ filterDisplay: false });
     }
@@ -827,6 +1005,29 @@ export default class petBreeds extends React.Component {
                                 }}
                               />
                             </View>
+                            <Text>Price:</Text>
+                            <View style={{ flexDirection: "column" }}>
+                              <Checkbox.Item
+                                style={{ justifyContent: "flex-end" }}
+                                theme={{ colors: { primary: primaryColour1 } }}
+                                color={primaryColour1}
+                                label="<$500"
+                                status={this.state.price1Check ? "checked" : "unchecked"}
+                                onPress={() => {
+                                  this.checkFunction("price1Check");
+                                }}
+                              />
+                              <Checkbox.Item
+                                style={{ justifyContent: "flex-end" }}
+                                theme={{ colors: { primary: primaryColour1 } }}
+                                color={primaryColour1}
+                                label="<$5k"
+                                status={this.state.price4Check ? "checked" : "unchecked"}
+                                onPress={() => {
+                                  this.checkFunction("price4Check");
+                                }}
+                              />
+                            </View>
                           </View>
 
                           {/* Second filter column */}
@@ -930,7 +1131,31 @@ export default class petBreeds extends React.Component {
                                 }}
                               />
                             </View>
+                            <Text> </Text>
+                            <View style={{ flexDirection: "column" }}>
+                              <Checkbox.Item
+                                style={{ justifyContent: "flex-end" }}
+                                theme={{ colors: { primary: primaryColour1 } }}
+                                color={primaryColour1}
+                                label="<$1k"
+                                status={this.state.price2Check ? "checked" : "unchecked"}
+                                onPress={() => {
+                                  this.checkFunction("price2Check");
+                                }}
+                              />
+                              <Checkbox.Item
+                                style={{ justifyContent: "flex-end" }}
+                                theme={{ colors: { primary: primaryColour1 } }}
+                                color={primaryColour1}
+                                label="<$10k"
+                                status={this.state.price5Check ? "checked" : "unchecked"}
+                                onPress={() => {
+                                  this.checkFunction("price5Check");
+                                }}
+                              />
+                            </View>
                           </View>
+
                           {/* Third filter column */}
                           <View style={{ flex: 1, flexDirection: 'column', justifyContent: "flex-start" }}>
                             <Text> </Text>
@@ -1021,9 +1246,34 @@ export default class petBreeds extends React.Component {
                                   this.checkFunction("ntCheck");
                                 }}
                               />
+                              <Text style={{height:32.5}}> </Text>
+                            </View>
+                            <Text> </Text>
+                            <Text> </Text>
+                            <View style={{ flexDirection: "column" }}>
+                              <Checkbox.Item
+                                style={{ justifyContent: "flex-end" }}
+                                theme={{ colors: { primary: primaryColour1 } }}
+                                color={primaryColour1}
+                                label="<$3k"
+                                status={this.state.price3Check ? "checked" : "unchecked"}
+                                onPress={() => {
+                                  this.checkFunction("price3Check");
+                                }}
+                              />
+                              <Checkbox.Item
+                                style={{ justifyContent: "flex-end" }}
+                                theme={{ colors: { primary: primaryColour1 } }}
+                                color={primaryColour1}
+                                label="$10k+"
+                                status={this.state.price6Check ? "checked" : "unchecked"}
+                                onPress={() => {
+                                  this.checkFunction("price6Check");
+                                }}
+                              />
                             </View>
                           </View>
-                        </View>
+                          </View>
                       </ScrollView>
                     </Card.Content>
                     <Card.Actions style={{ justifyContent: "flex-end" }}>
