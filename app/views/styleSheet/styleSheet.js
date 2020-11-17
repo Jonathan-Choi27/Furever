@@ -381,7 +381,7 @@ export default StyleSheet.create({
     fontWeight: "bold",
   },
   emailStyle: {
-    color: "#202020",
+    color: "white",
     fontSize: 17,
     marginTop: 10,
   },
