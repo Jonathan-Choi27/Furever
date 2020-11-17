@@ -2,11 +2,9 @@ import * as React from "react";
 import { StyleSheet, View, Image, Text, Dimensions } from "react-native";
 import { Avatar, Button, Card, Title, Paragraph } from "react-native-paper";
 import globalStyles, {
-  darkGreen,
-  green,
-  lightGreen,
+  primaryColour1,
+  primaryColour2,
   lightGrey,
-  orange,
   lightBlue,
 } from "../styleSheet/styleSheet";
 console.disableYellowBox = true;
@@ -67,10 +65,10 @@ export const offerApplicationListingCard = (item, navigation) => {
                     Accepted Application
                   </Text>
                 ) : (
-                  <Text style={globalStyles.bigButtonText}>
-                    View Application
-                  </Text>
-                )}
+                    <Text style={globalStyles.bigButtonText}>
+                      View Application
+                    </Text>
+                  )}
               </Button>
             </View>
           </View>

@@ -11,11 +11,9 @@ import { Card } from "react-native-elements";
 import { Button } from "react-native-paper";
 import styles from "../styleSheet/styleSheet";
 import {
-  darkGreen,
-  green,
-  lightGreen,
+  primaryColour1,
+  primaryColour2,
   lightGrey,
-  orange,
   lightBlue,
 } from "../styleSheet/styleSheet";
 
@@ -44,7 +42,7 @@ const OpenURLButton = ({ url, title }) => {
 
   return (
     <Button
-      color={green}
+      color={primaryColour2}
       onPress={handlePress}>
       {title}
     </Button>
@@ -166,7 +164,7 @@ export const sellerInfo = (seller, navigation) => {
             <View style={{ flex: 1, paddingTop: 7 }}>
               <Button
                 style={{
-                  backgroundColor: green,
+                  backgroundColor: primaryColour2,
                   alignItems: "center",
                   justifyContent: "center",
                   borderRadius: 5,

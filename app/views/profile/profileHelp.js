@@ -81,11 +81,11 @@ export default class ProfileHelp extends React.Component {
             <Text style={globalStyles.cardHeading}> Contact Us</Text>
             <Text>
               <Text style={{ fontWeight: "bold" }}>E-Mail : </Text>
-              <Text>_____ @ _____.com</Text>
+              <Text>fureverTeam@furever.com</Text>
             </Text>
             <Text>
               <Text style={{ fontWeight: "bold" }}>Hotline : </Text>
-              <Text>__ ____ ____</Text>
+              <Text>04 1232 2123</Text>
             </Text>
           </Card>
         </View>

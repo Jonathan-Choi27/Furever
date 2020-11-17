@@ -8,15 +8,15 @@ import {
     ScrollView,
     Text,
     BackHandler
-  } from "react-native";
+} from "react-native";
 console.disableYellowBox = true;
-import {profileInfo, sellerInfo} from "../components/accessoryProfileComponent";
+import { profileInfo, sellerInfo } from "../components/accessoryProfileComponent";
 import { db } from "../database/firebase";
 import Icon from 'react-native-vector-icons/AntDesign';
 import {
     Button,
 } from "react-native-paper";
-import globalStyles, { darkGreen, green, lightGreen, lightGrey, orange, lightBlue } from "../styleSheet/styleSheet";
+import globalStyles, { primaryColour1, primaryColour2, lightGrey, lightBlue } from "../styleSheet/styleSheet";
 import { addItemToCart } from "../components/shopComponents";
 
 
@@ -29,8 +29,8 @@ export default class shopProfile extends React.Component {
         photo: "",
         quantity: 0,
         items: [],
-     };
-     
+    };
+
     async fetchData() {
         // const uuid = this.props.route.params.item.docIdd;
         // console.log(uuid);
@@ -55,34 +55,34 @@ export default class shopProfile extends React.Component {
             "hardwareBackPress",
             this.handleBackButtonClick
         );
-    
+
     };
-        
-        
+
+
     componentWillUnmount() {
-      BackHandler.removeEventListener(
-        "hardwareBackPress",
-        this.handleBackButtonClick
-      );
-    }
-              
-    handleBackButtonClick = () => {
-      this.props.navigation.goBack();
-      return true;
+        BackHandler.removeEventListener(
+            "hardwareBackPress",
+            this.handleBackButtonClick
+        );
     }
 
-    
+    handleBackButtonClick = () => {
+        this.props.navigation.goBack();
+        return true;
+    }
+
+
     pushItem(item) {
         const itemsArray = [];
         itemsArray.push(item);
-        this.setState({items: [...itemsArray]});
+        this.setState({ items: [...itemsArray] });
     }
-    
+
     render() {
         const item = this.props.route.params.item;
         // console.log(item.docId);
         return (
-            <View style={{paddingBottom: 50}}>
+            <View style={{ paddingBottom: 50 }}>
                 <ScrollView>
                     {profileInfo(item, this.props.navigation)}
                     {/* {sellerInfo(this.state, this.props.navigation)} */}
@@ -97,24 +97,24 @@ export default class shopProfile extends React.Component {
                     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', paddingTop: 20 }}>
                         <Button
                             style={{
-                            backgroundColor: "green",
-                            alignItems: "center",
-                            justifyContent: "center",
-                            borderRadius: 5,
-                            height: 35,
-                            width: 120
+                                backgroundColor: "primaryColour2",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                borderRadius: 5,
+                                height: 35,
+                                width: 120
                             }}
                             mode="contained"
                             // onPress={() => navigation.navigate("sellerProfile", { seller })}
                             onPress={() => addItemToCart(item)}
                         >
                             <Text style={{
-                            color: "#ffffff",
-                            fontSize: 12,
-                            padding: 5,
-                            fontWeight: "bold"
+                                color: "#ffffff",
+                                fontSize: 12,
+                                padding: 5,
+                                fontWeight: "bold"
                             }} >
-                            Add To Cart
+                                Add To Cart
                                 </Text>
                         </Button>
                     </View>

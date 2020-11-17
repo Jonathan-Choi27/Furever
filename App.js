@@ -43,7 +43,7 @@ export default function App() {
             options={{
               //   title: "Home",
               //   headerStyle: {
-              //     backgroundColor: green,
+              //     backgroundColor: primaryColour2,
               //   },
               //   headerTitle: <HeaderLogo />,
               //   headerTitleStyle: {

@@ -25,8 +25,8 @@ import { accessoryListingCard, accessoryCategory, getItemList } from "../compone
 import { cartCard, cartTab } from "../components/shopTabComponent";
 import { MaterialIcons, AntDesign, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import {
-  darkGreen,
-  green,
+  primaryColour1,
+  primaryColour2,
 } from "../styleSheet/styleSheet";
 
 const accessoryInformation = require('./accessoryInformation.json');
@@ -52,9 +52,9 @@ export default class accessoryCateogries extends React.Component {
     filterDisplay: false,
     accessoryTypes: [],
   };
-  
+
   async componentDidMount() {
-    
+
     const dataArray = [];
     db.collection("accessories")
       .get()
@@ -71,7 +71,7 @@ export default class accessoryCateogries extends React.Component {
               seller_name = user_doc.data().name;
               seller_photo = user_doc.data().photo;
             })
-            .catch((erro) => {});
+            .catch((erro) => { });
           dataArray.push({
             sellerName: seller_name,
             sellerPhoto: seller_photo,
@@ -92,41 +92,41 @@ export default class accessoryCateogries extends React.Component {
             uuid: listingDoc.data().uuid,
             items: [],
           });
-        doc.forEach((listingDoc) => {
-                dataArray.push({
-                    accessoryName: listingDoc.data().name,
-                    category: listingDoc.data().category,
-                    type: listingDoc.data().type,
-                    price: listingDoc.data().price,
-                    photo: listingDoc.data().photoLink,
-                    docIdd: listingDoc.id,
-                  });
-          this.setState({
-            isLoading: false,
-            data: [...dataArray],
+          doc.forEach((listingDoc) => {
+            dataArray.push({
+              accessoryName: listingDoc.data().name,
+              category: listingDoc.data().category,
+              type: listingDoc.data().type,
+              price: listingDoc.data().price,
+              photo: listingDoc.data().photoLink,
+              docIdd: listingDoc.id,
+            });
+            this.setState({
+              isLoading: false,
+              data: [...dataArray],
+            });
           });
         });
       });
-  });
 
-  BackHandler.addEventListener(
-    "hardwareBackPress",
-    this.handleBackButtonClick
-  );
+    BackHandler.addEventListener(
+      "hardwareBackPress",
+      this.handleBackButtonClick
+    );
 
-};
+  };
 
-componentWillUnmount() {
-  BackHandler.removeEventListener(
-    "hardwareBackPress",
-    this.handleBackButtonClick
-  );
-}
-      
-handleBackButtonClick = () => {
-  this.props.navigation.goBack();
-  return true;
-}
+  componentWillUnmount() {
+    BackHandler.removeEventListener(
+      "hardwareBackPress",
+      this.handleBackButtonClick
+    );
+  }
+
+  handleBackButtonClick = () => {
+    this.props.navigation.goBack();
+    return true;
+  }
 
   searchFunction = (searchText) => {
     this.setState({ searchText: searchText });
@@ -138,7 +138,7 @@ handleBackButtonClick = () => {
     this.setState({ filteredData: filteredData });
   };
 
-  
+
   render() {
     const { search } = this.state;
     const items = getItemList();
@@ -146,37 +146,37 @@ handleBackButtonClick = () => {
     if (this.state.isLoading) {
       return (
         <View style={globalStyles.activityContainer}>
-          <ActivityIndicator size="large" color={green} />
+          <ActivityIndicator size="large" color={primaryColour2} />
         </View>
       );
     }
     return (
       <Provider>
-          <View style={globalStyles.petContainer}>
-            <View
-              style={globalStyles.searchFilterContainer}
+        <View style={globalStyles.petContainer}>
+          <View
+            style={globalStyles.searchFilterContainer}
+          >
+            <Searchbar
+              style={globalStyles.searchBar}
+              placeholder="Search"
+              onChangeText={this.searchFunction}
+              value={this.state.searchText}
+            />
+            <Button
+              color={primaryColour2}
+              onPress={() => {
+                this.setState({ visible: true });
+              }}
+              mode="contained"
+              contentStyle={{
+                height: 35,
+              }}
             >
-              <Searchbar
-                style={globalStyles.searchBar}
-                placeholder="Search"
-                onChangeText={this.searchFunction}
-                value={this.state.searchText}
-              />
-              <Button
-                color={green}
-                onPress={() => {
-                  this.setState({ visible: true });
-                }}
-                mode="contained"
-                contentStyle={{
-                  height: 35,
-                }}
-              >
-                Filter
+              Filter
               </Button>
-            </View>
-            
-            <ScrollView showsVerticalScrollIndicator={false}>
+          </View>
+
+          <ScrollView showsVerticalScrollIndicator={false}>
             <Portal>
               <Modal
                 style={{ backgroundColor: "transparent" }}
@@ -184,13 +184,13 @@ handleBackButtonClick = () => {
                 onDismiss={() => {
                   this.setState({ visible: false });
                 }}>
-                <Card elevation={5} style={{margin: 10}}>
+                <Card elevation={5} style={{ margin: 10 }}>
                   <Card.Content>
-                    
+
                   </Card.Content>
                   <Card.Actions style={{ justifyContent: "flex-end" }}>
                     <Button
-                      color={darkGreen}
+                      color={primaryColour1}
                       onPress={() => {
                         this.displayFunction();
                         this.setState({ visible: false });
@@ -201,10 +201,10 @@ handleBackButtonClick = () => {
                 </Card>
               </Modal>
             </Portal>
-            
+
             {this.state.filterDisplay ? (
               <FlatList
-                numColumns = {2}
+                numColumns={2}
                 key={1}
                 showsVerticalScrollIndicator={false}
                 renderItem={({ item }) => (
@@ -218,57 +218,57 @@ handleBackButtonClick = () => {
                 }
               />
             ) : (
-              <View style={globalStyles.petContainer}>
-                {this.state.searchText == "" ? (
-                  <View>
-                    <View style={{flexDirection: "row", justifyContent:'space-between', marginLeft: 15, marginRight: 15, paddingBottom: 10, paddingTop: 3}}>
-                      <Text style={globalStyles.pageTitle}>{category.category}</Text>
-                      {cartTab(this.props.navigation)}
-                    </View>
-                    <View style={globalStyles.petContainer}>
-                      {/* <View style={{ width: 300, marginTop: 5, marginBottom: 10 }}>
+                <View style={globalStyles.petContainer}>
+                  {this.state.searchText == "" ? (
+                    <View>
+                      <View style={{ flexDirection: "row", justifyContent: 'space-between', marginLeft: 15, marginRight: 15, paddingBottom: 10, paddingTop: 3 }}>
+                        <Text style={globalStyles.pageTitle}>{category.category}</Text>
+                        {cartTab(this.props.navigation)}
+                      </View>
+                      <View style={globalStyles.petContainer}>
+                        {/* <View style={{ width: 300, marginTop: 5, marginBottom: 10 }}>
                         {cartCard(this.props.navigation)}
                       </View> */}
-                      <FlatList
-                        data={accessoryInformation}
-                        columnWrapperStyle={{ justifyContent: "flex-start" }}
-                        numColumns={2}
-                        key={2}
-                        renderItem={({ item }) => (
-                          accessoryCategory(item, category, this.props.navigation)
-                        )}
-                      />
-                    </View>
-                  </View>
-                ) : (
-                  <View style={globalStyles.petContainer}>
-                    {this.state.filteredData.length == 0 ? (
-                      <View style={globalStyles.petContainer}>
-                        <Text style={{ margin: 100 }}>No results found.</Text>
+                        <FlatList
+                          data={accessoryInformation}
+                          columnWrapperStyle={{ justifyContent: "flex-start" }}
+                          numColumns={2}
+                          key={2}
+                          renderItem={({ item }) => (
+                            accessoryCategory(item, category, this.props.navigation)
+                          )}
+                        />
                       </View>
-                    ) : (
-                      <FlatList
-                        numColumns = {2}
-                        key={1}
-                        showsVerticalScrollIndicator={false}
-                        renderItem={({ item }) => (
-                          accessoryListingCard(item, this.props.navigation)
-                        )}
-                        keyExtractor={(item, index) => index.toString()}
-                        data={
-                          this.state.filteredData &&
-                          this.state.filteredData.length > 0
-                            ? this.state.filteredData
-                            : this.state.data
-                        }
-                      />
+                    </View>
+                  ) : (
+                      <View style={globalStyles.petContainer}>
+                        {this.state.filteredData.length == 0 ? (
+                          <View style={globalStyles.petContainer}>
+                            <Text style={{ margin: 100 }}>No results found.</Text>
+                          </View>
+                        ) : (
+                            <FlatList
+                              numColumns={2}
+                              key={1}
+                              showsVerticalScrollIndicator={false}
+                              renderItem={({ item }) => (
+                                accessoryListingCard(item, this.props.navigation)
+                              )}
+                              keyExtractor={(item, index) => index.toString()}
+                              data={
+                                this.state.filteredData &&
+                                  this.state.filteredData.length > 0
+                                  ? this.state.filteredData
+                                  : this.state.data
+                              }
+                            />
+                          )}
+                      </View>
                     )}
-                  </View>
-                )}
-              </View>
-            )}
-            </ScrollView>
-          </View>
+                </View>
+              )}
+          </ScrollView>
+        </View>
       </Provider>
     );
   }

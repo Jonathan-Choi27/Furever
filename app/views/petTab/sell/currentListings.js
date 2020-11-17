@@ -3,7 +3,7 @@ import { Text, View, Image, FlatList, BackHandler } from "react-native";
 import { Card, Button, Searchbar } from "react-native-paper";
 import firebase from "firebase";
 import { auth } from "../../database/firebase";
-import globalStyles, { darkGreen, green } from "../../styleSheet/styleSheet";
+import globalStyles, { primaryColour1, primaryColour2 } from "../../styleSheet/styleSheet";
 import { petSellListingCard } from "../../components/petSellListingComponent";
 
 const db = firebase.firestore();
@@ -55,12 +55,15 @@ export default class currentListings extends React.Component {
             gender: snapshot.data().gender,
             size: snapshot.data().size,
             location: snapshot.data().location,
+            suburb: snapshot.data().suburb,
             price: snapshot.data().price,
             behaviour: snapshot.data().behaviour,
             health: snapshot.data().health,
             training: snapshot.data().training,
-            additionalInfo: snapshot.data().additionalInfo,
+            additional: snapshot.data().additionalInfo,
             photo: snapshot.data().photoLink,
+            documentName: snapshot.data().documentsLink,
+            documentUri: snapshot.data().documents_uri,
             doc_id: snapshot.id,
             selfRef: snapshot.data().selfRef,
             userSellListRef: snapshot.data().userSellListRef,
@@ -119,12 +122,15 @@ export default class currentListings extends React.Component {
               gender: snapshot.data().gender,
               size: snapshot.data().size,
               location: snapshot.data().location,
+              suburb: snapshot.data().suburb,
               price: snapshot.data().price,
               behaviour: snapshot.data().behaviour,
               health: snapshot.data().health,
               training: snapshot.data().training,
-              additionalInfo: snapshot.data().additionalInfo,
+              additional: snapshot.data().additionalInfo,
               photo: snapshot.data().photoLink,
+              documentName: snapshot.data().documentsLink,
+              documentUri: snapshot.data().documents_uri,
               selfRef: snapshot,
               userSellListRef: snapshot.data().userSellListRef,
               categorizedListingsRef: snapshot.data().categorizedListingsRef,
@@ -149,8 +155,8 @@ export default class currentListings extends React.Component {
 
   async componentDidMount() {
     this.props.navigation.addListener('focus', () => {
-        this.fetchData();
-    }) 
+      this.fetchData();
+    })
 
     this.fetchData();
 
@@ -182,20 +188,6 @@ export default class currentListings extends React.Component {
     this.setState({ filteredData: filteredData });
   };
 
-  homeCard = (item) => (
-    <View style={styles.card}>
-      <Card
-        elevation={5}
-        styles={styles.card}
-        onPress={() => this.props.navigation.navigate("petProfile", { item })}
-      >
-        <Image source={{ uri: item.photo }} style={styles.image} />
-        <Text numberOfLines={1} style={styles.title}>
-          {item.petName}
-        </Text>
-      </Card>
-    </View>
-  );
   render() {
     // if (this.state.isLoading) {
     //   return (
@@ -214,7 +206,7 @@ export default class currentListings extends React.Component {
             value={this.state.searchText}
           />
           <Button
-            color={green}
+            color={primaryColour2}
             onPress={() => {
               this.setState({ visible: true });
             }}
@@ -230,21 +222,21 @@ export default class currentListings extends React.Component {
           <Text style={globalStyles.pageTitle}>Current Listings</Text>
           <View>
             <Button
-              color={darkGreen}
+              color={primaryColour1}
               onPress={() => this.props.navigation.navigate("sellApplication")}
               contentStyle={{
                 height: 30,
               }}
               mode="contained"
             >
-              Add New Listing
+              <Text style={{color: "white"}}>Add New Listing</Text>
             </Button>
           </View>
         </View>
 
         <View>
           {this.state.data.length === 0
-            ? <Text style={{paddingTop: 30, fontSize: 15, textAlign: "center"}}>You have not added any pet listings</Text>
+            ? <Text style={{ paddingTop: 30, fontSize: 15, textAlign: "center" }}>You have not added any pet listings</Text>
             : null}
         </View>
 
@@ -274,45 +266,45 @@ export default class currentListings extends React.Component {
             />
           </View>
         ) : (
-          <View style={globalStyles.petContainer}>
-            {this.state.filteredData.length == 0 ? (
-              <View style={globalStyles.petContainer}>
-                <Text style={{ margin: 100 }}>No results found.</Text>
-              </View>
-            ) : (
-              <View style={{ paddingTop: 7, paddingBottom: 60 }}>
-                <FlatList
-                  style={{ marginBottom: 20 }}
-                  showsVerticalScrollIndicator={false}
-                  numColumns={1}
-                  key={1}
-                  onRefresh={async () => {
-                    this.setState({
-                      pullToRefresh: true,
-                    });
-                    //   await this.initialFetchData();
-                    await this.fetchData();
-                    this.setState({
-                      pullToRefresh: false,
-                    });
-                  }}
-                  refreshing={this.state.pullToRefresh}
-                  data={this.state.data}
-                  renderItem={({ item }) =>
-                    petSellListingCard(item, this.props.navigation)
-                  }
-                  keyExtractor={(item, index) => index.toString()}
-                  data={
-                    this.state.filteredData &&
-                    this.state.filteredData.length > 0
-                      ? this.state.filteredData
-                      : this.state.data
-                  }
-                />
-              </View>
-            )}
-          </View>
-        )}
+            <View style={globalStyles.petContainer}>
+              {this.state.filteredData.length == 0 ? (
+                <View style={globalStyles.petContainer}>
+                  <Text style={{ margin: 100 }}>No results found.</Text>
+                </View>
+              ) : (
+                  <View style={{ paddingTop: 7, paddingBottom: 60 }}>
+                    <FlatList
+                      style={{ marginBottom: 20 }}
+                      showsVerticalScrollIndicator={false}
+                      numColumns={1}
+                      key={1}
+                      onRefresh={async () => {
+                        this.setState({
+                          pullToRefresh: true,
+                        });
+                        //   await this.initialFetchData();
+                        await this.fetchData();
+                        this.setState({
+                          pullToRefresh: false,
+                        });
+                      }}
+                      refreshing={this.state.pullToRefresh}
+                      data={this.state.data}
+                      renderItem={({ item }) =>
+                        petSellListingCard(item, this.props.navigation)
+                      }
+                      keyExtractor={(item, index) => index.toString()}
+                      data={
+                        this.state.filteredData &&
+                          this.state.filteredData.length > 0
+                          ? this.state.filteredData
+                          : this.state.data
+                      }
+                    />
+                  </View>
+                )}
+            </View>
+          )}
       </View>
     );
   }

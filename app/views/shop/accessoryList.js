@@ -29,11 +29,9 @@ import {
 import { cartTab } from "../components/shopTabComponent";
 
 import globalStyles, {
-  darkGreen,
-  green,
-  lightGreen,
+  primaryColour1,
+  primaryColour2,
   lightGrey,
-  orange,
   lightBlue,
   screenWidth,
 } from "../styleSheet/styleSheet";
@@ -55,43 +53,43 @@ export default class accessoryList extends React.Component {
   async fetchData() {
     const dataArray = [];
     const uid = auth.currentUser.uid;
- 
+
     const category = this.props.route.params.category.category;
     const type = this.props.route.params.accessory.accessory;
 
     db.collection("categorizedShopListings")
-    .doc(category)
-    .collection(type)
-    .get()
-    .then((doc) => {
-      doc.forEach(async (refDoc) => {
-        refDoc
-          .data()
-          .list.get()
-          .then(async (listingDoc) => {
-            dataArray.push({
-              accessoryName: listingDoc.data().name,
-              category: listingDoc.data().category,
-              type: listingDoc.data().type,
-              price: listingDoc.data().price,
-              photo: listingDoc.data().photoLink,
-              description: listingDoc.data().description,
-              docId: listingDoc.id,
-              uuid: listingDoc.data().uuid,
+      .doc(category)
+      .collection(type)
+      .get()
+      .then((doc) => {
+        doc.forEach(async (refDoc) => {
+          refDoc
+            .data()
+            .list.get()
+            .then(async (listingDoc) => {
+              dataArray.push({
+                accessoryName: listingDoc.data().name,
+                category: listingDoc.data().category,
+                type: listingDoc.data().type,
+                price: listingDoc.data().price,
+                photo: listingDoc.data().photoLink,
+                description: listingDoc.data().description,
+                docId: listingDoc.id,
+                uuid: listingDoc.data().uuid,
+              });
+              this.setState({
+                isLoading: false,
+                data: [...dataArray],
+              });
             });
-            this.setState({
-              isLoading: false,
-              data: [...dataArray],
-            });
-          });
+        });
       });
-    });
   }
 
   async componentDidMount() {
     this.props.navigation.addListener('focus', () => {
-        this.fetchData();
-    }) 
+      this.fetchData();
+    })
     this.fetchData();
     BackHandler.addEventListener(
       "hardwareBackPress",
@@ -138,7 +136,7 @@ export default class accessoryList extends React.Component {
               value={this.state.searchText}
             />
             <Button
-              color={green}
+              color={primaryColour2}
               onPress={() => {
                 this.setState({ visible: true });
               }}
@@ -164,7 +162,7 @@ export default class accessoryList extends React.Component {
                   <Card.Content></Card.Content>
                   <Card.Actions style={{ justifyContent: "flex-end" }}>
                     <Button
-                      color={darkGreen}
+                      color={primaryColour1}
                       onPress={() => {
                         this.displayFunction();
                         this.setState({ visible: false });
@@ -192,88 +190,88 @@ export default class accessoryList extends React.Component {
                 }
               />
             ) : (
-              <View style={globalStyles.petContainer}>
-                {this.state.searchText == "" ? (
-                  //the page when not searching
-                  <View style={{ alignItems: "center" }}>
-                    <View
-                      style={{
-                        width: screenWidth - 40,
-                        flexDirection: "row",
-                        justifyContent: "space-between",
-                        marginLeft: 15,
-                        marginRight: 15,
-                        paddingBottom: 10,
-                        paddingTop: 3,
-                      }}
-                    >
-                      <Text style={[globalStyles.pageTitle]}>
-                        {category.category} - {accessory.accessory}
-                      </Text>
-                      {cartTab(this.props.navigation)}
-                    </View>
-                    {this.state.data.length === 0 ? (
-                      <Text
+                <View style={globalStyles.petContainer}>
+                  {this.state.searchText == "" ? (
+                    //the page when not searching
+                    <View style={{ alignItems: "center" }}>
+                      <View
                         style={{
-                          paddingTop: 30,
-                          fontSize: 15,
-                          textAlign: "center",
+                          width: screenWidth - 40,
+                          flexDirection: "row",
+                          justifyContent: "space-between",
+                          marginLeft: 15,
+                          marginRight: 15,
+                          paddingBottom: 10,
+                          paddingTop: 3,
                         }}
                       >
-                        No available{" "}
-                        {category.category + " " + accessory.accessory} for
-                        purchase
-                      </Text>
-                    ) : null}
-                    <View style={globalStyles.petContainer}>
-                      <FlatList
-                        numColumns={1}
-                        showsVerticalScrollIndicator={false}
-                        onRefresh={async () => {
-                          this.setState({
-                            pullToRefresh: true,
-                          });
-                          await this.fetchData();
-                          this.setState({
-                            pullToRefresh: false,
-                          });
-                        }}
-                        refreshing={this.state.pullToRefresh}
-                        data={this.state.data}
-                        renderItem={({ item }) =>
-                          accessoryListingCard(item, this.props.navigation)
-                        }
-                        keyExtractor={(item, index) => index.toString()}
-                      />
-                    </View>
-                  </View>
-                ) : (
-                  <View style={globalStyles.petContainer}>
-                    {this.state.filteredData.length == 0 ? (
-                      <View style={globalStyles.petContainer}>
-                        <Text style={{ margin: 100 }}>No results found.</Text>
+                        <Text style={[globalStyles.pageTitle]}>
+                          {category.category} - {accessory.accessory}
+                        </Text>
+                        {cartTab(this.props.navigation)}
                       </View>
-                    ) : (
-                      <FlatList
-                        numColumns={1}
-                        key={1}
-                        showsVerticalScrollIndicator={false}
-                        renderItem={({ item }) =>
-                          accessoryListingCard(item, this.props.navigation)
-                        }
-                        keyExtractor={(item, index) => index.toString()}
-                        data={
-                          this.state.filteredData &&
-                          this.state.filteredData.length > 0
-                            ? this.state.filteredData
-                            : this.state.data
-                        }
-                      />
+                      {this.state.data.length === 0 ? (
+                        <Text
+                          style={{
+                            paddingTop: 30,
+                            fontSize: 15,
+                            textAlign: "center",
+                          }}
+                        >
+                          No available{" "}
+                          {category.category + " " + accessory.accessory} for
+                        purchase
+                        </Text>
+                      ) : null}
+                      <View style={globalStyles.petContainer}>
+                        <FlatList
+                          numColumns={1}
+                          showsVerticalScrollIndicator={false}
+                          onRefresh={async () => {
+                            this.setState({
+                              pullToRefresh: true,
+                            });
+                            await this.fetchData();
+                            this.setState({
+                              pullToRefresh: false,
+                            });
+                          }}
+                          refreshing={this.state.pullToRefresh}
+                          data={this.state.data}
+                          renderItem={({ item }) =>
+                            accessoryListingCard(item, this.props.navigation)
+                          }
+                          keyExtractor={(item, index) => index.toString()}
+                        />
+                      </View>
+                    </View>
+                  ) : (
+                      <View style={globalStyles.petContainer}>
+                        {this.state.filteredData.length == 0 ? (
+                          <View style={globalStyles.petContainer}>
+                            <Text style={{ margin: 100 }}>No results found.</Text>
+                          </View>
+                        ) : (
+                            <FlatList
+                              numColumns={1}
+                              key={1}
+                              showsVerticalScrollIndicator={false}
+                              renderItem={({ item }) =>
+                                accessoryListingCard(item, this.props.navigation)
+                              }
+                              keyExtractor={(item, index) => index.toString()}
+                              data={
+                                this.state.filteredData &&
+                                  this.state.filteredData.length > 0
+                                  ? this.state.filteredData
+                                  : this.state.data
+                              }
+                            />
+                          )}
+                      </View>
                     )}
-                  </View>
-                )}
-              </View>
-            )}
+                </View>
+              )}
           </ScrollView>
         </View>
       </Provider>

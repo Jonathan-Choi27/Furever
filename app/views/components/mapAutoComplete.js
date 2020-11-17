@@ -3,7 +3,7 @@ import { Text, View } from "react-native";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Icon } from "react-native-elements";
-import { darkGreen } from "../styleSheet/styleSheet";
+import { primaryColour1 } from "../styleSheet/styleSheet";
 
 export const GooglePlacesInput = (props) => {
   const ref = useRef();
@@ -32,7 +32,7 @@ export const GooglePlacesInput = (props) => {
           <Icon
             name="ios-pin"
             type="ionicon"
-            color={darkGreen}
+            color={primaryColour1}
             style={{ paddingVertical: 8, paddingLeft: 0, marginLeft: 1 }}
           />
         </View>

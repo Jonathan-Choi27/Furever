@@ -56,7 +56,7 @@ export const buyerInfo = (item) => {
             <Text style={styles.contentTextBold}>Email: </Text>
             <Text style={styles.contentTextBold}>Address: </Text>
           </View>
-          <View style={{ paddingLeft: 5 }}>
+          <View style={{ paddingLeft: 5, flex:1 }}>
             <Text numberOfLines={1} style={styles.contentText}>
               {item.name}
             </Text>

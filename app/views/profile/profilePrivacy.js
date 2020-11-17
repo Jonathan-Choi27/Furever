@@ -6,12 +6,14 @@ import {
   Text,
   BackHandler,
   StyleSheet,
+  ScrollView,
+  TouchableOpacity,
 } from "react-native";
 import { Button } from "react-native-paper";
 import { auth } from "../database/firebase";
 import * as firebase from "firebase";
 import { Input } from "react-native-elements";
-import { darkGreen, green } from "../styleSheet/styleSheet";
+import globalStyles, { primaryColour1, primaryColour2 } from "../styleSheet/styleSheet";
 export default class ProfilePrivacy extends React.Component {
   constructor(props) {
     super(props);
@@ -77,7 +79,7 @@ export default class ProfilePrivacy extends React.Component {
       <View>
         <View
           style={{
-            backgroundColor: darkGreen,
+            backgroundColor: primaryColour2,
             borderBottomRightRadius: 1000,
             borderBottomLeftRadius: 1000,
             transform: [{ scaleX: 2 }],
@@ -89,7 +91,7 @@ export default class ProfilePrivacy extends React.Component {
               style={{
                 fontSize: 30,
                 marginTop: 60,
-                color: "#F5F5DC",
+                color: "black",
                 transform: [{ scaleX: 0.5 }],
               }}
             >
@@ -118,13 +120,13 @@ export default class ProfilePrivacy extends React.Component {
             value={this.state.currentPassword}
             placeholder="Current Password"
             secureTextEntry={true}
-            labelStyle={{ color: darkGreen }}
+            labelStyle={{ color: primaryColour1 }}
             onChangeText={(text) => this.setState({ currentPassword: text })}
             leftIcon={{
               type: "ionicons",
               name: "lock-outline",
               size: 25,
-              color: darkGreen,
+              color: primaryColour1,
               paddingRight: 10,
               paddingLeft: 5,
             }}
@@ -134,26 +136,24 @@ export default class ProfilePrivacy extends React.Component {
             value={this.state.newPassword}
             placeholder="New Password"
             secureTextEntry={true}
-            labelStyle={{ color: darkGreen }}
+            labelStyle={{ color: primaryColour1 }}
             onChangeText={(text) => this.setState({ newPassword: text })}
             leftIcon={{
               type: "ionicons",
               name: "lock-outline",
               size: 25,
-              color: darkGreen,
+              color: primaryColour1,
               paddingRight: 10,
               paddingLeft: 5,
             }}
           />
-          <View style={{ alignItems: "center", marginTop: 25 }}>
-            <Button
-              mode="outlined"
-              style={styles.buttons}
-              onPress={this.onChangePasswordPress}
-            >
-              <Text style={styles.buttonsText}> Update </Text>
-            </Button>
-          </View>
+          <View style={globalStyles.applicationButtonsContainer}>
+              <TouchableOpacity
+                style={globalStyles.buttons}
+                onPress={this.onChangePasswordPress}>
+                <Text style={globalStyles.buttonsText}>Update</Text>
+              </TouchableOpacity>
+            </View>
         </View>
       </View>
     );
@@ -179,7 +179,7 @@ const styles = StyleSheet.create({
   },
   buttons: {
     borderWidth: 1,
-    borderColor: green,
+    borderColor: primaryColour2,
     alignItems: "center",
     justifyContent: "center",
     width: 250,
@@ -187,7 +187,7 @@ const styles = StyleSheet.create({
     height: 40,
   },
   buttonsText: {
-    color: darkGreen,
+    color: primaryColour1,
     fontSize: 18,
     padding: 15,
   },

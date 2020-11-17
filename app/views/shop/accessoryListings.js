@@ -9,7 +9,7 @@ import {
 import { Button } from "react-native-paper";
 import firebase from "firebase";
 import { auth } from "../database/firebase";
-import globalStyles, { darkGreen } from "../styleSheet/styleSheet";
+import globalStyles, { primaryColour1 } from "../styleSheet/styleSheet";
 import { accessoriesListingCard } from "../components/accessoriesListingComponent";
 
 const db = firebase.firestore();
@@ -54,7 +54,7 @@ export default class accessoryListings extends React.Component {
             price: snapshot.data().price,
             description: snapshot.data().description,
             photo: snapshot.data().photoLink,
-            doc_id: snapshot.id,
+            docId: snapshot.id,
           });
           this.state.data.push(dataArray.pop());
         });
@@ -98,7 +98,7 @@ export default class accessoryListings extends React.Component {
               price: snapshot.data().price,
               description: snapshot.data().description,
               photo: snapshot.data().photoLink,
-              doc_id: snapshot.id,
+              docId: snapshot.id,
             });
 
             this.setState({
@@ -145,7 +145,7 @@ export default class accessoryListings extends React.Component {
           <Text style={globalStyles.pageTitle}>Accessory Listings</Text>
           <View>
             <Button
-              color={darkGreen}
+              color={primaryColour1}
               onPress={() =>
                 this.props.navigation.navigate("accessoryListingApplication")
               }
@@ -154,7 +154,7 @@ export default class accessoryListings extends React.Component {
               }}
               mode="contained"
             >
-              Add Listing
+              <Text style={{color: "white"}}>Add Listing</Text>
             </Button>
           </View>
         </View>

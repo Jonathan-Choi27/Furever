@@ -1,7 +1,7 @@
 import { Slider, Text, Icon, Input } from "react-native-elements";
 import { Animated, View } from "react-native";
 import React from "react";
-import { darkGreen } from "../../views/styleSheet/styleSheet";
+import { primaryColour1 } from "../../views/styleSheet/styleSheet";
 
 export default class PriceSlider extends React.Component {
   constructor(props) {
@@ -37,7 +37,7 @@ export default class PriceSlider extends React.Component {
               }}
               minimumTrackTintColor="#505050"
               maximumTrackTintColor="#D3D3D3"
-              thumbTintColor={darkGreen}
+              thumbTintColor={primaryColour1}
             />
           </View>
           <View style={{ flex: 0.3 }}>
@@ -52,7 +52,7 @@ export default class PriceSlider extends React.Component {
               leftIcon={
                 <Text
                   style={{
-                    color: darkGreen,
+                    color: primaryColour1,
                     fontSize: 20,
                     fontWeight: "bold",
                   }}>

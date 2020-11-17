@@ -5,7 +5,7 @@ import firebase from "firebase";
 import { db } from "../database/firebase";
 import { Input } from "react-native-elements";
 import globalStyles from "../styleSheet/styleSheet";
-import { darkGreen } from "../styleSheet/styleSheet";
+import { primaryColour1 } from "../styleSheet/styleSheet";
 
 export default class SignUp extends React.Component {
   state = {
@@ -119,7 +119,7 @@ export default class SignUp extends React.Component {
               type: "ionicons",
               name: "person-outline",
               size: 25,
-              color: darkGreen,
+              color: primaryColour1,
               paddingRight: 10,
               paddingLeft: 5,
             }}
@@ -135,7 +135,7 @@ export default class SignUp extends React.Component {
               type: "font-awesome",
               name: "calendar",
               size: 20,
-              color: darkGreen,
+              color: primaryColour1,
               paddingRight: 12,
               paddingLeft: 8,
             }}
@@ -151,7 +151,7 @@ export default class SignUp extends React.Component {
               type: "ionicons",
               name: "mail-outline",
               size: 25,
-              color: darkGreen,
+              color: primaryColour1,
               paddingRight: 10,
               paddingLeft: 5,
             }}
@@ -168,7 +168,7 @@ export default class SignUp extends React.Component {
               type: "ionicons",
               name: "lock-outline",
               size: 25,
-              color: darkGreen,
+              color: primaryColour1,
               paddingRight: 10,
               paddingLeft: 5,
             }}
@@ -187,7 +187,7 @@ export default class SignUp extends React.Component {
               type: "ionicons",
               name: "lock-outline",
               size: 25,
-              color: darkGreen,
+              color: primaryColour1,
               paddingRight: 10,
               paddingLeft: 5,
             }}

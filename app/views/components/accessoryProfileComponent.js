@@ -4,7 +4,7 @@ import { Card, } from "react-native-elements";
 import { Button } from "react-native-paper";
 import styles from "../styleSheet/styleSheet";
 import Icon from 'react-native-vector-icons/AntDesign';
-import { darkGreen, green, lightGreen, lightGrey, orange, lightBlue } from "../styleSheet/styleSheet";
+import { primaryColour1, primaryColour2, lightGrey, lightBlue } from "../styleSheet/styleSheet";
 import { cartTab } from "../components/shopTabComponent";
 import { getItemList, addItemToCart } from "../components/shopComponents";
 
@@ -64,7 +64,7 @@ export const profileInfo = (item) => {
                 {item.type}
               </Text>
               <Text numberOfLines={1} style={styles.contentText}>
-                {item.price}
+                ${item.price}
               </Text>
               <Text style={styles.contentText}>
                 {item.description}
@@ -78,17 +78,17 @@ export const profileInfo = (item) => {
 };
 
 export const addToCartButton = (item) => {
-  return(
+  return (
     <View style={styles.buttonsContainer}>
       <Button
-        color={darkGreen}
+        color={primaryColour1}
         onPress={() => addItemToCart(item)}
         contentStyle={{
           height: 30,
         }}
         mode="contained"
       >
-        Add To Cart
+        <Text style={{color: "white"}}>Add To Cart</Text>
       </Button>
     </View>
   )
@@ -115,7 +115,7 @@ export const sellerInfo = (seller, navigation) => {
             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', paddingTop: 10 }}>
               <Button
                 style={{
-                  backgroundColor: green,
+                  backgroundColor: primaryColour2,
                   alignItems: "center",
                   justifyContent: "center",
                   borderRadius: 5,

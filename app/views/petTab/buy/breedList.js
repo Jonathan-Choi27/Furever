@@ -10,7 +10,7 @@ import {
   Paragraph,
 } from "react-native-paper";
 import { db } from "../../database/firebase";
-import globalStyles, { darkGreen, green } from "../../styleSheet/styleSheet";
+import globalStyles, { primaryColour1, primaryColour2 } from "../../styleSheet/styleSheet";
 import { petBuyCard } from "../../components/petBuyComponents";
 import { Dimensions } from "react-native";
 
@@ -73,6 +73,8 @@ export default class breedList extends React.Component {
                 training: listingDoc.data().training,
                 additional: listingDoc.data().additionalInfo,
                 photo: listingDoc.data().photoLink,
+                documentName: listingDoc.data().documentsLink,
+                documentUri: listingDoc.data().documents_uri,
                 doc_id: listingDoc.id,
                 uuid: listingDoc.data().uuid,
               });
@@ -151,7 +153,7 @@ export default class breedList extends React.Component {
                 </Card.Content>
                 <Card.Actions style={{ justifyContent: "flex-end" }}>
                   <Button
-                    color={darkGreen}
+                    color={primaryColour1}
                     onPress={() =>
                       this.props.navigation.navigate("breedInfo", { item })
                     }
@@ -167,7 +169,7 @@ export default class breedList extends React.Component {
             <Text style={globalStyles.pageTitle}>{item.breedName}</Text>
             <View>
               <Button
-                color={green}
+                color={primaryColour2}
                 onPress={() => {
                   this.setState({ visible: true });
                 }}

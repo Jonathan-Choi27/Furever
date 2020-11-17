@@ -2,7 +2,7 @@ import { Picker, Text, View } from "react-native";
 import React from "react";
 import { CustomPicker } from "./customPicker";
 import GooglePlacesInput from "./mapAutoComplete";
-import globalStyles, { darkGreen } from "../styleSheet/styleSheet";
+import globalStyles, { primaryColour1 } from "../styleSheet/styleSheet";
 import { Icon } from "react-native-elements";
 
 var age = [];
@@ -67,7 +67,7 @@ export default class AgePicker extends React.Component {
               flexDirection: "row",
             }}>
             <View style={{ justifyContent: "center", flex: 0.2 }}>
-              <Icon name="ios-paper" type="ionicon" color={darkGreen} />
+              <Icon name="ios-paper" type="ionicon" color={primaryColour1} />
             </View>
             <View style={globalStyles.formPickerInnerContainer}>
               <Picker

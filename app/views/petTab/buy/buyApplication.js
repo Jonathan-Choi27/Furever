@@ -9,7 +9,7 @@ import "react-navigation-hooks";
 import { db } from "../../database/firebase";
 import { auth } from "../../database/firebase";
 import { CustomInput } from "../../components/customInput";
-import globalStyles, { darkGreen, green } from "../../styleSheet/styleSheet";
+import globalStyles, { primaryColour1, primaryColour2 } from "../../styleSheet/styleSheet";
 import { Icon } from "react-native-elements";
 import GooglePlacesInput from "../../components/mapAutoComplete";
 // AIzaSyC-6ifFUYzIIgUf1uhbmJ_BU6VQyre4bRw
@@ -165,7 +165,7 @@ export default class buyApplication extends React.Component {
       bool = false;
     } else {
       bool = true;
-        }
+    }
 
     return bool;
   };
@@ -175,7 +175,7 @@ export default class buyApplication extends React.Component {
 
     if (bool) {
       this.pushData();
-    //   alert("Application Successful!");
+      //   alert("Application Successful!");
       this.props.navigation.goBack();
     }
   };
@@ -234,7 +234,7 @@ export default class buyApplication extends React.Component {
               <Icon
                 name="ios-call"
                 type="ionicon"
-                color={darkGreen}
+                color={primaryColour1}
                 containerStyle={{ paddingRight: 10 }}
               />
             }
@@ -264,7 +264,7 @@ export default class buyApplication extends React.Component {
               <Icon
                 name="ios-paper"
                 type="ionicon"
-                color={darkGreen}
+                color={primaryColour1}
                 containerStyle={{ paddingLeft: 7, paddingRight: 10 }}
               />
             }
@@ -281,7 +281,7 @@ export default class buyApplication extends React.Component {
               <Icon
                 name="ios-paper"
                 type="ionicon"
-                color={darkGreen}
+                color={primaryColour1}
                 containerStyle={{ paddingLeft: 7, paddingRight: 10 }}
               />
             }
@@ -298,7 +298,7 @@ export default class buyApplication extends React.Component {
               <Icon
                 name="ios-paper"
                 type="ionicon"
-                color={darkGreen}
+                color={primaryColour1}
                 containerStyle={{ paddingLeft: 7, paddingRight: 10 }}
               />
             }
@@ -314,7 +314,7 @@ export default class buyApplication extends React.Component {
               <Icon
                 name="ios-paper"
                 type="ionicon"
-                color={darkGreen}
+                color={primaryColour1}
                 containerStyle={{ paddingLeft: 7, paddingRight: 10 }}
               />
             }
@@ -334,7 +334,7 @@ export default class buyApplication extends React.Component {
               <Icon
                 name="ios-paper"
                 type="ionicon"
-                color={darkGreen}
+                color={primaryColour1}
                 containerStyle={{ paddingLeft: 7, paddingRight: 10 }}
               />
             }
@@ -351,7 +351,7 @@ export default class buyApplication extends React.Component {
             style={{
               marginTop: 20,
               marginBottom: 20,
-              backgroundColor: darkGreen,
+              backgroundColor: primaryColour1,
             }}
             onPress={this.handleSubmit}>
             <Text
