@@ -129,15 +129,15 @@ export const acceptBuyer = (item, navigation) => {
     "Hi " +
     item.name +
     "," +
-    `<br><br>` +
+    "\n\n" +
     "Congratulations!" +
-    `<br><br>` +
+    "\n\n" +
     "Your application has been accepted. I will contact you shortly for further details about the next steps." +
-    `<br><br>` +
+    "\n\n" +
     "Thank you." +
-    `<br><br>` +
+    "\n\n" +
     "Kind Regards," +
-    `<br>` +
+    "\n" +
     item.sellerName;
   return (
     <View style={styles.buttonsContainer}>
@@ -164,7 +164,7 @@ export const acceptBuyer = (item, navigation) => {
         <TouchableOpacity
           style={styles.buttons}
           onPress={() => {
-            db.collection("pet_listings")
+            db.collection("petListings")
               .doc(item.pet_id)
               .collection("buyer_applications")
               .where("is_accepted", "==", true)
@@ -172,7 +172,7 @@ export const acceptBuyer = (item, navigation) => {
               .get()
               .then((querySnapshot) => {
                 if (querySnapshot.empty == true) {
-                  db.collection("pet_listings")
+                  db.collection("petListings")
                     .doc(item.pet_id)
                     .collection("buyer_applications")
                     .doc(item.doc_id)
