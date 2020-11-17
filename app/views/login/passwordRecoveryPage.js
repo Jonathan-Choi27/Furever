@@ -5,7 +5,7 @@ import { Input } from "react-native-elements";
 import { AppLoading } from "expo";
 import * as Font from "expo-font";
 import globalStyles from "../styleSheet/styleSheet";
-import { darkGreen, green } from "../styleSheet/styleSheet";
+import { primaryColour1, primaryColour2 } from "../styleSheet/styleSheet";
 
 export default class PasswordRecoveryPage extends React.Component {
   state = {
@@ -55,7 +55,7 @@ export default class PasswordRecoveryPage extends React.Component {
               type: "ionicons",
               name: "mail-outline",
               size: 25,
-              color: darkGreen,
+              color: primaryColour1,
               paddingRight: 10,
               paddingLeft: 5,
             }}

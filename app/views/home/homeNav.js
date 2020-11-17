@@ -7,24 +7,24 @@ import homePetProfile from "./homePetProfile";
 import homeSellerProfile from "./homeSellerProfile"
 import buyApplication from "../petTab/buy/buyApplication";
 import HeaderLogo from "./headerLogo";
-import { darkGreen, green, lightGreen, orange, lightBlue } from "../styleSheet/styleSheet";
+import { primaryColour1, primaryColour2, lightBlue } from "../styleSheet/styleSheet";
 
 const Stack = createStackNavigator();
 
 export default function HomeNav() {
-	
+
 	useEffect(() => {
 		const backAction = () => {
-		  onPress: () => null;
-		  // onPress: () => BackHandler.exitApp();
-		  return true;
+			onPress: () => null;
+			// onPress: () => BackHandler.exitApp();
+			return true;
 		};
-	
+
 		const backHandler = BackHandler.addEventListener(
-		  "hardwareBackPress",
-		  backAction
+			"hardwareBackPress",
+			backAction
 		);
-	
+
 		return () => backHandler.remove();
 	}, []);
 
@@ -39,7 +39,7 @@ export default function HomeNav() {
 						headerStyle: {
 							backgroundColor: "white",
 						},
-						headerTitle: <HeaderLogo/>,
+						headerTitle: <HeaderLogo />,
 						headerTitleStyle: {
 							alignSelf: "center",
 							flex: 1,
@@ -48,9 +48,9 @@ export default function HomeNav() {
 						headerTitleContainerStyle: { left: 0, right: 0 },
 					}}
 				/>
-				<Stack.Screen name="petProfile" component={homePetProfile} options={{headerShown: false}} />
-				<Stack.Screen name="buyApplication" component={buyApplication} options={{headerShown: false}} />
-				<Stack.Screen name="sellerProfile" component={homeSellerProfile} options={{headerShown: false}} />
+				<Stack.Screen name="petProfile" component={homePetProfile} options={{ headerShown: false }} />
+				<Stack.Screen name="buyApplication" component={buyApplication} options={{ headerShown: false }} />
+				<Stack.Screen name="sellerProfile" component={homeSellerProfile} options={{ headerShown: false }} />
 
 			</Stack.Navigator>
 		</NavigationContainer>

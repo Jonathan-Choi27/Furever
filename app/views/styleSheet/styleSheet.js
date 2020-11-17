@@ -4,17 +4,10 @@ import { Dimensions } from "react-native";
 export const screenWidth = Math.round(Dimensions.get("window").width);
 const textWidth = (screenWidth - 20) / 2;
 
-// export const darkGreen = "#53A687";
-export const green = "#038f6f";
-export const lightGreen = "#DEF294";
-export const darkGreen = "#00614b";
+// export const primaryColour1 = "#53A687";
+export const primaryColour2 = "#FF9680";
+export const primaryColour1 = "#FF5733";
 export const pageBackgroundColour = "#f7f8fa";
-
-export const navy = "#1D304E";
-export const darkNavy = "#0C1C30";
-export const orange = "#FF8611";
-export const lightOrange = "#FFAD4C";
-export const pink = "#FF686B";
 
 export default StyleSheet.create({
   // Landing Page
@@ -42,7 +35,7 @@ export default StyleSheet.create({
     flexGrow: 1,
   },
   landingButtons: {
-    backgroundColor: green,
+    backgroundColor: primaryColour2,
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 10,
@@ -60,7 +53,7 @@ export default StyleSheet.create({
   },
   linkText: {
     fontWeight: "bold",
-    color: green,
+    color: primaryColour2,
   },
 
   // Login Page
@@ -86,14 +79,14 @@ export default StyleSheet.create({
   loginTitle: {
     marginTop: 12,
     textAlign: "center",
-    color: navy,
+    color: "black",
     padding: 10,
     fontSize: 15,
   },
   loginTitle2: {
     marginTop: 10,
     textAlign: "center",
-    color: navy,
+    color: "black",
   },
 
   // Signup
@@ -132,7 +125,7 @@ export default StyleSheet.create({
     paddingBottom: 3,
     fontWeight: "bold",
     fontSize: 14.5,
-    color: navy,
+    color: "black",
     backgroundColor: "white",
     borderBottomLeftRadius: 10,
     borderBottomRightRadius: 10,
@@ -196,7 +189,7 @@ export default StyleSheet.create({
     marginBottom: 5,
   },
   buttons: {
-    backgroundColor: darkGreen,
+    backgroundColor: primaryColour1,
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 5,
@@ -266,7 +259,7 @@ export default StyleSheet.create({
     backgroundColor: pageBackgroundColour,
   },
   viewApplication: {
-    backgroundColor: darkGreen,
+    backgroundColor: primaryColour1,
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
@@ -323,7 +316,7 @@ export default StyleSheet.create({
   iconText: {
     paddingTop: 1,
     textAlign: "center",
-    color: darkGreen,
+    color: "black",
     fontWeight: "bold",
   },
   activityContainer: {
@@ -334,7 +327,7 @@ export default StyleSheet.create({
 
   // Profile Page
   profileContainer: {
-    backgroundColor: darkGreen,
+    backgroundColor: primaryColour2,
     borderBottomRightRadius: 1000,
     borderBottomLeftRadius: 1000,
     marginBottom: 20,
@@ -371,17 +364,17 @@ export default StyleSheet.create({
     justifyContent: "center",
   },
   shortLine: {
-    borderBottomColor: "#D3D3D3",
+    borderBottomColor: "white",
     borderBottomWidth: 1,
     paddingBottom: 5,
   },
   profileName: {
-    color: "white",
+    color: "black",
     fontSize: 30,
     fontWeight: "bold",
   },
   emailStyle: {
-    color: "#202020",
+    // color: "white",
     fontSize: 17,
     marginTop: 10,
   },
@@ -423,7 +416,7 @@ export default StyleSheet.create({
   },
   petBuyCardBigButton: {
     flex: 1,
-    backgroundColor: darkGreen,
+    backgroundColor: primaryColour1,
     marginTop: 10,
     marginLeft: 20,
     marginRight: 20,
@@ -505,7 +498,7 @@ export default StyleSheet.create({
   //Listing card
   smallButton: {
     flex: 1,
-    borderColor: darkGreen,
+    borderColor: primaryColour1,
     borderWidth: 1,
     marginLeft: 1.5,
     marginRight: 1.5,
@@ -515,7 +508,7 @@ export default StyleSheet.create({
   },
   bigButton: {
     flex: 1,
-    backgroundColor: darkGreen,
+    backgroundColor: primaryColour1,
     marginLeft: 1.5,
     marginRight: 1.5,
     marginTop: 5,

@@ -9,13 +9,13 @@ import {
   BackHandler,
   Dimensions,
 } from "react-native";
-import { 
+import {
   Icon,
   Card,
 } from "react-native-elements";
 import { Button } from "react-native-paper";
 import firebase from "firebase";
-import globalStyles, {darkGreen, green} from "../styleSheet/styleSheet";
+import globalStyles, { primaryColour1, primaryColour2 } from "../styleSheet/styleSheet";
 import { openImagePicker, uploadPhoto } from "../components/imageUpload";
 import { CustomInput } from "../components/customInput";
 import PriceSlider from "../components/priceSlider";
@@ -48,7 +48,7 @@ export default class accessoryListingApplication extends React.Component {
       photoUri: emptyImage,
       photoUuid: "",
     }
-    
+
     this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
   }
 
@@ -118,12 +118,12 @@ export default class accessoryListingApplication extends React.Component {
       photoLink: this.state.photoLink,
       price: this.state.price,
     })
-    .then((accessoryDocRef) => {
-      // Recieve DocumentReference of the accessory and store in self (for convenience of retrieval)
-      accessoryDocRef.update({
-        selfRef: accessoryDocRef,
-      });
-      db.collection("users")
+      .then((accessoryDocRef) => {
+        // Recieve DocumentReference of the accessory and store in self (for convenience of retrieval)
+        accessoryDocRef.update({
+          selfRef: accessoryDocRef,
+        });
+        db.collection("users")
           .doc(user.uid)
           .collection("shopSellList")
           .add({
@@ -136,20 +136,20 @@ export default class accessoryListingApplication extends React.Component {
               userShopSellListRef: userShopSellListRef,
             });
           });
-      db.collection("categorizedShopListings")
-        .doc(this.state.category)
-        .collection(this.state.type)
-        .add({
-          list: accessoryDocRef,
-        })
-        .then((categorizedShopListingsRef) => {
-          // Recieve DocumentReference and store
-          accessoryDocRef.update({
-            categorizedShopListingsRef: categorizedShopListingsRef,
-            timestamp: firebase.firestore.Timestamp.now(),
+        db.collection("categorizedShopListings")
+          .doc(this.state.category)
+          .collection(this.state.type)
+          .add({
+            list: accessoryDocRef,
+          })
+          .then((categorizedShopListingsRef) => {
+            // Recieve DocumentReference and store
+            accessoryDocRef.update({
+              categorizedShopListingsRef: categorizedShopListingsRef,
+              timestamp: firebase.firestore.Timestamp.now(),
+            });
           });
-        });
-    });
+      });
     alert("Application Successful!");
     this.props.navigation.goBack();
   };
@@ -314,7 +314,7 @@ export default class accessoryListingApplication extends React.Component {
               <Icon
                 name="ios-paper"
                 type="ionicon"
-                color={darkGreen}
+                color={primaryColour1}
                 containerStyle={{ paddingLeft: 7, paddingRight: 10 }}
               />
             }
@@ -323,12 +323,12 @@ export default class accessoryListingApplication extends React.Component {
           <View style={{ marginHorizontal: 10, marginBottom: 20 }}>
             <Text
               style={{ color: "#505050", fontWeight: "bold", fontSize: 16 }}>
-                Animal Category
+              Animal Category
             </Text>
 
             <View style={globalStyles.formPickerOuterContainer}>
               <View style={globalStyles.formPickerIconContainer}>
-                <Icon name="ios-paper" type="ionicon" color={darkGreen} />
+                <Icon name="ios-paper" type="ionicon" color={primaryColour1} />
               </View>
               <View style={globalStyles.formPickerInnerContainer}>
                 <Picker
@@ -355,12 +355,12 @@ export default class accessoryListingApplication extends React.Component {
           <View style={{ marginHorizontal: 10, marginBottom: 20 }}>
             <Text
               style={{ color: "#505050", fontWeight: "bold", fontSize: 16 }}>
-                Product Type
+              Product Type
             </Text>
 
             <View style={globalStyles.formPickerOuterContainer}>
               <View style={globalStyles.formPickerIconContainer}>
-                <Icon name="ios-paper" type="ionicon" color={darkGreen} />
+                <Icon name="ios-paper" type="ionicon" color={primaryColour1} />
               </View>
               <View style={globalStyles.formPickerInnerContainer}>
                 <Picker
@@ -384,7 +384,7 @@ export default class accessoryListingApplication extends React.Component {
             </View>
           </View>
 
-          <PriceSlider price={this.state.price} setPrice={this.setPrice} max={1000}/>
+          <PriceSlider price={this.state.price} setPrice={this.setPrice} max={1000} />
 
         </Card>
 
@@ -399,7 +399,7 @@ export default class accessoryListingApplication extends React.Component {
               <Icon
                 name="ios-paper"
                 type="ionicon"
-                color={darkGreen}
+                color={primaryColour1}
                 containerStyle={{ paddingLeft: 7, paddingRight: 10 }}
               />
             }
@@ -443,7 +443,7 @@ export default class accessoryListingApplication extends React.Component {
             <Button
               style={{
                 marginTop: 10,
-                backgroundColor: green,
+                backgroundColor: primaryColour2,
                 marginHorizontal: 10,
               }}
               onPress={this.setPhotoUri}>
@@ -465,7 +465,7 @@ export default class accessoryListingApplication extends React.Component {
             <Text style={globalStyles.buttonsText}>Submit</Text>
           </TouchableOpacity>
         </View>
-          
+
       </ScrollView>
     );
   }

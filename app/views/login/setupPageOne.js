@@ -1,20 +1,35 @@
 import * as React from "react";
 import { ActivityIndicator } from "react-native";
-import { View, Image, Text, BackHandler, StyleSheet } from "react-native";
+import {
+  Alert,
+  View,
+  Image,
+  Text,
+  BackHandler,
+  StyleSheet,
+} from "react-native";
 import { Button, TextInput, Card } from "react-native-paper";
 import { openImagePicker, uploadPhoto } from "../components/imageUpload";
 import { db } from "../database/firebase";
 import { auth } from "../database/firebase";
 import uuid from "react-native-uuid";
 import { Avatar, Accessory, Input } from "react-native-elements";
-import globalStyles, { darkGreen, green, lightGrey, screenWidth } from "../styleSheet/styleSheet";
+import globalStyles, {
+  primaryColour1,
+  primaryColour2,
+  lightGrey,
+  screenWidth,
+} from "../styleSheet/styleSheet";
 
 export default class SetupOne extends React.Component {
   state = {
     name: "",
-    photo: "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2FemptyUser.png?alt=media&token=9414c888-2439-4138-a431-46a314a44c03",
+    profileText: "",
+    photo:
+      "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2FemptyUser.png?alt=media&token=9414c888-2439-4138-a431-46a314a44c03",
     photoUuid: "",
-    photoUri: "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2FemptyUser.png?alt=media&token=9414c888-2439-4138-a431-46a314a44c03",
+    photoUri:
+      "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2FemptyUser.png?alt=media&token=9414c888-2439-4138-a431-46a314a44c03",
   };
 
   componentDidMount() {
@@ -48,12 +63,17 @@ export default class SetupOne extends React.Component {
     if (this.state.photo != this.state.photoUri) {
       const photoURL = await uploadPhoto(
         this.state.photoUri,
-        this.state.photoUuid,
+        this.state.photoUuid
       );
 
       this.setState({
         photo: photoURL,
       });
+    }
+
+    if (!this.state.profileText.trim()) {
+      Alert.alert("Input Error", "Profile text cannot be empty");
+      return;
     }
 
     const user = auth.currentUser;
@@ -82,7 +102,7 @@ export default class SetupOne extends React.Component {
       <View style={globalStyles.container}>
         <View
           style={{
-            backgroundColor: darkGreen,
+            backgroundColor: primaryColour1,
             borderBottomRightRadius: 1000,
             borderBottomLeftRadius: 1000,
             transform: [{ scaleX: 2 }],
@@ -133,7 +153,7 @@ export default class SetupOne extends React.Component {
             <Input
               label="Add Profile Text"
               placeholder="Can be anything about you..."
-              labelStyle={{ color: green }}
+              labelStyle={{ color: primaryColour2 }}
               onChangeText={(profileText) => this.setState({ profileText })}
               multiline
             />
@@ -173,8 +193,8 @@ const styles = StyleSheet.create({
   },
   buttons: {
     borderWidth: 1,
-    borderColor: green,
-    backgroundColor: green,
+    borderColor: primaryColour2,
+    backgroundColor: primaryColour2,
     alignItems: "center",
     justifyContent: "center",
     width: 250,

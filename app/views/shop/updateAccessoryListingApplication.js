@@ -1,21 +1,21 @@
 import * as React from "react";
 import {
-  Picker,
-  Text,
-  View,
-  TouchableOpacity,
-  ScrollView,
-  Image,
-  BackHandler,
-  Dimensions,
+    Picker,
+    Text,
+    View,
+    TouchableOpacity,
+    ScrollView,
+    Image,
+    BackHandler,
+    Dimensions,
 } from "react-native";
-import { 
-  Icon,
-  Card,
+import {
+    Icon,
+    Card,
 } from "react-native-elements";
 import { Button } from "react-native-paper";
 import firebase from "firebase";
-import globalStyles, {darkGreen, green} from "../styleSheet/styleSheet";
+import globalStyles, { primaryColour1, primaryColour2 } from "../styleSheet/styleSheet";
 import { openImagePicker, uploadPhoto } from "../components/imageUpload";
 import { CustomInput } from "../components/customInput";
 import PriceSlider from "../components/priceSlider";
@@ -25,7 +25,7 @@ import { auth } from "../database/firebase";
 const db = firebase.firestore();
 const screenWidth = Math.round(Dimensions.get("window").width);
 const emptyImage =
-  "https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty.jpg";
+    "https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty.jpg";
 
 export default class updateAccessoryListingApplication extends React.Component {
     constructor(props) {
@@ -39,16 +39,16 @@ export default class updateAccessoryListingApplication extends React.Component {
             descriptionErr: "",
             categoryErr: "",
             typeErr: "",
-            // name: "",
-            // category: "",
-            // type: "",
-            // description: "",
+            name: "",
+            category: "",
+            type: "",
+            description: "",
             price: "0",
-            // photoLink: "",
-            // photoUri: emptyImage,
+            photoLink: "",
+            photoUri: emptyImage,
             photoUuid: "",
         }
-    
+
         this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
     }
 
@@ -58,17 +58,16 @@ export default class updateAccessoryListingApplication extends React.Component {
             .doc(this.props.route.params.docId)
             .get()
             .then((doc) => {
-            this.setState({
-                name: doc.data().name,
-                category: doc.data().category,
-                type: doc.data().type,
-                description: doc.data().description,
-                price: doc.data().price,
-                photoLink: doc.data().photoLink,
-                photoUri: doc.data().photoLink,
-            });
-            // this.state.name = await doc.data().name;
-            // console.log(this.state.name);
+                this.setState({
+                    name: doc.data().name,
+                    category: doc.data().category,
+                    type: doc.data().type,
+                    description: doc.data().description,
+                    price: doc.data().price,
+                    photoLink: doc.data().photoLink,
+                    photoUri: doc.data().photoLink,
+                });
+                // this.state.name = await doc.data().name;
             });
 
         BackHandler.addEventListener(
@@ -99,16 +98,16 @@ export default class updateAccessoryListingApplication extends React.Component {
 
         var submit = true;
         if (
-        this.nameValidator() == false ||
-        this.categoryValidator() == false ||
-        this.typeValidator() == false ||
-        this.descriptionValidator() == false ||
-        this.photoValidator() == false
+            this.nameValidator() == false ||
+            this.categoryValidator() == false ||
+            this.typeValidator() == false ||
+            this.descriptionValidator() == false ||
+            this.photoValidator() == false
         ) {
-        alert("All input fields required and must be valid.");
-        submit = false;
+            alert("All input fields required and must be valid.");
+            submit = false;
         } else {
-        submit = true;
+            submit = true;
         }
         return submit;
     };
@@ -144,26 +143,26 @@ export default class updateAccessoryListingApplication extends React.Component {
     handleSubmit = () => {
         var submit = this.validationCheck();
         if (submit == true) {
-        this.pushData();
+            this.pushData();
         }
     };
 
     // State setter functions
     setPrice = (price) => {
         this.setState({
-        price: price,
+            price: price,
         });
     };
 
     setCategory = (val) => {
         this.setState({
-        category: val,
+            category: val,
         });
     };
 
     setType = (val) => {
         this.setState({
-        type: val,
+            type: val,
         });
     };
 
@@ -171,19 +170,19 @@ export default class updateAccessoryListingApplication extends React.Component {
     nameValidator = () => {
         var bool;
         if (this.state.name == "" || /\d+/g.test(this.state.name)) {
-        bool = false;
-        this.setState({
-            nameErr: "Invalid name",
-        });
+            bool = false;
+            this.setState({
+                nameErr: "Invalid name",
+            });
         } else {
-        bool = true;
-        this.setState({
-            nameErr: "",
-        });
+            bool = true;
+            this.setState({
+                nameErr: "",
+            });
         }
 
         this.setState({
-        valid_name: bool,
+            valid_name: bool,
         });
 
         return bool;
@@ -192,15 +191,15 @@ export default class updateAccessoryListingApplication extends React.Component {
     categoryValidator = () => {
         var bool;
         if (this.state.category == "0" || this.state.category == "") {
-        bool = false;
-        this.setState({
-            categoryErr: "Select category",
-        });
+            bool = false;
+            this.setState({
+                categoryErr: "Select category",
+            });
         } else {
-        bool = true;
-        this.setState({
-            categoryErr: "",
-        });
+            bool = true;
+            this.setState({
+                categoryErr: "",
+            });
         }
 
         return bool;
@@ -209,15 +208,15 @@ export default class updateAccessoryListingApplication extends React.Component {
     typeValidator = () => {
         var bool;
         if (this.state.type == "0" || this.state.type == "") {
-        bool = false;
-        this.setState({
-            typeErr: "Select breed",
-        });
+            bool = false;
+            this.setState({
+                typeErr: "Select breed",
+            });
         } else {
-        bool = true;
-        this.setState({
-            typeErr: "",
-        });
+            bool = true;
+            this.setState({
+                typeErr: "",
+            });
         }
 
         return bool;
@@ -226,17 +225,17 @@ export default class updateAccessoryListingApplication extends React.Component {
     descriptionValidator = () => {
         var bool;
         if (this.state.description == "") {
-        bool = false;
-        this.setState({
-            valid_description: false,
-            descriptionErr: "Please fill this field in",
-        });
+            bool = false;
+            this.setState({
+                valid_description: false,
+                descriptionErr: "Please fill this field in",
+            });
         } else {
-        bool = true;
-        this.setState({
-            descriptionErr: "",
-            valid_description: true,
-        });
+            bool = true;
+            this.setState({
+                descriptionErr: "",
+                valid_description: true,
+            });
         }
 
         return bool;
@@ -245,30 +244,30 @@ export default class updateAccessoryListingApplication extends React.Component {
     photoValidator = () => {
         var bool;
         if (
-        this.state.photoUri == "" ||
-        this.state.photoUri == null ||
-        this.state.photoUri == undefined ||
-        this.state.photoUri == emptyImage
+            this.state.photoUri == "" ||
+            this.state.photoUri == null ||
+            this.state.photoUri == undefined ||
+            this.state.photoUri == emptyImage
         ) {
-        bool = false;
-        this.setState({
-            valid_uri: false,
-        });
+            bool = false;
+            this.setState({
+                valid_uri: false,
+            });
         } else {
-        bool = true;
-        this.setState({
-            valid_uri: true,
-        });
+            bool = true;
+            this.setState({
+                valid_uri: true,
+            });
         }
         return bool;
     };
 
     priceValidator = () => {
         if (this.state.price == "") {
-        //   console.log("going in loop");
-        this.setState({
-            price: "0",
-        });
+            //   console.log("going in loop");
+            this.setState({
+                price: "0",
+            });
         }
     };
 
@@ -277,185 +276,185 @@ export default class updateAccessoryListingApplication extends React.Component {
         const get_uri = await openImagePicker();
 
         this.setState({
-        photoUuid: uuid.v4(),
-        photoUri: get_uri,
+            photoUuid: uuid.v4(),
+            photoUri: get_uri,
         });
     };
 
     render() {
         return (
-        <ScrollView
-            keyboardShouldPersistTaps={"handled"}
-            showsVerticalScrollIndicator={false}
-        >
-            <Card containerStyle={{ borderRadius: 10 }}>
-            <Text style={globalStyles.applicationHeading}>Update Accessory Application</Text>
-            <Text style={globalStyles.cardHeading}>General Information</Text>
+            <ScrollView
+                keyboardShouldPersistTaps={"handled"}
+                showsVerticalScrollIndicator={false}
+            >
+                <Card containerStyle={{ borderRadius: 10 }}>
+                    <Text style={globalStyles.applicationHeading}>Update Accessory Application</Text>
+                    <Text style={globalStyles.cardHeading}>General Information</Text>
 
-            <CustomInput
-                label="Accessory Name"
-                defaultValue={this.state.name}
-                placeholder="Please fill in the field"
-                onChangeText={(name) => this.setState({ name })}
-                errorMessage={this.state.nameErr}
-                leftIcon={
-                <Icon
-                    name="ios-paper"
-                    type="ionicon"
-                    color={darkGreen}
-                    containerStyle={{ paddingLeft: 7, paddingRight: 10 }}
-                />
-                }
-            />
-
-            <View style={{ marginHorizontal: 10, marginBottom: 20 }}>
-                <Text
-                style={{ color: "#505050", fontWeight: "bold", fontSize: 16 }}>
-                    Animal Category
-                </Text>
-
-                <View style={globalStyles.formPickerOuterContainer}>
-                <View style={globalStyles.formPickerIconContainer}>
-                    <Icon name="ios-paper" type="ionicon" color={darkGreen} />
-                </View>
-                <View style={globalStyles.formPickerInnerContainer}>
-                    <Picker
-                    selectedValue={this.state.category}
-                    onValueChange={(category) => this.setState({ category })}>
-                    <Picker.Item
-                        label="Select category"
-                        value="0"
-                        color="#D3D3D3"
+                    <CustomInput
+                        label="Accessory Name"
+                        defaultValue={this.state.name}
+                        placeholder="Please fill in the field"
+                        onChangeText={(name) => this.setState({ name })}
+                        errorMessage={this.state.nameErr}
+                        leftIcon={
+                            <Icon
+                                name="ios-paper"
+                                type="ionicon"
+                                color={primaryColour1}
+                                containerStyle={{ paddingLeft: 7, paddingRight: 10 }}
+                            />
+                        }
                     />
-                    <Picker.Item label="Dog" value="Dog" />
-                    <Picker.Item label="Cat" value="Cat" />
-                    <Picker.Item label="Rabbit" value="Rabbit" />
-                    <Picker.Item label="Fish" value="Fish" />
-                    <Picker.Item label="Bird" value="Bird" />
-                    <Picker.Item label="Horse" value="Horse" />
-                    <Picker.Item label="Lizard" value="Lizard" />
-                    <Picker.Item label="Turtle" value="Turtle" />
-                    </Picker>
-                </View>
-                </View>
-            </View>
 
-            <View style={{ marginHorizontal: 10, marginBottom: 20 }}>
-                <Text
-                style={{ color: "#505050", fontWeight: "bold", fontSize: 16 }}>
-                    Product Type
-                </Text>
+                    <View style={{ marginHorizontal: 10, marginBottom: 20 }}>
+                        <Text
+                            style={{ color: "#505050", fontWeight: "bold", fontSize: 16 }}>
+                            Animal Category
+                        </Text>
 
-                <View style={globalStyles.formPickerOuterContainer}>
-                <View style={globalStyles.formPickerIconContainer}>
-                    <Icon name="ios-paper" type="ionicon" color={darkGreen} />
-                </View>
-                <View style={globalStyles.formPickerInnerContainer}>
-                    <Picker
-                    selectedValue={this.state.type}
-                    onValueChange={(type) => this.setState({ type })}>
-                    <Picker.Item
-                        label="Select type"
-                        value="0"
-                        color="#D3D3D3"
-                    />
-                    <Picker.Item label="Food" value="Food" />
-                    <Picker.Item label="Toy" value="Toy" />
-                    <Picker.Item label="Apparel" value="Apparel" />
-                    <Picker.Item label="Wash" value="Wash" />
-                    <Picker.Item label="Bed" value="Bed" />
-                    <Picker.Item label="Bowl" value="Bowl" />
-                    <Picker.Item label="Home" value="Home" />
-                    <Picker.Item label="Medicine" value="Medicine" />
-                    </Picker>
-                </View>
-                </View>
-            </View>
-
-            <PriceSlider price={this.state.price} setPrice={this.setPrice} max={1000}/>
-
-            </Card>
-
-            <Card containerStyle={{ borderRadius: 10 }}>
-            <Text style={globalStyles.cardHeading}>Description</Text>
-            <CustomInput
-                defaultValue={this.state.description}
-                placeholder="Please fill in the field"
-                onChangeText={(description) => this.setState({ description })}
-                errorMessage={this.state.descriptionErr}
-                multiline={true}
-                leftIcon={
-                <Icon
-                    name="ios-paper"
-                    type="ionicon"
-                    color={darkGreen}
-                    containerStyle={{ paddingLeft: 7, paddingRight: 10 }}
-                />
-                }
-            />
-            </Card>
-
-            <Card containerStyle={{ borderRadius: 10 }}>
-            <View style={{ marginBottom: 10 }}>
-                <View
-                style={{
-                    flexDirection: "row",
-                    marginHorizontal: 10,
-                    marginBottom: 10,
-                }}>
-                <View
-                    style={{ flex: 1, flexDirection: "row", paddingBottom: 3 }}>
-                    <Text style={globalStyles.applicationInputName}>Upload a Photo</Text>
-                    <Text style={globalStyles.setColorRed}> *</Text>
-                </View>
-                {!this.state.valid_uri && (
-                    <View style={{ flex: 1 }}>
-                    <Text style={globalStyles.applicationErrorText}>Choose a photo</Text>
+                        <View style={globalStyles.formPickerOuterContainer}>
+                            <View style={globalStyles.formPickerIconContainer}>
+                                <Icon name="ios-paper" type="ionicon" color={primaryColour1} />
+                            </View>
+                            <View style={globalStyles.formPickerInnerContainer}>
+                                <Picker
+                                    selectedValue={this.state.category}
+                                    onValueChange={(category) => this.setState({ category })}>
+                                    <Picker.Item
+                                        label="Select category"
+                                        value="0"
+                                        color="#D3D3D3"
+                                    />
+                                    <Picker.Item label="Dog" value="Dog" />
+                                    <Picker.Item label="Cat" value="Cat" />
+                                    <Picker.Item label="Rabbit" value="Rabbit" />
+                                    <Picker.Item label="Fish" value="Fish" />
+                                    <Picker.Item label="Bird" value="Bird" />
+                                    <Picker.Item label="Horse" value="Horse" />
+                                    <Picker.Item label="Lizard" value="Lizard" />
+                                    <Picker.Item label="Turtle" value="Turtle" />
+                                </Picker>
+                            </View>
+                        </View>
                     </View>
-                )}
-                </View>
 
-                <View
-                style={{
-                    alignContent: "center",
-                    alignItems: "center",
-                    //   borderWidth: 2,
-                    //   borderColor: "#D3D3D3",
-                    marginHorizontal: 10,
-                }}>
-                <Image
-                    style={{ height: 300, width: screenWidth - 92 }}
-                    source={{ uri: this.state.photoUri }}
-                />
-                </View>
+                    <View style={{ marginHorizontal: 10, marginBottom: 20 }}>
+                        <Text
+                            style={{ color: "#505050", fontWeight: "bold", fontSize: 16 }}>
+                            Product Type
+                        </Text>
 
-                <Button
-                style={{
-                    marginTop: 10,
-                    backgroundColor: green,
-                    marginHorizontal: 10,
-                }}
-                onPress={this.setPhotoUri}>
-                <Text
-                    style={{
-                    color: "white",
-                    }}>
-                    Choose Photo
+                        <View style={globalStyles.formPickerOuterContainer}>
+                            <View style={globalStyles.formPickerIconContainer}>
+                                <Icon name="ios-paper" type="ionicon" color={primaryColour1} />
+                            </View>
+                            <View style={globalStyles.formPickerInnerContainer}>
+                                <Picker
+                                    selectedValue={this.state.type}
+                                    onValueChange={(type) => this.setState({ type })}>
+                                    <Picker.Item
+                                        label="Select type"
+                                        value="0"
+                                        color="#D3D3D3"
+                                    />
+                                    <Picker.Item label="Food" value="Food" />
+                                    <Picker.Item label="Toy" value="Toy" />
+                                    <Picker.Item label="Apparel" value="Apparel" />
+                                    <Picker.Item label="Wash" value="Wash" />
+                                    <Picker.Item label="Bed" value="Bed" />
+                                    <Picker.Item label="Bowl" value="Bowl" />
+                                    <Picker.Item label="Home" value="Home" />
+                                    <Picker.Item label="Medicine" value="Medicine" />
+                                </Picker>
+                            </View>
+                        </View>
+                    </View>
+
+                    <PriceSlider price={this.state.price} setPrice={this.setPrice} max={1000} />
+
+                </Card>
+
+                <Card containerStyle={{ borderRadius: 10 }}>
+                    <Text style={globalStyles.cardHeading}>Description</Text>
+                    <CustomInput
+                        defaultValue={this.state.description}
+                        placeholder="Please fill in the field"
+                        onChangeText={(description) => this.setState({ description })}
+                        errorMessage={this.state.descriptionErr}
+                        multiline={true}
+                        leftIcon={
+                            <Icon
+                                name="ios-paper"
+                                type="ionicon"
+                                color={primaryColour1}
+                                containerStyle={{ paddingLeft: 7, paddingRight: 10 }}
+                            />
+                        }
+                    />
+                </Card>
+
+                <Card containerStyle={{ borderRadius: 10 }}>
+                    <View style={{ marginBottom: 10 }}>
+                        <View
+                            style={{
+                                flexDirection: "row",
+                                marginHorizontal: 10,
+                                marginBottom: 10,
+                            }}>
+                            <View
+                                style={{ flex: 1, flexDirection: "row", paddingBottom: 3 }}>
+                                <Text style={globalStyles.applicationInputName}>Upload a Photo</Text>
+                                <Text style={globalStyles.setColorRed}> *</Text>
+                            </View>
+                            {!this.state.valid_uri && (
+                                <View style={{ flex: 1 }}>
+                                    <Text style={globalStyles.applicationErrorText}>Choose a photo</Text>
+                                </View>
+                            )}
+                        </View>
+
+                        <View
+                            style={{
+                                alignContent: "center",
+                                alignItems: "center",
+                                //   borderWidth: 2,
+                                //   borderColor: "#D3D3D3",
+                                marginHorizontal: 10,
+                            }}>
+                            <Image
+                                style={{ height: 300, width: screenWidth - 92 }}
+                                source={{ uri: this.state.photoUri }}
+                            />
+                        </View>
+
+                        <Button
+                            style={{
+                                marginTop: 10,
+                                backgroundColor: primaryColour2,
+                                marginHorizontal: 10,
+                            }}
+                            onPress={this.setPhotoUri}>
+                            <Text
+                                style={{
+                                    color: "white",
+                                }}>
+                                Choose Photo
                 </Text>
-                </Button>
-            </View>
-            </Card>
+                        </Button>
+                    </View>
+                </Card>
 
-            <View style={globalStyles.applicationButtonsContainer}>
-            <TouchableOpacity
-                title={"submit"}
-                style={globalStyles.buttons}
-                onPress={this.handleSubmit}>
-                <Text style={globalStyles.buttonsText}>Update</Text>
-            </TouchableOpacity>
-            </View>
-            
-        </ScrollView>
+                <View style={globalStyles.applicationButtonsContainer}>
+                    <TouchableOpacity
+                        title={"submit"}
+                        style={globalStyles.buttons}
+                        onPress={this.handleSubmit}>
+                        <Text style={globalStyles.buttonsText}>Update</Text>
+                    </TouchableOpacity>
+                </View>
+
+            </ScrollView>
         );
     }
 }

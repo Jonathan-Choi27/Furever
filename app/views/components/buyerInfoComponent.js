@@ -18,7 +18,7 @@ export const buyerInfo = (item) => {
   return (
     <View style={styles.container}>
       <Card containerStyle={styles.cardContentContainer}>
-        <View style={{ flexDirection: "row", alignItems: "center", }}>
+        <View style={{ flexDirection: "row", alignItems: "center" }}>
           <Image
             style={{
               paddingLeft: 10,
@@ -56,7 +56,7 @@ export const buyerInfo = (item) => {
             <Text style={styles.contentTextBold}>Email: </Text>
             <Text style={styles.contentTextBold}>Address: </Text>
           </View>
-          <View style={{ paddingLeft: 5 }}>
+          <View style={{ paddingLeft: 5, flex: 1 }}>
             <Text numberOfLines={1} style={styles.contentText}>
               {item.name}
             </Text>
@@ -139,28 +139,10 @@ export const acceptBuyer = (item, navigation) => {
     "Kind Regards," +
     "\n" +
     item.sellerName;
+
   return (
     <View style={styles.buttonsContainer}>
-      {item.is_accepted == true ? (
-        <TouchableOpacity
-          style={styles.buttons}
-          onPress={() => {
-            sendEmail(
-              item.email,
-              "Offer Accepted - " +
-                item.petName +
-                " (" +
-                item.petBreed +
-                ", " +
-                item.petCategory +
-                ")",
-              body
-            );
-          }}
-        >
-          <Text style={styles.buttonsText}>ACCEPTED APPLICATION</Text>
-        </TouchableOpacity>
-      ) : (
+      {item.is_accepted == false ? (
         <TouchableOpacity
           style={styles.buttons}
           onPress={() => {
@@ -205,7 +187,7 @@ export const acceptBuyer = (item, navigation) => {
                 } else {
                   Alert.alert(
                     "Accept Denied",
-                    "You have already accepted a buyer application for this pet."
+                    "You have already accepted a buyer application for this pet, please reject the other pet application first."
                   );
                 }
               });
@@ -213,21 +195,51 @@ export const acceptBuyer = (item, navigation) => {
         >
           <Text style={styles.buttonsText}>ACCEPT</Text>
         </TouchableOpacity>
-      )}
+      ) : item.is_accepted == true ? (
+        <TouchableOpacity
+          style={styles.buttons}
+          onPress={() => {
+            sendEmail(
+              item.email,
+              "Offer Accepted - " +
+                item.petName +
+                " (" +
+                item.petBreed +
+                ", " +
+                item.petCategory +
+                ")",
+              body
+            );
+          }}
+        >
+          <Text style={styles.buttonsText}>ACCEPTED APPLICATION</Text>
+        </TouchableOpacity>
+      ) : null}
     </View>
   );
 };
 
-// export const rejectBuyer = (item, navigation) => {
-//     return (
-//         <View style={styles.buttonsContainer}>
-//             <TouchableOpacity
-//                 style={styles.buttons}
-//                 // onPress={() => navigation.navigate("buyApplication", { item })}
-//             >
+export const rejectBuyer = (item, navigation) => {
+  return (
+    <View style={styles.buttonsContainer}>
+      <TouchableOpacity
+        style={styles.buttonsError}
+        onPress={() => {
+          db.collection("petListings")
+            .doc(item.pet_id)
+            .collection("buyer_applications")
+            .doc(item.doc_id)
+            .delete();
 
-//                 <Text style={styles.buttonsText}>Reject</Text>
-//             </TouchableOpacity>
-//         </View>
-//     );
-// }
+          Alert.alert(
+            "Offer Rejected",
+            "You have declined this offer application, and the offer will now be removed."
+          );
+          navigation.navigate("offerApplications");
+        }}
+      >
+        <Text style={styles.buttonsText}>REJECT</Text>
+      </TouchableOpacity>
+    </View>
+  );
+};

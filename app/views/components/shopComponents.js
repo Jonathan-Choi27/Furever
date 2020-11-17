@@ -1,18 +1,18 @@
 import * as React from "react";
 import {
-    Text,
-    View,
-    Image,
-    TouchableOpacity,
-    Alert,
+  Text,
+  View,
+  Image,
+  TouchableOpacity,
+  Alert,
 } from "react-native";
 import {
-    Card,
-    Button,
+  Card,
+  Button,
 } from "react-native-paper";
 import styleSheet from "../styleSheet/styleSheet";
 import styles from "../styleSheet/styleSheet";
-import globalStyles, { darkGreen, green, lightGreen, lightGrey, orange, lightBlue } from "../styleSheet/styleSheet";
+import globalStyles, { primaryColour1, primaryColour2, lightGrey, lightBlue } from "../styleSheet/styleSheet";
 import { db } from "../database/firebase";
 import { auth } from "../database/firebase";
 import { Cart } from "../shop/Cart";
@@ -24,7 +24,7 @@ export const accessoryListingCard = (item, navigation) => {
     <TouchableOpacity onPress={() => navigation.navigate("shopListingProfile", { item })}>
       <Card elevation={5} style={globalStyles.petBuyCard}>
         <View style={globalStyles.petBuyCardTextContainer}>
-          <View style={{width: 125, height: 125}}>
+          <View style={{ width: 125, height: 125 }}>
             <Image
               source={{ uri: item.photo }}
               style={globalStyles.petBuyCardImage}
@@ -32,7 +32,7 @@ export const accessoryListingCard = (item, navigation) => {
           </View>
           <View style={globalStyles.petBuyCardContent}>
             <Card.Content>
-              <View style={{marginRight: 40}}>
+              <View style={{ marginRight: 40 }}>
                 <Text numberOfLines={1} style={{ flex: 1 }}>
                   <Text style={{ fontSize: 18, paddingBottom: 2 }}>{item.accessoryName}</Text>
                 </Text>
@@ -70,7 +70,7 @@ export const shopCategory = (category, navigation) => {
         <View style={styles.categoryIconContainer}>
           <Image
             style={styles.icon}
-            source={{uri: category.categoryImage}}
+            source={{ uri: category.categoryImage }}
           />
           <Text style={styles.iconText}>{category.category}</Text>
         </View>
@@ -89,7 +89,7 @@ export const accessoryCategory = (accessory, category, navigation) => {
         <View style={styles.categoryIconContainer}>
           <Image
             style={styles.icon}
-            source={{uri: accessory.accessoryImage}}
+            source={{ uri: accessory.accessoryImage }}
           />
           <Text style={styles.iconText}>{accessory.accessory}</Text>
         </View>
@@ -98,7 +98,7 @@ export const accessoryCategory = (accessory, category, navigation) => {
   )
 }
 
-export const getItemList = () =>{
+export const getItemList = () => {
   // const newList = [...itemList];
   return itemList;
 }
@@ -107,25 +107,25 @@ export const getItemList = () =>{
 export const addItemToCart = (item) => {
   let index = 0;
   let duplicate = false;
-  while (index < itemList.length){
+  while (index < itemList.length) {
     console.log(itemList[index].qty);
-    if(item.docId === itemList[index].docId){
+    if (item.docId === itemList[index].docId) {
       let currentQty = itemList[index].qty + 1;
       console.log(currentQty);
       duplicate = true;
-      itemList[index].qty = currentQty;  
+      itemList[index].qty = currentQty;
       break;
     }
     index++;
   }
 
-  if(!duplicate){
+  if (!duplicate) {
     item['qty'] = 1;
     itemList.push(item);
   }
   duplicate = false;
-  console.log(itemList); 
+  console.log(itemList);
 
-  Alert.alert("Your item has been added!"); 
+  Alert.alert("Your item has been added!");
 };
 

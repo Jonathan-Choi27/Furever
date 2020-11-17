@@ -9,10 +9,8 @@ import HomeNav from "./homeNav";
 import ProfileNav from "../profile/profileNav";
 import ShopNav from "../shop/shopNav";
 import {
-  darkGreen,
-  green,
-  lightGreen,
-  orange,
+  primaryColour1,
+  primaryColour2,
   lightBlue,
 } from "../styleSheet/styleSheet";
 
@@ -46,7 +44,7 @@ function MyTabs(props) {
       })}
       tabBarOptions={{
         showLabel: false,
-        activeTintColor: darkGreen,
+        activeTintColor: primaryColour1,
         inactiveTintColor: "#cccccc",
         style: { backgroundColor: "#fff" },
       }}

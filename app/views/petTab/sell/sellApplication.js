@@ -24,7 +24,7 @@ import { openImagePicker, uploadPhoto } from "../../components/imageUpload";
 import CategorySelection from "./sellAppCategories";
 import { auth } from "../../database/firebase";
 import "firebase/storage";
-import globalStyles, { darkGreen, green } from "../../styleSheet/styleSheet";
+import globalStyles, { primaryColour1, primaryColour2 } from "../../styleSheet/styleSheet";
 import { CustomInput } from "../../components/customInput";
 import PriceSlider from "../../components/priceSlider";
 import AgePicker from "../../components/agePicker";
@@ -573,7 +573,6 @@ export default class sellApplication extends React.Component {
       <ScrollView
         keyboardShouldPersistTaps={"handled"}
         showsVerticalScrollIndicator={false}
-        // style={globalStyles.scrollViewContentStyle}
       >
         <Card containerStyle={{ borderRadius: 10 }}>
           <Text style={globalStyles.applicationHeading}>
@@ -590,7 +589,7 @@ export default class sellApplication extends React.Component {
               <Icon
                 name="ios-paper"
                 type="ionicon"
-                color={darkGreen}
+                color={primaryColour1}
                 containerStyle={{ paddingLeft: 7, paddingRight: 10 }}
               />
             }
@@ -624,7 +623,7 @@ export default class sellApplication extends React.Component {
 
             <View style={globalStyles.formPickerOuterContainer}>
               <View style={globalStyles.formPickerIconContainer}>
-                <Icon name="ios-paper" type="ionicon" color={darkGreen} />
+                <Icon name="ios-paper" type="ionicon" color={primaryColour1} />
               </View>
               <View style={globalStyles.formPickerInnerContainer}>
                 <Picker
@@ -685,7 +684,7 @@ export default class sellApplication extends React.Component {
               <Icon
                 name="ios-paper"
                 type="ionicon"
-                color={darkGreen}
+                color={primaryColour1}
                 containerStyle={{ paddingLeft: 7, paddingRight: 10 }}
               />
             }
@@ -703,7 +702,7 @@ export default class sellApplication extends React.Component {
               <Icon
                 name="ios-paper"
                 type="ionicon"
-                color={darkGreen}
+                color={primaryColour1}
                 containerStyle={{ paddingLeft: 7, paddingRight: 10 }}
               />
             }
@@ -721,7 +720,7 @@ export default class sellApplication extends React.Component {
               <Icon
                 name="ios-paper"
                 type="ionicon"
-                color={darkGreen}
+                color={primaryColour1}
                 containerStyle={{ paddingLeft: 7, paddingRight: 10 }}
               />
             }
@@ -739,7 +738,7 @@ export default class sellApplication extends React.Component {
               <Icon
                 name="ios-paper"
                 type="ionicon"
-                color={darkGreen}
+                color={primaryColour1}
                 containerStyle={{ paddingLeft: 7, paddingRight: 10 }}
               />
             }
@@ -773,8 +772,6 @@ export default class sellApplication extends React.Component {
               style={{
                 alignContent: "center",
                 alignItems: "center",
-                //   borderWidth: 2,
-                //   borderColor: "#D3D3D3",
                 marginHorizontal: 10,
               }}>
               <Image
@@ -782,13 +779,12 @@ export default class sellApplication extends React.Component {
                 source={{ uri: this.state.photo_uri }}
               />
             </View>
-
             <Button
               style={{
                 marginTop: 10,
-                backgroundColor: green,
+                backgroundColor: primaryColour2,
                 marginHorizontal: 10,
-              }}
+              }} 
               onPress={this.setPhotoUri}>
               <Text
                 style={{
@@ -809,7 +805,7 @@ export default class sellApplication extends React.Component {
             </View>
             <Button
               style={{
-                backgroundColor: green,
+                backgroundColor: primaryColour2,
               }}
               onPress={this.setDocumentUri}>
               <Text

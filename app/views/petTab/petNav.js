@@ -21,7 +21,7 @@ import currentApplications from "./buy/currentApplications";
 import breedList from "./buy/breedList";
 import breedInfo from "./buy/breedInfo";
 import buyPetProfile from "./buy/buyPetProfile";
-import { darkGreen } from "../styleSheet/styleSheet";
+import { primaryColour1 } from "../styleSheet/styleSheet";
 
 const Stack = createStackNavigator();
 // const PetNavigator = StackNav
@@ -30,8 +30,8 @@ const Tab = createMaterialTopTabNavigator();
 function PetTab() {
   return (
     <Tab.Navigator tabBarOptions={{
-        indicatorStyle: {backgroundColor : darkGreen},
-        activeTintColor : darkGreen,
+        indicatorStyle: {backgroundColor : primaryColour1},
+        activeTintColor : primaryColour1,
         inactiveTintColor: "#cccccc",
     }}
     >

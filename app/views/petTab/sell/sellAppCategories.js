@@ -9,11 +9,9 @@ import {
 } from "react-native";
 import { Icon } from "react-native-elements";
 import globalStyles, {
-  darkGreen,
-  green,
-  lightGreen,
+  primaryColour1,
+  primaryColour2,
   lightGrey,
-  orange,
   lightBlue,
 } from "../../styleSheet/styleSheet";
 // Solved from this link https://github.com/GeekyAnts/NativeBase/issues/636
@@ -211,7 +209,7 @@ export default class CategorySelection extends React.Component {
           </Text>
           <View style={globalStyles.formPickerOuterContainer}>
             <View style={globalStyles.formPickerIconContainer}>
-              <Icon name="ios-paper" type="ionicon" color={darkGreen} />
+              <Icon name="ios-paper" type="ionicon" color={primaryColour1} />
             </View>
             <View style={globalStyles.formPickerInnerContainer}>
               <Picker
@@ -263,7 +261,7 @@ export default class CategorySelection extends React.Component {
 
           <View style={globalStyles.formPickerOuterContainer}>
             <View style={globalStyles.formPickerIconContainer}>
-              <Icon name="ios-paper" type="ionicon" color={darkGreen} />
+              <Icon name="ios-paper" type="ionicon" color={primaryColour1} />
             </View>
             <View style={globalStyles.formPickerInnerContainer}>
               <Picker
@@ -302,7 +300,7 @@ export default class CategorySelection extends React.Component {
           </Text>
           <View style={globalStyles.formPickerOuterContainer}>
             <View style={globalStyles.formPickerIconContainer}>
-              <Icon name="ios-paper" type="ionicon" color={darkGreen} />
+              <Icon name="ios-paper" type="ionicon" color={primaryColour1} />
             </View>
             <View style={globalStyles.formPickerInnerContainer}>
               <Picker
@@ -339,7 +337,7 @@ export default class CategorySelection extends React.Component {
 
           <View style={globalStyles.formPickerOuterContainer}>
             <View style={globalStyles.formPickerIconContainer}>
-              <Icon name="ios-paper" type="ionicon" color={darkGreen} />
+              <Icon name="ios-paper" type="ionicon" color={primaryColour1} />
             </View>
             <View style={globalStyles.formPickerInnerContainer}>
               <Picker

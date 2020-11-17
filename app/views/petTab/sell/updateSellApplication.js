@@ -23,11 +23,9 @@ import CategorySelection from "./sellAppCategories";
 import { auth } from "../../database/firebase";
 import "firebase/storage";
 import globalStyles, {
-  darkGreen,
-  green,
-  lightGreen,
+  primaryColour1,
+  primaryColour2,
   lightGrey,
-  orange,
   lightBlue,
 } from "../../styleSheet/styleSheet";
 import { Card } from "react-native-elements";
@@ -50,7 +48,6 @@ export default class updateSellApplication extends React.Component {
       valid_behaviour: true,
       valid_health: true,
       valid_training: true,
-      // valid_additionalInfo: true,
       valid_uri: true,
       valid_gender: true,
       price: "",
@@ -60,27 +57,11 @@ export default class updateSellApplication extends React.Component {
       behaviourErr: "",
       healthErr: "",
       trainingErr: "",
-      // additionalInfoErr: "",
       categoryErr: "",
       breedErr: "",
       colourErr: "",
       sizeErr: "",
       genderErr: "",
-      // name: "",
-      // category: "",
-      // breed: "",
-      // colour: "",
-      // age: "",
-      // gender: "",
-      // location: "",
-      // price: "",
-      // behaviour: "",
-      // health: "",
-      // training: "",
-      // additionalInfo: "",
-      // documents: "",
-      //photo
-      // photoLink: "",
       photo_uri: "",
       photo_uuid: "",
       documents_uri: "",
@@ -144,18 +125,6 @@ export default class updateSellApplication extends React.Component {
     });
   };
 
-  componentWillUnmount() {
-    BackHandler.removeEventListener(
-      "hardwareBackPress",
-      this.handleBackButtonClick
-    );
-  }
-
-  handleBackButtonClick() {
-    this.props.navigation.goBack();
-    return true;
-  }
-
   // Handle submit functions
   validationCheck = () => {
     this.nameValidator();
@@ -172,7 +141,7 @@ export default class updateSellApplication extends React.Component {
     // this.additionalInfoValidator();
     this.priceValidator();
 
-    var submit;
+    var submit = true;
     if (
       this.nameValidator() == false ||
       this.categoryValidator() == false ||
@@ -291,8 +260,6 @@ export default class updateSellApplication extends React.Component {
   };
 
   ageValidator = () => {
-    // console.log(this.state.age);
-    // console.log(this.state.ageOption);
     var bool;
     if (
       this.state.age == "0" ||
@@ -364,25 +331,6 @@ export default class updateSellApplication extends React.Component {
 
     return bool;
   };
-
-  // additionalInfoValidator = () => {
-  //   var bool;
-  //   if (this.state.additionalInfo == "") {
-  //     bool = false;
-  //     this.setState({
-  //       valid_additionalInfo: false,
-  //       additionalInfoErr: "Please fill this field in",
-  //     });
-  //   } else {
-  //     bool = true;
-  //     this.setState({
-  //       additionalInfoErr: "",
-  //       valid_additionalInfo: true,
-  //     });
-  //   }
-
-  //   return bool;
-  // };
 
   photoValidator = () => {
     var bool;
@@ -495,76 +443,6 @@ export default class updateSellApplication extends React.Component {
 
   handleSubmit = async () => {
     const user = auth.currentUser;
-    // var submit;
-    // if (
-    //   this.name_regex(this.state.name) == false ||
-    //   this.age_regex(this.state.age) == false ||
-    //   this.location_regex(this.state.location) == false ||
-    //   this.price_regex(this.state.price) == false ||
-    //   this.behaviour_regex(this.state.behaviour) == false ||
-    //   this.health_regex(this.state.health) == false ||
-    //   this.training_regex(this.state.training) == false ||
-    //   this.state.photoLink == ""
-    // ) {
-    //   alert("All input fields required and must be valid.");
-    //   this.check_valid_name();
-    //   this.check_valid_age();
-    //   this.check_valid_location();
-    //   this.check_valid_price();
-    //   this.check_valid_behaviour();
-    //   this.check_valid_health();
-    //   this.check_valid_training();
-    //   if (
-    //     this.state.photoLink == "" &&
-    //     (this.state.photo_uri == "" || this.state.photo_uri == null)
-    //   ) {
-    //     this.setState({
-    //       valid_uri: false,
-    //     });
-    //   }
-    //   submit = false;
-    // } else {
-    //   submit = true;
-    // }
-
-    // if (submit == true) {
-    //   if (this.state.photo_uri !== "") {
-    //     const photoURL = await uploadPhoto(
-    //       this.state.photo_uri,
-    //       this.state.photo_uuid
-    //     );
-
-    //     this.setState({
-    //       photoLink: photoURL,
-    //     });
-    //   }
-
-    //   if (this.state.documents_uri !== "") {
-    //     uploadDocument(this.state.documents_uri, this.state.documents);
-    //   }
-
-    //   db.collection("petListings").doc(this.props.route.params.doc_id).update({
-    //     uuid: user.uid,
-    //     name: this.state.name,
-    //     category: this.state.category,
-    //     breed: this.state.breed,
-    //     colour: this.state.colour,
-    //     age: this.state.age,
-    //     gender: this.state.gender,
-    //     behaviour: this.state.behaviour,
-    //     health: this.state.health,
-    //     location: this.state.location,
-    //     training: this.state.training,
-    //     photoLink: this.state.photoLink,
-    //     documents: this.state.documents,
-    //     documents_uri: this.state.documents_uri,
-    //     price: this.state.price,
-    //     additionalInfo: this.state.additionalInfo,
-    //     size: this.state.size,
-    //   });
-    //   this.props.navigation.goBack();
-    // }
-
     var submit = this.validationCheck();
   };
 
@@ -732,364 +610,269 @@ export default class updateSellApplication extends React.Component {
 
   render() {
     return (
-      <SafeAreaView style={styles.container}>
-        <ScrollView
-          style={styles.scrollView}
-          showsVerticalScrollIndicator={false}
-          keyboardShouldPersistTaps={"handled"}>
-          {/* <Card containerStyle={{ borderRadius: 10, width: screenWidth - 40 }}> */}
-          <View style={styles.container}>
-            <View style={{ marginTop: 0 }}>
-              <Text style={styles.heading}>Update Pet Listing Application</Text>
-              <Text style={globalStyles.cardHeading}>General Information</Text>
-            </View>
+      <ScrollView
+        keyboardShouldPersistTaps={"handled"}
+        showsVerticalScrollIndicator={false}
+      >
+        <Card containerStyle={{ borderRadius: 10 }}>
+          <Text style={globalStyles.applicationHeading}>
+            Update Seller Application
+          </Text>
+          <Text style={globalStyles.cardHeading}>General Information</Text>
 
-            <CustomInput
-              label="Name"
-              //   placeholder={this.state.name}
-              defaultValue={this.state.name}
-              onChangeText={(name) => this.setState({ name })}
-              errorMessage={this.state.nameErr}
-              leftIcon={
-                <Icon
-                  name="ios-paper"
-                  type="ionicon"
-                  color={darkGreen}
-                  containerStyle={{ paddingLeft: 7, paddingRight: 10 }}
-                />
-              }
-            />
-
-            <CategorySelection
-              setCategory={this.setCategory}
-              setBreed={this.setBreed}
-              setColour={this.setColour}
-              setSize={this.setSize}
-              category={this.state.category}
-              breed={this.state.breed}
-              colour={this.state.colour}
-              size={this.state.size}
-              update={true}
-              categoryErr={this.state.categoryErr}
-              breedErr={this.state.breedErr}
-              colourErr={this.state.colourErr}
-              sizeErr={this.state.sizeErr}
-            />
-
-            <View style={{ marginHorizontal: 15, marginBottom: 20 }}>
-              <AgePicker
-                setAge={this.setAge}
-                setAgeOption={this.setAgeOption}
-                age={this.state.age}
-                option={this.state.ageOption}
+          <CustomInput
+            label="Name"
+            defaultValue={this.state.name}
+            onChangeText={(name) => this.setState({ name })}
+            errorMessage={this.state.nameErr}
+            leftIcon={
+              <Icon
+                name="ios-paper"
+                type="ionicon"
+                color={primaryColour1}
+                containerStyle={{ paddingLeft: 7, paddingRight: 10 }}
               />
-              {!this.state.valid_age && (
-                <View style={{ marginLeft: 5, marginBottom: 5 }}>
-                  <Text style={{ fontSize: 12, color: "red" }}>Select age</Text>
-                </View>
-              )}
-            </View>
+            }
+          />
 
-            <View style={{ marginHorizontal: 10, marginBottom: 20 }}>
-              <Text
-                style={{
-                  color: "#505050",
-                  fontWeight: "bold",
-                  fontSize: 16,
-                }}>
-                Gender
-              </Text>
+          <CategorySelection
+            setCategory={this.setCategory}
+            setBreed={this.setBreed}
+            setColour={this.setColour}
+            setSize={this.setSize}
+            category={this.state.category}
+            breed={this.state.breed}
+            colour={this.state.colour}
+            size={this.state.size}
+            update={true}
+            categoryErr={this.state.categoryErr}
+            breedErr={this.state.breedErr}
+            colourErr={this.state.colourErr}
+            sizeErr={this.state.sizeErr}
+          />
 
-              <View style={globalStyles.formPickerOuterContainer}>
-                <View style={globalStyles.formPickerIconContainer}>
-                  <Icon name="ios-paper" type="ionicon" color={darkGreen} />
-                </View>
-                <View style={globalStyles.formPickerInnerContainer}>
-                  <Picker
-                    selectedValue={this.state.gender}
-                    onValueChange={(gender) => this.setState({ gender })}>
-                    <Picker.Item
-                      label="Select gender"
-                      value="0"
-                      color="#D3D3D3"
-                    />
-                    <Picker.Item label="Male" value="Male" />
-                    <Picker.Item label="Female" value="Female" />
-                  </Picker>
-                </View>
+          <View style={{ marginHorizontal: 15, marginBottom: 20 }}>
+            <AgePicker
+              setAge={this.setAge}
+              setAgeOption={this.setAgeOption}
+              age={this.state.age}
+              option={this.state.ageOption}
+            />
+            {!this.state.valid_age && (
+              <View style={{ marginLeft: 5, marginBottom: 5 }}>
+                <Text style={{ fontSize: 12, color: "red" }}>Select age</Text>
               </View>
+            )}
+          </View>
 
-              {!this.state.valid_gender && (
-                <View style={{ paddingLeft: 10 }}>
-                  <Text style={{ fontSize: 12, color: "red" }}>
-                    Select gender
-                  </Text>
-                </View>
-              )}
+          <View style={{ marginHorizontal: 10, marginBottom: 20 }}>
+            <Text style={{ color: "#505050", fontWeight: "bold", fontSize: 16, }}>
+              Gender
+            </Text>
+
+            <View style={globalStyles.formPickerOuterContainer}>
+              <View style={globalStyles.formPickerIconContainer}>
+                <Icon name="ios-paper" type="ionicon" color={primaryColour1} />
+              </View>
+              <View style={globalStyles.formPickerInnerContainer}>
+                <Picker
+                  selectedValue={this.state.gender}
+                  onValueChange={(gender) => this.setState({ gender })}>
+                  <Picker.Item
+                    label="Select gender"
+                    value="0"
+                    color="#D3D3D3"
+                  />
+                  <Picker.Item label="Male" value="Male" />
+                  <Picker.Item label="Female" value="Female" />
+                </Picker>
+              </View>
             </View>
 
-            <View style={{ marginHorizontal: 10, marginBottom: 20 }}>
-              <GooglePlacesInput
-                set={this.setLocation}
-                previous={true}
-                prev_location={this.state.location}
+            {!this.state.valid_gender && (
+              <View style={{ paddingLeft: 10 }}>
+                <Text style={{ fontSize: 12, color: "red" }}>
+                  Select gender
+                </Text>
+              </View>
+            )}
+          </View>
+
+          <View style={{ marginHorizontal: 10, marginBottom: 20 }}>
+            <GooglePlacesInput
+              set={this.setLocation}
+              previous={true}
+              prev_location={this.state.location}
+            />
+            {!this.state.valid_location && (
+              <View style={{ paddingLeft: 10 }}>
+                <Text style={{ fontSize: 12, color: "red", marginTop: 5 }}>
+                  Enter location
+                </Text>
+              </View>
+            )}
+          </View>
+
+          <PriceSlider price={this.state.price} setPrice={this.setPrice} max={10000} />
+        </Card>
+
+        <Card containerStyle={{ borderRadius: 10 }}>
+          <Text style={globalStyles.cardHeading}>Behaviour</Text>
+          <CustomInput
+            defaultValue={this.state.behaviour}
+            onChangeText={(behaviour) => this.setState({ behaviour })}
+            errorMessage={this.state.behaviour_err}
+            multiline={true}
+            leftIcon={
+              <Icon
+                name="ios-paper"
+                type="ionicon"
+                color={primaryColour1}
+                containerStyle={{ paddingLeft: 7, paddingRight: 10 }}
               />
-              {!this.state.valid_location && (
-                <View style={{ paddingLeft: 10 }}>
-                  <Text style={{ fontSize: 12, color: "red", marginTop: 5 }}>
-                    Enter location
-                  </Text>
-                </View>
-              )}
-            </View>
+            }
+          />
+        </Card>
 
-            <PriceSlider price={this.state.price} setPrice={this.setPrice} max={10000} />
+        <Card containerStyle={{ borderRadius: 10 }}>
+          <Text style={globalStyles.cardHeading}>Care, Health and Feeding</Text>
+          <CustomInput
+            defaultValue={this.state.health}
+            onChangeText={(health) => this.setState({ health })}
+            errorMessage={this.state.health_err}
+            multiline={true}
+            leftIcon={
+              <Icon
+                name="ios-paper"
+                type="ionicon"
+                color={primaryColour1}
+                containerStyle={{ paddingLeft: 7, paddingRight: 10 }}
+              />
+            }
+          />
+        </Card>
 
-            <CustomInput
-              label="Behaviour"
-              defaultValue={this.state.behaviour}
-              onChangeText={(behaviour) => this.setState({ behaviour })}
-              errorMessage={this.state.behaviour_err}
-              multiline={true}
-              leftIcon={
-                <Icon
-                  name="ios-paper"
-                  type="ionicon"
-                  color={darkGreen}
-                  containerStyle={{ paddingLeft: 7, paddingRight: 10 }}
-                />
-              }
-            />
+        <Card containerStyle={{ borderRadius: 10 }}>
+          <Text style={globalStyles.cardHeading}>Training</Text>
+          <CustomInput
+            placeholder="Please fill in the field"
+            defaultValue={this.state.training}
+            onChangeText={(training) => this.setState({ training })}
+            errorMessage={this.state.training_err}
+            multiline={true}
+            leftIcon={
+              <Icon
+                name="ios-paper"
+                type="ionicon"
+                color={primaryColour1}
+                containerStyle={{ paddingLeft: 7, paddingRight: 10 }}
+              />
+            }
+          />
+        </Card>
 
-            <CustomInput
-              label="Care, Health and Feeding"
-              defaultValue={this.state.health}
-              onChangeText={(health) => this.setState({ health })}
-              errorMessage={this.state.health_err}
-              multiline={true}
-              leftIcon={
-                <Icon
-                  name="ios-paper"
-                  type="ionicon"
-                  color={darkGreen}
-                  containerStyle={{ paddingLeft: 7, paddingRight: 10 }}
-                />
-              }
-            />
+        <Card containerStyle={{ borderRadius: 10 }}>
+          <Text style={globalStyles.cardHeading}>Additional Information</Text>
+          <CustomInput
+            defaultValue={this.state.additionalInfo}
+            onChangeText={(additionalInfo) =>
+              this.setState({ additionalInfo })
+            }
+            // errorMessage={this.state.additionalInfo_err}
+            multiline={true}
+            leftIcon={
+              <Icon
+                name="ios-paper"
+                type="ionicon"
+                color={primaryColour1}
+                containerStyle={{ paddingLeft: 7, paddingRight: 10 }}
+              />
+            }
+          />
+        </Card>
 
-            <CustomInput
-              label="Training"
-              placeholder="Please fill in the field"
-              defaultValue={this.state.training}
-              onChangeText={(training) => this.setState({ training })}
-              errorMessage={this.state.training_err}
-              multiline={true}
-              leftIcon={
-                <Icon
-                  name="ios-paper"
-                  type="ionicon"
-                  color={darkGreen}
-                  containerStyle={{ paddingLeft: 7, paddingRight: 10 }}
-                />
-              }
-            />
-
-            <CustomInput
-              label="Additional Information"
-              defaultValue={this.state.additionalInfo}
-              onChangeText={(additionalInfo) =>
-                this.setState({ additionalInfo })
-              }
-              // errorMessage={this.state.additionalInfo_err}
-              multiline={true}
-              leftIcon={
-                <Icon
-                  name="ios-paper"
-                  type="ionicon"
-                  color={darkGreen}
-                  containerStyle={{ paddingLeft: 7, paddingRight: 10 }}
-                />
-              }
-            />
-
-            <View style={{ flexDirection: "row", paddingTop: 20 }}>
-              <View style={{ flex: 1, flexDirection: "row", paddingBottom: 3 }}>
-                <Text style={styles.inputName}>Upload a Photo</Text>
-                <Text style={styles.setColorRed}> *</Text>
-              </View>
-              {!this.state.valid_uri && (
-                <View style={{ flex: 1 }}>
-                  <Text style={styles.errorText}>Choose a photo</Text>
-                </View>
-              )}
-            </View>
+        <Card containerStyle={{ borderRadius: 10 }}>
+          <View style={{ marginBottom: 10 }}>
             <View
               style={{
-                alignContent: "center",
-                alignItems: "center",
-                //   borderWidth: 2,
-                //   borderColor: "#D3D3D3",
+                flexDirection: "row",
                 marginHorizontal: 10,
+                marginBottom: 10,
               }}>
-              <Image
-                style={{ height: 300, width: screenWidth - 92 }}
-                source={{ uri: this.state.photo_uri }}
-              />
+          <View style={{ flex: 1, flexDirection: "row", paddingBottom: 3 }}>
+          <Text style={globalStyles.applicationInputName}>
+            Upload a Photo
+          </Text>
+          <Text style={globalStyles.setColorRed}> *</Text>
+          </View>
+            {!this.state.valid_uri && (
+              <View style={{ flex: 1 }}>
+                <Text style={globalStyles.applicationErrorText}>
+                  Choose a photo
+                </Text>
+              </View>
+            )}
+          </View>
+        
+          <View
+            style={{
+              alignContent: "center",
+              alignItems: "center",
+              marginHorizontal: 10,
+            }}>
+            <Image
+              style={{ height: 300, width: screenWidth - 92 }}
+              source={{ uri: this.state.photo_uri }}
+            />
+          </View>
+          <Button
+            style={{
+              marginTop: 10,
+              backgroundColor: primaryColour2,
+              marginHorizontal: 10,
+            }}
+            onPress={this.setPhotoUri}>
+            <Text
+              style={{
+                color: "white",
+              }}>
+              Choose Photo
+              </Text>
+            </Button>
+          </View>
+        </Card>
+
+        <Card containerStyle={{ borderRadius: 10 }}>
+          <View style={{ marginHorizontal: 10 }}>
+            <View style={{ marginBottom: 10 }}>
+              <Text style={globalStyles.applicationInputName}>
+                Upload Documents
+                </Text>
             </View>
             <Button
               style={{
-                backgroundColor: green,
+                backgroundColor: primaryColour2,
               }}
-              onPress={this.setPhotoUri}>
+              onPress={this.setDocumentUri}>
               <Text
                 style={{
                   color: "white",
                 }}>
-                Choose Photo
-              </Text>
-            </Button>
-
-            <View style={{ paddingTop: 15 }}>
-              <Text style={(styles.inputName, { paddingBottom: 3 })}>
-                Upload Documents
-              </Text>
-              <Button
-                style={{
-                  backgroundColor: green,
-                }}
-                onPress={this.setDocumentUri}>
-                <Text
-                  style={{
-                    color: "white",
-                  }}>
-                  Choose Document
+                Choose Document
                 </Text>
-              </Button>
-            </View>
-
-            <View style={styles.buttonsContainer}>
-              <TouchableOpacity
-                title={"submit"}
-                style={styles.buttons}
-                onPress={this.handleSubmit}>
-                <Text style={styles.buttonsText}>Save</Text>
-              </TouchableOpacity>
-            </View>
+            </Button>
           </View>
-          {/* </Card> */}
-        </ScrollView>
-      </SafeAreaView>
+        </Card>
+
+        <View style={globalStyles.applicationButtonsContainer}>
+          <TouchableOpacity
+            title={"submit"}
+            style={globalStyles.buttons}
+            onPress={this.handleSubmit}>
+            <Text style={globalStyles.buttonsText}>Save</Text>
+          </TouchableOpacity>
+        </View>
+      </ScrollView >
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 10,
-    paddingTop: 10,
-    justifyContent: "center",
-  },
-  inputName: {
-    marginBottom: 0,
-    paddingBottom: 0,
-    color: "#242424",
-    fontSize: 14,
-  },
-  heading: {
-    fontSize: 20,
-    fontWeight: "bold",
-    color: "#000000",
-    textAlign: "left",
-    alignItems: "center",
-    justifyContent: "center",
-    flex: 1,
-    paddingVertical: 10,
-    paddingTop: 20,
-  },
-  subHeading: {
-    fontSize: 16,
-  },
-  subHeadingContainer: {
-    paddingTop: 20,
-  },
-  smallInputBox: {
-    margin: 0,
-    height: 25,
-    backgroundColor: "#fafafa",
-    padding: 0,
-  },
-  input: {
-    width: 314,
-    height: 34,
-    padding: 10,
-    borderWidth: 1,
-    borderColor: "black",
-    backgroundColor: "white",
-    fontSize: 12,
-  },
-  bigInput: {
-    textAlignVertical: "top",
-    margin: 0,
-    backgroundColor: "#fafafa",
-    padding: 0,
-  },
-  picker: {
-    height: 27,
-    borderRadius: 4,
-    fontSize: 12,
-  },
-  buttonsContainer: {
-    alignItems: "center",
-    justifyContent: "center",
-    paddingTop: 30,
-  },
-  buttons: {
-    backgroundColor: darkGreen,
-    alignItems: "center",
-    justifyContent: "center",
-    borderRadius: 10,
-    width: 100,
-    height: 40,
-  },
-  buttonsText: {
-    color: "white",
-    fontSize: 18,
-    fontWeight: "bold",
-  },
-  titleContainer: {
-    flex: 1,
-  },
-  setColorRed: {
-    color: "#f44336",
-  },
-  pickerContainer: {
-    backgroundColor: "white",
-    borderColor: "#5D5D5D",
-    borderWidth: 1,
-    borderRadius: 4,
-    marginTop: 5,
-  },
-  // errorText: {
-  //   color: "red",
-  //   textAlign: "right",
-  //   fontSize: 14,
-  //   fontWeight: "bold",
-  // },
-  inputContainer: {
-    paddingTop: 12,
-  },
-
-  pickerItem: {
-    fontSize: 12,
-  },
-  errorText: {
-    color: "red",
-    fontSize: 12,
-    textAlign: "right",
-  },
-  line: {
-    borderBottomColor: "black",
-    borderBottomWidth: 1,
-  },
-});

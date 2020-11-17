@@ -12,7 +12,7 @@ import {
 } from "react-native-paper";
 import { auth } from "../database/firebase";
 import { Avatar, Accessory, Input } from "react-native-elements";
-import { darkGreen, lightGrey } from "../styleSheet/styleSheet";
+import { primaryColour1, lightGrey } from "../styleSheet/styleSheet";
 import globalStyles from "../styleSheet/styleSheet";
 import { NavigationActions } from "react-navigation";
 

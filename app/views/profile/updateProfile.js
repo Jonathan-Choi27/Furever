@@ -1,13 +1,13 @@
 import * as React from "react";
 import { ActivityIndicator } from "react-native";
-import { View, Image, Text, BackHandler, StyleSheet } from "react-native";
+import { View, Image, Text, BackHandler, StyleSheet, TouchableOpacity, ScrollView } from "react-native";
 import { Button, TextInput, Card } from "react-native-paper";
 import { openImagePicker, uploadPhoto } from "../components/imageUpload";
 import { db } from "../database/firebase";
 import { auth } from "../database/firebase";
 import uuid from "react-native-uuid";
 import { Avatar, Accessory, Input } from "react-native-elements";
-import { darkGreen, green } from "../styleSheet/styleSheet";
+import globalStyles, { primaryColour1, primaryColour2 } from "../styleSheet/styleSheet";
 
 export default class updateProfile extends React.Component {
   constructor(props) {
@@ -83,10 +83,10 @@ export default class updateProfile extends React.Component {
   // const navigation = props.route.params.navigation;
   render() {
     return (
-      <View>
+      <ScrollView>
         <View
           style={{
-            backgroundColor: darkGreen,
+            backgroundColor: primaryColour2,
             borderBottomRightRadius: 1000,
             borderBottomLeftRadius: 1000,
             transform: [{ scaleX: 2 }],
@@ -98,14 +98,14 @@ export default class updateProfile extends React.Component {
               style={{
                 fontSize: 30,
                 marginTop: 60,
-                color: "#F5F5DC",
+                color: "black",
                 transform: [{ scaleX: 0.5 }],
               }}
             >
               Edit Profile
             </Text>
           </View>
-          <View style={styles.avatarContainer}>
+          <View style={globalStyles.avatarContainer}>
             <View style={{ opacity: 0.1, position: "absolute" }}>
               <Image
                 style={{
@@ -136,65 +136,30 @@ export default class updateProfile extends React.Component {
           <View>
             <Input
               label="Display Name"
-              labelStyle={{ color: darkGreen }}
+              labelStyle={{ color: "black" }}
               onChangeText={(name) => this.setState({ name })}
               placeholder={this.state.prevName}
+              defaultValue={this.state.prevName}
             />
 
             <Input
               label="Profile Text"
-              labelStyle={{ color: darkGreen }}
+              labelStyle={{ color: "black" }}
               onChangeText={(profileText) => this.setState({ profileText })}
               multiline
               placeholder={this.state.prevProfileText}
-              // defaultValue={this.state.profileText}
+              defaultValue={this.state.prevProfileText}
             />
-
-            <View style={{ alignItems: "center", marginTop: 25 }}>
-              <Button
-                mode="outlined"
-                style={styles.buttons}
-                onPress={() => this.handleUpdate()}
-              >
-                <Text style={styles.buttonsText}> Update </Text>
-              </Button>
+            <View style={globalStyles.applicationButtonsContainer}>
+              <TouchableOpacity
+                style={globalStyles.buttons}
+                onPress={() => this.handleUpdate()}>
+                <Text style={globalStyles.buttonsText}>Update</Text>
+              </TouchableOpacity>
             </View>
           </View>
         </View>
-      </View>
+      </ScrollView>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  imageContainer: {
-    width: 50,
-    height: 50,
-  },
-  avatarContainer: {
-    marginTop: 20,
-    marginBottom: 50,
-    alignItems: "center",
-    alignContent: "center",
-    justifyContent: "center",
-    transform: [{ scaleX: 0.5 }],
-  },
-  buttons: {
-    borderWidth: 1,
-    borderColor: green,
-    alignItems: "center",
-    justifyContent: "center",
-    width: 250,
-    borderRadius: 5,
-    height: 40,
-  },
-  buttonsText: {
-    color: darkGreen,
-    fontSize: 18,
-    padding: 15,
-  },
-});

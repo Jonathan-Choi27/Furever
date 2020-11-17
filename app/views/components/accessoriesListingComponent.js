@@ -2,24 +2,24 @@ import * as React from "react";
 import { StyleSheet, View, Image, Text, TouchableOpacity } from "react-native";
 import { Avatar, Button, Card, Title, Paragraph } from "react-native-paper";
 import firebase from "firebase";
-import globalStyles, { darkGreen, green, lightGreen, lightGrey, orange, lightBlue } from "../styleSheet/styleSheet";
+import globalStyles, { primaryColour1, primaryColour2, lightGrey, lightBlue } from "../styleSheet/styleSheet";
 console.disableYellowBox = true;
 
 const db = firebase.firestore();
 
 const deleteAccessory = (docId) => {
-  const deleteItemId = docId;
-  db.collection("accessories").doc(deleteItemId).delete().then(function() {
-       alert("Accessory deleted.")
-   }).catch(function(error) {
-       alert("Error removing document: ", error);
-   });
+    const deleteItemId = docId;
+    db.collection("accessories").doc(deleteItemId).delete().then(function () {
+        alert("Accessory deleted.")
+    }).catch(function (error) {
+        alert("Error removing document: ", error);
+    });
 
 }
 
 export const accessoriesListingCard = (item, navigation) => {
     return (
-        <View style={[globalStyles.cardContentContainer, {marginBottom: 11,}]}>
+        <View style={[globalStyles.cardContentContainer, { marginBottom: 11, }]}>
             <Card elevation={5} >
                 <View style={{ flexDirection: "row" }}>
                     <View style={{
@@ -30,7 +30,7 @@ export const accessoriesListingCard = (item, navigation) => {
                     }}>
                         <Image
                             source={{ uri: item.photo }}
-                            style={{borderRadius: 5, flexGrow: 1}}
+                            style={{ borderRadius: 5, flexGrow: 1 }}
                         />
                     </View>
 
@@ -68,13 +68,13 @@ export const accessoriesListingCard = (item, navigation) => {
                             </Button>
 
                             <Button style={globalStyles.smallButton}
-                                onPress={() => navigation.navigate("updateAccessoryListingApplication", {docId: item.docId})}
+                                onPress={() => navigation.navigate("updateAccessoryListingApplication", { docId: item.docId })}
                             >
                                 <Text style={globalStyles.smallButtonText}>Update</Text>
                             </Button>
 
                             <Button style={globalStyles.smallButton}
-                                onPress={() => deleteAccessory(item.docId)}> 
+                                onPress={() => deleteAccessory(item.docId)}>
                                 <Text style={globalStyles.smallButtonText}>Delete</Text>
                             </Button>
                         </View>

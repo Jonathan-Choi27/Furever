@@ -3,7 +3,7 @@ import { auth, db } from "../database/firebase";
 import { Text, View, TouchableOpacity, Image } from "react-native";
 import { Input } from "react-native-elements";
 import globalStyles from "../styleSheet/styleSheet";
-import { darkGreen } from "../styleSheet/styleSheet";
+import { primaryColour1 } from "../styleSheet/styleSheet";
 
 export default class Login extends React.Component {
   state = {
@@ -74,7 +74,7 @@ export default class Login extends React.Component {
               type: "ionicons",
               name: "mail-outline",
               size: 25,
-              color: darkGreen,
+              color: primaryColour1,
               paddingRight: 10,
               paddingLeft: 5,
             }}
@@ -88,7 +88,7 @@ export default class Login extends React.Component {
               type: "ionicons",
               name: "lock-outline",
               size: 25,
-              color: darkGreen,
+              color: primaryColour1,
               paddingRight: 10,
               paddingLeft: 5,
             }}

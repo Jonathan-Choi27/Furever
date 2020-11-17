@@ -23,7 +23,7 @@ import {
   MaterialCommunityIcons,
 } from "@expo/vector-icons";
 import { Card } from "react-native-elements";
-import globalStyles, {screenWidth, green, darkGreen} from "../styleSheet/styleSheet";
+import globalStyles, { screenWidth, primaryColour2, primaryColour1 } from "../styleSheet/styleSheet";
 
 export default class Cart extends React.Component {
   constructor(props) {
@@ -133,10 +133,10 @@ export default class Cart extends React.Component {
     const { cartItems, cartItemsIsLoading, selectAll } = this.state;
 
     return (
-      <View style={[globalStyles.container, {marginTop: 10}]}>
-          <View style={[globalStyles.pageTitleContainer, {paddingBottom: 0}]}>
-            <Text style={globalStyles.pageTitle}>Shopping Cart</Text>
-          </View>
+      <View style={[globalStyles.container, { marginTop: 10 }]}>
+        <View style={[globalStyles.pageTitleContainer, { paddingBottom: 0 }]}>
+          <Text style={globalStyles.pageTitle}>Shopping Cart</Text>
+        </View>
 
         <View>
           {this.state.cartItems.length === 0 ? (
@@ -151,88 +151,88 @@ export default class Cart extends React.Component {
             <ActivityIndicator size="large" color="#ef5739" />
           </View>
         ) : (
-          <ScrollView contentContainerStyle={{ alignItems: "center" }}>
-            {cartItems &&
-              cartItems.map((item, i) => (
-                <Card elevation={5} containerStyle={{borderRadius: 10, width: screenWidth - 40,}}>
-                  <View
-                    key={i}
-                    style={{
-                      flexDirection: "row",
-                      backgroundColor: "#fff",
-                      justifyContent: "space-between",
-                    }}
-                  >
+            <ScrollView contentContainerStyle={{ alignItems: "center" }}>
+              {cartItems &&
+                cartItems.map((item, i) => (
+                  <Card elevation={5} containerStyle={{ borderRadius: 10, width: screenWidth - 40, }}>
                     <View
+                      key={i}
                       style={{
                         flexDirection: "row",
-                        alignItems: "center",
-                        justifyContent: "center",
+                        backgroundColor: "#fff",
+                        justifyContent: "space-between",
                       }}
                     >
-                      <Image
-                        source={{ uri: item.photo }}
-                        style={[
-                          styles.centerElement,
-                          { height: 100, width: 100, marginRight: 12,},
-                        ]}
-                      />
-                      <View style={{flexGrow: 1,flexShrink: 1,alignSelf: "center",}}>
-                        <Text numberOfLines={1} style={{ fontSize: 15, paddingBottom: 10 }}>
-                          {item.accessoryName}
-                        </Text>
-                        <Text
-                          numberOfLines={1}
-                          style={{ color: "#333333", marginBottom: 10 }}
-                        >
-                          ${item.price}
-                        </Text>
-                        <View style={{ flexDirection: "row" }}>
-                          <TouchableOpacity
-                            onPress={() => this.quantityHandler("less", i)}
-                            style={{ borderWidth: 1, borderColor: "#8c8c8c" }}
-                          >
-                            <MaterialIcons
-                              name="remove"
-                              size={22}
-                              color="#8c8c8c"
-                            />
-                          </TouchableOpacity>
-                          <Text
-                            style={{
-                              borderTopWidth: 1,
-                              borderBottomWidth: 1,
-                              borderColor: "#8c8c8c",
-                              paddingHorizontal: 7,
-                              paddingTop: 3,
-                              color: "#8c8c8c",
-                              fontSize: 13,
-                            }}
-                          >
-                            {item.qty}
+                      <View
+                        style={{
+                          flexDirection: "row",
+                          alignItems: "center",
+                          justifyContent: "center",
+                        }}
+                      >
+                        <Image
+                          source={{ uri: item.photo }}
+                          style={[
+                            styles.centerElement,
+                            { height: 100, width: 100, marginRight: 12, },
+                          ]}
+                        />
+                        <View style={{ flexGrow: 1, flexShrink: 1, alignSelf: "center", }}>
+                          <Text numberOfLines={1} style={{ fontSize: 15, paddingBottom: 10 }}>
+                            {item.accessoryName}
                           </Text>
-                          <TouchableOpacity
-                            onPress={() => this.quantityHandler("more", i)}
-                            style={{ borderWidth: 1, borderColor: "#8c8c8c" }}
+                          <Text
+                            numberOfLines={1}
+                            style={{ color: "#333333", marginBottom: 10 }}
                           >
-                            <MaterialIcons name="add" size={22} color="#8c8c8c" />
-                          </TouchableOpacity>
+                            ${item.price}
+                          </Text>
+                          <View style={{ flexDirection: "row" }}>
+                            <TouchableOpacity
+                              onPress={() => this.quantityHandler("less", i)}
+                              style={{ borderWidth: 1, borderColor: "#8c8c8c" }}
+                            >
+                              <MaterialIcons
+                                name="remove"
+                                size={22}
+                                color="#8c8c8c"
+                              />
+                            </TouchableOpacity>
+                            <Text
+                              style={{
+                                borderTopWidth: 1,
+                                borderBottomWidth: 1,
+                                borderColor: "#8c8c8c",
+                                paddingHorizontal: 7,
+                                paddingTop: 3,
+                                color: "#8c8c8c",
+                                fontSize: 13,
+                              }}
+                            >
+                              {item.qty}
+                            </Text>
+                            <TouchableOpacity
+                              onPress={() => this.quantityHandler("more", i)}
+                              style={{ borderWidth: 1, borderColor: "#8c8c8c" }}
+                            >
+                              <MaterialIcons name="add" size={22} color="#8c8c8c" />
+                            </TouchableOpacity>
+                          </View>
                         </View>
                       </View>
+                      <View style={styles.centerElement}>
+                        <TouchableOpacity
+                          style={[styles.centerElement, { width: 32, height: 32 }]}
+                          onPress={() => this.deleteHandler(i)}
+                        >
+                          <Ionicons name="md-trash" size={25} color="#ee4d2d" />
+                        </TouchableOpacity>
+                      </View>
                     </View>
-                    <View style={styles.centerElement}>
-                      <TouchableOpacity
-                        style={[styles.centerElement, { width: 32, height: 32 }]}
-                        onPress={() => this.deleteHandler(i)}
-                      >
-                        <Ionicons name="md-trash" size={25} color="#ee4d2d" />
-                      </TouchableOpacity>
-                    </View>
-                  </View>
-                </Card>
-              ))}
-          </ScrollView>
-        )}
+                  </Card>
+                ))}
+            </ScrollView>
+          )}
 
         {!cartItemsIsLoading && (
           <View
@@ -256,7 +256,7 @@ export default class Cart extends React.Component {
               }}
             >
               <Text style={{ color: "#525252", fontSize: 15 }}>Total Price: </Text>
-              <Text style={{fontSize: 15}}>${this.calculateTotalPrice().toFixed(2)}</Text>
+              <Text style={{ fontSize: 15 }}>${this.calculateTotalPrice().toFixed(2)}</Text>
             </View>
             <View
               style={{
@@ -271,7 +271,7 @@ export default class Cart extends React.Component {
                 style={[
                   styles.centerElement,
                   {
-                    backgroundColor: green,
+                    backgroundColor: primaryColour1,
                     width: 100,
                     height: 25,
                     borderRadius: 5,
@@ -284,7 +284,7 @@ export default class Cart extends React.Component {
                   })
                 }
               >
-                <Text style={{color: "white"}}>Checkout</Text>
+                <Text style={{ color: "white" }}>Checkout</Text>
               </TouchableOpacity>
             </View>
           </View>
