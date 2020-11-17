@@ -7,7 +7,7 @@ import {
   Image,
   Linking,
 } from "react-native";
-import { Card } from "react-native-elements";
+import { Card, Rating } from "react-native-elements";
 import { Button } from "react-native-paper";
 import styles from "../styleSheet/styleSheet";
 import {
@@ -41,9 +41,7 @@ const OpenURLButton = ({ url, title }) => {
   }, [url]);
 
   return (
-    <Button
-      color={primaryColour2}
-      onPress={handlePress}>
+    <Button color={primaryColour2} onPress={handlePress}>
       {title}
     </Button>
   );
@@ -51,7 +49,7 @@ const OpenURLButton = ({ url, title }) => {
 
 const checkAdditional = (additional) => {
   if (additional === "") {
-    return "No Additional Information Provided."
+    return "No Additional Information Provided.";
   }
   return additional;
 };
@@ -148,6 +146,8 @@ export const profileInfo = (item) => {
 };
 
 export const sellerInfo = (seller, navigation) => {
+  const arr = seller.averageRating;
+  console.log(arr);
   return (
     <View style={styles.container}>
       <Card containerStyle={styles.cardContentContainer}>
@@ -161,6 +161,16 @@ export const sellerInfo = (seller, navigation) => {
           />
           <View style={{ flex: 4, paddingLeft: 10, paddingRight: 10 }}>
             <Text numberOfLines={4}>{seller.profileText}</Text>
+            <Rating
+              imageSize={40}
+              startingValue={seller.averageRating}
+              ratingColor={primaryColour1}
+              ratingBackgroundColor="#EFEFEF"
+              type="custom"
+              tintColor="white"
+              readonly
+              style={{ paddingVertical: 10 }}
+            />
             <View style={{ flex: 1, paddingTop: 7 }}>
               <Button
                 style={{
@@ -184,6 +194,12 @@ export const sellerInfo = (seller, navigation) => {
                   }}>
                   More Info
                 </Text>
+              </Button>
+              <Button
+                onPress={() =>
+                  navigation.navigate("reviewApplication", { seller })
+                }>
+                Review Seller
               </Button>
             </View>
           </View>

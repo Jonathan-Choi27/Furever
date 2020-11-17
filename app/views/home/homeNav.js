@@ -7,6 +7,7 @@ import homePetProfile from "./homePetProfile";
 import homeSellerProfile from "./homeSellerProfile"
 import buyApplication from "../petTab/buy/buyApplication";
 import HeaderLogo from "./headerLogo";
+import reviewApplication from "../components/reviewApplication";
 import { primaryColour1, primaryColour2, lightBlue } from "../styleSheet/styleSheet";
 
 const Stack = createStackNavigator();
@@ -51,6 +52,7 @@ export default function HomeNav() {
 				<Stack.Screen name="petProfile" component={homePetProfile} options={{ headerShown: false }} />
 				<Stack.Screen name="buyApplication" component={buyApplication} options={{ headerShown: false }} />
 				<Stack.Screen name="sellerProfile" component={homeSellerProfile} options={{ headerShown: false }} />
+				<Stack.Screen name="reviewApplication" component={reviewApplication} options={{ headerShown: false }} />
 
 			</Stack.Navigator>
 		</NavigationContainer>

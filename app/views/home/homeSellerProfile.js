@@ -1,16 +1,17 @@
 import React from "react";
-import "react-navigation"
-import "react-navigation-props-mapper"
-import "@react-navigation/native"
-import 'react-navigation-hooks'
+import "react-navigation";
+import "react-navigation-props-mapper";
+import "@react-navigation/native";
+import "react-navigation-hooks";
 import {
-    View,
-    ScrollView,
-    FlatList,
-    Text,
-    BackHandler,
+  View,
+  Image,
+  ScrollView,
+  FlatList,
+  Text,
+  BackHandler,
 } from "react-native";
-import { Card, } from "react-native-elements";
+import { Card } from "react-native-elements";
 console.disableYellowBox = true;
 import globalStyles from "../styleSheet/styleSheet";
 
@@ -19,99 +20,158 @@ import { petBuyCard } from "../components/petBuyComponents";
 import { db } from "../database/firebase";
 
 export default class homeSellerProfile extends React.Component {
-    state = {
-        data: [],
-        isLoading: true,
-        pullToRefresh: false,
-    };
+  state = {
+    data: [],
+    reviewData: [],
+    isLoading: true,
+    pullToRefresh: false,
+  };
 
-    async fetchData() {
-        const dataArray = [];
-        const seller = this.props.route.params.seller;
-        db.collection("users")
-            .doc(seller.sellerId)
-            .collection("sellList")
-            .get()
-            .then((doc) => {
-                doc.forEach(async (refDoc) => {
-                    refDoc.data().list
-                        .get()
-                        .then(async (listingDoc) => {
-                            dataArray.push({
-                                sellerName: seller.name,
-                                sellerPhoto: seller.photo,
-                                sellerInfo: seller.profileText,
-                                sellerEmail: seller.email,
-                                sellerDob: seller.dob,
-                                petName: listingDoc.data().name,
-                                category: listingDoc.data().category,
-                                breed: listingDoc.data().breed,
-                                colour: listingDoc.data().colour,
-                                age: listingDoc.data().age,
-                                ageOption: listingDoc.data().ageOption,
-                                gender: listingDoc.data().gender,
-                                size: listingDoc.data().size,
-                                location: listingDoc.data().location,
-                                suburb: listingDoc.data().suburb,
-                                price: listingDoc.data().price,
-                                behaviour: listingDoc.data().behaviour,
-                                health: listingDoc.data().health,
-                                training: listingDoc.data().training,
-                                additional: listingDoc.data().additionalInfo,
-                                photo: listingDoc.data().photoLink,
-                                doc_id: listingDoc.id,
-                                uuid: listingDoc.data().uuid,
-                            });
-                            this.setState({
-                                isLoading: false,
-                                data: [...dataArray],
-                            });
-                        })
-                })
-            })
-    }
+  async fetchData() {
+    const dataArray = [];
+    const reviewArray = [];
 
-    async componentDidMount() {
-        this.fetchData();
+    const seller = this.props.route.params.seller;
+    db.collection("users")
+      .doc(seller.sellerId)
+      .collection("sellList")
+      .get()
+      .then((doc) => {
+        doc.forEach(async (refDoc) => {
+          refDoc
+            .data()
+            .list.get()
+            .then(async (listingDoc) => {
+              dataArray.push({
+                sellerName: seller.name,
+                sellerPhoto: seller.photo,
+                sellerInfo: seller.profileText,
+                sellerEmail: seller.email,
+                sellerDob: seller.dob,
+                petName: listingDoc.data().name,
+                category: listingDoc.data().category,
+                breed: listingDoc.data().breed,
+                colour: listingDoc.data().colour,
+                age: listingDoc.data().age,
+                ageOption: listingDoc.data().ageOption,
+                gender: listingDoc.data().gender,
+                size: listingDoc.data().size,
+                location: listingDoc.data().location,
+                suburb: listingDoc.data().suburb,
+                price: listingDoc.data().price,
+                behaviour: listingDoc.data().behaviour,
+                health: listingDoc.data().health,
+                training: listingDoc.data().training,
+                additional: listingDoc.data().additionalInfo,
+                photo: listingDoc.data().photoLink,
+                doc_id: listingDoc.id,
+                uuid: listingDoc.data().uuid,
+              });
+              this.setState({
+                isLoading: false,
+                data: [...dataArray],
+              });
+            });
+        });
+      });
 
-        BackHandler.addEventListener(
-          "hardwareBackPress",
-          this.handleBackButtonClick
-        );
-    };
+    db.collection("users")
+      .doc(seller.sellerId)
+      .collection("reviewList")
+      .orderBy("timestamp")
+      .limit(3)
+      .get()
+      .then((doc) => {
+        doc.forEach((review) => {
+          const profileRef = review.data().reviewer;
+          profileRef.get().then((snapshot) => {
+            reviewArray.push({
+              rating: review.data().rating,
+              review: review.data().review,
+              reviewerName: snapshot.data().name,
+              reviewerPhoto: snapshot.data().photo,
+            });
+            this.setState({
+              reviewData: [...reviewArray],
+            });
+          });
 
-    componentWillUnmount() {
-        BackHandler.removeEventListener(
-        "hardwareBackPress",
-        this.handleBackButtonClick
-        );
-    }
-    
-    handleBackButtonClick = () => {
-        this.props.navigation.goBack();
-        return true;
-    }
+          // reviewArray.push({
+          //     rating: review.data().rating,
+          //     review: review.data().review,
+          //   });
 
-    render() {
-        const seller = this.props.route.params.seller;
-        return (
-            <ScrollView>
-                {sellerDetails(seller)}
-                <View style={{ paddingLeft: 15, paddingTop: 15, paddingBottom: 5 }}>
-                    <Text style={globalStyles.pageTitle}>{seller.name}'s Listings</Text>
-                </View>
-                <View style={{ justifyContent: "center", alignItems: "center", }}>
-                    <FlatList
-                        style={{ paddingBottom: 10 }}
-                        showsVerticalScrollIndicator={false}
-                        renderItem={({ item }) => (
-                            petBuyCard(item, this.props.navigation)
-                        )}
-                        keyExtractor={(item, index) => index.toString()}
-                        data={this.state.data}
-                    />
-                </View>
-            </ScrollView>
-        );
-    }
+          this.setState({
+            reviewData: [...reviewArray],
+          });
+
+          console.log(reviewArray);
+        });
+      });
+  }
+
+  async componentDidMount() {
+    this.fetchData();
+
+    BackHandler.addEventListener(
+      "hardwareBackPress",
+      this.handleBackButtonClick
+    );
+  }
+
+  componentWillUnmount() {
+    BackHandler.removeEventListener(
+      "hardwareBackPress",
+      this.handleBackButtonClick
+    );
+  }
+
+  handleBackButtonClick = () => {
+    this.props.navigation.goBack();
+    return true;
+  };
+
+  render() {
+    const seller = this.props.route.params.seller;
+    return (
+      <ScrollView>
+        {sellerDetails(seller)}
+        <View style={{ paddingLeft: 15, paddingTop: 15, paddingBottom: 5 }}>
+          <Text style={globalStyles.pageTitle}>
+            {seller.name}'s Recent Listings
+          </Text>
+        </View>
+        <View style={{ justifyContent: "center", alignItems: "center" }}>
+          <FlatList
+            style={{ paddingBottom: 10 }}
+            showsVerticalScrollIndicator={false}
+            renderItem={({ item }) => petBuyCard(item, this.props.navigation)}
+            keyExtractor={(item, index) => index.toString()}
+            data={this.state.data}
+          />
+        </View>
+        <View style={{ paddingLeft: 15, paddingTop: 15, paddingBottom: 5 }}>
+          <Text style={globalStyles.pageTitle}>
+            {seller.name}'s Recent Reviews
+          </Text>
+        </View>
+        <View style={{ justifyContent: "center", alignItems: "center" }}>
+          <FlatList
+            style={{ paddingBottom: 10 }}
+            showsVerticalScrollIndicator={false}
+            renderItem={({ item }) => (
+              <View style={{ marginVertical: 10 }}>
+                <Text>{item.reviewerName}</Text>
+                <Image source={{ uri: item.reviewerPhoto }} style={{width:50, height:50}}/>
+                <Text>{item.rating}</Text>
+                <Text>{item.review}</Text>
+              </View>
+            )}
+            keyExtractor={(item, index) => index.toString()}
+            data={this.state.reviewData}
+          />
+        </View>
+      </ScrollView>
+    );
+  }
 }
