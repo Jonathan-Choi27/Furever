@@ -171,36 +171,58 @@ export const sellerInfo = (seller, navigation) => {
               readonly
               style={{ paddingVertical: 10 }}
             />
-            <View style={{ flex: 1, paddingTop: 7 }}>
-              <Button
-                style={{
-                  backgroundColor: primaryColour2,
-                  alignItems: "center",
-                  justifyContent: "center",
-                  borderRadius: 5,
-                  height: 25,
-                  width: 120,
-                }}
-                mode="contained"
-                onPress={() =>
-                  navigation.navigate("sellerProfile", { seller })
-                }>
-                <Text
+            <View style={{ flex: 1, flexDirection: "row", paddingTop: 7 }}>
+              <View style={{ flex: 0.5 }}>
+                <Button
                   style={{
-                    color: "#ffffff",
-                    fontSize: 12,
-                    padding: 5,
-                    fontWeight: "bold",
-                  }}>
-                  More Info
-                </Text>
-              </Button>
-              <Button
-                onPress={() =>
-                  navigation.navigate("reviewApplication", { seller })
-                }>
-                Review Seller
-              </Button>
+                    backgroundColor: primaryColour2,
+                    alignItems: "center",
+                    justifyContent: "center",
+                    borderRadius: 5,
+                    height: 25,
+                    width: 120,
+                  }}
+                  mode="contained"
+                  onPress={() =>
+                    navigation.navigate("sellerProfile", { seller })
+                  }>
+                  <Text
+                    style={{
+                      color: "#ffffff",
+                      fontSize: 12,
+                      padding: 5,
+                      fontWeight: "bold",
+                    }}>
+                    More Info
+                  </Text>
+                </Button>
+              </View>
+              <View style={{ flex: 0.1 }} />
+              <View style={{ flex: 0.5 }}>
+                <Button
+                  style={{
+                    backgroundColor: primaryColour2,
+                    alignItems: "center",
+                    justifyContent: "center",
+                    borderRadius: 5,
+                    height: 25,
+                    width: 120,
+                  }}
+                  mode="contained"
+                  onPress={() =>
+                    navigation.navigate("reviewApplication", { seller })
+                  }>
+                  <Text
+                    style={{
+                      color: "#ffffff",
+                      fontSize: 12,
+                      padding: 5,
+                      fontWeight: "bold",
+                    }}>
+                    Review Seller
+                  </Text>
+                </Button>
+              </View>
             </View>
           </View>
         </View>
