@@ -51,64 +51,113 @@ export default class accessoryCateogries extends React.Component {
     pigCheck: false,
     filterDisplay: false,
     accessoryTypes: [],
+    petCategories: [],
+    type1Check: false,
+    type2Check: false,
+    type3Check: false,
+    type4Check: false,
+    type5Check: false,
+    type6Check: false,
+    type7Check: false,
+    type8Check: false,
+    price1Check: false,
+    price2Check: false,
+    price3Check: false,
+    price4Check: false,
+    price5Check: false,
+    price6Check: false,
+    filterDisplay: false,
   };
 
-  async componentDidMount() {
+  // async componentDidMount() {
 
+  //   const dataArray = [];
+  //   db.collection("accessories")
+  //     .get()
+  //     .then((doc) => {
+  //       doc.forEach(async (listingDoc) => {
+  //         var uuid = listingDoc.data().uuid;
+  //         var seller_name;
+  //         var seller_photo;
+  //         await db
+  //           .collection("users")
+  //           .doc(uuid)
+  //           .get()
+  //           .then((user_doc) => {
+  //             seller_name = user_doc.data().name;
+  //             seller_photo = user_doc.data().photo;
+  //           })
+  //           .catch((erro) => { });
+  //         dataArray.push({
+  //           sellerName: seller_name,
+  //           sellerPhoto: seller_photo,
+  //           petName: listingDoc.data().name,
+  //           category: listingDoc.data().category,
+  //           breed: listingDoc.data().breed,
+  //           colour: listingDoc.data().colour,
+  //           age: listingDoc.data().age,
+  //           gender: listingDoc.data().gender,
+  //           size: listingDoc.data().size,
+  //           location: listingDoc.data().location,
+  //           price: listingDoc.data().price,
+  //           behaviour: listingDoc.data().behaviour,
+  //           health: listingDoc.data().health,
+  //           training: listingDoc.data().training,
+  //           additional: listingDoc.data().additionalInfo,
+  //           photo: listingDoc.data().photo_link,
+  //           uuid: listingDoc.data().uuid,
+  //           items: [],
+  //         });
+  //         doc.forEach((listingDoc) => {
+  //           dataArray.push({
+  //             accessoryName: listingDoc.data().name,
+  //             category: listingDoc.data().category,
+  //             type: listingDoc.data().type,
+  //             price: listingDoc.data().price,
+  //             photo: listingDoc.data().photoLink,
+  //             docIdd: listingDoc.id,
+  //           });
+  //           this.setState({
+  //             isLoading: false,
+  //             data: [...dataArray],
+  //           });
+  //         });
+  //       });
+  //     });
+
+  //   BackHandler.addEventListener(
+  //     "hardwareBackPress",
+  //     this.handleBackButtonClick
+  //   );
+
+  // };
+  async fetchData() {
     const dataArray = [];
+    const petCategoryArray = [];
+
+
     db.collection("accessories")
       .get()
       .then((doc) => {
-        doc.forEach(async (listingDoc) => {
-          var uuid = listingDoc.data().uuid;
-          var seller_name;
-          var seller_photo;
-          await db
-            .collection("users")
-            .doc(uuid)
-            .get()
-            .then((user_doc) => {
-              seller_name = user_doc.data().name;
-              seller_photo = user_doc.data().photo;
-            })
-            .catch((erro) => { });
+        doc.forEach((listingDoc) => {
           dataArray.push({
-            sellerName: seller_name,
-            sellerPhoto: seller_photo,
-            petName: listingDoc.data().name,
+            accessoryName: listingDoc.data().name,
             category: listingDoc.data().category,
-            breed: listingDoc.data().breed,
-            colour: listingDoc.data().colour,
-            age: listingDoc.data().age,
-            gender: listingDoc.data().gender,
-            size: listingDoc.data().size,
-            location: listingDoc.data().location,
+            type: listingDoc.data().type,
             price: listingDoc.data().price,
-            behaviour: listingDoc.data().behaviour,
-            health: listingDoc.data().health,
-            training: listingDoc.data().training,
-            additional: listingDoc.data().additionalInfo,
-            photo: listingDoc.data().photo_link,
-            uuid: listingDoc.data().uuid,
-            items: [],
+            photo: listingDoc.data().photoLink,
+            docIdd: listingDoc.id,
           });
-          doc.forEach((listingDoc) => {
-            dataArray.push({
-              accessoryName: listingDoc.data().name,
-              category: listingDoc.data().category,
-              type: listingDoc.data().type,
-              price: listingDoc.data().price,
-              photo: listingDoc.data().photoLink,
-              docIdd: listingDoc.id,
-            });
-            this.setState({
-              isLoading: false,
-              data: [...dataArray],
-            });
+          this.setState({
+            isLoading: false,
+            data: [...dataArray],
           });
         });
       });
+  }
 
+  async componentDidMount() {
+    this.fetchData();
     BackHandler.addEventListener(
       "hardwareBackPress",
       this.handleBackButtonClick
@@ -136,6 +185,501 @@ export default class accessoryCateogries extends React.Component {
     });
 
     this.setState({ filteredData: filteredData });
+  };
+
+  checkFunction = (input) => {
+    switch (input) {
+      //Animal
+      case "dogCheck":
+        this.setState({ dogCheck: !this.state.dogCheck });
+        break;
+      case "catCheck":
+        this.setState({ catCheck: !this.state.catCheck });
+        break;
+      case "rabbitCheck":
+        this.setState({ rabbitCheck: !this.state.rabbitCheck });
+        break;
+      case "fishCheck":
+        this.setState({ fishCheck: !this.state.fishCheck });
+        break;
+      case "birdCheck":
+        this.setState({ birdCheck: !this.state.birdCheck });
+        break;
+      case "horseCheck":
+        this.setState({ horseCheck: !this.state.horseCheck });
+        break;
+      case "lizardCheck":
+        this.setState({ lizardCheck: !this.state.lizardCheck });
+        break;
+      case "turtleCheck":
+        this.setState({ catCturtleCheckheck: !this.state.turtleCheck });
+        break;
+      case "pigCheck":
+        this.setState({ pigCheck: !this.state.pigCheck });
+        break;
+
+      //Type
+      case "type1Check":
+        this.setState({ type1Check: !this.state.type1Check });
+        break;
+      case "type2Check":
+        this.setState({ type2Check: !this.state.type2Check });
+        break;
+      case "type3Check":
+        this.setState({ type3Check: !this.state.type3Check });
+        break;
+      case "type4Check":
+        this.setState({ type4Check: !this.state.type4Check });
+        break;
+      case "type5Check":
+        this.setState({ type5Check: !this.state.type5Check });
+        break;
+      case "type6Check":
+        this.setState({ type6Check: !this.state.type6Check });
+        break;
+      case "type7Check":
+        this.setState({ type7Check: !this.state.type7Check });
+        break;
+      case "type8Check":
+        this.setState({ type8Check: !this.state.type8Check });
+        break;
+
+      //Price
+      case "price1Check":
+        this.setState({ price1Check: !this.state.price1Check });
+        break;
+      case "price2Check":
+        this.setState({ price2Check: !this.state.price2Check });
+        break;
+      case "price3Check":
+        this.setState({ price3Check: !this.state.price3Check });
+        break;
+      case "price4Check":
+        this.setState({ price4Check: !this.state.price4Check });
+        break;
+      case "price5Check":
+        this.setState({ price5Check: !this.state.price5Check });
+        break;
+      case "price6Check":
+        this.setState({ price6Check: !this.state.price6Check });
+        break;
+
+      default:
+    }
+  };
+
+  displayFunction = () => {
+    // let listData = this.state.data;
+    let listData = [];
+
+    //Animal
+    if (this.state.dogCheck) {
+      this.setState({ filterDisplay: true });
+      let filteredData = this.state.data.filter(function (item) {
+        return item.category.toLowerCase().includes("dog");
+      });
+      listData = listData.concat(filteredData);
+    }
+    if (this.state.catCheck) {
+      this.setState({ filterDisplay: true });
+      let filteredData = this.state.data.filter(function (item) {
+        return item.category.toLowerCase().includes("cat");
+      });
+      listData = listData.concat(filteredData);
+    }
+    if (this.state.rabbitCheck) {
+      this.setState({ filterDisplay: true });
+      let filteredData = listData.filter(function (item) {
+        return item.category.toLowerCase().includes("rabbit");
+      });
+      listData = listData.concat(filteredData);
+    }
+    if (this.state.fishCheck) {
+      this.setState({ filterDisplay: true });
+      let filteredData = listData.filter(function (item) {
+        return item.category.toLowerCase().includes("fish");
+      });
+      listData = listData.concat(filteredData);
+    }
+    if (this.state.birdCheck) {
+      this.setState({ filterDisplay: true });
+      let filteredData = listData.filter(function (item) {
+        return item.category.toLowerCase().includes("bird");
+      });
+      listData = listData.concat(filteredData);
+    }
+    if (this.state.horseCheck) {
+      this.setState({ filterDisplay: true });
+      let filteredData = listData.filter(function (item) {
+        return item.category.toLowerCase().includes("horse");
+      });
+      listData = listData.concat(filteredData);
+    }
+    if (this.state.lizardCheck) {
+      this.setState({ filterDisplay: true });
+      let filteredData = listData.filter(function (item) {
+        return item.category.toLowerCase().includes("lizard");
+      });
+      listData = listData.concat(filteredData);
+    }
+    if (this.state.turtleCheck) {
+      this.setState({ filterDisplay: true });
+      let filteredData = listData.filter(function (item) {
+        return item.category.toLowerCase().includes("turtle");
+      });
+      listData = listData.concat(filteredData);
+    }
+    if (this.state.pigCheck) {
+      this.setState({ filterDisplay: true });
+      let filteredData = listData.filter(function (item) {
+        return item.category.toLowerCase().includes("pig");
+      });
+      listData = listData.concat(filteredData);
+    }
+
+    //Type
+    if (listData.length == 0) {
+      if (
+        //Animal
+        !this.state.dogCheck && !this.state.catCheck && !this.state.birdCheck &&
+        !this.state.rabbitCheck && !this.state.fishCheck && !this.state.horseCheck &&
+        !this.state.lizardCheck && !this.state.turtleCheck && !this.state.pigCheck) {
+        // console.log(!this.state.dogCheck + " " + !this.state.catCheck);
+        listData = this.state.data;
+      }
+    }
+    var addOn = false;
+    if (this.state.type1Check) {
+      this.setState({ filterDisplay: true });
+      if (addOn) {
+        let filteredData = this.state.data.filter(function (item) {
+          return item.type.toLowerCase().includes("food");
+        });
+        if (filteredData.length > 0) {
+          addOn = true;
+          listData = listData.concat(filteredData);
+        }
+      } else {
+        let filteredData = listData.filter(function (item) {
+          return item.type.toLowerCase().includes("food");
+        });
+        if (filteredData.length > 0) {
+          addOn = true;
+          listData = filteredData;
+        }
+      }
+    }
+    if (this.state.type2Check) {
+      this.setState({ filterDisplay: true });
+      if (addOn) {
+        let filteredData = this.state.data.filter(function (item) {
+          return item.type.toLowerCase().includes("toy");
+        });
+        if (filteredData.length > 0) {
+          addOn = true;
+          listData = listData.concat(filteredData);
+        }
+      } else {
+        let filteredData = listData.filter(function (item) {
+          return item.type.toLowerCase().includes("toy");
+        });
+        if (filteredData.length > 0) {
+          addOn = true;
+          listData = filteredData;
+        }
+      }
+    }
+    if (this.state.type3Check) {
+      this.setState({ filterDisplay: true });
+      if (addOn) {
+        let filteredData = this.state.data.filter(function (item) {
+          return item.type.toLowerCase().includes("apparel");
+        });
+        if (filteredData.length > 0) {
+          addOn = true;
+          listData = listData.concat(filteredData);
+        }
+      } else {
+        let filteredData = listData.filter(function (item) {
+          return item.type.toLowerCase().includes("apparel");
+        });
+        if (filteredData.length > 0) {
+          addOn = true;
+          listData = filteredData;
+        }
+      }
+    }
+    if (this.state.type4Check) {
+      this.setState({ filterDisplay: true });
+      if (addOn) {
+        let filteredData = this.state.data.filter(function (item) {
+          return item.type.toLowerCase().includes("wash");
+        });
+        if (filteredData.length > 0) {
+          addOn = true;
+          listData = listData.concat(filteredData);
+        }
+      } else {
+        let filteredData = listData.filter(function (item) {
+          return item.type.toLowerCase().includes("wash");
+        });
+        if (filteredData.length > 0) {
+          addOn = true;
+          listData = filteredData;
+        }
+      }
+    }
+    if (this.state.type5Check) {
+      this.setState({ filterDisplay: true });
+      if (addOn) {
+        let filteredData = this.state.data.filter(function (item) {
+          return item.type.toLowerCase().includes("bed");
+        });
+        if (filteredData.length > 0) {
+          addOn = true;
+          listData = listData.concat(filteredData);
+        }
+      } else {
+        let filteredData = listData.filter(function (item) {
+          return item.type.toLowerCase().includes("bed");
+        });
+        if (filteredData.length > 0) {
+          addOn = true;
+          listData = filteredData;
+        }
+      }
+    }
+    if (this.state.type6Check) {
+      this.setState({ filterDisplay: true });
+      if (addOn) {
+        let filteredData = this.state.data.filter(function (item) {
+          return item.type.toLowerCase().includes("bowl");
+        });
+        if (filteredData.length > 0) {
+          addOn = true;
+          listData = listData.concat(filteredData);
+        }
+      } else {
+        let filteredData = listData.filter(function (item) {
+          return item.type.toLowerCase().includes("bowl");
+        });
+        if (filteredData.length > 0) {
+          addOn = true;
+          listData = filteredData;
+        }
+      }
+    }
+    if (this.state.type7Check) {
+      this.setState({ filterDisplay: true });
+      if (addOn) {
+        let filteredData = this.state.data.filter(function (item) {
+          return item.type.toLowerCase().includes("home");
+        });
+        if (filteredData.length > 0) {
+          addOn = true;
+          listData = listData.concat(filteredData);
+        }
+      } else {
+        let filteredData = listData.filter(function (item) {
+          return item.type.toLowerCase().includes("home");
+        });
+        if (filteredData.length > 0) {
+          addOn = true;
+          listData = filteredData;
+        }
+      }
+    }
+    if (this.state.type8Check) {
+      this.setState({ filterDisplay: true });
+      if (addOn) {
+        let filteredData = this.state.data.filter(function (item) {
+          return item.cotypelour.toLowerCase().includes("medicine");
+        });
+        if (filteredData.length > 0) {
+          addOn = true;
+          listData = listData.concat(filteredData);
+        }
+      } else {
+        let filteredData = listData.filter(function (item) {
+          return item.type.toLowerCase().includes("medicine");
+        });
+        if (filteredData.length > 0) {
+          addOn = true;
+          listData = filteredData;
+        }
+      }
+    }
+
+    //Price
+    if (this.state.price1Check) {
+      this.setState({ filterDisplay: true });
+      if (addOn) {
+        let filteredData = this.state.data.filter(function (item) {
+          if (item.price < 10) {
+            return item;
+          }
+        });
+        if (filteredData.length > 0) {
+          addOn = true;
+          listData = listData.concat(filteredData);
+        }
+      } else {
+        let filteredData = listData.filter(function (item) {
+          if (item.price < 10) {
+            return item;
+          }
+        });
+        if (filteredData.length > 0) {
+          addOn = true;
+          listData = filteredData;
+        } else {
+          listData = [];
+        }
+      }
+    }
+    if (this.state.price2Check) {
+      this.setState({ filterDisplay: true });
+      if (addOn) {
+        let filteredData = this.state.data.filter(function (item) {
+          if (item.price < 50) {
+            return item;
+          }
+        });
+        if (filteredData.length > 0) {
+          addOn = true;
+          listData = listData.concat(filteredData);
+        }
+      } else {
+        let filteredData = listData.filter(function (item) {
+          if (item.price < 50) {
+            return item;
+          }
+        });
+        if (filteredData.length > 0) {
+          addOn = true;
+          listData = filteredData;
+        } else {
+          listData = [];
+        }
+      }
+    }
+    if (this.state.price3Check) {
+      this.setState({ filterDisplay: true });
+      if (addOn) {
+        let filteredData = this.state.data.filter(function (item) {
+          if (item.price < 100) {
+            return item;
+          }
+        });
+        if (filteredData.length > 0) {
+          addOn = true;
+          listData = listData.concat(filteredData);
+        }
+      } else {
+        let filteredData = listData.filter(function (item) {
+          if (item.price < 100) {
+            return item;
+          }
+        });
+        if (filteredData.length > 0) {
+          addOn = true;
+          listData = filteredData;
+        }
+      }
+    }
+    if (this.state.price4Check) {
+      this.setState({ filterDisplay: true });
+      if (addOn) {
+        let filteredData = this.state.data.filter(function (item) {
+          if (item.price < 500) {
+            return item;
+          }
+        });
+        if (filteredData.length > 0) {
+          addOn = true;
+          listData = listData.concat(filteredData);
+        }
+      } else {
+        let filteredData = listData.filter(function (item) {
+          if (item.price < 500) {
+            return item;
+          }
+        });
+        if (filteredData.length > 0) {
+          addOn = true;
+          listData = filteredData;
+        }
+      }
+    }
+    if (this.state.price5Check) {
+      this.setState({ filterDisplay: true });
+      if (addOn) {
+        let filteredData = this.state.data.filter(function (item) {
+          if (item.price < 1000) {
+            return item;
+          }
+        });
+        if (filteredData.length > 0) {
+          addOn = true;
+          listData = listData.concat(filteredData);
+        }
+      } else {
+        let filteredData = listData.filter(function (item) {
+          if (item.price < 1000) {
+            return item;
+          }
+        });
+        if (filteredData.length > 0) {
+          addOn = true;
+          listData = filteredData;
+        }
+      }
+    }
+    if (this.state.price2Check) {
+      this.setState({ filterDisplay: true });
+      if (addOn) {
+        let filteredData = this.state.data.filter(function (item) {
+          if (item.price > 1000) {
+            return item;
+          }
+        });
+        if (filteredData.length > 0) {
+          addOn = true;
+          listData = listData.concat(filteredData);
+        }
+      } else {
+        let filteredData = listData.filter(function (item) {
+          if (item.price > 1000) {
+            return item;
+          }
+        });
+        if (filteredData.length > 0) {
+          addOn = true;
+          listData = filteredData;
+        }
+      }
+    }
+    
+
+    if ( //If nothing is checked, don't display filter
+      //Animal
+      !this.state.dogCheck && !this.state.catCheck && !this.state.birdCheck &&
+      !this.state.rabbitCheck && !this.state.fishCheck && !this.state.horseCheck &&
+      !this.state.lizardCheck && !this.state.turtleCheck && !this.state.pigCheck &&
+
+      //Type
+      !this.state.type1Check && !this.state.type2Check && !this.state.type3Check &&
+      !this.state.type4Check && !this.state.type5Check && !this.state.type6Check &&
+      !this.state.type7Check && !this.state.type8Check && 
+
+      //Price
+      !this.state.price1Check && !this.state.price2Check && !this.state.price3Check &&
+      !this.state.price4Check && !this.state.price5Check && !this.state.price6Check 
+    ) {
+      this.setState({ filterDisplay: false });
+    }
+
+    this.setState({ filteredData: listData });
   };
 
 
@@ -186,6 +730,284 @@ export default class accessoryCateogries extends React.Component {
                 }}>
                 <Card elevation={5} style={{ margin: 10 }}>
                   <Card.Content>
+                  <ScrollView style={{ height: 450 }}>
+                        <View style={{ flex: 1, flexDirection: 'row', justifyContent: "flex-start" }}>
+
+                          {/* First filter column */}
+                          <View style={{ flex: 1, flexDirection: 'column', justifyContent: "flex-start" }}>
+                            <Text>Animal:</Text>
+                            <View style={{ flexDirection: "column" }}>
+                              <Checkbox.Item
+                                style={{ justifyContent: "flex-end" }}
+                                theme={{ colors: { primary: primaryColour1 } }}
+                                color={primaryColour1}
+                                label="Dog"
+                                status={this.state.dogCheck ? "checked" : "unchecked"}
+                                onPress={() => {
+                                  this.checkFunction("dogCheck");
+                                }}
+                              />
+                              <Checkbox.Item
+                                style={{ justifyContent: "flex-end" }}
+                                theme={{ colors: { primary: primaryColour1 } }}
+                                color={primaryColour1}
+                                label="Fish"
+                                status={this.state.fishCheck ? "checked" : "unchecked"}
+                                onPress={() => {
+                                  this.checkFunction("fishCheck");
+                                }}
+                              />
+                              <Checkbox.Item
+                                style={{ justifyContent: "flex-end" }}
+                                theme={{ colors: { primary: primaryColour1 } }}
+                                color={primaryColour1}
+                                label="Lizard"
+                                status={this.state.lizardCheck ? "checked" : "unchecked"}
+                                onPress={() => {
+                                  this.checkFunction("lizardCheck");
+                                }}
+                              />
+                            </View>
+                            <Text>Type:</Text>
+                            <View style={{ flexDirection: "column" }}>
+                              <Checkbox.Item
+                                style={{ justifyContent: "flex-end" }}
+                                theme={{ colors: { primary: primaryColour1 } }}
+                                color={primaryColour1}
+                                label="Food"
+                                status={this.state.type1Check ? "checked" : "unchecked"}
+                                onPress={() => {
+                                  this.checkFunction("type1Check");
+                                }}
+                              />
+                              <Checkbox.Item
+                                style={{ justifyContent: "flex-end" }}
+                                theme={{ colors: { primary: primaryColour1 } }}
+                                color={primaryColour1}
+                                label="Wash"
+                                status={this.state.type4Check ? "checked" : "unchecked"}
+                                onPress={() => {
+                                  this.checkFunction("type4Check");
+                                }}
+                              />
+                              <Checkbox.Item
+                                style={{ justifyContent: "flex-end" }}
+                                theme={{ colors: { primary: primaryColour1 } }}
+                                color={primaryColour1}
+                                label="Home"
+                                status={this.state.type7Check ? "checked" : "unchecked"}
+                                onPress={() => {
+                                  this.checkFunction("type7Check");
+                                }}
+                              />
+                            </View>                          
+                            <Text>Price:</Text>
+                            <View style={{ flexDirection: "column" }}>
+                              <Checkbox.Item
+                                style={{ justifyContent: "flex-end" }}
+                                theme={{ colors: { primary: primaryColour1 } }}
+                                color={primaryColour1}
+                                label="<$10"
+                                status={this.state.price1Check ? "checked" : "unchecked"}
+                                onPress={() => {
+                                  this.checkFunction("price1Check");
+                                }}
+                              />
+                              <Checkbox.Item
+                                style={{ justifyContent: "flex-end" }}
+                                theme={{ colors: { primary: primaryColour1 } }}
+                                color={primaryColour1}
+                                label="<$500"
+                                status={this.state.price4Check ? "checked" : "unchecked"}
+                                onPress={() => {
+                                  this.checkFunction("price4Check");
+                                }}
+                              />
+                            </View>
+                          </View>
+
+                          {/* Second filter column */}
+                          <View style={{ flex: 1, flexDirection: 'column', justifyContent: "flex-start" }}>
+                            <Text> </Text>
+                            <View style={{ flexDirection: "column" }}>
+                              <Checkbox.Item
+                                style={{ justifyContent: "flex-end" }}
+                                theme={{ colors: { primary: primaryColour1 } }}
+                                color={primaryColour1}
+                                label="Cat"
+                                status={this.state.catCheck ? "checked" : "unchecked"}
+                                onPress={() => {
+                                  this.checkFunction("catCheck");
+                                }}
+                              />
+                              <Checkbox.Item
+                                style={{ justifyContent: "flex-end" }}
+                                theme={{ colors: { primary: primaryColour1 } }}
+                                color={primaryColour1}
+                                label="Bird"
+                                status={this.state.birdCheck ? "checked" : "unchecked"}
+                                onPress={() => {
+                                  this.checkFunction("birdCheck");
+                                }}
+                              />
+                              <Checkbox.Item
+                                style={{ justifyContent: "flex-end" }}
+                                theme={{ colors: { primary: primaryColour1 } }}
+                                color={primaryColour1}
+                                label="Turtle"
+                                status={this.state.turtleCheck ? "checked" : "unchecked"}
+                                onPress={() => {
+                                  this.checkFunction("turtleCheck");
+                                }}
+                              />
+                            </View>
+                            <Text> </Text>
+                            <View style={{ flexDirection: "column" }}>
+                              <Checkbox.Item
+                                style={{ justifyContent: "flex-end" }}
+                                theme={{ colors: { primary: primaryColour1 } }}
+                                color={primaryColour1}
+                                label="Toys"
+                                status={this.state.type2Check ? "checked" : "unchecked"}
+                                onPress={() => {
+                                  this.checkFunction("type2Check");
+                                }}
+                              />
+                              <Checkbox.Item
+                                style={{ justifyContent: "flex-end" }}
+                                theme={{ colors: { primary: primaryColour1 } }}
+                                color={primaryColour1}
+                                label="Bed"
+                                status={this.state.type5Check ? "checked" : "unchecked"}
+                                onPress={() => {
+                                  this.checkFunction("type5Check");
+                                }}
+                              />
+                              <Checkbox.Item
+                                style={{ justifyContent: "flex-end" }}
+                                theme={{ colors: { primary: primaryColour1 } }}
+                                color={primaryColour1}
+                                label="Medicine"
+                                status={this.state.type8Check ? "checked" : "unchecked"}
+                                onPress={() => {
+                                  this.checkFunction("type8Check");
+                                }}
+                              />
+                            </View>
+                            
+                            <Text> </Text>
+                            <View style={{ flexDirection: "column" }}>
+                              <Checkbox.Item
+                                style={{ justifyContent: "flex-end" }}
+                                theme={{ colors: { primary: primaryColour1 } }}
+                                color={primaryColour1}
+                                label="<$50"
+                                status={this.state.price2Check ? "checked" : "unchecked"}
+                                onPress={() => {
+                                  this.checkFunction("price2Check");
+                                }}
+                              />
+                              <Checkbox.Item
+                                style={{ justifyContent: "flex-end" }}
+                                theme={{ colors: { primary: primaryColour1 } }}
+                                color={primaryColour1}
+                                label="<$1000"
+                                status={this.state.price5Check ? "checked" : "unchecked"}
+                                onPress={() => {
+                                  this.checkFunction("price5Check");
+                                }}
+                              />
+                            </View>
+                          </View>
+
+                          {/* Third filter column */}
+                          <View style={{ flex: 1, flexDirection: 'column', justifyContent: "flex-start" }}>
+                            <Text> </Text>
+                            <View style={{ flexDirection: "column" }}>
+                              <Checkbox.Item
+                                style={{ justifyContent: "flex-end" }}
+                                theme={{ colors: { primary: primaryColour1 } }}
+                                color={primaryColour1}
+                                label="Rabbit"
+                                status={this.state.rabbitCheck ? "checked" : "unchecked"}
+                                onPress={() => {
+                                  this.checkFunction("rabbitCheck");
+                                }}
+                              />
+                              <Checkbox.Item
+                                style={{ justifyContent: "flex-end" }}
+                                theme={{ colors: { primary: primaryColour1 } }}
+                                color={primaryColour1}
+                                label="Horse"
+                                status={this.state.horseCheck ? "checked" : "unchecked"}
+                                onPress={() => {
+                                  this.checkFunction("horseCheck");
+                                }}
+                              />
+                              <Checkbox.Item
+                                style={{ justifyContent: "flex-end" }}
+                                theme={{ colors: { primary: primaryColour1 } }}
+                                color={primaryColour1}
+                                label="Pig"
+                                status={this.state.pigCheck ? "checked" : "unchecked"}
+                                onPress={() => {
+                                  this.checkFunction("pigCheck");
+                                }}
+                              />
+                            </View>
+                            <Text> </Text>
+                            <View style={{ flexDirection: "column" }}>
+                              <Checkbox.Item
+                                style={{ justifyContent: "flex-end" }}
+                                theme={{ colors: { primary: primaryColour1 } }}
+                                color={primaryColour1}
+                                label="Apparel"
+                                status={this.state.type3Check ? "checked" : "unchecked"}
+                                onPress={() => {
+                                  this.checkFunction("type3Check");
+                                }}
+                              />
+                              <Checkbox.Item
+                                style={{ justifyContent: "flex-end" }}
+                                theme={{ colors: { primary: primaryColour1 } }}
+                                color={primaryColour1}
+                                label="Bowl"
+                                status={this.state.type6Check ? "checked" : "unchecked"}
+                                onPress={() => {
+                                  this.checkFunction("type6Check");
+                                }}
+                              />
+                              
+                            </View>
+                            <Text style={{height:32.5}}> </Text>
+                            <Text> </Text>
+                            <Text> </Text>
+                            <View style={{ flexDirection: "column" }}>
+                              <Checkbox.Item
+                                style={{ justifyContent: "flex-end" }}
+                                theme={{ colors: { primary: primaryColour1 } }}
+                                color={primaryColour1}
+                                label="<$100"
+                                status={this.state.price3Check ? "checked" : "unchecked"}
+                                onPress={() => {
+                                  this.checkFunction("price3Check");
+                                }}
+                              />
+                              <Checkbox.Item
+                                style={{ justifyContent: "flex-end" }}
+                                theme={{ colors: { primary: primaryColour1 } }}
+                                color={primaryColour1}
+                                label="$1000+"
+                                status={this.state.price6Check ? "checked" : "unchecked"}
+                                onPress={() => {
+                                  this.checkFunction("price6Check");
+                                }}
+                              />
+                            </View>
+                          </View>
+                        </View>
+
+                      </ScrollView>
 
                   </Card.Content>
                   <Card.Actions style={{ justifyContent: "flex-end" }}>
@@ -203,6 +1025,13 @@ export default class accessoryCateogries extends React.Component {
             </Portal>
 
             {this.state.filterDisplay ? (
+              <View style={globalStyles.petContainer}>
+              {this.state.filteredData.length == 0 ? (
+                //No filtered data
+                <View style={globalStyles.petContainer}>
+                  <Text style={{ margin: 100 }}>No results found.</Text>
+                </View>
+              ) : (
               <FlatList
                 numColumns={2}
                 key={1}
@@ -217,6 +1046,8 @@ export default class accessoryCateogries extends React.Component {
                     : this.state.data
                 }
               />
+              )}
+            </View>
             ) : (
                 <View style={globalStyles.petContainer}>
                   {this.state.searchText == "" ? (
