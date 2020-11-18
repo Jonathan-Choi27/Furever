@@ -13,7 +13,7 @@ import { Icon } from "react-native-elements";
 import { Button } from "react-native-paper";
 import { CustomInput } from "../components/customInput";
 import { Card } from "react-native-elements";
-import CategorySelection from "../petTab/sell/sellAppCategories";
+import CategorySelection from "./dropDownCategories";
 import { openImagePicker, uploadPhoto } from "../components/imageUpload";
 import { db } from "../database/firebase";
 import { auth } from "../database/firebase";
@@ -30,13 +30,9 @@ export default class SetupOne extends React.Component {
   state = {
     name: "",
     categoryErr: "",
-    breedErr: "",
-    colourErr: "",
-    sizeErr: "",
-    breed: "",
-    colour: "",
-    size: "",
+    locationErr: "",
     category: "",
+    location: "",
     profileText: "",
     photo:
       "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2FemptyUser.png?alt=media&token=9414c888-2439-4138-a431-46a314a44c03",
@@ -92,18 +88,12 @@ export default class SetupOne extends React.Component {
       }
 
       if (!this.state.category.trim()) {
+        Alert.alert("Input Error", "Category required.");
         return;
       }
 
-      if (!this.state.breed.trim()) {
-        return;
-      }
-
-      if (!this.state.colour.trim()) {
-        return;
-      }
-
-      if (!this.state.size.trim()) {
+      if (!this.state.location.trim()) {
+        Alert.alert("Input Error", "Location required.");
         return;
       }
 
@@ -113,6 +103,8 @@ export default class SetupOne extends React.Component {
         photo: this.state.photo,
         name: this.state.name,
         profileText: this.state.profileText,
+        preferenceCategory: this.state.category,
+        preferenceLocation: this.state.location,
       });
 
       this.props.navigation.replace("Home");
@@ -135,35 +127,23 @@ export default class SetupOne extends React.Component {
     });
   };
 
-  setBreed = (val) => {
+  setLocation = (val) => {
     this.setState({
-      breed: val,
+      location: val,
     });
   };
 
-  setColour = (val) => {
-    this.setState({
-      colour: val,
-    });
-  };
-
-  setSize = (val) => {
-    this.setState({
-      size: val,
-    });
-  };
-
-  breedValidator = () => {
+  locationValidator = () => {
     var bool;
-    if (this.state.breed == "0" || this.state.breed == "") {
+    if (this.state.location == "0" || this.state.location == "") {
       bool = false;
       this.setState({
-        breedErr: "Select breed",
+        locationErr: "Select location",
       });
     } else {
       bool = true;
       this.setState({
-        breedErr: "",
+        locationErr: "",
       });
     }
 
@@ -187,45 +167,10 @@ export default class SetupOne extends React.Component {
     return bool;
   };
 
-  colourValidator = () => {
-    var bool;
-    if (this.state.colour == "0" || this.state.colour == "") {
-      bool = false;
-      this.setState({
-        colourErr: "Select colour",
-      });
-    } else {
-      bool = true;
-      this.setState({
-        colourErr: "",
-      });
-    }
-
-    return bool;
-  };
-
-  sizeValidator = () => {
-    var bool;
-    if (this.state.size == "0" || this.state.size == "") {
-      bool = false;
-      this.setState({
-        sizeErr: "Select size",
-      });
-    } else {
-      bool = true;
-      this.setState({
-        sizeErr: "",
-      });
-    }
-
-    return bool;
-  };
 
   validationCheck = () => {
     this.categoryValidator();
-    this.breedValidator();
-    this.colourValidator();
-    this.sizeValidator();
+    this.locationValidator();
     var submit = true;
     return submit;
   };
@@ -309,12 +254,8 @@ export default class SetupOne extends React.Component {
                 <CategorySelection
                   setCategory={this.setCategory}
                   categoryErr={this.state.categoryErr}
-                  setBreed={this.setBreed}
-                  breedErr={this.state.breedErr}
-                  setColour={this.setColour}
-                  colourErr={this.state.colourErr}
-                  setSize={this.setSize}
-                  sizeErr={this.state.sizeErr}
+                  setLocation={this.setLocation}
+                  locationErr={this.state.locationErr}
                 />
               </Card>
             </View>

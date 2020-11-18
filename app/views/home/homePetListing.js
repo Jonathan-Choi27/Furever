@@ -35,6 +35,9 @@ const db = firebase.firestore();
 export default class HomePetListing extends React.Component {
   state = {
     data: [],
+    bestMatchData: [],
+    preferenceCategory: "",
+    preferenceLocation: "",
     limit: 12,
     lastVisible: null,
     loading: false,
@@ -136,9 +139,14 @@ export default class HomePetListing extends React.Component {
       .doc(user.uid)
       .get()
       .then((user_doc) => {
+        
         this.setState({
           checkNewUser: user_doc.data().isNewUser,
+          preferenceCategory: user_doc.data().preferenceCategory,
+          preferenceLocation: user_doc.data().preferenceLocation,
         });
+        this.bestMatch();
+
       });
   }
 
@@ -189,6 +197,8 @@ export default class HomePetListing extends React.Component {
       // isLoading: false,
       data: this.state.data.concat(dataArray),
     });
+    this.bestMatch();
+
   }
 
   async componentDidMount() {
@@ -220,6 +230,26 @@ export default class HomePetListing extends React.Component {
     });
 
     this.setState({ filteredData: filteredData });
+  };
+
+  bestMatch = () => {    
+    this.setState({ bestMatchData: this.state.data });
+
+    let prefCategory = this.state.preferenceCategory.toLowerCase();
+    let prefLocation = this.state.preferenceLocation.toLowerCase();
+
+    let filteredData = this.state.data.filter(function (item) {
+      return item.category.toLowerCase().includes(prefCategory);
+    });
+
+    let filteredData2 = filteredData.filter(function (item) {
+      return item.location.toLowerCase().includes(prefLocation);
+    });
+    if (filteredData2.length == 0) {
+      this.setState({ bestMatchData: this.state.data });  
+    } else {
+      this.setState({ bestMatchData: filteredData2 });  
+    }
   };
 
   checkFunction = (input) => {
@@ -1387,7 +1417,7 @@ export default class HomePetListing extends React.Component {
                 </View>
               ) : (
                   <FlatList
-                    data={this.state.data}
+                    data={this.state.bestMatchData}
                     columnWrapperStyle={{ justifyContent: "flex-start" }}
                     numColumns={3}
                     onRefresh={async () => {
@@ -1407,7 +1437,7 @@ export default class HomePetListing extends React.Component {
                       this.state.filteredData &&
                         this.state.filteredData.length > 0
                         ? this.state.filteredData
-                        : this.state.data
+                        : this.state.bestMatchData
                     }
                   />
                 )}
@@ -1417,7 +1447,7 @@ export default class HomePetListing extends React.Component {
                 {this.state.searchText == "" ? (
                   <View style={styles.container}>
                     <FlatList
-                      data={this.state.data}
+                      data={this.state.bestMatchData}
                       columnWrapperStyle={{ justifyContent: "flex-start" }}
                       numColumns={3}
                       onRefresh={async () => {
@@ -1448,7 +1478,7 @@ export default class HomePetListing extends React.Component {
 
 
                           <FlatList
-                            data={this.state.data}
+                            data={this.state.bestMatchData}
                             columnWrapperStyle={{ justifyContent: "space-between" }}
                             numColumns={3}
                             onRefresh={async () => {
@@ -1467,7 +1497,7 @@ export default class HomePetListing extends React.Component {
                             data={
                               this.state.filteredData && this.state.filteredData.length > 0
                                 ? this.state.filteredData
-                                : this.state.data
+                                : this.state.bestMatchData
                             }
                           />
 
