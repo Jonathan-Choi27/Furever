@@ -1,13 +1,28 @@
 import * as React from "react";
 import { ActivityIndicator } from "react-native";
-import { View, Image, Text, BackHandler, StyleSheet, TouchableOpacity, ScrollView } from "react-native";
-import { Button, TextInput, Card } from "react-native-paper";
+import {
+  View,
+  Image,
+  Text,
+  BackHandler,
+  StyleSheet,
+  TouchableOpacity,
+  ScrollView,
+} from "react-native";
+import { Icon } from "react-native-elements";
+import { CustomInput } from "../components/customInput";
+
+import { Card } from "react-native-elements";
 import { openImagePicker, uploadPhoto } from "../components/imageUpload";
 import { db } from "../database/firebase";
 import { auth } from "../database/firebase";
 import uuid from "react-native-uuid";
-import { Avatar, Accessory, Input } from "react-native-elements";
-import globalStyles, { primaryColour1, primaryColour2 } from "../styleSheet/styleSheet";
+import { Avatar, Accessory } from "react-native-elements";
+import globalStyles, {
+  primaryColour1,
+  primaryColour2,
+  screenWidth,
+} from "../styleSheet/styleSheet";
 
 export default class updateProfile extends React.Component {
   constructor(props) {
@@ -42,7 +57,7 @@ export default class updateProfile extends React.Component {
   handleBackButtonClick = () => {
     this.props.navigation.goBack();
     return true;
-  }
+  };
 
   async handleUpdate() {
     // dont set new photo uri if no pic selected or no update
@@ -98,7 +113,7 @@ export default class updateProfile extends React.Component {
               style={{
                 fontSize: 30,
                 marginTop: 60,
-                color: "black",
+                color: "#F5F5DC",
                 transform: [{ scaleX: 0.5 }],
               }}
             >
@@ -132,7 +147,54 @@ export default class updateProfile extends React.Component {
           </View>
         </View>
 
-        <View style={{ marginHorizontal: 50, marginTop: 30 }}>
+        <View style={{ marginTop: 20, width: screenWidth }}>
+          <View>
+            <Card containerStyle={{ borderRadius: 10 }}>
+              <Text style={globalStyles.cardHeading}>Edit Display Name</Text>
+              <CustomInput
+                placeholder={this.state.prevName}
+                onChangeText={(name) => this.setState({ name })}
+                multiline={true}
+                leftIcon={
+                  <Icon
+                    name="ios-paper"
+                    type="ionicon"
+                    color={primaryColour1}
+                    containerStyle={{ paddingLeft: 7, paddingRight: 10 }}
+                  />
+                }
+              />
+            </Card>
+            <Card containerStyle={{ borderRadius: 10 }}>
+              <Text style={globalStyles.cardHeading}>Edit Profile Text</Text>
+              <CustomInput
+                placeholder={this.state.prevProfileText}
+                onChangeText={(profileText) => this.setState({ profileText })}
+                errorMessage={this.state.healthErr}
+                multiline={true}
+                leftIcon={
+                  <Icon
+                    name="ios-paper"
+                    type="ionicon"
+                    color={primaryColour1}
+                    containerStyle={{ paddingLeft: 7, paddingRight: 10 }}
+                  />
+                }
+              />
+            </Card>
+          </View>
+
+          <View style={globalStyles.applicationButtonsContainer}>
+            <TouchableOpacity
+              style={globalStyles.buttons}
+              onPress={() => this.handleUpdate()}
+            >
+              <Text style={globalStyles.buttonsText}>Update</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+
+        {/* <View style={{ marginHorizontal: 50, marginTop: 30 }}>
           <View>
             <Input
               label="Display Name"
@@ -153,12 +215,13 @@ export default class updateProfile extends React.Component {
             <View style={globalStyles.applicationButtonsContainer}>
               <TouchableOpacity
                 style={globalStyles.buttons}
-                onPress={() => this.handleUpdate()}>
+                onPress={() => this.handleUpdate()}
+              >
                 <Text style={globalStyles.buttonsText}>Update</Text>
               </TouchableOpacity>
             </View>
           </View>
-        </View>
+        </View> */}
       </ScrollView>
     );
   }
