@@ -7,13 +7,18 @@ import {
   Text,
   BackHandler,
   StyleSheet,
+  ScrollView,
 } from "react-native";
-import { Button, TextInput, Card } from "react-native-paper";
+import { Icon } from "react-native-elements";
+import { Button } from "react-native-paper";
+import { CustomInput } from "../components/customInput";
+import { Card } from "react-native-elements";
+import CategorySelection from "../petTab/sell/sellAppCategories";
 import { openImagePicker, uploadPhoto } from "../components/imageUpload";
 import { db } from "../database/firebase";
 import { auth } from "../database/firebase";
 import uuid from "react-native-uuid";
-import { Avatar, Accessory, Input } from "react-native-elements";
+import { Avatar, Accessory } from "react-native-elements";
 import globalStyles, {
   primaryColour1,
   primaryColour2,
@@ -24,6 +29,14 @@ import globalStyles, {
 export default class SetupOne extends React.Component {
   state = {
     name: "",
+    categoryErr: "",
+    breedErr: "",
+    colourErr: "",
+    sizeErr: "",
+    breed: "",
+    colour: "",
+    size: "",
+    category: "",
     profileText: "",
     photo:
       "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2FemptyUser.png?alt=media&token=9414c888-2439-4138-a431-46a314a44c03",
@@ -59,32 +72,51 @@ export default class SetupOne extends React.Component {
   }
 
   async handleUpdate() {
-    // dont set new photo uri if no pic selected or no update
-    if (this.state.photo != this.state.photoUri) {
-      const photoURL = await uploadPhoto(
-        this.state.photoUri,
-        this.state.photoUuid
-      );
+    var submit = this.validationCheck();
+    if (submit == true) {
+      // dont set new photo uri if no pic selected or no update
+      if (this.state.photo != this.state.photoUri) {
+        const photoURL = await uploadPhoto(
+          this.state.photoUri,
+          this.state.photoUuid
+        );
 
-      this.setState({
-        photo: photoURL,
+        this.setState({
+          photo: photoURL,
+        });
+      }
+
+      if (!this.state.profileText.trim()) {
+        Alert.alert("Input Error", "Profile text cannot be empty");
+        return;
+      }
+
+      if (!this.state.category.trim()) {
+        return;
+      }
+
+      if (!this.state.breed.trim()) {
+        return;
+      }
+
+      if (!this.state.colour.trim()) {
+        return;
+      }
+
+      if (!this.state.size.trim()) {
+        return;
+      }
+
+      const user = auth.currentUser;
+
+      db.collection("users").doc(user.uid).update({
+        photo: this.state.photo,
+        name: this.state.name,
+        profileText: this.state.profileText,
       });
+
+      this.props.navigation.replace("Home");
     }
-
-    if (!this.state.profileText.trim()) {
-      Alert.alert("Input Error", "Profile text cannot be empty");
-      return;
-    }
-
-    const user = auth.currentUser;
-
-    db.collection("users").doc(user.uid).update({
-      photo: this.state.photo,
-      name: this.state.name,
-      profileText: this.state.profileText,
-    });
-
-    this.props.navigation.replace("Home");
   }
 
   setPhotoUri = async () => {
@@ -97,68 +129,202 @@ export default class SetupOne extends React.Component {
     }
   };
 
+  setCategory = (val) => {
+    this.setState({
+      category: val,
+    });
+  };
+
+  setBreed = (val) => {
+    this.setState({
+      breed: val,
+    });
+  };
+
+  setColour = (val) => {
+    this.setState({
+      colour: val,
+    });
+  };
+
+  setSize = (val) => {
+    this.setState({
+      size: val,
+    });
+  };
+
+  breedValidator = () => {
+    var bool;
+    if (this.state.breed == "0" || this.state.breed == "") {
+      bool = false;
+      this.setState({
+        breedErr: "Select breed",
+      });
+    } else {
+      bool = true;
+      this.setState({
+        breedErr: "",
+      });
+    }
+
+    return bool;
+  };
+
+  categoryValidator = () => {
+    var bool;
+    if (this.state.category == "0" || this.state.category == "") {
+      bool = false;
+      this.setState({
+        categoryErr: "Select category",
+      });
+    } else {
+      bool = true;
+      this.setState({
+        categoryErr: "",
+      });
+    }
+
+    return bool;
+  };
+
+  colourValidator = () => {
+    var bool;
+    if (this.state.colour == "0" || this.state.colour == "") {
+      bool = false;
+      this.setState({
+        colourErr: "Select colour",
+      });
+    } else {
+      bool = true;
+      this.setState({
+        colourErr: "",
+      });
+    }
+
+    return bool;
+  };
+
+  sizeValidator = () => {
+    var bool;
+    if (this.state.size == "0" || this.state.size == "") {
+      bool = false;
+      this.setState({
+        sizeErr: "Select size",
+      });
+    } else {
+      bool = true;
+      this.setState({
+        sizeErr: "",
+      });
+    }
+
+    return bool;
+  };
+
+  validationCheck = () => {
+    this.categoryValidator();
+    this.breedValidator();
+    this.colourValidator();
+    this.sizeValidator();
+    var submit = true;
+    return submit;
+  };
+
   render() {
     return (
-      <View style={globalStyles.container}>
-        <View
-          style={{
-            backgroundColor: primaryColour1,
-            borderBottomRightRadius: 1000,
-            borderBottomLeftRadius: 1000,
-            transform: [{ scaleX: 2 }],
-            overflow: "hidden",
-          }}
-        >
-          <View style={{ alignItems: "center" }}>
-            <Text
-              style={{
-                fontSize: 30,
-                marginTop: 60,
-                color: "#F5F5DC",
-                transform: [{ scaleX: 0.5 }],
-              }}
-            >
-              Upload a profile image
-            </Text>
-          </View>
-          <View style={styles.avatarContainer}>
-            <View style={{ opacity: 0.1, position: "absolute" }}>
-              <Image
+      <ScrollView>
+        <View style={globalStyles.container}>
+          <View
+            style={{
+              backgroundColor: primaryColour1,
+              borderBottomRightRadius: 1000,
+              borderBottomLeftRadius: 1000,
+              transform: [{ scaleX: 2 }],
+              overflow: "hidden",
+            }}
+          >
+            <View style={{ alignItems: "center" }}>
+              <Text
                 style={{
-                  left: 140,
-                  width: 750 / 1.7,
-                  height: 610 / 1.7,
+                  fontSize: 30,
+                  marginTop: 60,
+                  color: "#F5F5DC",
+                  transform: [{ scaleX: 0.5 }],
                 }}
-                source={{
-                  uri:
-                    "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2FLogoDogWhite.png?alt=media&token=d2ba6451-beeb-4815-8782-a31601436e20",
-                }}
-              />
+              >
+                We are almost there...
+              </Text>
             </View>
-            <Avatar
-              size={150}
-              rounded
-              renderPlaceholderContent={<ActivityIndicator />}
-              source={{
-                uri: this.state.photoUri,
+            <View style={styles.avatarContainer}>
+              <View style={{ opacity: 0.1, position: "absolute" }}>
+                <Image
+                  style={{
+                    left: 140,
+                    width: 750 / 1.7,
+                    height: 610 / 1.7,
+                  }}
+                  source={{
+                    uri:
+                      "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2FLogoDogWhite.png?alt=media&token=d2ba6451-beeb-4815-8782-a31601436e20",
+                  }}
+                />
+              </View>
+              <Avatar
+                size={150}
+                rounded
+                renderPlaceholderContent={<ActivityIndicator />}
+                source={{
+                  uri: this.state.photoUri,
+                }}
+              >
+                <Accessory size={45} onPress={this.setPhotoUri} />
+              </Avatar>
+            </View>
+          </View>
+
+          <View style={{ marginTop: 20, width: screenWidth - 20 }}>
+            <View>
+              <Card containerStyle={{ borderRadius: 10 }}>
+                <Text style={globalStyles.cardHeading}>Add Profile Text</Text>
+                <CustomInput
+                  placeholder="Can be anything about you..."
+                  onChangeText={(profileText) => this.setState({ profileText })}
+                  errorMessage={this.state.healthErr}
+                  multiline={true}
+                  leftIcon={
+                    <Icon
+                      name="ios-paper"
+                      type="ionicon"
+                      color={primaryColour1}
+                      containerStyle={{ paddingLeft: 7, paddingRight: 10 }}
+                    />
+                  }
+                />
+              </Card>
+
+              <Card containerStyle={{ borderRadius: 10 }}>
+                <Text style={globalStyles.cardHeading}>
+                  Choose a pet preference...
+                </Text>
+                <CategorySelection
+                  setCategory={this.setCategory}
+                  categoryErr={this.state.categoryErr}
+                  setBreed={this.setBreed}
+                  breedErr={this.state.breedErr}
+                  setColour={this.setColour}
+                  colourErr={this.state.colourErr}
+                  setSize={this.setSize}
+                  sizeErr={this.state.sizeErr}
+                />
+              </Card>
+            </View>
+            <View
+              style={{
+                alignItems: "center",
+                marginTop: 20,
+                marginBottom: 40,
               }}
             >
-              <Accessory size={45} onPress={this.setPhotoUri} />
-            </Avatar>
-          </View>
-        </View>
-
-        <View style={{ marginTop: 50, width: screenWidth - 80 }}>
-          <View>
-            <Input
-              label="Add Profile Text"
-              placeholder="Can be anything about you..."
-              labelStyle={{ color: primaryColour2 }}
-              onChangeText={(profileText) => this.setState({ profileText })}
-              multiline
-            />
-
-            <View style={{ alignItems: "center", marginTop: 20 }}>
               <Button
                 mode="outlined"
                 style={styles.buttons}
@@ -169,7 +335,7 @@ export default class SetupOne extends React.Component {
             </View>
           </View>
         </View>
-      </View>
+      </ScrollView>
     );
   }
 }
