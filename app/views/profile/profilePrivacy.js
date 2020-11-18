@@ -9,11 +9,18 @@ import {
   ScrollView,
   TouchableOpacity,
 } from "react-native";
-import { Button } from "react-native-paper";
+import { Icon } from "react-native-elements";
+import { CustomInput } from "../components/customInput";
+import { Card } from "react-native-elements";
+
 import { auth } from "../database/firebase";
 import * as firebase from "firebase";
 import { Input } from "react-native-elements";
-import globalStyles, { primaryColour1, primaryColour2 } from "../styleSheet/styleSheet";
+import globalStyles, {
+  primaryColour1,
+  primaryColour2,
+  screenWidth,
+} from "../styleSheet/styleSheet";
 export default class ProfilePrivacy extends React.Component {
   constructor(props) {
     super(props);
@@ -62,6 +69,7 @@ export default class ProfilePrivacy extends React.Component {
             Alert.alert("Password changed", "Your change was successful.");
             this.setState({ newPassword: "" });
             this.setState({ currentPassword: "" });
+            this.props.navigation.navigate("profileHome");
           })
           .catch((error) => {
             alert(error);
@@ -76,46 +84,97 @@ export default class ProfilePrivacy extends React.Component {
 
   render() {
     return (
-      <View>
-        <View
-          style={{
-            backgroundColor: primaryColour2,
-            borderBottomRightRadius: 1000,
-            borderBottomLeftRadius: 1000,
-            transform: [{ scaleX: 2 }],
-            overflow: "hidden",
-          }}
-        >
-          <View style={{ alignItems: "center" }}>
-            <Text
-              style={{
-                fontSize: 30,
-                marginTop: 60,
-                color: "black",
-                transform: [{ scaleX: 0.5 }],
-              }}
-            >
-              {`Privacy and Security`}
-            </Text>
-          </View>
-          <View style={styles.avatarContainer}>
-            <View style={{ opacity: 0.1, position: "absolute" }}>
-              <Image
+      <ScrollView>
+        <View>
+          <View
+            style={{
+              backgroundColor: primaryColour2,
+              borderBottomRightRadius: 1000,
+              borderBottomLeftRadius: 1000,
+              transform: [{ scaleX: 2 }],
+              overflow: "hidden",
+            }}
+          >
+            <View style={{ alignItems: "center" }}>
+              <Text
                 style={{
-                  left: 140,
-                  width: 750 / 1.7,
-                  height: 610 / 1.7,
+                  fontSize: 30,
+                  marginTop: 60,
+                  color: "black",
+                  transform: [{ scaleX: 0.5 }],
                 }}
-                source={{
-                  uri:
-                    "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2FLogoDogWhite.png?alt=media&token=d2ba6451-beeb-4815-8782-a31601436e20",
-                }}
-              />
+              >
+                {`Privacy and Security`}
+              </Text>
+            </View>
+            <View style={styles.avatarContainer}>
+              <View style={{ opacity: 0.1, position: "absolute" }}>
+                <Image
+                  style={{
+                    left: 140,
+                    width: 750 / 1.7,
+                    height: 610 / 1.7,
+                  }}
+                  source={{
+                    uri:
+                      "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2FLogoDogWhite.png?alt=media&token=d2ba6451-beeb-4815-8782-a31601436e20",
+                  }}
+                />
+              </View>
             </View>
           </View>
-        </View>
 
-        <View style={{ marginHorizontal: 50, marginTop: 30 }}>
+          <View style={{ marginTop: 20, width: screenWidth }}>
+            <View>
+              <Card containerStyle={{ borderRadius: 10 }}>
+                <Text style={globalStyles.cardHeading}>Current Password</Text>
+                <CustomInput
+                  placeholder="Current Password"
+                  secureTextEntry={true}
+                  onChangeText={(text) =>
+                    this.setState({ currentPassword: text })
+                  }
+                  multiline={false}
+                  leftIcon={
+                    <Icon
+                      name="lock-outline"
+                      type="ionicons"
+                      color={primaryColour1}
+                      containerStyle={{ paddingLeft: 7, paddingRight: 10 }}
+                    />
+                  }
+                />
+              </Card>
+              <Card containerStyle={{ borderRadius: 10 }}>
+                <Text style={globalStyles.cardHeading}>New Password</Text>
+                <CustomInput
+                  placeholder="New Password"
+                  secureTextEntry={true}
+                  onChangeText={(text) => this.setState({ newPassword: text })}
+                  errorMessage={this.state.healthErr}
+                  multiline={false}
+                  leftIcon={
+                    <Icon
+                      name="lock-outline"
+                      type="ionicons"
+                      color={primaryColour1}
+                      containerStyle={{ paddingLeft: 7, paddingRight: 10 }}
+                    />
+                  }
+                />
+              </Card>
+            </View>
+            <View style={globalStyles.applicationButtonsContainer}>
+              <TouchableOpacity
+                style={globalStyles.buttons}
+                onPress={this.onChangePasswordPress}
+              >
+                <Text style={globalStyles.buttonsText}>Update</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+
+          {/* <View style={{ marginHorizontal: 50, marginTop: 30 }}>
           <Input
             value={this.state.currentPassword}
             placeholder="Current Password"
@@ -148,14 +207,16 @@ export default class ProfilePrivacy extends React.Component {
             }}
           />
           <View style={globalStyles.applicationButtonsContainer}>
-              <TouchableOpacity
-                style={globalStyles.buttons}
-                onPress={this.onChangePasswordPress}>
-                <Text style={globalStyles.buttonsText}>Update</Text>
-              </TouchableOpacity>
-            </View>
+            <TouchableOpacity
+              style={globalStyles.buttons}
+              onPress={this.onChangePasswordPress}
+            >
+              <Text style={globalStyles.buttonsText}>Update</Text>
+            </TouchableOpacity>
+          </View>
+        </View> */}
         </View>
-      </View>
+      </ScrollView>
     );
   }
 }
