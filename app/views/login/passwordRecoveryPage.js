@@ -43,7 +43,7 @@ export default class PasswordRecoveryPage extends React.Component {
           style={globalStyles.loginLogo}
           source={{
             uri:
-              "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2FlogoWithWords.png?alt=media&token=4d7beb37-6108-4c5c-95a7-5e0e89c4e6d0",
+              "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2FlogoWithWords.png?alt=media&token=37437e7d-7cb4-43e4-a567-6cfe5f109989",
           }}
         />
         <View style={globalStyles.loginInputContainer}>
