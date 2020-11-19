@@ -106,7 +106,7 @@ export const reviewCard = (item) => {
                     <Text style={[globalStyles.contentTextBold, { paddingBottom: 3, fontSize: 18 }]}>{item.reviewerName}</Text>
                     <Text style={[globalStyles.contentText, { flex: 1 }]}>{item.review}</Text>
                     <Rating
-                        imageSize={40}
+                        imageSize={30}
                         startingValue={item.rating}
                         ratingColor={primaryColour1}
                         ratingBackgroundColor="#EFEFEF"
