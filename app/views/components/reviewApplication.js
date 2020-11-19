@@ -19,7 +19,7 @@ export default class revieApplication extends React.Component {
     this.state = {
       review: "",
       rating: 3,
-    };
+    }; 
   }
 
   // Handle Back button

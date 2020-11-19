@@ -128,7 +128,7 @@ export default class homeSellerProfile extends React.Component {
 
   handleBackButtonClick = () => {
     this.props.navigation.goBack();
-    return true;
+    return true; 
   };
 
   render() {

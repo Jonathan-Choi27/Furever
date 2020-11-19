@@ -10,7 +10,8 @@ import {
     Card,
     Button,
 } from "react-native-paper";
-import globalStyles, {screenWidth} from "../styleSheet/styleSheet";
+import { Rating } from "react-native-elements";
+import globalStyles, { screenWidth, primaryColour1 } from "../styleSheet/styleSheet";
 
 export const sellerDetails = (seller) => {
     const screenWidth = Math.round(Dimensions.get('window').width);
@@ -18,7 +19,7 @@ export const sellerDetails = (seller) => {
     return (
         <View style={globalStyles.container}>
             {/* The seller name title */}
-            <Card style={[globalStyles.cardContentContainer, {marginTop: 20}]}>
+            <Card style={[globalStyles.cardContentContainer, { marginTop: 20 }]}>
                 <View style={{ flexDirection: "row", alignItems: "center" }}>
                     <Image
                         style={{
@@ -35,13 +36,13 @@ export const sellerDetails = (seller) => {
                         }}
                     />
                     <Text
-                        style={{ fontWeight: "bold", fontSize: 30, color: "black", marginLeft: 30, flex: 1}}>
+                        style={{ fontWeight: "bold", fontSize: 30, color: "black", marginLeft: 30, flex: 1 }}>
                         {seller.name}'s Profile
                     </Text>
                 </View>
             </Card>
 
-            <Card style={[globalStyles.cardContentContainer, {marginTop: 20}]}>
+            <Card style={[globalStyles.cardContentContainer, { marginTop: 20 }]}>
                 <View style={{
                     marginLeft: 10,
                     marginBottom: 10,
@@ -55,7 +56,7 @@ export const sellerDetails = (seller) => {
                             <Text style={globalStyles.contentTextBold}>Email: </Text>
                             <Text style={globalStyles.contentTextBold}>Description: </Text>
                         </View>
-                        <View style={{paddingLeft: 5}}>
+                        <View style={{ paddingLeft: 5 }}>
                             <Text numberOfLines={1} style={globalStyles.contentText}>{seller.name}</Text>
                             <Text numberOfLines={1} style={globalStyles.contentText}>{seller.email}</Text>
                             <Text style={globalStyles.contentText}>{seller.profileText}</Text>
@@ -64,7 +65,7 @@ export const sellerDetails = (seller) => {
                 </View>
             </Card>
 
-            
+
 
         </View>
     );
@@ -72,7 +73,7 @@ export const sellerDetails = (seller) => {
 
 export const reviewCard = (item) => {
     return (
-        <Card elevation={5} style={[globalStyles.cardContentContainer, {marginBottom: 10}]}>
+        <Card elevation={5} style={[globalStyles.cardContentContainer, { marginBottom: 10 }]}>
             <View style={{
                 flexDirection: "row",
                 justifyContent: "center",
@@ -102,9 +103,18 @@ export const reviewCard = (item) => {
                         flex: 3
                     }}
                 >
-                    <Text style={[globalStyles.contentTextBold, {paddingBottom: 3, fontSize: 18}]}>{item.reviewerName}</Text>
-                    <Text style={[globalStyles.contentTextBold, {paddingBottom: 3}]}>{item.rating}/5</Text>
-                    <Text style={[globalStyles.contentText, {flex: 1}]}>{item.review}</Text>
+                    <Text style={[globalStyles.contentTextBold, { paddingBottom: 3, fontSize: 18 }]}>{item.reviewerName}</Text>
+                    <Text style={[globalStyles.contentText, { flex: 1 }]}>{item.review}</Text>
+                    <Rating
+                        imageSize={40}
+                        startingValue={item.rating}
+                        ratingColor={primaryColour1}
+                        ratingBackgroundColor="#EFEFEF"
+                        type="custom"
+                        tintColor="white"
+                        readonly
+                        style={{ paddingBottom: 5 }}
+                    />
                 </View>
             </View>
         </Card>

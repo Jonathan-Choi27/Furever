@@ -172,7 +172,7 @@ export const sellerInfo = (seller, navigation) => {
               style={{ paddingVertical: 10 }}
             />
             <View style={{ flex: 1, flexDirection: "row", paddingTop: 7 }}>
-              <View style={{ flex: 0.5 }}>
+              <View style={{ flex: 0.5, padddingLeft: 3 }}>
                 <Button
                   style={{
                     backgroundColor: primaryColour2,
@@ -193,12 +193,12 @@ export const sellerInfo = (seller, navigation) => {
                       padding: 3,
                       fontWeight: "bold",
                     }}>
-                    More Info
+                    More Info 
                   </Text>
                 </Button>
               </View>
               <View style={{ flex: 0.1 }} />
-              <View style={{ flex: 0.5 }}>
+              <View style={{ flex: 0.5, padddingRight: 3 }}>
                 <Button
                   style={{
                     backgroundColor: primaryColour2,
