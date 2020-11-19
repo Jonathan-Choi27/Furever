@@ -13,9 +13,9 @@ import {
 } from "react-native";
 import { Card } from "react-native-elements";
 console.disableYellowBox = true;
-import globalStyles from "../styleSheet/styleSheet";
+import globalStyles, {pageBackgroundColour} from "../styleSheet/styleSheet";
 
-import { sellerDetails } from "../components/sellerInfoComponent";
+import { sellerDetails, reviewCard } from "../components/sellerInfoComponent";
 import { petBuyCard } from "../components/petBuyComponents";
 import { db } from "../database/firebase";
 
@@ -134,10 +134,11 @@ export default class homeSellerProfile extends React.Component {
   render() {
     const seller = this.props.route.params.seller;
     return (
-      <ScrollView>
+      <ScrollView contentContainerStyle={{backgroundColor: pageBackgroundColour}}>
         {sellerDetails(seller)}
+
         <View style={{ paddingLeft: 15, paddingTop: 15, paddingBottom: 5 }}>
-          <Text style={globalStyles.pageTitle}>
+          <Text style={[globalStyles.pageTitle, {flex: 1}]}>
             {seller.name}'s Recent Listings
           </Text>
         </View>
@@ -150,8 +151,9 @@ export default class homeSellerProfile extends React.Component {
             data={this.state.data}
           />
         </View>
+
         <View style={{ paddingLeft: 15, paddingTop: 15, paddingBottom: 5 }}>
-          <Text style={globalStyles.pageTitle}>
+          <Text style={[globalStyles.pageTitle, {flex: 1}]}>
             {seller.name}'s Recent Reviews
           </Text>
         </View>
@@ -160,12 +162,7 @@ export default class homeSellerProfile extends React.Component {
             style={{ paddingBottom: 10 }}
             showsVerticalScrollIndicator={false}
             renderItem={({ item }) => (
-              <View style={{ marginVertical: 10 }}>
-                <Text>{item.reviewerName}</Text>
-                <Image source={{ uri: item.reviewerPhoto }} style={{width:50, height:50}}/>
-                <Text>{item.rating}</Text>
-                <Text>{item.review}</Text>
-              </View>
+              reviewCard(item)
             )}
             keyExtractor={(item, index) => index.toString()}
             data={this.state.reviewData}

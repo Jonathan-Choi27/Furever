@@ -83,7 +83,7 @@ export default class shopSellerProfile extends React.Component {
         <ScrollView>
             {sellerDetails(seller)}
             <View style={{ paddingLeft: 15, paddingTop: 15, paddingBottom: 5 }}>
-                <Text style={globalStyles.pageTitle}>{seller.name}'s Accessory Listings</Text>
+                <Text style={[globalStyles.pageTitle, {flex: 1}]}>{seller.name}'s Accessory Listings</Text>
             </View>
             <View style={{ justifyContent: "center", alignItems: "center", }}>
                 <FlatList

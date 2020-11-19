@@ -41,15 +41,15 @@ export const cartCard = (navigation) => {
             containerStyle={{ borderRadius: 10 }}
             onPress={() => navigation.navigate("Cart", {items})}
             >
-            <View style={{flexDirection: "row", justifyContent: "center", alignItems: "center"}}>
+            <View style={{flexDirection: "row", justifyContent: "center", alignItems: "center", marginLeft: 5, marginRight: 10}}>
                 <Text numberOfLines={1} style={[globalStyles.pageTitle, {padding: 10}]}>
                     View Shopping Cart
                 </Text>
                 <Image 
-                style={{width: 30, height: 30}}
-                source={{
-                    uri: "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fshop%2Fcart.png?alt=media&token=472ae7b3-7888-443c-b27b-9a37b39b4405"
-                }}>
+                    style={{width: 30, height: 30}}
+                    source={{
+                        uri: "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fshop%2Fcart.png?alt=media&token=472ae7b3-7888-443c-b27b-9a37b39b4405"
+                    }}>
                 </Image>
             </View>
         </Card>

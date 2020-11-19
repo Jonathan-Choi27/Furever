@@ -12,21 +12,24 @@ import {
   } from "react-native";
 console.disableYellowBox = true;
 import { Card, } from "react-native-elements";
-import globalStyles from "../../styleSheet/styleSheet";
+import globalStyles, {pageBackgroundColour} from "../../styleSheet/styleSheet";
 
-import { sellerDetails } from "../../components/sellerInfoComponent";
+import { sellerDetails, reviewCard } from "../../components/sellerInfoComponent";
 import { petBuyCard } from "../../components/petBuyComponents";
 import { db } from "../../database/firebase";
 
 export default class buySellerProfile extends React.Component {
     state = {
         data: [],
+        reviewData: [],
         isLoading: true,
         pullToRefresh: false,
     };
 
     async fetchData() {
         const dataArray = [];
+        const reviewArray = [];
+
         const seller = this.props.route.params.seller;
         db.collection("users")
             .doc(seller.sellerId)
@@ -69,6 +72,40 @@ export default class buySellerProfile extends React.Component {
                         })
                 })
             })
+
+        db.collection("users")
+        .doc(seller.sellerId)
+        .collection("reviewList")
+        .orderBy("timestamp")
+        .limit(3)
+        .get()
+        .then((doc) => {
+            doc.forEach((review) => {
+            const profileRef = review.data().reviewer;
+            profileRef.get().then((snapshot) => {
+                reviewArray.push({
+                rating: review.data().rating,
+                review: review.data().review,
+                reviewerName: snapshot.data().name,
+                reviewerPhoto: snapshot.data().photo,
+                });
+                this.setState({
+                reviewData: [...reviewArray],
+                });
+            });
+
+            // reviewArray.push({
+            //     rating: review.data().rating,
+            //     review: review.data().review,
+            //   });
+
+            this.setState({
+                reviewData: [...reviewArray],
+            });
+
+            console.log(reviewArray);
+            });
+        });
     }
 
     async componentDidMount() {
@@ -95,20 +132,38 @@ export default class buySellerProfile extends React.Component {
     render() {
       const seller = this.props.route.params.seller;
       return (
-        <ScrollView>
+        <ScrollView contentContainerStyle={{backgroundColor: pageBackgroundColour}}>
             {sellerDetails(seller)}
+
             <View style={{ paddingLeft: 15, paddingTop: 15, paddingBottom: 5 }}>
-                <Text style={globalStyles.pageTitle}>{seller.name}'s Listings</Text>
+                <Text style={[globalStyles.pageTitle, {flex: 1}]}>
+                    {seller.name}'s Recent Listings
+                </Text>
             </View>
-            <View style={{ justifyContent: "center", alignItems: "center", }}>
+            <View style={{ justifyContent: "center", alignItems: "center" }}>
+                <FlatList
+                    style={{ paddingBottom: 10 }}
+                    showsVerticalScrollIndicator={false}
+                    renderItem={({ item }) => petBuyCard(item, this.props.navigation)}
+                    keyExtractor={(item, index) => index.toString()}
+                    data={this.state.data}
+                />
+            </View>
+
+            <View style={{ paddingLeft: 15, paddingTop: 15, paddingBottom: 5 }}>
+                <Text style={[globalStyles.pageTitle, {flex: 1}]}>
+                    {seller.name}'s Recent Reviews
+                </Text>
+            </View>
+            <View style={{ justifyContent: "center", alignItems: "center" }}>
                 <FlatList
                     style={{ paddingBottom: 10 }}
                     showsVerticalScrollIndicator={false}
                     renderItem={({ item }) => (
-                        petBuyCard(item, this.props.navigation)
+                    reviewCard(item)
                     )}
                     keyExtractor={(item, index) => index.toString()}
-                    data={this.state.data}
+                    data={this.state.reviewData}
                 />
             </View>
         </ScrollView>

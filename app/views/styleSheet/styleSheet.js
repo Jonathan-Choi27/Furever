@@ -170,6 +170,7 @@ export default StyleSheet.create({
     borderBottomWidth: 2,
     borderBottomColor: "#484848",
     marginBottom: 10,
+    flex: 1,
   },
   contentTextBold: {
     fontWeight: "bold",

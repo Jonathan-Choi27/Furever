@@ -992,7 +992,7 @@ export default class petCategories extends React.Component {
                             onPress={() =>
                               this.props.navigation.navigate("accessoryListings")
                             }>
-                            <View style={{ flexDirection: "row", justifyContent: "center", alignItems: "center" }}>
+                            <View style={{ flexDirection: "row", justifyContent: "center", alignItems: "center", marginLeft: 5, marginRight: 10 }}>
                               <Text numberOfLines={1} style={[globalStyles.pageTitle, { padding: 10 }]}>
                                 Sell Accessories
                             </Text>

@@ -44,24 +44,26 @@ export default class revieApplication extends React.Component {
 
   handleSubmit = () => {
     const user = auth.currentUser;
+    const sellerId = this.props.route.params.seller.sellerId;
 
-    db.collection("users").doc(user.uid).collection("reviewList").add({
+    db.collection("users").doc(sellerId).collection("reviewList").add({
       review: this.state.review,
       rating: this.state.rating,
       reviewer: db.collection("users").doc(user.uid),
       timestamp: firebase.firestore.Timestamp.now(),
     });
 
-    db.collection("users").doc(user.uid).get().then((doc) => {
+    db.collection("users").doc(sellerId).get().then((doc) => {
         // var averageReview = doc.data().averageReview;
         var averageRating = doc.data().averageRating;
         averageRating.push(this.state.rating);
 
-        db.collection("users").doc(user.uid).update({
+        db.collection("users").doc(sellerId).update({
             averageRating: averageRating
         })
-
     })
+
+    this.props.navigation.goBack();
   };
 
   //   ratingCompleted = (rating) => {
@@ -75,8 +77,13 @@ export default class revieApplication extends React.Component {
   render() {
     const seller = this.props.route.params.seller;
     return (
-      <View style={{justifyContent: "center", flex:1}}>
-        <Card containerStyle={{ borderRadius: 10 }}>
+      <View style={globalStyles.container}>
+        <Card containerStyle={globalStyles.cardContentContainer}>
+          <Text style={{ fontWeight: "bold", fontSize: 30, color: "black" }}>
+            Review For {seller.name}
+          </Text>
+        </Card>
+        <Card containerStyle={globalStyles.cardContentContainer}>
           <CustomInput
             label="Write a review"
             placeholder="Please fill in this field"
@@ -103,7 +110,7 @@ export default class revieApplication extends React.Component {
             style={{ paddingVertical: 10, color: "red" }}
           />
 
-          <View style={globalStyles.applicationButtonsContainer}>
+          <View style={[globalStyles.applicationButtonsContainer, {paddingBottom: 20}]}>
             <TouchableOpacity
               title={"submit"}
               style={globalStyles.buttons}

@@ -166,7 +166,7 @@ export default class breedList extends React.Component {
           </Portal>
 
           <View style={globalStyles.pageTitleContainer}>
-            <Text style={globalStyles.pageTitle}>{item.breedName}</Text>
+            <Text style={[globalStyles.pageTitle, {flex: 1}]}>{item.breedName}</Text>
             <View>
               <Button
                 color={primaryColour2}

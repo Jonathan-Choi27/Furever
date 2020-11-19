@@ -67,7 +67,7 @@ export const profileInfo = (item) => {
           />
         </View>
         <Card containerStyle={styles.cardContentContainer}>
-          <Text style={{ fontWeight: "bold", fontSize: 30, color: "black" }}>
+          <Text style={{ fontWeight: "bold", fontSize: 30, color: "black", flex: 1 }}>
             {item.petName}'s Profile
           </Text>
         </Card>
@@ -190,7 +190,7 @@ export const sellerInfo = (seller, navigation) => {
                     style={{
                       color: "#ffffff",
                       fontSize: 12,
-                      padding: 5,
+                      padding: 3,
                       fontWeight: "bold",
                     }}>
                     More Info
@@ -216,10 +216,10 @@ export const sellerInfo = (seller, navigation) => {
                     style={{
                       color: "#ffffff",
                       fontSize: 12,
-                      padding: 5,
+                      padding: 3,
                       fontWeight: "bold",
                     }}>
-                    Review Seller
+                    Review
                   </Text>
                 </Button>
               </View>
