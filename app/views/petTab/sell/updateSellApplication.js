@@ -96,8 +96,6 @@ export default class updateSellApplication extends React.Component {
           photo_uri: doc.data().photoLink,
           documents: doc.data().documents,
         });
-        // this.state.name = await doc.data().name;
-        // console.log(this.state.name);
       });
 
     BackHandler.addEventListener(
@@ -106,6 +104,7 @@ export default class updateSellApplication extends React.Component {
     );
   };
 
+  //Handle back button
   componentWillUnmount() {
     BackHandler.removeEventListener(
       "hardwareBackPress",
@@ -116,7 +115,7 @@ export default class updateSellApplication extends React.Component {
   handleBackButtonClick = () => {
     this.props.navigation.goBack();
     return true;
-  }
+  };
 
   setLocation = (location, suburb) => {
     this.setState({
@@ -125,7 +124,7 @@ export default class updateSellApplication extends React.Component {
     });
   };
 
-  // Handle submit functions
+  // Handle Submit Functions
   validationCheck = () => {
     this.nameValidator();
     this.categoryValidator();
@@ -138,7 +137,6 @@ export default class updateSellApplication extends React.Component {
     this.trainingValidator();
     this.genderValidator();
     this.locationValidator();
-    // this.additionalInfoValidator();
     this.priceValidator();
 
     var submit = true;
@@ -154,7 +152,6 @@ export default class updateSellApplication extends React.Component {
       this.behaviourValidator() == false ||
       this.healthValidator() == false ||
       this.trainingValidator() == false ||
-      // this.additionalInfoValidator() == false ||
       this.photoValidator() == false
     ) {
       alert("All input fields required and must be valid.");
@@ -397,7 +394,6 @@ export default class updateSellApplication extends React.Component {
 
   priceValidator = () => {
     if (this.state.price == "") {
-      //   console.log("going in loop");
       this.setState({
         price: "0",
       });
@@ -447,7 +443,6 @@ export default class updateSellApplication extends React.Component {
   };
 
   setPrice = (price) => {
-    // console.log(price);
     this.setState({
       price: price,
     });
@@ -666,7 +661,9 @@ export default class updateSellApplication extends React.Component {
           </View>
 
           <View style={{ marginHorizontal: 10, marginBottom: 20 }}>
-            <Text style={{ color: "#505050", fontWeight: "bold", fontSize: 16, }}>
+            <Text
+              style={{ color: "#505050", fontWeight: "bold", fontSize: 16 }}
+            >
               Gender
             </Text>
 
@@ -677,7 +674,8 @@ export default class updateSellApplication extends React.Component {
               <View style={globalStyles.formPickerInnerContainer}>
                 <Picker
                   selectedValue={this.state.gender}
-                  onValueChange={(gender) => this.setState({ gender })}>
+                  onValueChange={(gender) => this.setState({ gender })}
+                >
                   <Picker.Item
                     label="Select gender"
                     value="0"
@@ -713,7 +711,11 @@ export default class updateSellApplication extends React.Component {
             )}
           </View>
 
-          <PriceSlider price={this.state.price} setPrice={this.setPrice} max={10000} />
+          <PriceSlider
+            price={this.state.price}
+            setPrice={this.setPrice}
+            max={10000}
+          />
         </Card>
 
         <Card containerStyle={{ borderRadius: 10 }}>
@@ -775,10 +777,7 @@ export default class updateSellApplication extends React.Component {
           <Text style={globalStyles.cardHeading}>Additional Information</Text>
           <CustomInput
             defaultValue={this.state.additionalInfo}
-            onChangeText={(additionalInfo) =>
-              this.setState({ additionalInfo })
-            }
-            // errorMessage={this.state.additionalInfo_err}
+            onChangeText={(additionalInfo) => this.setState({ additionalInfo })}
             multiline={true}
             leftIcon={
               <Icon
@@ -798,45 +797,49 @@ export default class updateSellApplication extends React.Component {
                 flexDirection: "row",
                 marginHorizontal: 10,
                 marginBottom: 10,
-              }}>
-          <View style={{ flex: 1, flexDirection: "row", paddingBottom: 3 }}>
-          <Text style={globalStyles.applicationInputName}>
-            Upload a Photo
-          </Text>
-          <Text style={globalStyles.setColorRed}> *</Text>
-          </View>
-            {!this.state.valid_uri && (
-              <View style={{ flex: 1 }}>
-                <Text style={globalStyles.applicationErrorText}>
-                  Choose a photo
+              }}
+            >
+              <View style={{ flex: 1, flexDirection: "row", paddingBottom: 3 }}>
+                <Text style={globalStyles.applicationInputName}>
+                  Upload a Photo
                 </Text>
+                <Text style={globalStyles.setColorRed}> *</Text>
               </View>
-            )}
-          </View>
-        
-          <View
-            style={{
-              alignContent: "center",
-              alignItems: "center",
-              marginHorizontal: 10,
-            }}>
-            <Image
-              style={{ height: 300, width: screenWidth - 92 }}
-              source={{ uri: this.state.photo_uri }}
-            />
-          </View>
-          <Button
-            style={{
-              marginTop: 10,
-              backgroundColor: primaryColour2,
-              marginHorizontal: 10,
-            }}
-            onPress={this.setPhotoUri}>
-            <Text
+              {!this.state.valid_uri && (
+                <View style={{ flex: 1 }}>
+                  <Text style={globalStyles.applicationErrorText}>
+                    Choose a photo
+                  </Text>
+                </View>
+              )}
+            </View>
+
+            <View
               style={{
-                color: "white",
-              }}>
-              Choose Photo
+                alignContent: "center",
+                alignItems: "center",
+                marginHorizontal: 10,
+              }}
+            >
+              <Image
+                style={{ height: 300, width: screenWidth - 92 }}
+                source={{ uri: this.state.photo_uri }}
+              />
+            </View>
+            <Button
+              style={{
+                marginTop: 10,
+                backgroundColor: primaryColour2,
+                marginHorizontal: 10,
+              }}
+              onPress={this.setPhotoUri}
+            >
+              <Text
+                style={{
+                  color: "white",
+                }}
+              >
+                Choose Photo
               </Text>
             </Button>
           </View>
@@ -847,19 +850,21 @@ export default class updateSellApplication extends React.Component {
             <View style={{ marginBottom: 10 }}>
               <Text style={globalStyles.applicationInputName}>
                 Upload Documents
-                </Text>
+              </Text>
             </View>
             <Button
               style={{
                 backgroundColor: primaryColour2,
               }}
-              onPress={this.setDocumentUri}>
+              onPress={this.setDocumentUri}
+            >
               <Text
                 style={{
                   color: "white",
-                }}>
+                }}
+              >
                 Choose Document
-                </Text>
+              </Text>
             </Button>
           </View>
         </Card>
@@ -868,11 +873,12 @@ export default class updateSellApplication extends React.Component {
           <TouchableOpacity
             title={"submit"}
             style={globalStyles.buttons}
-            onPress={this.handleSubmit}>
+            onPress={this.handleSubmit}
+          >
             <Text style={globalStyles.buttonsText}>Save</Text>
           </TouchableOpacity>
         </View>
-      </ScrollView >
+      </ScrollView>
     );
   }
 }

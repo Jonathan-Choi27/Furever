@@ -4,6 +4,7 @@ import { Card } from "react-native-elements";
 import globalStyles from "../styleSheet/styleSheet";
 
 export default class ProfileHelp extends React.Component {
+  //Handle back button
   componentDidMount() {
     BackHandler.addEventListener(
       "hardwareBackPress",
@@ -49,9 +50,6 @@ export default class ProfileHelp extends React.Component {
             />
           </View>
           <Card containerStyle={{ borderRadius: 10 }}>
-            {/* <Text style={{ fontWeight: "bold", fontSize: 30, color: "#333333" }}>
-            Help Page
-          </Text> */}
             <Text style={globalStyles.cardHeading}> F.A.Q </Text>
             <View style={globalStyles.faqContainer}>
               <Text style={globalStyles.faqHeader}>

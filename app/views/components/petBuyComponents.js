@@ -1,16 +1,9 @@
 import * as React from "react";
-import {
-    Text,
-    View,
-    Image,
-    TouchableOpacity,
-} from "react-native";
-import {
-    Card,
-    Button,
-} from "react-native-paper";
+import { Text, View, Image, TouchableOpacity } from "react-native";
+import { Card, Button } from "react-native-paper";
 import globalStyles from "../styleSheet/styleSheet";
 
+//Pet Buy Card
 export const petBuyCard = (item, navigation) => {
   return (
     <Card elevation={5} style={globalStyles.petBuyCard}>
@@ -29,18 +22,20 @@ export const petBuyCard = (item, navigation) => {
             style={globalStyles.petBuyCardImage}
           />
         </View>
-        <View
-          style={globalStyles.petBuyCardContent}
-        >
+        <View style={globalStyles.petBuyCardContent}>
           <Card.Content>
-            <View style={{marginRight: 40}}>
+            <View style={{ marginRight: 40 }}>
               <Text numberOfLines={1} style={{ flex: 1 }}>
-                <Text style={{ fontSize: 18, paddingBottom: 2 }}>{item.petName}</Text>
+                <Text style={{ fontSize: 18, paddingBottom: 2 }}>
+                  {item.petName}
+                </Text>
               </Text>
             </View>
             <Text numberOfLines={1} style={{ flex: 1 }}>
               <Text style={{ fontWeight: "bold" }}>Age: </Text>
-              <Text>{item.age} {item.ageOption}</Text>
+              <Text>
+                {item.age} {item.ageOption}
+              </Text>
             </Text>
             <Text numberOfLines={1} style={{ flex: 1 }}>
               <Text style={{ fontWeight: "bold" }}>Gender: </Text>
@@ -60,53 +55,53 @@ export const petBuyCard = (item, navigation) => {
             <Button
               style={globalStyles.petBuyCardBigButton}
               mode="contained"
-              onPress={() =>
-                navigation.navigate("petProfile", {item})
-              }
+              onPress={() => navigation.navigate("petProfile", { item })}
             >
-              <Text style={globalStyles.petBuyCardBigButtonText}>More Info</Text>
+              <Text style={globalStyles.petBuyCardBigButtonText}>
+                More Info
+              </Text>
             </Button>
           </Card.Actions>
         </View>
       </View>
     </Card>
-  )
-}
+  );
+};
 
+//Pet Buy Category
 export const petBuyCategory = (item, navigation) => {
   return (
     <View style={globalStyles.iconContainer}>
       <TouchableOpacity
-        onPress={() =>
-          navigation.navigate("petBreeds", { item })
-        }>
+        onPress={() => navigation.navigate("petBreeds", { item })}
+      >
         <View style={globalStyles.categoryIconContainer}>
           <Image
             style={globalStyles.icon}
-            source={{uri: item.categoryImage}}
+            source={{ uri: item.categoryImage }}
           />
           <Text style={globalStyles.iconText}>{item.category}</Text>
         </View>
       </TouchableOpacity>
     </View>
-  )
-}
+  );
+};
 
+//Pet Buy Breed
 export const petBuyBreed = (item, category, navigation) => {
   return (
     <View style={globalStyles.breedContainer}>
       <TouchableOpacity
-        onPress={() =>
-          navigation.navigate("breedList", { item, category })
-        }>
+        onPress={() => navigation.navigate("breedList", { item, category })}
+      >
         <View style={globalStyles.breedIconContainer}>
           <Image
             style={globalStyles.breedIcon}
-            source={{uri: item.breedImage}}
+            source={{ uri: item.breedImage }}
           />
           <Text style={globalStyles.iconText}>{item.breedName}</Text>
         </View>
       </TouchableOpacity>
     </View>
-  )
-}
+  );
+};

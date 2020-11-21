@@ -25,6 +25,7 @@ export default class accessoryListings extends React.Component {
     isFetchingMore: false,
   };
 
+  //Fetch Data
   async fetchData() {
     this.setState({
       data: [],
@@ -32,7 +33,7 @@ export default class accessoryListings extends React.Component {
     const dataArray = [];
     const uid = auth.currentUser.uid;
 
-    // retrieve list of references stored within users
+    //Retrieve list of references stored within users
     const referenceData = await db
       .collection("users")
       .doc(uid)
@@ -42,7 +43,7 @@ export default class accessoryListings extends React.Component {
       .get();
 
     let documentData = referenceData.forEach(async (referenceDoc) => {
-      // data can be retrieved by reference_object.get()
+      //Data can be retrieved by reference_object.get()
       await referenceDoc
         .data()
         .list.get()
@@ -59,7 +60,7 @@ export default class accessoryListings extends React.Component {
           this.state.data.push(dataArray.pop());
         });
 
-      // Set last visible - gets overwritten so the last one is always stored.
+      //Set last visible - gets overwritten so the last one is always stored.
       this.setState({
         lastVisible: referenceDoc.data().timestamp,
       });
@@ -75,7 +76,7 @@ export default class accessoryListings extends React.Component {
       const dataArray = [];
       const uid = auth.currentUser.uid;
 
-      // retrieve list of references stored within users
+      //Retrieve list of references stored within users
       const referenceData = await db
         .collection("users")
         .doc(uid)
@@ -86,7 +87,7 @@ export default class accessoryListings extends React.Component {
         .get();
 
       let documentData = referenceData.docs.map(async (referenceDoc) => {
-        // data can be retrieved by reference_object.get()
+        //Data can be retrieved by reference_object.get()
         await referenceDoc
           .data()
           .list.get()
@@ -154,7 +155,7 @@ export default class accessoryListings extends React.Component {
               }}
               mode="contained"
             >
-              <Text style={{color: "white"}}>Add Listing</Text>
+              <Text style={{ color: "white" }}>Add Listing</Text>
             </Button>
           </View>
         </View>

@@ -48,6 +48,7 @@ export default class CategorySelection extends React.Component {
     }
   }
 
+  //Get Location
   getLocation(val) {
     if (val === "Dog") {
       return locationSelection;
@@ -64,14 +65,15 @@ export default class CategorySelection extends React.Component {
     }
   }
 
+  //Category Change Listener
   onCategoryChange(value) {
-    // console.log(value);
     this.props.setCategory(value);
     this.setState({
       category: value,
     });
   }
 
+  //Location Change Listener
   onLocationChange(value) {
     this.setState({
       location: value,
@@ -94,7 +96,8 @@ export default class CategorySelection extends React.Component {
               <Picker
                 style={styles.picker}
                 selectedValue={this.state.category}
-                onValueChange={this.onCategoryChange.bind(this)}>
+                onValueChange={this.onCategoryChange.bind(this)}
+              >
                 <Picker.Item
                   label="Select category"
                   value="0"
@@ -146,11 +149,9 @@ export default class CategorySelection extends React.Component {
               <Picker
                 style={styles.picker}
                 selectedValue={this.state.location}
-                onValueChange={this.onLocationChange.bind(this)}>
+                onValueChange={this.onLocationChange.bind(this)}
+              >
                 {this.getLocation(this.state.category).map((item, i) => {
-                  // console.log("item", item);
-                  // return <Picker.Item label={item} key={`${i}+1`} value={item} />;
-
                   if (i == 0) {
                     return (
                       <Picker.Item
@@ -170,7 +171,6 @@ export default class CategorySelection extends React.Component {
           <View style={{ paddingLeft: 5, paddingTop: 5 }}>
             <Text style={styles.error}>{this.props.locationErr}</Text>
           </View>
-          {/* <Text style={globalStyles.errorMessage}>{this.props.breedErr}</Text> */}
         </View>
       </View>
     );

@@ -1,8 +1,8 @@
-import { Input, Text } from "react-native-elements";
+import { Input } from "react-native-elements";
 import React from "react";
 import { StyleSheet } from "react-native";
-import { primaryColour1, lightGrey } from "../styleSheet/styleSheet";
 
+//Custom Input
 export function CustomInput(props) {
   if (props.multiline) {
     return (

@@ -38,6 +38,7 @@ export default class offerApplications extends React.Component {
     pullToRefresh: false,
   };
 
+  //Fetch Data
   async fetchData() {
     const dataArray = [];
     const pet_doc_id = this.props.route.params.doc_id;
@@ -47,7 +48,7 @@ export default class offerApplications extends React.Component {
     var petCategory;
     var petBreed;
     var sellerId;
-    // Getting Pet Info
+    //Getting Pet Info
     await db
       .collection("petListings")
       .doc(pet_doc_id)
@@ -113,6 +114,7 @@ export default class offerApplications extends React.Component {
       });
   }
 
+  //Handle back button
   async componentDidMount() {
     this.fetchData();
     BackHandler.addEventListener(
@@ -141,9 +143,11 @@ export default class offerApplications extends React.Component {
         </View>
 
         <View>
-          {this.state.data.length === 0
-            ? <Text style={{paddingTop: 30, fontSize: 15, textAlign: "center"}}>No available offers were made for this pet</Text>
-            : null}
+          {this.state.data.length === 0 ? (
+            <Text style={{ paddingTop: 30, fontSize: 15, textAlign: "center" }}>
+              No available offers were made for this pet
+            </Text>
+          ) : null}
         </View>
 
         <View style={{ paddingTop: 10, paddingBottom: 60 }}>

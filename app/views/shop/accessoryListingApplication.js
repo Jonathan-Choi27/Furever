@@ -9,21 +9,26 @@ import {
   BackHandler,
   Dimensions,
 } from "react-native";
-import {
-  Icon,
-  Card,
-} from "react-native-elements";
+import { Icon, Card } from "react-native-elements";
 import { Button } from "react-native-paper";
 import firebase from "firebase";
-import globalStyles, { primaryColour1, primaryColour2 } from "../styleSheet/styleSheet";
+import globalStyles, {
+  primaryColour1,
+  primaryColour2,
+} from "../styleSheet/styleSheet";
 import { openImagePicker, uploadPhoto } from "../components/imageUpload";
 import { CustomInput } from "../components/customInput";
 import PriceSlider from "../components/priceSlider";
 import uuid from "react-native-uuid";
 import { auth } from "../database/firebase";
 
+//Firebase Firestore
 const db = firebase.firestore();
+
+//Get Screen Width
 const screenWidth = Math.round(Dimensions.get("window").width);
+
+//Get Empty Image
 const emptyImage =
   "https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty.jpg";
 
@@ -47,7 +52,7 @@ export default class accessoryListingApplication extends React.Component {
       photoLink: "",
       photoUri: emptyImage,
       photoUuid: "",
-    }
+    };
 
     this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
   }
@@ -70,7 +75,7 @@ export default class accessoryListingApplication extends React.Component {
   handleBackButtonClick = () => {
     this.props.navigation.goBack();
     return true;
-  }
+  };
 
   // Handle submit functions
   validationCheck = () => {
@@ -99,7 +104,7 @@ export default class accessoryListingApplication extends React.Component {
   pushData = async () => {
     const user = auth.currentUser;
 
-    // upload photo
+    // Upload photo
     const photoURL = await uploadPhoto(
       this.state.photoUri,
       this.state.photoUuid
@@ -109,15 +114,16 @@ export default class accessoryListingApplication extends React.Component {
       photoLink: photoURL,
     });
 
-    db.collection("accessories").add({
-      uuid: user.uid,
-      name: this.state.name,
-      category: this.state.category,
-      type: this.state.type,
-      description: this.state.description,
-      photoLink: this.state.photoLink,
-      price: this.state.price,
-    })
+    db.collection("accessories")
+      .add({
+        uuid: user.uid,
+        name: this.state.name,
+        category: this.state.category,
+        type: this.state.type,
+        description: this.state.description,
+        photoLink: this.state.photoLink,
+        price: this.state.price,
+      })
       .then((accessoryDocRef) => {
         // Recieve DocumentReference of the accessory and store in self (for convenience of retrieval)
         accessoryDocRef.update({
@@ -161,7 +167,7 @@ export default class accessoryListingApplication extends React.Component {
     }
   };
 
-  // State setter functions
+  // State Setter Functions
   setPrice = (price) => {
     this.setState({
       price: price,
@@ -180,7 +186,7 @@ export default class accessoryListingApplication extends React.Component {
     });
   };
 
-  //Validator functions
+  //Validator Functions
   nameValidator = () => {
     var bool;
     if (this.state.name == "" || /\d+/g.test(this.state.name)) {
@@ -278,14 +284,13 @@ export default class accessoryListingApplication extends React.Component {
 
   priceValidator = () => {
     if (this.state.price == "") {
-      //   console.log("going in loop");
       this.setState({
         price: "0",
       });
     }
   };
 
-  // Handle photo upload
+  // Handle Photo Upload
   setPhotoUri = async () => {
     const get_uri = await openImagePicker();
 
@@ -302,7 +307,9 @@ export default class accessoryListingApplication extends React.Component {
         showsVerticalScrollIndicator={false}
       >
         <Card containerStyle={{ borderRadius: 10 }}>
-          <Text style={globalStyles.applicationHeading}>New Accessory Application</Text>
+          <Text style={globalStyles.applicationHeading}>
+            New Accessory Application
+          </Text>
           <Text style={globalStyles.cardHeading}>General Information</Text>
 
           <CustomInput
@@ -322,7 +329,8 @@ export default class accessoryListingApplication extends React.Component {
 
           <View style={{ marginHorizontal: 10, marginBottom: 20 }}>
             <Text
-              style={{ color: "#505050", fontWeight: "bold", fontSize: 16 }}>
+              style={{ color: "#505050", fontWeight: "bold", fontSize: 16 }}
+            >
               Animal Category
             </Text>
 
@@ -333,7 +341,8 @@ export default class accessoryListingApplication extends React.Component {
               <View style={globalStyles.formPickerInnerContainer}>
                 <Picker
                   selectedValue={this.state.category}
-                  onValueChange={(category) => this.setState({ category })}>
+                  onValueChange={(category) => this.setState({ category })}
+                >
                   <Picker.Item
                     label="Select category"
                     value="0"
@@ -354,7 +363,8 @@ export default class accessoryListingApplication extends React.Component {
 
           <View style={{ marginHorizontal: 10, marginBottom: 20 }}>
             <Text
-              style={{ color: "#505050", fontWeight: "bold", fontSize: 16 }}>
+              style={{ color: "#505050", fontWeight: "bold", fontSize: 16 }}
+            >
               Product Type
             </Text>
 
@@ -365,12 +375,9 @@ export default class accessoryListingApplication extends React.Component {
               <View style={globalStyles.formPickerInnerContainer}>
                 <Picker
                   selectedValue={this.state.type}
-                  onValueChange={(type) => this.setState({ type })}>
-                  <Picker.Item
-                    label="Select type"
-                    value="0"
-                    color="#D3D3D3"
-                  />
+                  onValueChange={(type) => this.setState({ type })}
+                >
+                  <Picker.Item label="Select type" value="0" color="#D3D3D3" />
                   <Picker.Item label="Food" value="Food" />
                   <Picker.Item label="Toy" value="Toy" />
                   <Picker.Item label="Apparel" value="Apparel" />
@@ -384,8 +391,11 @@ export default class accessoryListingApplication extends React.Component {
             </View>
           </View>
 
-          <PriceSlider price={this.state.price} setPrice={this.setPrice} max={1000} />
-
+          <PriceSlider
+            price={this.state.price}
+            setPrice={this.setPrice}
+            max={1000}
+          />
         </Card>
 
         <Card containerStyle={{ borderRadius: 10 }}>
@@ -413,15 +423,19 @@ export default class accessoryListingApplication extends React.Component {
                 flexDirection: "row",
                 marginHorizontal: 10,
                 marginBottom: 10,
-              }}>
-              <View
-                style={{ flex: 1, flexDirection: "row", paddingBottom: 3 }}>
-                <Text style={globalStyles.applicationInputName}>Upload a Photo</Text>
+              }}
+            >
+              <View style={{ flex: 1, flexDirection: "row", paddingBottom: 3 }}>
+                <Text style={globalStyles.applicationInputName}>
+                  Upload a Photo
+                </Text>
                 <Text style={globalStyles.setColorRed}> *</Text>
               </View>
               {!this.state.valid_uri && (
                 <View style={{ flex: 1 }}>
-                  <Text style={globalStyles.applicationErrorText}>Choose a photo</Text>
+                  <Text style={globalStyles.applicationErrorText}>
+                    Choose a photo
+                  </Text>
                 </View>
               )}
             </View>
@@ -430,10 +444,9 @@ export default class accessoryListingApplication extends React.Component {
               style={{
                 alignContent: "center",
                 alignItems: "center",
-                //   borderWidth: 2,
-                //   borderColor: "#D3D3D3",
                 marginHorizontal: 10,
-              }}>
+              }}
+            >
               <Image
                 style={{ height: 300, width: screenWidth - 92 }}
                 source={{ uri: this.state.photoUri }}
@@ -446,11 +459,13 @@ export default class accessoryListingApplication extends React.Component {
                 backgroundColor: primaryColour2,
                 marginHorizontal: 10,
               }}
-              onPress={this.setPhotoUri}>
+              onPress={this.setPhotoUri}
+            >
               <Text
                 style={{
                   color: "white",
-                }}>
+                }}
+              >
                 Choose Photo
               </Text>
             </Button>
@@ -461,11 +476,11 @@ export default class accessoryListingApplication extends React.Component {
           <TouchableOpacity
             title={"submit"}
             style={globalStyles.buttons}
-            onPress={this.handleSubmit}>
+            onPress={this.handleSubmit}
+          >
             <Text style={globalStyles.buttonsText}>Submit</Text>
           </TouchableOpacity>
         </View>
-
       </ScrollView>
     );
   }

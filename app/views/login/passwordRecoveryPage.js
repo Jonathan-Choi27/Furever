@@ -12,6 +12,7 @@ export default class PasswordRecoveryPage extends React.Component {
     email: "",
   };
 
+  //Password Recovery Handler
   onPasswordRecovery(email) {
     auth
       .fetchSignInMethodsForEmail(email)

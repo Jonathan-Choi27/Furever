@@ -16,6 +16,7 @@ import { db } from "../../database/firebase";
 import styles from "../../styleSheet/styleSheet";
 
 export default class buyerProfile extends React.Component {
+  //Back button handler
   componentDidMount() {
     BackHandler.addEventListener(
       "hardwareBackPress",

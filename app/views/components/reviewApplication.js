@@ -7,10 +7,7 @@ import { auth } from "../database/firebase";
 import { db } from "../database/firebase";
 import * as firebase from "firebase";
 
-import globalStyles, {
-  primaryColour1,
-  primaryColour2,
-} from "../styleSheet/styleSheet";
+import globalStyles, { primaryColour1 } from "../styleSheet/styleSheet";
 
 export default class revieApplication extends React.Component {
   constructor(props) {
@@ -19,7 +16,7 @@ export default class revieApplication extends React.Component {
     this.state = {
       review: "",
       rating: 3,
-    }; 
+    };
   }
 
   // Handle Back button
@@ -46,33 +43,30 @@ export default class revieApplication extends React.Component {
     const user = auth.currentUser;
     const sellerId = this.props.route.params.seller.sellerId;
 
-    db.collection("users").doc(sellerId).collection("reviewList").add({
-      review: this.state.review,
-      rating: this.state.rating,
-      reviewer: db.collection("users").doc(user.uid),
-      timestamp: firebase.firestore.Timestamp.now(),
-    });
+    db.collection("users")
+      .doc(sellerId)
+      .collection("reviewList")
+      .add({
+        review: this.state.review,
+        rating: this.state.rating,
+        reviewer: db.collection("users").doc(user.uid),
+        timestamp: firebase.firestore.Timestamp.now(),
+      });
 
-    db.collection("users").doc(sellerId).get().then((doc) => {
-        // var averageReview = doc.data().averageReview;
+    db.collection("users")
+      .doc(sellerId)
+      .get()
+      .then((doc) => {
         var averageRating = doc.data().averageRating;
         averageRating.push(this.state.rating);
 
         db.collection("users").doc(sellerId).update({
-            averageRating: averageRating
-        })
-    })
+          averageRating: averageRating,
+        });
+      });
 
     this.props.navigation.goBack();
   };
-
-  //   ratingCompleted = (rating) => {
-  //     console.log("state Rating is: " + this.state.rating);
-  //       this.setState({
-  //           rating: rating
-  //       })
-  //     // console.log("Rating is: " + rating);
-  //   }
 
   render() {
     const seller = this.props.route.params.seller;
@@ -110,11 +104,17 @@ export default class revieApplication extends React.Component {
             style={{ paddingVertical: 10, color: "red" }}
           />
 
-          <View style={[globalStyles.applicationButtonsContainer, {paddingBottom: 20}]}>
+          <View
+            style={[
+              globalStyles.applicationButtonsContainer,
+              { paddingBottom: 20 },
+            ]}
+          >
             <TouchableOpacity
               title={"submit"}
               style={globalStyles.buttons}
-              onPress={this.handleSubmit}>
+              onPress={this.handleSubmit}
+            >
               <Text style={globalStyles.buttonsText}>Submit</Text>
             </TouchableOpacity>
           </View>

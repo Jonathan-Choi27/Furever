@@ -20,14 +20,11 @@ import {
   Checkbox,
 } from "react-native-paper";
 import { db } from "../../database/firebase";
-import {
-  primaryColour1,
-  primaryColour2,
-} from "../../styleSheet/styleSheet";
+import { primaryColour1, primaryColour2 } from "../../styleSheet/styleSheet";
 import globalStyles from "../../styleSheet/styleSheet";
 import { petBuyCard, petBuyCategory } from "../../components/petBuyComponents";
 
-const petInformation = require('./petInformation.json');
+const petInformation = require("./petInformation.json");
 
 export default class petCategories extends React.Component {
   state = {
@@ -73,6 +70,7 @@ export default class petCategories extends React.Component {
     price6Check: false,
   };
 
+  //Fetch Data
   async componentDidMount() {
     const dataArray = [];
     db.collection("petListings")
@@ -90,7 +88,7 @@ export default class petCategories extends React.Component {
               seller_name = user_doc.data().name;
               seller_photo = user_doc.data().photo;
             })
-            .catch((erro) => { });
+            .catch((erro) => {});
           dataArray.push({
             sellerName: seller_name,
             sellerPhoto: seller_photo,
@@ -134,9 +132,9 @@ export default class petCategories extends React.Component {
   }
 
   handleBackButtonClick = () => {
-    // do nothing
+    //Do nothing
     return true;
-  }
+  };
 
   searchFunction = (searchText) => {
     if (!this.state.isLoaded) {
@@ -153,6 +151,7 @@ export default class petCategories extends React.Component {
     this.setState({ filteredData: filteredData });
   };
 
+  //Check Function
   checkFunction = (input) => {
     if (!this.state.isLoaded) {
       this.setState({
@@ -262,8 +261,8 @@ export default class petCategories extends React.Component {
     }
   };
 
+  //Display Function
   displayFunction = () => {
-    // let listData = this.state.data;
     let listData = [];
 
     //Animal
@@ -335,10 +334,16 @@ export default class petCategories extends React.Component {
     if (listData.length == 0) {
       if (
         //Animal
-        !this.state.dogCheck && !this.state.catCheck && !this.state.birdCheck &&
-        !this.state.rabbitCheck && !this.state.fishCheck && !this.state.horseCheck &&
-        !this.state.lizardCheck && !this.state.turtleCheck && !this.state.pigCheck) {
-        // console.log(!this.state.dogCheck + " " + !this.state.catCheck);
+        !this.state.dogCheck &&
+        !this.state.catCheck &&
+        !this.state.birdCheck &&
+        !this.state.rabbitCheck &&
+        !this.state.fishCheck &&
+        !this.state.horseCheck &&
+        !this.state.lizardCheck &&
+        !this.state.turtleCheck &&
+        !this.state.pigCheck
+      ) {
         listData = this.state.data;
       }
     }
@@ -523,11 +528,6 @@ export default class petCategories extends React.Component {
         }
       }
     }
-
-    //Location
-    // if (listData.length == 0) {
-    //   listData = this.state.data;
-    // }
     if (this.state.nswCheck) {
       this.setState({ filterDisplay: true });
       if (addOn) {
@@ -834,27 +834,45 @@ export default class petCategories extends React.Component {
         }
       }
     }
-    
 
-    if ( //If nothing is checked, don't display filter
+    if (
+      //If nothing is checked, don't display filter
       //Animal
-      !this.state.dogCheck && !this.state.catCheck && !this.state.birdCheck &&
-      !this.state.rabbitCheck && !this.state.fishCheck && !this.state.horseCheck &&
-      !this.state.lizardCheck && !this.state.turtleCheck && !this.state.pigCheck &&
-
+      !this.state.dogCheck &&
+      !this.state.catCheck &&
+      !this.state.birdCheck &&
+      !this.state.rabbitCheck &&
+      !this.state.fishCheck &&
+      !this.state.horseCheck &&
+      !this.state.lizardCheck &&
+      !this.state.turtleCheck &&
+      !this.state.pigCheck &&
       //Colour
-      !this.state.whiteColour && !this.state.goldColour && !this.state.greenColour &&
-      !this.state.blackColour && !this.state.rainbowColour && !this.state.greyColour &&
-      !this.state.brownColour && !this.state.redColour && !this.state.orangeColour &&
-
+      !this.state.whiteColour &&
+      !this.state.goldColour &&
+      !this.state.greenColour &&
+      !this.state.blackColour &&
+      !this.state.rainbowColour &&
+      !this.state.greyColour &&
+      !this.state.brownColour &&
+      !this.state.redColour &&
+      !this.state.orangeColour &&
       //Location
-      !this.state.nswCheck && !this.state.vicCheck && !this.state.qldCheck &&
-      !this.state.waCheck && !this.state.saCheck && !this.state.tasCheck &&
-      !this.state.actCheck && !this.state.ntCheck &&
-
+      !this.state.nswCheck &&
+      !this.state.vicCheck &&
+      !this.state.qldCheck &&
+      !this.state.waCheck &&
+      !this.state.saCheck &&
+      !this.state.tasCheck &&
+      !this.state.actCheck &&
+      !this.state.ntCheck &&
       //Price
-      !this.state.price1Check && !this.state.price2Check && !this.state.price3Check &&
-      !this.state.price4Check && !this.state.price5Check && !this.state.price6Check 
+      !this.state.price1Check &&
+      !this.state.price2Check &&
+      !this.state.price3Check &&
+      !this.state.price4Check &&
+      !this.state.price5Check &&
+      !this.state.price6Check
     ) {
       this.setState({ filterDisplay: false });
     }
@@ -867,11 +885,11 @@ export default class petCategories extends React.Component {
 
     return (
       <Provider>
-        {this.state.isLoading ?
+        {this.state.isLoading ? (
           <View style={globalStyles.activityContainer}>
             <ActivityIndicator size="large" color={primaryColour2} />
           </View>
-          :
+        ) : (
           <View style={globalStyles.petContainer}>
             {/* {onBuyTab(this.props.navigation)} */}
             <View style={globalStyles.searchFilterContainer}>
@@ -889,7 +907,8 @@ export default class petCategories extends React.Component {
                 mode="contained"
                 contentStyle={{
                   height: 35,
-                }}>
+                }}
+              >
                 Filter
               </Button>
             </View>
@@ -918,14 +937,26 @@ export default class petCategories extends React.Component {
                   visible={this.state.visible}
                   onDismiss={() => {
                     this.setState({ visible: false });
-                  }}>
+                  }}
+                >
                   <Card elevation={5} style={{ margin: 10 }}>
                     <Card.Content>
                       <ScrollView style={{ height: 450 }}>
-                        <View style={{ flex: 1, flexDirection: 'row', justifyContent: "flex-start" }}>
-
+                        <View
+                          style={{
+                            flex: 1,
+                            flexDirection: "row",
+                            justifyContent: "flex-start",
+                          }}
+                        >
                           {/* First filter column */}
-                          <View style={{ flex: 1, flexDirection: 'column', justifyContent: "flex-start" }}>
+                          <View
+                            style={{
+                              flex: 1,
+                              flexDirection: "column",
+                              justifyContent: "flex-start",
+                            }}
+                          >
                             <Text>Animal:</Text>
                             <View style={{ flexDirection: "column" }}>
                               <Checkbox.Item
@@ -933,7 +964,9 @@ export default class petCategories extends React.Component {
                                 theme={{ colors: { primary: primaryColour1 } }}
                                 color={primaryColour1}
                                 label="Dog"
-                                status={this.state.dogCheck ? "checked" : "unchecked"}
+                                status={
+                                  this.state.dogCheck ? "checked" : "unchecked"
+                                }
                                 onPress={() => {
                                   this.checkFunction("dogCheck");
                                 }}
@@ -943,7 +976,9 @@ export default class petCategories extends React.Component {
                                 theme={{ colors: { primary: primaryColour1 } }}
                                 color={primaryColour1}
                                 label="Fish"
-                                status={this.state.fishCheck ? "checked" : "unchecked"}
+                                status={
+                                  this.state.fishCheck ? "checked" : "unchecked"
+                                }
                                 onPress={() => {
                                   this.checkFunction("fishCheck");
                                 }}
@@ -953,7 +988,11 @@ export default class petCategories extends React.Component {
                                 theme={{ colors: { primary: primaryColour1 } }}
                                 color={primaryColour1}
                                 label="Lizard"
-                                status={this.state.lizardCheck ? "checked" : "unchecked"}
+                                status={
+                                  this.state.lizardCheck
+                                    ? "checked"
+                                    : "unchecked"
+                                }
                                 onPress={() => {
                                   this.checkFunction("lizardCheck");
                                 }}
@@ -966,7 +1005,11 @@ export default class petCategories extends React.Component {
                                 theme={{ colors: { primary: primaryColour1 } }}
                                 color={primaryColour1}
                                 label="White"
-                                status={this.state.whiteColour ? "checked" : "unchecked"}
+                                status={
+                                  this.state.whiteColour
+                                    ? "checked"
+                                    : "unchecked"
+                                }
                                 onPress={() => {
                                   this.checkFunction("whiteColour");
                                 }}
@@ -976,7 +1019,11 @@ export default class petCategories extends React.Component {
                                 theme={{ colors: { primary: primaryColour1 } }}
                                 color={primaryColour1}
                                 label="Gold"
-                                status={this.state.goldColour ? "checked" : "unchecked"}
+                                status={
+                                  this.state.goldColour
+                                    ? "checked"
+                                    : "unchecked"
+                                }
                                 onPress={() => {
                                   this.checkFunction("goldColour");
                                 }}
@@ -986,7 +1033,11 @@ export default class petCategories extends React.Component {
                                 theme={{ colors: { primary: primaryColour1 } }}
                                 color={primaryColour1}
                                 label="Green"
-                                status={this.state.greenColour ? "checked" : "unchecked"}
+                                status={
+                                  this.state.greenColour
+                                    ? "checked"
+                                    : "unchecked"
+                                }
                                 onPress={() => {
                                   this.checkFunction("greenColour");
                                 }}
@@ -999,7 +1050,9 @@ export default class petCategories extends React.Component {
                                 theme={{ colors: { primary: primaryColour1 } }}
                                 color={primaryColour1}
                                 label="NSW"
-                                status={this.state.nswCheck ? "checked" : "unchecked"}
+                                status={
+                                  this.state.nswCheck ? "checked" : "unchecked"
+                                }
                                 onPress={() => {
                                   this.checkFunction("nswCheck");
                                 }}
@@ -1009,7 +1062,9 @@ export default class petCategories extends React.Component {
                                 theme={{ colors: { primary: primaryColour1 } }}
                                 color={primaryColour1}
                                 label="VIC"
-                                status={this.state.vicCheck ? "checked" : "unchecked"}
+                                status={
+                                  this.state.vicCheck ? "checked" : "unchecked"
+                                }
                                 onPress={() => {
                                   this.checkFunction("vicCheck");
                                 }}
@@ -1019,7 +1074,9 @@ export default class petCategories extends React.Component {
                                 theme={{ colors: { primary: primaryColour1 } }}
                                 color={primaryColour1}
                                 label="QLD"
-                                status={this.state.qldCheck ? "checked" : "unchecked"}
+                                status={
+                                  this.state.qldCheck ? "checked" : "unchecked"
+                                }
                                 onPress={() => {
                                   this.checkFunction("qldCheck");
                                 }}
@@ -1032,7 +1089,11 @@ export default class petCategories extends React.Component {
                                 theme={{ colors: { primary: primaryColour1 } }}
                                 color={primaryColour1}
                                 label="<$500"
-                                status={this.state.price1Check ? "checked" : "unchecked"}
+                                status={
+                                  this.state.price1Check
+                                    ? "checked"
+                                    : "unchecked"
+                                }
                                 onPress={() => {
                                   this.checkFunction("price1Check");
                                 }}
@@ -1042,7 +1103,11 @@ export default class petCategories extends React.Component {
                                 theme={{ colors: { primary: primaryColour1 } }}
                                 color={primaryColour1}
                                 label="<$5k"
-                                status={this.state.price4Check ? "checked" : "unchecked"}
+                                status={
+                                  this.state.price4Check
+                                    ? "checked"
+                                    : "unchecked"
+                                }
                                 onPress={() => {
                                   this.checkFunction("price4Check");
                                 }}
@@ -1051,7 +1116,13 @@ export default class petCategories extends React.Component {
                           </View>
 
                           {/* Second filter column */}
-                          <View style={{ flex: 1, flexDirection: 'column', justifyContent: "flex-start" }}>
+                          <View
+                            style={{
+                              flex: 1,
+                              flexDirection: "column",
+                              justifyContent: "flex-start",
+                            }}
+                          >
                             <Text> </Text>
                             <View style={{ flexDirection: "column" }}>
                               <Checkbox.Item
@@ -1059,7 +1130,9 @@ export default class petCategories extends React.Component {
                                 theme={{ colors: { primary: primaryColour1 } }}
                                 color={primaryColour1}
                                 label="Cat"
-                                status={this.state.catCheck ? "checked" : "unchecked"}
+                                status={
+                                  this.state.catCheck ? "checked" : "unchecked"
+                                }
                                 onPress={() => {
                                   this.checkFunction("catCheck");
                                 }}
@@ -1069,7 +1142,9 @@ export default class petCategories extends React.Component {
                                 theme={{ colors: { primary: primaryColour1 } }}
                                 color={primaryColour1}
                                 label="Bird"
-                                status={this.state.birdCheck ? "checked" : "unchecked"}
+                                status={
+                                  this.state.birdCheck ? "checked" : "unchecked"
+                                }
                                 onPress={() => {
                                   this.checkFunction("birdCheck");
                                 }}
@@ -1079,7 +1154,11 @@ export default class petCategories extends React.Component {
                                 theme={{ colors: { primary: primaryColour1 } }}
                                 color={primaryColour1}
                                 label="Turtle"
-                                status={this.state.turtleCheck ? "checked" : "unchecked"}
+                                status={
+                                  this.state.turtleCheck
+                                    ? "checked"
+                                    : "unchecked"
+                                }
                                 onPress={() => {
                                   this.checkFunction("turtleCheck");
                                 }}
@@ -1092,7 +1171,11 @@ export default class petCategories extends React.Component {
                                 theme={{ colors: { primary: primaryColour1 } }}
                                 color={primaryColour1}
                                 label="Black"
-                                status={this.state.blackColour ? "checked" : "unchecked"}
+                                status={
+                                  this.state.blackColour
+                                    ? "checked"
+                                    : "unchecked"
+                                }
                                 onPress={() => {
                                   this.checkFunction("blackColour");
                                 }}
@@ -1102,7 +1185,11 @@ export default class petCategories extends React.Component {
                                 theme={{ colors: { primary: primaryColour1 } }}
                                 color={primaryColour1}
                                 label="Rainbow"
-                                status={this.state.rainbowColour ? "checked" : "unchecked"}
+                                status={
+                                  this.state.rainbowColour
+                                    ? "checked"
+                                    : "unchecked"
+                                }
                                 onPress={() => {
                                   this.checkFunction("rainbowColour");
                                 }}
@@ -1112,7 +1199,11 @@ export default class petCategories extends React.Component {
                                 theme={{ colors: { primary: primaryColour1 } }}
                                 color={primaryColour1}
                                 label="Grey"
-                                status={this.state.greyColour ? "checked" : "unchecked"}
+                                status={
+                                  this.state.greyColour
+                                    ? "checked"
+                                    : "unchecked"
+                                }
                                 onPress={() => {
                                   this.checkFunction("greyColour");
                                 }}
@@ -1125,7 +1216,9 @@ export default class petCategories extends React.Component {
                                 theme={{ colors: { primary: primaryColour1 } }}
                                 color={primaryColour1}
                                 label="WA"
-                                status={this.state.waCheck ? "checked" : "unchecked"}
+                                status={
+                                  this.state.waCheck ? "checked" : "unchecked"
+                                }
                                 onPress={() => {
                                   this.checkFunction("waCheck");
                                 }}
@@ -1135,7 +1228,9 @@ export default class petCategories extends React.Component {
                                 theme={{ colors: { primary: primaryColour1 } }}
                                 color={primaryColour1}
                                 label="SA"
-                                status={this.state.saCheck ? "checked" : "unchecked"}
+                                status={
+                                  this.state.saCheck ? "checked" : "unchecked"
+                                }
                                 onPress={() => {
                                   this.checkFunction("saCheck");
                                 }}
@@ -1145,7 +1240,9 @@ export default class petCategories extends React.Component {
                                 theme={{ colors: { primary: primaryColour1 } }}
                                 color={primaryColour1}
                                 label="TAS"
-                                status={this.state.tasCheck ? "checked" : "unchecked"}
+                                status={
+                                  this.state.tasCheck ? "checked" : "unchecked"
+                                }
                                 onPress={() => {
                                   this.checkFunction("tasCheck");
                                 }}
@@ -1158,7 +1255,11 @@ export default class petCategories extends React.Component {
                                 theme={{ colors: { primary: primaryColour1 } }}
                                 color={primaryColour1}
                                 label="<$1k"
-                                status={this.state.price2Check ? "checked" : "unchecked"}
+                                status={
+                                  this.state.price2Check
+                                    ? "checked"
+                                    : "unchecked"
+                                }
                                 onPress={() => {
                                   this.checkFunction("price2Check");
                                 }}
@@ -1168,7 +1269,11 @@ export default class petCategories extends React.Component {
                                 theme={{ colors: { primary: primaryColour1 } }}
                                 color={primaryColour1}
                                 label="<$10k"
-                                status={this.state.price5Check ? "checked" : "unchecked"}
+                                status={
+                                  this.state.price5Check
+                                    ? "checked"
+                                    : "unchecked"
+                                }
                                 onPress={() => {
                                   this.checkFunction("price5Check");
                                 }}
@@ -1177,7 +1282,13 @@ export default class petCategories extends React.Component {
                           </View>
 
                           {/* Third filter column */}
-                          <View style={{ flex: 1, flexDirection: 'column', justifyContent: "flex-start" }}>
+                          <View
+                            style={{
+                              flex: 1,
+                              flexDirection: "column",
+                              justifyContent: "flex-start",
+                            }}
+                          >
                             <Text> </Text>
                             <View style={{ flexDirection: "column" }}>
                               <Checkbox.Item
@@ -1185,7 +1296,11 @@ export default class petCategories extends React.Component {
                                 theme={{ colors: { primary: primaryColour1 } }}
                                 color={primaryColour1}
                                 label="Rabbit"
-                                status={this.state.rabbitCheck ? "checked" : "unchecked"}
+                                status={
+                                  this.state.rabbitCheck
+                                    ? "checked"
+                                    : "unchecked"
+                                }
                                 onPress={() => {
                                   this.checkFunction("rabbitCheck");
                                 }}
@@ -1195,7 +1310,11 @@ export default class petCategories extends React.Component {
                                 theme={{ colors: { primary: primaryColour1 } }}
                                 color={primaryColour1}
                                 label="Horse"
-                                status={this.state.horseCheck ? "checked" : "unchecked"}
+                                status={
+                                  this.state.horseCheck
+                                    ? "checked"
+                                    : "unchecked"
+                                }
                                 onPress={() => {
                                   this.checkFunction("horseCheck");
                                 }}
@@ -1205,7 +1324,9 @@ export default class petCategories extends React.Component {
                                 theme={{ colors: { primary: primaryColour1 } }}
                                 color={primaryColour1}
                                 label="Pig"
-                                status={this.state.pigCheck ? "checked" : "unchecked"}
+                                status={
+                                  this.state.pigCheck ? "checked" : "unchecked"
+                                }
                                 onPress={() => {
                                   this.checkFunction("pigCheck");
                                 }}
@@ -1218,7 +1339,11 @@ export default class petCategories extends React.Component {
                                 theme={{ colors: { primary: primaryColour1 } }}
                                 color={primaryColour1}
                                 label="Brown"
-                                status={this.state.brownColour ? "checked" : "unchecked"}
+                                status={
+                                  this.state.brownColour
+                                    ? "checked"
+                                    : "unchecked"
+                                }
                                 onPress={() => {
                                   this.checkFunction("brownColour");
                                 }}
@@ -1228,7 +1353,9 @@ export default class petCategories extends React.Component {
                                 theme={{ colors: { primary: primaryColour1 } }}
                                 color={primaryColour1}
                                 label="Red"
-                                status={this.state.redColour ? "checked" : "unchecked"}
+                                status={
+                                  this.state.redColour ? "checked" : "unchecked"
+                                }
                                 onPress={() => {
                                   this.checkFunction("redColour");
                                 }}
@@ -1238,7 +1365,11 @@ export default class petCategories extends React.Component {
                                 theme={{ colors: { primary: primaryColour1 } }}
                                 color={primaryColour1}
                                 label="Orange"
-                                status={this.state.orangeColour ? "checked" : "unchecked"}
+                                status={
+                                  this.state.orangeColour
+                                    ? "checked"
+                                    : "unchecked"
+                                }
                                 onPress={() => {
                                   this.checkFunction("orangeColour");
                                 }}
@@ -1251,7 +1382,9 @@ export default class petCategories extends React.Component {
                                 theme={{ colors: { primary: primaryColour1 } }}
                                 color={primaryColour1}
                                 label="ACT"
-                                status={this.state.actCheck ? "checked" : "unchecked"}
+                                status={
+                                  this.state.actCheck ? "checked" : "unchecked"
+                                }
                                 onPress={() => {
                                   this.checkFunction("actCheck");
                                 }}
@@ -1261,12 +1394,14 @@ export default class petCategories extends React.Component {
                                 theme={{ colors: { primary: primaryColour1 } }}
                                 color={primaryColour1}
                                 label="NT"
-                                status={this.state.ntCheck ? "checked" : "unchecked"}
+                                status={
+                                  this.state.ntCheck ? "checked" : "unchecked"
+                                }
                                 onPress={() => {
                                   this.checkFunction("ntCheck");
                                 }}
                               />
-                              <Text style={{height:32.5}}> </Text>
+                              <Text style={{ height: 32.5 }}> </Text>
                             </View>
                             <Text> </Text>
                             <Text> </Text>
@@ -1276,7 +1411,11 @@ export default class petCategories extends React.Component {
                                 theme={{ colors: { primary: primaryColour1 } }}
                                 color={primaryColour1}
                                 label="<$3k"
-                                status={this.state.price3Check ? "checked" : "unchecked"}
+                                status={
+                                  this.state.price3Check
+                                    ? "checked"
+                                    : "unchecked"
+                                }
                                 onPress={() => {
                                   this.checkFunction("price3Check");
                                 }}
@@ -1286,7 +1425,11 @@ export default class petCategories extends React.Component {
                                 theme={{ colors: { primary: primaryColour1 } }}
                                 color={primaryColour1}
                                 label="$10k+"
-                                status={this.state.price6Check ? "checked" : "unchecked"}
+                                status={
+                                  this.state.price6Check
+                                    ? "checked"
+                                    : "unchecked"
+                                }
                                 onPress={() => {
                                   this.checkFunction("price6Check");
                                 }}
@@ -1294,19 +1437,19 @@ export default class petCategories extends React.Component {
                             </View>
                           </View>
                         </View>
-
                       </ScrollView>
                     </Card.Content>
                     <Card.Actions style={{ justifyContent: "flex-end" }}>
                       <Button
-                        style={{ backgroundColor: primaryColour2, }}
+                        style={{ backgroundColor: primaryColour2 }}
                         color={primaryColour1}
                         onPress={() => {
                           this.displayFunction();
                           this.setState({ visible: false });
-                        }}>
+                        }}
+                      >
                         Done
-                    </Button>
+                      </Button>
                     </Card.Actions>
                   </Card>
                 </Modal>
@@ -1319,91 +1462,108 @@ export default class petCategories extends React.Component {
                       <Text style={{ margin: 100 }}>No results found.</Text>
                     </View>
                   ) : (
-                      //Filtered display
+                    //Filtered display
+                    <FlatList
+                      showsVerticalScrollIndicator={false}
+                      numColumns={1}
+                      key={1}
+                      renderItem={({ item }) =>
+                        petBuyCard(item, this.props.navigation)
+                      }
+                      keyExtractor={(item, index) => index.toString()}
+                      data={
+                        this.state.filteredData &&
+                        this.state.filteredData.length > 0
+                          ? this.state.filteredData
+                          : this.state.data
+                      }
+                    />
+                  )}
+                </View>
+              ) : (
+                <View style={globalStyles.petContainer}>
+                  {this.state.searchText == "" ? (
+                    //the page when not searching
+                    <View style={globalStyles.petContainer}>
+                      <View
+                        style={{ width: 298, marginTop: 5, marginBottom: 10 }}
+                      >
+                        <Card
+                          elevation={5}
+                          containerStyle={{ borderRadius: 10 }}
+                          onPress={() =>
+                            this.props.navigation.navigate(
+                              "currentApplications"
+                            )
+                          }
+                        >
+                          <View
+                            style={{
+                              flexDirection: "row",
+                              justifyContent: "center",
+                              alignItems: "center",
+                              marginLeft: 5,
+                              marginRight: 10,
+                            }}
+                          >
+                            <Text
+                              numberOfLines={1}
+                              style={[globalStyles.pageTitle, { padding: 10 }]}
+                            >
+                              View Applications
+                            </Text>
+                            <Image
+                              style={{ width: 30, height: 30 }}
+                              source={{
+                                uri:
+                                  "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fpet%20buy%20icons%2FpetCategories%2Fapplication.png?alt=media&token=896bdaf8-ba26-4ce5-974c-7cff5815bd98",
+                              }}
+                            ></Image>
+                          </View>
+                        </Card>
+                      </View>
                       <FlatList
-                        showsVerticalScrollIndicator={false}
-                        numColumns={1}
-                        key={1}
+                        data={petInformation}
+                        columnWrapperStyle={{ justifyContent: "flex-start" }}
+                        numColumns={2}
+                        key={2}
                         renderItem={({ item }) =>
-                          petBuyCard(item, this.props.navigation)
-                        }
-                        keyExtractor={(item, index) => index.toString()}
-                        data={
-                          this.state.filteredData &&
-                            this.state.filteredData.length > 0
-                            ? this.state.filteredData
-                            : this.state.data
+                          petBuyCategory(item, this.props.navigation)
                         }
                       />
-                    )}
-                </View>
-
-              ) : (
-                  <View style={globalStyles.petContainer}>
-                    {this.state.searchText == "" ? (
-                      //the page when not searching
-                      <View style={globalStyles.petContainer}>
-                        <View style={{ width: 298, marginTop: 5, marginBottom: 10, }}>
-                          <Card
-                            elevation={5}
-                            containerStyle={{ borderRadius: 10 }}
-                            onPress={() =>
-                              this.props.navigation.navigate("currentApplications")
-                            }>
-                            <View style={{ flexDirection: "row", justifyContent: "center", alignItems: "center", marginLeft: 5, marginRight: 10 }}>
-                              <Text numberOfLines={1} style={[globalStyles.pageTitle, { padding: 10 }]}>
-                                View Applications
-                              </Text>
-                              <Image
-                                style={{ width: 30, height: 30 }}
-                                source={{
-                                  uri: "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2Fpet%20buy%20icons%2FpetCategories%2Fapplication.png?alt=media&token=896bdaf8-ba26-4ce5-974c-7cff5815bd98"
-                                }}>
-                              </Image>
-                            </View>
-                          </Card>
+                    </View>
+                  ) : (
+                    <View>
+                      {this.state.filteredData.length == 0 ? (
+                        //No results found from search
+                        <View style={globalStyles.petContainer}>
+                          <Text style={{ margin: 100 }}>No results found.</Text>
                         </View>
+                      ) : (
+                        //Search results
                         <FlatList
-                          data={petInformation}
-                          columnWrapperStyle={{ justifyContent: "flex-start" }}
-                          numColumns={2}
-                          key={2}
+                          numColumns={1}
+                          key={1}
+                          keyExtractor={(item, index) => index.toString()}
                           renderItem={({ item }) =>
-                            petBuyCategory(item, this.props.navigation)
+                            petBuyCard(item, this.props.navigation)
+                          }
+                          keyExtractor={(item, index) => index.toString()}
+                          data={
+                            this.state.filteredData &&
+                            this.state.filteredData.length > 0
+                              ? this.state.filteredData
+                              : this.state.data
                           }
                         />
-                      </View>
-                    ) : (
-                        <View>
-                          {this.state.filteredData.length == 0 ? (
-                            //No results found from search
-                            <View style={globalStyles.petContainer}>
-                              <Text style={{ margin: 100 }}>No results found.</Text>
-                            </View>
-                          ) : (
-                              //Search results
-                              <FlatList
-                                numColumns={1}
-                                key={1}
-                                keyExtractor={(item, index) => index.toString()}
-                                renderItem={({ item }) =>
-                                  petBuyCard(item, this.props.navigation)
-                                }
-                                keyExtractor={(item, index) => index.toString()}
-                                data={
-                                  this.state.filteredData && this.state.filteredData.length > 0
-                                    ? this.state.filteredData
-                                    : this.state.data
-                                }
-                              />
-                            )}
-                        </View>
                       )}
-                  </View>
-                )}
+                    </View>
+                  )}
+                </View>
+              )}
             </ScrollView>
           </View>
-        }
+        )}
       </Provider>
     );
   }

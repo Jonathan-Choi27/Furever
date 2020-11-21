@@ -10,7 +10,10 @@ import {
   Paragraph,
 } from "react-native-paper";
 import { db } from "../../database/firebase";
-import globalStyles, { primaryColour1, primaryColour2 } from "../../styleSheet/styleSheet";
+import globalStyles, {
+  primaryColour1,
+  primaryColour2,
+} from "../../styleSheet/styleSheet";
 import { petBuyCard } from "../../components/petBuyComponents";
 import { Dimensions } from "react-native";
 
@@ -24,6 +27,7 @@ export default class breedList extends React.Component {
     pullToRefresh: false,
   };
 
+  //Fetch Data
   async fetchData() {
     const dataArray = [];
     const seller = {};
@@ -106,11 +110,13 @@ export default class breedList extends React.Component {
     );
   }
 
+  //Handle the back button
   handleBackButtonClick = () => {
     this.props.navigation.goBack();
     return true;
   };
 
+  //Search functionality
   searchFunction = (searchText) => {
     this.setState({ searchText: searchText });
 
@@ -126,7 +132,6 @@ export default class breedList extends React.Component {
     const screenWidth = Math.round(Dimensions.get("window").width);
     return (
       <Provider>
-        {/* {onBuyTab(this.props.navigation)} */}
         <View style={globalStyles.container}>
           <Searchbar
             style={globalStyles.searchBarSingle}
@@ -166,7 +171,9 @@ export default class breedList extends React.Component {
           </Portal>
 
           <View style={globalStyles.pageTitleContainer}>
-            <Text style={[globalStyles.pageTitle, {flex: 1}]}>{item.breedName}</Text>
+            <Text style={[globalStyles.pageTitle, { flex: 1 }]}>
+              {item.breedName}
+            </Text>
             <View>
               <Button
                 color={primaryColour2}
@@ -191,7 +198,11 @@ export default class breedList extends React.Component {
             }}
           >
             {this.state.data.length === 0 ? (
-              <Text style={{paddingTop: 30, fontSize: 15, textAlign: "center"}}>No available {item.breedName}'s for purchase</Text>
+              <Text
+                style={{ paddingTop: 30, fontSize: 15, textAlign: "center" }}
+              >
+                No available {item.breedName}'s for purchase
+              </Text>
             ) : (
               <FlatList
                 style={{ paddingBottom: 10 }}

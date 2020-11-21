@@ -11,10 +11,10 @@ import ProfileHelp from "./profileHelp";
 const Stack = createStackNavigator();
 
 export default function ProfileNav() {
+  //Handle back button
   useEffect(() => {
     const backAction = () => {
       onPress: () => null;
-      // onPress: () => BackHandler.exitApp();
       return true;
     };
 

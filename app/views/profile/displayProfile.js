@@ -21,7 +21,7 @@ export default class Profile extends React.Component {
     super(props);
   }
 
-  // fix this one day..
+  //Logout Handler
   logout(props) {
     auth
       .signOut()

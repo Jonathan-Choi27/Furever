@@ -20,7 +20,7 @@ export default class ProfileScreen extends React.Component {
     this.fetchData();
   }
 
-  // fetch data and store into profileData
+  //Fetch data and store into profileData
   async fetchData() {
     const dict = {};
     const user = auth.currentUser;
@@ -45,10 +45,9 @@ export default class ProfileScreen extends React.Component {
       <Profile
         data={this.state.profileData}
         navigation={this.props.navigation}
-        // needed to refresh profile page on update profile
+        //Needed to refresh profile page on update profile
         refresh={() => this.fetchData()}
       />
     );
   }
 }
-

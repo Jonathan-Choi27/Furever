@@ -16,6 +16,7 @@ import globalStyles, {
 } from "../../styleSheet/styleSheet";
 // Solved from this link https://github.com/GeekyAnts/NativeBase/issues/636
 
+//Information
 const dog_breed = [
   "Select breed",
   "German Shepherd",
@@ -125,6 +126,7 @@ export default class CategorySelection extends React.Component {
     }
   }
 
+  //Get The Breed
   getBreed(val) {
     if (val === "Dog") {
       return dog_breed;
@@ -141,6 +143,7 @@ export default class CategorySelection extends React.Component {
     }
   }
 
+  //Get The Colour
   getColour(val) {
     if (val === "Dog") {
       return dog_colour;
@@ -157,6 +160,7 @@ export default class CategorySelection extends React.Component {
     }
   }
 
+  //Get The Size
   getSize(val) {
     if (
       val === "Dog" ||
@@ -171,14 +175,15 @@ export default class CategorySelection extends React.Component {
     }
   }
 
+  //Category Change Listener
   onCategoryChange(value) {
-    // console.log(value);
     this.props.setCategory(value);
     this.setState({
       category: value,
     });
   }
 
+  //Breed Change Listener
   onBreedChange(value) {
     this.setState({
       breed: value,
@@ -186,6 +191,7 @@ export default class CategorySelection extends React.Component {
     this.props.setBreed(value);
   }
 
+  //Colour Change Listener
   onColourChange(value) {
     this.setState({
       colour: value,
@@ -193,6 +199,7 @@ export default class CategorySelection extends React.Component {
     this.props.setColour(value);
   }
 
+  //Size Change Listener
   onSizeChange(value) {
     this.setState({
       size: value,
@@ -215,7 +222,8 @@ export default class CategorySelection extends React.Component {
               <Picker
                 style={styles.picker}
                 selectedValue={this.state.category}
-                onValueChange={this.onCategoryChange.bind(this)}>
+                onValueChange={this.onCategoryChange.bind(this)}
+              >
                 <Picker.Item
                   label="Select category"
                   value="0"
@@ -267,11 +275,9 @@ export default class CategorySelection extends React.Component {
               <Picker
                 style={styles.picker}
                 selectedValue={this.state.breed}
-                onValueChange={this.onBreedChange.bind(this)}>
+                onValueChange={this.onBreedChange.bind(this)}
+              >
                 {this.getBreed(this.state.category).map((item, i) => {
-                  // console.log("item", item);
-                  // return <Picker.Item label={item} key={`${i}+1`} value={item} />;
-
                   if (i == 0) {
                     return (
                       <Picker.Item
@@ -291,7 +297,6 @@ export default class CategorySelection extends React.Component {
           <View style={{ paddingLeft: 5, paddingTop: 5 }}>
             <Text style={styles.error}>{this.props.breedErr}</Text>
           </View>
-          {/* <Text style={globalStyles.errorMessage}>{this.props.breedErr}</Text> */}
         </View>
 
         <View style={styles.inputContainer}>
@@ -306,7 +311,8 @@ export default class CategorySelection extends React.Component {
               <Picker
                 style={styles.picker}
                 selectedValue={this.state.colour}
-                onValueChange={this.onColourChange.bind(this)}>
+                onValueChange={this.onColourChange.bind(this)}
+              >
                 {this.getColour(this.state.category).map((item, i) => {
                   if (i == 0) {
                     return (
@@ -327,7 +333,6 @@ export default class CategorySelection extends React.Component {
           <View style={{ paddingLeft: 5, paddingTop: 5 }}>
             <Text style={styles.error}>{this.props.colourErr}</Text>
           </View>
-          {/* <Text style={styles.error}>{this.props.colourErr}</Text> */}
         </View>
 
         <View style={styles.inputContainer}>
@@ -343,7 +348,8 @@ export default class CategorySelection extends React.Component {
               <Picker
                 style={styles.picker}
                 selectedValue={this.state.size}
-                onValueChange={this.onSizeChange.bind(this)}>
+                onValueChange={this.onSizeChange.bind(this)}
+              >
                 {this.getSize(this.state.category).map((item, i) => {
                   if (i == 0) {
                     return (
@@ -364,7 +370,6 @@ export default class CategorySelection extends React.Component {
           <View style={{ paddingLeft: 5, paddingTop: 5 }}>
             <Text style={styles.error}>{this.props.sizeErr}</Text>
           </View>
-          {/* <Text style={styles.error}>{this.props.sizeErr}</Text> */}
         </View>
       </View>
     );

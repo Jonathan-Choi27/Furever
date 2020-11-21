@@ -4,6 +4,7 @@ import globalStyles from "../styleSheet/styleSheet";
 import * as ScreenOrientation from "expo-screen-orientation";
 
 export default class LandingPage extends React.Component {
+  //Change To Portrait Mode
   async componentDidMount() {
     await ScreenOrientation.lockAsync(
       ScreenOrientation.OrientationLock.PORTRAIT

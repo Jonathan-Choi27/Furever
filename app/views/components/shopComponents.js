@@ -1,27 +1,18 @@
 import * as React from "react";
-import {
-  Text,
-  View,
-  Image,
-  TouchableOpacity,
-  Alert,
-} from "react-native";
-import {
-  Card,
-  Button,
-} from "react-native-paper";
-import styleSheet from "../styleSheet/styleSheet";
+import { Text, View, Image, TouchableOpacity, Alert } from "react-native";
+import { Card, Button } from "react-native-paper";
 import styles from "../styleSheet/styleSheet";
-import globalStyles, { primaryColour1, primaryColour2, lightGrey, lightBlue } from "../styleSheet/styleSheet";
-import { db } from "../database/firebase";
-import { auth } from "../database/firebase";
-import { Cart } from "../shop/Cart";
+import globalStyles from "../styleSheet/styleSheet";
 
+//Card Item List
 const itemList = [];
 
+//Accessory Listing Card
 export const accessoryListingCard = (item, navigation) => {
   return (
-    <TouchableOpacity onPress={() => navigation.navigate("shopListingProfile", { item })}>
+    <TouchableOpacity
+      onPress={() => navigation.navigate("shopListingProfile", { item })}
+    >
       <Card elevation={5} style={globalStyles.petBuyCard}>
         <View style={globalStyles.petBuyCardTextContainer}>
           <View style={{ width: 125, height: 125 }}>
@@ -34,14 +25,18 @@ export const accessoryListingCard = (item, navigation) => {
             <Card.Content>
               <View style={{ marginRight: 40 }}>
                 <Text numberOfLines={1} style={{ flex: 1 }}>
-                  <Text style={{ fontSize: 18, paddingBottom: 2 }}>{item.accessoryName}</Text>
+                  <Text style={{ fontSize: 18, paddingBottom: 2 }}>
+                    {item.accessoryName}
+                  </Text>
                 </Text>
               </View>
               <Text numberOfLines={1} style={{ flex: 1 }}>
                 <Text style={{ fontWeight: "bold" }}>Price: </Text>
                 <Text>${item.price}</Text>
               </Text>
-              <Text numberOfLines={2} style={{ flex: 1, paddingTop: 3 }}>{item.description}</Text>
+              <Text numberOfLines={2} style={{ flex: 1, paddingTop: 3 }}>
+                {item.description}
+              </Text>
             </Card.Content>
 
             <Card.Actions style={globalStyles.petBuyCardActionCard}>
@@ -50,42 +45,43 @@ export const accessoryListingCard = (item, navigation) => {
                 mode="contained"
                 onPress={() => addItemToCart(item)}
               >
-                <Text style={globalStyles.petBuyCardBigButtonText}>Add to Cart</Text>
+                <Text style={globalStyles.petBuyCardBigButtonText}>
+                  Add to Cart
+                </Text>
               </Button>
             </Card.Actions>
           </View>
         </View>
       </Card>
     </TouchableOpacity>
-  )
-}
+  );
+};
 
+//Shop Category
 export const shopCategory = (category, navigation) => {
   return (
     <View style={styles.iconContainer}>
       <TouchableOpacity
-        onPress={() =>
-          navigation.navigate("accessoryCategories", { category })
-        }>
+        onPress={() => navigation.navigate("accessoryCategories", { category })}
+      >
         <View style={styles.categoryIconContainer}>
-          <Image
-            style={styles.icon}
-            source={{ uri: category.categoryImage }}
-          />
+          <Image style={styles.icon} source={{ uri: category.categoryImage }} />
           <Text style={styles.iconText}>{category.category}</Text>
         </View>
       </TouchableOpacity>
     </View>
-  )
-}
+  );
+};
 
+//Accessory Category
 export const accessoryCategory = (accessory, category, navigation) => {
   return (
     <View style={styles.iconContainer}>
       <TouchableOpacity
         onPress={() =>
           navigation.navigate("accessoryList", { accessory, category })
-        }>
+        }
+      >
         <View style={styles.categoryIconContainer}>
           <Image
             style={styles.icon}
@@ -95,18 +91,19 @@ export const accessoryCategory = (accessory, category, navigation) => {
         </View>
       </TouchableOpacity>
     </View>
-  )
-}
+  );
+};
 
+//Get the item list
 export const getItemList = () => {
-  // const newList = [...itemList];
   return itemList;
-}
+};
 
-// add item to the cart
+//Add item to the cart
 export const addItemToCart = (item) => {
   let index = 0;
   let duplicate = false;
+
   while (index < itemList.length) {
     console.log(itemList[index].qty);
     if (item.docId === itemList[index].docId) {
@@ -120,12 +117,14 @@ export const addItemToCart = (item) => {
   }
 
   if (!duplicate) {
-    item['qty'] = 1;
+    item["qty"] = 1;
     itemList.push(item);
   }
   duplicate = false;
   console.log(itemList);
 
-  Alert.alert("Your item has been added!");
+  Alert.alert(
+    "Item Added",
+    "Your item has been successfully added to the cart"
+  );
 };
-

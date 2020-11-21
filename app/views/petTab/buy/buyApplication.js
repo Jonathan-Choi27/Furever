@@ -1,5 +1,5 @@
 import React from "react";
-import { ScrollView, View, Dimensions, Image, BackHandler, } from "react-native";
+import { ScrollView, View, Dimensions, Image, BackHandler } from "react-native";
 import { Card, Text } from "react-native-elements";
 import { Button } from "react-native-paper";
 import "react-navigation";
@@ -9,7 +9,10 @@ import "react-navigation-hooks";
 import { db } from "../../database/firebase";
 import { auth } from "../../database/firebase";
 import { CustomInput } from "../../components/customInput";
-import globalStyles, { primaryColour1, primaryColour2 } from "../../styleSheet/styleSheet";
+import globalStyles, {
+  primaryColour1,
+  primaryColour2,
+} from "../../styleSheet/styleSheet";
 import { Icon } from "react-native-elements";
 import GooglePlacesInput from "../../components/mapAutoComplete";
 // AIzaSyC-6ifFUYzIIgUf1uhbmJ_BU6VQyre4bRw
@@ -39,6 +42,7 @@ export default class buyApplication extends React.Component {
     };
   }
 
+  //Handle back button
   async componentDidMount() {
     this.fetchData();
 
@@ -58,8 +62,9 @@ export default class buyApplication extends React.Component {
   handleBackButtonClick = () => {
     this.props.navigation.goBack();
     return true;
-  }
+  };
 
+  //Fetch Data
   async fetchData() {
     const userData = {};
     const user = auth.currentUser;
@@ -79,6 +84,7 @@ export default class buyApplication extends React.Component {
       });
   }
 
+  //Contact Number Validator
   contactNumberValidator = () => {
     var bool;
     if (
@@ -103,6 +109,7 @@ export default class buyApplication extends React.Component {
     return bool;
   };
 
+  //Address Validator
   addressValidator = () => {
     var bool;
     if (this.state.address == "") {
@@ -126,6 +133,7 @@ export default class buyApplication extends React.Component {
     });
   };
 
+  //Push Data Handler
   pushData = async () => {
     const doc_id = this.props.route.params.item.doc_id;
     await db
@@ -145,13 +153,14 @@ export default class buyApplication extends React.Component {
         previous_pets: this.state.previous_pets,
         house_enviroment: this.state.house_enviroment,
         is_accepted: false,
-        pet_doc_id: doc_id
+        pet_doc_id: doc_id,
       })
       .then((success) => {
         alert("Submission successful");
       });
   };
 
+  //Validation Checker
   validationCheck = () => {
     var bool;
     this.contactNumberValidator();
@@ -170,12 +179,12 @@ export default class buyApplication extends React.Component {
     return bool;
   };
 
+  //Submit Handler
   handleSubmit = () => {
     var bool = this.validationCheck();
 
     if (bool) {
       this.pushData();
-      //   alert("Application Successful!");
       this.props.navigation.goBack();
     }
   };
@@ -186,7 +195,7 @@ export default class buyApplication extends React.Component {
     const textWidth = screenWidth - 40 - 150 - 10;
 
     return (
-      // scrollview needs to have keyboardshouldpersisttaps for googlemaps
+      //Scrollview needs to have keyboardshouldpersisttaps for Google Maps
       <ScrollView keyboardShouldPersistTaps={"handled"}>
         <View style={{ marginBottom: 0 }}>
           <View style={{ alignItems: "center" }}>
@@ -199,15 +208,19 @@ export default class buyApplication extends React.Component {
           </View>
           <Card containerStyle={{ borderRadius: 10 }}>
             <Text
-              style={{ fontWeight: "bold", fontSize: 30, color: "#333333" }}>
+              style={{ fontWeight: "bold", fontSize: 30, color: "#333333" }}
+            >
               {item.petName}
             </Text>
             <Text>
               <Text
-                style={{ fontSize: 25, color: "#606060", fontWeight: "bold" }}>
+                style={{ fontSize: 25, color: "#606060", fontWeight: "bold" }}
+              >
                 {item.age}
               </Text>
-              <Text style={{ fontSize: 22, color: "#606060", fontWeight: "bold" }}>
+              <Text
+                style={{ fontSize: 22, color: "#606060", fontWeight: "bold" }}
+              >
                 {" "}
                 {item.ageOption.toUpperCase()}
               </Text>
@@ -346,19 +359,22 @@ export default class buyApplication extends React.Component {
             flexDirection: "row",
             alignItems: "center",
             justifyContent: "center",
-          }}>
+          }}
+        >
           <Button
             style={{
               marginTop: 20,
               marginBottom: 20,
               backgroundColor: primaryColour1,
             }}
-            onPress={this.handleSubmit}>
+            onPress={this.handleSubmit}
+          >
             <Text
               style={{
                 color: "white",
                 fontWeight: "bold",
-              }}>
+              }}
+            >
               Submit
             </Text>
           </Button>

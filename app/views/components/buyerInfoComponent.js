@@ -7,12 +7,12 @@ import {
   Dimensions,
   Image,
 } from "react-native";
-import { Card, Button } from "react-native-elements";
+import { Card } from "react-native-elements";
 import styles from "../styleSheet/styleSheet";
 import { sendEmail } from "../petTab/sell/sendEmail";
 import { db } from "../database/firebase";
-import { INSPECT_MAX_BYTES } from "buffer";
 
+//Buyer Information
 export const buyerInfo = (item) => {
   const screenWidth = Math.round(Dimensions.get("window").width);
   return (
@@ -124,6 +124,7 @@ export const buyerInfo = (item) => {
   );
 };
 
+//Accept Buyer
 export const acceptBuyer = (item, navigation) => {
   let body =
     "Hi " +
@@ -219,6 +220,7 @@ export const acceptBuyer = (item, navigation) => {
   );
 };
 
+//Reject Buyer
 export const rejectBuyer = (item, navigation) => {
   return (
     <View style={styles.buttonsContainer}>
@@ -235,6 +237,7 @@ export const rejectBuyer = (item, navigation) => {
             "Offer Rejected",
             "You have declined this offer application, and the offer will now be removed."
           );
+
           navigation.navigate("offerApplications");
         }}
       >

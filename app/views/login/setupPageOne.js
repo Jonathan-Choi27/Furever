@@ -41,6 +41,7 @@ export default class SetupOne extends React.Component {
       "https://firebasestorage.googleapis.com/v0/b/pet-search-soft3888.appspot.com/o/images%2FemptyUser.png?alt=media&token=9414c888-2439-4138-a431-46a314a44c03",
   };
 
+  //Handle back button
   componentDidMount() {
     BackHandler.addEventListener(
       "hardwareBackPress",
@@ -111,6 +112,7 @@ export default class SetupOne extends React.Component {
     }
   }
 
+  //Set Photo URI
   setPhotoUri = async () => {
     const get_uri = await openImagePicker();
     if (get_uri != null) {
@@ -121,18 +123,21 @@ export default class SetupOne extends React.Component {
     }
   };
 
+  //Set Category
   setCategory = (val) => {
     this.setState({
       category: val,
     });
   };
 
+  //Set Location
   setLocation = (val) => {
     this.setState({
       location: val,
     });
   };
 
+  //Location Validator
   locationValidator = () => {
     var bool;
     if (this.state.location == "0" || this.state.location == "") {
@@ -150,6 +155,7 @@ export default class SetupOne extends React.Component {
     return bool;
   };
 
+  //Category Validator
   categoryValidator = () => {
     var bool;
     if (this.state.category == "0" || this.state.category == "") {
@@ -167,7 +173,7 @@ export default class SetupOne extends React.Component {
     return bool;
   };
 
-
+  //Validation Checker
   validationCheck = () => {
     this.categoryValidator();
     this.locationValidator();

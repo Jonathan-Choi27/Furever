@@ -3,9 +3,13 @@ import { Text, View, Image, FlatList, BackHandler } from "react-native";
 import { Card, Button, Searchbar } from "react-native-paper";
 import firebase from "firebase";
 import { auth } from "../../database/firebase";
-import globalStyles, { primaryColour1, primaryColour2 } from "../../styleSheet/styleSheet";
+import globalStyles, {
+  primaryColour1,
+  primaryColour2,
+} from "../../styleSheet/styleSheet";
 import { petSellListingCard } from "../../components/petSellListingComponent";
 
+//Firebase firestore
 const db = firebase.firestore();
 
 export default class currentListings extends React.Component {
@@ -22,6 +26,7 @@ export default class currentListings extends React.Component {
     searchText: "",
   };
 
+  //Fetch Data
   async fetchData() {
     this.setState({
       data: [],
@@ -29,7 +34,7 @@ export default class currentListings extends React.Component {
     const dataArray = [];
     const uid = auth.currentUser.uid;
 
-    // retrieve list of references stored within users
+    //Retrieve list of references stored within users
     const referenceData = await db
       .collection("users")
       .doc(uid)
@@ -38,9 +43,8 @@ export default class currentListings extends React.Component {
       .limit(this.state.limit)
       .get();
 
-    // var counter = 0;
     let documentData = referenceData.forEach(async (referenceDoc) => {
-      // data can be retrieved by reference_object.get()
+      //Data can be retrieved by reference_object.get()
       await referenceDoc
         .data()
         .list.get()
@@ -81,13 +85,14 @@ export default class currentListings extends React.Component {
       //   }
       //   counter++;
 
-      // Set last visible - gets overwritten so the last one is always stored.
+      //Set last visible - gets overwritten so the last one is always stored.
       this.setState({
         lastVisible: referenceDoc.data().timestamp,
       });
     });
   }
 
+  //Fetch More
   async fetchMore() {
     if (!this.state.isFetchingMore) {
       this.setState({
@@ -97,7 +102,7 @@ export default class currentListings extends React.Component {
       const dataArray = [];
       const uid = auth.currentUser.uid;
 
-      // retrieve list of references stored within users
+      //Retrieve list of references stored within users
       const referenceData = await db
         .collection("users")
         .doc(uid)
@@ -108,7 +113,7 @@ export default class currentListings extends React.Component {
         .get();
 
       let documentData = referenceData.docs.map(async (referenceDoc) => {
-        // data can be retrieved by reference_object.get()
+        //Data can be retrieved by reference_object.get()
         await referenceDoc
           .data()
           .list.get()
@@ -153,10 +158,11 @@ export default class currentListings extends React.Component {
     }
   }
 
+  //Handle back button
   async componentDidMount() {
-    this.props.navigation.addListener('focus', () => {
+    this.props.navigation.addListener("focus", () => {
       this.fetchData();
-    })
+    });
 
     this.fetchData();
 
@@ -174,7 +180,7 @@ export default class currentListings extends React.Component {
   }
 
   handleBackButtonClick = () => {
-    // do nothing
+    //Do nothing
     return true;
   };
 
@@ -189,13 +195,6 @@ export default class currentListings extends React.Component {
   };
 
   render() {
-    // if (this.state.isLoading) {
-    //   return (
-    //     <View style={styles.activityContainer}>
-    //       <ActivityIndicator size="large" color="#447ECB" />
-    //     </View>
-    //   );
-    // }
     return (
       <View style={globalStyles.container}>
         <View style={globalStyles.searchFilterContainer}>
@@ -229,15 +228,17 @@ export default class currentListings extends React.Component {
               }}
               mode="contained"
             >
-              <Text style={{color: "white"}}>Add New Listing</Text>
+              <Text style={{ color: "white" }}>Add New Listing</Text>
             </Button>
           </View>
         </View>
 
         <View>
-          {this.state.data.length === 0
-            ? <Text style={{ paddingTop: 30, fontSize: 15, textAlign: "center" }}>You have not added any pet listings</Text>
-            : null}
+          {this.state.data.length === 0 ? (
+            <Text style={{ paddingTop: 30, fontSize: 15, textAlign: "center" }}>
+              You have not added any pet listings
+            </Text>
+          ) : null}
         </View>
 
         {this.state.searchText == "" ? (
@@ -266,45 +267,45 @@ export default class currentListings extends React.Component {
             />
           </View>
         ) : (
-            <View style={globalStyles.petContainer}>
-              {this.state.filteredData.length == 0 ? (
-                <View style={globalStyles.petContainer}>
-                  <Text style={{ margin: 100 }}>No results found.</Text>
-                </View>
-              ) : (
-                  <View style={{ paddingTop: 7, paddingBottom: 60 }}>
-                    <FlatList
-                      style={{ marginBottom: 20 }}
-                      showsVerticalScrollIndicator={false}
-                      numColumns={1}
-                      key={1}
-                      onRefresh={async () => {
-                        this.setState({
-                          pullToRefresh: true,
-                        });
-                        //   await this.initialFetchData();
-                        await this.fetchData();
-                        this.setState({
-                          pullToRefresh: false,
-                        });
-                      }}
-                      refreshing={this.state.pullToRefresh}
-                      data={this.state.data}
-                      renderItem={({ item }) =>
-                        petSellListingCard(item, this.props.navigation)
-                      }
-                      keyExtractor={(item, index) => index.toString()}
-                      data={
-                        this.state.filteredData &&
-                          this.state.filteredData.length > 0
-                          ? this.state.filteredData
-                          : this.state.data
-                      }
-                    />
-                  </View>
-                )}
-            </View>
-          )}
+          <View style={globalStyles.petContainer}>
+            {this.state.filteredData.length == 0 ? (
+              <View style={globalStyles.petContainer}>
+                <Text style={{ margin: 100 }}>No results found.</Text>
+              </View>
+            ) : (
+              <View style={{ paddingTop: 7, paddingBottom: 60 }}>
+                <FlatList
+                  style={{ marginBottom: 20 }}
+                  showsVerticalScrollIndicator={false}
+                  numColumns={1}
+                  key={1}
+                  onRefresh={async () => {
+                    this.setState({
+                      pullToRefresh: true,
+                    });
+                    //   await this.initialFetchData();
+                    await this.fetchData();
+                    this.setState({
+                      pullToRefresh: false,
+                    });
+                  }}
+                  refreshing={this.state.pullToRefresh}
+                  data={this.state.data}
+                  renderItem={({ item }) =>
+                    petSellListingCard(item, this.props.navigation)
+                  }
+                  keyExtractor={(item, index) => index.toString()}
+                  data={
+                    this.state.filteredData &&
+                    this.state.filteredData.length > 0
+                      ? this.state.filteredData
+                      : this.state.data
+                  }
+                />
+              </View>
+            )}
+          </View>
+        )}
       </View>
     );
   }

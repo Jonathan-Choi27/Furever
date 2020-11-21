@@ -1,10 +1,10 @@
 import React, { useEffect, useRef } from "react";
 import { Text, View } from "react-native";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { Icon } from "react-native-elements";
 import { primaryColour1 } from "../styleSheet/styleSheet";
 
+//Google Places Input
 export const GooglePlacesInput = (props) => {
   const ref = useRef();
 
@@ -25,9 +25,10 @@ export const GooglePlacesInput = (props) => {
         style={{
           flexDirection: "row",
           borderBottomWidth: 2,
-          // dont change height css, seems to mess everything up
+          // Dont change height css, seems to mess everything up
           borderBottomColor: "#D3D3D3",
-        }}>
+        }}
+      >
         <View style={{ flex: 0.08 }}>
           <Icon
             name="ios-pin"
@@ -42,7 +43,12 @@ export const GooglePlacesInput = (props) => {
             {...props}
             placeholder="Please enter location"
             // function required to set state of parent
-            onPress={(data) => props.set(data.description, data.structured_formatting.secondary_text)}
+            onPress={(data) =>
+              props.set(
+                data.description,
+                data.structured_formatting.secondary_text
+              )
+            }
             // onPress={(data) => {
             //     // 'details' is provided when fetchDetails = true
             //     console.log(data.structured_formatting.secondary_text);

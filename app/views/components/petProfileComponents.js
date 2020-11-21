@@ -10,15 +10,12 @@ import {
 import { Card, Rating } from "react-native-elements";
 import { Button } from "react-native-paper";
 import styles from "../styleSheet/styleSheet";
-import {
-  primaryColour1,
-  primaryColour2,
-  lightGrey,
-  lightBlue,
-} from "../styleSheet/styleSheet";
+import { primaryColour1, primaryColour2 } from "../styleSheet/styleSheet";
 
+//Get Screen Width
 const screenWidth = Math.round(Dimensions.get("window").width);
 
+//Check Documents
 const checkDocuments = (field) => {
   if (field === "") {
     return <Text style={styles.contentText}>No Documents Provided.</Text>;
@@ -26,6 +23,7 @@ const checkDocuments = (field) => {
   return <OpenURLButton url={field} title="Open Document" />;
 };
 
+//Open URL
 const OpenURLButton = ({ url, title }) => {
   const handlePress = useCallback(async () => {
     // Checking if the link is supported for links with custom URL scheme.
@@ -47,6 +45,7 @@ const OpenURLButton = ({ url, title }) => {
   );
 };
 
+//Check Additional
 const checkAdditional = (additional) => {
   if (additional === "") {
     return "No Additional Information Provided.";
@@ -54,6 +53,7 @@ const checkAdditional = (additional) => {
   return additional;
 };
 
+//Profile Information
 export const profileInfo = (item) => {
   return (
     <View style={styles.container}>
@@ -67,7 +67,14 @@ export const profileInfo = (item) => {
           />
         </View>
         <Card containerStyle={styles.cardContentContainer}>
-          <Text style={{ fontWeight: "bold", fontSize: 30, color: "black", flex: 1 }}>
+          <Text
+            style={{
+              fontWeight: "bold",
+              fontSize: 30,
+              color: "black",
+              flex: 1,
+            }}
+          >
             {item.petName}'s Profile
           </Text>
         </Card>
@@ -145,6 +152,7 @@ export const profileInfo = (item) => {
   );
 };
 
+//Seller Information
 export const sellerInfo = (seller, navigation) => {
   const arr = seller.averageRating;
   console.log(arr);
@@ -185,15 +193,17 @@ export const sellerInfo = (seller, navigation) => {
                   mode="contained"
                   onPress={() =>
                     navigation.navigate("sellerProfile", { seller })
-                  }>
+                  }
+                >
                   <Text
                     style={{
                       color: "#ffffff",
                       fontSize: 12,
                       padding: 3,
                       fontWeight: "bold",
-                    }}>
-                    More Info 
+                    }}
+                  >
+                    More Info
                   </Text>
                 </Button>
               </View>
@@ -211,14 +221,16 @@ export const sellerInfo = (seller, navigation) => {
                   mode="contained"
                   onPress={() =>
                     navigation.navigate("reviewApplication", { seller })
-                  }>
+                  }
+                >
                   <Text
                     style={{
                       color: "#ffffff",
                       fontSize: 12,
                       padding: 3,
                       fontWeight: "bold",
-                    }}>
+                    }}
+                  >
                     Review
                   </Text>
                 </Button>
@@ -231,12 +243,14 @@ export const sellerInfo = (seller, navigation) => {
   );
 };
 
+//Express Interest
 export const expressInterest = (item, navigation) => {
   return (
     <View style={styles.buttonsContainer}>
       <TouchableOpacity
         style={styles.buttons}
-        onPress={() => navigation.navigate("buyApplication", { item })}>
+        onPress={() => navigation.navigate("buyApplication", { item })}
+      >
         <Text style={styles.buttonsText}>EXPRESS INTEREST</Text>
       </TouchableOpacity>
     </View>

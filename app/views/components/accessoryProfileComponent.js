@@ -1,30 +1,15 @@
-import React, { useState } from "react";
-import { Text, View, TouchableOpacity, Dimensions, Image } from "react-native";
-import { Card, } from "react-native-elements";
+import React from "react";
+import { Text, View, Dimensions, Image } from "react-native";
+import { Card } from "react-native-elements";
 import { Button } from "react-native-paper";
 import styles from "../styleSheet/styleSheet";
-import Icon from 'react-native-vector-icons/AntDesign';
-import { primaryColour1, primaryColour2, lightGrey, lightBlue } from "../styleSheet/styleSheet";
-import { cartTab } from "../components/shopTabComponent";
-import { getItemList, addItemToCart } from "../components/shopComponents";
+import { primaryColour1, primaryColour2 } from "../styleSheet/styleSheet";
+import { addItemToCart } from "../components/shopComponents";
 
-
+//Get Screen Width
 const screenWidth = Math.round(Dimensions.get("window").width);
 
-const checkDocuments = (field) => {
-  if (field === "") {
-    return "No Documents Provided."
-  }
-  return field;
-}
-
-const checkAdditional = (additional) => {
-  if (additional === "") {
-    return "No Additional Information Provided."
-  }
-  return additional;
-}
-
+//Profile Information
 export const profileInfo = (item) => {
   return (
     <View style={styles.container}>
@@ -66,9 +51,7 @@ export const profileInfo = (item) => {
               <Text numberOfLines={1} style={styles.contentText}>
                 ${item.price}
               </Text>
-              <Text style={styles.contentText}>
-                {item.description}
-              </Text>
+              <Text style={styles.contentText}>{item.description}</Text>
             </View>
           </View>
         </Card>
@@ -88,11 +71,11 @@ export const addToCartButton = (item) => {
         }}
         mode="contained"
       >
-        <Text style={{color: "white"}}>Add To Cart</Text>
+        <Text style={{ color: "white" }}>Add To Cart</Text>
       </Button>
     </View>
-  )
-}
+  );
+};
 
 export const sellerInfo = (seller, navigation) => {
   return (
@@ -100,19 +83,42 @@ export const sellerInfo = (seller, navigation) => {
       <Card containerStyle={styles.cardContentContainer}>
         <Text style={styles.cardHeading}>Seller Information</Text>
 
-        <View style={{ flexDirection: 'row' }}>
-          <View style={{ flex: 1, width: 100, justifyContent: 'center', alignItems: 'center', }}>
+        <View style={{ flexDirection: "row" }}>
+          <View
+            style={{
+              flex: 1,
+              width: 100,
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
             <Image
-              style={{ height: 40, width: 40, borderRadius: 40 / 2, }}
+              style={{ height: 40, width: 40, borderRadius: 40 / 2 }}
               source={{
                 uri: seller.photo,
               }}
             />
-            <Text style={{ textAlign: "center", paddingTop: 5 }}>{seller.name}</Text>
+            <Text style={{ textAlign: "center", paddingTop: 5 }}>
+              {seller.name}
+            </Text>
           </View>
-          <View style={{ flex: 4, paddingTop: 2, paddingLeft: 10, paddingRight: 10 }}>
-            <Text >{seller.profileText}</Text>
-            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', paddingTop: 10 }}>
+          <View
+            style={{
+              flex: 4,
+              paddingTop: 2,
+              paddingLeft: 10,
+              paddingRight: 10,
+            }}
+          >
+            <Text>{seller.profileText}</Text>
+            <View
+              style={{
+                flex: 1,
+                justifyContent: "center",
+                alignItems: "center",
+                paddingTop: 10,
+              }}
+            >
               <Button
                 style={{
                   backgroundColor: primaryColour2,
@@ -120,19 +126,21 @@ export const sellerInfo = (seller, navigation) => {
                   justifyContent: "center",
                   borderRadius: 5,
                   height: 25,
-                  width: 120
+                  width: 120,
                 }}
                 mode="contained"
                 onPress={() => navigation.navigate("sellerProfile", { seller })}
               >
-                <Text style={{
-                  color: "#ffffff",
-                  fontSize: 12,
-                  padding: 5,
-                  fontWeight: "bold"
-                }}>
+                <Text
+                  style={{
+                    color: "#ffffff",
+                    fontSize: 12,
+                    padding: 5,
+                    fontWeight: "bold",
+                  }}
+                >
                   More Info
-                    </Text>
+                </Text>
               </Button>
             </View>
           </View>
@@ -141,5 +149,3 @@ export const sellerInfo = (seller, navigation) => {
     </View>
   );
 };
-
-

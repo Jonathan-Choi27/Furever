@@ -23,17 +23,18 @@ import breedInfo from "./buy/breedInfo";
 import buyPetProfile from "./buy/buyPetProfile";
 import { primaryColour1 } from "../styleSheet/styleSheet";
 
+//Create Stack and Tab
 const Stack = createStackNavigator();
-// const PetNavigator = StackNav
 const Tab = createMaterialTopTabNavigator();
 
 function PetTab() {
   return (
-    <Tab.Navigator tabBarOptions={{
-        indicatorStyle: {backgroundColor : primaryColour1},
-        activeTintColor : primaryColour1,
+    <Tab.Navigator
+      tabBarOptions={{
+        indicatorStyle: { backgroundColor: primaryColour1 },
+        activeTintColor: primaryColour1,
         inactiveTintColor: "#cccccc",
-    }}
+      }}
     >
       <Tab.Screen name="Buy" component={BuyTab} />
       <Tab.Screen name="Sell" component={currentListings} />
@@ -51,26 +52,23 @@ function BuyTab() {
   );
 }
 
+//Pet Nav
 export default function PetNav() {
   return (
     <NavigationContainer independent={true}>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Tab.Screen name="Tab" component={PetTab} />
-        {/* <Stack.Screen name="petCategories" component={petCategories} /> */}
-        {/* <Stack.Screen name="petBreeds" component={petBreeds} /> */}
         <Stack.Screen name="offerApplications" component={offerApplications} />
         <Stack.Screen
           name="currentApplications"
           component={currentApplications}
         />
-        {/* <Stack.Screen name="currentListings" component={currentListings} /> */}
         <Stack.Screen name="sellApplication" component={sellApplication} />
         <Stack.Screen name="sellPetProfile" component={sellPetProfile} />
         <Stack.Screen
           name="updateSellApplication"
           component={updateSellApplication}
         />
-        {/* <Stack.Screen name="breedList" component={breedList} /> */}
         <Stack.Screen name="breedInfo" component={breedInfo} />
         <Stack.Screen name="petProfile" component={buyPetProfile} />
         <Stack.Screen name="buyApplication" component={buyApplication} />
@@ -78,7 +76,6 @@ export default function PetNav() {
           name="buyerApplicationView"
           component={buyerApplicationView}
         />
-        {/* <Stack.Screen name="offerApplications" component={offerApplications} /> */}
         <Stack.Screen name="buyerProfile" component={buyerProfile} />
         <Stack.Screen name="sellerProfile" component={buySellerProfile} />
       </Stack.Navigator>

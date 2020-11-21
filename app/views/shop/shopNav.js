@@ -20,11 +20,11 @@ import CheckoutSummary from "./CheckoutSummary";
 
 const Stack = createStackNavigator();
 
+//Pet Navigation
 export default function PetNav() {
   useEffect(() => {
     const backAction = () => {
       onPress: () => null;
-      // onPress: () => BackHandler.exitApp();
       return true;
     };
 
@@ -41,21 +41,43 @@ export default function PetNav() {
       <Stack.Navigator
         screenOptions={{
           headerShown: false,
-        }}>
+        }}
+      >
         <Stack.Screen name="petCategories" component={petCategories} />
-        <Stack.Screen name="accessoryCategories" component={accessoryCategories} />
+        <Stack.Screen
+          name="accessoryCategories"
+          component={accessoryCategories}
+        />
         <Stack.Screen name="accessoryListings" component={accessoryListings} />
-        <Stack.Screen name="accessoryListingProfile" component={accessoryListingProfile} />
-        <Stack.Screen name="accessoryListingApplication" component={accessoryListingApplication} />
-        <Stack.Screen name="updateAccessoryListingApplication" component={updateAccessoryListingApplication} />
+        <Stack.Screen
+          name="accessoryListingProfile"
+          component={accessoryListingProfile}
+        />
+        <Stack.Screen
+          name="accessoryListingApplication"
+          component={accessoryListingApplication}
+        />
+        <Stack.Screen
+          name="updateAccessoryListingApplication"
+          component={updateAccessoryListingApplication}
+        />
         <Stack.Screen name="accessoryList" component={accessoryList} />
-        <Stack.Screen name="shopListingProfile" component={shopListingProfile} />
+        <Stack.Screen
+          name="shopListingProfile"
+          component={shopListingProfile}
+        />
         <Stack.Screen name="sellerProfile" component={shopSellerProfile} />
         <Stack.Screen name="shopProfile" component={shopProfile} />
         <Stack.Screen name="Cart" component={Cart} />
-        <Stack.Screen name="CheckoutInformation" component={CheckoutInformation} />
+        <Stack.Screen
+          name="CheckoutInformation"
+          component={CheckoutInformation}
+        />
         <Stack.Screen name="CheckoutSummary" component={CheckoutSummary} />
-        <Stack.Screen name="accessorySellerProfile" component={accessorySellerProfile} />
+        <Stack.Screen
+          name="accessorySellerProfile"
+          component={accessorySellerProfile}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

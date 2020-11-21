@@ -1,6 +1,7 @@
 import * as firebase from "firebase";
-import 'firebase/firestore';
+import "firebase/firestore";
 
+//Firebase Config Details
 const config = {
   apiKey: "AIzaSyCGWqYnp6-WheXh_YGFgTzYcrwgLobtdrk",
   authDomain: "pet-search-soft3888.firebaseapp.com",
@@ -12,6 +13,7 @@ const config = {
   measurementId: "G-CS3BZEL2WX",
 };
 
+//Initialize the Firebase App and export
 firebase.initializeApp(config);
 const auth = firebase.auth();
 const db = firebase.firestore();

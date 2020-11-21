@@ -23,7 +23,11 @@ import {
   MaterialCommunityIcons,
 } from "@expo/vector-icons";
 import { Card } from "react-native-elements";
-import globalStyles, { screenWidth, primaryColour2, primaryColour1 } from "../styleSheet/styleSheet";
+import globalStyles, {
+  screenWidth,
+  primaryColour2,
+  primaryColour1,
+} from "../styleSheet/styleSheet";
 
 export default class Cart extends React.Component {
   constructor(props) {
@@ -34,9 +38,9 @@ export default class Cart extends React.Component {
       cartItems: this.props.route.params.items,
       totalPrice: "",
     };
-    console.log("im in cart");
   }
 
+  //Handle back button
   async componentDidMount() {
     BackHandler.addEventListener(
       "hardwareBackPress",
@@ -56,21 +60,7 @@ export default class Cart extends React.Component {
     return true;
   };
 
-  // selectHandler = (index, value) => {
-  // 	const newItems = [...this.state.cartItems]; // clone the array
-  // 	newItems[index]['checked'] = value == 1 ? 0 : 1; // set the new value
-  //     this.setState({ cartItems: newItems }); // set new state
-  //     console.log(this.state.cartItems);
-  // }
-
-  // selectHandlerAll = (value) => {
-  // 	const newItems = [...this.state.cartItems]; // clone the array
-  // 	newItems.map((item, index) => {
-  // 		newItems[index]['checked'] = value == true ? 0 : 1; // set the new value
-  // 	});
-  // 	this.setState({ cartItems: newItems, selectAll: (value == true ? false : true) }); // set new state
-  // }
-
+  //Delete Handler
   deleteHandler = (index) => {
     var id = this.state.cartItems[index].itemId;
     console.log(id);
@@ -100,7 +90,7 @@ export default class Cart extends React.Component {
   };
 
   quantityHandler = (action, index) => {
-    const newItems = [...this.state.cartItems]; // clone the array
+    const newItems = [...this.state.cartItems]; //Clone the array
 
     let currentQty = newItems[index]["qty"];
 
@@ -110,7 +100,7 @@ export default class Cart extends React.Component {
       newItems[index]["qty"] = currentQty > 1 ? currentQty - 1 : 1;
     }
 
-    this.setState({ cartItems: newItems }); // set new state
+    this.setState({ cartItems: newItems }); //Set new state
   };
 
   calculateTotalPrice = () => {
@@ -151,88 +141,107 @@ export default class Cart extends React.Component {
             <ActivityIndicator size="large" color="#ef5739" />
           </View>
         ) : (
-            <ScrollView contentContainerStyle={{ alignItems: "center" }}>
-              {cartItems &&
-                cartItems.map((item, i) => (
-                  <Card elevation={5} containerStyle={{ borderRadius: 10, width: screenWidth - 40, }}>
+          <ScrollView contentContainerStyle={{ alignItems: "center" }}>
+            {cartItems &&
+              cartItems.map((item, i) => (
+                <Card
+                  elevation={5}
+                  containerStyle={{ borderRadius: 10, width: screenWidth - 40 }}
+                >
+                  <View
+                    key={i}
+                    style={{
+                      flexDirection: "row",
+                      backgroundColor: "#fff",
+                      justifyContent: "space-between",
+                    }}
+                  >
                     <View
-                      key={i}
                       style={{
                         flexDirection: "row",
-                        backgroundColor: "#fff",
-                        justifyContent: "space-between",
+                        alignItems: "center",
+                        justifyContent: "center",
                       }}
                     >
+                      <Image
+                        source={{ uri: item.photo }}
+                        style={[
+                          styles.centerElement,
+                          { height: 100, width: 100, marginRight: 12 },
+                        ]}
+                      />
                       <View
                         style={{
-                          flexDirection: "row",
-                          alignItems: "center",
-                          justifyContent: "center",
+                          flexGrow: 1,
+                          flexShrink: 1,
+                          alignSelf: "center",
                         }}
                       >
-                        <Image
-                          source={{ uri: item.photo }}
-                          style={[
-                            styles.centerElement,
-                            { height: 100, width: 100, marginRight: 12, },
-                          ]}
-                        />
-                        <View style={{ flexGrow: 1, flexShrink: 1, alignSelf: "center", }}>
-                          <Text numberOfLines={1} style={{ fontSize: 15, paddingBottom: 10 }}>
-                            {item.accessoryName}
-                          </Text>
-                          <Text
-                            numberOfLines={1}
-                            style={{ color: "#333333", marginBottom: 10 }}
+                        <Text
+                          numberOfLines={1}
+                          style={{ fontSize: 15, paddingBottom: 10 }}
+                        >
+                          {item.accessoryName}
+                        </Text>
+                        <Text
+                          numberOfLines={1}
+                          style={{ color: "#333333", marginBottom: 10 }}
+                        >
+                          ${item.price}
+                        </Text>
+                        <View style={{ flexDirection: "row" }}>
+                          <TouchableOpacity
+                            onPress={() => this.quantityHandler("less", i)}
+                            style={{ borderWidth: 1, borderColor: "#8c8c8c" }}
                           >
-                            ${item.price}
+                            <MaterialIcons
+                              name="remove"
+                              size={22}
+                              color="#8c8c8c"
+                            />
+                          </TouchableOpacity>
+                          <Text
+                            style={{
+                              borderTopWidth: 1,
+                              borderBottomWidth: 1,
+                              borderColor: "#8c8c8c",
+                              paddingHorizontal: 7,
+                              paddingTop: 3,
+                              color: "#8c8c8c",
+                              fontSize: 13,
+                            }}
+                          >
+                            {item.qty}
                           </Text>
-                          <View style={{ flexDirection: "row" }}>
-                            <TouchableOpacity
-                              onPress={() => this.quantityHandler("less", i)}
-                              style={{ borderWidth: 1, borderColor: "#8c8c8c" }}
-                            >
-                              <MaterialIcons
-                                name="remove"
-                                size={22}
-                                color="#8c8c8c"
-                              />
-                            </TouchableOpacity>
-                            <Text
-                              style={{
-                                borderTopWidth: 1,
-                                borderBottomWidth: 1,
-                                borderColor: "#8c8c8c",
-                                paddingHorizontal: 7,
-                                paddingTop: 3,
-                                color: "#8c8c8c",
-                                fontSize: 13,
-                              }}
-                            >
-                              {item.qty}
-                            </Text>
-                            <TouchableOpacity
-                              onPress={() => this.quantityHandler("more", i)}
-                              style={{ borderWidth: 1, borderColor: "#8c8c8c" }}
-                            >
-                              <MaterialIcons name="add" size={22} color="#8c8c8c" />
-                            </TouchableOpacity>
-                          </View>
+                          <TouchableOpacity
+                            onPress={() => this.quantityHandler("more", i)}
+                            style={{ borderWidth: 1, borderColor: "#8c8c8c" }}
+                          >
+                            <MaterialIcons
+                              name="add"
+                              size={22}
+                              color="#8c8c8c"
+                            />
+                          </TouchableOpacity>
                         </View>
                       </View>
-                      <View style={styles.centerElement}>
-                        <TouchableOpacity
-                          style={[styles.centerElement, { width: 32, height: 32 }]}
-                          onPress={() => this.deleteHandler(i)}
-                        >
-                          <Ionicons name="md-trash" size={25} color="#ee4d2d" />
-                        </TouchableOpacity>
-                      </View>
                     </View>
-                  </Card>
-                ))}
-            </ScrollView>
-          )}
+                    <View style={styles.centerElement}>
+                      <TouchableOpacity
+                        style={[
+                          styles.centerElement,
+                          { width: 32, height: 32 },
+                        ]}
+                        onPress={() => this.deleteHandler(i)}
+                      >
+                        <Ionicons name="md-trash" size={25} color="#ee4d2d" />
+                      </TouchableOpacity>
+                    </View>
+                  </View>
+                </Card>
+              ))}
+          </ScrollView>
+        )}
 
         {!cartItemsIsLoading && (
           <View
@@ -255,8 +264,12 @@ export default class Cart extends React.Component {
                 alignItems: "center",
               }}
             >
-              <Text style={{ color: "#525252", fontSize: 15 }}>Total Price: </Text>
-              <Text style={{ fontSize: 15 }}>${this.calculateTotalPrice().toFixed(2)}</Text>
+              <Text style={{ color: "#525252", fontSize: 15 }}>
+                Total Price:{" "}
+              </Text>
+              <Text style={{ fontSize: 15 }}>
+                ${this.calculateTotalPrice().toFixed(2)}
+              </Text>
             </View>
             <View
               style={{

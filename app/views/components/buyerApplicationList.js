@@ -1,8 +1,9 @@
 import * as React from "react";
-import { Text, View, Image, TouchableOpacity } from "react-native";
+import { Text, View, Image } from "react-native";
 import { Card, Button } from "react-native-paper";
 import styles from "../styleSheet/styleSheet";
 
+//Buyer Application List
 export const buyerApplicationList = (item, navigation) => {
   return (
     <Card elevation={5} style={styles.petBuyCard}>
@@ -17,11 +18,22 @@ export const buyerApplicationList = (item, navigation) => {
       <View style={styles.petBuyCardTextContainer}>
         <View style={styles.petBuyCardImageStatusContainer}>
           <Image source={{ uri: item.photo }} style={styles.petBuyCardImage} />
-          <View style={{flexDirection: 'row', justifyContent: 'center', paddingTop: 5}}>
-            <Text style={{fontWeight: 'bold'}}>Status:  </Text>
-            <Text>{item.buyerIsAccepted ? <Text>Accepted</Text> : <Text>Pending</Text>}</Text>
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "center",
+              paddingTop: 5,
+            }}
+          >
+            <Text style={{ fontWeight: "bold" }}>Status: </Text>
+            <Text>
+              {item.buyerIsAccepted ? (
+                <Text>Accepted</Text>
+              ) : (
+                <Text>Pending</Text>
+              )}
+            </Text>
           </View>
-          
         </View>
         <View style={styles.petBuyCardContent}>
           <Card.Content>
@@ -49,13 +61,17 @@ export const buyerApplicationList = (item, navigation) => {
               <Text>{item.sellerName}</Text>
             </Text>
           </Card.Content>
-
           <Card.Actions style={styles.petBuyCardActionCard}>
             <Button
               style={styles.petBuyCardBigButton}
               mode="contained"
-              onPress={() => navigation.navigate("buyerApplicationView", { item })}>
-              <Text style={styles.petBuyCardBigButtonText}>View Application</Text>
+              onPress={() =>
+                navigation.navigate("buyerApplicationView", { item })
+              }
+            >
+              <Text style={styles.petBuyCardBigButtonText}>
+                View Application
+              </Text>
             </Button>
           </Card.Actions>
         </View>

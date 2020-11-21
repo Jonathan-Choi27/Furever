@@ -1,14 +1,10 @@
 import * as React from "react";
-import { StyleSheet, View, Image, Text, Dimensions } from "react-native";
-import { Avatar, Button, Card, Title, Paragraph } from "react-native-paper";
-import globalStyles, {
-  primaryColour1,
-  primaryColour2,
-  lightGrey,
-  lightBlue,
-} from "../styleSheet/styleSheet";
+import { View, Image, Text, Dimensions } from "react-native";
+import { Button, Card } from "react-native-paper";
+import globalStyles from "../styleSheet/styleSheet";
 console.disableYellowBox = true;
 
+//Offer Application Listing Card
 export const offerApplicationListingCard = (item, navigation) => {
   const screenWidth = Math.round(Dimensions.get("window").width);
   return (
@@ -65,10 +61,10 @@ export const offerApplicationListingCard = (item, navigation) => {
                     Accepted Application
                   </Text>
                 ) : (
-                    <Text style={globalStyles.bigButtonText}>
-                      View Application
-                    </Text>
-                  )}
+                  <Text style={globalStyles.bigButtonText}>
+                    View Application
+                  </Text>
+                )}
               </Button>
             </View>
           </View>

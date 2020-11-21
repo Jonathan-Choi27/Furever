@@ -13,7 +13,7 @@ import {
 } from "react-native";
 import { Card } from "react-native-elements";
 console.disableYellowBox = true;
-import globalStyles, {pageBackgroundColour} from "../styleSheet/styleSheet";
+import globalStyles, { pageBackgroundColour } from "../styleSheet/styleSheet";
 
 import { sellerDetails, reviewCard } from "../components/sellerInfoComponent";
 import { petBuyCard } from "../components/petBuyComponents";
@@ -27,6 +27,7 @@ export default class homeSellerProfile extends React.Component {
     pullToRefresh: false,
   };
 
+  //Fetch Data
   async fetchData() {
     const dataArray = [];
     const reviewArray = [];
@@ -95,12 +96,6 @@ export default class homeSellerProfile extends React.Component {
               reviewData: [...reviewArray],
             });
           });
-
-          // reviewArray.push({
-          //     rating: review.data().rating,
-          //     review: review.data().review,
-          //   });
-
           this.setState({
             reviewData: [...reviewArray],
           });
@@ -128,17 +123,19 @@ export default class homeSellerProfile extends React.Component {
 
   handleBackButtonClick = () => {
     this.props.navigation.goBack();
-    return true; 
+    return true;
   };
 
   render() {
     const seller = this.props.route.params.seller;
     return (
-      <ScrollView contentContainerStyle={{backgroundColor: pageBackgroundColour}}>
+      <ScrollView
+        contentContainerStyle={{ backgroundColor: pageBackgroundColour }}
+      >
         {sellerDetails(seller)}
 
         <View style={{ paddingLeft: 15, paddingTop: 15, paddingBottom: 5 }}>
-          <Text style={[globalStyles.pageTitle, {flex: 1}]}>
+          <Text style={[globalStyles.pageTitle, { flex: 1 }]}>
             {seller.name}'s Recent Listings
           </Text>
         </View>
@@ -153,7 +150,7 @@ export default class homeSellerProfile extends React.Component {
         </View>
 
         <View style={{ paddingLeft: 15, paddingTop: 15, paddingBottom: 5 }}>
-          <Text style={[globalStyles.pageTitle, {flex: 1}]}>
+          <Text style={[globalStyles.pageTitle, { flex: 1 }]}>
             {seller.name}'s Recent Reviews
           </Text>
         </View>
@@ -161,9 +158,7 @@ export default class homeSellerProfile extends React.Component {
           <FlatList
             style={{ paddingBottom: 10 }}
             showsVerticalScrollIndicator={false}
-            renderItem={({ item }) => (
-              reviewCard(item)
-            )}
+            renderItem={({ item }) => reviewCard(item)}
             keyExtractor={(item, index) => index.toString()}
             data={this.state.reviewData}
           />

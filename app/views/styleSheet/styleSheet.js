@@ -1,12 +1,19 @@
 import { StyleSheet } from "react-native";
 import { Dimensions } from "react-native";
 
+//Get Screen Width
 export const screenWidth = Math.round(Dimensions.get("window").width);
+
+//Get Text Width
 const textWidth = (screenWidth - 20) / 2;
 
-// export const primaryColour1 = "#53A687";
-export const primaryColour2 = "#FF9680";
+//Primary Colour 1
 export const primaryColour1 = "#FF5733";
+
+//Primary Colour 2
+export const primaryColour2 = "#FF9680";
+
+//Page Background Colour
 export const pageBackgroundColour = "#f7f8fa";
 
 export default StyleSheet.create({
@@ -538,6 +545,6 @@ export default StyleSheet.create({
     marginBottom: 10,
   },
   faqContainer: {
-    marginTop: 10
-  }
+    marginTop: 10,
+  },
 });

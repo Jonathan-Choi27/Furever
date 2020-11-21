@@ -17,6 +17,7 @@ export default class SignUp extends React.Component {
     isNewUser: true,
   };
 
+  //Submit Handler
   submit = async () => {
     const {
       dob,

@@ -1,9 +1,8 @@
 import * as ImagePicker from "expo-image-picker";
 import * as firebase from "firebase/app";
 import "firebase/storage";
-import React, { Component } from "react";
-import { Button, StyleSheet } from "react-native";
 
+//Open the Image Picker
 export const openImagePicker = async () => {
   const result = await ImagePicker.launchImageLibraryAsync({
     mediaTypes: "Images",
@@ -15,16 +14,19 @@ export const openImagePicker = async () => {
   }
 };
 
-export const uploadPhoto =  async (uri, uuid) => {
+//Upload the photo
+export const uploadPhoto = async (uri, uuid) => {
+  const response = await fetch(uri);
+  const blob = await response.blob();
 
-    // var photoURL;
-    const response = await fetch(uri);
-    const blob = await response.blob();
+  const ref = firebase
+    .storage()
+    .ref()
+    .child("user_uploads/images/" + uuid);
 
-    const ref = firebase.storage().ref().child("user_uploads/images/" + uuid);
+  const snapshot = await ref.put(blob);
 
-    const snapshot = await ref.put(blob);
+  const photoURL = await snapshot.ref.getDownloadURL();
 
-    const photoURL = await snapshot.ref.getDownloadURL();
-    return photoURL;
-}
+  return photoURL;
+};

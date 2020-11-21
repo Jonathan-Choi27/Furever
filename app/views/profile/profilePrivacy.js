@@ -12,7 +12,6 @@ import {
 import { Icon } from "react-native-elements";
 import { CustomInput } from "../components/customInput";
 import { Card } from "react-native-elements";
-
 import { auth } from "../database/firebase";
 import * as firebase from "firebase";
 import { Input } from "react-native-elements";
@@ -31,6 +30,7 @@ export default class ProfilePrivacy extends React.Component {
     };
   }
 
+  //Handle back button
   componentDidMount() {
     BackHandler.addEventListener(
       "hardwareBackPress",
@@ -59,6 +59,7 @@ export default class ProfilePrivacy extends React.Component {
     return user.reauthenticateWithCredential(cred);
   };
 
+  //Change Password Handler
   onChangePasswordPress = () => {
     this.reauthenticate(this.state.currentPassword)
       .then(async () => {
@@ -173,48 +174,6 @@ export default class ProfilePrivacy extends React.Component {
               </TouchableOpacity>
             </View>
           </View>
-
-          {/* <View style={{ marginHorizontal: 50, marginTop: 30 }}>
-          <Input
-            value={this.state.currentPassword}
-            placeholder="Current Password"
-            secureTextEntry={true}
-            labelStyle={{ color: primaryColour1 }}
-            onChangeText={(text) => this.setState({ currentPassword: text })}
-            leftIcon={{
-              type: "ionicons",
-              name: "lock-outline",
-              size: 25,
-              color: primaryColour1,
-              paddingRight: 10,
-              paddingLeft: 5,
-            }}
-          />
-
-          <Input
-            value={this.state.newPassword}
-            placeholder="New Password"
-            secureTextEntry={true}
-            labelStyle={{ color: primaryColour1 }}
-            onChangeText={(text) => this.setState({ newPassword: text })}
-            leftIcon={{
-              type: "ionicons",
-              name: "lock-outline",
-              size: 25,
-              color: primaryColour1,
-              paddingRight: 10,
-              paddingLeft: 5,
-            }}
-          />
-          <View style={globalStyles.applicationButtonsContainer}>
-            <TouchableOpacity
-              style={globalStyles.buttons}
-              onPress={this.onChangePasswordPress}
-            >
-              <Text style={globalStyles.buttonsText}>Update</Text>
-            </TouchableOpacity>
-          </View>
-        </View> */}
         </View>
       </ScrollView>
     );

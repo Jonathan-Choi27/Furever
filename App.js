@@ -10,6 +10,8 @@ import "react-native-gesture-handler";
 import { NavigationContainer, Dimensions } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { Platform, StatusBar, View } from "react-native";
+
+//Create Stack Navigator
 const Stack = createStackNavigator();
 
 export default function App() {
@@ -41,16 +43,6 @@ export default function App() {
             name="Home"
             component={Home}
             options={{
-              //   title: "Home",
-              //   headerStyle: {
-              //     backgroundColor: primaryColour2,
-              //   },
-              //   headerTitle: <HeaderLogo />,
-              //   headerTitleStyle: {
-              //     alignSelf: "center",
-              //     flex: 1,
-              //   },
-              //   headerTitleContainerStyle: { left: 0, right: 0 },
               headerLeft: null,
               headerShown: false,
             }}

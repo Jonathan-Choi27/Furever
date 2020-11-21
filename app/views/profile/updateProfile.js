@@ -40,6 +40,7 @@ export default class updateProfile extends React.Component {
     };
   }
 
+  //Handle back button
   componentDidMount() {
     BackHandler.addEventListener(
       "hardwareBackPress",
@@ -60,7 +61,7 @@ export default class updateProfile extends React.Component {
   };
 
   async handleUpdate() {
-    // dont set new photo uri if no pic selected or no update
+    //Dont set new photo uri if no pic selected or no update
     if (this.state.photo != "" && this.state.photo_uri != null) {
       const photoURL = await uploadPhoto(
         this.state.photo,
@@ -80,7 +81,6 @@ export default class updateProfile extends React.Component {
       profileText: this.state.profileText,
     });
 
-    // console.log("hi");
     this.props.route.params.refresh();
     this.props.navigation.goBack();
   }
@@ -95,7 +95,6 @@ export default class updateProfile extends React.Component {
     }
   };
 
-  // const navigation = props.route.params.navigation;
   render() {
     return (
       <ScrollView>
@@ -193,35 +192,6 @@ export default class updateProfile extends React.Component {
             </TouchableOpacity>
           </View>
         </View>
-
-        {/* <View style={{ marginHorizontal: 50, marginTop: 30 }}>
-          <View>
-            <Input
-              label="Display Name"
-              labelStyle={{ color: "black" }}
-              onChangeText={(name) => this.setState({ name })}
-              placeholder={this.state.prevName}
-              defaultValue={this.state.prevName}
-            />
-
-            <Input
-              label="Profile Text"
-              labelStyle={{ color: "black" }}
-              onChangeText={(profileText) => this.setState({ profileText })}
-              multiline
-              placeholder={this.state.prevProfileText}
-              defaultValue={this.state.prevProfileText}
-            />
-            <View style={globalStyles.applicationButtonsContainer}>
-              <TouchableOpacity
-                style={globalStyles.buttons}
-                onPress={() => this.handleUpdate()}
-              >
-                <Text style={globalStyles.buttonsText}>Update</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        </View> */}
       </ScrollView>
     );
   }

@@ -1,30 +1,23 @@
-import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import * as React from "react";
-import { StyleSheet, Text, View } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import PetNav from "../petTab/petNav";
-import firebase from "firebase";
 import HomeNav from "./homeNav";
 import ProfileNav from "../profile/profileNav";
 import ShopNav from "../shop/shopNav";
-import {
-  primaryColour1,
-  primaryColour2,
-  lightBlue,
-} from "../styleSheet/styleSheet";
+import { primaryColour1 } from "../styleSheet/styleSheet";
 
-const db = firebase.firestore();
-let retrieve_data;
 export default class LandingPage extends React.Component {
   render() {
     return <MyTabs />;
   }
 }
 
+//Initialize the Bottom Tab Navigator
 const Tab = createBottomTabNavigator();
 
-function MyTabs(props) {
+//Create the tabs
+function MyTabs() {
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({

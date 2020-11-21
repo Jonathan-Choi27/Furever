@@ -1,5 +1,12 @@
 import React from "react";
-import { ScrollView, View, Dimensions, Image, BackHandler, TouchableOpacity } from "react-native";
+import {
+  ScrollView,
+  View,
+  Dimensions,
+  Image,
+  BackHandler,
+  TouchableOpacity,
+} from "react-native";
 import { Card, Text } from "react-native-elements";
 import { Button } from "react-native-paper";
 import "react-navigation";
@@ -7,7 +14,10 @@ import "react-navigation-props-mapper";
 import "@react-navigation/native";
 import "react-navigation-hooks";
 import { CustomInput } from "../components/customInput";
-import globalStyles, { primaryColour1, primaryColour2 } from "../styleSheet/styleSheet";
+import globalStyles, {
+  primaryColour1,
+  primaryColour2,
+} from "../styleSheet/styleSheet";
 import { Icon } from "react-native-elements";
 import GooglePlacesInput from "../components/mapAutoComplete";
 import { db } from "../database/firebase";
@@ -26,13 +36,10 @@ export default class CheckoutInformation extends React.Component {
       valid_address: true,
       contact_err: "",
       address_err: "",
-    }
-    console.log("im in checkout");
-    console.log(this.props.route.params.cartItems);
-    console.log(this.props.route.params.price);
-
+    };
   }
 
+  //Fetch Data
   async fetchData() {
     const userData = {};
     const user = auth.currentUser;
@@ -43,20 +50,19 @@ export default class CheckoutInformation extends React.Component {
       .get()
       .then((doc) => {
         this.setState({
-          name: doc.data().name
-        })
-
+          name: doc.data().name,
+        });
       });
   }
 
+  //Handle back button
   async componentDidMount() {
     this.fetchData();
     BackHandler.addEventListener(
       "hardwareBackPress",
       this.handleBackButtonClick
     );
-
-  };
+  }
 
   componentWillUnmount() {
     BackHandler.removeEventListener(
@@ -68,8 +74,9 @@ export default class CheckoutInformation extends React.Component {
   handleBackButtonClick = () => {
     this.props.navigation.goBack();
     return true;
-  }
+  };
 
+  //Validator Functions
   contactNumberValidator = () => {
     var bool;
     if (
@@ -136,24 +143,25 @@ export default class CheckoutInformation extends React.Component {
   };
 
   render() {
-
     return (
-      // band aid fix cant figure out how to center for some reason
+      //Band aid fix
       <View style={{ flex: 1, paddingVertical: 150 }}>
-        <ScrollView
-          keyboardShouldPersistTaps={"handled"}
-        >
+        <ScrollView keyboardShouldPersistTaps={"handled"}>
           <Card containerStyle={{ borderRadius: 10 }}>
-            <Text style={{ fontSize: 25, fontWeight: "bold", color: "#a8a8a8" }}>
+            <Text
+              style={{ fontSize: 25, fontWeight: "bold", color: "#a8a8a8" }}
+            >
               Send to:
-                    </Text>
+            </Text>
             <View style={{ marginBottom: 10 }} />
             <Text style={globalStyles.cardHeading}>Personal Information</Text>
 
             <CustomInput
               label="Contact Number"
               placeholder="(0x) xxxx xxxx"
-              onChangeText={(contact_number) => this.setState({ contact_number })}
+              onChangeText={(contact_number) =>
+                this.setState({ contact_number })
+              }
               errorMessage={this.state.contact_err}
               leftIcon={
                 <Icon
@@ -171,16 +179,22 @@ export default class CheckoutInformation extends React.Component {
                 <View style={{ paddingLeft: 10 }}>
                   <Text style={{ fontSize: 12, color: "red", marginTop: 5 }}>
                     Enter location
-                            </Text>
+                  </Text>
                 </View>
               )}
             </View>
             <View style={globalStyles.buttonsContainer}>
               <TouchableOpacity
                 style={globalStyles.buttons}
-                onPress={() => this.props.navigation.navigate("CheckoutSummary", {
-                  name: this.state.name, contactNumber: this.state.contactNumber, address: this.state.address, cartItems: this.state.cartItems, price: this.state.price
-                })}
+                onPress={() =>
+                  this.props.navigation.navigate("CheckoutSummary", {
+                    name: this.state.name,
+                    contactNumber: this.state.contactNumber,
+                    address: this.state.address,
+                    cartItems: this.state.cartItems,
+                    price: this.state.price,
+                  })
+                }
               >
                 <Text style={globalStyles.buttonsText}>Next</Text>
               </TouchableOpacity>
@@ -188,6 +202,6 @@ export default class CheckoutInformation extends React.Component {
           </Card>
         </ScrollView>
       </View>
-    )
+    );
   }
 }

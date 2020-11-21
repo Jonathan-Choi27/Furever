@@ -1,5 +1,5 @@
-import { Slider, Text, Icon, Input } from "react-native-elements";
-import { Animated, View } from "react-native";
+import { Slider, Text, Input } from "react-native-elements";
+import { View } from "react-native";
 import React from "react";
 import { primaryColour1 } from "../../views/styleSheet/styleSheet";
 
@@ -14,14 +14,14 @@ export default class PriceSlider extends React.Component {
 
   render() {
     return (
-      <View style={{marginHorizontal: 10}}>
+      <View style={{ marginHorizontal: 10 }}>
         <Text style={{ color: "#505050", fontWeight: "bold", fontSize: 16 }}>
           Price
         </Text>
         <View style={{ flexDirection: "row" }}>
           <View style={{ flex: 0.7 }}>
             <Slider
-                // converesion to int this way. parseInt() giving errors for some reason
+              // converesion to int this way. parseInt() giving errors for some reason
               value={this.props.price * 1}
               onSlidingComplete={(price) =>
                 this.props.setPrice(price.toString())
@@ -44,7 +44,10 @@ export default class PriceSlider extends React.Component {
             <Input
               placeholder="0"
               placeholderTextColor={"#D3D3D3"}
-              inputContainerStyle={{borderBottomColor: "#D3D3D3", borderBottomWidth: 2}}
+              inputContainerStyle={{
+                borderBottomColor: "#D3D3D3",
+                borderBottomWidth: 2,
+              }}
               value={this.props.price.toString()}
               onChangeText={(price) => {
                 this.props.setPrice(price);
@@ -55,10 +58,12 @@ export default class PriceSlider extends React.Component {
                     color: primaryColour1,
                     fontSize: 20,
                     fontWeight: "bold",
-                  }}>
+                  }}
+                >
                   $
                 </Text>
-              }></Input>
+              }
+            ></Input>
           </View>
         </View>
       </View>

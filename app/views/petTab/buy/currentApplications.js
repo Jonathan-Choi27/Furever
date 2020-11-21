@@ -15,7 +15,6 @@ import { auth } from "../../database/firebase";
 import globalStyles from "../../styleSheet/styleSheet";
 import { petBuyCard } from "../../components/petBuyComponents";
 import { buyerApplicationList } from "../../components/buyerApplicationList";
-// import { buyerApplicationView } from "../../components/buyerApplicationView";
 
 export default class currentApplications extends React.Component {
   state = {
@@ -28,6 +27,7 @@ export default class currentApplications extends React.Component {
     pullToRefresh: false,
   };
 
+  //Fetch Data
   async componentDidMount() {
     const dataArray = [];
     const user = auth.currentUser;
@@ -127,6 +127,7 @@ export default class currentApplications extends React.Component {
     return true;
   };
 
+  //Search Functionality
   searchFunction = (searchText) => {
     this.setState({ searchText: searchText });
 
@@ -140,10 +141,8 @@ export default class currentApplications extends React.Component {
   render() {
     const { search } = this.state;
 
-    // this.listedDataSearch(auth.getuuid);
     return (
       <View style={globalStyles.container}>
-        {/* {onBuyTab(this.props.navigation)} */}
         <ScrollView contentContainerStyle={{ alignItems: "center" }}>
           <View
             style={{
@@ -171,13 +170,21 @@ export default class currentApplications extends React.Component {
               >
                 Your Current Applications
               </Text>
-              
+
               <View>
-                {this.state.data.length === 0
-                  ? <Text style={{paddingTop: 30, fontSize: 15, textAlign: "center"}}>You have not submitted any pet applications</Text>
-                  : null}
+                {this.state.data.length === 0 ? (
+                  <Text
+                    style={{
+                      paddingTop: 30,
+                      fontSize: 15,
+                      textAlign: "center",
+                    }}
+                  >
+                    You have not submitted any pet applications
+                  </Text>
+                ) : null}
               </View>
-              
+
               <FlatList
                 style={[{ paddingBottom: 10 }]}
                 onRefresh={async () => {

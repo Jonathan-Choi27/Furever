@@ -1,16 +1,16 @@
 import { Picker, Text, View } from "react-native";
 import React from "react";
-import { CustomPicker } from "./customPicker";
-import GooglePlacesInput from "./mapAutoComplete";
 import globalStyles, { primaryColour1 } from "../styleSheet/styleSheet";
 import { Icon } from "react-native-elements";
 
+//Age Variable
 var age = [];
 
 export default class AgePicker extends React.Component {
   constructor(props) {
     super(props);
 
+    //Select Age Range Picker
     for (let i = 0; i < 30; i++) {
       if (i == 0) {
         age[i] = "Select";
@@ -24,8 +24,8 @@ export default class AgePicker extends React.Component {
       option: "0",
     };
   }
+
   componentDidUpdate(prevProps) {
-    // console.log(this.props.age);
     if (this.props.age !== prevProps.age) {
       this.setState({
         age: this.props.age,
@@ -38,6 +38,7 @@ export default class AgePicker extends React.Component {
     }
   }
 
+  //Option Change Listener
   onOptionChange = (option) => {
     this.setState({
       option: option,
@@ -45,6 +46,7 @@ export default class AgePicker extends React.Component {
     this.props.setAgeOption(option);
   };
 
+  //Option Age Listener
   onAgeChange = (age) => {
     this.setState({
       age: age,
@@ -65,14 +67,16 @@ export default class AgePicker extends React.Component {
               borderBottomColor: "#D3D3D3",
               borderBottomWidth: 2,
               flexDirection: "row",
-            }}>
+            }}
+          >
             <View style={{ justifyContent: "center", flex: 0.2 }}>
               <Icon name="ios-paper" type="ionicon" color={primaryColour1} />
             </View>
             <View style={globalStyles.formPickerInnerContainer}>
               <Picker
                 selectedValue={this.state.age}
-                onValueChange={(age) => this.onAgeChange(age)}>
+                onValueChange={(age) => this.onAgeChange(age)}
+              >
                 {age.map((item, i) => {
                   if (i == 0) {
                     return (
@@ -91,19 +95,18 @@ export default class AgePicker extends React.Component {
               </Picker>
             </View>
           </View>
-
-          {/* space between */}
           <View style={{ flex: 0.05 }} />
-
           <View
             style={{
               flex: 0.4,
               borderBottomColor: "#D3D3D3",
               borderBottomWidth: 2,
-            }}>
+            }}
+          >
             <Picker
               selectedValue={this.state.option}
-              onValueChange={(option) => this.onOptionChange(option)}>
+              onValueChange={(option) => this.onOptionChange(option)}
+            >
               <Picker.Item label="Select" value="0" color="#D3D3D3" />
               <Picker.Item label="Months" value="Months" />
               <Picker.Item label="Years" value="Years" />

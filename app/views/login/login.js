@@ -11,6 +11,7 @@ export default class Login extends React.Component {
     password: "",
   };
 
+  //Login Handler
   onLogin() {
     const { email, password } = this.state;
 
@@ -44,6 +45,7 @@ export default class Login extends React.Component {
     this.setState({ password: "" });
   }
 
+  //Forgot Password Handler
   onForgotPassword(email) {
     auth
       .sendPasswordResetEmail(email)

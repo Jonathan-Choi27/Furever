@@ -21,13 +21,14 @@ export default class homePetProfile extends React.Component {
     sellerId: "",
   };
 
+  //Fetch Data
   async fetchData() {
     const uuid = this.props.route.params.item.uuid;
     db.collection("users")
       .doc(uuid)
       .get()
       .then((doc) => {
-        // calculate average
+        //Calculate Average
         const arr = doc.data().averageRating;
         let avg;
         if (arr == undefined) {
@@ -40,7 +41,6 @@ export default class homePetProfile extends React.Component {
           avg = sum / arr.length;
         }
 
-        // console.log(doc.data().averageRating.length);
         this.setState({
           name: doc.data().name,
           dob: doc.data().dob,

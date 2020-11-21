@@ -24,7 +24,10 @@ import { openImagePicker, uploadPhoto } from "../../components/imageUpload";
 import CategorySelection from "./sellAppCategories";
 import { auth } from "../../database/firebase";
 import "firebase/storage";
-import globalStyles, { primaryColour1, primaryColour2 } from "../../styleSheet/styleSheet";
+import globalStyles, {
+  primaryColour1,
+  primaryColour2,
+} from "../../styleSheet/styleSheet";
 import { CustomInput } from "../../components/customInput";
 import PriceSlider from "../../components/priceSlider";
 import AgePicker from "../../components/agePicker";
@@ -46,14 +49,12 @@ export default class sellApplication extends React.Component {
       valid_behaviour: true,
       valid_health: true,
       valid_training: true,
-      // valid_additionalInfo: true,
       valid_uri: true,
       valid_gender: true,
       nameErr: "",
       behaviourErr: "",
       healthErr: "",
       trainingErr: "",
-      // additionalInfoErr: "",
       categoryErr: "",
       breedErr: "",
       colourErr: "",
@@ -119,37 +120,17 @@ export default class sellApplication extends React.Component {
     this.trainingValidator();
     this.genderValidator();
     this.locationValidator();
-    // this.additionalInfoValidator();
     this.priceValidator();
 
     var submit = true;
-    // if (
-    //   this.nameValidator() == false ||
-    //   this.categoryValidator() == false ||
-    //   this.breedValidator() == false ||
-    //   this.colourValidator() == false ||
-    //   this.sizeValidator() == false ||
-    //   this.ageValidator() == false ||
-    //   this.genderValidator() == false ||
-    //   this.locationValidator() == false ||
-    //   this.behaviourValidator() == false ||
-    //   this.healthValidator() == false ||
-    //   this.trainingValidator() == false ||
-    //   // this.additionalInfoValidator() == false ||
-    //   this.photoValidator() == false
-    // ) {
-    //   alert("All input fields required and must be valid.");
-    //   submit = false;
-    // } else {
-    //   submit = true;
-    // }
+
     return submit;
   };
 
   pushData = async () => {
     const user = auth.currentUser;
 
-    // upload photo
+    // Upload photo
     const photoURL = await uploadPhoto(
       this.state.photo_uri,
       this.state.photo_uuid
@@ -159,7 +140,7 @@ export default class sellApplication extends React.Component {
       photoLink: photoURL,
     });
 
-    // only upload document if document selected
+    // Only upload document if document selected
     if (
       this.state.documents_uri != "" &&
       this.state.documents_uri != null &&
@@ -230,10 +211,11 @@ export default class sellApplication extends React.Component {
             });
           });
       });
-    alert("Application Successful!");
+    alert("Successful!");
     this.props.navigation.goBack();
   };
 
+  //Submit Handler
   handleSubmit = () => {
     var submit = this.validationCheck();
     if (submit == true) {
@@ -241,7 +223,7 @@ export default class sellApplication extends React.Component {
     }
   };
 
-  // State setter functions
+  //State Setter functions
   setPrice = (price) => {
     this.setState({
       price: price,
@@ -291,7 +273,7 @@ export default class sellApplication extends React.Component {
     });
   };
 
-  //Validator functions
+  //Validator Functions
   nameValidator = () => {
     var bool;
     if (this.state.name == "" || /\d+/g.test(this.state.name)) {
@@ -458,25 +440,6 @@ export default class sellApplication extends React.Component {
     return bool;
   };
 
-  // additionalInfoValidator = () => {
-  //   var bool;
-  //   if (this.state.additionalInfo == "") {
-  //     bool = false;
-  //     this.setState({
-  //       valid_additionalInfo: false,
-  //       additionalInfoErr: "Please fill this field in",
-  //     });
-  //   } else {
-  //     bool = true;
-  //     this.setState({
-  //       additionalInfoErr: "",
-  //       valid_additionalInfo: true,
-  //     });
-  //   }
-
-  //   return bool;
-  // };
-
   photoValidator = () => {
     var bool;
     if (
@@ -542,7 +505,6 @@ export default class sellApplication extends React.Component {
 
   priceValidator = () => {
     if (this.state.price == "") {
-      //   console.log("going in loop");
       this.setState({
         price: "0",
       });
@@ -617,7 +579,8 @@ export default class sellApplication extends React.Component {
 
           <View style={{ marginHorizontal: 10, marginBottom: 20 }}>
             <Text
-              style={{ color: "#505050", fontWeight: "bold", fontSize: 16 }}>
+              style={{ color: "#505050", fontWeight: "bold", fontSize: 16 }}
+            >
               Gender
             </Text>
 
@@ -628,7 +591,8 @@ export default class sellApplication extends React.Component {
               <View style={globalStyles.formPickerInnerContainer}>
                 <Picker
                   selectedValue={this.state.gender}
-                  onValueChange={(gender) => this.setState({ gender })}>
+                  onValueChange={(gender) => this.setState({ gender })}
+                >
                   <Picker.Item
                     label="Select gender"
                     value="0"
@@ -659,12 +623,6 @@ export default class sellApplication extends React.Component {
               </View>
             )}
           </View>
-
-          {/* {!this.state.valid_location && (
-              <View style={{ flex: 1 }}>
-                <Text style={styles.errorText}>Enter location</Text>
-              </View>
-            )} */}
 
           <PriceSlider
             price={this.state.price}
@@ -732,7 +690,6 @@ export default class sellApplication extends React.Component {
           <CustomInput
             placeholder="Please fill in the field"
             onChangeText={(additionalInfo) => this.setState({ additionalInfo })}
-            // errorMessage={this.state.additionalInfoErr}
             multiline={true}
             leftIcon={
               <Icon
@@ -752,7 +709,8 @@ export default class sellApplication extends React.Component {
                 flexDirection: "row",
                 marginHorizontal: 10,
                 marginBottom: 10,
-              }}>
+              }}
+            >
               <View style={{ flex: 1, flexDirection: "row", paddingBottom: 3 }}>
                 <Text style={globalStyles.applicationInputName}>
                   Upload a Photo
@@ -773,7 +731,8 @@ export default class sellApplication extends React.Component {
                 alignContent: "center",
                 alignItems: "center",
                 marginHorizontal: 10,
-              }}>
+              }}
+            >
               <Image
                 style={{ height: 300, width: screenWidth - 92 }}
                 source={{ uri: this.state.photo_uri }}
@@ -784,12 +743,14 @@ export default class sellApplication extends React.Component {
                 marginTop: 10,
                 backgroundColor: primaryColour2,
                 marginHorizontal: 10,
-              }} 
-              onPress={this.setPhotoUri}>
+              }}
+              onPress={this.setPhotoUri}
+            >
               <Text
                 style={{
                   color: "white",
-                }}>
+                }}
+              >
                 Choose Photo
               </Text>
             </Button>
@@ -807,11 +768,13 @@ export default class sellApplication extends React.Component {
               style={{
                 backgroundColor: primaryColour2,
               }}
-              onPress={this.setDocumentUri}>
+              onPress={this.setDocumentUri}
+            >
               <Text
                 style={{
                   color: "white",
-                }}>
+                }}
+              >
                 Choose Document
               </Text>
             </Button>
@@ -822,7 +785,8 @@ export default class sellApplication extends React.Component {
           <TouchableOpacity
             title={"submit"}
             style={globalStyles.buttons}
-            onPress={this.handleSubmit}>
+            onPress={this.handleSubmit}
+          >
             <Text style={globalStyles.buttonsText}>Submit</Text>
           </TouchableOpacity>
         </View>
