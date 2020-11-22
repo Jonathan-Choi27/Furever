@@ -153,7 +153,6 @@ export const profileInfo = (item) => {
 //Seller Information
 export const sellerInfo = (seller, navigation) => {
   const arr = seller.averageRating;
-  console.log(arr);
   return (
     <View style={styles.container}>
       <Card containerStyle={styles.cardContentContainer}>

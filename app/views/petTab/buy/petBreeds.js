@@ -341,7 +341,6 @@ export default class petBreeds extends React.Component {
         !this.state.turtleCheck &&
         !this.state.pigCheck
       ) {
-        // console.log(!this.state.dogCheck + " " + !this.state.catCheck);
         listData = this.state.data;
       }
     }

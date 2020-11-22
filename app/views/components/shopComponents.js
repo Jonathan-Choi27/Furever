@@ -105,10 +105,8 @@ export const addItemToCart = (item) => {
   let duplicate = false;
 
   while (index < itemList.length) {
-    console.log(itemList[index].qty);
     if (item.docId === itemList[index].docId) {
       let currentQty = itemList[index].qty + 1;
-      console.log(currentQty);
       duplicate = true;
       itemList[index].qty = currentQty;
       break;
@@ -121,7 +119,6 @@ export const addItemToCart = (item) => {
     itemList.push(item);
   }
   duplicate = false;
-  console.log(itemList);
 
   Alert.alert(
     "Item Added",

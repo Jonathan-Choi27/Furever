@@ -99,7 +99,6 @@ export default class currentListings extends React.Component {
       this.setState({
         isFetchingMore: true,
       });
-    //   console.log("fetch more");
       const dataArray = [];
       const uid = auth.currentUser.uid;
 

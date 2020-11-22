@@ -100,7 +100,6 @@ export default class homeSellerProfile extends React.Component {
             reviewData: [...reviewArray],
           });
 
-          console.log(reviewArray);
         });
       });
   }

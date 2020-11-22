@@ -63,14 +63,12 @@ export default class Cart extends React.Component {
   //Delete Handler
   deleteHandler = (index) => {
     var id = this.state.cartItems[index].itemId;
-    console.log(id);
     Alert.alert(
       "Are you sure you want to delete this item from your cart?",
       "",
       [
         {
           text: "Cancel",
-          onPress: () => console.log("Cancel Pressed"),
           style: "cancel",
         },
         {

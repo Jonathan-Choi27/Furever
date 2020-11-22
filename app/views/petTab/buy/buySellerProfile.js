@@ -99,7 +99,6 @@ export default class buySellerProfile extends React.Component {
             reviewData: [...reviewArray],
           });
 
-          console.log(reviewArray);
         });
       });
   }

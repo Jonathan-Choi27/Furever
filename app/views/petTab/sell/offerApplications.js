@@ -42,7 +42,6 @@ export default class offerApplications extends React.Component {
   async fetchData() {
     const dataArray = [];
     const pet_doc_id = this.props.route.params.doc_id;
-    console.log(pet_doc_id);
 
     var petName;
     var petCategory;
