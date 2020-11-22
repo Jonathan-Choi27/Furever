@@ -191,7 +191,7 @@ export default class updateProfile extends React.Component {
             <TouchableOpacity
               style={globalStyles.buttons}
               onPress={() => this.handleUpdate()}>
-              <Text style={globalStyles.buttonsText}>Update</Text>
+              <Text style={globalStyles.buttonsText}>UPDATE</Text>
             </TouchableOpacity>
           </View>
         </View>

@@ -18,6 +18,7 @@ import currentApplications from "./buy/currentApplications";
 import breedList from "./buy/breedList";
 import breedInfo from "./buy/breedInfo";
 import buyPetProfile from "./buy/buyPetProfile";
+import reviewApplication from "../components/reviewApplication";
 import { primaryColour1 } from "../styleSheet/styleSheet";
 
 //Create Stack and Tab
@@ -75,6 +76,7 @@ export default function PetNav() {
         />
         <Stack.Screen name="buyerProfile" component={buyerProfile} />
         <Stack.Screen name="sellerProfile" component={buySellerProfile} />
+        <Stack.Screen name="reviewApplication" component={reviewApplication} />
       </Stack.Navigator>
     </NavigationContainer>
   );

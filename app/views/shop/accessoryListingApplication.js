@@ -478,7 +478,7 @@ export default class accessoryListingApplication extends React.Component {
             style={globalStyles.buttons}
             onPress={this.handleSubmit}
           >
-            <Text style={globalStyles.buttonsText}>Submit</Text>
+            <Text style={globalStyles.buttonsText}>SUBMIT</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>

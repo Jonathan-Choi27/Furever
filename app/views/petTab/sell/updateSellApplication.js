@@ -871,7 +871,7 @@ export default class updateSellApplication extends React.Component {
             style={globalStyles.buttons}
             onPress={this.handleSubmit}
           >
-            <Text style={globalStyles.buttonsText}>Save</Text>
+            <Text style={globalStyles.buttonsText}>SAVE</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>

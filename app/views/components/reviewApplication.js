@@ -113,7 +113,7 @@ export default class revieApplication extends React.Component {
               style={globalStyles.buttons}
               onPress={this.handleSubmit}
             >
-              <Text style={globalStyles.buttonsText}>Submit</Text>
+              <Text style={globalStyles.buttonsText}>SUBMIT</Text>
             </TouchableOpacity>
           </View>
         </Card>
