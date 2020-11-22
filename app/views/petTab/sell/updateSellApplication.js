@@ -13,7 +13,8 @@ import {
 } from "react-native";
 import { TextInput, Button } from "react-native-paper";
 import { db } from "../../database/firebase";
-import uuid from "react-native-uuid";
+// import uuid from "react-native-uuid";
+import uuid from "uuid/v4"
 import {
   openDocumentPicker,
   uploadDocument,
@@ -557,7 +558,7 @@ export default class updateSellApplication extends React.Component {
     const get_uri = await openImagePicker();
 
     this.setState({
-      photo_uuid: uuid.v4(),
+      photo_uuid: uuid(),
       photo_uri: get_uri,
     });
   };
@@ -566,7 +567,7 @@ export default class updateSellApplication extends React.Component {
     const get_uri = await openDocumentPicker();
 
     this.setState({
-      documents: uuid.v4(),
+      documents: uuid(),
       documents_uri: get_uri,
     });
   };

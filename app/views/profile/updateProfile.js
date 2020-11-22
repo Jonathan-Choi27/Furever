@@ -16,7 +16,7 @@ import { Card } from "react-native-elements";
 import { openImagePicker, uploadPhoto } from "../components/imageUpload";
 import { db } from "../database/firebase";
 import { auth } from "../database/firebase";
-import uuid from "react-native-uuid";
+import uuid from "uuid/v4";
 import { Avatar, Accessory } from "react-native-elements";
 import globalStyles, {
   primaryColour1,
@@ -89,7 +89,7 @@ export default class updateProfile extends React.Component {
     const get_uri = await openImagePicker();
     if (get_uri != null) {
       this.setState({
-        photo_uuid: uuid.v4(),
+        photo_uuid: uuid(),
         photo: get_uri,
       });
     }
