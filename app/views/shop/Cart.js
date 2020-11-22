@@ -5,27 +5,22 @@ import "@react-navigation/native";
 import "react-navigation-hooks";
 import {
   StyleSheet,
-  Button,
   Text,
   View,
   TouchableOpacity,
   ScrollView,
   Image,
   ActivityIndicator,
-  TextInput,
   Alert,
   BackHandler,
 } from "react-native";
 import {
   MaterialIcons,
-  AntDesign,
   Ionicons,
-  MaterialCommunityIcons,
 } from "@expo/vector-icons";
 import { Card } from "react-native-elements";
 import globalStyles, {
   screenWidth,
-  primaryColour2,
   primaryColour1,
 } from "../styleSheet/styleSheet";
 

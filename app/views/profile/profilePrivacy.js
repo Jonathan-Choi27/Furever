@@ -14,12 +14,12 @@ import { CustomInput } from "../components/customInput";
 import { Card } from "react-native-elements";
 import { auth } from "../database/firebase";
 import * as firebase from "firebase";
-import { Input } from "react-native-elements";
 import globalStyles, {
   primaryColour1,
   primaryColour2,
   screenWidth,
 } from "../styleSheet/styleSheet";
+
 export default class ProfilePrivacy extends React.Component {
   constructor(props) {
     super(props);

@@ -1,9 +1,7 @@
 import * as React from "react";
 import {
   Picker,
-  SafeAreaView,
   ScrollView,
-  StyleSheet,
   Text,
   TouchableOpacity,
   View,
@@ -13,7 +11,7 @@ import {
 } from "react-native";
 import { Icon } from "react-native-elements";
 import { Button } from "react-native-paper";
-import { db } from "../../database/firebase";
+import { db, auth } from "../../database/firebase";
 import uuid from "uuid/v4";
 import { Card } from "react-native-elements";
 import {
@@ -22,7 +20,6 @@ import {
 } from "../../components/documentUpload";
 import { openImagePicker, uploadPhoto } from "../../components/imageUpload";
 import CategorySelection from "./sellAppCategories";
-import { auth } from "../../database/firebase";
 import "firebase/storage";
 import globalStyles, {
   primaryColour1,
@@ -37,6 +34,7 @@ import * as firebase from "firebase";
 const screenWidth = Math.round(Dimensions.get("window").width);
 const emptyImage =
   "https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty.jpg";
+
 export default class sellApplication extends React.Component {
   constructor(props) {
     super(props);

@@ -11,13 +11,9 @@ import {
   Checkbox,
 } from "react-native-paper";
 import { db } from "../../database/firebase";
-import globalStyles from "../../styleSheet/styleSheet";
-import {
+import globalStyles, {
   primaryColour1,
   primaryColour2,
-  lightGrey,
-  orange,
-  lightBlue,
 } from "../../styleSheet/styleSheet";
 import { petBuyCard, petBuyBreed } from "../../components/petBuyComponents";
 

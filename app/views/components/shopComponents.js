@@ -1,7 +1,6 @@
 import * as React from "react";
 import { Text, View, Image, TouchableOpacity, Alert } from "react-native";
 import { Card, Button } from "react-native-paper";
-import styles from "../styleSheet/styleSheet";
 import globalStyles from "../styleSheet/styleSheet";
 
 //Card Item List
@@ -60,13 +59,13 @@ export const accessoryListingCard = (item, navigation) => {
 //Shop Category
 export const shopCategory = (category, navigation) => {
   return (
-    <View style={styles.iconContainer}>
+    <View style={globalStyles.iconContainer}>
       <TouchableOpacity
         onPress={() => navigation.navigate("accessoryCategories", { category })}
       >
-        <View style={styles.categoryIconContainer}>
-          <Image style={styles.icon} source={{ uri: category.categoryImage }} />
-          <Text style={styles.iconText}>{category.category}</Text>
+        <View style={globalStyles.categoryIconContainer}>
+          <Image style={globalStyles.icon} source={{ uri: category.categoryImage }} />
+          <Text style={globalStyles.iconText}>{category.category}</Text>
         </View>
       </TouchableOpacity>
     </View>
@@ -76,18 +75,18 @@ export const shopCategory = (category, navigation) => {
 //Accessory Category
 export const accessoryCategory = (accessory, category, navigation) => {
   return (
-    <View style={styles.iconContainer}>
+    <View style={globalStyles.iconContainer}>
       <TouchableOpacity
         onPress={() =>
           navigation.navigate("accessoryList", { accessory, category })
         }
       >
-        <View style={styles.categoryIconContainer}>
+        <View style={globalStyles.categoryIconContainer}>
           <Image
-            style={styles.icon}
+            style={globalStyles.icon}
             source={{ uri: accessory.accessoryImage }}
           />
-          <Text style={styles.iconText}>{accessory.accessory}</Text>
+          <Text style={globalStyles.iconText}>{accessory.accessory}</Text>
         </View>
       </TouchableOpacity>
     </View>

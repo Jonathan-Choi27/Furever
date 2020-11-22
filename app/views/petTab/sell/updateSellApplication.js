@@ -1,9 +1,7 @@
 import * as React from "react";
 import {
   Picker,
-  SafeAreaView,
   ScrollView,
-  StyleSheet,
   Text,
   TouchableOpacity,
   View,
@@ -11,9 +9,8 @@ import {
   BackHandler,
   Dimensions,
 } from "react-native";
-import { TextInput, Button } from "react-native-paper";
-import { db } from "../../database/firebase";
-// import uuid from "react-native-uuid";
+import { Button } from "react-native-paper";
+import { db, auth } from "../../database/firebase";
 import uuid from "uuid/v4"
 import {
   openDocumentPicker,
@@ -21,13 +18,10 @@ import {
 } from "../../components/documentUpload";
 import { openImagePicker, uploadPhoto } from "../../components/imageUpload";
 import CategorySelection from "./sellAppCategories";
-import { auth } from "../../database/firebase";
 import "firebase/storage";
 import globalStyles, {
   primaryColour1,
   primaryColour2,
-  lightGrey,
-  lightBlue,
 } from "../../styleSheet/styleSheet";
 import { Card } from "react-native-elements";
 import { CustomInput } from "../../components/customInput";
@@ -37,6 +31,7 @@ import GooglePlacesInput from "../../components/mapAutoComplete";
 import PriceSlider from "../../components/priceSlider";
 
 const screenWidth = Math.round(Dimensions.get("window").width);
+
 export default class updateSellApplication extends React.Component {
   constructor(props) {
     super(props);

@@ -10,7 +10,6 @@ import {
   BackHandler,
 } from "react-native";
 import {
-  Avatar,
   Card,
   Button,
   Searchbar,

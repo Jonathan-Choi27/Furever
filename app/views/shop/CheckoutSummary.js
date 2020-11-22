@@ -1,20 +1,13 @@
 import React from "react";
-import { ScrollView, View, Dimensions, Image, BackHandler } from "react-native";
-import { Card, Text } from "react-native-elements";
-import { Button } from "react-native-paper";
 import "react-navigation";
 import "react-navigation-props-mapper";
 import "@react-navigation/native";
 import "react-navigation-hooks";
-import { CustomInput } from "../components/customInput";
-import globalStyles, {
-  primaryColour1,
-  primaryColour2,
-} from "../styleSheet/styleSheet";
-import { Icon } from "react-native-elements";
-import GooglePlacesInput from "../components/mapAutoComplete";
-import { db } from "../database/firebase";
-import { auth } from "../database/firebase";
+import { View, BackHandler } from "react-native";
+import { Card, Text } from "react-native-elements";
+import { Button } from "react-native-paper";
+import globalStyles, { primaryColour1, } from "../styleSheet/styleSheet";
+import { db, auth } from "../database/firebase";
 
 export default class CheckoutSummary extends React.Component {
   constructor(props) {

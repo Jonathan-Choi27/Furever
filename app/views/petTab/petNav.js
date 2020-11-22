@@ -1,10 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { StyleSheet, BackHandler, Alert, Text } from "react-native";
+import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
-import PetSellNav from "./sell/petSellNav";
-import PetBuyNav from "./buy/petBuyNav";
 import { StackNavigator } from "react-navigation";
 import sellApplication from "./sell/sellApplication";
 import currentListings from "./sell/currentListings";

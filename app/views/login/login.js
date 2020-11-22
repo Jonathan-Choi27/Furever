@@ -2,8 +2,7 @@ import React from "react";
 import { auth, db } from "../database/firebase";
 import { Text, View, TouchableOpacity, Image } from "react-native";
 import { Input } from "react-native-elements";
-import globalStyles from "../styleSheet/styleSheet";
-import { primaryColour1 } from "../styleSheet/styleSheet";
+import globalStyles, { primaryColour1 } from "../styleSheet/styleSheet";
 
 export default class Login extends React.Component {
   state = {

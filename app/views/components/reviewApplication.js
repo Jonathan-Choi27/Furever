@@ -3,10 +3,8 @@ import { View, Text, BackHandler, TouchableOpacity } from "react-native";
 import { CustomInput } from "../components/customInput";
 import { Icon, Rating } from "react-native-elements";
 import { Card } from "react-native-elements";
-import { auth } from "../database/firebase";
-import { db } from "../database/firebase";
+import { db, auth } from "../database/firebase";
 import * as firebase from "firebase";
-
 import globalStyles, { primaryColour1 } from "../styleSheet/styleSheet";
 
 export default class revieApplication extends React.Component {

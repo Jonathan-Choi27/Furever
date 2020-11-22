@@ -5,17 +5,14 @@ import {
   Image,
   Text,
   BackHandler,
-  StyleSheet,
   TouchableOpacity,
   ScrollView,
 } from "react-native";
 import { Icon } from "react-native-elements";
 import { CustomInput } from "../components/customInput";
-
 import { Card } from "react-native-elements";
 import { openImagePicker, uploadPhoto } from "../components/imageUpload";
-import { db } from "../database/firebase";
-import { auth } from "../database/firebase";
+import { db, auth } from "../database/firebase";
 import uuid from "uuid/v4";
 import { Avatar, Accessory } from "react-native-elements";
 import globalStyles, {
@@ -23,7 +20,6 @@ import globalStyles, {
   primaryColour2,
   screenWidth,
 } from "../styleSheet/styleSheet";
-
 import { YellowBox } from 'react-native';
 
 // Not using state persistence or deep link to the screen which accepts functions in params

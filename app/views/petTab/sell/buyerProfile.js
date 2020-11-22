@@ -4,16 +4,13 @@ import "react-navigation-props-mapper";
 import "@react-navigation/native";
 import "react-navigation-hooks";
 import { View, ScrollView, BackHandler } from "react-native";
-console.disableYellowBox = true;
 import {
   buyerInfo,
   acceptBuyer,
   rejectBuyer,
-  alreadyAccepted,
 } from "../../components/buyerInfoComponent";
 import { db } from "../../database/firebase";
-
-import styles from "../../styleSheet/styleSheet";
+console.disableYellowBox = true;
 
 export default class buyerProfile extends React.Component {
   //Back button handler

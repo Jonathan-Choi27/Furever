@@ -4,24 +4,11 @@ import "react-navigation-props-mapper";
 import "@react-navigation/native";
 import "react-navigation-hooks";
 import {
-  StyleSheet,
   View,
-  TouchableOpacity,
   FlatList,
-  Image,
   Text,
   BackHandler,
 } from "react-native";
-import {
-  Avatar,
-  ActivityIndicator,
-  Card,
-  Button,
-  Portal,
-  Modal,
-  Provider,
-  Paragraph,
-} from "react-native-paper";
 import firebase from "firebase";
 import globalStyles from "../../styleSheet/styleSheet";
 import { offerApplicationListingCard } from "../../components/offerApplicationListingsComponent";

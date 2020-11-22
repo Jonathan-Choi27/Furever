@@ -2,18 +2,14 @@ import React from "react";
 import {
   Text,
   View,
-  TouchableOpacity,
-  Image,
   ScrollView,
   FlatList,
   BackHandler,
 } from "react-native";
 import {
-  Avatar,
   Card,
   Button,
   Searchbar,
-  ActivityIndicator,
   Modal,
   Provider,
   Portal,
@@ -22,17 +18,12 @@ import {
 import firebase from "firebase";
 import { auth } from "../database/firebase";
 import {
-  shopAccessoryCard,
   accessoryListingCard,
-  getItemList,
 } from "../components/shopComponents";
 import { cartTab } from "../components/shopTabComponent";
-
 import globalStyles, {
   primaryColour1,
   primaryColour2,
-  lightGrey,
-  lightBlue,
   screenWidth,
 } from "../styleSheet/styleSheet";
 

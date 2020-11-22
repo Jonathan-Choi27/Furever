@@ -22,7 +22,6 @@ import { Avatar, Accessory } from "react-native-elements";
 import globalStyles, {
   primaryColour1,
   primaryColour2,
-  lightGrey,
   screenWidth,
 } from "../styleSheet/styleSheet";
 
