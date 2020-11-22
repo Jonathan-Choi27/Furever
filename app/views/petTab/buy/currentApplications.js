@@ -1,17 +1,13 @@
-import React, { useEffect } from "react";
+import React from "react";
 import {
-  StyleSheet,
   Text,
   View,
-  TouchableOpacity,
-  Image,
   ScrollView,
   FlatList,
   BackHandler,
 } from "react-native";
-import { Avatar, Card, Button, Searchbar } from "react-native-paper";
-import { db } from "../../database/firebase";
-import { auth } from "../../database/firebase";
+import { Searchbar } from "react-native-paper";
+import { db, auth } from "../../database/firebase";
 import globalStyles from "../../styleSheet/styleSheet";
 import { petBuyCard } from "../../components/petBuyComponents";
 import { buyerApplicationList } from "../../components/buyerApplicationList";

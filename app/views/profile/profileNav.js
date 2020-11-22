@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from "react";
-import { StyleSheet, BackHandler, Alert } from "react-native";
-import profileHome from "./profileHome";
-
-import { NavigationContainer } from "@react-navigation/native";
+import React, { useEffect } from "react";
+import { BackHandler } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
+
+import profileHome from "./profileHome";
 import updateProfile from "./updateProfile";
 import ProfilePrivacy from "./profilePrivacy";
 import ProfileHelp from "./profileHelp";

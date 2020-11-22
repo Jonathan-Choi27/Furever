@@ -6,10 +6,10 @@ import {
   Image,
   ScrollView,
   FlatList,
+  YellowBox,
   BackHandler,
 } from "react-native";
 import {
-  Avatar,
   Card,
   Button,
   Searchbar,
@@ -23,6 +23,9 @@ import { db } from "../../database/firebase";
 import { primaryColour1, primaryColour2 } from "../../styleSheet/styleSheet";
 import globalStyles from "../../styleSheet/styleSheet";
 import { petBuyCard, petBuyCategory } from "../../components/petBuyComponents";
+
+// Ignore virtualized lists warning, fix is out of scope
+YellowBox.ignoreWarnings(['VirtualizedLists should never be nested']);
 
 const petInformation = require("./petInformation.json");
 
@@ -913,23 +916,6 @@ export default class petCategories extends React.Component {
               </Button>
             </View>
 
-            {/* <View style={{ height: 52 }}>
-              <TouchableOpacity
-                style={globalStyles.viewApplication}
-                onPress={() =>
-                  this.props.navigation.navigate("currentApplications")
-                }>
-                <Text
-                  style={{
-                    textAlign: "center",
-                    color: "white",
-                    fontWeight: "bold",
-                  }}>
-                  View Applications
-                </Text>
-              </TouchableOpacity>
-            </View> */}
-
             <ScrollView showsVerticalScrollIndicator={false}>
               <Portal>
                 <Modal
@@ -1530,6 +1516,7 @@ export default class petCategories extends React.Component {
                         renderItem={({ item }) =>
                           petBuyCategory(item, this.props.navigation)
                         }
+                        keyExtractor={(item, index) => index.toString()}
                       />
                     </View>
                   ) : (

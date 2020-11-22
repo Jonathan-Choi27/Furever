@@ -19,7 +19,7 @@ import globalStyles, {
 import { openImagePicker, uploadPhoto } from "../components/imageUpload";
 import { CustomInput } from "../components/customInput";
 import PriceSlider from "../components/priceSlider";
-import uuid from "react-native-uuid";
+import uuid from "uuid/v4";
 import { auth } from "../database/firebase";
 
 //Firebase Firestore
@@ -280,7 +280,7 @@ export default class updateAccessoryListingApplication extends React.Component {
     const get_uri = await openImagePicker();
 
     this.setState({
-      photoUuid: uuid.v4(),
+      photoUuid: uuid(),
       photoUri: get_uri,
     });
   };
@@ -465,7 +465,7 @@ export default class updateAccessoryListingApplication extends React.Component {
             style={globalStyles.buttons}
             onPress={this.handleSubmit}
           >
-            <Text style={globalStyles.buttonsText}>Update</Text>
+            <Text style={globalStyles.buttonsText}>UPDATE</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>

@@ -1,9 +1,7 @@
 import * as React from "react";
 import {
   Picker,
-  SafeAreaView,
   ScrollView,
-  StyleSheet,
   Text,
   TouchableOpacity,
   View,
@@ -11,22 +9,19 @@ import {
   BackHandler,
   Dimensions,
 } from "react-native";
-import { TextInput, Button } from "react-native-paper";
-import { db } from "../../database/firebase";
-import uuid from "react-native-uuid";
+import { Button } from "react-native-paper";
+import { db, auth } from "../../database/firebase";
+import uuid from "uuid/v4"
 import {
   openDocumentPicker,
   uploadDocument,
 } from "../../components/documentUpload";
 import { openImagePicker, uploadPhoto } from "../../components/imageUpload";
 import CategorySelection from "./sellAppCategories";
-import { auth } from "../../database/firebase";
 import "firebase/storage";
 import globalStyles, {
   primaryColour1,
   primaryColour2,
-  lightGrey,
-  lightBlue,
 } from "../../styleSheet/styleSheet";
 import { Card } from "react-native-elements";
 import { CustomInput } from "../../components/customInput";
@@ -36,6 +31,7 @@ import GooglePlacesInput from "../../components/mapAutoComplete";
 import PriceSlider from "../../components/priceSlider";
 
 const screenWidth = Math.round(Dimensions.get("window").width);
+
 export default class updateSellApplication extends React.Component {
   constructor(props) {
     super(props);
@@ -557,7 +553,7 @@ export default class updateSellApplication extends React.Component {
     const get_uri = await openImagePicker();
 
     this.setState({
-      photo_uuid: uuid.v4(),
+      photo_uuid: uuid(),
       photo_uri: get_uri,
     });
   };
@@ -566,7 +562,7 @@ export default class updateSellApplication extends React.Component {
     const get_uri = await openDocumentPicker();
 
     this.setState({
-      documents: uuid.v4(),
+      documents: uuid(),
       documents_uri: get_uri,
     });
   };
@@ -875,7 +871,7 @@ export default class updateSellApplication extends React.Component {
             style={globalStyles.buttons}
             onPress={this.handleSubmit}
           >
-            <Text style={globalStyles.buttonsText}>Save</Text>
+            <Text style={globalStyles.buttonsText}>SAVE</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>

@@ -4,8 +4,8 @@ import "react-navigation-props-mapper";
 import "@react-navigation/native";
 import "react-navigation-hooks";
 import { ScrollView, View, BackHandler } from "react-native";
-console.disableYellowBox = true;
 import { profileInfo } from "../../components/petProfileComponents";
+console.disableYellowBox = true;
 
 export default class sellPetProfile extends React.Component {
   //Handle back button

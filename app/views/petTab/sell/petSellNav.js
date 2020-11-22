@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { StyleSheet, BackHandler, Alert } from "react-native";
+import React, { useEffect } from "react";
+import { BackHandler } from "react-native";
 
 import currentListings from "./currentListings";
 import updateSellApplication from "./updateSellApplication";

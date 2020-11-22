@@ -1,11 +1,8 @@
 import React from "react";
 import { auth } from "../database/firebase";
-import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
+import { Text, View, TouchableOpacity, Image } from "react-native";
 import { Input } from "react-native-elements";
-import { AppLoading } from "expo";
-import * as Font from "expo-font";
-import globalStyles from "../styleSheet/styleSheet";
-import { primaryColour1, primaryColour2 } from "../styleSheet/styleSheet";
+import globalStyles, { primaryColour1 } from "../styleSheet/styleSheet";
 
 export default class PasswordRecoveryPage extends React.Component {
   state = {

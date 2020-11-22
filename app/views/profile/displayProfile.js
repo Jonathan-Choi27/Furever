@@ -1,20 +1,13 @@
 import * as React from "react";
 import { ActivityIndicator } from "react-native";
-import { Alert, View, Image, Text, StyleSheet } from "react-native";
+import { Alert, View, Image, Text } from "react-native";
 import {
-  Button,
-  Card,
-  Title,
-  Paragraph,
   List,
   Divider,
-  Provider,
 } from "react-native-paper";
 import { auth } from "../database/firebase";
-import { Avatar, Accessory, Input } from "react-native-elements";
-import { primaryColour1, lightGrey } from "../styleSheet/styleSheet";
-import globalStyles from "../styleSheet/styleSheet";
-import { NavigationActions } from "react-navigation";
+import { Avatar } from "react-native-elements";
+import globalStyles, { pageBackgroundColour } from "../styleSheet/styleSheet";
 
 export default class Profile extends React.Component {
   constructor(props) {
@@ -36,7 +29,7 @@ export default class Profile extends React.Component {
 
   render() {
     return (
-      <View style={{ backgroundColor: lightGrey }}>
+      <View style={{ backgroundColor: pageBackgroundColour }}>
         <View style={globalStyles.profileContainer}>
           <View style={globalStyles.avatarContainer}>
             <View style={globalStyles.dogBackground}>

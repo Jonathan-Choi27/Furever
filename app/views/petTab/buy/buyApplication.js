@@ -9,10 +9,7 @@ import "react-navigation-hooks";
 import { db } from "../../database/firebase";
 import { auth } from "../../database/firebase";
 import { CustomInput } from "../../components/customInput";
-import globalStyles, {
-  primaryColour1,
-  primaryColour2,
-} from "../../styleSheet/styleSheet";
+import globalStyles, { primaryColour1,} from "../../styleSheet/styleSheet";
 import { Icon } from "react-native-elements";
 import GooglePlacesInput from "../../components/mapAutoComplete";
 // AIzaSyC-6ifFUYzIIgUf1uhbmJ_BU6VQyre4bRw

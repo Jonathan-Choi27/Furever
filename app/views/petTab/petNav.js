@@ -1,10 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { StyleSheet, BackHandler, Alert, Text } from "react-native";
+import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
-import PetSellNav from "./sell/petSellNav";
-import PetBuyNav from "./buy/petBuyNav";
 import { StackNavigator } from "react-navigation";
 import sellApplication from "./sell/sellApplication";
 import currentListings from "./sell/currentListings";
@@ -21,6 +18,7 @@ import currentApplications from "./buy/currentApplications";
 import breedList from "./buy/breedList";
 import breedInfo from "./buy/breedInfo";
 import buyPetProfile from "./buy/buyPetProfile";
+import reviewApplication from "../components/reviewApplication";
 import { primaryColour1 } from "../styleSheet/styleSheet";
 
 //Create Stack and Tab
@@ -78,6 +76,7 @@ export default function PetNav() {
         />
         <Stack.Screen name="buyerProfile" component={buyerProfile} />
         <Stack.Screen name="sellerProfile" component={buySellerProfile} />
+        <Stack.Screen name="reviewApplication" component={reviewApplication} />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -5,24 +5,27 @@ import {
   Image,
   Text,
   BackHandler,
-  StyleSheet,
   TouchableOpacity,
   ScrollView,
 } from "react-native";
 import { Icon } from "react-native-elements";
 import { CustomInput } from "../components/customInput";
-
 import { Card } from "react-native-elements";
 import { openImagePicker, uploadPhoto } from "../components/imageUpload";
-import { db } from "../database/firebase";
-import { auth } from "../database/firebase";
-import uuid from "react-native-uuid";
+import { db, auth } from "../database/firebase";
+import uuid from "uuid/v4";
 import { Avatar, Accessory } from "react-native-elements";
 import globalStyles, {
   primaryColour1,
   primaryColour2,
   screenWidth,
 } from "../styleSheet/styleSheet";
+import { YellowBox } from 'react-native';
+
+// Not using state persistence or deep link to the screen which accepts functions in params
+YellowBox.ignoreWarnings([
+  'Non-serializable values were found in the navigation state',
+]);
 
 export default class updateProfile extends React.Component {
   constructor(props) {
@@ -75,21 +78,25 @@ export default class updateProfile extends React.Component {
 
     const user = auth.currentUser;
 
-    db.collection("users").doc(user.uid).update({
-      photo: this.state.photo,
-      name: this.state.name,
-      profileText: this.state.profileText,
-    });
-
-    this.props.route.params.refresh();
-    this.props.navigation.goBack();
+    db.collection("users")
+      .doc(user.uid)
+      .update({
+        photo: this.state.photo,
+        name: this.state.name,
+        profileText: this.state.profileText,
+      })
+      .then(() => {
+        alert("Update successful!");
+        this.props.route.params.refresh();
+        this.props.navigation.goBack();
+      });
   }
 
   setPhotoUri = async () => {
     const get_uri = await openImagePicker();
     if (get_uri != null) {
       this.setState({
-        photo_uuid: uuid.v4(),
+        photo_uuid: uuid(),
         photo: get_uri,
       });
     }
@@ -105,8 +112,7 @@ export default class updateProfile extends React.Component {
             borderBottomLeftRadius: 1000,
             transform: [{ scaleX: 2 }],
             overflow: "hidden",
-          }}
-        >
+          }}>
           <View style={{ alignItems: "center" }}>
             <Text
               style={{
@@ -114,8 +120,7 @@ export default class updateProfile extends React.Component {
                 marginTop: 60,
                 color: "#F5F5DC",
                 transform: [{ scaleX: 0.5 }],
-              }}
-            >
+              }}>
               Edit Profile
             </Text>
           </View>
@@ -139,8 +144,7 @@ export default class updateProfile extends React.Component {
               renderPlaceholderContent={<ActivityIndicator />}
               source={{
                 uri: this.state.photo,
-              }}
-            >
+              }}>
               <Accessory size={45} onPress={this.setPhotoUri} />
             </Avatar>
           </View>
@@ -186,9 +190,8 @@ export default class updateProfile extends React.Component {
           <View style={globalStyles.applicationButtonsContainer}>
             <TouchableOpacity
               style={globalStyles.buttons}
-              onPress={() => this.handleUpdate()}
-            >
-              <Text style={globalStyles.buttonsText}>Update</Text>
+              onPress={() => this.handleUpdate()}>
+              <Text style={globalStyles.buttonsText}>UPDATE</Text>
             </TouchableOpacity>
           </View>
         </View>

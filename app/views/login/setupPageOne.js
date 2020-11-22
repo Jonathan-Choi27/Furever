@@ -17,12 +17,11 @@ import CategorySelection from "./dropDownCategories";
 import { openImagePicker, uploadPhoto } from "../components/imageUpload";
 import { db } from "../database/firebase";
 import { auth } from "../database/firebase";
-import uuid from "react-native-uuid";
+import uuid from "uuid/v4";
 import { Avatar, Accessory } from "react-native-elements";
 import globalStyles, {
   primaryColour1,
   primaryColour2,
-  lightGrey,
   screenWidth,
 } from "../styleSheet/styleSheet";
 
@@ -117,7 +116,7 @@ export default class SetupOne extends React.Component {
     const get_uri = await openImagePicker();
     if (get_uri != null) {
       this.setState({
-        photoUuid: uuid.v4(),
+        photoUuid: uuid(),
         photoUri: get_uri,
       });
     }

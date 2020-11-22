@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { StyleSheet, BackHandler, Alert } from "react-native";
+import React, { useEffect } from "react";
+import { BackHandler } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
@@ -10,12 +10,9 @@ import accessoryCategories from "./accessoryCategories";
 import petCategories from "./petCategories";
 import accessoryList from "./accessoryList";
 import accessoryListingProfile from "./accessoryListingProfile";
-import shopProfile from "./shopProfile";
 import shopSellerProfile from "./shopSellerProfile";
 import shopListingProfile from "./shopListingProfile";
 import Cart from "./Cart";
-import CheckoutInformation from "./CheckoutInformation";
-import accessorySellerProfile from "./accessorySellerProfile";
 import CheckoutSummary from "./CheckoutSummary";
 
 const Stack = createStackNavigator();
@@ -67,17 +64,8 @@ export default function PetNav() {
           component={shopListingProfile}
         />
         <Stack.Screen name="sellerProfile" component={shopSellerProfile} />
-        <Stack.Screen name="shopProfile" component={shopProfile} />
         <Stack.Screen name="Cart" component={Cart} />
-        <Stack.Screen
-          name="CheckoutInformation"
-          component={CheckoutInformation}
-        />
         <Stack.Screen name="CheckoutSummary" component={CheckoutSummary} />
-        <Stack.Screen
-          name="accessorySellerProfile"
-          component={accessorySellerProfile}
-        />
       </Stack.Navigator>
     </NavigationContainer>
   );
