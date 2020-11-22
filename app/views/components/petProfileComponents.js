@@ -61,9 +61,7 @@ export const profileInfo = (item) => {
         <View style={{ alignItems: "center" }}>
           <Image
             style={{ width: screenWidth, height: 250 }}
-            source={{
-              uri: item.photo,
-            }}
+            source={item.photo ? {uri: item.photo} : null}
           />
         </View>
         <Card containerStyle={styles.cardContentContainer}>
@@ -163,9 +161,7 @@ export const sellerInfo = (seller, navigation) => {
         <View style={{ flexDirection: "row" }}>
           <Image
             style={{ height: 100, width: 100, borderRadius: 5, marginRight: 5 }}
-            source={{
-              uri: seller.photo,
-            }}
+            source={seller.photo ? {uri: seller.photo} : null}
           />
           <View style={{ flex: 4, paddingLeft: 10, paddingRight: 10 }}>
             <Text numberOfLines={4}>{seller.profileText}</Text>

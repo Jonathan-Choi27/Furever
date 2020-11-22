@@ -1123,6 +1123,7 @@ export default class petCategories extends React.Component {
                         renderItem={({ item }) =>
                           shopCategory(item, this.props.navigation)
                         }
+                        keyExtractor={(item, index) => index.toString()}
                       />
                     </View>
                   </View>

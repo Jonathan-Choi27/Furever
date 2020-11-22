@@ -49,31 +49,32 @@ export default class currentListings extends React.Component {
         .data()
         .list.get()
         .then((snapshot) => {
-          console.log(snapshot.data().name);
-          dataArray.push({
-            petName: snapshot.data().name,
-            category: snapshot.data().category,
-            breed: snapshot.data().breed,
-            colour: snapshot.data().colour,
-            age: snapshot.data().age,
-            gender: snapshot.data().gender,
-            size: snapshot.data().size,
-            location: snapshot.data().location,
-            suburb: snapshot.data().suburb,
-            price: snapshot.data().price,
-            behaviour: snapshot.data().behaviour,
-            health: snapshot.data().health,
-            training: snapshot.data().training,
-            additional: snapshot.data().additionalInfo,
-            photo: snapshot.data().photoLink,
-            documentName: snapshot.data().documentsLink,
-            documentUri: snapshot.data().documents_uri,
-            doc_id: snapshot.id,
-            selfRef: snapshot.data().selfRef,
-            userSellListRef: snapshot.data().userSellListRef,
-            categorizedListingsRef: snapshot.data().categorizedListingsRef,
-          });
-          this.state.data.push(dataArray.pop());
+          if (snapshot.data() != undefined) {
+            dataArray.push({
+              petName: snapshot.data().name,
+              category: snapshot.data().category,
+              breed: snapshot.data().breed,
+              colour: snapshot.data().colour,
+              age: snapshot.data().age,
+              gender: snapshot.data().gender,
+              size: snapshot.data().size,
+              location: snapshot.data().location,
+              suburb: snapshot.data().suburb,
+              price: snapshot.data().price,
+              behaviour: snapshot.data().behaviour,
+              health: snapshot.data().health,
+              training: snapshot.data().training,
+              additional: snapshot.data().additionalInfo,
+              photo: snapshot.data().photoLink,
+              documentName: snapshot.data().documentsLink,
+              documentUri: snapshot.data().documents_uri,
+              doc_id: snapshot.id,
+              selfRef: snapshot.data().selfRef,
+              userSellListRef: snapshot.data().userSellListRef,
+              categorizedListingsRef: snapshot.data().categorizedListingsRef,
+            });
+            this.state.data.push(dataArray.pop());
+          }
         });
 
       /* This code disables rendering 1 by 1 --> might be more efficient because it only updates
@@ -98,7 +99,7 @@ export default class currentListings extends React.Component {
       this.setState({
         isFetchingMore: true,
       });
-      console.log("fetch more");
+    //   console.log("fetch more");
       const dataArray = [];
       const uid = auth.currentUser.uid;
 
@@ -118,33 +119,35 @@ export default class currentListings extends React.Component {
           .data()
           .list.get()
           .then((snapshot) => {
-            dataArray.push({
-              petName: snapshot.data().name,
-              category: snapshot.data().category,
-              breed: snapshot.data().breed,
-              colour: snapshot.data().colour,
-              age: snapshot.data().age,
-              gender: snapshot.data().gender,
-              size: snapshot.data().size,
-              location: snapshot.data().location,
-              suburb: snapshot.data().suburb,
-              price: snapshot.data().price,
-              behaviour: snapshot.data().behaviour,
-              health: snapshot.data().health,
-              training: snapshot.data().training,
-              additional: snapshot.data().additionalInfo,
-              photo: snapshot.data().photoLink,
-              documentName: snapshot.data().documentsLink,
-              documentUri: snapshot.data().documents_uri,
-              selfRef: snapshot,
-              userSellListRef: snapshot.data().userSellListRef,
-              categorizedListingsRef: snapshot.data().categorizedListingsRef,
-              doc_id: snapshot.id,
-            });
+            if (snapshot.data() != null) {
+              dataArray.push({
+                petName: snapshot.data().name,
+                category: snapshot.data().category,
+                breed: snapshot.data().breed,
+                colour: snapshot.data().colour,
+                age: snapshot.data().age,
+                gender: snapshot.data().gender,
+                size: snapshot.data().size,
+                location: snapshot.data().location,
+                suburb: snapshot.data().suburb,
+                price: snapshot.data().price,
+                behaviour: snapshot.data().behaviour,
+                health: snapshot.data().health,
+                training: snapshot.data().training,
+                additional: snapshot.data().additionalInfo,
+                photo: snapshot.data().photoLink,
+                documentName: snapshot.data().documentsLink,
+                documentUri: snapshot.data().documents_uri,
+                selfRef: snapshot,
+                userSellListRef: snapshot.data().userSellListRef,
+                categorizedListingsRef: snapshot.data().categorizedListingsRef,
+                doc_id: snapshot.id,
+              });
 
-            this.setState({
-              data: this.state.data.concat(dataArray.pop()),
-            });
+              this.setState({
+                data: this.state.data.concat(dataArray.pop()),
+              });
+            }
           });
 
         this.setState({
@@ -212,8 +215,7 @@ export default class currentListings extends React.Component {
             mode="contained"
             contentStyle={{
               height: 35,
-            }}
-          >
+            }}>
             Filter
           </Button>
         </View>
@@ -226,8 +228,7 @@ export default class currentListings extends React.Component {
               contentStyle={{
                 height: 30,
               }}
-              mode="contained"
-            >
+              mode="contained">
               <Text style={{ color: "white" }}>Add New Listing</Text>
             </Button>
           </View>

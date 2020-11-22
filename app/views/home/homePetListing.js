@@ -134,11 +134,14 @@ export default class HomePetListing extends React.Component {
       .doc(user.uid)
       .get()
       .then((user_doc) => {
-        this.setState({
-          checkNewUser: user_doc.data().isNewUser,
-          preferenceCategory: user_doc.data().preferenceCategory,
-          preferenceLocation: user_doc.data().preferenceLocation,
-        });
+        if (user_doc.data().preferenceCategory != undefined) {
+          this.setState({
+            checkNewUser: user_doc.data().isNewUser,
+            preferenceCategory: user_doc.data().preferenceCategory,
+            preferenceLocation: user_doc.data().preferenceLocation,
+          });
+        }
+        // hopefully this doesnt cause bugs
         this.bestMatch();
       });
   }
@@ -985,8 +988,7 @@ export default class HomePetListing extends React.Component {
               label: "Close",
               onPress: () => this.setState({ bannerVisible: false }),
             },
-          ]}
-        >
+          ]}>
           <Text style={{ fontSize: 16, fontWeight: "bold" }}>
             Welcome to Furever, we hope you have a wonderful experience! - The
             Furever Team
@@ -1016,8 +1018,7 @@ export default class HomePetListing extends React.Component {
               mode="contained"
               contentStyle={{
                 height: 35,
-              }}
-            >
+              }}>
               Filter
             </Button>
           </View>
@@ -1028,8 +1029,7 @@ export default class HomePetListing extends React.Component {
               visible={this.state.visible}
               onDismiss={() => {
                 this.setState({ visible: false });
-              }}
-            >
+              }}>
               <Card elevation={5} style={{ margin: 10 }}>
                 <Card.Content>
                   <ScrollView style={{ height: 450 }}>
@@ -1038,16 +1038,14 @@ export default class HomePetListing extends React.Component {
                         flex: 1,
                         flexDirection: "row",
                         justifyContent: "flex-start",
-                      }}
-                    >
+                      }}>
                       {/* First filter column */}
                       <View
                         style={{
                           flex: 1,
                           flexDirection: "column",
                           justifyContent: "flex-start",
-                        }}
-                      >
+                        }}>
                         <Text>Animal:</Text>
                         <View style={{ flexDirection: "column" }}>
                           <Checkbox.Item
@@ -1200,8 +1198,7 @@ export default class HomePetListing extends React.Component {
                           flex: 1,
                           flexDirection: "column",
                           justifyContent: "flex-start",
-                        }}
-                      >
+                        }}>
                         <Text> </Text>
                         <View style={{ flexDirection: "column" }}>
                           <Checkbox.Item
@@ -1354,8 +1351,7 @@ export default class HomePetListing extends React.Component {
                           flex: 1,
                           flexDirection: "column",
                           justifyContent: "flex-start",
-                        }}
-                      >
+                        }}>
                         <Text> </Text>
                         <View style={{ flexDirection: "column" }}>
                           <Checkbox.Item
@@ -1500,8 +1496,7 @@ export default class HomePetListing extends React.Component {
                     onPress={() => {
                       this.displayFunction();
                       this.setState({ visible: false });
-                    }}
-                  >
+                    }}>
                     Done
                   </Button>
                 </Card.Actions>

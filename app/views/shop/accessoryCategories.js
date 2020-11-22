@@ -6,6 +6,7 @@ import {
   Image,
   ScrollView,
   FlatList,
+  YellowBox,
   BackHandler,
 } from "react-native";
 import {
@@ -34,6 +35,9 @@ import {
   MaterialCommunityIcons,
 } from "@expo/vector-icons";
 import { primaryColour1, primaryColour2 } from "../styleSheet/styleSheet";
+
+// Ignore virtualized lists warning, fix is out of scope
+YellowBox.ignoreWarnings(['VirtualizedLists should never be nested']);
 
 const accessoryInformation = require("./accessoryInformation.json");
 
@@ -1110,6 +1114,7 @@ export default class accessoryCateogries extends React.Component {
                             this.props.navigation
                           )
                         }
+                        keyExtractor={(item, index) => index.toString()}
                       />
                     </View>
                   </View>
