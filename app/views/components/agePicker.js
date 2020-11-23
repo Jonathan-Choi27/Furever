@@ -86,7 +86,7 @@ export default class AgePicker extends React.Component {
                     return (
                       <Picker.Item
                         label={item.toString()}
-                        key={i}
+                        // key={i}
                         value={item}
                       />
                     );

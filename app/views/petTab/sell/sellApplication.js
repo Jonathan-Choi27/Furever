@@ -138,7 +138,7 @@ export default class sellApplication extends React.Component {
       // this.additionalInfoValidator() == false ||
       this.photoValidator() == false
     ) {
-        Alert.alert("Error", "All input fields required and must be valid.");
+      Alert.alert("Error", "All input fields required and must be valid.");
       submit = false;
     } else {
       submit = true;
@@ -230,9 +230,11 @@ export default class sellApplication extends React.Component {
               categorizedListingsRef: categorizedListingsRef,
             });
           });
+      })
+      .then((sucess) => {
+        Alert.alert("Alert", "Successful!");
+        this.props.navigation.goBack();
       });
-      Alert.alert("Alert", "Successful!");
-    this.props.navigation.goBack();
   };
 
   //Submit Handler
@@ -554,8 +556,7 @@ export default class sellApplication extends React.Component {
     return (
       <ScrollView
         keyboardShouldPersistTaps={"handled"}
-        showsVerticalScrollIndicator={false}
-      >
+        showsVerticalScrollIndicator={false}>
         <Card containerStyle={{ borderRadius: 10 }}>
           <Text style={globalStyles.applicationHeading}>
             Seller Application
@@ -599,8 +600,7 @@ export default class sellApplication extends React.Component {
 
           <View style={{ marginHorizontal: 10, marginBottom: 20 }}>
             <Text
-              style={{ color: "#505050", fontWeight: "bold", fontSize: 16 }}
-            >
+              style={{ color: "#505050", fontWeight: "bold", fontSize: 16 }}>
               Gender
             </Text>
 
@@ -611,8 +611,7 @@ export default class sellApplication extends React.Component {
               <View style={globalStyles.formPickerInnerContainer}>
                 <Picker
                   selectedValue={this.state.gender}
-                  onValueChange={(gender) => this.setState({ gender })}
-                >
+                  onValueChange={(gender) => this.setState({ gender })}>
                   <Picker.Item
                     label="Select gender"
                     value="0"
@@ -729,8 +728,7 @@ export default class sellApplication extends React.Component {
                 flexDirection: "row",
                 marginHorizontal: 10,
                 marginBottom: 10,
-              }}
-            >
+              }}>
               <View style={{ flex: 1, flexDirection: "row", paddingBottom: 3 }}>
                 <Text style={globalStyles.applicationInputName}>
                   Upload a Photo
@@ -751,8 +749,7 @@ export default class sellApplication extends React.Component {
                 alignContent: "center",
                 alignItems: "center",
                 marginHorizontal: 10,
-              }}
-            >
+              }}>
               <Image
                 style={{ height: 300, width: screenWidth - 92 }}
                 source={{ uri: this.state.photo_uri }}
@@ -764,13 +761,11 @@ export default class sellApplication extends React.Component {
                 backgroundColor: primaryColour2,
                 marginHorizontal: 10,
               }}
-              onPress={this.setPhotoUri}
-            >
+              onPress={this.setPhotoUri}>
               <Text
                 style={{
                   color: "white",
-                }}
-              >
+                }}>
                 Choose Photo
               </Text>
             </Button>
@@ -788,13 +783,11 @@ export default class sellApplication extends React.Component {
               style={{
                 backgroundColor: primaryColour2,
               }}
-              onPress={this.setDocumentUri}
-            >
+              onPress={this.setDocumentUri}>
               <Text
                 style={{
                   color: "white",
-                }}
-              >
+                }}>
                 Choose Document
               </Text>
             </Button>
@@ -805,8 +798,7 @@ export default class sellApplication extends React.Component {
           <TouchableOpacity
             title={"submit"}
             style={globalStyles.buttons}
-            onPress={this.handleSubmit}
-          >
+            onPress={this.handleSubmit}>
             <Text style={globalStyles.buttonsText}>SUBMIT</Text>
           </TouchableOpacity>
         </View>
