@@ -80,13 +80,13 @@ export default class ProfilePrivacy extends React.Component {
             this.props.navigation.navigate("profileHome");
           })
           .catch((error) => {
-            Alert.alert("Error", error);
+            Alert.alert("Error", error.message);
             this.setState({ newPassword: "" });
             this.setState({ currentPassword: "" });
           });
       })
       .catch((error) => {
-          Alert.alert("Error", error);
+          Alert.alert("Error", error.message);
       });
   };
 

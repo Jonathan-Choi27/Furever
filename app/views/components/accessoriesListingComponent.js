@@ -18,7 +18,7 @@ const deleteAccessory = (docId) => {
       //   alert("Accessory deleted.");
     })
     .catch(function (error) {
-      Alert.alert("Error", "Error removing document: ", error);
+      Alert.alert("Error", error.message);
     });
 };
 

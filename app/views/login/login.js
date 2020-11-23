@@ -38,7 +38,7 @@ export default class Login extends React.Component {
         }
       })
       .catch((error) => {
-        Alert.alert("Error", error);
+        Alert.alert("Error", error.message);
       });
     this.setState({ email: "" });
     this.setState({ password: "" });
@@ -55,7 +55,7 @@ export default class Login extends React.Component {
         );
       })
       .catch((error) => {
-        Alert.alert("Error", error);
+        Alert.alert("Error", error.message);
       });
   }
 
