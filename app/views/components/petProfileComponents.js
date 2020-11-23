@@ -6,6 +6,7 @@ import {
   Dimensions,
   Image,
   Linking,
+  Alert
 } from "react-native";
 import { Card, Rating } from "react-native-elements";
 import { Button } from "react-native-paper";

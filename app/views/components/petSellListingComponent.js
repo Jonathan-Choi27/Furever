@@ -1,5 +1,5 @@
 import * as React from "react";
-import { View, Image, Text } from "react-native";
+import { View, Image, Text, Alert } from "react-native";
 import { Button, Card } from "react-native-paper";
 import firebase from "firebase";
 import globalStyles from "../styleSheet/styleSheet";
@@ -12,7 +12,7 @@ const deletePet = async (item) => {
   await item.selfRef.delete();
   await item.userSellListRef.delete();
   await item.categorizedListingsRef.delete();
-  alert("deleted");
+  Alert.alert("Notification", "Deleted");
 };
 
 //Pet Sell Listing Card

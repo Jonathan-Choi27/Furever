@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ActivityIndicator } from "react-native";
+import { ActivityIndicator, Alert } from "react-native";
 import {
   View,
   Image,
@@ -86,7 +86,7 @@ export default class updateProfile extends React.Component {
         profileText: this.state.profileText,
       })
       .then(() => {
-        alert("Update successful!");
+          Alert.alert("Alert", "Update successful!");
         this.props.route.params.refresh();
         this.props.navigation.goBack();
       });
