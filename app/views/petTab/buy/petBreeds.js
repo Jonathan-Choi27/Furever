@@ -257,6 +257,7 @@ export default class petBreeds extends React.Component {
   //Display Function
   displayFunction = () => {
     let listData = [];
+    var addOn = false;
 
     //Animal
     if (this.state.dogCheck) {
@@ -264,6 +265,7 @@ export default class petBreeds extends React.Component {
       let filteredData = this.state.data.filter(function (item) {
         return item.category.toLowerCase().includes("dog");
       });
+      addOn = true;
       listData = listData.concat(filteredData);
     }
     if (this.state.catCheck) {
@@ -271,6 +273,7 @@ export default class petBreeds extends React.Component {
       let filteredData = this.state.data.filter(function (item) {
         return item.category.toLowerCase().includes("cat");
       });
+      addOn = true;
       listData = listData.concat(filteredData);
     }
     if (this.state.rabbitCheck) {
@@ -278,6 +281,7 @@ export default class petBreeds extends React.Component {
       let filteredData = listData.filter(function (item) {
         return item.category.toLowerCase().includes("rabbit");
       });
+      addOn = true;
       listData = listData.concat(filteredData);
     }
     if (this.state.fishCheck) {
@@ -285,6 +289,7 @@ export default class petBreeds extends React.Component {
       let filteredData = listData.filter(function (item) {
         return item.category.toLowerCase().includes("fish");
       });
+      addOn = true;
       listData = listData.concat(filteredData);
     }
     if (this.state.birdCheck) {
@@ -292,6 +297,7 @@ export default class petBreeds extends React.Component {
       let filteredData = listData.filter(function (item) {
         return item.category.toLowerCase().includes("bird");
       });
+      addOn = true;
       listData = listData.concat(filteredData);
     }
     if (this.state.horseCheck) {
@@ -299,6 +305,7 @@ export default class petBreeds extends React.Component {
       let filteredData = listData.filter(function (item) {
         return item.category.toLowerCase().includes("horse");
       });
+      addOn = true;
       listData = listData.concat(filteredData);
     }
     if (this.state.lizardCheck) {
@@ -306,6 +313,7 @@ export default class petBreeds extends React.Component {
       let filteredData = listData.filter(function (item) {
         return item.category.toLowerCase().includes("lizard");
       });
+      addOn = true;
       listData = listData.concat(filteredData);
     }
     if (this.state.turtleCheck) {
@@ -313,6 +321,7 @@ export default class petBreeds extends React.Component {
       let filteredData = listData.filter(function (item) {
         return item.category.toLowerCase().includes("turtle");
       });
+      addOn = true;
       listData = listData.concat(filteredData);
     }
     if (this.state.pigCheck) {
@@ -320,6 +329,7 @@ export default class petBreeds extends React.Component {
       let filteredData = listData.filter(function (item) {
         return item.category.toLowerCase().includes("pig");
       });
+      addOn = true;
       listData = listData.concat(filteredData);
     }
 
@@ -340,496 +350,488 @@ export default class petBreeds extends React.Component {
         listData = this.state.data;
       }
     }
-    var addOn = false;
+    let dataToFilter = [];
+    if (addOn) {
+      dataToFilter = listData;
+    } else {
+      dataToFilter = this.state.data;
+    }
+    addOn = false;
     if (this.state.whiteColour) {
       this.setState({ filterDisplay: true });
       if (addOn) {
-        let filteredData = this.state.data.filter(function (item) {
+        let filteredData = dataToFilter.filter(function (item) {
           return item.colour.toLowerCase().includes("white");
         });
-        if (filteredData.length > 0) {
-          addOn = true;
-          listData = listData.concat(filteredData);
-        }
+        addOn = true;
+        listData = listData.concat(filteredData);
       } else {
-        let filteredData = listData.filter(function (item) {
+        let filteredData = dataToFilter.filter(function (item) {
           return item.colour.toLowerCase().includes("white");
         });
-        if (filteredData.length > 0) {
-          addOn = true;
-          listData = filteredData;
-        }
+        addOn = true;
+        listData = filteredData;
       }
     }
     if (this.state.goldColour) {
       this.setState({ filterDisplay: true });
       if (addOn) {
-        let filteredData = this.state.data.filter(function (item) {
+        let filteredData = dataToFilter.filter(function (item) {
           return item.colour.toLowerCase().includes("gold");
         });
-        if (filteredData.length > 0) {
-          addOn = true;
-          listData = listData.concat(filteredData);
-        }
+        addOn = true;
+        listData = listData.concat(filteredData);
       } else {
-        let filteredData = listData.filter(function (item) {
+        let filteredData = dataToFilter.filter(function (item) {
           return item.colour.toLowerCase().includes("gold");
         });
-        if (filteredData.length > 0) {
-          addOn = true;
-          listData = filteredData;
-        }
+        addOn = true;
+        listData = filteredData;
       }
     }
     if (this.state.greenColour) {
       this.setState({ filterDisplay: true });
       if (addOn) {
-        let filteredData = this.state.data.filter(function (item) {
-          return item.colour.toLowerCase().includes("primaryColour2");
+        let filteredData = dataToFilter.filter(function (item) {
+          return item.colour.toLowerCase().includes("green");
         });
-        if (filteredData.length > 0) {
-          addOn = true;
-          listData = listData.concat(filteredData);
-        }
+        addOn = true;
+        listData = listData.concat(filteredData);
       } else {
-        let filteredData = listData.filter(function (item) {
-          return item.colour.toLowerCase().includes("primaryColour2");
+        let filteredData = dataToFilter.filter(function (item) {
+          return item.colour.toLowerCase().includes("green");
         });
-        if (filteredData.length > 0) {
-          addOn = true;
-          listData = filteredData;
-        }
+        addOn = true;
+        listData = filteredData;
       }
     }
     if (this.state.blackColour) {
       this.setState({ filterDisplay: true });
       if (addOn) {
-        let filteredData = this.state.data.filter(function (item) {
+        let filteredData = dataToFilter.filter(function (item) {
           return item.colour.toLowerCase().includes("black");
         });
-        if (filteredData.length > 0) {
-          addOn = true;
-          listData = listData.concat(filteredData);
-        }
+        addOn = true;
+        listData = listData.concat(filteredData);
       } else {
-        let filteredData = listData.filter(function (item) {
+        let filteredData = dataToFilter.filter(function (item) {
           return item.colour.toLowerCase().includes("black");
         });
-        if (filteredData.length > 0) {
-          addOn = true;
-          listData = filteredData;
-        }
+        addOn = true;
+        listData = filteredData;
       }
     }
     if (this.state.rainbowColour) {
       this.setState({ filterDisplay: true });
       if (addOn) {
-        let filteredData = this.state.data.filter(function (item) {
+        let filteredData = dataToFilter.filter(function (item) {
           return item.colour.toLowerCase().includes("rainbow");
         });
-        if (filteredData.length > 0) {
-          addOn = true;
-          listData = listData.concat(filteredData);
-        }
+        addOn = true;
+        listData = listData.concat(filteredData);
       } else {
-        let filteredData = listData.filter(function (item) {
+        let filteredData = dataToFilter.filter(function (item) {
           return item.colour.toLowerCase().includes("rainbow");
         });
-        if (filteredData.length > 0) {
-          addOn = true;
-          listData = filteredData;
-        }
+        addOn = true;
+        listData = filteredData;
       }
     }
     if (this.state.greyColour) {
       this.setState({ filterDisplay: true });
       if (addOn) {
-        let filteredData = this.state.data.filter(function (item) {
+        let filteredData = dataToFilter.filter(function (item) {
           return item.colour.toLowerCase().includes("grey");
         });
-        if (filteredData.length > 0) {
-          addOn = true;
-          listData = listData.concat(filteredData);
-        }
+        addOn = true;
+        listData = listData.concat(filteredData);
       } else {
-        let filteredData = listData.filter(function (item) {
+        let filteredData = dataToFilter.filter(function (item) {
           return item.colour.toLowerCase().includes("grey");
         });
-        if (filteredData.length > 0) {
-          addOn = true;
-          listData = filteredData;
-        }
+        addOn = true;
+        listData = filteredData;
       }
     }
     if (this.state.brownColour) {
       this.setState({ filterDisplay: true });
       if (addOn) {
-        let filteredData = this.state.data.filter(function (item) {
+        let filteredData = dataToFilter.filter(function (item) {
           return item.colour.toLowerCase().includes("brown");
         });
-        if (filteredData.length > 0) {
-          addOn = true;
-          listData = listData.concat(filteredData);
-        }
+        addOn = true;
+        listData = listData.concat(filteredData);
       } else {
-        let filteredData = listData.filter(function (item) {
+        let filteredData = dataToFilter.filter(function (item) {
           return item.colour.toLowerCase().includes("brown");
         });
-        if (filteredData.length > 0) {
-          addOn = true;
-          listData = filteredData;
-        }
+        addOn = true;
+        listData = filteredData;
       }
     }
     if (this.state.redColour) {
       this.setState({ filterDisplay: true });
       if (addOn) {
-        let filteredData = this.state.data.filter(function (item) {
+        let filteredData = dataToFilter.filter(function (item) {
           return item.colour.toLowerCase().includes("red");
         });
-        if (filteredData.length > 0) {
-          addOn = true;
-          listData = listData.concat(filteredData);
-        }
+        addOn = true;
+        listData = listData.concat(filteredData);
       } else {
-        let filteredData = listData.filter(function (item) {
+        let filteredData = dataToFilter.filter(function (item) {
           return item.colour.toLowerCase().includes("red");
         });
-        if (filteredData.length > 0) {
-          addOn = true;
-          listData = filteredData;
-        }
+        addOn = true;
+        listData = filteredData;
       }
     }
     if (this.state.orangeColour) {
       this.setState({ filterDisplay: true });
       if (addOn) {
-        let filteredData = this.state.data.filter(function (item) {
+        let filteredData = dataToFilter.filter(function (item) {
           return item.colour.toLowerCase().includes("orange");
         });
-        if (filteredData.length > 0) {
-          addOn = true;
-          listData = listData.concat(filteredData);
-        }
+        addOn = true;
+        listData = listData.concat(filteredData);
       } else {
-        let filteredData = listData.filter(function (item) {
+        let filteredData = dataToFilter.filter(function (item) {
           return item.colour.toLowerCase().includes("orange");
         });
-        if (filteredData.length > 0) {
-          addOn = true;
-          listData = filteredData;
-        }
+        addOn = true;
+        listData = filteredData;
       }
     }
 
     //Location
-    // if (listData.length == 0) {
-    //   listData = this.state.data;
-    // }
+    if (listData.length == 0) {
+      if (
+        //Animal
+        !this.state.dogCheck &&
+        !this.state.catCheck &&
+        !this.state.birdCheck &&
+        !this.state.rabbitCheck &&
+        !this.state.fishCheck &&
+        !this.state.horseCheck &&
+        !this.state.lizardCheck &&
+        !this.state.turtleCheck &&
+        !this.state.pigCheck &&
+
+        //Colour
+        !this.state.whiteColour &&
+        !this.state.goldColour &&
+        !this.state.greenColour &&
+        !this.state.blackColour &&
+        !this.state.rainbowColour &&
+        !this.state.greyColour &&
+        !this.state.brownColour &&
+        !this.state.redColour &&
+        !this.state.orangeColour   
+      ) {
+        listData = this.state.data;
+      }
+    }
+    if (addOn) {
+      dataToFilter = listData;
+    } else {
+      dataToFilter = this.state.data;
+    }
+    addOn = false;
     if (this.state.nswCheck) {
       this.setState({ filterDisplay: true });
       if (addOn) {
-        let filteredData = this.state.data.filter(function (item) {
+        let filteredData = dataToFilter.filter(function (item) {
           return item.location.toLowerCase().includes("nsw");
         });
-        if (filteredData.length > 0) {
-          addOn = true;
-          listData = listData.concat(filteredData);
-        }
+        addOn = true;
+        listData = listData.concat(filteredData);
       } else {
-        let filteredData = listData.filter(function (item) {
+        let filteredData = dataToFilter.filter(function (item) {
           return item.location.toLowerCase().includes("nsw");
         });
-        if (filteredData.length > 0) {
-          addOn = true;
-          listData = filteredData;
-        }
+        addOn = true;
+        listData = filteredData;
       }
     }
     if (this.state.vicCheck) {
       this.setState({ filterDisplay: true });
       if (addOn) {
-        let filteredData = this.state.data.filter(function (item) {
+        let filteredData = dataToFilter.filter(function (item) {
           return item.location.toLowerCase().includes("vic");
         });
-        if (filteredData.length > 0) {
-          addOn = true;
-          listData = listData.concat(filteredData);
-        }
+        addOn = true;
+        listData = listData.concat(filteredData);
       } else {
-        let filteredData = listData.filter(function (item) {
+        let filteredData = dataToFilter.filter(function (item) {
           return item.location.toLowerCase().includes("vic");
         });
-        if (filteredData.length > 0) {
-          addOn = true;
-          listData = filteredData;
-        }
+        addOn = true;
+        listData = filteredData;
       }
     }
     if (this.state.qldCheck) {
       this.setState({ filterDisplay: true });
       if (addOn) {
-        let filteredData = this.state.data.filter(function (item) {
+        let filteredData = dataToFilter.filter(function (item) {
           return item.location.toLowerCase().includes("qld");
         });
-        if (filteredData.length > 0) {
-          addOn = true;
-          listData = listData.concat(filteredData);
-        }
+        addOn = true;
+        listData = listData.concat(filteredData);
       } else {
-        let filteredData = listData.filter(function (item) {
+        let filteredData = dataToFilter.filter(function (item) {
           return item.location.toLowerCase().includes("qld");
         });
-        if (filteredData.length > 0) {
-          addOn = true;
-          listData = filteredData;
-        }
+        addOn = true;
+        listData = filteredData;
       }
     }
     if (this.state.waCheck) {
       this.setState({ filterDisplay: true });
       if (addOn) {
-        let filteredData = this.state.data.filter(function (item) {
+        let filteredData = dataToFilter.filter(function (item) {
           return item.location.toLowerCase().includes("wa");
         });
-        if (filteredData.length > 0) {
-          addOn = true;
-          listData = listData.concat(filteredData);
-        }
+        addOn = true;
+        listData = listData.concat(filteredData);
       } else {
-        let filteredData = listData.filter(function (item) {
+        let filteredData = dataToFilter.filter(function (item) {
           return item.location.toLowerCase().includes("wa");
         });
-        if (filteredData.length > 0) {
-          addOn = true;
-          listData = filteredData;
-        }
+        addOn = true;
+        listData = filteredData;
       }
     }
     if (this.state.saCheck) {
       this.setState({ filterDisplay: true });
       if (addOn) {
-        let filteredData = this.state.data.filter(function (item) {
+        let filteredData = dataToFilter.filter(function (item) {
           return item.location.toLowerCase().includes("sa");
         });
-        if (filteredData.length > 0) {
-          addOn = true;
-          listData = listData.concat(filteredData);
-        }
+        addOn = true;
+        listData = listData.concat(filteredData);
       } else {
-        let filteredData = listData.filter(function (item) {
+        let filteredData = dataToFilter.filter(function (item) {
           return item.location.toLowerCase().includes("sa");
         });
-        if (filteredData.length > 0) {
-          addOn = true;
-          listData = filteredData;
-        }
+        addOn = true;
+        listData = filteredData;
       }
     }
     if (this.state.tasCheck) {
       this.setState({ filterDisplay: true });
       if (addOn) {
-        let filteredData = this.state.data.filter(function (item) {
+        let filteredData = dataToFilter.filter(function (item) {
           return item.location.toLowerCase().includes("tas");
         });
-        if (filteredData.length > 0) {
-          addOn = true;
-          listData = listData.concat(filteredData);
-        }
+        addOn = true;
+        listData = listData.concat(filteredData);
       } else {
-        let filteredData = listData.filter(function (item) {
+        let filteredData = dataToFilter.filter(function (item) {
           return item.location.toLowerCase().includes("tas");
         });
-        if (filteredData.length > 0) {
-          addOn = true;
-          listData = filteredData;
-        }
+        addOn = true;
+        listData = filteredData;
       }
     }
     if (this.state.actCheck) {
       this.setState({ filterDisplay: true });
       if (addOn) {
-        let filteredData = this.state.data.filter(function (item) {
+        let filteredData = dataToFilter.filter(function (item) {
           return item.location.toLowerCase().includes("act");
         });
-        if (filteredData.length > 0) {
-          addOn = true;
-          listData = listData.concat(filteredData);
-        }
+        addOn = true;
+        listData = listData.concat(filteredData);
       } else {
-        let filteredData = listData.filter(function (item) {
+        let filteredData = dataToFilter.filter(function (item) {
           return item.location.toLowerCase().includes("act");
         });
-        if (filteredData.length > 0) {
-          addOn = true;
-          listData = filteredData;
-        }
+        addOn = true;
+        listData = filteredData;
       }
     }
     if (this.state.ntCheck) {
       this.setState({ filterDisplay: true });
       if (addOn) {
-        let filteredData = this.state.data.filter(function (item) {
+        let filteredData = dataToFilter.filter(function (item) {
           return item.location.toLowerCase().includes("nt");
         });
-        if (filteredData.length > 0) {
-          addOn = true;
-          listData = listData.concat(filteredData);
-        }
+        addOn = true;
+        listData = listData.concat(filteredData);
       } else {
-        let filteredData = listData.filter(function (item) {
+        let filteredData = dataToFilter.filter(function (item) {
           return item.location.toLowerCase().includes("nt");
         });
-        if (filteredData.length > 0) {
-          addOn = true;
-          listData = filteredData;
-        }
+        addOn = true;
+        listData = filteredData;
       }
     }
 
     //Price
+    if (listData.length == 0) {
+      if (
+        //Animal
+        !this.state.dogCheck &&
+        !this.state.catCheck &&
+        !this.state.birdCheck &&
+        !this.state.rabbitCheck &&
+        !this.state.fishCheck &&
+        !this.state.horseCheck &&
+        !this.state.lizardCheck &&
+        !this.state.turtleCheck &&
+        !this.state.pigCheck &&
+
+        //Colour
+        !this.state.whiteColour &&
+        !this.state.goldColour &&
+        !this.state.greenColour &&
+        !this.state.blackColour &&
+        !this.state.rainbowColour &&
+        !this.state.greyColour &&
+        !this.state.brownColour &&
+        !this.state.redColour &&
+        !this.state.orangeColour &&
+        
+        //Location
+        !this.state.nswCheck &&
+        !this.state.vicCheck &&
+        !this.state.qldCheck &&
+        !this.state.waCheck &&
+        !this.state.saCheck &&
+        !this.state.tasCheck &&
+        !this.state.actCheck &&
+        !this.state.ntCheck         
+      ) {
+        listData = this.state.data;
+      }
+    }
+    if (addOn) {
+      dataToFilter = listData;
+    } else {
+      dataToFilter = this.state.data;
+    }
+    addOn = false;
     if (this.state.price1Check) {
       this.setState({ filterDisplay: true });
       if (addOn) {
-        let filteredData = this.state.data.filter(function (item) {
+        let filteredData = dataToFilter.filter(function (item) {
           if (item.price < 500) {
             return item;
           }
         });
-        if (filteredData.length > 0) {
           addOn = true;
           listData = listData.concat(filteredData);
-        }
       } else {
-        let filteredData = listData.filter(function (item) {
+        let filteredData = dataToFilter.filter(function (item) {
           if (item.price < 500) {
             return item;
           }
         });
-        if (filteredData.length > 0) {
-          addOn = true;
-          listData = filteredData;
-        }
+        addOn = true;
+        listData = filteredData;
       }
     }
+    var addOn = false;
     if (this.state.price2Check) {
       this.setState({ filterDisplay: true });
       if (addOn) {
-        let filteredData = this.state.data.filter(function (item) {
+        let filteredData = dataToFilter.filter(function (item) {
           if (item.price < 1000) {
             return item;
           }
         });
-        if (filteredData.length > 0) {
-          addOn = true;
-          listData = listData.concat(filteredData);
-        }
+        addOn = true;
+        listData = listData.concat(filteredData);
       } else {
-        let filteredData = listData.filter(function (item) {
+        let filteredData = dataToFilter.filter(function (item) {
           if (item.price < 1000) {
             return item;
           }
         });
-        if (filteredData.length > 0) {
-          addOn = true;
-          listData = filteredData;
-        }
+        addOn = true;
+        listData = filteredData;
       }
     }
+    var addOn = false;
     if (this.state.price3Check) {
       this.setState({ filterDisplay: true });
       if (addOn) {
-        let filteredData = this.state.data.filter(function (item) {
+        let filteredData = dataToFilter.filter(function (item) {
           if (item.price < 3000) {
             return item;
           }
         });
-        if (filteredData.length > 0) {
-          addOn = true;
-          listData = listData.concat(filteredData);
-        }
+        addOn = true;
+        listData = listData.concat(filteredData);
       } else {
-        let filteredData = listData.filter(function (item) {
+        let filteredData = dataToFilter.filter(function (item) {
           if (item.price < 3000) {
             return item;
           }
         });
-        if (filteredData.length > 0) {
-          addOn = true;
-          listData = filteredData;
-        }
+        addOn = true;
+        listData = filteredData;
       }
     }
+    var addOn = false;
     if (this.state.price4Check) {
       this.setState({ filterDisplay: true });
       if (addOn) {
-        let filteredData = this.state.data.filter(function (item) {
+        let filteredData = dataToFilter.filter(function (item) {
           if (item.price < 5000) {
             return item;
           }
         });
-        if (filteredData.length > 0) {
-          addOn = true;
-          listData = listData.concat(filteredData);
-        }
+        addOn = true;
+        listData = listData.concat(filteredData);
       } else {
-        let filteredData = listData.filter(function (item) {
+        let filteredData = dataToFilter.filter(function (item) {
           if (item.price < 5000) {
             return item;
           }
         });
-        if (filteredData.length > 0) {
-          addOn = true;
-          listData = filteredData;
-        }
+        addOn = true;
+        listData = filteredData;
       }
     }
+    var addOn = false;
     if (this.state.price5Check) {
       this.setState({ filterDisplay: true });
       if (addOn) {
-        let filteredData = this.state.data.filter(function (item) {
+        let filteredData = dataToFilter.filter(function (item) {
           if (item.price < 10000) {
             return item;
           }
         });
-        if (filteredData.length > 0) {
-          addOn = true;
-          listData = listData.concat(filteredData);
-        }
+        addOn = true;
+        listData = listData.concat(filteredData);
       } else {
-        let filteredData = listData.filter(function (item) {
+        let filteredData = dataToFilter.filter(function (item) {
           if (item.price < 10000) {
             return item;
           }
         });
-        if (filteredData.length > 0) {
-          addOn = true;
-          listData = filteredData;
-        }
+        addOn = true;
+        listData = filteredData;
       }
     }
-    if (this.state.price2Check) {
+    var addOn = false;
+    if (this.state.price6Check) {
       this.setState({ filterDisplay: true });
       if (addOn) {
-        let filteredData = this.state.data.filter(function (item) {
+        let filteredData = dataToFilter.filter(function (item) {
           if (item.price > 10000) {
             return item;
           }
         });
-        if (filteredData.length > 0) {
-          addOn = true;
-          listData = listData.concat(filteredData);
-        }
+        addOn = true;
+        listData = listData.concat(filteredData);
       } else {
-        let filteredData = listData.filter(function (item) {
+        let filteredData = dataToFilter.filter(function (item) {
           if (item.price > 10000) {
             return item;
           }
         });
-        if (filteredData.length > 0) {
-          addOn = true;
-          listData = filteredData;
-        }
+        addOn = true;
+        listData = filteredData;
       }
     }
 
