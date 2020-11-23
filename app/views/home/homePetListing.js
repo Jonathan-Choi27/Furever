@@ -983,7 +983,6 @@ export default class HomePetListing extends React.Component {
             {
               label: "Close",
               onPress: () => this.setState({ bannerVisible: false }),
-              color: {primaryColour1}
             },
           ]}>
           <Text style={{ fontSize: 16, fontWeight: "bold" }}>
@@ -1507,38 +1506,6 @@ export default class HomePetListing extends React.Component {
                   <Text style={{ margin: 100 }}>No results found.</Text>
                 </View>
               ) : (
-                <FlatList
-                  data={this.state.bestMatchData}
-                  columnWrapperStyle={{ justifyContent: "flex-start" }}
-                  numColumns={3}
-                  onRefresh={async () => {
-                    this.setState({
-                      pullToRefresh: true,
-                    });
-                    await this.initialFetchData();
-                    this.setState({
-                      pullToRefresh: false,
-                    });
-                  }}
-                  keyExtractor={(item, index) => index.toString()}
-                  refreshing={this.state.pullToRefresh}
-                  renderItem={({ item }) =>
-                    homeListingCard(item, this.props.navigation)
-                  }
-                  keyExtractor={(item, index) => index.toString()}
-                  data={
-                    this.state.filteredData &&
-                    this.state.filteredData.length > 0
-                      ? this.state.filteredData
-                      : this.state.bestMatchData
-                  }
-                />
-              )}
-            </View>
-          ) : (
-            <View style={styles.container}>
-              {this.state.searchText == "" ? (
-                <View style={styles.container}>
                   <FlatList
                     data={this.state.bestMatchData}
                     columnWrapperStyle={{ justifyContent: "flex-start" }}
@@ -1557,21 +1524,23 @@ export default class HomePetListing extends React.Component {
                     renderItem={({ item }) =>
                       homeListingCard(item, this.props.navigation)
                     }
-                    onEndReached={() => this.fetchMore()}
-                    onEndReachedThreshold={0.5}
+                    keyExtractor={(item, index) => index.toString()}
+                    data={
+                      this.state.filteredData &&
+                        this.state.filteredData.length > 0
+                        ? this.state.filteredData
+                        : this.state.bestMatchData
+                    }
                   />
-                </View>
-              ) : (
-                <View style={styles.container}>
-                  {this.state.filteredData.length == 0 ? (
-                    //No results found from search
-                    <View style={globalStyles.petContainer}>
-                      <Text style={{ margin: 100 }}>No results found.</Text>
-                    </View>
-                  ) : (
+                )}
+            </View>
+          ) : (
+              <View style={styles.container}>
+                {this.state.searchText == "" ? (
+                  <View style={styles.container}>
                     <FlatList
                       data={this.state.bestMatchData}
-                      columnWrapperStyle={{ justifyContent: "space-between" }}
+                      columnWrapperStyle={{ justifyContent: "flex-start" }}
                       numColumns={3}
                       onRefresh={async () => {
                         this.setState({
@@ -1587,19 +1556,49 @@ export default class HomePetListing extends React.Component {
                       renderItem={({ item }) =>
                         homeListingCard(item, this.props.navigation)
                       }
-                      keyExtractor={(item, index) => index.toString()}
-                      data={
-                        this.state.filteredData &&
-                        this.state.filteredData.length > 0
-                          ? this.state.filteredData
-                          : this.state.bestMatchData
-                      }
+                      onEndReached={() => this.fetchMore()}
+                      onEndReachedThreshold={0.5}
                     />
+                  </View>
+                ) : (
+                    <View style={styles.container}>
+                      {this.state.filteredData.length == 0 ? (
+                        //No results found from search
+                        <View style={globalStyles.petContainer}>
+                          <Text style={{ margin: 100 }}>No results found.</Text>
+                        </View>
+                      ) : (
+                          <FlatList
+                            data={this.state.bestMatchData}
+                            columnWrapperStyle={{ justifyContent: "space-between" }}
+                            numColumns={3}
+                            onRefresh={async () => {
+                              this.setState({
+                                pullToRefresh: true,
+                              });
+                              await this.initialFetchData();
+                              this.setState({
+                                pullToRefresh: false,
+                              });
+                            }}
+                            keyExtractor={(item, index) => index.toString()}
+                            refreshing={this.state.pullToRefresh}
+                            renderItem={({ item }) =>
+                              homeListingCard(item, this.props.navigation)
+                            }
+                            keyExtractor={(item, index) => index.toString()}
+                            data={
+                              this.state.filteredData &&
+                                this.state.filteredData.length > 0
+                                ? this.state.filteredData
+                                : this.state.bestMatchData
+                            }
+                          />
+                        )}
+                    </View>
                   )}
-                </View>
-              )}
-            </View>
-          )}
+              </View>
+            )}
         </View>
       </Provider>
     );
