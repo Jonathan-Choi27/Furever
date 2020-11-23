@@ -80,13 +80,13 @@ export default class AgePicker extends React.Component {
                 {age.map((item, i) => {
                   if (i == 0) {
                     return (
-                      <Picker.Item label={item} value="0" color="#D3D3D3" />
+                      <Picker.Item label={item} key="0"value="0" color="#D3D3D3" />
                     );
                   } else {
                     return (
                       <Picker.Item
                         label={item.toString()}
-                        // key={i}
+                        key={item}
                         value={item}
                       />
                     );
