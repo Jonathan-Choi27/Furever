@@ -71,7 +71,6 @@ export default class homePetProfile extends React.Component {
 
   handleBackButtonClick = () => {
     this.props.navigation.goBack();
-    return true;
   };
 
   render() {
