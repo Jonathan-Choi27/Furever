@@ -1,6 +1,6 @@
 import React from "react";
 import { auth, db } from "../database/firebase";
-import { Text, View, TouchableOpacity, Image } from "react-native";
+import { Text, View, TouchableOpacity, Image, Alert } from "react-native";
 import { Input } from "react-native-elements";
 import globalStyles, { primaryColour1 } from "../styleSheet/styleSheet";
 
@@ -34,11 +34,11 @@ export default class Login extends React.Component {
           }
         } else {
           this.props.navigation.replace("Home");
-          alert("Email address is not verified.");
+          Alert.alert("Alert", "Email address it not verified.");
         }
       })
       .catch((error) => {
-        alert(error);
+        Alert.alert("Error", error.message);
       });
     this.setState({ email: "" });
     this.setState({ password: "" });
@@ -49,10 +49,13 @@ export default class Login extends React.Component {
     auth
       .sendPasswordResetEmail(email)
       .then((e) => {
-        alert(`A password reset email has been sent to ${email}`);
+        Alert.alert(
+          "Alert",
+          `A password reset email has been sent to ${email}`
+        );
       })
       .catch((error) => {
-        alert(error);
+        Alert.alert("Error", error.message);
       });
   }
 
@@ -98,20 +101,17 @@ export default class Login extends React.Component {
         <View style={globalStyles.loginButtonsContainer}>
           <TouchableOpacity
             style={globalStyles.landingButtons}
-            onPress={this.onLogin.bind(this)}
-          >
+            onPress={this.onLogin.bind(this)}>
             <Text style={globalStyles.landingButtonsText}>LOGIN</Text>
           </TouchableOpacity>
           <Text
             style={globalStyles.loginTitle}
-            onPress={() => this.props.navigation.replace("Forgot Password")}
-          >
+            onPress={() => this.props.navigation.replace("Forgot Password")}>
             FORGOT PASSWORD?
           </Text>
           <Text
             style={globalStyles.loginTitle2}
-            onPress={() => this.props.navigation.replace("Sign Up")}
-          >
+            onPress={() => this.props.navigation.replace("Sign Up")}>
             NO ACCOUNT? <Text style={globalStyles.linkText}>{"SIGN UP"}</Text>
           </Text>
         </View>

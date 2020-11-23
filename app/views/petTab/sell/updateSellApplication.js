@@ -8,6 +8,7 @@ import {
   Image,
   BackHandler,
   Dimensions,
+  Alert,
 } from "react-native";
 import { Button } from "react-native-paper";
 import { db, auth } from "../../database/firebase";
@@ -150,7 +151,7 @@ export default class updateSellApplication extends React.Component {
       this.trainingValidator() == false ||
       this.photoValidator() == false
     ) {
-      alert("All input fields required and must be valid.");
+        Alert.alert("Error", "All input fields required and must be valid.");
       submit = false;
     } else {
       submit = true;

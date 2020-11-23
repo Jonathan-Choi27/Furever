@@ -1,6 +1,6 @@
 import React from "react";
 import { auth } from "../database/firebase";
-import { Text, View, TouchableOpacity, Image } from "react-native";
+import { Text, View, TouchableOpacity, Image, Alert } from "react-native";
 import { Input } from "react-native-elements";
 import globalStyles, { primaryColour1 } from "../styleSheet/styleSheet";
 
@@ -16,19 +16,20 @@ export default class PasswordRecoveryPage extends React.Component {
       .then((signInMethod) => {
         if (signInMethod.length) {
           auth.sendPasswordResetEmail(email).then((sentEmail) => {
-            alert(
+            Alert.alert(
+              "Alert",
               `An email has been sent, please reset your account password at ${email}`
             );
           });
           this.props.navigation.navigate("Login");
         } else {
-          alert("Email address is invalid.");
+          Alert.alert("Alert", "Email address is invalid.");
         }
       })
       .catch((err) => {
         switch (err.code) {
           case "auth/invalid-email":
-            alert("Email address is invalid.");
+            Alert.alert("Error", "Email address is invalid.");
             break;
         }
       });
@@ -62,15 +63,13 @@ export default class PasswordRecoveryPage extends React.Component {
         <View style={globalStyles.landingButtonsContainer}>
           <TouchableOpacity
             style={globalStyles.landingButtons}
-            onPress={() => this.onPasswordRecovery(this.state.email)}
-          >
+            onPress={() => this.onPasswordRecovery(this.state.email)}>
             <Text style={globalStyles.landingButtonsText}>RESET PASSWORD</Text>
           </TouchableOpacity>
 
           <Text
             style={globalStyles.loginTitle}
-            onPress={() => this.props.navigation.navigate("Login")}
-          >
+            onPress={() => this.props.navigation.navigate("Login")}>
             BACK TO <Text style={globalStyles.linkText}>{"LOGIN"}</Text>
           </Text>
         </View>

@@ -8,6 +8,7 @@ import {
   Image,
   BackHandler,
   Dimensions,
+  Alert,
 } from "react-native";
 import { Icon, Card } from "react-native-elements";
 import { Button } from "react-native-paper";
@@ -93,7 +94,7 @@ export default class accessoryListingApplication extends React.Component {
       this.descriptionValidator() == false ||
       this.photoValidator() == false
     ) {
-      alert("All input fields required and must be valid.");
+      Alert.alert("error", "All input fields required and must be valid.");
       submit = false;
     } else {
       submit = true;
@@ -156,7 +157,7 @@ export default class accessoryListingApplication extends React.Component {
             });
           });
       });
-    alert("Application Successful!");
+      Alert.alert("Alert", "Application Successful!");
     this.props.navigation.goBack();
   };
 

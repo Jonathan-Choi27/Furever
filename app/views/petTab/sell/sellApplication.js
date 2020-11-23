@@ -8,6 +8,7 @@ import {
   Image,
   BackHandler,
   Dimensions,
+  Alert,
 } from "react-native";
 import { Icon } from "react-native-elements";
 import { Button } from "react-native-paper";
@@ -137,7 +138,7 @@ export default class sellApplication extends React.Component {
       // this.additionalInfoValidator() == false ||
       this.photoValidator() == false
     ) {
-      alert("All input fields required and must be valid.");
+        Alert.alert("Error", "All input fields required and must be valid.");
       submit = false;
     } else {
       submit = true;
@@ -230,7 +231,7 @@ export default class sellApplication extends React.Component {
             });
           });
       });
-    alert("Successful!");
+      Alert.alert("Alert", "Successful!");
     this.props.navigation.goBack();
   };
 

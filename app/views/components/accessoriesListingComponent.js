@@ -1,5 +1,5 @@
 import * as React from "react";
-import { View, Image, Text } from "react-native";
+import { View, Image, Text, Alert } from "react-native";
 import { Button, Card } from "react-native-paper";
 import firebase from "firebase";
 import globalStyles from "../styleSheet/styleSheet";
@@ -8,17 +8,22 @@ console.disableYellowBox = true;
 const db = firebase.firestore();
 
 //Delete Accessory
-const deleteAccessory = (docId) => {
-  const deleteItemId = docId;
-  db.collection("accessories")
-    .doc(deleteItemId)
-    .delete()
-    .then(function () {
-      alert("Accessory deleted.");
-    })
-    .catch(function (error) {
-      alert("Error removing document: ", error);
-    });
+const deleteAccessory = async (item) => {
+    await item.categorizedShopListingsRef.delete();
+    await item.selfRef.delete();
+    await item.userShopSellListRef.delete();
+    Alert.alert("Notification", "Deleted");
+//   const deleteItemId = docId;
+//   db.collection("accessories")
+//     .doc(deleteItemId)
+//     .delete()
+//     .then(function () {
+//       Alert.alert("Alert", "Your chosen accessory has been deleted.");
+//       //   alert("Accessory deleted.");
+//     })
+//     .catch(function (error) {
+//       Alert.alert("Error", error.message);
+//     });
 };
 
 //Accessory Listing Card
@@ -32,8 +37,7 @@ export const accessoriesListingCard = (item, navigation) => {
               flex: 8,
               padding: 10,
               justifyContent: "center",
-            }}
-          >
+            }}>
             <Image
               source={{ uri: item.photo }}
               style={{ borderRadius: 5, flexGrow: 1 }}
@@ -46,8 +50,7 @@ export const accessoriesListingCard = (item, navigation) => {
               paddingBottom: 10,
               paddingRight: 10,
               paddingLeft: 2,
-            }}
-          >
+            }}>
             <View>
               <Text numberOfLines={1} style={{ flex: 1 }}>
                 <Text style={{ fontWeight: "bold" }}>Name: </Text>
@@ -71,8 +74,7 @@ export const accessoriesListingCard = (item, navigation) => {
                 style={globalStyles.smallButton}
                 onPress={() =>
                   navigation.navigate("accessoryListingProfile", { item })
-                }
-              >
+                }>
                 <Text style={globalStyles.smallButtonText}>View</Text>
               </Button>
               <Button
@@ -81,14 +83,12 @@ export const accessoriesListingCard = (item, navigation) => {
                   navigation.navigate("updateAccessoryListingApplication", {
                     docId: item.docId,
                   })
-                }
-              >
+                }>
                 <Text style={globalStyles.smallButtonText}>Update</Text>
               </Button>
               <Button
                 style={globalStyles.smallButton}
-                onPress={() => deleteAccessory(item.docId)}
-              >
+                onPress={() => deleteAccessory(item)}>
                 <Text style={globalStyles.smallButtonText}>Delete</Text>
               </Button>
             </View>

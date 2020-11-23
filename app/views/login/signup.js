@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, View, TouchableOpacity, Image } from "react-native";
+import { Text, View, TouchableOpacity, Image, Alert } from "react-native";
 import firebase from "firebase";
 import { db } from "../database/firebase";
 import { Input } from "react-native-elements";
@@ -40,7 +40,7 @@ export default class SignUp extends React.Component {
           name
         )
       ) {
-        alert("Name field is invalid.");
+        Alert.alert("Error", "Name field is invalid.");
         return false;
       }
       if (
@@ -48,11 +48,11 @@ export default class SignUp extends React.Component {
           dob
         )
       ) {
-        alert("Date of birth is invalid.");
+        Alert.alert("Error", "Date of birth is invalid.");
         return false;
       }
       if (new Date().getFullYear() - dob.substr(dob.length - 4) < 18) {
-        alert("You must be over 18.");
+        Alert.alert("Error", "You must be over 18.");
         return false;
       }
       if (
@@ -60,10 +60,10 @@ export default class SignUp extends React.Component {
           email
         )
       ) {
-        alert("Email is invalid.");
+        Alert.alert("Error", "Email is invalid.");
         return false;
       }
-      alert("Password fields must be valid.");
+      Alert.alert("Error", "Password fields must be invalid.");
       return false;
     } else {
       firebase
@@ -84,9 +84,7 @@ export default class SignUp extends React.Component {
                 uuid: user.uid,
               });
               user.sendEmailVerification();
-              alert(
-                `An email has been sent, please verify your account at ${email}`
-              );
+              Alert.alert("Error", `An email has been sent, please verify your account at ${email}`);
               this.props.navigation.navigate("Login");
             })
             .catch((error) => {
@@ -94,7 +92,7 @@ export default class SignUp extends React.Component {
             });
         })
         .catch((error) => {
-          alert(error);
+            Alert.alert("Error", error.message);
         });
     }
   };
@@ -198,14 +196,12 @@ export default class SignUp extends React.Component {
 
         <TouchableOpacity
           style={globalStyles.landingButtons}
-          onPress={this.submit}
-        >
+          onPress={this.submit}>
           <Text style={globalStyles.landingButtonsText}>SIGN UP</Text>
         </TouchableOpacity>
         <Text
           style={globalStyles.loginTitle}
-          onPress={() => this.props.navigation.navigate("Login")}
-        >
+          onPress={() => this.props.navigation.navigate("Login")}>
           ALREADY HAVE AN ACCOUNT?{" "}
           <Text style={globalStyles.linkText}>{"LOGIN"}</Text>
         </Text>

@@ -1,5 +1,12 @@
 import React from "react";
-import { ScrollView, View, Dimensions, Image, BackHandler } from "react-native";
+import {
+  ScrollView,
+  View,
+  Dimensions,
+  Image,
+  BackHandler,
+  Alert,
+} from "react-native";
 import { Card, Text } from "react-native-elements";
 import { Button } from "react-native-paper";
 import "react-navigation";
@@ -9,7 +16,7 @@ import "react-navigation-hooks";
 import { db } from "../../database/firebase";
 import { auth } from "../../database/firebase";
 import { CustomInput } from "../../components/customInput";
-import globalStyles, { primaryColour1,} from "../../styleSheet/styleSheet";
+import globalStyles, { primaryColour1 } from "../../styleSheet/styleSheet";
 import { Icon } from "react-native-elements";
 import GooglePlacesInput from "../../components/mapAutoComplete";
 // AIzaSyC-6ifFUYzIIgUf1uhbmJ_BU6VQyre4bRw
@@ -153,7 +160,8 @@ export default class buyApplication extends React.Component {
         pet_doc_id: doc_id,
       })
       .then((success) => {
-        alert("Submission successful");
+        Alert.alert("Alert", "Submission successful");
+        this.props.navigation.goBack();
       });
   };
 
@@ -167,7 +175,7 @@ export default class buyApplication extends React.Component {
       this.contactNumberValidator == false ||
       this.addressValidator == false
     ) {
-      alert("All fields must be filled and valid");
+      Alert.alert("Error", "All fields must be filled and valid");
       bool = false;
     } else {
       bool = true;
@@ -182,7 +190,7 @@ export default class buyApplication extends React.Component {
 
     if (bool) {
       this.pushData();
-      this.props.navigation.goBack();
+    //   this.props.navigation.goBack();
     }
   };
 
@@ -205,19 +213,16 @@ export default class buyApplication extends React.Component {
           </View>
           <Card containerStyle={{ borderRadius: 10 }}>
             <Text
-              style={{ fontWeight: "bold", fontSize: 30, color: "#333333" }}
-            >
+              style={{ fontWeight: "bold", fontSize: 30, color: "#333333" }}>
               {item.petName}
             </Text>
             <Text>
               <Text
-                style={{ fontSize: 25, color: "#606060", fontWeight: "bold" }}
-              >
+                style={{ fontSize: 25, color: "#606060", fontWeight: "bold" }}>
                 {item.age}
               </Text>
               <Text
-                style={{ fontSize: 22, color: "#606060", fontWeight: "bold" }}
-              >
+                style={{ fontSize: 22, color: "#606060", fontWeight: "bold" }}>
                 {" "}
                 {item.ageOption.toUpperCase()}
               </Text>
@@ -356,22 +361,19 @@ export default class buyApplication extends React.Component {
             flexDirection: "row",
             alignItems: "center",
             justifyContent: "center",
-          }}
-        >
+          }}>
           <Button
             style={{
               marginTop: 20,
               marginBottom: 20,
               backgroundColor: primaryColour1,
             }}
-            onPress={this.handleSubmit}
-          >
+            onPress={this.handleSubmit}>
             <Text
               style={{
                 color: "white",
                 fontWeight: "bold",
-              }}
-            >
+              }}>
               Submit
             </Text>
           </Button>
