@@ -161,6 +161,7 @@ export default class buyApplication extends React.Component {
       })
       .then((success) => {
         Alert.alert("Alert", "Submission successful");
+        this.props.navigation.goBack();
       });
   };
 
@@ -189,7 +190,7 @@ export default class buyApplication extends React.Component {
 
     if (bool) {
       this.pushData();
-      this.props.navigation.goBack();
+    //   this.props.navigation.goBack();
     }
   };
 
