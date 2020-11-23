@@ -6,8 +6,9 @@ import "react-navigation-hooks";
 import { View, BackHandler } from "react-native";
 import { Card, Text } from "react-native-elements";
 import { Button } from "react-native-paper";
-import globalStyles, { primaryColour1, } from "../styleSheet/styleSheet";
+import globalStyles, { primaryColour1 } from "../styleSheet/styleSheet";
 import { db, auth } from "../database/firebase";
+import { removeItemFromCart } from "../components/shopComponents";
 
 export default class CheckoutSummary extends React.Component {
   constructor(props) {
@@ -163,6 +164,7 @@ export default class CheckoutSummary extends React.Component {
             width: 200,
             marginTop: 20,
           }}
+          onPress={() => removeItemFromCart()}
           mode="contained"
         >
           <Text
