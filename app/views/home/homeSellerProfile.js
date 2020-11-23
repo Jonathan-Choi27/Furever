@@ -5,19 +5,16 @@ import "@react-navigation/native";
 import "react-navigation-hooks";
 import {
   View,
-  Image,
   ScrollView,
   FlatList,
   Text,
   BackHandler,
 } from "react-native";
-import { Card } from "react-native-elements";
-console.disableYellowBox = true;
 import globalStyles, { pageBackgroundColour } from "../styleSheet/styleSheet";
-
 import { sellerDetails, reviewCard } from "../components/sellerInfoComponent";
 import { petBuyCard } from "../components/petBuyComponents";
 import { db } from "../database/firebase";
+console.disableYellowBox = true;
 
 export default class homeSellerProfile extends React.Component {
   state = {
@@ -100,7 +97,6 @@ export default class homeSellerProfile extends React.Component {
             reviewData: [...reviewArray],
           });
 
-          console.log(reviewArray);
         });
       });
   }

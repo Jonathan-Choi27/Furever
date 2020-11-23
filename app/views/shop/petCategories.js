@@ -2,14 +2,12 @@ import React from "react";
 import {
   Text,
   View,
-  TouchableOpacity,
   ScrollView,
   FlatList,
   Image,
   BackHandler,
 } from "react-native";
 import {
-  Avatar,
   Card,
   Button,
   Searchbar,
@@ -20,13 +18,11 @@ import {
   Checkbox,
 } from "react-native-paper";
 import { db } from "../database/firebase";
-import {
+import globalStyles, {
   primaryColour1,
   primaryColour2,
-  pageBackgroundColour,
 } from "../styleSheet/styleSheet";
-import globalStyles from "../styleSheet/styleSheet";
-import { cartTab, cartCard } from "../components/shopTabComponent";
+import { cartCard } from "../components/shopTabComponent";
 import {
   accessoryListingCard,
   shopCategory,

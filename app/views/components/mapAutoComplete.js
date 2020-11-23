@@ -9,7 +9,6 @@ export const GooglePlacesInput = (props) => {
   const ref = useRef();
 
   useEffect(() => {
-    console.log(props.prev_location);
     if (props.previous) {
       ref.current?.setAddressText(props.prev_location);
     }
@@ -49,10 +48,7 @@ export const GooglePlacesInput = (props) => {
                 data.structured_formatting.secondary_text
               )
             }
-            // onPress={(data) => {
-            //     // 'details' is provided when fetchDetails = true
-            //     console.log(data.structured_formatting.secondary_text);
-            //   }}
+            
             // this is my google places key, will be deleted after sem
             query={{
               key: "AIzaSyC-6ifFUYzIIgUf1uhbmJ_BU6VQyre4bRw",

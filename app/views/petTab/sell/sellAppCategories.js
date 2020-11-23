@@ -4,16 +4,9 @@ import {
   Text,
   View,
   Picker,
-  Button,
-  TouchableOpacity,
 } from "react-native";
 import { Icon } from "react-native-elements";
-import globalStyles, {
-  primaryColour1,
-  primaryColour2,
-  lightGrey,
-  lightBlue,
-} from "../../styleSheet/styleSheet";
+import globalStyles, { primaryColour1, } from "../../styleSheet/styleSheet";
 // Solved from this link https://github.com/GeekyAnts/NativeBase/issues/636
 
 //Information

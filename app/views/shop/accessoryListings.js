@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Text,
   View,
-  TouchableOpacity,
   FlatList,
   BackHandler,
 } from "react-native";
@@ -72,7 +71,6 @@ export default class accessoryListings extends React.Component {
       this.setState({
         isFetchingMore: true,
       });
-      console.log("fetch more");
       const dataArray = [];
       const uid = auth.currentUser.uid;
 

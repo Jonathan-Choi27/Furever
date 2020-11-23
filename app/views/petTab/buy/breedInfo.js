@@ -13,7 +13,6 @@ import "react-navigation-props-mapper";
 import "@react-navigation/native";
 import "react-navigation-hooks";
 import globalStyles from "../../styleSheet/styleSheet";
-import { db } from "../../database/firebase";
 
 export default class breedInfo extends React.Component {
   //Back Button Handler

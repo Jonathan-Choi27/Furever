@@ -1,6 +1,6 @@
 import React from "react";
-import { Text, View, Image, FlatList, BackHandler } from "react-native";
-import { Card, Button, Searchbar } from "react-native-paper";
+import { Text, View, FlatList, BackHandler } from "react-native";
+import { Button, Searchbar } from "react-native-paper";
 import firebase from "firebase";
 import { auth } from "../../database/firebase";
 import globalStyles, {
@@ -99,7 +99,6 @@ export default class currentListings extends React.Component {
       this.setState({
         isFetchingMore: true,
       });
-    //   console.log("fetch more");
       const dataArray = [];
       const uid = auth.currentUser.uid;
 

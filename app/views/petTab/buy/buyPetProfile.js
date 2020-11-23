@@ -3,14 +3,14 @@ import "react-navigation";
 import "react-navigation-props-mapper";
 import "@react-navigation/native";
 import "react-navigation-hooks";
-import { View, ScrollView, Text, BackHandler } from "react-native";
-console.disableYellowBox = true;
+import { ScrollView, BackHandler } from "react-native";
 import {
   expressInterest,
   profileInfo,
   sellerInfo,
 } from "../../components/petProfileComponents";
 import { db } from "../../database/firebase";
+console.disableYellowBox = true;
 
 export default class buyPetProfile extends React.Component {
   state = {

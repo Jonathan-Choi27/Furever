@@ -465,7 +465,7 @@ export default class updateAccessoryListingApplication extends React.Component {
             style={globalStyles.buttons}
             onPress={this.handleSubmit}
           >
-            <Text style={globalStyles.buttonsText}>Update</Text>
+            <Text style={globalStyles.buttonsText}>UPDATE</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>

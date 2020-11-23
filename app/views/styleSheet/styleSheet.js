@@ -55,9 +55,6 @@ export default StyleSheet.create({
     fontSize: 15,
     fontWeight: "bold",
   },
-  textInput: {
-    color: "white",
-  },
   linkText: {
     fontWeight: "bold",
     color: primaryColour2,
@@ -106,11 +103,6 @@ export default StyleSheet.create({
   },
   signupInputContainer: {
     width: 325,
-  },
-  signupInput: {
-    marginBottom: 0,
-    marginTop: 0,
-    padding: 0,
   },
   logo2: {
     width: 300,
@@ -217,11 +209,6 @@ export default StyleSheet.create({
     height: 40,
   },
 
-  // Form container
-  formContainer: {
-    marginHorizontal: screenWidth * 0.08,
-  },
-
   // Search bar
   searchFilterContainer: {
     height: 20,
@@ -242,10 +229,7 @@ export default StyleSheet.create({
     height: 35,
     width: screenWidth - 20,
   },
-  error: {
-    color: "red",
-    fontSize: 2,
-  },
+
   // form
   formPickerIconContainer: {
     justifyContent: "center",
@@ -259,6 +243,7 @@ export default StyleSheet.create({
     borderBottomWidth: 2,
     flexDirection: "row",
   },
+  
   // Pet Categories and Breeds
   petContainer: {
     flex: 1,
@@ -275,10 +260,6 @@ export default StyleSheet.create({
     borderRadius: 5,
     marginTop: 5,
     marginBottom: 16,
-  },
-  petCard: {
-    margin: 5,
-    width: 340,
   },
   iconContainer: {
     marginLeft: 15,
@@ -400,8 +381,6 @@ export default StyleSheet.create({
     fontSize: 23,
   },
 
-  // Breed Information
-
   //Pet Buy Card
   petBuyCard: {
     marginBottom: 10,
@@ -456,27 +435,14 @@ export default StyleSheet.create({
     flex: 3,
     justifyContent: "center",
   },
-  petBuyCardNameContainer: {
-    marginRight: 40,
-  },
 
   //Current applications
   pageMargin: {
     width: screenWidth - 20,
     flex: 1,
   },
-  scrollViewContentStyle: {
-    flex: 1,
-    alignItems: "center",
-  },
 
   //Sell application
-  sellAppContainer: {
-    flex: 1,
-    padding: 10,
-    paddingTop: 10,
-    justifyContent: "center",
-  },
   applicationHeading: {
     fontSize: 30,
     color: "#606060",
@@ -533,12 +499,6 @@ export default StyleSheet.create({
     fontWeight: "bold",
   },
 
-  // cart icon and sell accessories button
-  cartContainer: {
-    flex: 1,
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
   // FAQ
   faqHeader: {
     fontWeight: "bold",

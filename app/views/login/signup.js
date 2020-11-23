@@ -1,11 +1,9 @@
 import React from "react";
 import { Text, View, TouchableOpacity, Image } from "react-native";
-import { CheckBox } from "react-native-elements";
 import firebase from "firebase";
 import { db } from "../database/firebase";
 import { Input } from "react-native-elements";
-import globalStyles from "../styleSheet/styleSheet";
-import { primaryColour1 } from "../styleSheet/styleSheet";
+import globalStyles, { primaryColour1 } from "../styleSheet/styleSheet";
 
 export default class SignUp extends React.Component {
   state = {

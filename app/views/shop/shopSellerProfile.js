@@ -4,13 +4,11 @@ import "react-navigation-props-mapper";
 import "@react-navigation/native";
 import "react-navigation-hooks";
 import { View, ScrollView, Text, FlatList, BackHandler } from "react-native";
-console.disableYellowBox = true;
-import { Card } from "react-native-elements";
 import globalStyles from "../styleSheet/styleSheet";
-
 import { sellerDetails } from "../components/sellerInfoComponent";
 import { accessoryListingCard } from "../components/shopComponents";
 import { db } from "../database/firebase";
+console.disableYellowBox = true;
 
 export default class shopSellerProfile extends React.Component {
   state = {

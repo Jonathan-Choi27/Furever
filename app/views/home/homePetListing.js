@@ -4,7 +4,6 @@ import {
   Text,
   View,
   FlatList,
-  Image,
   ActivityIndicator,
   ScrollView,
   BackHandler,
@@ -21,13 +20,10 @@ import {
   Banner,
   Card,
 } from "react-native-paper";
-import {
+import globalStyles, {
   primaryColour1,
   primaryColour2,
-  lightGrey,
-  lightBlue,
 } from "../styleSheet/styleSheet";
-import globalStyles from "../styleSheet/styleSheet";
 import { homeListingCard } from "../components/homePetListingComponents";
 
 //Firebase firestore

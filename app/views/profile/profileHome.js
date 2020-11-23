@@ -1,8 +1,5 @@
 import * as React from "react";
-import { View, Text, Image } from "react-native";
-import { Button } from "react-native-paper";
-import { db } from "../database/firebase";
-import { auth } from "../database/firebase";
+import { db, auth } from "../database/firebase";
 import Profile from "./displayProfile";
 
 export default class ProfileScreen extends React.Component {
