@@ -79,6 +79,7 @@ export default class HomePetListing extends React.Component {
     price4Check: false,
     price5Check: false,
     price6Check: false,
+    bestMatchCheck: false,
   };
 
   async initialFetchData() {
@@ -316,6 +317,12 @@ export default class HomePetListing extends React.Component {
       case "saCheck":
         this.setState({ saCheck: !this.state.saCheck });
         break;
+      case "tasCheck":
+        this.setState({ tasCheck: !this.state.tasCheck });
+        break;
+      case "actCheck":
+        this.setState({ actCheck: !this.state.actCheck });
+        break;
       case "ntCheck":
         this.setState({ ntCheck: !this.state.ntCheck });
         break;
@@ -339,6 +346,12 @@ export default class HomePetListing extends React.Component {
       case "price6Check":
         this.setState({ price6Check: !this.state.price6Check });
         break;
+      
+      //Best Match
+      case "bestMatchCheck":
+        this.setState({ bestMatchCheck: !this.state.bestMatchCheck});
+        
+        break;
 
       default:
     }
@@ -347,6 +360,7 @@ export default class HomePetListing extends React.Component {
   //Display Function
   displayFunction = () => {
     let listData = [];
+    var addOn = false;
 
     //Animal
     if (this.state.dogCheck) {
@@ -354,6 +368,7 @@ export default class HomePetListing extends React.Component {
       let filteredData = this.state.data.filter(function (item) {
         return item.category.toLowerCase().includes("dog");
       });
+      addOn = true;
       listData = listData.concat(filteredData);
     }
     if (this.state.catCheck) {
@@ -361,6 +376,7 @@ export default class HomePetListing extends React.Component {
       let filteredData = this.state.data.filter(function (item) {
         return item.category.toLowerCase().includes("cat");
       });
+      addOn = true;
       listData = listData.concat(filteredData);
     }
     if (this.state.rabbitCheck) {
@@ -368,6 +384,7 @@ export default class HomePetListing extends React.Component {
       let filteredData = listData.filter(function (item) {
         return item.category.toLowerCase().includes("rabbit");
       });
+      addOn = true;
       listData = listData.concat(filteredData);
     }
     if (this.state.fishCheck) {
@@ -375,6 +392,7 @@ export default class HomePetListing extends React.Component {
       let filteredData = listData.filter(function (item) {
         return item.category.toLowerCase().includes("fish");
       });
+      addOn = true;
       listData = listData.concat(filteredData);
     }
     if (this.state.birdCheck) {
@@ -382,6 +400,7 @@ export default class HomePetListing extends React.Component {
       let filteredData = listData.filter(function (item) {
         return item.category.toLowerCase().includes("bird");
       });
+      addOn = true;
       listData = listData.concat(filteredData);
     }
     if (this.state.horseCheck) {
@@ -389,6 +408,7 @@ export default class HomePetListing extends React.Component {
       let filteredData = listData.filter(function (item) {
         return item.category.toLowerCase().includes("horse");
       });
+      addOn = true;
       listData = listData.concat(filteredData);
     }
     if (this.state.lizardCheck) {
@@ -396,6 +416,7 @@ export default class HomePetListing extends React.Component {
       let filteredData = listData.filter(function (item) {
         return item.category.toLowerCase().includes("lizard");
       });
+      addOn = true;
       listData = listData.concat(filteredData);
     }
     if (this.state.turtleCheck) {
@@ -403,6 +424,7 @@ export default class HomePetListing extends React.Component {
       let filteredData = listData.filter(function (item) {
         return item.category.toLowerCase().includes("turtle");
       });
+      addOn = true;
       listData = listData.concat(filteredData);
     }
     if (this.state.pigCheck) {
@@ -410,6 +432,7 @@ export default class HomePetListing extends React.Component {
       let filteredData = listData.filter(function (item) {
         return item.category.toLowerCase().includes("pig");
       });
+      addOn = true;
       listData = listData.concat(filteredData);
     }
 
@@ -430,373 +453,388 @@ export default class HomePetListing extends React.Component {
         listData = this.state.data;
       }
     }
-    var addOn = false;
+    let dataToFilter = [];
+    if (addOn) {
+      dataToFilter = listData;
+    } else {
+      dataToFilter = this.state.data;
+    }
+    addOn = false;
     if (this.state.whiteColour) {
       this.setState({ filterDisplay: true });
       if (addOn) {
-        let filteredData = this.state.data.filter(function (item) {
+        let filteredData = dataToFilter.filter(function (item) {
           return item.colour.toLowerCase().includes("white");
         });
-        if (filteredData.length > 0) {
-          addOn = true;
-          listData = listData.concat(filteredData);
-        }
+        addOn = true;
+        listData = listData.concat(filteredData);
       } else {
-        let filteredData = listData.filter(function (item) {
+        let filteredData = dataToFilter.filter(function (item) {
           return item.colour.toLowerCase().includes("white");
         });
-        if (filteredData.length > 0) {
-          addOn = true;
-          listData = filteredData;
-        }
+        addOn = true;
+        listData = filteredData;
       }
     }
     if (this.state.goldColour) {
       this.setState({ filterDisplay: true });
       if (addOn) {
-        let filteredData = this.state.data.filter(function (item) {
+        let filteredData = dataToFilter.filter(function (item) {
           return item.colour.toLowerCase().includes("gold");
         });
-        if (filteredData.length > 0) {
-          addOn = true;
-          listData = listData.concat(filteredData);
-        }
+        addOn = true;
+        listData = listData.concat(filteredData);
       } else {
-        let filteredData = listData.filter(function (item) {
+        let filteredData = dataToFilter.filter(function (item) {
           return item.colour.toLowerCase().includes("gold");
         });
-        if (filteredData.length > 0) {
-          addOn = true;
-          listData = filteredData;
-        }
+        addOn = true;
+        listData = filteredData;
       }
     }
     if (this.state.greenColour) {
       this.setState({ filterDisplay: true });
       if (addOn) {
-        let filteredData = this.state.data.filter(function (item) {
-          return item.colour.toLowerCase().includes("primaryColour2");
+        let filteredData = dataToFilter.filter(function (item) {
+          return item.colour.toLowerCase().includes("green");
         });
-        if (filteredData.length > 0) {
-          addOn = true;
-          listData = listData.concat(filteredData);
-        }
+        addOn = true;
+        listData = listData.concat(filteredData);
       } else {
-        let filteredData = listData.filter(function (item) {
-          return item.colour.toLowerCase().includes("primaryColour2");
+        let filteredData = dataToFilter.filter(function (item) {
+          return item.colour.toLowerCase().includes("green");
         });
-        if (filteredData.length > 0) {
-          addOn = true;
-          listData = filteredData;
-        }
+        addOn = true;
+        listData = filteredData;
       }
     }
     if (this.state.blackColour) {
       this.setState({ filterDisplay: true });
       if (addOn) {
-        let filteredData = this.state.data.filter(function (item) {
+        let filteredData = dataToFilter.filter(function (item) {
           return item.colour.toLowerCase().includes("black");
         });
-        if (filteredData.length > 0) {
-          addOn = true;
-          listData = listData.concat(filteredData);
-        }
+        addOn = true;
+        listData = listData.concat(filteredData);
       } else {
-        let filteredData = listData.filter(function (item) {
+        let filteredData = dataToFilter.filter(function (item) {
           return item.colour.toLowerCase().includes("black");
         });
-        if (filteredData.length > 0) {
-          addOn = true;
-          listData = filteredData;
-        }
+        addOn = true;
+        listData = filteredData;
       }
     }
     if (this.state.rainbowColour) {
       this.setState({ filterDisplay: true });
       if (addOn) {
-        let filteredData = this.state.data.filter(function (item) {
+        let filteredData = dataToFilter.filter(function (item) {
           return item.colour.toLowerCase().includes("rainbow");
         });
-        if (filteredData.length > 0) {
-          addOn = true;
-          listData = listData.concat(filteredData);
-        }
+        addOn = true;
+        listData = listData.concat(filteredData);
       } else {
-        let filteredData = listData.filter(function (item) {
+        let filteredData = dataToFilter.filter(function (item) {
           return item.colour.toLowerCase().includes("rainbow");
         });
-        if (filteredData.length > 0) {
-          addOn = true;
-          listData = filteredData;
-        }
+        addOn = true;
+        listData = filteredData;
       }
     }
     if (this.state.greyColour) {
       this.setState({ filterDisplay: true });
       if (addOn) {
-        let filteredData = this.state.data.filter(function (item) {
+        let filteredData = dataToFilter.filter(function (item) {
           return item.colour.toLowerCase().includes("grey");
         });
-        if (filteredData.length > 0) {
-          addOn = true;
-          listData = listData.concat(filteredData);
-        }
+        addOn = true;
+        listData = listData.concat(filteredData);
       } else {
-        let filteredData = listData.filter(function (item) {
+        let filteredData = dataToFilter.filter(function (item) {
           return item.colour.toLowerCase().includes("grey");
         });
-        if (filteredData.length > 0) {
-          addOn = true;
-          listData = filteredData;
-        }
+        addOn = true;
+        listData = filteredData;
       }
     }
     if (this.state.brownColour) {
       this.setState({ filterDisplay: true });
       if (addOn) {
-        let filteredData = this.state.data.filter(function (item) {
+        let filteredData = dataToFilter.filter(function (item) {
           return item.colour.toLowerCase().includes("brown");
         });
-        if (filteredData.length > 0) {
-          addOn = true;
-          listData = listData.concat(filteredData);
-        }
+        addOn = true;
+        listData = listData.concat(filteredData);
       } else {
-        let filteredData = listData.filter(function (item) {
+        let filteredData = dataToFilter.filter(function (item) {
           return item.colour.toLowerCase().includes("brown");
         });
-        if (filteredData.length > 0) {
-          addOn = true;
-          listData = filteredData;
-        }
+        addOn = true;
+        listData = filteredData;
       }
     }
     if (this.state.redColour) {
       this.setState({ filterDisplay: true });
       if (addOn) {
-        let filteredData = this.state.data.filter(function (item) {
+        let filteredData = dataToFilter.filter(function (item) {
           return item.colour.toLowerCase().includes("red");
         });
-        if (filteredData.length > 0) {
-          addOn = true;
-          listData = listData.concat(filteredData);
-        }
+        addOn = true;
+        listData = listData.concat(filteredData);
       } else {
-        let filteredData = listData.filter(function (item) {
+        let filteredData = dataToFilter.filter(function (item) {
           return item.colour.toLowerCase().includes("red");
         });
-        if (filteredData.length > 0) {
-          addOn = true;
-          listData = filteredData;
-        }
+        addOn = true;
+        listData = filteredData;
       }
     }
     if (this.state.orangeColour) {
       this.setState({ filterDisplay: true });
       if (addOn) {
-        let filteredData = this.state.data.filter(function (item) {
+        let filteredData = dataToFilter.filter(function (item) {
           return item.colour.toLowerCase().includes("orange");
         });
-        if (filteredData.length > 0) {
-          addOn = true;
-          listData = listData.concat(filteredData);
-        }
+        addOn = true;
+        listData = listData.concat(filteredData);
       } else {
-        let filteredData = listData.filter(function (item) {
+        let filteredData = dataToFilter.filter(function (item) {
           return item.colour.toLowerCase().includes("orange");
         });
-        if (filteredData.length > 0) {
-          addOn = true;
-          listData = filteredData;
-        }
+        addOn = true;
+        listData = filteredData;
       }
     }
+
+    //Location
+    if (listData.length == 0) {
+      if (
+        //Animal
+        !this.state.dogCheck &&
+        !this.state.catCheck &&
+        !this.state.birdCheck &&
+        !this.state.rabbitCheck &&
+        !this.state.fishCheck &&
+        !this.state.horseCheck &&
+        !this.state.lizardCheck &&
+        !this.state.turtleCheck &&
+        !this.state.pigCheck &&
+
+        //Colour
+        !this.state.whiteColour &&
+        !this.state.goldColour &&
+        !this.state.greenColour &&
+        !this.state.blackColour &&
+        !this.state.rainbowColour &&
+        !this.state.greyColour &&
+        !this.state.brownColour &&
+        !this.state.redColour &&
+        !this.state.orangeColour   
+      ) {
+        listData = this.state.data;
+      }
+    }
+    if (addOn) {
+      dataToFilter = listData;
+    } else {
+      dataToFilter = this.state.data;
+    }
+    addOn = false;
     if (this.state.nswCheck) {
       this.setState({ filterDisplay: true });
       if (addOn) {
-        let filteredData = this.state.data.filter(function (item) {
+        let filteredData = dataToFilter.filter(function (item) {
           return item.location.toLowerCase().includes("nsw");
         });
-        if (filteredData.length > 0) {
-          addOn = true;
-          listData = listData.concat(filteredData);
-        }
+        addOn = true;
+        listData = listData.concat(filteredData);
       } else {
-        let filteredData = listData.filter(function (item) {
+        let filteredData = dataToFilter.filter(function (item) {
           return item.location.toLowerCase().includes("nsw");
         });
-        if (filteredData.length > 0) {
-          addOn = true;
-          listData = filteredData;
-        }
+        addOn = true;
+        listData = filteredData;
       }
     }
     if (this.state.vicCheck) {
       this.setState({ filterDisplay: true });
       if (addOn) {
-        let filteredData = this.state.data.filter(function (item) {
+        let filteredData = dataToFilter.filter(function (item) {
           return item.location.toLowerCase().includes("vic");
         });
-        if (filteredData.length > 0) {
-          addOn = true;
-          listData = listData.concat(filteredData);
-        }
+        addOn = true;
+        listData = listData.concat(filteredData);
       } else {
-        let filteredData = listData.filter(function (item) {
+        let filteredData = dataToFilter.filter(function (item) {
           return item.location.toLowerCase().includes("vic");
         });
-        if (filteredData.length > 0) {
-          addOn = true;
-          listData = filteredData;
-        }
+        addOn = true;
+        listData = filteredData;
       }
     }
     if (this.state.qldCheck) {
       this.setState({ filterDisplay: true });
       if (addOn) {
-        let filteredData = this.state.data.filter(function (item) {
+        let filteredData = dataToFilter.filter(function (item) {
           return item.location.toLowerCase().includes("qld");
         });
-        if (filteredData.length > 0) {
-          addOn = true;
-          listData = listData.concat(filteredData);
-        }
+        addOn = true;
+        listData = listData.concat(filteredData);
       } else {
-        let filteredData = listData.filter(function (item) {
+        let filteredData = dataToFilter.filter(function (item) {
           return item.location.toLowerCase().includes("qld");
         });
-        if (filteredData.length > 0) {
-          addOn = true;
-          listData = filteredData;
-        }
+        addOn = true;
+        listData = filteredData;
       }
     }
     if (this.state.waCheck) {
       this.setState({ filterDisplay: true });
       if (addOn) {
-        let filteredData = this.state.data.filter(function (item) {
+        let filteredData = dataToFilter.filter(function (item) {
           return item.location.toLowerCase().includes("wa");
         });
-        if (filteredData.length > 0) {
-          addOn = true;
-          listData = listData.concat(filteredData);
-        }
+        addOn = true;
+        listData = listData.concat(filteredData);
       } else {
-        let filteredData = listData.filter(function (item) {
+        let filteredData = dataToFilter.filter(function (item) {
           return item.location.toLowerCase().includes("wa");
         });
-        if (filteredData.length > 0) {
-          addOn = true;
-          listData = filteredData;
-        }
+        addOn = true;
+        listData = filteredData;
       }
     }
     if (this.state.saCheck) {
       this.setState({ filterDisplay: true });
       if (addOn) {
-        let filteredData = this.state.data.filter(function (item) {
+        let filteredData = dataToFilter.filter(function (item) {
           return item.location.toLowerCase().includes("sa");
         });
-        if (filteredData.length > 0) {
-          addOn = true;
-          listData = listData.concat(filteredData);
-        }
+        addOn = true;
+        listData = listData.concat(filteredData);
       } else {
-        let filteredData = listData.filter(function (item) {
+        let filteredData = dataToFilter.filter(function (item) {
           return item.location.toLowerCase().includes("sa");
         });
-        if (filteredData.length > 0) {
-          addOn = true;
-          listData = filteredData;
-        }
+        addOn = true;
+        listData = filteredData;
       }
     }
     if (this.state.tasCheck) {
       this.setState({ filterDisplay: true });
       if (addOn) {
-        let filteredData = this.state.data.filter(function (item) {
+        let filteredData = dataToFilter.filter(function (item) {
           return item.location.toLowerCase().includes("tas");
         });
-        if (filteredData.length > 0) {
-          addOn = true;
-          listData = listData.concat(filteredData);
-        }
+        addOn = true;
+        listData = listData.concat(filteredData);
       } else {
-        let filteredData = listData.filter(function (item) {
+        let filteredData = dataToFilter.filter(function (item) {
           return item.location.toLowerCase().includes("tas");
         });
-        if (filteredData.length > 0) {
-          addOn = true;
-          listData = filteredData;
-        }
+        addOn = true;
+        listData = filteredData;
       }
     }
     if (this.state.actCheck) {
       this.setState({ filterDisplay: true });
       if (addOn) {
-        let filteredData = this.state.data.filter(function (item) {
+        let filteredData = dataToFilter.filter(function (item) {
           return item.location.toLowerCase().includes("act");
         });
-        if (filteredData.length > 0) {
-          addOn = true;
-          listData = listData.concat(filteredData);
-        }
+        addOn = true;
+        listData = listData.concat(filteredData);
       } else {
-        let filteredData = listData.filter(function (item) {
+        let filteredData = dataToFilter.filter(function (item) {
           return item.location.toLowerCase().includes("act");
         });
-        if (filteredData.length > 0) {
-          addOn = true;
-          listData = filteredData;
-        }
+        addOn = true;
+        listData = filteredData;
       }
     }
     if (this.state.ntCheck) {
       this.setState({ filterDisplay: true });
       if (addOn) {
-        let filteredData = this.state.data.filter(function (item) {
+        let filteredData = dataToFilter.filter(function (item) {
           return item.location.toLowerCase().includes("nt");
         });
-        if (filteredData.length > 0) {
-          addOn = true;
-          listData = listData.concat(filteredData);
-        }
+        addOn = true;
+        listData = listData.concat(filteredData);
       } else {
-        let filteredData = listData.filter(function (item) {
+        let filteredData = dataToFilter.filter(function (item) {
           return item.location.toLowerCase().includes("nt");
         });
-        if (filteredData.length > 0) {
-          addOn = true;
-          listData = filteredData;
-        }
+        addOn = true;
+        listData = filteredData;
       }
     }
 
     //Price
+    if (listData.length == 0) {
+      if (
+        //Animal
+        !this.state.dogCheck &&
+        !this.state.catCheck &&
+        !this.state.birdCheck &&
+        !this.state.rabbitCheck &&
+        !this.state.fishCheck &&
+        !this.state.horseCheck &&
+        !this.state.lizardCheck &&
+        !this.state.turtleCheck &&
+        !this.state.pigCheck &&
+
+        //Colour
+        !this.state.whiteColour &&
+        !this.state.goldColour &&
+        !this.state.greenColour &&
+        !this.state.blackColour &&
+        !this.state.rainbowColour &&
+        !this.state.greyColour &&
+        !this.state.brownColour &&
+        !this.state.redColour &&
+        !this.state.orangeColour &&
+        
+        //Location
+        !this.state.nswCheck &&
+        !this.state.vicCheck &&
+        !this.state.qldCheck &&
+        !this.state.waCheck &&
+        !this.state.saCheck &&
+        !this.state.tasCheck &&
+        !this.state.actCheck &&
+        !this.state.ntCheck         
+      ) {
+        listData = this.state.data;
+      }
+    }
+    if (addOn) {
+      dataToFilter = listData;
+    } else {
+      dataToFilter = this.state.data;
+    }
+    addOn = false;
     if (this.state.price1Check) {
       this.setState({ filterDisplay: true });
       if (addOn) {
-        let filteredData = this.state.data.filter(function (item) {
+        let filteredData = dataToFilter.filter(function (item) {
           if (item.price < 500) {
             return item;
           }
         });
-        if (filteredData.length > 0) {
           addOn = true;
           listData = listData.concat(filteredData);
-        }
       } else {
-        let filteredData = listData.filter(function (item) {
+        let filteredData = dataToFilter.filter(function (item) {
           if (item.price < 500) {
             return item;
           }
         });
         if (filteredData.length > 0) {
           addOn = true;
-          listData = filteredData;
         }
+        listData = filteredData;
       }
     }
+    var addOn = false;
     if (this.state.price2Check) {
       this.setState({ filterDisplay: true });
       if (addOn) {
@@ -821,6 +859,7 @@ export default class HomePetListing extends React.Component {
         }
       }
     }
+    var addOn = false;
     if (this.state.price3Check) {
       this.setState({ filterDisplay: true });
       if (addOn) {
@@ -845,6 +884,7 @@ export default class HomePetListing extends React.Component {
         }
       }
     }
+    var addOn = false;
     if (this.state.price4Check) {
       this.setState({ filterDisplay: true });
       if (addOn) {
@@ -869,6 +909,7 @@ export default class HomePetListing extends React.Component {
         }
       }
     }
+    var addOn = false;
     if (this.state.price5Check) {
       this.setState({ filterDisplay: true });
       if (addOn) {
@@ -893,7 +934,8 @@ export default class HomePetListing extends React.Component {
         }
       }
     }
-    if (this.state.price2Check) {
+    var addOn = false;
+    if (this.state.price6Check) {
       this.setState({ filterDisplay: true });
       if (addOn) {
         let filteredData = this.state.data.filter(function (item) {
@@ -983,7 +1025,6 @@ export default class HomePetListing extends React.Component {
             {
               label: "Close",
               onPress: () => this.setState({ bannerVisible: false }),
-              color: {primaryColour1}
             },
           ]}>
           <Text style={{ fontSize: 16, fontWeight: "bold" }}>
@@ -1019,7 +1060,18 @@ export default class HomePetListing extends React.Component {
               Filter
             </Button>
           </View>
-
+          <Checkbox.Item
+                            style={{ justifyContent: "flex-end" }}
+                            theme={{ colors: { primary: primaryColour1 } }}
+                            color={primaryColour1}
+                            label="Best Match"
+                            status={
+                              this.state.bestMatchCheck ? "checked" : "unchecked"
+                            }
+                            onPress={() => {
+                              this.checkFunction("bestMatchCheck");
+                            }}
+                          />
           <Portal>
             <Modal
               style={{ backgroundColor: "transparent" }}
@@ -1539,7 +1591,8 @@ export default class HomePetListing extends React.Component {
             <View style={styles.container}>
               {this.state.searchText == "" ? (
                 <View style={styles.container}>
-                  <FlatList
+                  {this.state.bestMatchCheck ? 
+                    <FlatList
                     data={this.state.bestMatchData}
                     columnWrapperStyle={{ justifyContent: "flex-start" }}
                     numColumns={3}
@@ -1559,19 +1612,11 @@ export default class HomePetListing extends React.Component {
                     }
                     onEndReached={() => this.fetchMore()}
                     onEndReachedThreshold={0.5}
-                  />
-                </View>
-              ) : (
-                <View style={styles.container}>
-                  {this.state.filteredData.length == 0 ? (
-                    //No results found from search
-                    <View style={globalStyles.petContainer}>
-                      <Text style={{ margin: 100 }}>No results found.</Text>
-                    </View>
-                  ) : (
+                  />                
+                  :
                     <FlatList
-                      data={this.state.bestMatchData}
-                      columnWrapperStyle={{ justifyContent: "space-between" }}
+                      data={this.state.data}
+                      columnWrapperStyle={{ justifyContent: "flex-start" }}
                       numColumns={3}
                       onRefresh={async () => {
                         this.setState({
@@ -1587,19 +1632,81 @@ export default class HomePetListing extends React.Component {
                       renderItem={({ item }) =>
                         homeListingCard(item, this.props.navigation)
                       }
-                      keyExtractor={(item, index) => index.toString()}
-                      data={
-                        this.state.filteredData &&
-                        this.state.filteredData.length > 0
-                          ? this.state.filteredData
-                          : this.state.bestMatchData
-                      }
+                      onEndReached={() => this.fetchMore()}
+                      onEndReachedThreshold={0.5}
                     />
-                  )}
+                }
+                  
                 </View>
-              )}
-            </View>
-          )}
+              ) : (
+                <View style={styles.container}>
+                  {this.state.filteredData.length == 0 ? (
+                    //No results found from search
+                    <View style={globalStyles.petContainer}>
+                      <Text style={{ margin: 100 }}>No results found.</Text>
+                    </View>
+                  ) : (
+                    <FlatList
+                      data={this.state.bestMatchData}
+                      columnWrapperStyle={{ justifyContent: "flex-start" }}
+                      numColumns={3}
+                      onRefresh={async () => {
+                        this.setState({
+                          pullToRefresh: true,
+                        });
+                        await this.initialFetchData();
+                        this.setState({
+                          pullToRefresh: false,
+                        });
+                      }}
+                      keyExtractor={(item, index) => index.toString()}
+                      refreshing={this.state.pullToRefresh}
+                      renderItem={({ item }) =>
+                        homeListingCard(item, this.props.navigation)
+                      }
+                      onEndReached={() => this.fetchMore()}
+                      onEndReachedThreshold={0.5}
+                    />
+                  </View>
+                ) : (
+                    <View style={styles.container}>
+                      {this.state.filteredData.length == 0 ? (
+                        //No results found from search
+                        <View style={globalStyles.petContainer}>
+                          <Text style={{ margin: 100 }}>No results found.</Text>
+                        </View>
+                      ) : (
+                          <FlatList
+                            data={this.state.bestMatchData}
+                            columnWrapperStyle={{ justifyContent: "space-between" }}
+                            numColumns={3}
+                            onRefresh={async () => {
+                              this.setState({
+                                pullToRefresh: true,
+                              });
+                              await this.initialFetchData();
+                              this.setState({
+                                pullToRefresh: false,
+                              });
+                            }}
+                            keyExtractor={(item, index) => index.toString()}
+                            refreshing={this.state.pullToRefresh}
+                            renderItem={({ item }) =>
+                              homeListingCard(item, this.props.navigation)
+                            }
+                            keyExtractor={(item, index) => index.toString()}
+                            data={
+                              this.state.filteredData &&
+                                this.state.filteredData.length > 0
+                                ? this.state.filteredData
+                                : this.state.bestMatchData
+                            }
+                          />
+                        )}
+                    </View>
+                  )}
+              </View>
+            )}
         </View>
       </Provider>
     );
