@@ -808,11 +808,9 @@ export default class HomePetListing extends React.Component {
     }
     if (addOn) {
       dataToFilter = listData;
-      if (dataToFilter.length = 0) {
-        dataToFilter = this.state.data;
-      }
-    } 
-    
+    } else {
+      dataToFilter = this.state.data;
+    }
     addOn = false;
     if (this.state.price1Check) {
       this.setState({ filterDisplay: true });
