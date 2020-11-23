@@ -61,6 +61,13 @@ export default class ProfilePrivacy extends React.Component {
 
   //Change Password Handler
   onChangePasswordPress = () => {
+    if (this.state.currentPassword == this.state.newPassword) {
+      Alert.alert(
+        "Password Error",
+        "You should not reuse the current password as the new password"
+      );
+      return;
+    }
     this.reauthenticate(this.state.currentPassword)
       .then(async () => {
         var user = auth.currentUser;
@@ -170,7 +177,7 @@ export default class ProfilePrivacy extends React.Component {
                 style={globalStyles.buttons}
                 onPress={this.onChangePasswordPress}
               >
-                <Text style={globalStyles.buttonsText}>Update</Text>
+                <Text style={globalStyles.buttonsText}>UPDATE</Text>
               </TouchableOpacity>
             </View>
           </View>
