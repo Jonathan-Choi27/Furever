@@ -1,12 +1,7 @@
 import React from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  Picker,
-} from "react-native";
+import { StyleSheet, Text, View, Picker } from "react-native";
 import { Icon } from "react-native-elements";
-import globalStyles, { primaryColour1, } from "../../styleSheet/styleSheet";
+import globalStyles, { primaryColour1 } from "../../styleSheet/styleSheet";
 // Solved from this link https://github.com/GeekyAnts/NativeBase/issues/636
 
 //Information
@@ -26,28 +21,25 @@ const dog_colour = ["Select colour", "Black", "Grey", "Brown", "White"];
 
 const cat_breed = [
   "Select breed",
+  "Bengal Cat",
   "British Shorthair",
   "Persian cat",
   "Siamese cat",
   "Ragdoll",
-  "Scottish Fold",
-  "Bengal cat",
   "Sphynx",
-  "Other",
 ];
 
 const cat_colour = ["Select colour", "Black", "Grey", "Brown", "White"];
 
 const bird_breed = [
   "Select breed",
-  "Parrot",
-  "Owl",
   "Parakeet",
+  "African Grey",
   "Cockatiel",
-  "Canarie",
   "Conure",
-  "Finch",
-  "Other",
+  "Parotlet",
+  "Canary",
+  "Amazon Parrot",
 ];
 
 const bird_colour = [
@@ -62,26 +54,41 @@ const bird_colour = [
   "Other",
 ];
 
-const reptile_breed = [
+const lizard_breed = [
   "Select breed",
+  "Red Ackie",
+  "Svannah Monitor",
+  "Leopard Gecko",
+  "Iguana",
+  "Crested Gecko",
   "Bearded Dragon",
-  "Gecko",
-  "Snake",
-  "Frog",
+  "Chameleon",
 ];
 
-const reptile_colour = ["Select colour", "Green", "Black", "White", "Other"];
+const lizard_colour = ["Select colour", "Green", "Black", "White", "Other"];
+
+const turtle_breed = [
+  "Select breed",
+  "Western Painted Turtle",
+  "Red Eared Slider",
+  "Spotted Turtle",
+  "Eastern Box",
+  "African Sideneck Turtle",
+  "Common Musk Turtle",
+  "Mississippi Map Turtle",
+];
+
+const turtle_colour = ["Select colour", "Green", "Black", "Brown", "Other"];
 
 const fish_breed = [
   "Select breed",
-  "Goldfish",
-  "Angelfish",
-  "Catfish",
-  "Guppies",
-  "Mollies",
-  "Clownfish",
-  "Guppies",
-  "Other",
+  "Betta Splenden",
+  "Fantail Goldfish",
+  "Neon Tetra",
+  "Freshwater Angelfish",
+  "Platy",
+  "Molly",
+  "Guppy",
 ];
 
 const fish_colour = [
@@ -92,6 +99,31 @@ const fish_colour = [
   "Blue",
   "Green",
 ];
+
+const rabbit_breed = [
+  "American",
+  "Belgian Hare",
+  "Blanc de Hotot",
+  "Californian",
+  "Checkered Giant",
+  "Dutch",
+  "English Lop",
+  "Lionhead",
+];
+
+const rabbit_colour = ["white", "black", "brown", "grey"];
+
+const horse_breed = [
+  "Arabian",
+  "American Quarter",
+  "Thoroughbred",
+  "Morgan",
+  "Appaloosa",
+  "Pony",
+  "Warmblood",
+];
+
+const horse_colour = ["white", "black", "brown", "grey"];
 
 const size = ["Select size", "Small", "Medium", "Large"];
 
@@ -125,12 +157,18 @@ export default class CategorySelection extends React.Component {
       return dog_breed;
     } else if (val == "Cat") {
       return cat_breed;
-    } else if (val == "Bird") {
-      return bird_breed;
+    } else if (val == "Rabbit") {
+      return rabbit_breed;
     } else if (val == "Fish") {
       return fish_breed;
-    } else if (val == "Reptile") {
-      return reptile_breed;
+    } else if (val == "Bird") {
+      return bird_breed;
+    } else if (val == "Horse") {
+      return horse_breed;
+    } else if (val == "Lizard") {
+      return lizard_breed;
+    } else if (val == "Turtle") {
+      return turtle_breed;
     } else {
       return empty_breed;
     }
@@ -139,18 +177,24 @@ export default class CategorySelection extends React.Component {
   //Get The Colour
   getColour(val) {
     if (val === "Dog") {
-      return dog_colour;
-    } else if (val == "Cat") {
-      return cat_colour;
-    } else if (val == "Bird") {
-      return bird_colour;
-    } else if (val == "Fish") {
-      return fish_colour;
-    } else if (val == "Reptile") {
-      return reptile_colour;
-    } else {
-      return empty_colour;
-    }
+        return dog_colour;
+      } else if (val == "Cat") {
+        return cat_colour;
+      } else if (val == "Rabbit") {
+        return rabbit_colour;
+      } else if (val == "Fish") {
+        return fish_colour;
+      } else if (val == "Bird") {
+        return bird_colour;
+      } else if (val == "Horse") {
+        return horse_colour;
+      } else if (val == "Lizard") {
+        return lizard_colour;
+      } else if (val == "Turtle") {
+        return turtle_colour;
+      } else {
+        return empty_colour;
+      }
   }
 
   //Get The Size
@@ -158,9 +202,12 @@ export default class CategorySelection extends React.Component {
     if (
       val === "Dog" ||
       val === "Cat" ||
-      val === "Bird" ||
+      val === "Rabbit" ||
       val === "Fish" ||
-      val === "Reptile"
+      val === "Bird" ||
+      val === "Horse" ||
+      val === "Lizard" ||
+      val === "Turtle"
     ) {
       return size;
     } else {
@@ -215,8 +262,7 @@ export default class CategorySelection extends React.Component {
               <Picker
                 style={styles.picker}
                 selectedValue={this.state.category}
-                onValueChange={this.onCategoryChange.bind(this)}
-              >
+                onValueChange={this.onCategoryChange.bind(this)}>
                 <Picker.Item
                   label="Select category"
                   value="0"
@@ -233,18 +279,33 @@ export default class CategorySelection extends React.Component {
                   style={styles.pickerEntry}
                 />
                 <Picker.Item
-                  label="Bird"
-                  value="Bird"
-                  style={styles.pickerEntry}
-                />
-                <Picker.Item
-                  label="Reptile"
-                  value="Reptile"
+                  label="Rabbit"
+                  value="Rabbit"
                   style={styles.pickerEntry}
                 />
                 <Picker.Item
                   label="Fish"
                   value="Fish"
+                  style={styles.pickerEntry}
+                />
+                <Picker.Item
+                  label="Bird"
+                  value="Bird"
+                  style={styles.pickerEntry}
+                />
+                <Picker.Item
+                  label="Horse"
+                  value="Horse"
+                  style={styles.pickerEntry}
+                />
+                <Picker.Item
+                  label="Lizard"
+                  value="Lizard"
+                  style={styles.pickerEntry}
+                />
+                <Picker.Item
+                  label="Turtle"
+                  value="Turtle"
                   style={styles.pickerEntry}
                 />
               </Picker>
@@ -268,8 +329,7 @@ export default class CategorySelection extends React.Component {
               <Picker
                 style={styles.picker}
                 selectedValue={this.state.breed}
-                onValueChange={this.onBreedChange.bind(this)}
-              >
+                onValueChange={this.onBreedChange.bind(this)}>
                 {this.getBreed(this.state.category).map((item, i) => {
                   if (i == 0) {
                     return (
@@ -304,8 +364,7 @@ export default class CategorySelection extends React.Component {
               <Picker
                 style={styles.picker}
                 selectedValue={this.state.colour}
-                onValueChange={this.onColourChange.bind(this)}
-              >
+                onValueChange={this.onColourChange.bind(this)}>
                 {this.getColour(this.state.category).map((item, i) => {
                   if (i == 0) {
                     return (
@@ -341,8 +400,7 @@ export default class CategorySelection extends React.Component {
               <Picker
                 style={styles.picker}
                 selectedValue={this.state.size}
-                onValueChange={this.onSizeChange.bind(this)}
-              >
+                onValueChange={this.onSizeChange.bind(this)}>
                 {this.getSize(this.state.category).map((item, i) => {
                   if (i == 0) {
                     return (

@@ -453,6 +453,7 @@ export default class petCategories extends React.Component {
     }
 
     //Price
+    addOn = false;
     if (this.state.price1Check) {
       this.setState({ filterDisplay: true });
       if (addOn) {
@@ -479,6 +480,7 @@ export default class petCategories extends React.Component {
         }
       }
     }
+    addOn = false;
     if (this.state.price2Check) {
       this.setState({ filterDisplay: true });
       if (addOn) {
@@ -505,6 +507,7 @@ export default class petCategories extends React.Component {
         }
       }
     }
+    addOn = false;
     if (this.state.price3Check) {
       this.setState({ filterDisplay: true });
       if (addOn) {
@@ -529,6 +532,7 @@ export default class petCategories extends React.Component {
         }
       }
     }
+    addOn = false;
     if (this.state.price4Check) {
       this.setState({ filterDisplay: true });
       if (addOn) {
@@ -553,6 +557,7 @@ export default class petCategories extends React.Component {
         }
       }
     }
+    addOn = false;
     if (this.state.price5Check) {
       this.setState({ filterDisplay: true });
       if (addOn) {
@@ -577,7 +582,8 @@ export default class petCategories extends React.Component {
         }
       }
     }
-    if (this.state.price2Check) {
+    addOn = false;
+    if (this.state.price6Check) {
       this.setState({ filterDisplay: true });
       if (addOn) {
         let filteredData = this.state.data.filter(function (item) {
