@@ -64,7 +64,10 @@ export const shopCategory = (category, navigation) => {
         onPress={() => navigation.navigate("accessoryCategories", { category })}
       >
         <View style={globalStyles.categoryIconContainer}>
-          <Image style={globalStyles.icon} source={{ uri: category.categoryImage }} />
+          <Image
+            style={globalStyles.icon}
+            source={{ uri: category.categoryImage }}
+          />
           <Text style={globalStyles.iconText}>{category.category}</Text>
         </View>
       </TouchableOpacity>
@@ -123,4 +126,8 @@ export const addItemToCart = (item) => {
     "Item Added",
     "Your item has been successfully added to the cart"
   );
+};
+
+export const removeItemFromCart = () => {
+  itemList.splice(0, itemList.length);
 };

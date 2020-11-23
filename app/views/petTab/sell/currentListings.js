@@ -163,6 +163,7 @@ export default class currentListings extends React.Component {
   //Handle back button
   async componentDidMount() {
     this.props.navigation.addListener("focus", () => {
+        console.log("focus!");
       this.fetchData();
     });
 
