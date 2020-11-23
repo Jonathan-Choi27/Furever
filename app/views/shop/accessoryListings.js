@@ -55,6 +55,10 @@ export default class accessoryListings extends React.Component {
             description: snapshot.data().description,
             photo: snapshot.data().photoLink,
             docId: snapshot.id,
+            // references
+            categorizedShopListingsRef: snapshot.data().categorizedShopListingsRef,
+            selfRef: snapshot.data().selfRef,
+            userShopSellListRef: snapshot.data().userShopSellListRef
           });
           this.state.data.push(dataArray.pop());
         });

@@ -8,18 +8,22 @@ console.disableYellowBox = true;
 const db = firebase.firestore();
 
 //Delete Accessory
-const deleteAccessory = (docId) => {
-  const deleteItemId = docId;
-  db.collection("accessories")
-    .doc(deleteItemId)
-    .delete()
-    .then(function () {
-      Alert.alert("Alert", "Your chosen accessory has been deleted.");
-      //   alert("Accessory deleted.");
-    })
-    .catch(function (error) {
-      Alert.alert("Error", error.message);
-    });
+const deleteAccessory = async (item) => {
+    await item.categorizedShopListingsRef.delete();
+    await item.selfRef.delete();
+    await item.userShopSellListRef.delete();
+    Alert.alert("Notification", "Deleted");
+//   const deleteItemId = docId;
+//   db.collection("accessories")
+//     .doc(deleteItemId)
+//     .delete()
+//     .then(function () {
+//       Alert.alert("Alert", "Your chosen accessory has been deleted.");
+//       //   alert("Accessory deleted.");
+//     })
+//     .catch(function (error) {
+//       Alert.alert("Error", error.message);
+//     });
 };
 
 //Accessory Listing Card
@@ -84,7 +88,7 @@ export const accessoriesListingCard = (item, navigation) => {
               </Button>
               <Button
                 style={globalStyles.smallButton}
-                onPress={() => deleteAccessory(item.docId)}>
+                onPress={() => deleteAccessory(item)}>
                 <Text style={globalStyles.smallButtonText}>Delete</Text>
               </Button>
             </View>
