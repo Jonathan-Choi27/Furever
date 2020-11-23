@@ -705,9 +705,11 @@ export default class petBreeds extends React.Component {
     }
     if (addOn) {
       dataToFilter = listData;
-    } else {
-      dataToFilter = this.state.data;
-    }
+      if (dataToFilter.length = 0) {
+        dataToFilter = this.state.data;
+      }
+    } 
+    
     addOn = false;
     if (this.state.price1Check) {
       this.setState({ filterDisplay: true });
@@ -725,9 +727,7 @@ export default class petBreeds extends React.Component {
             return item;
           }
         });
-        if (filteredData.length > 0) {
-          addOn = true;
-        }
+        addOn = true;
         listData = filteredData;
       }
     }
@@ -735,125 +735,105 @@ export default class petBreeds extends React.Component {
     if (this.state.price2Check) {
       this.setState({ filterDisplay: true });
       if (addOn) {
-        let filteredData = this.state.data.filter(function (item) {
+        let filteredData = dataToFilter.filter(function (item) {
           if (item.price < 1000) {
             return item;
           }
         });
-        if (filteredData.length > 0) {
-          addOn = true;
-          listData = listData.concat(filteredData);
-        }
+        addOn = true;
+        listData = listData.concat(filteredData);
       } else {
-        let filteredData = listData.filter(function (item) {
+        let filteredData = dataToFilter.filter(function (item) {
           if (item.price < 1000) {
             return item;
           }
         });
-        if (filteredData.length > 0) {
-          addOn = true;
-          listData = filteredData;
-        }
+        addOn = true;
+        listData = filteredData;
       }
     }
     var addOn = false;
     if (this.state.price3Check) {
       this.setState({ filterDisplay: true });
       if (addOn) {
-        let filteredData = this.state.data.filter(function (item) {
+        let filteredData = dataToFilter.filter(function (item) {
           if (item.price < 3000) {
             return item;
           }
         });
-        if (filteredData.length > 0) {
-          addOn = true;
-          listData = listData.concat(filteredData);
-        }
+        addOn = true;
+        listData = listData.concat(filteredData);
       } else {
-        let filteredData = listData.filter(function (item) {
+        let filteredData = dataToFilter.filter(function (item) {
           if (item.price < 3000) {
             return item;
           }
         });
-        if (filteredData.length > 0) {
-          addOn = true;
-          listData = filteredData;
-        }
+        addOn = true;
+        listData = filteredData;
       }
     }
     var addOn = false;
     if (this.state.price4Check) {
       this.setState({ filterDisplay: true });
       if (addOn) {
-        let filteredData = this.state.data.filter(function (item) {
+        let filteredData = dataToFilter.filter(function (item) {
           if (item.price < 5000) {
             return item;
           }
         });
-        if (filteredData.length > 0) {
-          addOn = true;
-          listData = listData.concat(filteredData);
-        }
+        addOn = true;
+        listData = listData.concat(filteredData);
       } else {
-        let filteredData = listData.filter(function (item) {
+        let filteredData = dataToFilter.filter(function (item) {
           if (item.price < 5000) {
             return item;
           }
         });
-        if (filteredData.length > 0) {
-          addOn = true;
-          listData = filteredData;
-        }
+        addOn = true;
+        listData = filteredData;
       }
     }
     var addOn = false;
     if (this.state.price5Check) {
       this.setState({ filterDisplay: true });
       if (addOn) {
-        let filteredData = this.state.data.filter(function (item) {
+        let filteredData = dataToFilter.filter(function (item) {
           if (item.price < 10000) {
             return item;
           }
         });
-        if (filteredData.length > 0) {
-          addOn = true;
-          listData = listData.concat(filteredData);
-        }
+        addOn = true;
+        listData = listData.concat(filteredData);
       } else {
-        let filteredData = listData.filter(function (item) {
+        let filteredData = dataToFilter.filter(function (item) {
           if (item.price < 10000) {
             return item;
           }
         });
-        if (filteredData.length > 0) {
-          addOn = true;
-          listData = filteredData;
-        }
+        addOn = true;
+        listData = filteredData;
       }
     }
     var addOn = false;
     if (this.state.price6Check) {
       this.setState({ filterDisplay: true });
       if (addOn) {
-        let filteredData = this.state.data.filter(function (item) {
+        let filteredData = dataToFilter.filter(function (item) {
           if (item.price > 10000) {
             return item;
           }
         });
-        if (filteredData.length > 0) {
-          addOn = true;
-          listData = listData.concat(filteredData);
-        }
+        addOn = true;
+        listData = listData.concat(filteredData);
       } else {
-        let filteredData = listData.filter(function (item) {
+        let filteredData = dataToFilter.filter(function (item) {
           if (item.price > 10000) {
             return item;
           }
         });
-        if (filteredData.length > 0) {
-          addOn = true;
-          listData = filteredData;
-        }
+        addOn = true;
+        listData = filteredData;
       }
     }
 
