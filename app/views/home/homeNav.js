@@ -34,6 +34,7 @@ export default function HomeNav() {
           name="homePetListing"
           component={homePetListing}
           options={{
+            headerLeft: null,
             title: "Home",
             headerStyle: {
               backgroundColor: "white",

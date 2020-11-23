@@ -983,6 +983,7 @@ export default class HomePetListing extends React.Component {
             {
               label: "Close",
               onPress: () => this.setState({ bannerVisible: false }),
+              color: {primaryColour1}
             },
           ]}>
           <Text style={{ fontSize: 16, fontWeight: "bold" }}>
