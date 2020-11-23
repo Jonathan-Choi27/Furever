@@ -84,7 +84,7 @@ export default class SignUp extends React.Component {
                 uuid: user.uid,
               });
               user.sendEmailVerification();
-              Alert.alert("Error", `An email has been sent, please verify your account at ${email}`);
+              Alert.alert("Account Created!", `An email has been sent, please verify your account at ${email}`);
               this.props.navigation.navigate("Login");
             })
             .catch((error) => {
@@ -92,7 +92,7 @@ export default class SignUp extends React.Component {
             });
         })
         .catch((error) => {
-            Alert.alert("Error", error.message);
+          Alert.alert("Error", error.message);
         });
     }
   };
