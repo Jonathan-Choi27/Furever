@@ -111,6 +111,7 @@ export default class accessoryList extends React.Component {
     this.props.navigation.addListener("focus", () => {
       this.fetchData();
     });
+
     this.fetchData();
     BackHandler.addEventListener(
       "hardwareBackPress",

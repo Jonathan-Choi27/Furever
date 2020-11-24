@@ -40,8 +40,7 @@ export const buyerInfo = (item) => {
               color: "black",
               paddingLeft: 20,
               flex: 1,
-            }}
-          >
+            }}>
             {item.name}'s Application
           </Text>
         </View>
@@ -192,8 +191,7 @@ export const acceptBuyer = (item, navigation) => {
                   );
                 }
               });
-          }}
-        >
+          }}>
           <Text style={styles.buttonsText}>ACCEPT</Text>
         </TouchableOpacity>
       ) : item.is_accepted == true ? (
@@ -211,8 +209,7 @@ export const acceptBuyer = (item, navigation) => {
                 ")",
               body
             );
-          }}
-        >
+          }}>
           <Text style={styles.buttonsText}>ACCEPTED APPLICATION</Text>
         </TouchableOpacity>
       ) : null}
@@ -231,16 +228,17 @@ export const rejectBuyer = (item, navigation) => {
             .doc(item.pet_id)
             .collection("buyer_applications")
             .doc(item.doc_id)
-            .delete();
+            .delete()
+            .then((sucess) => {
+              Alert.alert(
+                "Offer Rejected",
+                "You have declined this offer application, and the offer will now be removed."
+              );
 
-          Alert.alert(
-            "Offer Rejected",
-            "You have declined this offer application, and the offer will now be removed."
-          );
-
-          navigation.navigate("offerApplications");
-        }}
-      >
+              navigation.goBack();
+              //   navigation.navigate("offerApplications");
+            });
+        }}>
         <Text style={styles.buttonsText}>REJECT</Text>
       </TouchableOpacity>
     </View>
