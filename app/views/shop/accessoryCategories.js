@@ -126,7 +126,7 @@ export default class accessoryCateogries extends React.Component {
     this.setState({ filteredData: filteredData });
   };
 
-  //Check Functionality
+  //Check Function
   checkFunction = (input) => {
     switch (input) {
       //Animal
@@ -152,7 +152,7 @@ export default class accessoryCateogries extends React.Component {
         this.setState({ lizardCheck: !this.state.lizardCheck });
         break;
       case "turtleCheck":
-        this.setState({ catCturtleCheckheck: !this.state.turtleCheck });
+        this.setState({ turtleCheck: !this.state.turtleCheck });
         break;
       case "pigCheck":
         this.setState({ pigCheck: !this.state.pigCheck });
@@ -206,6 +206,35 @@ export default class accessoryCateogries extends React.Component {
 
       default:
     }
+  };
+
+  //UnCheck Function
+  unCheckFunction = () => {
+    this.setState({ 
+      dogCheck: false,
+      catCheck: false,
+      rabbitCheck: false,
+      fishCheck: false,
+      birdCheck: false,
+      horseCheck: false,
+      lizardCheck: false,
+      turtleCheck: false,
+      pigCheck: false,      
+      type1Check: false,
+      type2Check: false,
+      type3Check: false,
+      type4Check: false,
+      type5Check: false,
+      type6Check: false,
+      type7Check: false,
+      type8Check: false,
+      price1Check: false,
+      price2Check: false,
+      price3Check: false,
+      price4Check: false,
+      price5Check: false,
+      price6Check: false,
+    });        
   };
 
   displayFunction = () => {
@@ -456,6 +485,7 @@ export default class accessoryCateogries extends React.Component {
     }
 
     //Price
+    addOn = false;
     if (this.state.price1Check) {
       this.setState({ filterDisplay: true });
       if (addOn) {
@@ -482,6 +512,7 @@ export default class accessoryCateogries extends React.Component {
         }
       }
     }
+    addOn = false;
     if (this.state.price2Check) {
       this.setState({ filterDisplay: true });
       if (addOn) {
@@ -508,6 +539,7 @@ export default class accessoryCateogries extends React.Component {
         }
       }
     }
+    addOn = false;
     if (this.state.price3Check) {
       this.setState({ filterDisplay: true });
       if (addOn) {
@@ -532,6 +564,7 @@ export default class accessoryCateogries extends React.Component {
         }
       }
     }
+    addOn = false;
     if (this.state.price4Check) {
       this.setState({ filterDisplay: true });
       if (addOn) {
@@ -556,6 +589,7 @@ export default class accessoryCateogries extends React.Component {
         }
       }
     }
+    addOn = false;
     if (this.state.price5Check) {
       this.setState({ filterDisplay: true });
       if (addOn) {
@@ -580,7 +614,8 @@ export default class accessoryCateogries extends React.Component {
         }
       }
     }
-    if (this.state.price2Check) {
+    addOn = false;
+    if (this.state.price6Check) {
       this.setState({ filterDisplay: true });
       if (addOn) {
         let filteredData = this.state.data.filter(function (item) {
@@ -1034,6 +1069,14 @@ export default class accessoryCateogries extends React.Component {
                   </Card.Content>
                   <Card.Actions style={{ justifyContent: "flex-end" }}>
                     <Button
+                      style={{ paddingRight: 15 }}                
+                      color={primaryColour1}
+                      onPress={() => {
+                        this.unCheckFunction();
+                      }}>
+                      Clear
+                    </Button>
+                    <Button
                       color={primaryColour1}
                       onPress={() => {
                         this.displayFunction();
@@ -1056,7 +1099,7 @@ export default class accessoryCateogries extends React.Component {
                   </View>
                 ) : (
                   <FlatList
-                    numColumns={2}
+                    numColumns={1}
                     key={1}
                     showsVerticalScrollIndicator={false}
                     renderItem={({ item }) =>
@@ -1116,7 +1159,7 @@ export default class accessoryCateogries extends React.Component {
                       </View>
                     ) : (
                       <FlatList
-                        numColumns={2}
+                        numColumns={1}
                         key={1}
                         showsVerticalScrollIndicator={false}
                         renderItem={({ item }) =>

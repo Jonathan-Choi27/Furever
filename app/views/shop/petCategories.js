@@ -149,7 +149,7 @@ export default class petCategories extends React.Component {
         this.setState({ lizardCheck: !this.state.lizardCheck });
         break;
       case "turtleCheck":
-        this.setState({ catCturtleCheckheck: !this.state.turtleCheck });
+        this.setState({ turtleCheck: !this.state.turtleCheck });
         break;
       case "pigCheck":
         this.setState({ pigCheck: !this.state.pigCheck });
@@ -203,6 +203,35 @@ export default class petCategories extends React.Component {
 
       default:
     }
+  };
+
+  //UnCheck Function
+  unCheckFunction = () => {
+    this.setState({ 
+      dogCheck: false,
+      catCheck: false,
+      rabbitCheck: false,
+      fishCheck: false,
+      birdCheck: false,
+      horseCheck: false,
+      lizardCheck: false,
+      turtleCheck: false,
+      pigCheck: false,      
+      type1Check: false,
+      type2Check: false,
+      type3Check: false,
+      type4Check: false,
+      type5Check: false,
+      type6Check: false,
+      type7Check: false,
+      type8Check: false,
+      price1Check: false,
+      price2Check: false,
+      price3Check: false,
+      price4Check: false,
+      price5Check: false,
+      price6Check: false,
+    });        
   };
 
   displayFunction = () => {
@@ -1036,6 +1065,14 @@ export default class petCategories extends React.Component {
                   </Card.Content>
                   <Card.Actions style={{ justifyContent: "flex-end" }}>
                     <Button
+                      style={{ paddingRight: 15 }}                
+                      color={primaryColour1}
+                      onPress={() => {
+                        this.unCheckFunction();
+                      }}>
+                      Clear
+                    </Button>
+                    <Button
                       color={primaryColour1}
                       onPress={() => {
                         this.displayFunction();
@@ -1138,7 +1175,7 @@ export default class petCategories extends React.Component {
                     ) : (
                       <FlatList
                         showsVerticalScrollIndicator={false}
-                        numColumns={2}
+                        numColumns={1}
                         key={1}
                         renderItem={({ item }) =>
                           accessoryListingCard(item, this.props.navigation)
