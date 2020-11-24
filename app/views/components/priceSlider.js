@@ -50,7 +50,9 @@ export default class PriceSlider extends React.Component {
               }}
               value={this.props.price.toString()}
               onChangeText={(price) => {
-                this.props.setPrice(price);
+                if (/^\d+$/.test(price) || price == "") {
+                  this.props.setPrice(price);
+                }
               }}
               leftIcon={
                 <Text
@@ -58,12 +60,10 @@ export default class PriceSlider extends React.Component {
                     color: primaryColour1,
                     fontSize: 20,
                     fontWeight: "bold",
-                  }}
-                >
+                  }}>
                   $
                 </Text>
-              }
-            ></Input>
+              }></Input>
           </View>
         </View>
       </View>

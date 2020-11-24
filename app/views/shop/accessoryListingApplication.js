@@ -156,9 +156,10 @@ export default class accessoryListingApplication extends React.Component {
               timestamp: firebase.firestore.Timestamp.now(),
             });
           });
-      });
-      Alert.alert("Alert", "Application Successful!");
-    this.props.navigation.goBack();
+      }).then((sucess) => {
+          Alert.alert("Alert", "Your application has been successful!");
+          this.props.navigation.goBack();
+      })
   };
 
   handleSubmit = () => {

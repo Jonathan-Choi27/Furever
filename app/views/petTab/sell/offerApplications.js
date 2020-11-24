@@ -3,12 +3,7 @@ import "react-navigation";
 import "react-navigation-props-mapper";
 import "@react-navigation/native";
 import "react-navigation-hooks";
-import {
-  View,
-  FlatList,
-  Text,
-  BackHandler,
-} from "react-native";
+import { View, FlatList, Text, BackHandler } from "react-native";
 import firebase from "firebase";
 import globalStyles from "../../styleSheet/styleSheet";
 import { offerApplicationListingCard } from "../../components/offerApplicationListingsComponent";
@@ -102,7 +97,9 @@ export default class offerApplications extends React.Component {
 
   //Handle back button
   async componentDidMount() {
-    this.fetchData();
+    this.props.navigation.addListener("focus", () => {
+      this.fetchData();
+    });
     BackHandler.addEventListener(
       "hardwareBackPress",
       this.handleBackButtonClick
