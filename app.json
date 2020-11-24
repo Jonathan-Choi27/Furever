@@ -2,15 +2,15 @@
     "expo": {
         "name": "Furever",
         "icon": "./logo.png",
-        "version": "1.0.1",
+        "version": "1.0.2",
         "slug": "furever",
         "ios": {
             "bundleIdentifier": "com.riddle.tech.furever",
-            "buildNumber": "1.0.1"
+            "buildNumber": "1.0.2"
         },
         "android": {
             "package": "com.riddle.tech.furever",
-            "versionCode": 2
+            "versionCode": 3
         },
         "splash": {
             "image": "./splash.png",
