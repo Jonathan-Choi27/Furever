@@ -1038,18 +1038,6 @@ export default class HomePetListing extends React.Component {
               Filter
             </Button>
           </View>
-          <Checkbox.Item
-            style={{ justifyContent: "flex-end" }}
-            theme={{ colors: { primary: primaryColour1 } }}
-            color={primaryColour1}
-            label="Best Match"
-            status={
-              this.state.bestMatchCheck ? "checked" : "unchecked"
-            }
-            onPress={() => {
-              this.checkFunction("bestMatchCheck");
-            }}
-          />
 
           <Portal>
             <Modal
@@ -1060,13 +1048,14 @@ export default class HomePetListing extends React.Component {
               }}>
               <Card elevation={5} style={{ margin: 10 }}>
                 <Card.Content>
-                  <ScrollView style={{ height: 450 }}>
+                  <ScrollView style={{ height: 450 }}>                  
                     <View
                       style={{
                         flex: 1,
                         flexDirection: "row",
                         justifyContent: "flex-start",
                       }}>
+                        
                       {/* First filter column */}
                       <View
                         style={{
@@ -1519,6 +1508,18 @@ export default class HomePetListing extends React.Component {
                   </ScrollView>
                 </Card.Content>
                 <Card.Actions style={{ justifyContent: "flex-end" }}>
+                <Checkbox.Item
+                          style={{ justifyContent: "flex-end" }}
+                          theme={{ colors: { primary: primaryColour1 } }}
+                          color={primaryColour1}
+                          label="Best Match"
+                          status={
+                            this.state.bestMatchCheck ? "checked" : "unchecked"
+                          }
+                          onPress={() => {
+                            this.checkFunction("bestMatchCheck");
+                          }}
+                        />
                   <Button
                     color={primaryColour1}
                     onPress={() => {
