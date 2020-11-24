@@ -55,15 +55,20 @@ export default class revieApplication extends React.Component {
       .doc(sellerId)
       .get()
       .then((doc) => {
-        var averageRating = doc.data().averageRating;
+        var averageRating = []
+        if(doc.data().averageRating != undefined){
+            averageRating = doc.data().averageRating;
+        } 
+
+        // var averageRating = doc.data().averageRating;
         averageRating.push(this.state.rating);
 
         db.collection("users").doc(sellerId).update({
           averageRating: averageRating,
         });
+      }).then((success) => {
+          this.props.navigation.goBack();
       });
-
-    this.props.navigation.goBack();
   };
 
   render() {

@@ -3,7 +3,7 @@ import "react-navigation";
 import "react-navigation-props-mapper";
 import "@react-navigation/native";
 import "react-navigation-hooks";
-import { ScrollView, BackHandler } from "react-native";
+import { ScrollView, BackHandler, Text } from "react-native";
 import {
   expressInterest,
   profileInfo,
@@ -54,7 +54,9 @@ export default class homePetProfile extends React.Component {
   }
 
   async componentDidMount() {
-    this.fetchData();
+    this.props.navigation.addListener("focus", () => {
+        this.fetchData();
+      });
 
     BackHandler.addEventListener(
       "hardwareBackPress",

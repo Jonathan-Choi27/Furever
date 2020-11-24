@@ -77,7 +77,8 @@ export default class ProfilePrivacy extends React.Component {
             Alert.alert("Password changed", "Your change was successful.");
             this.setState({ newPassword: "" });
             this.setState({ currentPassword: "" });
-            this.props.navigation.navigate("profileHome");
+            this.props.navigation.goBack();
+            // this.props.navigation.navigate("profileHome");
           })
           .catch((error) => {
             Alert.alert("Error", error.message);

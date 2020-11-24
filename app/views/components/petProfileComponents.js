@@ -18,7 +18,7 @@ const screenWidth = Math.round(Dimensions.get("window").width);
 
 //Check Documents
 const checkDocuments = (field) => {
-  if (field === "") {
+  if (field === "" || field == undefined) {
     return <Text style={styles.contentText}>No Documents Provided.</Text>;
   }
   return <OpenURLButton url={field} title="Open Document" />;

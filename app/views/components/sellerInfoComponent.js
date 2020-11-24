@@ -37,8 +37,7 @@ export const sellerDetails = (seller) => {
               color: "black",
               marginLeft: 30,
               flex: 1,
-            }}
-          >
+            }}>
             {seller.name}'s Profile
           </Text>
         </View>
@@ -51,23 +50,26 @@ export const sellerDetails = (seller) => {
             marginBottom: 10,
             marginTop: 10,
             paddingRight: 10,
-          }}
-        >
+          }}>
           <Text style={globalStyles.cardHeading}>Personal Information</Text>
           <View style={[globalStyles.cardContainer, { paddingBottom: 5 }]}>
-            <View>
+            <View style={{ flex: 0.25 }}>
               <Text style={globalStyles.contentTextBold}>Name: </Text>
               <Text style={globalStyles.contentTextBold}>Email: </Text>
               <Text style={globalStyles.contentTextBold}>Description: </Text>
             </View>
-            <View style={{ paddingLeft: 5 }}>
+            <View style={{ paddingLeft: 5, flex: 0.75 }}>
               <Text numberOfLines={1} style={globalStyles.contentText}>
                 {seller.name}
               </Text>
               <Text numberOfLines={1} style={globalStyles.contentText}>
                 {seller.email}
               </Text>
-              <Text style={globalStyles.contentText}>{seller.profileText}</Text>
+              <View style={{ flex: 1 }}>
+                <Text style={globalStyles.contentText}>
+                  {seller.profileText}
+                </Text>
+              </View>
             </View>
           </View>
         </View>
@@ -81,22 +83,19 @@ export const reviewCard = (item) => {
   return (
     <Card
       elevation={5}
-      style={[globalStyles.cardContentContainer, { marginBottom: 10 }]}
-    >
+      style={[globalStyles.cardContentContainer, { marginBottom: 10 }]}>
       <View
         style={{
           flexDirection: "row",
           justifyContent: "center",
           margin: 10,
-        }}
-      >
+        }}>
         <View
           style={{
             height: screenWidth / 5,
             width: screenWidth / 5,
             flex: 1,
-          }}
-        >
+          }}>
           <Image
             source={{ uri: item.reviewerPhoto }}
             style={{
@@ -105,21 +104,25 @@ export const reviewCard = (item) => {
             }}
           />
         </View>
-
         <View
           style={{
             paddingLeft: 15,
             justifyContent: "center",
             flex: 3,
-          }}
-        >
+          }}>
           <Text
             style={[
               globalStyles.contentTextBold,
               { paddingBottom: 3, fontSize: 18 },
-            ]}
-          >
+            ]}>
             {item.reviewerName}
+          </Text>
+          <Text
+            style={{
+              fontSize: 11,
+              color: "#666666",
+            }}>
+            {item.timestamp}
           </Text>
           <Text style={[globalStyles.contentText, { flex: 1 }]}>
             {item.review}

@@ -76,7 +76,7 @@ export default class homeSellerProfile extends React.Component {
     db.collection("users")
       .doc(seller.sellerId)
       .collection("reviewList")
-      .orderBy("timestamp")
+      .orderBy("timestamp", "desc")
       .limit(3)
       .get()
       .then((doc) => {
@@ -88,7 +88,10 @@ export default class homeSellerProfile extends React.Component {
               review: review.data().review,
               reviewerName: snapshot.data().name,
               reviewerPhoto: snapshot.data().photo,
+              timestamp: review.data().timestamp.toDate().toLocaleString('en-GB', { timeZone: 'UTC' })
             });
+
+
             this.setState({
               reviewData: [...reviewArray],
             });

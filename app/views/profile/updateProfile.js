@@ -20,11 +20,11 @@ import globalStyles, {
   primaryColour2,
   screenWidth,
 } from "../styleSheet/styleSheet";
-import { YellowBox } from 'react-native';
+import { YellowBox } from "react-native";
 
 // Not using state persistence or deep link to the screen which accepts functions in params
 YellowBox.ignoreWarnings([
-  'Non-serializable values were found in the navigation state',
+  "Non-serializable values were found in the navigation state",
 ]);
 
 export default class updateProfile extends React.Component {
@@ -86,7 +86,7 @@ export default class updateProfile extends React.Component {
         profileText: this.state.profileText,
       })
       .then(() => {
-          Alert.alert("Alert", "Update successful!");
+        Alert.alert("Alert", "Update successful!");
         this.props.route.params.refresh();
         this.props.navigation.goBack();
       });
