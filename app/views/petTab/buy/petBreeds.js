@@ -317,7 +317,7 @@ export default class petBreeds extends React.Component {
     }
     if (this.state.rabbitCheck) {
       this.setState({ filterDisplay: true });
-      let filteredData = listData.filter(function (item) {
+      let filteredData = this.state.data.filter(function (item) {
         return item.category.toLowerCase().includes("rabbit");
       });
       addOn = true;
@@ -325,7 +325,7 @@ export default class petBreeds extends React.Component {
     }
     if (this.state.fishCheck) {
       this.setState({ filterDisplay: true });
-      let filteredData = listData.filter(function (item) {
+      let filteredData = this.state.data.filter(function (item) {
         return item.category.toLowerCase().includes("fish");
       });
       addOn = true;
@@ -333,7 +333,7 @@ export default class petBreeds extends React.Component {
     }
     if (this.state.birdCheck) {
       this.setState({ filterDisplay: true });
-      let filteredData = listData.filter(function (item) {
+      let filteredData = this.state.data.filter(function (item) {
         return item.category.toLowerCase().includes("bird");
       });
       addOn = true;
@@ -341,7 +341,7 @@ export default class petBreeds extends React.Component {
     }
     if (this.state.horseCheck) {
       this.setState({ filterDisplay: true });
-      let filteredData = listData.filter(function (item) {
+      let filteredData = this.state.data.filter(function (item) {
         return item.category.toLowerCase().includes("horse");
       });
       addOn = true;
@@ -349,7 +349,7 @@ export default class petBreeds extends React.Component {
     }
     if (this.state.lizardCheck) {
       this.setState({ filterDisplay: true });
-      let filteredData = listData.filter(function (item) {
+      let filteredData = this.state.data.filter(function (item) {
         return item.category.toLowerCase().includes("lizard");
       });
       addOn = true;
@@ -357,7 +357,7 @@ export default class petBreeds extends React.Component {
     }
     if (this.state.turtleCheck) {
       this.setState({ filterDisplay: true });
-      let filteredData = listData.filter(function (item) {
+      let filteredData = this.state.data.filter(function (item) {
         return item.category.toLowerCase().includes("turtle");
       });
       addOn = true;
@@ -365,7 +365,7 @@ export default class petBreeds extends React.Component {
     }
     if (this.state.pigCheck) {
       this.setState({ filterDisplay: true });
-      let filteredData = listData.filter(function (item) {
+      let filteredData = this.state.data.filter(function (item) {
         return item.category.toLowerCase().includes("pig");
       });
       addOn = true;
