@@ -33,6 +33,8 @@ export default class homeSellerProfile extends React.Component {
     db.collection("users")
       .doc(seller.sellerId)
       .collection("sellList")
+      .orderBy("timestamp", "desc")
+      .limit(3)
       .get()
       .then((doc) => {
         doc.forEach(async (refDoc) => {
