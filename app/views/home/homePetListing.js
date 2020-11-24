@@ -266,7 +266,7 @@ export default class HomePetListing extends React.Component {
         this.setState({ lizardCheck: !this.state.lizardCheck });
         break;
       case "turtleCheck":
-        this.setState({ catCturtleCheckheck: !this.state.turtleCheck });
+        this.setState({ turtleCheck: !this.state.turtleCheck });
         break;
       case "pigCheck":
         this.setState({ pigCheck: !this.state.pigCheck });
@@ -355,6 +355,46 @@ export default class HomePetListing extends React.Component {
 
       default:
     }
+  };
+
+  //UnCheck Function
+  unCheckFunction = () => {
+    this.setState({ 
+      dogCheck: false,
+      catCheck: false,
+      rabbitCheck: false,
+      fishCheck: false,
+      birdCheck: false,
+      horseCheck: false,
+      lizardCheck: false,
+      turtleCheck: false,
+      pigCheck: false,
+      filterDisplay: false,
+      whiteColour: false,
+      goldColour: false,
+      greenColour: false,
+      blackColour: false,
+      rainbowColour: false,
+      greyColour: false,
+      brownColour: false,
+      redColour: false,
+      orangeColour: false,
+      nswCheck: false,
+      vicCheck: false,
+      qldCheck: false,
+      waCheck: false,
+      saCheck: false,
+      tasCheck: false,
+      actCheck: false,
+      ntCheck: false,
+      price1Check: false,
+      price2Check: false,
+      price3Check: false,
+      price4Check: false,
+      price5Check: false,
+      price6Check: false,
+      bestMatchCheck: false,
+    });        
   };
 
   //Display Function
@@ -1038,18 +1078,6 @@ export default class HomePetListing extends React.Component {
               Filter
             </Button>
           </View>
-          <Checkbox.Item
-            style={{ justifyContent: "flex-end" }}
-            theme={{ colors: { primary: primaryColour1 } }}
-            color={primaryColour1}
-            label="Best Match"
-            status={
-              this.state.bestMatchCheck ? "checked" : "unchecked"
-            }
-            onPress={() => {
-              this.checkFunction("bestMatchCheck");
-            }}
-          />
 
           <Portal>
             <Modal
@@ -1060,13 +1088,14 @@ export default class HomePetListing extends React.Component {
               }}>
               <Card elevation={5} style={{ margin: 10 }}>
                 <Card.Content>
-                  <ScrollView style={{ height: 450 }}>
+                  <ScrollView style={{ height: 450 }}>                  
                     <View
                       style={{
                         flex: 1,
                         flexDirection: "row",
                         justifyContent: "flex-start",
                       }}>
+                        
                       {/* First filter column */}
                       <View
                         style={{
@@ -1519,6 +1548,28 @@ export default class HomePetListing extends React.Component {
                   </ScrollView>
                 </Card.Content>
                 <Card.Actions style={{ justifyContent: "flex-end" }}>
+                <Checkbox.Item
+                          style={{ justifyContent: "flex-end", paddingRight: 75 }}
+                          theme={{ colors: { primary: primaryColour1 } }}
+                          color={primaryColour1}
+                          label="Best Match"
+                          status={
+                            this.state.bestMatchCheck ? "checked" : "unchecked"
+                          }
+                          onPress={() => {
+                            this.checkFunction("bestMatchCheck");
+                          }}
+                        />
+                <Button
+                    style={{ paddingRight: 15 }}                
+                    color={primaryColour1}
+                    onPress={() => {
+                      this.unCheckFunction();
+                    }}>
+                    Clear
+                  </Button>
+                  
+                
                   <Button
                     color={primaryColour1}
                     onPress={() => {

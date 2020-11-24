@@ -254,6 +254,45 @@ export default class petBreeds extends React.Component {
     }
   };
 
+  //UnCheck Function
+  unCheckFunction = () => {
+    this.setState({ 
+      dogCheck: false,
+      catCheck: false,
+      rabbitCheck: false,
+      fishCheck: false,
+      birdCheck: false,
+      horseCheck: false,
+      lizardCheck: false,
+      turtleCheck: false,
+      pigCheck: false,
+      filterDisplay: false,
+      whiteColour: false,
+      goldColour: false,
+      greenColour: false,
+      blackColour: false,
+      rainbowColour: false,
+      greyColour: false,
+      brownColour: false,
+      redColour: false,
+      orangeColour: false,
+      nswCheck: false,
+      vicCheck: false,
+      qldCheck: false,
+      waCheck: false,
+      saCheck: false,
+      tasCheck: false,
+      actCheck: false,
+      ntCheck: false,
+      price1Check: false,
+      price2Check: false,
+      price3Check: false,
+      price4Check: false,
+      price5Check: false,
+      price6Check: false,
+    });        
+  };
+
   //Display Function
   displayFunction = () => {
     let listData = [];
@@ -925,7 +964,7 @@ export default class petBreeds extends React.Component {
                 >
                   <Card elevation={5} style={{ margin: 10 }}>
                     <Card.Content>
-                      <ScrollView>
+                      <ScrollView style={{ height: 450 }}>
                         <View
                           style={{
                             flex: 1,
@@ -1425,6 +1464,15 @@ export default class petBreeds extends React.Component {
                     </Card.Content>
                     <Card.Actions style={{ justifyContent: "flex-end" }}>
                       <Button
+                        style={{ paddingRight: 15 }}                
+                        color={primaryColour1}
+                        onPress={() => {
+                          this.unCheckFunction();
+                        }}>
+                        Clear
+                      </Button>
+                      <Button
+                        style={{ backgroundColor: primaryColour2 }}
                         color={primaryColour1}
                         onPress={() => {
                           this.displayFunction();
