@@ -254,49 +254,49 @@ export default class petCategories extends React.Component {
     }
     if (this.state.rabbitCheck) {
       this.setState({ filterDisplay: true });
-      let filteredData = listData.filter(function (item) {
+      let filteredData = this.state.data.filter(function (item) {
         return item.category.toLowerCase().includes("rabbit");
       });
       listData = listData.concat(filteredData);
     }
     if (this.state.fishCheck) {
       this.setState({ filterDisplay: true });
-      let filteredData = listData.filter(function (item) {
+      let filteredData = this.state.data.filter(function (item) {
         return item.category.toLowerCase().includes("fish");
       });
       listData = listData.concat(filteredData);
     }
     if (this.state.birdCheck) {
       this.setState({ filterDisplay: true });
-      let filteredData = listData.filter(function (item) {
+      let filteredData = this.state.data.filter(function (item) {
         return item.category.toLowerCase().includes("bird");
       });
       listData = listData.concat(filteredData);
     }
     if (this.state.horseCheck) {
       this.setState({ filterDisplay: true });
-      let filteredData = listData.filter(function (item) {
+      let filteredData = this.state.data.filter(function (item) {
         return item.category.toLowerCase().includes("horse");
       });
       listData = listData.concat(filteredData);
     }
     if (this.state.lizardCheck) {
       this.setState({ filterDisplay: true });
-      let filteredData = listData.filter(function (item) {
+      let filteredData = this.state.data.filter(function (item) {
         return item.category.toLowerCase().includes("lizard");
       });
       listData = listData.concat(filteredData);
     }
     if (this.state.turtleCheck) {
       this.setState({ filterDisplay: true });
-      let filteredData = listData.filter(function (item) {
+      let filteredData = this.state.data.filter(function (item) {
         return item.category.toLowerCase().includes("turtle");
       });
       listData = listData.concat(filteredData);
     }
     if (this.state.pigCheck) {
       this.setState({ filterDisplay: true });
-      let filteredData = listData.filter(function (item) {
+      let filteredData = this.state.data.filter(function (item) {
         return item.category.toLowerCase().includes("pig");
       });
       listData = listData.concat(filteredData);
