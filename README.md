@@ -2,6 +2,8 @@
 
 ## [Link to PlayStore](https://play.google.com/store/apps/details?id=com.riddle.tech.furever)
 
+## [Link to Bitbucket](https://bitbucket.org/utra4729/soft3888/src)
+
 The goal of this project is to develop a mobile application to search for pets that matches one’s lifestyle. The app can also act as a marketplace between rescue centres, registered breeders, pet shops and sellers. The aim is to develop a one-step shop for educating the user about different types of pets, how to adopt them, similar profiles available online etc.
 
 ## 📝 How to use
