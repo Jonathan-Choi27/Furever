@@ -10,7 +10,6 @@
     <img src="https://img.shields.io/badge/%E2%80%8E%20-React%20Native-blue?style=for-the-badge&logo=React">
     <img src="https://img.shields.io/badge/%E2%80%8E%20-Firebase-yellow?style=for-the-badge&logo=Firebase">
     <img src="https://img.shields.io/badge/%E2%80%8E%20-Node.js-darkgreen?style=for-the-badge&logo=Node.js">
-    <img src="https://img.shields.io/badge/%E2%80%8E%20-npm-red?style=for-the-badge&logo=npm">
   </p>
 </p>
 
